@@ -3,30 +3,58 @@
     <form>
       <h1>Choose a Character</h1>
       <fieldset>
-        <div class='selection-list'>
-          <a class='selection-list-item'
-            v-for='name in getUserCharacters'>
-            {{ name }}
-          </a>
-        </div>
+        <selection-list style="position: relative">
+          <selection-list-item
+            v-for='name in getUserCharacters'
+            :selected='name === selectedCharacter'
+            @click='setSelectedCharacter(name)'>
+            <center>
+              {{ name }}
+              <i class='fa fa-check' v-show='name === selectedCharacter' style="position: absolute; margin-left: 0.2em"></i>
+            </center>
+          </selection-list-item>
+        </selection-list>
+      </fieldset>
+      <fieldset>
+        <button>Go</button>
       </fieldset>
     </form>
   </div>
 </template>
 
 <script>
-import {getUserCharacters} from '../vuex/getters'
+import SelectionList from './SelectionList.vue'
+import SelectionListItem from './SelectionListItem.vue'
+import {getUserCharacters, getDefaultCharacter} from '../vuex/getters'
 
 export default {
+  components: {
+    SelectionList,
+    SelectionListItem
+  },
+
+  data () {
+    return {
+      selectedCharacter: this.getDefaultCharacter
+    }
+  },
+
+  methods: {
+    setSelectedCharacter (name) {
+      this.selectedCharacter = name
+    }
+  },
+
   vuex: {
     getters: {
-      getUserCharacters
+      getUserCharacters,
+      getDefaultCharacter
     }
   }
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import '../styles/base'
 @import '../styles/variables'
 @import '../styles/mixins'
@@ -37,18 +65,10 @@ export default {
   text-align: center
   background: rgba(0, 0, 0, 0.3)
 
-.selection-list
-  height: 20em
-  overflow-y: scroll
-
-.selection-list-item
-  display: block
-  height: 2em
-
 form
-  min-width: 300px
+  min-width: 10em
   background: fg-color
-  padding: 30px 30px
+  padding: 2em 2em 1em
   shadow()
 
 p

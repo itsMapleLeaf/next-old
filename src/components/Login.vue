@@ -53,9 +53,9 @@ export default {
   background: rgba(0, 0, 0, 0.3)
 
 form
-  width: 300px
+  width: 18em
   background: fg-color
-  padding: 30px 30px
+  padding: 2em 2em 1em
   shadow()
 
 p
