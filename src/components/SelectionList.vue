@@ -15,6 +15,6 @@ export default {}
 .selection-list
   border-highlight()
   height: 20em
-  overflow-y: scroll
+  overflow-y: auto
   background: bg-color
 </style>
