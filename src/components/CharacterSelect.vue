@@ -60,16 +60,10 @@ export default {
 @import '../styles/mixins'
 
 .container
-  position: fixed 0
-  box: middle center
-  text-align: center
-  background: rgba(0, 0, 0, 0.3)
+  overlay-shade()
 
 form
-  min-width: 10em
-  background: fg-color
-  padding: 2em 2em 1em
-  shadow()
+  panel(20em)
 
 p
   text-align: center

@@ -47,16 +47,10 @@ export default {
 @import '../styles/mixins'
 
 .container
-  position: fixed 0
-  box: middle center
-  text-align: center
-  background: rgba(0, 0, 0, 0.3)
+  overlay-shade()
 
 form
-  width: 18em
-  background: fg-color
-  padding: 2em 2em 1em
-  shadow()
+  panel()
 
 p
   text-align: center

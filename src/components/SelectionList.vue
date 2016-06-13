@@ -10,8 +10,10 @@ export default {}
 
 <style lang="stylus" scoped>
 @import '../styles/variables'
+@import '../styles/mixins'
 
 .selection-list
+  border-highlight()
   height: 20em
   overflow-y: scroll
   background: bg-color

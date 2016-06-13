@@ -1,39 +1,33 @@
 @import 'variables'
+@import 'mixins'
 
 *, ::before, ::after
   box-sizing: border-box
   margin: 0
+  border: none
 
 .container
   color: hsl(205, 30%, 85%)
   font-family: 'Roboto', sans-serif
   font-size: 22px
 
-input, textarea
-  color: inherit
-  font-size: 0.9em
-  font-family: inherit
+input, textarea, button
+  border-highlight()
   background: bg-color
-  border: none
-  border-bottom: 2px solid lighten(fg-color, 20%)
-  padding: 0.7em 0.7em
-  transition: 0.2s ease all
   outline: none
 
-  &:focus
-    border-bottom-color: rgba(white, 0.5)
+
+input, textarea
+  inherit-text()
+  font-size: 0.9em
+  padding: 0.7em 0.7em
 
 
 button
-  font-family: inherit
-  color: inherit
-  font-size: 1em
+  inherit-text()
+  transition()
   padding: 0.4em 1em
-  background: bg-color
-  border: none
-  border-bottom: 2px solid lighten(fg-color, 20%)
 
-  transition: 0.2s ease all
   &:hover
     background: darken(bg-color, 10%)
     cursor: pointer
