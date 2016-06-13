@@ -1,0 +1,14 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+  "build_systems": [
+    {
+      "name": "Build Dev",
+      "shell_cmd": "npm run dev"
+    }
+  ]
+}

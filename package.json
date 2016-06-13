@@ -1,0 +1,49 @@
+{
+  "name": "fchat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Kingdaro",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^1.0.24",
+    "vuex": "^0.6.3"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "browserify-hmr": "^0.3.1",
+    "npm-run-all": "^2.1.2",
+    "postcss-flexbox": "^1.0.2",
+    "postcss-short": "^1.4.0",
+    "stylus": "^0.54.5",
+    "vue": "^1.0.24",
+    "vue-resource": "^0.7.4",
+    "vue-router": "^0.7.13",
+    "vueify": "^8.5.4",
+    "vuex": "^0.6.3",
+    "watchify": "^3.7.0"
+  },
+  "scripts": {
+    "build": "browserify src/main.js -o build/build.js",
+    "watch": "watchify -p browserify-hmr src/main.js -o build/build.js -v",
+    "serve": "http-server -a localhost -o",
+    "dev": "npm-run-all --parallel watch serve"
+  },
+  "browserify": {
+    "transform": [
+      "vueify",
+      "babelify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
+  }
+}

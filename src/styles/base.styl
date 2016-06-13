@@ -1,0 +1,43 @@
+@import 'variables'
+
+*, ::before, ::after
+  box-sizing: border-box
+  margin: 0
+  font-family: 'Roboto', sans-serif
+  color: hsl(205, 30%, 85%)
+
+.container
+  font-size: 22px
+
+input, textarea
+  font-size: 0.9em
+  background: transparent
+  border: none
+  border-bottom: 2px solid lighten(fg-color, 20%)
+  padding: 6px 8px
+  transition: 0.2s ease all
+  outline: none
+
+  &:focus
+    border-bottom-color: rgba(white, 0.5)
+
+
+button
+  font-size: 1em
+  padding: 0.4em 1em
+  background: bg-color
+  border: none
+
+  transition: 0.2s ease all
+  &:hover
+    background: darken(bg-color, 10%)
+    cursor: pointer
+
+fieldset
+  border: none
+  padding: 16px 0px
+
+for n in (1..6)
+  h{n}
+    font-weight: 300
+    padding-bottom: 10px
