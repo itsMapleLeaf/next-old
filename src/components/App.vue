@@ -1,17 +1,13 @@
 <template>
   <div class='container'>
-    <login></login>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Login from './Login.vue'
 import store from '../vuex/store'
 
 export default {
-  components: {
-    Login
-  },
   data () {
     return {}
   },

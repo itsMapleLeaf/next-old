@@ -6246,7 +6246,7 @@ Polling.prototype.uri = function(){
 
 }).apply(this, arguments);
 
-},{"../transport":87,"component-inherit":81,"debug":82,"engine.io-parser":94,"parseqs":104,"xmlhttprequest-ssl":93,"yeast":125}],92:[function(require,module,exports){
+},{"../transport":87,"component-inherit":81,"debug":82,"engine.io-parser":94,"parseqs":104,"xmlhttprequest-ssl":93,"yeast":126}],92:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\transports\\websocket.js", module);
 (function(){
 (function (global){
@@ -6542,7 +6542,7 @@ WS.prototype.check = function(){
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"../transport":87,"component-inherit":81,"debug":82,"engine.io-parser":94,"parseqs":104,"ws":7,"yeast":125}],93:[function(require,module,exports){
+},{"../transport":87,"component-inherit":81,"debug":82,"engine.io-parser":94,"parseqs":104,"ws":7,"yeast":126}],93:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\xmlhttprequest.js", module);
 (function(){
 // browser shim for xmlhttprequest module
@@ -12575,6 +12575,2720 @@ module.exports = plugin;
 }).apply(this, arguments);
 
 },{}],122:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\vue-router\\dist\\vue-router.js", module);
+(function(){
+/*!
+ * vue-router v0.7.13
+ * (c) 2016 Evan You
+ * Released under the MIT License.
+ */
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  global.VueRouter = factory();
+}(this, function () { 'use strict';
+
+  var babelHelpers = {};
+
+  babelHelpers.classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+  function Target(path, matcher, delegate) {
+    this.path = path;
+    this.matcher = matcher;
+    this.delegate = delegate;
+  }
+
+  Target.prototype = {
+    to: function to(target, callback) {
+      var delegate = this.delegate;
+
+      if (delegate && delegate.willAddRoute) {
+        target = delegate.willAddRoute(this.matcher.target, target);
+      }
+
+      this.matcher.add(this.path, target);
+
+      if (callback) {
+        if (callback.length === 0) {
+          throw new Error("You must have an argument in the function passed to `to`");
+        }
+        this.matcher.addChild(this.path, target, callback, this.delegate);
+      }
+      return this;
+    }
+  };
+
+  function Matcher(target) {
+    this.routes = {};
+    this.children = {};
+    this.target = target;
+  }
+
+  Matcher.prototype = {
+    add: function add(path, handler) {
+      this.routes[path] = handler;
+    },
+
+    addChild: function addChild(path, target, callback, delegate) {
+      var matcher = new Matcher(target);
+      this.children[path] = matcher;
+
+      var match = generateMatch(path, matcher, delegate);
+
+      if (delegate && delegate.contextEntered) {
+        delegate.contextEntered(target, match);
+      }
+
+      callback(match);
+    }
+  };
+
+  function generateMatch(startingPath, matcher, delegate) {
+    return function (path, nestedCallback) {
+      var fullPath = startingPath + path;
+
+      if (nestedCallback) {
+        nestedCallback(generateMatch(fullPath, matcher, delegate));
+      } else {
+        return new Target(startingPath + path, matcher, delegate);
+      }
+    };
+  }
+
+  function addRoute(routeArray, path, handler) {
+    var len = 0;
+    for (var i = 0, l = routeArray.length; i < l; i++) {
+      len += routeArray[i].path.length;
+    }
+
+    path = path.substr(len);
+    var route = { path: path, handler: handler };
+    routeArray.push(route);
+  }
+
+  function eachRoute(baseRoute, matcher, callback, binding) {
+    var routes = matcher.routes;
+
+    for (var path in routes) {
+      if (routes.hasOwnProperty(path)) {
+        var routeArray = baseRoute.slice();
+        addRoute(routeArray, path, routes[path]);
+
+        if (matcher.children[path]) {
+          eachRoute(routeArray, matcher.children[path], callback, binding);
+        } else {
+          callback.call(binding, routeArray);
+        }
+      }
+    }
+  }
+
+  function map (callback, addRouteCallback) {
+    var matcher = new Matcher();
+
+    callback(generateMatch("", matcher, this.delegate));
+
+    eachRoute([], matcher, function (route) {
+      if (addRouteCallback) {
+        addRouteCallback(this, route);
+      } else {
+        this.add(route);
+      }
+    }, this);
+  }
+
+  var specials = ['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\'];
+
+  var escapeRegex = new RegExp('(\\' + specials.join('|\\') + ')', 'g');
+
+  var noWarning = false;
+  function warn(msg) {
+    if (!noWarning && typeof console !== 'undefined') {
+      console.error('[vue-router] ' + msg);
+    }
+  }
+
+  function tryDecode(uri, asComponent) {
+    try {
+      return asComponent ? decodeURIComponent(uri) : decodeURI(uri);
+    } catch (e) {
+      warn('malformed URI' + (asComponent ? ' component: ' : ': ') + uri);
+    }
+  }
+
+  function isArray(test) {
+    return Object.prototype.toString.call(test) === "[object Array]";
+  }
+
+  // A Segment represents a segment in the original route description.
+  // Each Segment type provides an `eachChar` and `regex` method.
+  //
+  // The `eachChar` method invokes the callback with one or more character
+  // specifications. A character specification consumes one or more input
+  // characters.
+  //
+  // The `regex` method returns a regex fragment for the segment. If the
+  // segment is a dynamic of star segment, the regex fragment also includes
+  // a capture.
+  //
+  // A character specification contains:
+  //
+  // * `validChars`: a String with a list of all valid characters, or
+  // * `invalidChars`: a String with a list of all invalid characters
+  // * `repeat`: true if the character specification can repeat
+
+  function StaticSegment(string) {
+    this.string = string;
+  }
+  StaticSegment.prototype = {
+    eachChar: function eachChar(callback) {
+      var string = this.string,
+          ch;
+
+      for (var i = 0, l = string.length; i < l; i++) {
+        ch = string.charAt(i);
+        callback({ validChars: ch });
+      }
+    },
+
+    regex: function regex() {
+      return this.string.replace(escapeRegex, '\\$1');
+    },
+
+    generate: function generate() {
+      return this.string;
+    }
+  };
+
+  function DynamicSegment(name) {
+    this.name = name;
+  }
+  DynamicSegment.prototype = {
+    eachChar: function eachChar(callback) {
+      callback({ invalidChars: "/", repeat: true });
+    },
+
+    regex: function regex() {
+      return "([^/]+)";
+    },
+
+    generate: function generate(params) {
+      var val = params[this.name];
+      return val == null ? ":" + this.name : val;
+    }
+  };
+
+  function StarSegment(name) {
+    this.name = name;
+  }
+  StarSegment.prototype = {
+    eachChar: function eachChar(callback) {
+      callback({ invalidChars: "", repeat: true });
+    },
+
+    regex: function regex() {
+      return "(.+)";
+    },
+
+    generate: function generate(params) {
+      var val = params[this.name];
+      return val == null ? ":" + this.name : val;
+    }
+  };
+
+  function EpsilonSegment() {}
+  EpsilonSegment.prototype = {
+    eachChar: function eachChar() {},
+    regex: function regex() {
+      return "";
+    },
+    generate: function generate() {
+      return "";
+    }
+  };
+
+  function parse(route, names, specificity) {
+    // normalize route as not starting with a "/". Recognition will
+    // also normalize.
+    if (route.charAt(0) === "/") {
+      route = route.substr(1);
+    }
+
+    var segments = route.split("/"),
+        results = [];
+
+    // A routes has specificity determined by the order that its different segments
+    // appear in. This system mirrors how the magnitude of numbers written as strings
+    // works.
+    // Consider a number written as: "abc". An example would be "200". Any other number written
+    // "xyz" will be smaller than "abc" so long as `a > z`. For instance, "199" is smaller
+    // then "200", even though "y" and "z" (which are both 9) are larger than "0" (the value
+    // of (`b` and `c`). This is because the leading symbol, "2", is larger than the other
+    // leading symbol, "1".
+    // The rule is that symbols to the left carry more weight than symbols to the right
+    // when a number is written out as a string. In the above strings, the leading digit
+    // represents how many 100's are in the number, and it carries more weight than the middle
+    // number which represents how many 10's are in the number.
+    // This system of number magnitude works well for route specificity, too. A route written as
+    // `a/b/c` will be more specific than `x/y/z` as long as `a` is more specific than
+    // `x`, irrespective of the other parts.
+    // Because of this similarity, we assign each type of segment a number value written as a
+    // string. We can find the specificity of compound routes by concatenating these strings
+    // together, from left to right. After we have looped through all of the segments,
+    // we convert the string to a number.
+    specificity.val = '';
+
+    for (var i = 0, l = segments.length; i < l; i++) {
+      var segment = segments[i],
+          match;
+
+      if (match = segment.match(/^:([^\/]+)$/)) {
+        results.push(new DynamicSegment(match[1]));
+        names.push(match[1]);
+        specificity.val += '3';
+      } else if (match = segment.match(/^\*([^\/]+)$/)) {
+        results.push(new StarSegment(match[1]));
+        specificity.val += '2';
+        names.push(match[1]);
+      } else if (segment === "") {
+        results.push(new EpsilonSegment());
+        specificity.val += '1';
+      } else {
+        results.push(new StaticSegment(segment));
+        specificity.val += '4';
+      }
+    }
+
+    specificity.val = +specificity.val;
+
+    return results;
+  }
+
+  // A State has a character specification and (`charSpec`) and a list of possible
+  // subsequent states (`nextStates`).
+  //
+  // If a State is an accepting state, it will also have several additional
+  // properties:
+  //
+  // * `regex`: A regular expression that is used to extract parameters from paths
+  //   that reached this accepting state.
+  // * `handlers`: Information on how to convert the list of captures into calls
+  //   to registered handlers with the specified parameters
+  // * `types`: How many static, dynamic or star segments in this route. Used to
+  //   decide which route to use if multiple registered routes match a path.
+  //
+  // Currently, State is implemented naively by looping over `nextStates` and
+  // comparing a character specification against a character. A more efficient
+  // implementation would use a hash of keys pointing at one or more next states.
+
+  function State(charSpec) {
+    this.charSpec = charSpec;
+    this.nextStates = [];
+  }
+
+  State.prototype = {
+    get: function get(charSpec) {
+      var nextStates = this.nextStates;
+
+      for (var i = 0, l = nextStates.length; i < l; i++) {
+        var child = nextStates[i];
+
+        var isEqual = child.charSpec.validChars === charSpec.validChars;
+        isEqual = isEqual && child.charSpec.invalidChars === charSpec.invalidChars;
+
+        if (isEqual) {
+          return child;
+        }
+      }
+    },
+
+    put: function put(charSpec) {
+      var state;
+
+      // If the character specification already exists in a child of the current
+      // state, just return that state.
+      if (state = this.get(charSpec)) {
+        return state;
+      }
+
+      // Make a new state for the character spec
+      state = new State(charSpec);
+
+      // Insert the new state as a child of the current state
+      this.nextStates.push(state);
+
+      // If this character specification repeats, insert the new state as a child
+      // of itself. Note that this will not trigger an infinite loop because each
+      // transition during recognition consumes a character.
+      if (charSpec.repeat) {
+        state.nextStates.push(state);
+      }
+
+      // Return the new state
+      return state;
+    },
+
+    // Find a list of child states matching the next character
+    match: function match(ch) {
+      // DEBUG "Processing `" + ch + "`:"
+      var nextStates = this.nextStates,
+          child,
+          charSpec,
+          chars;
+
+      // DEBUG "  " + debugState(this)
+      var returned = [];
+
+      for (var i = 0, l = nextStates.length; i < l; i++) {
+        child = nextStates[i];
+
+        charSpec = child.charSpec;
+
+        if (typeof (chars = charSpec.validChars) !== 'undefined') {
+          if (chars.indexOf(ch) !== -1) {
+            returned.push(child);
+          }
+        } else if (typeof (chars = charSpec.invalidChars) !== 'undefined') {
+          if (chars.indexOf(ch) === -1) {
+            returned.push(child);
+          }
+        }
+      }
+
+      return returned;
+    }
+
+    /** IF DEBUG
+    , debug: function() {
+      var charSpec = this.charSpec,
+          debug = "[",
+          chars = charSpec.validChars || charSpec.invalidChars;
+       if (charSpec.invalidChars) { debug += "^"; }
+      debug += chars;
+      debug += "]";
+       if (charSpec.repeat) { debug += "+"; }
+       return debug;
+    }
+    END IF **/
+  };
+
+  /** IF DEBUG
+  function debug(log) {
+    console.log(log);
+  }
+
+  function debugState(state) {
+    return state.nextStates.map(function(n) {
+      if (n.nextStates.length === 0) { return "( " + n.debug() + " [accepting] )"; }
+      return "( " + n.debug() + " <then> " + n.nextStates.map(function(s) { return s.debug() }).join(" or ") + " )";
+    }).join(", ")
+  }
+  END IF **/
+
+  // Sort the routes by specificity
+  function sortSolutions(states) {
+    return states.sort(function (a, b) {
+      return b.specificity.val - a.specificity.val;
+    });
+  }
+
+  function recognizeChar(states, ch) {
+    var nextStates = [];
+
+    for (var i = 0, l = states.length; i < l; i++) {
+      var state = states[i];
+
+      nextStates = nextStates.concat(state.match(ch));
+    }
+
+    return nextStates;
+  }
+
+  var oCreate = Object.create || function (proto) {
+    function F() {}
+    F.prototype = proto;
+    return new F();
+  };
+
+  function RecognizeResults(queryParams) {
+    this.queryParams = queryParams || {};
+  }
+  RecognizeResults.prototype = oCreate({
+    splice: Array.prototype.splice,
+    slice: Array.prototype.slice,
+    push: Array.prototype.push,
+    length: 0,
+    queryParams: null
+  });
+
+  function findHandler(state, path, queryParams) {
+    var handlers = state.handlers,
+        regex = state.regex;
+    var captures = path.match(regex),
+        currentCapture = 1;
+    var result = new RecognizeResults(queryParams);
+
+    for (var i = 0, l = handlers.length; i < l; i++) {
+      var handler = handlers[i],
+          names = handler.names,
+          params = {};
+
+      for (var j = 0, m = names.length; j < m; j++) {
+        params[names[j]] = captures[currentCapture++];
+      }
+
+      result.push({ handler: handler.handler, params: params, isDynamic: !!names.length });
+    }
+
+    return result;
+  }
+
+  function addSegment(currentState, segment) {
+    segment.eachChar(function (ch) {
+      var state;
+
+      currentState = currentState.put(ch);
+    });
+
+    return currentState;
+  }
+
+  function decodeQueryParamPart(part) {
+    // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1
+    part = part.replace(/\+/gm, '%20');
+    return tryDecode(part, true);
+  }
+
+  // The main interface
+
+  var RouteRecognizer = function RouteRecognizer() {
+    this.rootState = new State();
+    this.names = {};
+  };
+
+  RouteRecognizer.prototype = {
+    add: function add(routes, options) {
+      var currentState = this.rootState,
+          regex = "^",
+          specificity = {},
+          handlers = [],
+          allSegments = [],
+          name;
+
+      var isEmpty = true;
+
+      for (var i = 0, l = routes.length; i < l; i++) {
+        var route = routes[i],
+            names = [];
+
+        var segments = parse(route.path, names, specificity);
+
+        allSegments = allSegments.concat(segments);
+
+        for (var j = 0, m = segments.length; j < m; j++) {
+          var segment = segments[j];
+
+          if (segment instanceof EpsilonSegment) {
+            continue;
+          }
+
+          isEmpty = false;
+
+          // Add a "/" for the new segment
+          currentState = currentState.put({ validChars: "/" });
+          regex += "/";
+
+          // Add a representation of the segment to the NFA and regex
+          currentState = addSegment(currentState, segment);
+          regex += segment.regex();
+        }
+
+        var handler = { handler: route.handler, names: names };
+        handlers.push(handler);
+      }
+
+      if (isEmpty) {
+        currentState = currentState.put({ validChars: "/" });
+        regex += "/";
+      }
+
+      currentState.handlers = handlers;
+      currentState.regex = new RegExp(regex + "$");
+      currentState.specificity = specificity;
+
+      if (name = options && options.as) {
+        this.names[name] = {
+          segments: allSegments,
+          handlers: handlers
+        };
+      }
+    },
+
+    handlersFor: function handlersFor(name) {
+      var route = this.names[name],
+          result = [];
+      if (!route) {
+        throw new Error("There is no route named " + name);
+      }
+
+      for (var i = 0, l = route.handlers.length; i < l; i++) {
+        result.push(route.handlers[i]);
+      }
+
+      return result;
+    },
+
+    hasRoute: function hasRoute(name) {
+      return !!this.names[name];
+    },
+
+    generate: function generate(name, params) {
+      var route = this.names[name],
+          output = "";
+      if (!route) {
+        throw new Error("There is no route named " + name);
+      }
+
+      var segments = route.segments;
+
+      for (var i = 0, l = segments.length; i < l; i++) {
+        var segment = segments[i];
+
+        if (segment instanceof EpsilonSegment) {
+          continue;
+        }
+
+        output += "/";
+        output += segment.generate(params);
+      }
+
+      if (output.charAt(0) !== '/') {
+        output = '/' + output;
+      }
+
+      if (params && params.queryParams) {
+        output += this.generateQueryString(params.queryParams);
+      }
+
+      return output;
+    },
+
+    generateQueryString: function generateQueryString(params) {
+      var pairs = [];
+      var keys = [];
+      for (var key in params) {
+        if (params.hasOwnProperty(key)) {
+          keys.push(key);
+        }
+      }
+      keys.sort();
+      for (var i = 0, len = keys.length; i < len; i++) {
+        key = keys[i];
+        var value = params[key];
+        if (value == null) {
+          continue;
+        }
+        var pair = encodeURIComponent(key);
+        if (isArray(value)) {
+          for (var j = 0, l = value.length; j < l; j++) {
+            var arrayPair = key + '[]' + '=' + encodeURIComponent(value[j]);
+            pairs.push(arrayPair);
+          }
+        } else {
+          pair += "=" + encodeURIComponent(value);
+          pairs.push(pair);
+        }
+      }
+
+      if (pairs.length === 0) {
+        return '';
+      }
+
+      return "?" + pairs.join("&");
+    },
+
+    parseQueryString: function parseQueryString(queryString) {
+      var pairs = queryString.split("&"),
+          queryParams = {};
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('='),
+            key = decodeQueryParamPart(pair[0]),
+            keyLength = key.length,
+            isArray = false,
+            value;
+        if (pair.length === 1) {
+          value = 'true';
+        } else {
+          //Handle arrays
+          if (keyLength > 2 && key.slice(keyLength - 2) === '[]') {
+            isArray = true;
+            key = key.slice(0, keyLength - 2);
+            if (!queryParams[key]) {
+              queryParams[key] = [];
+            }
+          }
+          value = pair[1] ? decodeQueryParamPart(pair[1]) : '';
+        }
+        if (isArray) {
+          queryParams[key].push(value);
+        } else {
+          queryParams[key] = value;
+        }
+      }
+      return queryParams;
+    },
+
+    recognize: function recognize(path, silent) {
+      noWarning = silent;
+      var states = [this.rootState],
+          pathLen,
+          i,
+          l,
+          queryStart,
+          queryParams = {},
+          isSlashDropped = false;
+
+      queryStart = path.indexOf('?');
+      if (queryStart !== -1) {
+        var queryString = path.substr(queryStart + 1, path.length);
+        path = path.substr(0, queryStart);
+        if (queryString) {
+          queryParams = this.parseQueryString(queryString);
+        }
+      }
+
+      path = tryDecode(path);
+      if (!path) return;
+
+      // DEBUG GROUP path
+
+      if (path.charAt(0) !== "/") {
+        path = "/" + path;
+      }
+
+      pathLen = path.length;
+      if (pathLen > 1 && path.charAt(pathLen - 1) === "/") {
+        path = path.substr(0, pathLen - 1);
+        isSlashDropped = true;
+      }
+
+      for (i = 0, l = path.length; i < l; i++) {
+        states = recognizeChar(states, path.charAt(i));
+        if (!states.length) {
+          break;
+        }
+      }
+
+      // END DEBUG GROUP
+
+      var solutions = [];
+      for (i = 0, l = states.length; i < l; i++) {
+        if (states[i].handlers) {
+          solutions.push(states[i]);
+        }
+      }
+
+      states = sortSolutions(solutions);
+
+      var state = solutions[0];
+
+      if (state && state.handlers) {
+        // if a trailing slash was dropped and a star segment is the last segment
+        // specified, put the trailing slash back
+        if (isSlashDropped && state.regex.source.slice(-5) === "(.+)$") {
+          path = path + "/";
+        }
+        return findHandler(state, path, queryParams);
+      }
+    }
+  };
+
+  RouteRecognizer.prototype.map = map;
+
+  var genQuery = RouteRecognizer.prototype.generateQueryString;
+
+  // export default for holding the Vue reference
+  var exports$1 = {};
+  /**
+   * Warn stuff.
+   *
+   * @param {String} msg
+   */
+
+  function warn$1(msg) {
+    /* istanbul ignore next */
+    if (typeof console !== 'undefined') {
+      console.error('[vue-router] ' + msg);
+    }
+  }
+
+  /**
+   * Resolve a relative path.
+   *
+   * @param {String} base
+   * @param {String} relative
+   * @param {Boolean} append
+   * @return {String}
+   */
+
+  function resolvePath(base, relative, append) {
+    var query = base.match(/(\?.*)$/);
+    if (query) {
+      query = query[1];
+      base = base.slice(0, -query.length);
+    }
+    // a query!
+    if (relative.charAt(0) === '?') {
+      return base + relative;
+    }
+    var stack = base.split('/');
+    // remove trailing segment if:
+    // - not appending
+    // - appending to trailing slash (last segment is empty)
+    if (!append || !stack[stack.length - 1]) {
+      stack.pop();
+    }
+    // resolve relative path
+    var segments = relative.replace(/^\//, '').split('/');
+    for (var i = 0; i < segments.length; i++) {
+      var segment = segments[i];
+      if (segment === '.') {
+        continue;
+      } else if (segment === '..') {
+        stack.pop();
+      } else {
+        stack.push(segment);
+      }
+    }
+    // ensure leading slash
+    if (stack[0] !== '') {
+      stack.unshift('');
+    }
+    return stack.join('/');
+  }
+
+  /**
+   * Forgiving check for a promise
+   *
+   * @param {Object} p
+   * @return {Boolean}
+   */
+
+  function isPromise(p) {
+    return p && typeof p.then === 'function';
+  }
+
+  /**
+   * Retrive a route config field from a component instance
+   * OR a component contructor.
+   *
+   * @param {Function|Vue} component
+   * @param {String} name
+   * @return {*}
+   */
+
+  function getRouteConfig(component, name) {
+    var options = component && (component.$options || component.options);
+    return options && options.route && options.route[name];
+  }
+
+  /**
+   * Resolve an async component factory. Have to do a dirty
+   * mock here because of Vue core's internal API depends on
+   * an ID check.
+   *
+   * @param {Object} handler
+   * @param {Function} cb
+   */
+
+  var resolver = undefined;
+
+  function resolveAsyncComponent(handler, cb) {
+    if (!resolver) {
+      resolver = {
+        resolve: exports$1.Vue.prototype._resolveComponent,
+        $options: {
+          components: {
+            _: handler.component
+          }
+        }
+      };
+    } else {
+      resolver.$options.components._ = handler.component;
+    }
+    resolver.resolve('_', function (Component) {
+      handler.component = Component;
+      cb(Component);
+    });
+  }
+
+  /**
+   * Map the dynamic segments in a path to params.
+   *
+   * @param {String} path
+   * @param {Object} params
+   * @param {Object} query
+   */
+
+  function mapParams(path, params, query) {
+    if (params === undefined) params = {};
+
+    path = path.replace(/:([^\/]+)/g, function (_, key) {
+      var val = params[key];
+      /* istanbul ignore if */
+      if (!val) {
+        warn$1('param "' + key + '" not found when generating ' + 'path for "' + path + '" with params ' + JSON.stringify(params));
+      }
+      return val || '';
+    });
+    if (query) {
+      path += genQuery(query);
+    }
+    return path;
+  }
+
+  var hashRE = /#.*$/;
+
+  var HTML5History = (function () {
+    function HTML5History(_ref) {
+      var root = _ref.root;
+      var onChange = _ref.onChange;
+      babelHelpers.classCallCheck(this, HTML5History);
+
+      if (root && root !== '/') {
+        // make sure there's the starting slash
+        if (root.charAt(0) !== '/') {
+          root = '/' + root;
+        }
+        // remove trailing slash
+        this.root = root.replace(/\/$/, '');
+        this.rootRE = new RegExp('^\\' + this.root);
+      } else {
+        this.root = null;
+      }
+      this.onChange = onChange;
+      // check base tag
+      var baseEl = document.querySelector('base');
+      this.base = baseEl && baseEl.getAttribute('href');
+    }
+
+    HTML5History.prototype.start = function start() {
+      var _this = this;
+
+      this.listener = function (e) {
+        var url = location.pathname + location.search;
+        if (_this.root) {
+          url = url.replace(_this.rootRE, '');
+        }
+        _this.onChange(url, e && e.state, location.hash);
+      };
+      window.addEventListener('popstate', this.listener);
+      this.listener();
+    };
+
+    HTML5History.prototype.stop = function stop() {
+      window.removeEventListener('popstate', this.listener);
+    };
+
+    HTML5History.prototype.go = function go(path, replace, append) {
+      var url = this.formatPath(path, append);
+      if (replace) {
+        history.replaceState({}, '', url);
+      } else {
+        // record scroll position by replacing current state
+        history.replaceState({
+          pos: {
+            x: window.pageXOffset,
+            y: window.pageYOffset
+          }
+        }, '', location.href);
+        // then push new state
+        history.pushState({}, '', url);
+      }
+      var hashMatch = path.match(hashRE);
+      var hash = hashMatch && hashMatch[0];
+      path = url
+      // strip hash so it doesn't mess up params
+      .replace(hashRE, '')
+      // remove root before matching
+      .replace(this.rootRE, '');
+      this.onChange(path, null, hash);
+    };
+
+    HTML5History.prototype.formatPath = function formatPath(path, append) {
+      return path.charAt(0) === '/'
+      // absolute path
+      ? this.root ? this.root + '/' + path.replace(/^\//, '') : path : resolvePath(this.base || location.pathname, path, append);
+    };
+
+    return HTML5History;
+  })();
+
+  var HashHistory = (function () {
+    function HashHistory(_ref) {
+      var hashbang = _ref.hashbang;
+      var onChange = _ref.onChange;
+      babelHelpers.classCallCheck(this, HashHistory);
+
+      this.hashbang = hashbang;
+      this.onChange = onChange;
+    }
+
+    HashHistory.prototype.start = function start() {
+      var self = this;
+      this.listener = function () {
+        var path = location.hash;
+        var raw = path.replace(/^#!?/, '');
+        // always
+        if (raw.charAt(0) !== '/') {
+          raw = '/' + raw;
+        }
+        var formattedPath = self.formatPath(raw);
+        if (formattedPath !== path) {
+          location.replace(formattedPath);
+          return;
+        }
+        // determine query
+        // note it's possible to have queries in both the actual URL
+        // and the hash fragment itself.
+        var query = location.search && path.indexOf('?') > -1 ? '&' + location.search.slice(1) : location.search;
+        self.onChange(path.replace(/^#!?/, '') + query);
+      };
+      window.addEventListener('hashchange', this.listener);
+      this.listener();
+    };
+
+    HashHistory.prototype.stop = function stop() {
+      window.removeEventListener('hashchange', this.listener);
+    };
+
+    HashHistory.prototype.go = function go(path, replace, append) {
+      path = this.formatPath(path, append);
+      if (replace) {
+        location.replace(path);
+      } else {
+        location.hash = path;
+      }
+    };
+
+    HashHistory.prototype.formatPath = function formatPath(path, append) {
+      var isAbsoloute = path.charAt(0) === '/';
+      var prefix = '#' + (this.hashbang ? '!' : '');
+      return isAbsoloute ? prefix + path : prefix + resolvePath(location.hash.replace(/^#!?/, ''), path, append);
+    };
+
+    return HashHistory;
+  })();
+
+  var AbstractHistory = (function () {
+    function AbstractHistory(_ref) {
+      var onChange = _ref.onChange;
+      babelHelpers.classCallCheck(this, AbstractHistory);
+
+      this.onChange = onChange;
+      this.currentPath = '/';
+    }
+
+    AbstractHistory.prototype.start = function start() {
+      this.onChange('/');
+    };
+
+    AbstractHistory.prototype.stop = function stop() {
+      // noop
+    };
+
+    AbstractHistory.prototype.go = function go(path, replace, append) {
+      path = this.currentPath = this.formatPath(path, append);
+      this.onChange(path);
+    };
+
+    AbstractHistory.prototype.formatPath = function formatPath(path, append) {
+      return path.charAt(0) === '/' ? path : resolvePath(this.currentPath, path, append);
+    };
+
+    return AbstractHistory;
+  })();
+
+  /**
+   * Determine the reusability of an existing router view.
+   *
+   * @param {Directive} view
+   * @param {Object} handler
+   * @param {Transition} transition
+   */
+
+  function canReuse(view, handler, transition) {
+    var component = view.childVM;
+    if (!component || !handler) {
+      return false;
+    }
+    // important: check view.Component here because it may
+    // have been changed in activate hook
+    if (view.Component !== handler.component) {
+      return false;
+    }
+    var canReuseFn = getRouteConfig(component, 'canReuse');
+    return typeof canReuseFn === 'boolean' ? canReuseFn : canReuseFn ? canReuseFn.call(component, {
+      to: transition.to,
+      from: transition.from
+    }) : true; // defaults to true
+  }
+
+  /**
+   * Check if a component can deactivate.
+   *
+   * @param {Directive} view
+   * @param {Transition} transition
+   * @param {Function} next
+   */
+
+  function canDeactivate(view, transition, next) {
+    var fromComponent = view.childVM;
+    var hook = getRouteConfig(fromComponent, 'canDeactivate');
+    if (!hook) {
+      next();
+    } else {
+      transition.callHook(hook, fromComponent, next, {
+        expectBoolean: true
+      });
+    }
+  }
+
+  /**
+   * Check if a component can activate.
+   *
+   * @param {Object} handler
+   * @param {Transition} transition
+   * @param {Function} next
+   */
+
+  function canActivate(handler, transition, next) {
+    resolveAsyncComponent(handler, function (Component) {
+      // have to check due to async-ness
+      if (transition.aborted) {
+        return;
+      }
+      // determine if this component can be activated
+      var hook = getRouteConfig(Component, 'canActivate');
+      if (!hook) {
+        next();
+      } else {
+        transition.callHook(hook, null, next, {
+          expectBoolean: true
+        });
+      }
+    });
+  }
+
+  /**
+   * Call deactivate hooks for existing router-views.
+   *
+   * @param {Directive} view
+   * @param {Transition} transition
+   * @param {Function} next
+   */
+
+  function deactivate(view, transition, next) {
+    var component = view.childVM;
+    var hook = getRouteConfig(component, 'deactivate');
+    if (!hook) {
+      next();
+    } else {
+      transition.callHooks(hook, component, next);
+    }
+  }
+
+  /**
+   * Activate / switch component for a router-view.
+   *
+   * @param {Directive} view
+   * @param {Transition} transition
+   * @param {Number} depth
+   * @param {Function} [cb]
+   */
+
+  function activate(view, transition, depth, cb, reuse) {
+    var handler = transition.activateQueue[depth];
+    if (!handler) {
+      saveChildView(view);
+      if (view._bound) {
+        view.setComponent(null);
+      }
+      cb && cb();
+      return;
+    }
+
+    var Component = view.Component = handler.component;
+    var activateHook = getRouteConfig(Component, 'activate');
+    var dataHook = getRouteConfig(Component, 'data');
+    var waitForData = getRouteConfig(Component, 'waitForData');
+
+    view.depth = depth;
+    view.activated = false;
+
+    var component = undefined;
+    var loading = !!(dataHook && !waitForData);
+
+    // "reuse" is a flag passed down when the parent view is
+    // either reused via keep-alive or as a child of a kept-alive view.
+    // of course we can only reuse if the current kept-alive instance
+    // is of the correct type.
+    reuse = reuse && view.childVM && view.childVM.constructor === Component;
+
+    if (reuse) {
+      // just reuse
+      component = view.childVM;
+      component.$loadingRouteData = loading;
+    } else {
+      saveChildView(view);
+
+      // unbuild current component. this step also destroys
+      // and removes all nested child views.
+      view.unbuild(true);
+
+      // build the new component. this will also create the
+      // direct child view of the current one. it will register
+      // itself as view.childView.
+      component = view.build({
+        _meta: {
+          $loadingRouteData: loading
+        },
+        created: function created() {
+          this._routerView = view;
+        }
+      });
+
+      // handle keep-alive.
+      // when a kept-alive child vm is restored, we need to
+      // add its cached child views into the router's view list,
+      // and also properly update current view's child view.
+      if (view.keepAlive) {
+        component.$loadingRouteData = loading;
+        var cachedChildView = component._keepAliveRouterView;
+        if (cachedChildView) {
+          view.childView = cachedChildView;
+          component._keepAliveRouterView = null;
+        }
+      }
+    }
+
+    // cleanup the component in case the transition is aborted
+    // before the component is ever inserted.
+    var cleanup = function cleanup() {
+      component.$destroy();
+    };
+
+    // actually insert the component and trigger transition
+    var insert = function insert() {
+      if (reuse) {
+        cb && cb();
+        return;
+      }
+      var router = transition.router;
+      if (router._rendered || router._transitionOnLoad) {
+        view.transition(component);
+      } else {
+        // no transition on first render, manual transition
+        /* istanbul ignore if */
+        if (view.setCurrent) {
+          // 0.12 compat
+          view.setCurrent(component);
+        } else {
+          // 1.0
+          view.childVM = component;
+        }
+        component.$before(view.anchor, null, false);
+      }
+      cb && cb();
+    };
+
+    var afterData = function afterData() {
+      // activate the child view
+      if (view.childView) {
+        activate(view.childView, transition, depth + 1, null, reuse || view.keepAlive);
+      }
+      insert();
+    };
+
+    // called after activation hook is resolved
+    var afterActivate = function afterActivate() {
+      view.activated = true;
+      if (dataHook && waitForData) {
+        // wait until data loaded to insert
+        loadData(component, transition, dataHook, afterData, cleanup);
+      } else {
+        // load data and insert at the same time
+        if (dataHook) {
+          loadData(component, transition, dataHook);
+        }
+        afterData();
+      }
+    };
+
+    if (activateHook) {
+      transition.callHooks(activateHook, component, afterActivate, {
+        cleanup: cleanup,
+        postActivate: true
+      });
+    } else {
+      afterActivate();
+    }
+  }
+
+  /**
+   * Reuse a view, just reload data if necessary.
+   *
+   * @param {Directive} view
+   * @param {Transition} transition
+   */
+
+  function reuse(view, transition) {
+    var component = view.childVM;
+    var dataHook = getRouteConfig(component, 'data');
+    if (dataHook) {
+      loadData(component, transition, dataHook);
+    }
+  }
+
+  /**
+   * Asynchronously load and apply data to component.
+   *
+   * @param {Vue} component
+   * @param {Transition} transition
+   * @param {Function} hook
+   * @param {Function} cb
+   * @param {Function} cleanup
+   */
+
+  function loadData(component, transition, hook, cb, cleanup) {
+    component.$loadingRouteData = true;
+    transition.callHooks(hook, component, function () {
+      component.$loadingRouteData = false;
+      component.$emit('route-data-loaded', component);
+      cb && cb();
+    }, {
+      cleanup: cleanup,
+      postActivate: true,
+      processData: function processData(data) {
+        // handle promise sugar syntax
+        var promises = [];
+        if (isPlainObject(data)) {
+          Object.keys(data).forEach(function (key) {
+            var val = data[key];
+            if (isPromise(val)) {
+              promises.push(val.then(function (resolvedVal) {
+                component.$set(key, resolvedVal);
+              }));
+            } else {
+              component.$set(key, val);
+            }
+          });
+        }
+        if (promises.length) {
+          return promises[0].constructor.all(promises);
+        }
+      }
+    });
+  }
+
+  /**
+   * Save the child view for a kept-alive view so that
+   * we can restore it when it is switched back to.
+   *
+   * @param {Directive} view
+   */
+
+  function saveChildView(view) {
+    if (view.keepAlive && view.childVM && view.childView) {
+      view.childVM._keepAliveRouterView = view.childView;
+    }
+    view.childView = null;
+  }
+
+  /**
+   * Check plain object.
+   *
+   * @param {*} val
+   */
+
+  function isPlainObject(val) {
+    return Object.prototype.toString.call(val) === '[object Object]';
+  }
+
+  /**
+   * A RouteTransition object manages the pipeline of a
+   * router-view switching process. This is also the object
+   * passed into user route hooks.
+   *
+   * @param {Router} router
+   * @param {Route} to
+   * @param {Route} from
+   */
+
+  var RouteTransition = (function () {
+    function RouteTransition(router, to, from) {
+      babelHelpers.classCallCheck(this, RouteTransition);
+
+      this.router = router;
+      this.to = to;
+      this.from = from;
+      this.next = null;
+      this.aborted = false;
+      this.done = false;
+    }
+
+    /**
+     * Abort current transition and return to previous location.
+     */
+
+    RouteTransition.prototype.abort = function abort() {
+      if (!this.aborted) {
+        this.aborted = true;
+        // if the root path throws an error during validation
+        // on initial load, it gets caught in an infinite loop.
+        var abortingOnLoad = !this.from.path && this.to.path === '/';
+        if (!abortingOnLoad) {
+          this.router.replace(this.from.path || '/');
+        }
+      }
+    };
+
+    /**
+     * Abort current transition and redirect to a new location.
+     *
+     * @param {String} path
+     */
+
+    RouteTransition.prototype.redirect = function redirect(path) {
+      if (!this.aborted) {
+        this.aborted = true;
+        if (typeof path === 'string') {
+          path = mapParams(path, this.to.params, this.to.query);
+        } else {
+          path.params = path.params || this.to.params;
+          path.query = path.query || this.to.query;
+        }
+        this.router.replace(path);
+      }
+    };
+
+    /**
+     * A router view transition's pipeline can be described as
+     * follows, assuming we are transitioning from an existing
+     * <router-view> chain [Component A, Component B] to a new
+     * chain [Component A, Component C]:
+     *
+     *  A    A
+     *  | => |
+     *  B    C
+     *
+     * 1. Reusablity phase:
+     *   -> canReuse(A, A)
+     *   -> canReuse(B, C)
+     *   -> determine new queues:
+     *      - deactivation: [B]
+     *      - activation: [C]
+     *
+     * 2. Validation phase:
+     *   -> canDeactivate(B)
+     *   -> canActivate(C)
+     *
+     * 3. Activation phase:
+     *   -> deactivate(B)
+     *   -> activate(C)
+     *
+     * Each of these steps can be asynchronous, and any
+     * step can potentially abort the transition.
+     *
+     * @param {Function} cb
+     */
+
+    RouteTransition.prototype.start = function start(cb) {
+      var transition = this;
+
+      // determine the queue of views to deactivate
+      var deactivateQueue = [];
+      var view = this.router._rootView;
+      while (view) {
+        deactivateQueue.unshift(view);
+        view = view.childView;
+      }
+      var reverseDeactivateQueue = deactivateQueue.slice().reverse();
+
+      // determine the queue of route handlers to activate
+      var activateQueue = this.activateQueue = toArray(this.to.matched).map(function (match) {
+        return match.handler;
+      });
+
+      // 1. Reusability phase
+      var i = undefined,
+          reuseQueue = undefined;
+      for (i = 0; i < reverseDeactivateQueue.length; i++) {
+        if (!canReuse(reverseDeactivateQueue[i], activateQueue[i], transition)) {
+          break;
+        }
+      }
+      if (i > 0) {
+        reuseQueue = reverseDeactivateQueue.slice(0, i);
+        deactivateQueue = reverseDeactivateQueue.slice(i).reverse();
+        activateQueue = activateQueue.slice(i);
+      }
+
+      // 2. Validation phase
+      transition.runQueue(deactivateQueue, canDeactivate, function () {
+        transition.runQueue(activateQueue, canActivate, function () {
+          transition.runQueue(deactivateQueue, deactivate, function () {
+            // 3. Activation phase
+
+            // Update router current route
+            transition.router._onTransitionValidated(transition);
+
+            // trigger reuse for all reused views
+            reuseQueue && reuseQueue.forEach(function (view) {
+              return reuse(view, transition);
+            });
+
+            // the root of the chain that needs to be replaced
+            // is the top-most non-reusable view.
+            if (deactivateQueue.length) {
+              var _view = deactivateQueue[deactivateQueue.length - 1];
+              var depth = reuseQueue ? reuseQueue.length : 0;
+              activate(_view, transition, depth, cb);
+            } else {
+              cb();
+            }
+          });
+        });
+      });
+    };
+
+    /**
+     * Asynchronously and sequentially apply a function to a
+     * queue.
+     *
+     * @param {Array} queue
+     * @param {Function} fn
+     * @param {Function} cb
+     */
+
+    RouteTransition.prototype.runQueue = function runQueue(queue, fn, cb) {
+      var transition = this;
+      step(0);
+      function step(index) {
+        if (index >= queue.length) {
+          cb();
+        } else {
+          fn(queue[index], transition, function () {
+            step(index + 1);
+          });
+        }
+      }
+    };
+
+    /**
+     * Call a user provided route transition hook and handle
+     * the response (e.g. if the user returns a promise).
+     *
+     * If the user neither expects an argument nor returns a
+     * promise, the hook is assumed to be synchronous.
+     *
+     * @param {Function} hook
+     * @param {*} [context]
+     * @param {Function} [cb]
+     * @param {Object} [options]
+     *                 - {Boolean} expectBoolean
+     *                 - {Boolean} postActive
+     *                 - {Function} processData
+     *                 - {Function} cleanup
+     */
+
+    RouteTransition.prototype.callHook = function callHook(hook, context, cb) {
+      var _ref = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+
+      var _ref$expectBoolean = _ref.expectBoolean;
+      var expectBoolean = _ref$expectBoolean === undefined ? false : _ref$expectBoolean;
+      var _ref$postActivate = _ref.postActivate;
+      var postActivate = _ref$postActivate === undefined ? false : _ref$postActivate;
+      var processData = _ref.processData;
+      var cleanup = _ref.cleanup;
+
+      var transition = this;
+      var nextCalled = false;
+
+      // abort the transition
+      var abort = function abort() {
+        cleanup && cleanup();
+        transition.abort();
+      };
+
+      // handle errors
+      var onError = function onError(err) {
+        postActivate ? next() : abort();
+        if (err && !transition.router._suppress) {
+          warn$1('Uncaught error during transition: ');
+          throw err instanceof Error ? err : new Error(err);
+        }
+      };
+
+      // since promise swallows errors, we have to
+      // throw it in the next tick...
+      var onPromiseError = function onPromiseError(err) {
+        try {
+          onError(err);
+        } catch (e) {
+          setTimeout(function () {
+            throw e;
+          }, 0);
+        }
+      };
+
+      // advance the transition to the next step
+      var next = function next() {
+        if (nextCalled) {
+          warn$1('transition.next() should be called only once.');
+          return;
+        }
+        nextCalled = true;
+        if (transition.aborted) {
+          cleanup && cleanup();
+          return;
+        }
+        cb && cb();
+      };
+
+      var nextWithBoolean = function nextWithBoolean(res) {
+        if (typeof res === 'boolean') {
+          res ? next() : abort();
+        } else if (isPromise(res)) {
+          res.then(function (ok) {
+            ok ? next() : abort();
+          }, onPromiseError);
+        } else if (!hook.length) {
+          next();
+        }
+      };
+
+      var nextWithData = function nextWithData(data) {
+        var res = undefined;
+        try {
+          res = processData(data);
+        } catch (err) {
+          return onError(err);
+        }
+        if (isPromise(res)) {
+          res.then(next, onPromiseError);
+        } else {
+          next();
+        }
+      };
+
+      // expose a clone of the transition object, so that each
+      // hook gets a clean copy and prevent the user from
+      // messing with the internals.
+      var exposed = {
+        to: transition.to,
+        from: transition.from,
+        abort: abort,
+        next: processData ? nextWithData : next,
+        redirect: function redirect() {
+          transition.redirect.apply(transition, arguments);
+        }
+      };
+
+      // actually call the hook
+      var res = undefined;
+      try {
+        res = hook.call(context, exposed);
+      } catch (err) {
+        return onError(err);
+      }
+
+      if (expectBoolean) {
+        // boolean hooks
+        nextWithBoolean(res);
+      } else if (isPromise(res)) {
+        // promise
+        if (processData) {
+          res.then(nextWithData, onPromiseError);
+        } else {
+          res.then(next, onPromiseError);
+        }
+      } else if (processData && isPlainOjbect(res)) {
+        // data promise sugar
+        nextWithData(res);
+      } else if (!hook.length) {
+        next();
+      }
+    };
+
+    /**
+     * Call a single hook or an array of async hooks in series.
+     *
+     * @param {Array} hooks
+     * @param {*} context
+     * @param {Function} cb
+     * @param {Object} [options]
+     */
+
+    RouteTransition.prototype.callHooks = function callHooks(hooks, context, cb, options) {
+      var _this = this;
+
+      if (Array.isArray(hooks)) {
+        this.runQueue(hooks, function (hook, _, next) {
+          if (!_this.aborted) {
+            _this.callHook(hook, context, next, options);
+          }
+        }, cb);
+      } else {
+        this.callHook(hooks, context, cb, options);
+      }
+    };
+
+    return RouteTransition;
+  })();
+
+  function isPlainOjbect(val) {
+    return Object.prototype.toString.call(val) === '[object Object]';
+  }
+
+  function toArray(val) {
+    return val ? Array.prototype.slice.call(val) : [];
+  }
+
+  var internalKeysRE = /^(component|subRoutes|fullPath)$/;
+
+  /**
+   * Route Context Object
+   *
+   * @param {String} path
+   * @param {Router} router
+   */
+
+  var Route = function Route(path, router) {
+    var _this = this;
+
+    babelHelpers.classCallCheck(this, Route);
+
+    var matched = router._recognizer.recognize(path);
+    if (matched) {
+      // copy all custom fields from route configs
+      [].forEach.call(matched, function (match) {
+        for (var key in match.handler) {
+          if (!internalKeysRE.test(key)) {
+            _this[key] = match.handler[key];
+          }
+        }
+      });
+      // set query and params
+      this.query = matched.queryParams;
+      this.params = [].reduce.call(matched, function (prev, cur) {
+        if (cur.params) {
+          for (var key in cur.params) {
+            prev[key] = cur.params[key];
+          }
+        }
+        return prev;
+      }, {});
+    }
+    // expose path and router
+    this.path = path;
+    // for internal use
+    this.matched = matched || router._notFoundHandler;
+    // internal reference to router
+    Object.defineProperty(this, 'router', {
+      enumerable: false,
+      value: router
+    });
+    // Important: freeze self to prevent observation
+    Object.freeze(this);
+  };
+
+  function applyOverride (Vue) {
+    var _Vue$util = Vue.util;
+    var extend = _Vue$util.extend;
+    var isArray = _Vue$util.isArray;
+    var defineReactive = _Vue$util.defineReactive;
+
+    // override Vue's init and destroy process to keep track of router instances
+    var init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      options = options || {};
+      var root = options._parent || options.parent || this;
+      var router = root.$router;
+      var route = root.$route;
+      if (router) {
+        // expose router
+        this.$router = router;
+        router._children.push(this);
+        /* istanbul ignore if */
+        if (this._defineMeta) {
+          // 0.12
+          this._defineMeta('$route', route);
+        } else {
+          // 1.0
+          defineReactive(this, '$route', route);
+        }
+      }
+      init.call(this, options);
+    };
+
+    var destroy = Vue.prototype._destroy;
+    Vue.prototype._destroy = function () {
+      if (!this._isBeingDestroyed && this.$router) {
+        this.$router._children.$remove(this);
+      }
+      destroy.apply(this, arguments);
+    };
+
+    // 1.0 only: enable route mixins
+    var strats = Vue.config.optionMergeStrategies;
+    var hooksToMergeRE = /^(data|activate|deactivate)$/;
+
+    if (strats) {
+      strats.route = function (parentVal, childVal) {
+        if (!childVal) return parentVal;
+        if (!parentVal) return childVal;
+        var ret = {};
+        extend(ret, parentVal);
+        for (var key in childVal) {
+          var a = ret[key];
+          var b = childVal[key];
+          // for data, activate and deactivate, we need to merge them into
+          // arrays similar to lifecycle hooks.
+          if (a && hooksToMergeRE.test(key)) {
+            ret[key] = (isArray(a) ? a : [a]).concat(b);
+          } else {
+            ret[key] = b;
+          }
+        }
+        return ret;
+      };
+    }
+  }
+
+  function View (Vue) {
+
+    var _ = Vue.util;
+    var componentDef =
+    // 0.12
+    Vue.directive('_component') ||
+    // 1.0
+    Vue.internalDirectives.component;
+    // <router-view> extends the internal component directive
+    var viewDef = _.extend({}, componentDef);
+
+    // with some overrides
+    _.extend(viewDef, {
+
+      _isRouterView: true,
+
+      bind: function bind() {
+        var route = this.vm.$route;
+        /* istanbul ignore if */
+        if (!route) {
+          warn$1('<router-view> can only be used inside a ' + 'router-enabled app.');
+          return;
+        }
+        // force dynamic directive so v-component doesn't
+        // attempt to build right now
+        this._isDynamicLiteral = true;
+        // finally, init by delegating to v-component
+        componentDef.bind.call(this);
+
+        // locate the parent view
+        var parentView = undefined;
+        var parent = this.vm;
+        while (parent) {
+          if (parent._routerView) {
+            parentView = parent._routerView;
+            break;
+          }
+          parent = parent.$parent;
+        }
+        if (parentView) {
+          // register self as a child of the parent view,
+          // instead of activating now. This is so that the
+          // child's activate hook is called after the
+          // parent's has resolved.
+          this.parentView = parentView;
+          parentView.childView = this;
+        } else {
+          // this is the root view!
+          var router = route.router;
+          router._rootView = this;
+        }
+
+        // handle late-rendered view
+        // two possibilities:
+        // 1. root view rendered after transition has been
+        //    validated;
+        // 2. child view rendered after parent view has been
+        //    activated.
+        var transition = route.router._currentTransition;
+        if (!parentView && transition.done || parentView && parentView.activated) {
+          var depth = parentView ? parentView.depth + 1 : 0;
+          activate(this, transition, depth);
+        }
+      },
+
+      unbind: function unbind() {
+        if (this.parentView) {
+          this.parentView.childView = null;
+        }
+        componentDef.unbind.call(this);
+      }
+    });
+
+    Vue.elementDirective('router-view', viewDef);
+  }
+
+  var trailingSlashRE = /\/$/;
+  var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
+  var queryStringRE = /\?.*$/;
+
+  // install v-link, which provides navigation support for
+  // HTML5 history mode
+  function Link (Vue) {
+    var _Vue$util = Vue.util;
+    var _bind = _Vue$util.bind;
+    var isObject = _Vue$util.isObject;
+    var addClass = _Vue$util.addClass;
+    var removeClass = _Vue$util.removeClass;
+
+    var onPriority = Vue.directive('on').priority;
+    var LINK_UPDATE = '__vue-router-link-update__';
+
+    var activeId = 0;
+
+    Vue.directive('link-active', {
+      priority: 9999,
+      bind: function bind() {
+        var _this = this;
+
+        var id = String(activeId++);
+        // collect v-links contained within this element.
+        // we need do this here before the parent-child relationship
+        // gets messed up by terminal directives (if, for, components)
+        var childLinks = this.el.querySelectorAll('[v-link]');
+        for (var i = 0, l = childLinks.length; i < l; i++) {
+          var link = childLinks[i];
+          var existingId = link.getAttribute(LINK_UPDATE);
+          var value = existingId ? existingId + ',' + id : id;
+          // leave a mark on the link element which can be persisted
+          // through fragment clones.
+          link.setAttribute(LINK_UPDATE, value);
+        }
+        this.vm.$on(LINK_UPDATE, this.cb = function (link, path) {
+          if (link.activeIds.indexOf(id) > -1) {
+            link.updateClasses(path, _this.el);
+          }
+        });
+      },
+      unbind: function unbind() {
+        this.vm.$off(LINK_UPDATE, this.cb);
+      }
+    });
+
+    Vue.directive('link', {
+      priority: onPriority - 2,
+
+      bind: function bind() {
+        var vm = this.vm;
+        /* istanbul ignore if */
+        if (!vm.$route) {
+          warn$1('v-link can only be used inside a router-enabled app.');
+          return;
+        }
+        this.router = vm.$route.router;
+        // update things when the route changes
+        this.unwatch = vm.$watch('$route', _bind(this.onRouteUpdate, this));
+        // check v-link-active ids
+        var activeIds = this.el.getAttribute(LINK_UPDATE);
+        if (activeIds) {
+          this.el.removeAttribute(LINK_UPDATE);
+          this.activeIds = activeIds.split(',');
+        }
+        // no need to handle click if link expects to be opened
+        // in a new window/tab.
+        /* istanbul ignore if */
+        if (this.el.tagName === 'A' && this.el.getAttribute('target') === '_blank') {
+          return;
+        }
+        // handle click
+        this.handler = _bind(this.onClick, this);
+        this.el.addEventListener('click', this.handler);
+      },
+
+      update: function update(target) {
+        this.target = target;
+        if (isObject(target)) {
+          this.append = target.append;
+          this.exact = target.exact;
+          this.prevActiveClass = this.activeClass;
+          this.activeClass = target.activeClass;
+        }
+        this.onRouteUpdate(this.vm.$route);
+      },
+
+      onClick: function onClick(e) {
+        // don't redirect with control keys
+        /* istanbul ignore if */
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+        // don't redirect when preventDefault called
+        /* istanbul ignore if */
+        if (e.defaultPrevented) return;
+        // don't redirect on right click
+        /* istanbul ignore if */
+        if (e.button !== 0) return;
+
+        var target = this.target;
+        if (target) {
+          // v-link with expression, just go
+          e.preventDefault();
+          this.router.go(target);
+        } else {
+          // no expression, delegate for an <a> inside
+          var el = e.target;
+          while (el.tagName !== 'A' && el !== this.el) {
+            el = el.parentNode;
+          }
+          if (el.tagName === 'A' && sameOrigin(el)) {
+            e.preventDefault();
+            var path = el.pathname;
+            if (this.router.history.root) {
+              path = path.replace(this.router.history.rootRE, '');
+            }
+            this.router.go({
+              path: path,
+              replace: target && target.replace,
+              append: target && target.append
+            });
+          }
+        }
+      },
+
+      onRouteUpdate: function onRouteUpdate(route) {
+        // router.stringifyPath is dependent on current route
+        // and needs to be called again whenver route changes.
+        var newPath = this.router.stringifyPath(this.target);
+        if (this.path !== newPath) {
+          this.path = newPath;
+          this.updateActiveMatch();
+          this.updateHref();
+        }
+        if (this.activeIds) {
+          this.vm.$emit(LINK_UPDATE, this, route.path);
+        } else {
+          this.updateClasses(route.path, this.el);
+        }
+      },
+
+      updateActiveMatch: function updateActiveMatch() {
+        this.activeRE = this.path && !this.exact ? new RegExp('^' + this.path.replace(/\/$/, '').replace(queryStringRE, '').replace(regexEscapeRE, '\\$&') + '(\\/|$)') : null;
+      },
+
+      updateHref: function updateHref() {
+        if (this.el.tagName !== 'A') {
+          return;
+        }
+        var path = this.path;
+        var router = this.router;
+        var isAbsolute = path.charAt(0) === '/';
+        // do not format non-hash relative paths
+        var href = path && (router.mode === 'hash' || isAbsolute) ? router.history.formatPath(path, this.append) : path;
+        if (href) {
+          this.el.href = href;
+        } else {
+          this.el.removeAttribute('href');
+        }
+      },
+
+      updateClasses: function updateClasses(path, el) {
+        var activeClass = this.activeClass || this.router._linkActiveClass;
+        // clear old class
+        if (this.prevActiveClass && this.prevActiveClass !== activeClass) {
+          toggleClasses(el, this.prevActiveClass, removeClass);
+        }
+        // remove query string before matching
+        var dest = this.path.replace(queryStringRE, '');
+        path = path.replace(queryStringRE, '');
+        // add new class
+        if (this.exact) {
+          if (dest === path ||
+          // also allow additional trailing slash
+          dest.charAt(dest.length - 1) !== '/' && dest === path.replace(trailingSlashRE, '')) {
+            toggleClasses(el, activeClass, addClass);
+          } else {
+            toggleClasses(el, activeClass, removeClass);
+          }
+        } else {
+          if (this.activeRE && this.activeRE.test(path)) {
+            toggleClasses(el, activeClass, addClass);
+          } else {
+            toggleClasses(el, activeClass, removeClass);
+          }
+        }
+      },
+
+      unbind: function unbind() {
+        this.el.removeEventListener('click', this.handler);
+        this.unwatch && this.unwatch();
+      }
+    });
+
+    function sameOrigin(link) {
+      return link.protocol === location.protocol && link.hostname === location.hostname && link.port === location.port;
+    }
+
+    // this function is copied from v-bind:class implementation until
+    // we properly expose it...
+    function toggleClasses(el, key, fn) {
+      key = key.trim();
+      if (key.indexOf(' ') === -1) {
+        fn(el, key);
+        return;
+      }
+      var keys = key.split(/\s+/);
+      for (var i = 0, l = keys.length; i < l; i++) {
+        fn(el, keys[i]);
+      }
+    }
+  }
+
+  var historyBackends = {
+    abstract: AbstractHistory,
+    hash: HashHistory,
+    html5: HTML5History
+  };
+
+  // late bind during install
+  var Vue = undefined;
+
+  /**
+   * Router constructor
+   *
+   * @param {Object} [options]
+   */
+
+  var Router = (function () {
+    function Router() {
+      var _this = this;
+
+      var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+      var _ref$hashbang = _ref.hashbang;
+      var hashbang = _ref$hashbang === undefined ? true : _ref$hashbang;
+      var _ref$abstract = _ref.abstract;
+      var abstract = _ref$abstract === undefined ? false : _ref$abstract;
+      var _ref$history = _ref.history;
+      var history = _ref$history === undefined ? false : _ref$history;
+      var _ref$saveScrollPosition = _ref.saveScrollPosition;
+      var saveScrollPosition = _ref$saveScrollPosition === undefined ? false : _ref$saveScrollPosition;
+      var _ref$transitionOnLoad = _ref.transitionOnLoad;
+      var transitionOnLoad = _ref$transitionOnLoad === undefined ? false : _ref$transitionOnLoad;
+      var _ref$suppressTransitionError = _ref.suppressTransitionError;
+      var suppressTransitionError = _ref$suppressTransitionError === undefined ? false : _ref$suppressTransitionError;
+      var _ref$root = _ref.root;
+      var root = _ref$root === undefined ? null : _ref$root;
+      var _ref$linkActiveClass = _ref.linkActiveClass;
+      var linkActiveClass = _ref$linkActiveClass === undefined ? 'v-link-active' : _ref$linkActiveClass;
+      babelHelpers.classCallCheck(this, Router);
+
+      /* istanbul ignore if */
+      if (!Router.installed) {
+        throw new Error('Please install the Router with Vue.use() before ' + 'creating an instance.');
+      }
+
+      // Vue instances
+      this.app = null;
+      this._children = [];
+
+      // route recognizer
+      this._recognizer = new RouteRecognizer();
+      this._guardRecognizer = new RouteRecognizer();
+
+      // state
+      this._started = false;
+      this._startCb = null;
+      this._currentRoute = {};
+      this._currentTransition = null;
+      this._previousTransition = null;
+      this._notFoundHandler = null;
+      this._notFoundRedirect = null;
+      this._beforeEachHooks = [];
+      this._afterEachHooks = [];
+
+      // trigger transition on initial render?
+      this._rendered = false;
+      this._transitionOnLoad = transitionOnLoad;
+
+      // history mode
+      this._root = root;
+      this._abstract = abstract;
+      this._hashbang = hashbang;
+
+      // check if HTML5 history is available
+      var hasPushState = typeof window !== 'undefined' && window.history && window.history.pushState;
+      this._history = history && hasPushState;
+      this._historyFallback = history && !hasPushState;
+
+      // create history object
+      var inBrowser = Vue.util.inBrowser;
+      this.mode = !inBrowser || this._abstract ? 'abstract' : this._history ? 'html5' : 'hash';
+
+      var History = historyBackends[this.mode];
+      this.history = new History({
+        root: root,
+        hashbang: this._hashbang,
+        onChange: function onChange(path, state, anchor) {
+          _this._match(path, state, anchor);
+        }
+      });
+
+      // other options
+      this._saveScrollPosition = saveScrollPosition;
+      this._linkActiveClass = linkActiveClass;
+      this._suppress = suppressTransitionError;
+    }
+
+    /**
+     * Allow directly passing components to a route
+     * definition.
+     *
+     * @param {String} path
+     * @param {Object} handler
+     */
+
+    // API ===================================================
+
+    /**
+    * Register a map of top-level paths.
+    *
+    * @param {Object} map
+    */
+
+    Router.prototype.map = function map(_map) {
+      for (var route in _map) {
+        this.on(route, _map[route]);
+      }
+      return this;
+    };
+
+    /**
+     * Register a single root-level path
+     *
+     * @param {String} rootPath
+     * @param {Object} handler
+     *                 - {String} component
+     *                 - {Object} [subRoutes]
+     *                 - {Boolean} [forceRefresh]
+     *                 - {Function} [before]
+     *                 - {Function} [after]
+     */
+
+    Router.prototype.on = function on(rootPath, handler) {
+      if (rootPath === '*') {
+        this._notFound(handler);
+      } else {
+        this._addRoute(rootPath, handler, []);
+      }
+      return this;
+    };
+
+    /**
+     * Set redirects.
+     *
+     * @param {Object} map
+     */
+
+    Router.prototype.redirect = function redirect(map) {
+      for (var path in map) {
+        this._addRedirect(path, map[path]);
+      }
+      return this;
+    };
+
+    /**
+     * Set aliases.
+     *
+     * @param {Object} map
+     */
+
+    Router.prototype.alias = function alias(map) {
+      for (var path in map) {
+        this._addAlias(path, map[path]);
+      }
+      return this;
+    };
+
+    /**
+     * Set global before hook.
+     *
+     * @param {Function} fn
+     */
+
+    Router.prototype.beforeEach = function beforeEach(fn) {
+      this._beforeEachHooks.push(fn);
+      return this;
+    };
+
+    /**
+     * Set global after hook.
+     *
+     * @param {Function} fn
+     */
+
+    Router.prototype.afterEach = function afterEach(fn) {
+      this._afterEachHooks.push(fn);
+      return this;
+    };
+
+    /**
+     * Navigate to a given path.
+     * The path can be an object describing a named path in
+     * the format of { name: '...', params: {}, query: {}}
+     * The path is assumed to be already decoded, and will
+     * be resolved against root (if provided)
+     *
+     * @param {String|Object} path
+     * @param {Boolean} [replace]
+     */
+
+    Router.prototype.go = function go(path) {
+      var replace = false;
+      var append = false;
+      if (Vue.util.isObject(path)) {
+        replace = path.replace;
+        append = path.append;
+      }
+      path = this.stringifyPath(path);
+      if (path) {
+        this.history.go(path, replace, append);
+      }
+    };
+
+    /**
+     * Short hand for replacing current path
+     *
+     * @param {String} path
+     */
+
+    Router.prototype.replace = function replace(path) {
+      if (typeof path === 'string') {
+        path = { path: path };
+      }
+      path.replace = true;
+      this.go(path);
+    };
+
+    /**
+     * Start the router.
+     *
+     * @param {VueConstructor} App
+     * @param {String|Element} container
+     * @param {Function} [cb]
+     */
+
+    Router.prototype.start = function start(App, container, cb) {
+      /* istanbul ignore if */
+      if (this._started) {
+        warn$1('already started.');
+        return;
+      }
+      this._started = true;
+      this._startCb = cb;
+      if (!this.app) {
+        /* istanbul ignore if */
+        if (!App || !container) {
+          throw new Error('Must start vue-router with a component and a ' + 'root container.');
+        }
+        /* istanbul ignore if */
+        if (App instanceof Vue) {
+          throw new Error('Must start vue-router with a component, not a ' + 'Vue instance.');
+        }
+        this._appContainer = container;
+        var Ctor = this._appConstructor = typeof App === 'function' ? App : Vue.extend(App);
+        // give it a name for better debugging
+        Ctor.options.name = Ctor.options.name || 'RouterApp';
+      }
+
+      // handle history fallback in browsers that do not
+      // support HTML5 history API
+      if (this._historyFallback) {
+        var _location = window.location;
+        var _history = new HTML5History({ root: this._root });
+        var path = _history.root ? _location.pathname.replace(_history.rootRE, '') : _location.pathname;
+        if (path && path !== '/') {
+          _location.assign((_history.root || '') + '/' + this.history.formatPath(path) + _location.search);
+          return;
+        }
+      }
+
+      this.history.start();
+    };
+
+    /**
+     * Stop listening to route changes.
+     */
+
+    Router.prototype.stop = function stop() {
+      this.history.stop();
+      this._started = false;
+    };
+
+    /**
+     * Normalize named route object / string paths into
+     * a string.
+     *
+     * @param {Object|String|Number} path
+     * @return {String}
+     */
+
+    Router.prototype.stringifyPath = function stringifyPath(path) {
+      var generatedPath = '';
+      if (path && typeof path === 'object') {
+        if (path.name) {
+          var extend = Vue.util.extend;
+          var currentParams = this._currentTransition && this._currentTransition.to.params;
+          var targetParams = path.params || {};
+          var params = currentParams ? extend(extend({}, currentParams), targetParams) : targetParams;
+          generatedPath = encodeURI(this._recognizer.generate(path.name, params));
+        } else if (path.path) {
+          generatedPath = encodeURI(path.path);
+        }
+        if (path.query) {
+          // note: the generated query string is pre-URL-encoded by the recognizer
+          var query = this._recognizer.generateQueryString(path.query);
+          if (generatedPath.indexOf('?') > -1) {
+            generatedPath += '&' + query.slice(1);
+          } else {
+            generatedPath += query;
+          }
+        }
+      } else {
+        generatedPath = encodeURI(path ? path + '' : '');
+      }
+      return generatedPath;
+    };
+
+    // Internal methods ======================================
+
+    /**
+    * Add a route containing a list of segments to the internal
+    * route recognizer. Will be called recursively to add all
+    * possible sub-routes.
+    *
+    * @param {String} path
+    * @param {Object} handler
+    * @param {Array} segments
+    */
+
+    Router.prototype._addRoute = function _addRoute(path, handler, segments) {
+      guardComponent(path, handler);
+      handler.path = path;
+      handler.fullPath = (segments.reduce(function (path, segment) {
+        return path + segment.path;
+      }, '') + path).replace('//', '/');
+      segments.push({
+        path: path,
+        handler: handler
+      });
+      this._recognizer.add(segments, {
+        as: handler.name
+      });
+      // add sub routes
+      if (handler.subRoutes) {
+        for (var subPath in handler.subRoutes) {
+          // recursively walk all sub routes
+          this._addRoute(subPath, handler.subRoutes[subPath],
+          // pass a copy in recursion to avoid mutating
+          // across branches
+          segments.slice());
+        }
+      }
+    };
+
+    /**
+     * Set the notFound route handler.
+     *
+     * @param {Object} handler
+     */
+
+    Router.prototype._notFound = function _notFound(handler) {
+      guardComponent('*', handler);
+      this._notFoundHandler = [{ handler: handler }];
+    };
+
+    /**
+     * Add a redirect record.
+     *
+     * @param {String} path
+     * @param {String} redirectPath
+     */
+
+    Router.prototype._addRedirect = function _addRedirect(path, redirectPath) {
+      if (path === '*') {
+        this._notFoundRedirect = redirectPath;
+      } else {
+        this._addGuard(path, redirectPath, this.replace);
+      }
+    };
+
+    /**
+     * Add an alias record.
+     *
+     * @param {String} path
+     * @param {String} aliasPath
+     */
+
+    Router.prototype._addAlias = function _addAlias(path, aliasPath) {
+      this._addGuard(path, aliasPath, this._match);
+    };
+
+    /**
+     * Add a path guard.
+     *
+     * @param {String} path
+     * @param {String} mappedPath
+     * @param {Function} handler
+     */
+
+    Router.prototype._addGuard = function _addGuard(path, mappedPath, _handler) {
+      var _this2 = this;
+
+      this._guardRecognizer.add([{
+        path: path,
+        handler: function handler(match, query) {
+          var realPath = mapParams(mappedPath, match.params, query);
+          _handler.call(_this2, realPath);
+        }
+      }]);
+    };
+
+    /**
+     * Check if a path matches any redirect records.
+     *
+     * @param {String} path
+     * @return {Boolean} - if true, will skip normal match.
+     */
+
+    Router.prototype._checkGuard = function _checkGuard(path) {
+      var matched = this._guardRecognizer.recognize(path, true);
+      if (matched) {
+        matched[0].handler(matched[0], matched.queryParams);
+        return true;
+      } else if (this._notFoundRedirect) {
+        matched = this._recognizer.recognize(path);
+        if (!matched) {
+          this.replace(this._notFoundRedirect);
+          return true;
+        }
+      }
+    };
+
+    /**
+     * Match a URL path and set the route context on vm,
+     * triggering view updates.
+     *
+     * @param {String} path
+     * @param {Object} [state]
+     * @param {String} [anchor]
+     */
+
+    Router.prototype._match = function _match(path, state, anchor) {
+      var _this3 = this;
+
+      if (this._checkGuard(path)) {
+        return;
+      }
+
+      var currentRoute = this._currentRoute;
+      var currentTransition = this._currentTransition;
+
+      if (currentTransition) {
+        if (currentTransition.to.path === path) {
+          // do nothing if we have an active transition going to the same path
+          return;
+        } else if (currentRoute.path === path) {
+          // We are going to the same path, but we also have an ongoing but
+          // not-yet-validated transition. Abort that transition and reset to
+          // prev transition.
+          currentTransition.aborted = true;
+          this._currentTransition = this._prevTransition;
+          return;
+        } else {
+          // going to a totally different path. abort ongoing transition.
+          currentTransition.aborted = true;
+        }
+      }
+
+      // construct new route and transition context
+      var route = new Route(path, this);
+      var transition = new RouteTransition(this, route, currentRoute);
+
+      // current transition is updated right now.
+      // however, current route will only be updated after the transition has
+      // been validated.
+      this._prevTransition = currentTransition;
+      this._currentTransition = transition;
+
+      if (!this.app) {
+        (function () {
+          // initial render
+          var router = _this3;
+          _this3.app = new _this3._appConstructor({
+            el: _this3._appContainer,
+            created: function created() {
+              this.$router = router;
+            },
+            _meta: {
+              $route: route
+            }
+          });
+        })();
+      }
+
+      // check global before hook
+      var beforeHooks = this._beforeEachHooks;
+      var startTransition = function startTransition() {
+        transition.start(function () {
+          _this3._postTransition(route, state, anchor);
+        });
+      };
+
+      if (beforeHooks.length) {
+        transition.runQueue(beforeHooks, function (hook, _, next) {
+          if (transition === _this3._currentTransition) {
+            transition.callHook(hook, null, next, {
+              expectBoolean: true
+            });
+          }
+        }, startTransition);
+      } else {
+        startTransition();
+      }
+
+      if (!this._rendered && this._startCb) {
+        this._startCb.call(null);
+      }
+
+      // HACK:
+      // set rendered to true after the transition start, so
+      // that components that are acitvated synchronously know
+      // whether it is the initial render.
+      this._rendered = true;
+    };
+
+    /**
+     * Set current to the new transition.
+     * This is called by the transition object when the
+     * validation of a route has succeeded.
+     *
+     * @param {Transition} transition
+     */
+
+    Router.prototype._onTransitionValidated = function _onTransitionValidated(transition) {
+      // set current route
+      var route = this._currentRoute = transition.to;
+      // update route context for all children
+      if (this.app.$route !== route) {
+        this.app.$route = route;
+        this._children.forEach(function (child) {
+          child.$route = route;
+        });
+      }
+      // call global after hook
+      if (this._afterEachHooks.length) {
+        this._afterEachHooks.forEach(function (hook) {
+          return hook.call(null, {
+            to: transition.to,
+            from: transition.from
+          });
+        });
+      }
+      this._currentTransition.done = true;
+    };
+
+    /**
+     * Handle stuff after the transition.
+     *
+     * @param {Route} route
+     * @param {Object} [state]
+     * @param {String} [anchor]
+     */
+
+    Router.prototype._postTransition = function _postTransition(route, state, anchor) {
+      // handle scroll positions
+      // saved scroll positions take priority
+      // then we check if the path has an anchor
+      var pos = state && state.pos;
+      if (pos && this._saveScrollPosition) {
+        Vue.nextTick(function () {
+          window.scrollTo(pos.x, pos.y);
+        });
+      } else if (anchor) {
+        Vue.nextTick(function () {
+          var el = document.getElementById(anchor.slice(1));
+          if (el) {
+            window.scrollTo(window.scrollX, el.offsetTop);
+          }
+        });
+      }
+    };
+
+    return Router;
+  })();
+
+  function guardComponent(path, handler) {
+    var comp = handler.component;
+    if (Vue.util.isPlainObject(comp)) {
+      comp = handler.component = Vue.extend(comp);
+    }
+    /* istanbul ignore if */
+    if (typeof comp !== 'function') {
+      handler.component = null;
+      warn$1('invalid component for route "' + path + '".');
+    }
+  }
+
+  /* Installation */
+
+  Router.installed = false;
+
+  /**
+   * Installation interface.
+   * Install the necessary directives.
+   */
+
+  Router.install = function (externalVue) {
+    /* istanbul ignore if */
+    if (Router.installed) {
+      warn$1('already installed.');
+      return;
+    }
+    Vue = externalVue;
+    applyOverride(Vue);
+    View(Vue);
+    Link(Vue);
+    exports$1.Vue = Vue;
+    Router.installed = true;
+  };
+
+  // auto install
+  /* istanbul ignore if */
+  if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(Router);
+  }
+
+  return Router;
+
+}));
+}).apply(this, arguments);
+
+},{}],123:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vue\\dist\\vue.common.js", module);
 (function(){
 (function (process,global){
@@ -22611,7 +25325,7 @@ module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"_process":106}],123:[function(require,module,exports){
+},{"_process":106}],124:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vueify\\lib\\insert-css.js", module);
 (function(){
 var inserted = exports.cache = {}
@@ -22635,7 +25349,7 @@ exports.insert = function (css) {
 
 }).apply(this, arguments);
 
-},{}],124:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vuex\\dist\\vuex.js", module);
 (function(){
 /*!
@@ -23274,7 +25988,7 @@ _hmr["websocket:null"].initModule("node_modules\\vuex\\dist\\vuex.js", module);
 }));
 }).apply(this, arguments);
 
-},{}],125:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\yeast\\index.js", module);
 (function(){
 'use strict';
@@ -23348,7 +26062,7 @@ module.exports = yeast;
 
 }).apply(this, arguments);
 
-},{}],126:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\App.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
@@ -23359,10 +26073,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Login = require('./Login.vue');
-
-var _Login2 = _interopRequireDefault(_Login);
-
 var _store = require('../vuex/store');
 
 var _store2 = _interopRequireDefault(_store);
@@ -23370,9 +26080,6 @@ var _store2 = _interopRequireDefault(_store);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  components: {
-    Login: _Login2.default
-  },
   data: function data() {
     return {};
   },
@@ -23380,7 +26087,7 @@ exports.default = {
   store: _store2.default
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"container\" _v-6570c3b9=\"\">\n  <login _v-6570c3b9=\"\"></login>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"container\" _v-6570c3b9=\"\">\n  <router-view _v-6570c3b9=\"\"></router-view>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -23397,11 +26104,49 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"../vuex/store":130,"./Login.vue":127,"vue":122,"vue-hot-reload-api":120,"vueify/lib/insert-css":123}],127:[function(require,module,exports){
+},{"../vuex/store":134,"vue":123,"vue-hot-reload-api":120,"vueify/lib/insert-css":124}],128:[function(require,module,exports){
+_hmr["websocket:null"].initModule("src\\components\\CharacterSelect.vue", module);
+(function(){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("*,\n::before,\n::after {\n  box-sizing: border-box;\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n  color: #cddbe4;\n}\n.container {\n  font-size: 22px;\n}\ninput,\ntextarea {\n  font-size: 0.9em;\n  background: transparent;\n  border: none;\n  border-bottom: 2px solid #3870a8;\n  padding: 6px 8px;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n  outline: none;\n}\ninput:focus,\ntextarea:focus {\n  border-bottom-color: rgba(255,255,255,0.5);\n}\nbutton {\n  font-size: 1em;\n  padding: 0.4em 1em;\n  background: #1f3d5c;\n  border: none;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\nbutton:hover {\n  background: #1c3753;\n  cursor: pointer;\n}\nfieldset {\n  border: none;\n  padding: 16px 0px;\n}\nh1 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh2 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh3 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh4 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh5 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh6 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\n.container {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  position: fixed;\n  text-align: center;\n  background: rgba(0,0,0,0.3);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.selection-list {\n  height: 20em;\n  overflow-y: scroll;\n}\n.selection-list-item {\n  display: block;\n  height: 2em;\n}\nform {\n  min-width: 300px;\n  background: #264c73;\n  padding: 30px 30px;\n  box-shadow: 0px 2px 10px rgba(0,0,0,0.4), 0px 0px 6px rgba(0,0,0,0.3);\n}\np {\n  text-align: center;\n}\n")
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getters = require('../vuex/getters');
+
+exports.default = {
+  vuex: {
+    getters: {
+      getUserCharacters: _getters.getUserCharacters
+    }
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"container\">\n  <form>\n    <h1>Choose a Character</h1>\n    <fieldset>\n      <div class=\"selection-list\">\n        <a class=\"selection-list-item\" v-for=\"name in getUserCharacters\">\n          {{ name }}\n        </a>\n      </div>\n    </fieldset>\n  </form>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["*,\n::before,\n::after {\n  box-sizing: border-box;\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n  color: #cddbe4;\n}\n.container {\n  font-size: 22px;\n}\ninput,\ntextarea {\n  font-size: 0.9em;\n  background: transparent;\n  border: none;\n  border-bottom: 2px solid #3870a8;\n  padding: 6px 8px;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n  outline: none;\n}\ninput:focus,\ntextarea:focus {\n  border-bottom-color: rgba(255,255,255,0.5);\n}\nbutton {\n  font-size: 1em;\n  padding: 0.4em 1em;\n  background: #1f3d5c;\n  border: none;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\nbutton:hover {\n  background: #1c3753;\n  cursor: pointer;\n}\nfieldset {\n  border: none;\n  padding: 16px 0px;\n}\nh1 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh2 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh3 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh4 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh5 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh6 {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\n.container {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  position: fixed;\n  text-align: center;\n  background: rgba(0,0,0,0.3);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.selection-list {\n  height: 20em;\n  overflow-y: scroll;\n}\n.selection-list-item {\n  display: block;\n  height: 2em;\n}\nform {\n  min-width: 300px;\n  background: #264c73;\n  padding: 30px 30px;\n  box-shadow: 0px 2px 10px rgba(0,0,0,0.4), 0px 0px 6px rgba(0,0,0,0.3);\n}\np {\n  text-align: center;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-98965dc6", module.exports)
+  } else {
+    hotAPI.update("_v-98965dc6", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+}).apply(this, arguments);
+
+},{"../vuex/getters":133,"vue":123,"vue-hot-reload-api":120,"vueify/lib/insert-css":124}],129:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\Login.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("*[_v-4b637501],[_v-4b637501]\n::before,[_v-4b637501]\n::after {\n  box-sizing: border-box;\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n  color: #cddbe4;\n}\n.container[_v-4b637501] {\n  font-size: 22px;\n}\ninput[_v-4b637501],\ntextarea[_v-4b637501] {\n  font-size: 0.9em;\n  background: transparent;\n  border: none;\n  border-bottom: 2px solid #3870a8;\n  padding: 6px 8px;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n  outline: none;\n}\ninput[_v-4b637501]:focus,\ntextarea[_v-4b637501]:focus {\n  border-bottom-color: rgba(255,255,255,0.5);\n}\nbutton[_v-4b637501] {\n  font-size: 1em;\n  padding: 0.4em 1em;\n  background: #1f3d5c;\n  border: none;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\nbutton[_v-4b637501]:hover {\n  background: #1c3753;\n  cursor: pointer;\n}\nfieldset[_v-4b637501] {\n  border: none;\n  padding: 16px 0px;\n}\nh1[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh2[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh3[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh4[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh5[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh6[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\n.shadow[_v-4b637501] {\n  box-shadow: 0px 2px 10px rgba(0,0,0,0.4), 0px 0px 6px rgba(0,0,0,0.3);\n}\n.container[_v-4b637501] {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  position: fixed;\n  text-align: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\nform[_v-4b637501] {\n  width: 300px;\n  background: #264c73;\n  padding: 30px 30px;\n}\np[_v-4b637501] {\n  text-align: center;\n}\n")
+var __vueify_style__ = __vueify_insert__.insert("*[_v-4b637501],[_v-4b637501]\n::before,[_v-4b637501]\n::after {\n  box-sizing: border-box;\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n  color: #cddbe4;\n}\n.container[_v-4b637501] {\n  font-size: 22px;\n}\ninput[_v-4b637501],\ntextarea[_v-4b637501] {\n  font-size: 0.9em;\n  background: transparent;\n  border: none;\n  border-bottom: 2px solid #3870a8;\n  padding: 6px 8px;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n  outline: none;\n}\ninput[_v-4b637501]:focus,\ntextarea[_v-4b637501]:focus {\n  border-bottom-color: rgba(255,255,255,0.5);\n}\nbutton[_v-4b637501] {\n  font-size: 1em;\n  padding: 0.4em 1em;\n  background: #1f3d5c;\n  border: none;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\nbutton[_v-4b637501]:hover {\n  background: #1c3753;\n  cursor: pointer;\n}\nfieldset[_v-4b637501] {\n  border: none;\n  padding: 16px 0px;\n}\nh1[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh2[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh3[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh4[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh5[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh6[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\n.container[_v-4b637501] {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  position: fixed;\n  text-align: center;\n  background: rgba(0,0,0,0.3);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\nform[_v-4b637501] {\n  width: 300px;\n  background: #264c73;\n  padding: 30px 30px;\n  box-shadow: 0px 2px 10px rgba(0,0,0,0.4), 0px 0px 6px rgba(0,0,0,0.3);\n}\np[_v-4b637501] {\n  text-align: center;\n}\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23409,6 +26154,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _actions = require('../vuex/actions');
+
+var _getters = require('../vuex/getters');
 
 exports.default = {
   data: function data() {
@@ -23422,17 +26169,20 @@ exports.default = {
   vuex: {
     actions: {
       submitLogin: _actions.submitLogin
+    },
+    getters: {
+      getLoginStatus: _getters.getLoginStatus
     }
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"container\" _v-4b637501=\"\">\n  <form class=\"shadow\" @submit.prevent=\"submitLogin(username, password)\" _v-4b637501=\"\">\n    <h1 _v-4b637501=\"\">Login</h1>\n    <fieldset _v-4b637501=\"\">\n      <input type=\"text\" placeholder=\"Username\" v-model=\"username\" _v-4b637501=\"\">\n    </fieldset>\n    <fieldset _v-4b637501=\"\">\n      <input type=\"password\" placeholder=\"Password\" v-model=\"password\" _v-4b637501=\"\">\n    </fieldset>\n    <fieldset _v-4b637501=\"\">\n      <button action=\"submit\" _v-4b637501=\"\">Go</button>\n    </fieldset>\n    <fieldset _v-4b637501=\"\">\n      <p _v-4b637501=\"\">Status Text...</p>\n    </fieldset>\n  </form>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"container\" _v-4b637501=\"\">\n  <form class=\"shadow\" @submit.prevent=\"submitLogin(username, password)\" _v-4b637501=\"\">\n    <h1 _v-4b637501=\"\">Login</h1>\n    <fieldset _v-4b637501=\"\">\n      <input type=\"text\" placeholder=\"Username\" v-model=\"username\" _v-4b637501=\"\">\n    </fieldset>\n    <fieldset _v-4b637501=\"\">\n      <input type=\"password\" placeholder=\"Password\" v-model=\"password\" _v-4b637501=\"\">\n    </fieldset>\n    <fieldset _v-4b637501=\"\">\n      <button action=\"submit\" _v-4b637501=\"\">Go</button>\n    </fieldset>\n    <fieldset _v-4b637501=\"\">\n      <p _v-4b637501=\"\">{{ getLoginStatus }}</p>\n    </fieldset>\n  </form>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["*[_v-4b637501],[_v-4b637501]\n::before,[_v-4b637501]\n::after {\n  box-sizing: border-box;\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n  color: #cddbe4;\n}\n.container[_v-4b637501] {\n  font-size: 22px;\n}\ninput[_v-4b637501],\ntextarea[_v-4b637501] {\n  font-size: 0.9em;\n  background: transparent;\n  border: none;\n  border-bottom: 2px solid #3870a8;\n  padding: 6px 8px;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n  outline: none;\n}\ninput[_v-4b637501]:focus,\ntextarea[_v-4b637501]:focus {\n  border-bottom-color: rgba(255,255,255,0.5);\n}\nbutton[_v-4b637501] {\n  font-size: 1em;\n  padding: 0.4em 1em;\n  background: #1f3d5c;\n  border: none;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\nbutton[_v-4b637501]:hover {\n  background: #1c3753;\n  cursor: pointer;\n}\nfieldset[_v-4b637501] {\n  border: none;\n  padding: 16px 0px;\n}\nh1[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh2[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh3[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh4[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh5[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh6[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\n.shadow[_v-4b637501] {\n  box-shadow: 0px 2px 10px rgba(0,0,0,0.4), 0px 0px 6px rgba(0,0,0,0.3);\n}\n.container[_v-4b637501] {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  position: fixed;\n  text-align: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\nform[_v-4b637501] {\n  width: 300px;\n  background: #264c73;\n  padding: 30px 30px;\n}\np[_v-4b637501] {\n  text-align: center;\n}\n"] = false
+    __vueify_insert__.cache["*[_v-4b637501],[_v-4b637501]\n::before,[_v-4b637501]\n::after {\n  box-sizing: border-box;\n  margin: 0;\n  font-family: 'Roboto', sans-serif;\n  color: #cddbe4;\n}\n.container[_v-4b637501] {\n  font-size: 22px;\n}\ninput[_v-4b637501],\ntextarea[_v-4b637501] {\n  font-size: 0.9em;\n  background: transparent;\n  border: none;\n  border-bottom: 2px solid #3870a8;\n  padding: 6px 8px;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n  outline: none;\n}\ninput[_v-4b637501]:focus,\ntextarea[_v-4b637501]:focus {\n  border-bottom-color: rgba(255,255,255,0.5);\n}\nbutton[_v-4b637501] {\n  font-size: 1em;\n  padding: 0.4em 1em;\n  background: #1f3d5c;\n  border: none;\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\nbutton[_v-4b637501]:hover {\n  background: #1c3753;\n  cursor: pointer;\n}\nfieldset[_v-4b637501] {\n  border: none;\n  padding: 16px 0px;\n}\nh1[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh2[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh3[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh4[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh5[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\nh6[_v-4b637501] {\n  font-weight: 300;\n  padding-bottom: 10px;\n}\n.container[_v-4b637501] {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  position: fixed;\n  text-align: center;\n  background: rgba(0,0,0,0.3);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\nform[_v-4b637501] {\n  width: 300px;\n  background: #264c73;\n  padding: 30px 30px;\n  box-shadow: 0px 2px 10px rgba(0,0,0,0.4), 0px 0px 6px rgba(0,0,0,0.3);\n}\np[_v-4b637501] {\n  text-align: center;\n}\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -23443,7 +26193,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"../vuex/actions":129,"vue":122,"vue-hot-reload-api":120,"vueify/lib/insert-css":123}],128:[function(require,module,exports){
+},{"../vuex/actions":132,"../vuex/getters":133,"vue":123,"vue-hot-reload-api":120,"vueify/lib/insert-css":124}],130:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\main.js", module);
 (function(){
 'use strict';
@@ -23460,21 +26210,66 @@ var _App = require('./components/App.vue');
 
 var _App2 = _interopRequireDefault(_App);
 
+var _router = require('./router');
+
+var _router2 = _interopRequireDefault(_router);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(_vueResource2.default);
 
 _vue2.default.http.options.emulateJSON = true;
 
-/* eslint no-new: 0 */
-new _vue2.default({
-  el: 'body',
-  components: { App: _App2.default }
-});
+_router2.default.go('/login');
+_router2.default.start(_App2.default, '#app-root');
 
 }).apply(this, arguments);
 
-},{"./components/App.vue":126,"vue":122,"vue-resource":121}],129:[function(require,module,exports){
+},{"./components/App.vue":127,"./router":131,"vue":123,"vue-resource":121}],131:[function(require,module,exports){
+_hmr["websocket:null"].initModule("src\\router.js", module);
+(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vueRouter = require('vue-router');
+
+var _vueRouter2 = _interopRequireDefault(_vueRouter);
+
+var _Login = require('./components/Login.vue');
+
+var _Login2 = _interopRequireDefault(_Login);
+
+var _CharacterSelect = require('./components/CharacterSelect.vue');
+
+var _CharacterSelect2 = _interopRequireDefault(_CharacterSelect);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vueRouter2.default);
+
+var router = new _vueRouter2.default();
+
+router.map({
+  '/login': {
+    component: _Login2.default
+  },
+  '/charselect': {
+    component: _CharacterSelect2.default
+  }
+});
+
+exports.default = router;
+
+}).apply(this, arguments);
+
+},{"./components/CharacterSelect.vue":128,"./components/Login.vue":129,"vue":123,"vue-router":122}],132:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\vuex\\actions.js", module);
 (function(){
 'use strict';
@@ -23485,6 +26280,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.submitLogin = submitLogin;
 
 var _vue = require('vue');
+
+var _router = require('../router');
+
+var _router2 = _interopRequireDefault(_router);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function submitLogin(store, account, password) {
   var url = 'https://www.f-list.net/json/getApiTicket.php';
@@ -23498,6 +26299,7 @@ function submitLogin(store, account, password) {
       store.dispatch('LOGIN_FAILURE', data.error);
     } else {
       store.dispatch('LOGIN_SUCCESS', data);
+      _router2.default.go('/charselect');
     }
   }).catch(function (_ref2) {
     var data = _ref2.data;
@@ -23508,7 +26310,25 @@ function submitLogin(store, account, password) {
 
 }).apply(this, arguments);
 
-},{"vue":122}],130:[function(require,module,exports){
+},{"../router":131,"vue":123}],133:[function(require,module,exports){
+_hmr["websocket:null"].initModule("src\\vuex\\getters.js", module);
+(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var getLoginStatus = exports.getLoginStatus = function getLoginStatus(state) {
+  return state.loginStatusMessage;
+};
+
+var getUserCharacters = exports.getUserCharacters = function getUserCharacters(state) {
+  return state.userData.characters;
+};
+
+}).apply(this, arguments);
+
+},{}],134:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\vuex\\store.js", module);
 (function(){
 'use strict';
@@ -23532,19 +26352,22 @@ _vue2.default.use(_vuex2.default);
 var state = {
   account: '',
   userData: {},
-  loggedIn: false
+  loggedIn: false,
+  loginStatusMessage: ''
 };
 
 var mutations = {
   LOGIN_REQUEST: function LOGIN_REQUEST(state, account) {
     state.account = account;
+    state.loginStatusMessage = 'Hold on...';
   },
   LOGIN_SUCCESS: function LOGIN_SUCCESS(state, data) {
     state.userData = data;
     state.loggedIn = true;
+    state.loginStatusMessage = 'Success!';
   },
   LOGIN_FAILURE: function LOGIN_FAILURE(state, err) {
-    console.error(err);
+    state.loginStatusMessage = err;
   }
 };
 
@@ -23552,11 +26375,11 @@ exports.default = new _vuex2.default.Store({ state: state, mutations: mutations 
 
 }).apply(this, arguments);
 
-},{"vue":122,"vuex":124}],1:[function(require,module,exports){
+},{"vue":123,"vuex":125}],1:[function(require,module,exports){
 (function(global, _main, moduleDefs, cachedModules, _entries) {
   'use strict';
 
-  var moduleMeta = {"node_modules\\browserify-hmr\\lib\\has.js":{"index":9,"hash":"Hky4QYVrU1+kFHIEuxPy","parents":["node_modules\\browserify-hmr\\lib\\str-set.js","node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\process\\browser.js":{"index":106,"hash":"iMqi6MQHQnIC/EB8UzCx","parents":["node_modules\\vue\\dist\\vue.common.js"]},"node_modules\\vue\\dist\\vue.common.js":{"index":122,"hash":"/4BgqwiN1C7Jn09ssqBV","parents":["src\\vuex\\store.js","src\\vuex\\actions.js","src\\components\\Login.vue","src\\components\\App.vue","src\\main.js"]},"node_modules\\vue-resource\\dist\\vue-resource.common.js":{"index":121,"hash":"G32CaqCO1nQPln2lChmr","parents":["src\\main.js"]},"node_modules\\parseuri\\index.js":{"index":105,"hash":"c/c7XftSI6ClFc9h2jOh","parents":["node_modules\\socket.io-client\\lib\\url.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\socket.io-client\\lib\\url.js":{"index":111,"hash":"/o7EwzytoCiGybsA7pHf","parents":["node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\debug\\browser.js":{"index":82,"hash":"S76q28f1VPJIcCtJn1eq","parents":["node_modules\\socket.io-client\\lib\\url.js","node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-parser\\index.js","node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-client\\lib\\on.js":{"index":109,"hash":"y5MOoFpTKKBHwE8q8jae","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\socket.io-client\\node_modules\\component-emitter\\index.js":{"index":112,"hash":"asxNeKKEYmnxnAxICTS6","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\component-bind\\index.js":{"index":79,"hash":"4yIcVw+afwUsnTQyI0a3","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\to-array\\index.js":{"index":118,"hash":"2EoggafxX+GLXkXiaGjm","parents":["node_modules\\socket.io-client\\lib\\socket.js"]},"node_modules\\socket.io-parser\\is-buffer.js":{"index":115,"hash":"UJBXKAfBg/BkigSZbc3Z","parents":["node_modules\\socket.io-parser\\binary.js","node_modules\\socket.io-parser\\index.js"]},"node_modules\\socket.io-parser\\node_modules\\isarray\\index.js":{"index":116,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\socket.io-parser\\binary.js","node_modules\\socket.io-parser\\index.js"]},"node_modules\\component-emitter\\index.js":{"index":80,"hash":"0uL1LSa/mOj+Llu+HTZ7","parents":["node_modules\\socket.io-parser\\index.js","node_modules\\engine.io-client\\lib\\transport.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\socket.io-parser\\node_modules\\json3\\lib\\json3.js":{"index":117,"hash":"LXnegdmM3ELMiM4tQmqu","parents":["node_modules\\socket.io-parser\\index.js"]},"node_modules\\indexof\\index.js":{"index":101,"hash":"8zMGV0j0ID5bUIeT7r+M","parents":["node_modules\\engine.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\backo2\\index.js":{"index":4,"hash":"L5ry3mfVEw1wgmx9Sa+q","parents":["node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\browserify-hmr\\lib\\str-set.js":{"index":10,"hash":"lcrDmQK4uaqOqN+FV4/9","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arraySome.js":{"index":21,"hash":"GxeJPxJj2jUg5TzV5gLv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayEach.js":{"index":18,"hash":"eLxUBVsb8vpFbu0VN4KL","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayMap.js":{"index":20,"hash":"xdr8c0JsUFapIHTuM5VE","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayFilter.js":{"index":19,"hash":"BGunz0w1QzJXyqQSOdZb","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\vue-hot-reload-api\\index.js":{"index":120,"hash":"f1FdC0AX0Gv6zyDU4qOs","parents":["src\\components\\Login.vue","src\\components\\App.vue"]},"node_modules\\vueify\\lib\\insert-css.js":{"index":123,"hash":"fvTUijA6yyBpp68H+JX2","parents":["src\\components\\Login.vue","src\\components\\App.vue"]},"node_modules\\has-binary\\node_modules\\isarray\\index.js":{"index":99,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\has-binary\\index.js"]},"node_modules\\has-binary\\index.js":{"index":98,"hash":"GofcXFXhXC0uVJvLAw+2","parents":["node_modules\\socket.io-client\\lib\\socket.js"]},"node_modules\\socket.io-client\\lib\\socket.js":{"index":110,"hash":"dZhwrF36uFIGbDZMhss6","parents":["node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-parser\\index.js":{"index":114,"hash":"7PrgORY9faIa3QvXeHjU","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\ms\\index.js":{"index":102,"hash":"HanVKm5AkV6MOdHRAMCT","parents":["node_modules\\debug\\debug.js"]},"node_modules\\debug\\debug.js":{"index":83,"hash":"yqdR7nJc7wxIHzFDNzG+","parents":["node_modules\\debug\\browser.js"]},"node_modules\\socket.io-parser\\binary.js":{"index":113,"hash":"bAee8RukaXwuD/OeGN6F","parents":["node_modules\\socket.io-parser\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isLength.js":{"index":59,"hash":"DFIKI121VzeE+pBbx1Oa","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isObjectLike.js":{"index":60,"hash":"qEGnAWJNoAetOIJ7YKiV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js":{"index":48,"hash":"cp8s+Z6khiKdK5QCQ+Ms","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js":{"index":24,"hash":"FDEmxoh1cXY/hddgPNGW","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js":{"index":29,"hash":"sOLmHH2OosmeW92YaLK/","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js":{"index":75,"hash":"2HfAmVuaVGfc8pd5zIaC","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\identity.js":{"index":77,"hash":"A/cz5O4nnho2x2e5KIWS","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js":{"index":40,"hash":"lCW5AtHn9X2vSuPgS8pk","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js":{"index":26,"hash":"Ji7NLCJhdzSBlpDI+qC3","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIndex.js":{"index":56,"hash":"I8y5AsjL/lwDlORDOqqM","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isObject.js":{"index":69,"hash":"Go+dTLFqO1KJN+uQLb8s","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js":{"index":46,"hash":"iJtWBCzx+bzzSLwlaaRv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js":{"index":66,"hash":"rpMiE1Z199/XZCjno4KN","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js","node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js":{"index":42,"hash":"S6iy1I+53IEzDLSGuW0j","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js":{"index":34,"hash":"ofv2jCE5QlahpynG4rkN","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js":{"index":55,"hash":"76Awthz8ChTgjGk0JZ6Y","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js":{"index":15,"hash":"63n5x8GTiWPuxiZzm9TM","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js":{"index":47,"hash":"KJqijjvJO7d1nU17Sz3c","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\function\\restParam.js":{"index":17,"hash":"/RRH9MCtjArr1p3Qeh63","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js":{"index":43,"hash":"X8R81jvRCofY1BnG+A/L","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js":{"index":57,"hash":"dXMnNRevAizOBisKCEes","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCopy.js":{"index":25,"hash":"WvGi8IywM6u7ZNXvztwg","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js":{"index":23,"hash":"6VX87YoeNgDvMUyiAc/7","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js":{"index":73,"hash":"BbXGNIcfatSp32uWOBAV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js":{"index":22,"hash":"aKBKyfIKqZsNOHAbJTAI","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js":{"index":71,"hash":"9WOhJBREl8AO9Hs6Cr+Q","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js":{"index":27,"hash":"yyvQag4hw8sItBFf3/9T","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js":{"index":13,"hash":"XtU5zjCqSDlYcwOLUC13","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\vuex\\dist\\vuex.js":{"index":124,"hash":"po010WTliwrG7lvrWGF4","parents":["src\\vuex\\store.js"]},"src\\vuex\\store.js":{"index":130,"hash":"a4Ze/LzsV8sxr7+AKDAn","parents":["src\\components\\App.vue"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseProperty.js":{"index":37,"hash":"Yuk2tpof21q0Xl2sQg89","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSlice.js":{"index":39,"hash":"OLgw9XVic1W0AKjehzHB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\array\\last.js":{"index":11,"hash":"3oXXa2idWbKySVLcq3os","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js":{"index":44,"hash":"+5X3Ztm78NNPr9vQZ7fB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js":{"index":52,"hash":"UiZ6F0+nXZ0fiKckTqnM","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js":{"index":63,"hash":"8f3eulB97DddBRdcU+7v","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js":{"index":14,"hash":"0Lo1RNt18PMo/HAKbHEu","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\engine.io-parser\\lib\\keys.js":{"index":95,"hash":"oFyKNTA0twlyQVhVzp9n","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\after\\index.js":{"index":2,"hash":"NzPfXWECmM8rW/6fdkcj","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\arraybuffer.slice\\index.js":{"index":3,"hash":"RSb5Zx9CgX3adjzbvf/k","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\utf8\\utf8.js":{"index":119,"hash":"QFL4wDvbB2+cEph5nThH","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\blob\\index.js":{"index":6,"hash":"q7L6uHK9eN9yEvDVNxJw","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\base64-arraybuffer\\lib\\base64-arraybuffer.js":{"index":5,"hash":"dW6cnktjBIyZ6bv9vRp2","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\parseqs\\index.js":{"index":104,"hash":"FI4tRELwI5Itz+ckwR+m","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\parsejson\\index.js":{"index":103,"hash":"3RLuznQNKZiQ/toCXNir","parents":["node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js":{"index":58,"hash":"lDpw5crcRmTRExTLVTKc","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js":{"index":38,"hash":"mqX1OyYdndJ183lyl/sn","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js":{"index":30,"hash":"H9EiMd3ullQpRkvooLgz","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js":{"index":64,"hash":"faVQvsb+LSLI4uaMgtrQ","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js":{"index":78,"hash":"7IoOI/uGZCxbcY23uQDK","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js":{"index":33,"hash":"EpuJzlg204aR35T4QKcS","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js":{"index":31,"hash":"dBgoFXnhj9KH6oX3dQwa","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js":{"index":61,"hash":"ofNP4/nFrz5Rkb3kGOhn","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseToString.js":{"index":41,"hash":"ABFQFf14pRECi3sw8oKV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js":{"index":45,"hash":"9RWlFaBOuelvwgkhYgPG","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js":{"index":28,"hash":"NGxcZ0n01+w2G1PzyBlY","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js"]},"node_modules\\engine.io-parser\\node_modules\\isarray\\index.js":{"index":97,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js"]},"node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js":{"index":96,"hash":"ZLLgu+QfLGB5FJs6P2Ow","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\engine.io-parser\\lib\\browser.js":{"index":94,"hash":"6A2jdV+cDrzwkG+1P9xX","parents":["node_modules\\engine.io-client\\lib\\transport.js","node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js","node_modules\\engine.io-client\\lib\\index.js"]},"node_modules\\engine.io-client\\lib\\transport.js":{"index":87,"hash":"qAS1jC8gVTG4yb/AanoB","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\browser-resolve\\empty.js":{"index":7,"hash":"47DEQpj8HBSa+/TImW+5","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js":{"index":67,"hash":"xkfzrZNZPGGOIf0kE8Y9","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js":{"index":68,"hash":"2rstaALy1DW0JSDdijps","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js":{"index":54,"hash":"7GRZ7115BSuoc/1bdaBK","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js":{"index":12,"hash":"fKfSwIzPo5SUx9d0DkgN","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js":{"index":76,"hash":"x6Ilwx8encvg/BW5API2","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js":{"index":53,"hash":"n0PHWhNs6YZ+DzgYMHPx","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js":{"index":35,"hash":"Cwj5GSiQv9/E8nSFBoX2","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalByTag.js":{"index":50,"hash":"+y++gesJpPvyM+2E8aNB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js":{"index":65,"hash":"xQ4mqbsKQMCmtsPbfQc6","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js":{"index":74,"hash":"8POZiGR1fRHso579G46Z","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js":{"index":62,"hash":"oO4aKopmxRfPxyKgRX9F","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js":{"index":72,"hash":"LZ77PzuJW/wlgVPdvlGc","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\has-cors\\index.js":{"index":100,"hash":"HwTb4UF/S089ZYA8hrRl","parents":["node_modules\\engine.io-client\\lib\\xmlhttprequest.js"]},"node_modules\\engine.io-client\\lib\\xmlhttprequest.js":{"index":93,"hash":"us0FsN5s7hiT3hqVV5lx","parents":["node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\component-inherit\\index.js":{"index":81,"hash":"T0Fqch4d4akvlr8bh7lc","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js"]},"node_modules\\yeast\\index.js":{"index":125,"hash":"ZM3+5w4l/D2f6x7svySF","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js"]},"node_modules\\engine.io-client\\lib\\transports\\websocket.js":{"index":92,"hash":"HfpLTMBIovfNVzW2AUtb","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js":{"index":90,"hash":"jZ3ocO8rHG1K39sNZtMM","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\polling.js":{"index":91,"hash":"vdgStJPJzZrXTQesqN8z","parents":["node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js":{"index":49,"hash":"OBJL6vuaOotu5flUeCnv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js":{"index":51,"hash":"44Iy49kDcaAZsykEdaH3","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js":{"index":70,"hash":"aVeZyIFGadrEh7EsaDRu","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js":{"index":32,"hash":"ltZZaMHmzp6d9jBltV3Y","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js":{"index":36,"hash":"OudnSoeq2A4ql5lg51kc","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js":{"index":16,"hash":"9JyJFfdCx56pmR6fwM9q","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\inc\\index.js":{"index":8,"hash":"zTlNWZ14iIh89mO0UkaY","parents":[]},"node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js":{"index":89,"hash":"Gb1vE1gV8jcH9l3Z6/bT","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\index.js":{"index":88,"hash":"GTfOTTHr8n5FqdkZq1ur","parents":["node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\engine.io-client\\lib\\socket.js":{"index":86,"hash":"OKrqAAXxHzyJ1GLXZsq5","parents":["node_modules\\engine.io-client\\lib\\index.js"]},"node_modules\\engine.io-client\\lib\\index.js":{"index":85,"hash":"G6QYuSNu0EcS+G5tR9NE","parents":["node_modules\\engine.io-client\\index.js"]},"node_modules\\engine.io-client\\index.js":{"index":84,"hash":"HQau4MkD4lAynB9tt0Wl","parents":["node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\socket.io-client\\lib\\manager.js":{"index":108,"hash":"ycazfyz0LQGPtd/P1Ih9","parents":["node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-client\\lib\\index.js":{"index":107,"hash":"6O21Z/SJToLoAyfVkS1+","parents":[]},"src\\vuex\\actions.js":{"index":129,"hash":"cMfl0PyUQMAg3gj+O525","parents":["src\\components\\Login.vue"]},"src\\components\\Login.vue":{"index":127,"hash":"JFQZChmHUB7FUEHh7Qh7","parents":["src\\components\\App.vue"]},"src\\components\\App.vue":{"index":126,"hash":"3D6dYd584hkqWhORj3Rl","parents":["src\\main.js"]},"src\\main.js":{"index":128,"hash":"1U+T1afNgZ94b34FQp19","parents":[]}};
+  var moduleMeta = {"node_modules\\browserify-hmr\\lib\\has.js":{"index":9,"hash":"Hky4QYVrU1+kFHIEuxPy","parents":["node_modules\\browserify-hmr\\lib\\str-set.js","node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\vue-resource\\dist\\vue-resource.common.js":{"index":121,"hash":"G32CaqCO1nQPln2lChmr","parents":["src\\main.js"]},"node_modules\\process\\browser.js":{"index":106,"hash":"iMqi6MQHQnIC/EB8UzCx","parents":["node_modules\\vue\\dist\\vue.common.js"]},"node_modules\\vue\\dist\\vue.common.js":{"index":123,"hash":"/4BgqwiN1C7Jn09ssqBV","parents":["src\\vuex\\store.js","src\\components\\App.vue","src\\vuex\\actions.js","src\\components\\Login.vue","src\\components\\CharacterSelect.vue","src\\router.js","src\\main.js"]},"node_modules\\parseuri\\index.js":{"index":105,"hash":"c/c7XftSI6ClFc9h2jOh","parents":["node_modules\\socket.io-client\\lib\\url.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\socket.io-client\\lib\\url.js":{"index":111,"hash":"/o7EwzytoCiGybsA7pHf","parents":["node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\debug\\browser.js":{"index":82,"hash":"S76q28f1VPJIcCtJn1eq","parents":["node_modules\\socket.io-client\\lib\\url.js","node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-parser\\index.js","node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-client\\lib\\on.js":{"index":109,"hash":"y5MOoFpTKKBHwE8q8jae","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\socket.io-client\\node_modules\\component-emitter\\index.js":{"index":112,"hash":"asxNeKKEYmnxnAxICTS6","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\component-bind\\index.js":{"index":79,"hash":"4yIcVw+afwUsnTQyI0a3","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\to-array\\index.js":{"index":118,"hash":"2EoggafxX+GLXkXiaGjm","parents":["node_modules\\socket.io-client\\lib\\socket.js"]},"node_modules\\socket.io-parser\\is-buffer.js":{"index":115,"hash":"UJBXKAfBg/BkigSZbc3Z","parents":["node_modules\\socket.io-parser\\binary.js","node_modules\\socket.io-parser\\index.js"]},"node_modules\\socket.io-parser\\node_modules\\isarray\\index.js":{"index":116,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\socket.io-parser\\binary.js","node_modules\\socket.io-parser\\index.js"]},"node_modules\\component-emitter\\index.js":{"index":80,"hash":"0uL1LSa/mOj+Llu+HTZ7","parents":["node_modules\\socket.io-parser\\index.js","node_modules\\engine.io-client\\lib\\transport.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\socket.io-parser\\node_modules\\json3\\lib\\json3.js":{"index":117,"hash":"LXnegdmM3ELMiM4tQmqu","parents":["node_modules\\socket.io-parser\\index.js"]},"node_modules\\indexof\\index.js":{"index":101,"hash":"8zMGV0j0ID5bUIeT7r+M","parents":["node_modules\\engine.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\backo2\\index.js":{"index":4,"hash":"L5ry3mfVEw1wgmx9Sa+q","parents":["node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\browserify-hmr\\lib\\str-set.js":{"index":10,"hash":"lcrDmQK4uaqOqN+FV4/9","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayFilter.js":{"index":19,"hash":"BGunz0w1QzJXyqQSOdZb","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayMap.js":{"index":20,"hash":"xdr8c0JsUFapIHTuM5VE","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayEach.js":{"index":18,"hash":"eLxUBVsb8vpFbu0VN4KL","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arraySome.js":{"index":21,"hash":"GxeJPxJj2jUg5TzV5gLv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js"]},"node_modules\\vue-hot-reload-api\\index.js":{"index":120,"hash":"f1FdC0AX0Gv6zyDU4qOs","parents":["src\\components\\App.vue","src\\components\\Login.vue","src\\components\\CharacterSelect.vue"]},"node_modules\\vueify\\lib\\insert-css.js":{"index":124,"hash":"fvTUijA6yyBpp68H+JX2","parents":["src\\components\\App.vue","src\\components\\Login.vue","src\\components\\CharacterSelect.vue"]},"node_modules\\vue-router\\dist\\vue-router.js":{"index":122,"hash":"rqGwUo92D6Cv9jhBr04K","parents":["src\\router.js"]},"node_modules\\has-binary\\node_modules\\isarray\\index.js":{"index":99,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\has-binary\\index.js"]},"node_modules\\has-binary\\index.js":{"index":98,"hash":"GofcXFXhXC0uVJvLAw+2","parents":["node_modules\\socket.io-client\\lib\\socket.js"]},"node_modules\\socket.io-client\\lib\\socket.js":{"index":110,"hash":"dZhwrF36uFIGbDZMhss6","parents":["node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-parser\\index.js":{"index":114,"hash":"7PrgORY9faIa3QvXeHjU","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\ms\\index.js":{"index":102,"hash":"HanVKm5AkV6MOdHRAMCT","parents":["node_modules\\debug\\debug.js"]},"node_modules\\debug\\debug.js":{"index":83,"hash":"yqdR7nJc7wxIHzFDNzG+","parents":["node_modules\\debug\\browser.js"]},"node_modules\\socket.io-parser\\binary.js":{"index":113,"hash":"bAee8RukaXwuD/OeGN6F","parents":["node_modules\\socket.io-parser\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isLength.js":{"index":59,"hash":"DFIKI121VzeE+pBbx1Oa","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isObjectLike.js":{"index":60,"hash":"qEGnAWJNoAetOIJ7YKiV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js":{"index":48,"hash":"cp8s+Z6khiKdK5QCQ+Ms","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js":{"index":24,"hash":"FDEmxoh1cXY/hddgPNGW","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js":{"index":29,"hash":"sOLmHH2OosmeW92YaLK/","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js":{"index":75,"hash":"2HfAmVuaVGfc8pd5zIaC","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\identity.js":{"index":77,"hash":"A/cz5O4nnho2x2e5KIWS","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js":{"index":27,"hash":"yyvQag4hw8sItBFf3/9T","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js":{"index":26,"hash":"Ji7NLCJhdzSBlpDI+qC3","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js":{"index":46,"hash":"iJtWBCzx+bzzSLwlaaRv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js":{"index":66,"hash":"rpMiE1Z199/XZCjno4KN","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js","node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js":{"index":42,"hash":"S6iy1I+53IEzDLSGuW0j","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js":{"index":47,"hash":"KJqijjvJO7d1nU17Sz3c","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\function\\restParam.js":{"index":17,"hash":"/RRH9MCtjArr1p3Qeh63","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js":{"index":43,"hash":"X8R81jvRCofY1BnG+A/L","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js":{"index":57,"hash":"dXMnNRevAizOBisKCEes","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js":{"index":22,"hash":"aKBKyfIKqZsNOHAbJTAI","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js":{"index":73,"hash":"BbXGNIcfatSp32uWOBAV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCopy.js":{"index":25,"hash":"WvGi8IywM6u7ZNXvztwg","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js":{"index":23,"hash":"6VX87YoeNgDvMUyiAc/7","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js":{"index":71,"hash":"9WOhJBREl8AO9Hs6Cr+Q","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js":{"index":40,"hash":"lCW5AtHn9X2vSuPgS8pk","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIndex.js":{"index":56,"hash":"I8y5AsjL/lwDlORDOqqM","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isObject.js":{"index":69,"hash":"Go+dTLFqO1KJN+uQLb8s","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js":{"index":55,"hash":"76Awthz8ChTgjGk0JZ6Y","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js":{"index":16,"hash":"9JyJFfdCx56pmR6fwM9q","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\vuex\\dist\\vuex.js":{"index":125,"hash":"po010WTliwrG7lvrWGF4","parents":["src\\vuex\\store.js"]},"src\\vuex\\store.js":{"index":134,"hash":"HhMyfyG1aEWj+Ltt6gOu","parents":["src\\components\\App.vue"]},"src\\components\\App.vue":{"index":127,"hash":"3MG5KOeu8FqzAWwap5ZL","parents":["src\\main.js"]},"src\\vuex\\getters.js":{"index":133,"hash":"yksThLoR6MiOPCU+kW9M","parents":["src\\components\\Login.vue","src\\components\\CharacterSelect.vue"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseProperty.js":{"index":37,"hash":"Yuk2tpof21q0Xl2sQg89","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSlice.js":{"index":39,"hash":"OLgw9XVic1W0AKjehzHB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\array\\last.js":{"index":11,"hash":"3oXXa2idWbKySVLcq3os","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js":{"index":44,"hash":"+5X3Ztm78NNPr9vQZ7fB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js":{"index":52,"hash":"UiZ6F0+nXZ0fiKckTqnM","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js":{"index":63,"hash":"8f3eulB97DddBRdcU+7v","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js":{"index":14,"hash":"0Lo1RNt18PMo/HAKbHEu","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"src\\vuex\\actions.js":{"index":132,"hash":"uxwFZPirIisvxc/nH+yo","parents":["src\\components\\Login.vue"]},"src\\router.js":{"index":131,"hash":"W+/DiiVb+pLQpq0QncdZ","parents":["src\\vuex\\actions.js","src\\main.js"]},"src\\components\\Login.vue":{"index":129,"hash":"cXwNbLmfUDPI0eSvVPeC","parents":["src\\router.js"]},"node_modules\\engine.io-parser\\lib\\keys.js":{"index":95,"hash":"oFyKNTA0twlyQVhVzp9n","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\utf8\\utf8.js":{"index":119,"hash":"QFL4wDvbB2+cEph5nThH","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\arraybuffer.slice\\index.js":{"index":3,"hash":"RSb5Zx9CgX3adjzbvf/k","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\after\\index.js":{"index":2,"hash":"NzPfXWECmM8rW/6fdkcj","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\blob\\index.js":{"index":6,"hash":"q7L6uHK9eN9yEvDVNxJw","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\base64-arraybuffer\\lib\\base64-arraybuffer.js":{"index":5,"hash":"dW6cnktjBIyZ6bv9vRp2","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\parsejson\\index.js":{"index":103,"hash":"3RLuznQNKZiQ/toCXNir","parents":["node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\parseqs\\index.js":{"index":104,"hash":"FI4tRELwI5Itz+ckwR+m","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js":{"index":58,"hash":"lDpw5crcRmTRExTLVTKc","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js":{"index":38,"hash":"mqX1OyYdndJ183lyl/sn","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js":{"index":30,"hash":"H9EiMd3ullQpRkvooLgz","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js":{"index":64,"hash":"faVQvsb+LSLI4uaMgtrQ","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js":{"index":78,"hash":"7IoOI/uGZCxbcY23uQDK","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js":{"index":33,"hash":"EpuJzlg204aR35T4QKcS","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js":{"index":31,"hash":"dBgoFXnhj9KH6oX3dQwa","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js":{"index":61,"hash":"ofNP4/nFrz5Rkb3kGOhn","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseToString.js":{"index":41,"hash":"ABFQFf14pRECi3sw8oKV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js":{"index":34,"hash":"ofv2jCE5QlahpynG4rkN","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js":{"index":15,"hash":"63n5x8GTiWPuxiZzm9TM","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js":{"index":45,"hash":"9RWlFaBOuelvwgkhYgPG","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js":{"index":28,"hash":"NGxcZ0n01+w2G1PzyBlY","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js"]},"node_modules\\engine.io-parser\\node_modules\\isarray\\index.js":{"index":97,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js"]},"node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js":{"index":96,"hash":"ZLLgu+QfLGB5FJs6P2Ow","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\engine.io-parser\\lib\\browser.js":{"index":94,"hash":"6A2jdV+cDrzwkG+1P9xX","parents":["node_modules\\engine.io-client\\lib\\transport.js","node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js","node_modules\\engine.io-client\\lib\\index.js"]},"node_modules\\engine.io-client\\lib\\transport.js":{"index":87,"hash":"qAS1jC8gVTG4yb/AanoB","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\browser-resolve\\empty.js":{"index":7,"hash":"47DEQpj8HBSa+/TImW+5","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js":{"index":67,"hash":"xkfzrZNZPGGOIf0kE8Y9","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js":{"index":68,"hash":"2rstaALy1DW0JSDdijps","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js":{"index":54,"hash":"7GRZ7115BSuoc/1bdaBK","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js":{"index":12,"hash":"fKfSwIzPo5SUx9d0DkgN","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js":{"index":76,"hash":"x6Ilwx8encvg/BW5API2","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js":{"index":53,"hash":"n0PHWhNs6YZ+DzgYMHPx","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js":{"index":35,"hash":"Cwj5GSiQv9/E8nSFBoX2","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalByTag.js":{"index":50,"hash":"+y++gesJpPvyM+2E8aNB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js":{"index":65,"hash":"xQ4mqbsKQMCmtsPbfQc6","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js":{"index":74,"hash":"8POZiGR1fRHso579G46Z","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js":{"index":62,"hash":"oO4aKopmxRfPxyKgRX9F","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js":{"index":72,"hash":"LZ77PzuJW/wlgVPdvlGc","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\has-cors\\index.js":{"index":100,"hash":"HwTb4UF/S089ZYA8hrRl","parents":["node_modules\\engine.io-client\\lib\\xmlhttprequest.js"]},"node_modules\\engine.io-client\\lib\\xmlhttprequest.js":{"index":93,"hash":"us0FsN5s7hiT3hqVV5lx","parents":["node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\component-inherit\\index.js":{"index":81,"hash":"T0Fqch4d4akvlr8bh7lc","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js"]},"node_modules\\yeast\\index.js":{"index":126,"hash":"ZM3+5w4l/D2f6x7svySF","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js"]},"node_modules\\engine.io-client\\lib\\transports\\websocket.js":{"index":92,"hash":"HfpLTMBIovfNVzW2AUtb","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js":{"index":90,"hash":"jZ3ocO8rHG1K39sNZtMM","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\polling.js":{"index":91,"hash":"vdgStJPJzZrXTQesqN8z","parents":["node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js":{"index":49,"hash":"OBJL6vuaOotu5flUeCnv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js":{"index":51,"hash":"44Iy49kDcaAZsykEdaH3","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js":{"index":70,"hash":"aVeZyIFGadrEh7EsaDRu","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js":{"index":32,"hash":"ltZZaMHmzp6d9jBltV3Y","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js":{"index":36,"hash":"OudnSoeq2A4ql5lg51kc","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js":{"index":13,"hash":"XtU5zjCqSDlYcwOLUC13","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\inc\\index.js":{"index":8,"hash":"zTlNWZ14iIh89mO0UkaY","parents":[]},"node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js":{"index":89,"hash":"Gb1vE1gV8jcH9l3Z6/bT","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\index.js":{"index":88,"hash":"GTfOTTHr8n5FqdkZq1ur","parents":["node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\engine.io-client\\lib\\socket.js":{"index":86,"hash":"OKrqAAXxHzyJ1GLXZsq5","parents":["node_modules\\engine.io-client\\lib\\index.js"]},"node_modules\\engine.io-client\\lib\\index.js":{"index":85,"hash":"G6QYuSNu0EcS+G5tR9NE","parents":["node_modules\\engine.io-client\\index.js"]},"node_modules\\engine.io-client\\index.js":{"index":84,"hash":"HQau4MkD4lAynB9tt0Wl","parents":["node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\socket.io-client\\lib\\manager.js":{"index":108,"hash":"ycazfyz0LQGPtd/P1Ih9","parents":["node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-client\\lib\\index.js":{"index":107,"hash":"6O21Z/SJToLoAyfVkS1+","parents":[]},"src\\components\\CharacterSelect.vue":{"index":128,"hash":"5pgn1DsVNXwuSBfW74Yx","parents":["src\\router.js"]},"src\\main.js":{"index":130,"hash":"al9uSVsMbFweAYzluMcj","parents":[]}};
   var originalEntries = ["E:\\Kingdaro\\Projects\\web\\fchat\\src\\main.js"];
   var updateUrl = null;
   var updateMode = "websocket";
@@ -23600,4 +26423,4 @@ exports.default = new _vuex2.default.Store({ state: state, mutations: mutations 
   arguments[3], arguments[4], arguments[5], arguments[6]
 );
 
-},{"./node_modules\\browserify-hmr\\inc\\index.js":8,"./node_modules\\socket.io-client\\lib\\index.js":107,"E:\\Kingdaro\\Projects\\web\\fchat\\src\\main.js":128}]},{},[1]);
+},{"./node_modules\\browserify-hmr\\inc\\index.js":8,"./node_modules\\socket.io-client\\lib\\index.js":107,"E:\\Kingdaro\\Projects\\web\\fchat\\src\\main.js":130}]},{},[1]);

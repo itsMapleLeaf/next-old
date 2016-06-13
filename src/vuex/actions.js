@@ -1,4 +1,5 @@
 import {http} from 'vue'
+import router from '../router'
 
 export function submitLogin (store, account, password) {
   const url = 'https://www.f-list.net/json/getApiTicket.php'
@@ -11,6 +12,7 @@ export function submitLogin (store, account, password) {
         store.dispatch('LOGIN_FAILURE', data.error)
       } else {
         store.dispatch('LOGIN_SUCCESS', data)
+        router.go('/charselect')
       }
     })
     .catch(({ data }) => {

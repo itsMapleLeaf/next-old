@@ -12,7 +12,7 @@
         <button action="submit">Go</button>
       </fieldset>
       <fieldset>
-        <p>Status Text...</p>
+        <p>{{ getLoginStatus }}</p>
       </fieldset>
     </form>
   </div>
@@ -20,6 +20,7 @@
 
 <script>
 import {submitLogin} from '../vuex/actions'
+import {getLoginStatus} from '../vuex/getters'
 
 export default {
   data () {
@@ -32,6 +33,9 @@ export default {
   vuex: {
     actions: {
       submitLogin
+    },
+    getters: {
+      getLoginStatus
     }
   }
 }
@@ -40,18 +44,19 @@ export default {
 <style lang="stylus" scoped>
 @import '../styles/base'
 @import '../styles/variables'
-@import '../styles/components'
+@import '../styles/mixins'
 
 .container
   position: fixed 0
   box: middle center
   text-align: center
-  // background: rgba(0, 0, 0, 0.3)
+  background: rgba(0, 0, 0, 0.3)
 
 form
   width: 300px
   background: fg-color
   padding: 30px 30px
+  shadow()
 
 p
   text-align: center

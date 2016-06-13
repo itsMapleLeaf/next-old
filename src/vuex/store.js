@@ -6,21 +6,24 @@ Vue.use(Vuex)
 const state = {
   account: '',
   userData: {},
-  loggedIn: false
+  loggedIn: false,
+  loginStatusMessage: ''
 }
 
 const mutations = {
   LOGIN_REQUEST (state, account) {
     state.account = account
+    state.loginStatusMessage = 'Hold on...'
   },
 
   LOGIN_SUCCESS (state, data) {
     state.userData = data
     state.loggedIn = true
+    state.loginStatusMessage = 'Success!'
   },
 
   LOGIN_FAILURE (state, err) {
-    console.error(err)
+    state.loginStatusMessage = err
   }
 }
 
