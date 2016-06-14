@@ -11,10 +11,15 @@ const state = {
   character: '',
   socket: null,
   channelList: [],
-  joinedChannels: []
+  joinedChannels: [],
+  currentOverlay: 'login'
 }
 
 const mutations = {
+  SET_OVERLAY (state, overlay) {
+    state.currentOverlay = overlay
+  },
+
   LOGIN_REQUEST (state, account) {
     state.account = account
     state.loginStatusMessage = 'Hold on...'

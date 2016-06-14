@@ -1,26 +1,35 @@
 <template>
-  <div class='container'>
-    <router-view></router-view>
+  <div class='container bg-color'>
+    <chat></chat>
+    <component :is='getCurrentOverlay'></component>
   </div>
 </template>
 
 <script>
 import Chat from './Chat.vue'
-import store from '../vuex/store'
+import Login from './Login.vue'
+import CharacterSelect from './CharacterSelect.vue'
+import {getCurrentOverlay} from '../vuex/getters'
 
 export default {
   components: {
-    Chat
+    Chat,
+    Login,
+    CharacterSelect
   },
-  store
+  vuex: {
+    getters: {
+      getCurrentOverlay
+    }
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
 @import '../styles/base'
 @import '../styles/variables'
+@import '../styles/components'
 
 .container
   position: fixed 0
-  background: bg-color
 </style>

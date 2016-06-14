@@ -18,3 +18,6 @@ export const getAccount =
 
 export const getApiTicket =
   state => state.loginData.ticket
+
+export const getCurrentOverlay =
+  state => state.currentOverlay

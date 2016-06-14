@@ -1,38 +1,53 @@
 <template>
   <div class='overlay-shade'>
-    <form class='panel material-shadow' @submit.prevent='submitLogin(username, password)'>
+    <div class='panel material-shadow'>
       <h1>Login</h1>
-      <fieldset>
-        <input type="text" placeholder="Username" v-model="username">
-      </fieldset>
-      <fieldset>
-        <input type="password" placeholder="Password" v-model="password">
-      </fieldset>
-      <fieldset>
-        <button action="submit">Go</button>
-      </fieldset>
-      <fieldset>
-        <p>{{ getLoginStatus }}</p>
-      </fieldset>
-    </form>
+      <form @submit.prevent='submit'>
+        <fieldset>
+          <input type="text" placeholder="Username" v-model="username"  :disabled='disabled'>
+        </fieldset>
+        <fieldset>
+          <input type="password" placeholder="Password" v-model="password"  :disabled='disabled'>
+        </fieldset>
+        <fieldset>
+          <button action="submit" :disabled='disabled'>Go</button>
+        </fieldset>
+      </form>
+      <center>{{ getLoginStatus }}</center>
+    </div>
   </div>
 </template>
 
 <script>
-import {submitLogin} from '../vuex/actions'
+import {submitLogin, setCurrentOverlay} from '../vuex/actions'
 import {getLoginStatus} from '../vuex/getters'
 
 export default {
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      disabled: false,
+    }
+  },
+
+  methods: {
+    submit () {
+      this.submitLogin(this.username, this.password)
+      .then(() => {
+        this.setCurrentOverlay('character-select')
+        this.username = this.password = ''
+      })
+      .catch(() => this.disabled = false)
+
+      this.disabled = true
     }
   },
 
   vuex: {
     actions: {
-      submitLogin
+      submitLogin,
+      setCurrentOverlay
     },
     getters: {
       getLoginStatus
@@ -44,7 +59,4 @@ export default {
 <style lang="stylus" scoped>
 @import '../styles/base'
 @import '../styles/components'
-
-p
-  text-align: center
 </style>
