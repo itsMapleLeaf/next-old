@@ -36,3 +36,7 @@ export function connectToChatServer (store) {
 export function setCurrentOverlay (store, overlay) {
   store.dispatch('SET_OVERLAY', overlay)
 }
+
+export function joinChannel (store, id, name) {
+  store.dispatch('CHANNEL_JOIN_REQUEST', id, name)
+}

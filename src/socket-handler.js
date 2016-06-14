@@ -147,6 +147,16 @@ export default class SocketHandler {
         store.dispatch('SET_PRIVATE_CHANNEL_LIST', params.channels)
         break
 
+      // receiving initial channel information
+      case 'ICH':
+        const namelist = params.users.map(({identity}) => identity)
+        store.dispatch('CHANNEL_JOIN_SUCCESS', params.channel, namelist, params.mode)
+        break
+
+      // user joined one of our channels (could be us)
+      // case 'JCH':
+      //   break
+
       default:
         console.warn(`Unknown command ${command} with params:\n`, inspect(params, { depth: null }))
     }
@@ -155,5 +165,10 @@ export default class SocketHandler {
   fetchChannelList () {
     this.ws.send('CHA')
     this.ws.send('ORS')
+  }
+
+  joinChannel (channel) {
+    const params = JSON.stringify({ channel })
+    this.ws.send(`JCH ${params}`)
   }
 }

@@ -28,8 +28,8 @@
 <script>
 import SelectionList from './SelectionList.vue'
 import SelectionListItem from './SelectionListItem.vue'
-import {getAllChannels} from '../vuex/getters'
-import {setCurrentOverlay} from '../vuex/actions'
+import {getAllChannels, getJoinedChannels} from '../vuex/getters'
+import {setCurrentOverlay, joinChannel} from '../vuex/actions'
 import fuzzysearch from 'fuzzysearch'
 
 export default {
@@ -40,8 +40,7 @@ export default {
 
   data () {
     return {
-      searchQuery: '',
-      joinedChannels: {}
+      searchQuery: ''
     }
   },
 
@@ -62,11 +61,13 @@ export default {
     },
 
     toggleChannel (info) {
-      this.$set(`joinedChannels["${info.name}"]`, !this.joinedChannels[info.name])
+      if (!this.isJoined(info)) {
+        this.joinChannel(info.name, info.title)
+      }
     },
 
     isJoined (info) {
-      return this.joinedChannels[info.name]
+      return this.getJoinedChannels[info.name]
     },
 
     closeOverlay () {
@@ -76,10 +77,12 @@ export default {
 
   vuex: {
     getters: {
-      getAllChannels
+      getAllChannels,
+      getJoinedChannels
     },
     actions: {
-      setCurrentOverlay
+      setCurrentOverlay,
+      joinChannel
     }
   }
 }

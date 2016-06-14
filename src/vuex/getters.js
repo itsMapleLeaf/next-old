@@ -19,3 +19,5 @@ export const getCurrentOverlay = state => state.currentOverlay
 export const getAllChannels = state =>
   state.publicChannels.concat(state.privateChannels)
 
+export const getJoinedChannels = state => state.joinedChannels
+

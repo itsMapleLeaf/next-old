@@ -11,6 +11,9 @@ const state = {
   publicChannels: [],
   privateChannels: [],
   joinedChannels: [],
+  currentChannelIndex: 0,
+
+  socket: null,
   serverVariables: {},
 
   character: '',
@@ -54,7 +57,9 @@ const mutations = {
 
   CHAT_IDENTIFY_REQUEST (state) {},
 
-  CHAT_IDENTIFY_SUCCESS (state) {},
+  CHAT_IDENTIFY_SUCCESS (state, socket) {
+    state.socket = socket
+  },
 
   SET_SERVER_VARIABLE (state, key, value) {
     state.serverVariables[key] = value
@@ -96,6 +101,24 @@ const mutations = {
 
   SET_PRIVATE_CHANNEL_LIST (state, channels) {
     state.privateChannels = channels.slice().sort(compareChannels)
+  },
+
+  CHANNEL_JOIN_REQUEST (state, id, name = id) {
+    state.joinedChannels.push({
+      id, name,
+      status: 'joining',
+      mode: 'both',
+      characters: [],
+      messages: []
+    })
+    state.socket.joinChannel(id)
+  },
+
+  CHANNEL_JOIN_SUCCESS (state, id, namelist, mode) {
+    const channel = state.joinedChannels.find(ch => ch.id === id)
+    const characters = namelist.map(name => state.onlineCharacters[name])
+    channel.mode = mode
+    channel.characters = characters
   }
 }
 
