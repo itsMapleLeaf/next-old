@@ -2,7 +2,7 @@
   <div class='overlay-shade'>
     <div class='panel material-shadow'>
       <h1>Channel List</h1>
-      <form>
+      <form @submit.prevent='closeOverlay'>
         <fieldset>
           <selection-list>
             <selection-list-item class='row' v-for='info in filteredChannels' @click='toggleChannel(info)' :selected='isJoined(info)'>
@@ -29,6 +29,7 @@
 import SelectionList from './SelectionList.vue'
 import SelectionListItem from './SelectionListItem.vue'
 import {getAllChannels} from '../vuex/getters'
+import {setCurrentOverlay} from '../vuex/actions'
 import fuzzysearch from 'fuzzysearch'
 
 export default {
@@ -66,12 +67,19 @@ export default {
 
     isJoined (info) {
       return this.joinedChannels[info.name]
+    },
+
+    closeOverlay () {
+      this.setCurrentOverlay('')
     }
   },
 
   vuex: {
     getters: {
       getAllChannels
+    },
+    actions: {
+      setCurrentOverlay
     }
   }
 }
