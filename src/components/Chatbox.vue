@@ -1,7 +1,7 @@
 <template>
   <textarea
-    placeholder="Chatting as {{getCharacterName}}..."
     v-model='input'
+    :placeholder="calculatePlaceholder()"
     :style="calculateStyle()"></textarea>
 </template>
 
@@ -19,6 +19,14 @@ export default {
     calculateStyle () {
       return {
         fontStyle: this.input.length === 0 ? 'italic' : 'inherit'
+      }
+    },
+
+    calculatePlaceholder () {
+      if (this.getCharacterName === '') {
+        return 'Not chatting quite yet...'
+      } else {
+        return `Chatting as ${this.getCharacterName}...`
       }
     }
   },

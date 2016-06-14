@@ -12,3 +12,9 @@ export const getDefaultCharacter =
 
 export const getCharacterName =
   state => state.character
+
+export const getAccount =
+  state => state.account
+
+export const getApiTicket =
+  state => state.userData.ticket

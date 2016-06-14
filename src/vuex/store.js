@@ -8,7 +8,8 @@ const state = {
   userData: {},
   loggedIn: false,
   loginStatusMessage: '',
-  character: ''
+  character: '',
+  socket: null
 }
 
 const mutations = {
@@ -29,7 +30,26 @@ const mutations = {
 
   CHOOSE_CHARACTER (state, char) {
     state.character = char
-  }
+  },
+
+  CONNECT_REQUEST (state) {},
+
+  SOCKET_OPENED (state, socket) {
+    state.socket = socket
+  },
+
+  SOCKET_CLOSED (state) {
+    state.socket = null
+  },
+
+  SOCKET_ERROR (state, err) {
+    state.socket = null
+    state.loginStatusMessage = err
+  },
+
+  CHAT_IDENTIFY_REQUEST (state) {},
+
+  CHAT_IDENTIFY_SUCCESS (state) {}
 }
 
 export default new Vuex.Store({ state, mutations })

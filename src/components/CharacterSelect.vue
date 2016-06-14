@@ -26,7 +26,7 @@
 import SelectionList from './SelectionList.vue'
 import SelectionListItem from './SelectionListItem.vue'
 import {getUserCharacters, getDefaultCharacter} from '../vuex/getters'
-import {chooseCharacter} from '../vuex/actions'
+import {chooseCharacter, connectToChatServer} from '../vuex/actions'
 import router from '../router'
 
 export default {
@@ -48,13 +48,15 @@ export default {
 
     submit () {
       this.chooseCharacter(this.selectedCharacter)
-      router.go('/chat')
+      this.connectToChatServer()
+      router.go('/')
     }
   },
 
   vuex: {
     actions: {
-      chooseCharacter
+      chooseCharacter,
+      connectToChatServer
     },
     getters: {
       getUserCharacters,
