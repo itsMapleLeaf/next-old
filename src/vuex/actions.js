@@ -26,13 +26,11 @@ export function submitLogin (store, account, password) {
 
 export function chooseCharacter (store, char) {
   store.dispatch('CHOOSE_CHARACTER', char)
-  setCurrentOverlay(store, '')
 }
 
 export function connectToChatServer (store) {
   /* eslint no-new: 0 */
-  new SocketHandler('main')
-  store.dispatch('CONNECT_REQUEST')
+  return new SocketHandler().connect('main')
 }
 
 export function setCurrentOverlay (store, overlay) {

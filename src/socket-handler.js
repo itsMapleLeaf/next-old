@@ -10,19 +10,39 @@ const urls = {
 }
 
 export default class SocketHandler {
-  constructor (urlID) {
-    /* eslint no-undef: 0 */
-    this.ws = new WebSocket(urls[urlID])
+  connect (urlID) {
+    return new Promise((resolve, reject) => {
+      /* eslint no-undef: 0 */
+      this.ws = new WebSocket(urls[urlID])
 
-    this.ws.onopen = this.onopen.bind(this)
-    this.ws.onclose = this.onclose.bind(this)
-    this.ws.onmessage = this.onmessage.bind(this)
-    this.ws.onerror = this.onerror.bind(this)
+      this.ws.onopen = () => {
+        this.sendIdentifyRequest()
+      }
+
+      this.ws.onclose = () => {
+        const err = 'Lost connection to server. :('
+        store.dispatch('SOCKET_ERROR', err)
+        reject(err)
+      }
+
+      this.ws.onerror = err => {
+        store.dispatch('SOCKET_ERROR', err)
+        reject(err)
+      }
+
+      this.ws.onmessage = ({data}) => {
+        const {command, params} = this.parseServerCommand(data)
+        this.handleChatCommand(command, params)
+
+        if (command === 'IDN') {
+          store.dispatch('CHAT_IDENTIFY_SUCCESS', this)
+          resolve()
+        }
+      }
+    })
   }
 
-  onopen () {
-    store.dispatch('SOCKET_OPENED', this)
-
+  sendIdentifyRequest () {
     const {state} = store
 
     const params = {
@@ -35,28 +55,19 @@ export default class SocketHandler {
     }
 
     this.ws.send(`IDN ${JSON.stringify(params)}`)
-    store.dispatch('CHAT_IDENTIFY_REQUEST')
   }
 
-  onclose () {
-    store.dispatch('SOCKET_CLOSED')
-  }
-
-  onmessage ({ data }) {
-    const command = data.substring(0, 3)
-    const params = data.length > 3 ? JSON.parse(data.substring(4)) : {}
-    this.handleChatCommand(command, params)
-  }
-
-  onerror () {
-    store.dispatch('SOCKET_ERROR', err)
+  parseServerCommand (payload) {
+    const command = payload.substring(0, 3)
+    const params = payload.length > 3 ? JSON.parse(payload.substring(4)) : {}
+    return {command, params}
   }
 
   handleChatCommand (command, params) {
     switch (command) {
       // identify with server
       case 'IDN':
-        store.dispatch('CHAT_IDENTIFY_SUCCESS')
+        this.fetchChannelList()
         break
 
       /* ping~! */
@@ -126,8 +137,23 @@ export default class SocketHandler {
         store.dispatch('SET_CHARACTER_STATUS', params.character, params.status, params.statusMessage)
         break
 
+      // received list of public channels
+      case 'CHA':
+        store.dispatch('SET_PUBLIC_CHANNEL_LIST', params.channels)
+        break
+
+      // received list of private channels
+      case 'ORS':
+        store.dispatch('SET_PRIVATE_CHANNEL_LIST', params.channels)
+        break
+
       default:
         console.warn(`Unknown command ${command} with params:\n`, inspect(params, { depth: null }))
     }
+  }
+
+  fetchChannelList () {
+    this.ws.send('CHA')
+    this.ws.send('ORS')
   }
 }

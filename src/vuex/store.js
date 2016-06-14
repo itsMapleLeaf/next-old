@@ -8,11 +8,10 @@ const state = {
   loginData: {},
   loginStatusMessage: '',
 
-  socket: null,
-  serverVariables: {},
-
-  channelList: [],
+  publicChannels: [],
+  privateChannels: [],
   joinedChannels: [],
+  serverVariables: {},
 
   character: '',
   onlineCharacters: {},
@@ -47,16 +46,7 @@ const mutations = {
 
   CONNECT_REQUEST (state) {},
 
-  SOCKET_OPENED (state, socket) {
-    state.socket = socket
-  },
-
-  SOCKET_CLOSED (state) {
-    state.socket = null
-  },
-
   SOCKET_ERROR (state, err) {
-    state.socket = null
     state.loginStatusMessage = err
   },
 
@@ -94,6 +84,14 @@ const mutations = {
     const char = state.onlineCharacters[name]
     char.status = status
     char.statusMessage = statusMessage
+  },
+
+  SET_PUBLIC_CHANNEL_LIST (state, channels) {
+    state.publicChannels = channels
+  },
+
+  SET_PRIVATE_CHANNEL_LIST (state, channels) {
+    state.privateChannels = channels
   }
 }
 

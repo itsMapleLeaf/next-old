@@ -26,7 +26,7 @@
 import SelectionList from './SelectionList.vue'
 import SelectionListItem from './SelectionListItem.vue'
 import {getUserCharacters, getDefaultCharacter} from '../vuex/getters'
-import {chooseCharacter, connectToChatServer} from '../vuex/actions'
+import {chooseCharacter, connectToChatServer, setCurrentOverlay} from '../vuex/actions'
 
 export default {
   components: {
@@ -46,15 +46,21 @@ export default {
     },
 
     submit () {
+      this.setCurrentOverlay('')
+
       this.chooseCharacter(this.selectedCharacter)
       this.connectToChatServer()
+      .catch(() => {
+        this.setCurrentOverlay('login')
+      })
     }
   },
 
   vuex: {
     actions: {
       chooseCharacter,
-      connectToChatServer
+      connectToChatServer,
+      setCurrentOverlay
     },
     getters: {
       getUserCharacters,
