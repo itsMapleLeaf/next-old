@@ -28,7 +28,7 @@
   },
   "scripts": {
     "build": "browserify src/main.js -o build/build.js",
-    "watch": "watchify -p browserify-hmr src/main.js -o build/build.js -v",
+    "watch": "watchify -p browserify-hmr -e src/main.js -o build/build.js -v --debug",
     "serve": "http-server -a localhost -o",
     "dev": "npm-run-all --parallel watch serve"
   },
