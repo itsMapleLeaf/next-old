@@ -6,12 +6,19 @@ Vue.use(Vuex)
 const state = {
   account: '',
   loginData: {},
-  loggedIn: false,
   loginStatusMessage: '',
-  character: '',
+
   socket: null,
+  serverVariables: {},
+
   channelList: [],
   joinedChannels: [],
+
+  character: '',
+  onlineCharacters: [],
+  ignored: [],
+  admins: [],
+
   currentOverlay: 'login'
 }
 
@@ -27,7 +34,6 @@ const mutations = {
 
   LOGIN_SUCCESS (state, data) {
     state.loginData = data
-    state.loggedIn = true
     state.loginStatusMessage = 'Success!'
   },
 
@@ -56,7 +62,19 @@ const mutations = {
 
   CHAT_IDENTIFY_REQUEST (state) {},
 
-  CHAT_IDENTIFY_SUCCESS (state) {}
+  CHAT_IDENTIFY_SUCCESS (state) {},
+
+  SET_SERVER_VARIABLE (state, key, value) {
+    state.serverVariables[key] = value
+  },
+
+  SET_IGNORE_LIST (state, ignoreList) {
+    state.ignored = ignoreList
+  },
+
+  SET_ADMIN_LIST (state, adminList) {
+    state.admins = adminList
+  }
 }
 
 export default new Vuex.Store({ state, mutations })

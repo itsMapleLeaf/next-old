@@ -1,5 +1,6 @@
 import store from './vuex/store'
 import {getAccount, getApiTicket, getCharacterName} from './vuex/getters'
+import {inspect} from 'util'
 
 const urls = {
   mainInsecure: 'ws://chat.f-list.net:9722',
@@ -43,7 +44,7 @@ export default class SocketHandler {
 
   onmessage ({ data }) {
     const command = data.substring(0, 3)
-    const params = data.length > 3 ? data.substring(4) : {}
+    const params = data.length > 3 ? JSON.parse(data.substring(4)) : {}
     this.handleChatCommand(command, params)
   }
 
@@ -64,8 +65,48 @@ export default class SocketHandler {
         this.ws.send('PIN')
         break
 
+      // receiving server variables
+      case 'VAR':
+        store.dispatch('SET_SERVER_VARIABLE', params.variable)
+        break
+
+      // hello :)
+      case 'HLO':
+        console.info(params.message)
+        break
+
+      // receive # of characters online
+      case 'CON':
+        console.info(`There are ${params.count} characters online.`)
+        break
+
+      // receiving list of friends
+      // we can ignore this, since we already got that from the login data
+      case 'FRL': break
+
+      // receiving ignore list action
+      case 'IGN':
+        switch (params.action) {
+          case 'init':
+            store.dispatch('SET_IGNORE_LIST', params.characters)
+            break
+
+          default:
+            console.warn(`Unknown ignore list action ${params.action}`)
+        }
+        break
+
+      // receiving list of admins
+      case 'ADL':
+        store.dispatch('SET_ADMIN_LIST', params.ops)
+        break
+
+      // receiving all characters online
+      // comes in multiple batches
+      // case 'LIS': break
+
       default:
-        console.warn(`Unknown command ${command} with params:`, params)
+        console.warn(`Unknown command ${command} with params:\n`, inspect(params, { depth: null }))
     }
   }
 }
