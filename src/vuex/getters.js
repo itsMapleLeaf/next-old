@@ -22,3 +22,5 @@ export const allChannels = state =>
 export const joinedChannels = state =>
   state.joinedChannels.slice()
 
+export const selectedChannel = state =>
+  state.joinedChannels[state.selectedChannelIndex]

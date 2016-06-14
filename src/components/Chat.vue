@@ -5,8 +5,8 @@
         <i class='fa fa-bars'></i>
       </div>
       <div class='row grow' style='flex-wrap: wrap'>
-        <channel-tab v-for='channel in joinedChannels' :selected='false'>
-          {{ channel.name }}
+        <channel-tab v-for='channel in joinedChannels'
+          :channel='channel'>
         </channel-tab>
       </div>
     </div>

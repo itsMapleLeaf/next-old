@@ -11,7 +11,7 @@ const state = {
   publicChannels: [],
   privateChannels: [],
   joinedChannels: [],
-  currentChannelIndex: 0,
+  selectedChannelIndex: 0,
 
   socket: null,
   serverVariables: {},
@@ -119,6 +119,11 @@ const mutations = {
     const characters = namelist.map(name => state.onlineCharacters[name])
     channel.mode = mode
     channel.characters = characters
+  },
+
+  SELECT_CHANNEL (state, id) {
+    const index = state.joinedChannels.findIndex(ch => ch.id === id)
+    state.selectedChannelIndex = index
   }
 }
 

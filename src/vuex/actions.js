@@ -40,3 +40,7 @@ export function setCurrentOverlay (store, overlay) {
 export function joinChannel (store, id, name) {
   store.dispatch('CHANNEL_JOIN_REQUEST', id, name)
 }
+
+export function selectChannel (store, id) {
+  store.dispatch('SELECT_CHANNEL', id)
+}

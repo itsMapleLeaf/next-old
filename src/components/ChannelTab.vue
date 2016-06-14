@@ -1,20 +1,33 @@
 <template>
-  <div class='tab row-2 col-10 center-content-vertical' :class='classes'>
-    <slot></slot>
-  </div>
+  <a class='tab row-2 col-8 center-content-vertical'
+    :class='selectedClass'
+    @click='selectChannel(channel.name)'>
+
+    {{ channel.name }}
+  </a>
 </template>
 
 <script>
+import {selectedChannel} from '../vuex/getters'
+import {selectChannel} from '../vuex/actions'
+
 export default {
   props: {
-    selected: Boolean,
+    channel: Object
   },
-
   computed: {
-    classes () {
+    selectedClass () {
       return {
-        'selected': this.selected
+        'selected': this.selectedChannel.name === this.channel.name
       }
+    }
+  },
+  vuex: {
+    getters: {
+      selectedChannel
+    },
+    actions: {
+      selectChannel
     }
   }
 }
@@ -34,6 +47,8 @@ export default {
     cursor: pointer
 
   &.selected
-    background: fg-color
+    background: lighten(fg-color, 5%)
     border-highlight()
+
+  border-bottom: 2px solid transparent
 </style>

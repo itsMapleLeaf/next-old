@@ -1,19 +1,18 @@
 @import 'variables'
 
-// transition()
-//   transition: 0.2s ease all
-
-transition(state = hover)
-  transition: 0.2s ease all
+transition(state = hover, props = all)
+  transition: 0.25s props
 
   &:{state}
     {block}
+
 
 border-highlight()
   border-bottom: 2px solid lighten(fg-color, 20%)
 
   +transition(focus)
     border-bottom-color: lighten(fg-color, 40%)
+
 
 inherit-text()
   color: inherit
