@@ -5,7 +5,7 @@
       <fieldset>
         <selection-list style="position: relative">
           <selection-list-item
-            v-for='name in getUserCharacters'
+            v-for='name in userCharacters'
             :selected='name === selectedCharacter'
             @click='setSelectedCharacter(name)'>
             <center>
@@ -25,7 +25,7 @@
 <script>
 import SelectionList from './SelectionList.vue'
 import SelectionListItem from './SelectionListItem.vue'
-import {getUserCharacters, getDefaultCharacter} from '../vuex/getters'
+import {userCharacters, defaultCharacter, account, apiTicket} from '../vuex/getters'
 import {chooseCharacter, connectToChatServer, setCurrentOverlay} from '../vuex/actions'
 
 export default {
@@ -36,7 +36,7 @@ export default {
 
   data () {
     return {
-      selectedCharacter: this.getDefaultCharacter
+      selectedCharacter: this.defaultCharacter
     }
   },
 
@@ -49,7 +49,7 @@ export default {
       this.setCurrentOverlay('')
 
       this.chooseCharacter(this.selectedCharacter)
-      this.connectToChatServer()
+      this.connectToChatServer(this.account, this.apiTicket, this.selectedCharacter)
       .then(() => {
         this.setCurrentOverlay('channel-list')
       })
@@ -66,8 +66,10 @@ export default {
       setCurrentOverlay
     },
     getters: {
-      getUserCharacters,
-      getDefaultCharacter
+      userCharacters,
+      defaultCharacter,
+      account,
+      apiTicket
     }
   }
 }

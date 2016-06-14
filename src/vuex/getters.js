@@ -1,24 +1,24 @@
 
-export const getLoginStatus = state => state.loginStatusMessage
+export const loginStatus = state => state.loginStatusMessage
 
-export const getUserCharacters = state =>
+export const userCharacters = state =>
   state.loginData.characters
     .slice()
     .sort()
 
-export const getDefaultCharacter = state => state.loginData.default_character
+export const defaultCharacter = state => state.loginData.default_character
 
-export const getCharacterName = state => state.character
+export const userCharacterName = state => state.character
 
-export const getAccount = state => state.account
+export const account = state => state.account
 
-export const getApiTicket = state => state.loginData.ticket
+export const apiTicket = state => state.loginData.ticket
 
-export const getCurrentOverlay = state => state.currentOverlay
+export const currentOverlay = state => state.currentOverlay
 
-export const getAllChannels = state =>
+export const allChannels = state =>
   state.publicChannels.concat(state.privateChannels)
 
-export const getJoinedChannels = state =>
+export const joinedChannels = state =>
   state.joinedChannels.slice()
 

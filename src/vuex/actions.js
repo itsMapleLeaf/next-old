@@ -28,9 +28,9 @@ export function chooseCharacter (store, char) {
   store.dispatch('CHOOSE_CHARACTER', char)
 }
 
-export function connectToChatServer (store) {
+export function connectToChatServer (store, ...identInfo) {
   /* eslint no-new: 0 */
-  return new SocketHandler().connect('main')
+  return new SocketHandler().connect('main', ...identInfo)
 }
 
 export function setCurrentOverlay (store, overlay) {

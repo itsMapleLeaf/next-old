@@ -1,5 +1,4 @@
 import store from './vuex/store'
-import {getAccount, getApiTicket, getCharacterName} from './vuex/getters'
 import {inspect} from 'util'
 
 const urls = {
@@ -10,13 +9,13 @@ const urls = {
 }
 
 export default class SocketHandler {
-  connect (urlID) {
+  connect (urlID, ...identInfo) {
     return new Promise((resolve, reject) => {
       /* eslint no-undef: 0 */
       this.ws = new WebSocket(urls[urlID])
 
       this.ws.onopen = () => {
-        this.sendIdentifyRequest()
+        this.sendIdentifyRequest(...identInfo)
       }
 
       this.ws.onclose = () => {
@@ -42,19 +41,15 @@ export default class SocketHandler {
     })
   }
 
-  sendIdentifyRequest () {
-    const {state} = store
-
+  sendIdentifyRequest (account, ticket, character) {
     const params = {
+      account, ticket, character,
       method: 'ticket',
-      account: getAccount(state),
-      ticket: getApiTicket(state),
-      character: getCharacterName(state),
       cname: 'fchat-next',
       cversion: '0.1.0'
     }
 
-    this.ws.send(`IDN ${JSON.stringify(params)}`)
+    this.send('IDN', params)
   }
 
   parseServerCommand (payload) {
@@ -73,7 +68,7 @@ export default class SocketHandler {
       /* ping~! */
       case 'PIN':
         /* pong~! */
-        this.ws.send('PIN')
+        this.send('PIN')
         break
 
       // receiving server variables
@@ -162,13 +157,22 @@ export default class SocketHandler {
     }
   }
 
+  send (command, params) {
+    if (params) {
+      this.ws.send(`${command} ${JSON.stringify(params)}`)
+      console.log('Sent command', command, inspect(params))
+    } else {
+      this.ws.send(command)
+      console.log('Sent command', command)
+    }
+  }
+
   fetchChannelList () {
-    this.ws.send('CHA')
-    this.ws.send('ORS')
+    this.send('CHA')
+    this.send('ORS')
   }
 
   joinChannel (channel) {
-    const params = JSON.stringify({ channel })
-    this.ws.send(`JCH ${params}`)
+    this.send('JCH', { channel })
   }
 }

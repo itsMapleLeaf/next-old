@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {getCharacterName} from '../vuex/getters'
+import {userCharacterName} from '../vuex/getters'
 
 export default {
   data () {
@@ -23,17 +23,17 @@ export default {
     },
 
     calculatePlaceholder () {
-      if (this.getCharacterName === '') {
+      if (this.userCharacterName === '') {
         return 'Not chatting quite yet...'
       } else {
-        return `Chatting as ${this.getCharacterName}...`
+        return `Chatting as ${this.userCharacterName}...`
       }
     }
   },
 
   vuex: {
     getters: {
-      getCharacterName
+      userCharacterName
     }
   }
 }

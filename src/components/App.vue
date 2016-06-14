@@ -1,7 +1,7 @@
 <template>
   <div class='container bg-color'>
     <chat></chat>
-    <component :is='getCurrentOverlay'></component>
+    <component :is='currentOverlay'></component>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import Chat from './Chat.vue'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import ChannelList from './ChannelList.vue'
-import {getCurrentOverlay} from '../vuex/getters'
+import {currentOverlay} from '../vuex/getters'
 
 export default {
   components: {
@@ -22,7 +22,7 @@ export default {
 
   vuex: {
     getters: {
-      getCurrentOverlay
+      currentOverlay
     }
   }
 }

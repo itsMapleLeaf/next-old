@@ -28,7 +28,7 @@
 <script>
 import SelectionList from './SelectionList.vue'
 import SelectionListItem from './SelectionListItem.vue'
-import {getAllChannels, getJoinedChannels} from '../vuex/getters'
+import {allChannels, joinedChannels} from '../vuex/getters'
 import {setCurrentOverlay, joinChannel} from '../vuex/actions'
 import fuzzysearch from 'fuzzysearch'
 
@@ -48,9 +48,9 @@ export default {
     filteredChannels () {
       if (this.searchQuery !== '') {
         const filter = info => fuzzysearch(this.searchQuery, info.title || info.name)
-        return this.getAllChannels.filter(filter).slice(0, 200)
+        return this.allChannels.filter(filter).slice(0, 200)
       } else {
-        return this.getAllChannels.slice(0, 200)
+        return this.allChannels.slice(0, 200)
       }
     }
   },
@@ -67,7 +67,7 @@ export default {
     },
 
     isJoined (info) {
-      return this.getJoinedChannels[info.name]
+      return this.joinedChannels[info.name]
     },
 
     closeOverlay () {
@@ -77,8 +77,8 @@ export default {
 
   vuex: {
     getters: {
-      getAllChannels,
-      getJoinedChannels
+      allChannels,
+      joinedChannels
     },
     actions: {
       setCurrentOverlay,

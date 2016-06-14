@@ -5,7 +5,7 @@
         <i class='fa fa-bars'></i>
       </div>
       <div class='row grow' style='flex-wrap: wrap'>
-        <channel-tab v-for='channel in getJoinedChannels' :selected='false'>
+        <channel-tab v-for='channel in joinedChannels' :selected='false'>
           {{ channel.name }}
         </channel-tab>
       </div>
@@ -40,7 +40,7 @@
 <script>
 import Chatbox from './Chatbox.vue'
 import ChannelTab from './ChannelTab.vue'
-import {getJoinedChannels} from '../vuex/getters'
+import {joinedChannels} from '../vuex/getters'
 
 export default {
   components: {
@@ -50,7 +50,7 @@ export default {
 
   vuex: {
     getters: {
-      getJoinedChannels
+      joinedChannels
     }
   }
 }

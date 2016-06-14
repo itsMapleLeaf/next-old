@@ -13,14 +13,14 @@
           <button action="submit" :disabled='disabled'>Go</button>
         </fieldset>
       </form>
-      <center>{{ getLoginStatus }}</center>
+      <center>{{ loginStatus }}</center>
     </div>
   </div>
 </template>
 
 <script>
 import {submitLogin, setCurrentOverlay} from '../vuex/actions'
-import {getLoginStatus} from '../vuex/getters'
+import {loginStatus} from '../vuex/getters'
 
 export default {
   data () {
@@ -50,7 +50,7 @@ export default {
       setCurrentOverlay
     },
     getters: {
-      getLoginStatus
+      loginStatus
     }
   }
 }
