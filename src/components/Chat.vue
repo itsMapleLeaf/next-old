@@ -4,10 +4,10 @@
       <div class='col-2 fg-color center-content'>
         <i class='fa fa-bars'></i>
       </div>
-      <div class='row grow'>
-        <span class='col-8 padded center-content-vertical' v-for='channel in getJoinedChannels'>
+      <div class='row grow' style='flex-wrap: wrap'>
+        <channel-tab v-for='channel in getJoinedChannels' :selected='false'>
           {{ channel.name }}
-        </span>
+        </channel-tab>
       </div>
     </div>
 
@@ -39,11 +39,13 @@
 
 <script>
 import Chatbox from './Chatbox.vue'
+import ChannelTab from './ChannelTab.vue'
 import {getJoinedChannels} from '../vuex/getters'
 
 export default {
   components: {
-    Chatbox
+    Chatbox,
+    ChannelTab
   },
 
   vuex: {
