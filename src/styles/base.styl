@@ -25,10 +25,9 @@ input, textarea
 
 button
   inherit-text()
-  transition()
   padding: 0.4em 1em
 
-  &:hover
+  +transition(hover)
     background: darken(bg-color, 10%)
     cursor: pointer
 
