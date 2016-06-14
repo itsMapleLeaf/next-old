@@ -1,9 +1,6 @@
 <template>
   <div class='container'>
-    <chat></chat>
-    <div>
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
