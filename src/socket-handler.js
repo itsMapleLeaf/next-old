@@ -53,16 +53,19 @@ export default class SocketHandler {
 
   handleChatCommand (command, params) {
     switch (command) {
+      // identify with server
       case 'IDN':
         store.dispatch('CHAT_IDENTIFY_SUCCESS')
         break
 
+      /* ping~! */
       case 'PIN':
+        /* pong~! */
         this.ws.send('PIN')
         break
 
       default:
-        console.warn(`Unknown command ${command} with params ${JSON.stringify(params)}`)
+        console.warn(`Unknown command ${command} with params:`, params)
     }
   }
 }
