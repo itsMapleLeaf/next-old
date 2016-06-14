@@ -1,55 +1,35 @@
 <template>
   <div class='container'>
     <div class='row row-2'>
-      <div class='col-2 fg-color'></div>
+      <div class='col-2 fg-color center-content'>
+        <i class='fa fa-bars'></i>
+      </div>
       <div class='grow'></div>
     </div>
 
-    <div class='row row-6 fg-color'>test</div>
+    <div class='row row-6 fg-color padded'>test</div>
 
     <div class='divider'></div>
 
     <div class='row grow'>
-      <div class='grow'>test</div>
+      <div class='grow padded'>test</div>
 
       <div class='divider'></div>
 
-      <div class='col-10 fg-color'>test</div>
+      <div class='col-10 fg-color padded'>test</div>
     </div>
 
     <div class='divider'></div>
 
-    <div class='row row-6 fg-color'>test</div>
+    <div class='row row-6 fg-color padded'>test</div>
   </div>
 </template>
 
 <style lang="stylus">
 @import '../styles/base'
-@import '../styles/variables'
+@import '../styles/grid'
+@import '../styles/components'
 
-.container
-  position: fixed 0
-  box: vertical
-
-.row
-  box: horizontal
-
-for n in (1..10)
-  .row-{n}
-    height: (n)em
-
-  .col-{n}
-    width: (n)em
-
-.grow
-  box-item: flex-1
-
-.divider
-  size: 4px
-
-.fg-color
-  background: fg-color
-
-.bg-color
-  background: bg-color
+.padded
+  padding: 0.5em 0.7em
 </style>
