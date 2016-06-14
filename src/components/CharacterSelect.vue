@@ -50,6 +50,9 @@ export default {
 
       this.chooseCharacter(this.selectedCharacter)
       this.connectToChatServer()
+      .then(() => {
+        this.setCurrentOverlay('channel-list')
+      })
       .catch(() => {
         this.setCurrentOverlay('login')
       })

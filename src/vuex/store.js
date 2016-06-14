@@ -21,6 +21,8 @@ const state = {
   currentOverlay: 'login'
 }
 
+const compareChannels = (a, b) => (a.title || a.name).localeCompare(b.title || b.name)
+
 const mutations = {
   SET_OVERLAY (state, overlay) {
     state.currentOverlay = overlay
@@ -82,16 +84,18 @@ const mutations = {
 
   SET_CHARACTER_STATUS (state, name, status, statusMessage) {
     const char = state.onlineCharacters[name]
-    char.status = status
-    char.statusMessage = statusMessage
+    if (char) {
+      char.status = status
+      char.statusMessage = statusMessage
+    }
   },
 
   SET_PUBLIC_CHANNEL_LIST (state, channels) {
-    state.publicChannels = channels
+    state.publicChannels = channels.slice().sort(compareChannels)
   },
 
   SET_PRIVATE_CHANNEL_LIST (state, channels) {
-    state.privateChannels = channels
+    state.privateChannels = channels.slice().sort(compareChannels)
   }
 }
 

@@ -9,14 +9,17 @@
 import Chat from './Chat.vue'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
+import ChannelList from './ChannelList.vue'
 import {getCurrentOverlay} from '../vuex/getters'
 
 export default {
   components: {
     Chat,
     Login,
-    CharacterSelect
+    CharacterSelect,
+    ChannelList
   },
+
   vuex: {
     getters: {
       getCurrentOverlay
