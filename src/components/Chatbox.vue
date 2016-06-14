@@ -40,10 +40,12 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+
 textarea
-  margin: none
-  border: none
-  background: transparent
+  margin: none !important
+  border: none !important
+  background: transparent !important
+  resize: none
   width: 100%
   height: 100%
 </style>

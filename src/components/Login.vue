@@ -1,6 +1,6 @@
 <template>
-  <div class='container'>
-    <form class='shadow' @submit.prevent='submitLogin(username, password)'>
+  <div class='overlay-shade'>
+    <form class='panel material-shadow' @submit.prevent='submitLogin(username, password)'>
       <h1>Login</h1>
       <fieldset>
         <input type="text" placeholder="Username" v-model="username">
@@ -43,14 +43,7 @@ export default {
 
 <style lang="stylus" scoped>
 @import '../styles/base'
-@import '../styles/variables'
-@import '../styles/mixins'
-
-.container
-  overlay-shade()
-
-form
-  panel()
+@import '../styles/components'
 
 p
   text-align: center

@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <form @submit.prevent='submit'>
+  <div class="overlay-shade">
+    <form class="panel material-shadow" @submit.prevent='submit'>
       <h1>Choose a Character</h1>
       <fieldset>
         <selection-list style="position: relative">
@@ -69,13 +69,10 @@ export default {
 <style lang="stylus" scoped>
 @import '../styles/base'
 @import '../styles/variables'
-@import '../styles/mixins'
-
-.container
-  overlay-shade()
+@import '../styles/components'
 
 form
-  panel(20em)
+  width: 20em !important
 
 p
   text-align: center
