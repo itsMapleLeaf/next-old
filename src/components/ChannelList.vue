@@ -1,5 +1,5 @@
 <template>
-  <div class='overlay-shade'>
+  <div class='overlay-shade' @click.self='closeOverlay'>
     <div class='panel material-shadow'>
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
