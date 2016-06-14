@@ -73,7 +73,59 @@ _hmr["websocket:null"].initModule("node_modules\\babel-runtime\\core-js\\json\\s
 module.exports = { "default": require("core-js/library/fn/json/stringify"), __esModule: true };
 }).apply(this, arguments);
 
-},{"core-js/library/fn/json/stringify":83}],5:[function(require,module,exports){
+},{"core-js/library/fn/json/stringify":86}],5:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\babel-runtime\\core-js\\object\\define-property.js", module);
+(function(){
+module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
+}).apply(this, arguments);
+
+},{"core-js/library/fn/object/define-property":87}],6:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\babel-runtime\\helpers\\classCallCheck.js", module);
+(function(){
+"use strict";
+
+exports.__esModule = true;
+
+exports.default = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+}).apply(this, arguments);
+
+},{}],7:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\babel-runtime\\helpers\\createClass.js", module);
+(function(){
+"use strict";
+
+exports.__esModule = true;
+
+var _defineProperty = require("../core-js/object/define-property");
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+}).apply(this, arguments);
+
+},{"../core-js/object/define-property":5}],8:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\backo2\\index.js", module);
 (function(){
 
@@ -164,7 +216,7 @@ Backoff.prototype.setJitter = function(jitter){
 
 }).apply(this, arguments);
 
-},{}],6:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\base64-arraybuffer\\lib\\base64-arraybuffer.js", module);
 (function(){
 /*
@@ -229,7 +281,7 @@ _hmr["websocket:null"].initModule("node_modules\\base64-arraybuffer\\lib\\base64
 
 }).apply(this, arguments);
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\blob\\index.js", module);
 (function(){
 (function (global){
@@ -333,13 +385,13 @@ module.exports = (function() {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browser-resolve\\empty.js", module);
 (function(){
 
 }).apply(this, arguments);
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\inc\\index.js", module);
 (function(){
 (function (global){
@@ -1005,7 +1057,7 @@ module.exports = main;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"../lib/has":10,"../lib/str-set":11,"lodash/array/zipObject":13,"lodash/collection/filter":14,"lodash/collection/forEach":15,"lodash/collection/map":16,"lodash/collection/some":17,"lodash/object/assign":72,"lodash/object/forOwn":73,"lodash/object/mapValues":76}],10:[function(require,module,exports){
+},{"../lib/has":13,"../lib/str-set":14,"lodash/array/zipObject":16,"lodash/collection/filter":17,"lodash/collection/forEach":18,"lodash/collection/map":19,"lodash/collection/some":20,"lodash/object/assign":75,"lodash/object/forOwn":76,"lodash/object/mapValues":79}],13:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\lib\\has.js", module);
 (function(){
 'use strict';
@@ -1017,7 +1069,7 @@ module.exports = has;
 
 }).apply(this, arguments);
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\lib\\str-set.js", module);
 (function(){
 'use strict';
@@ -1098,7 +1150,7 @@ module.exports = StrSet;
 
 }).apply(this, arguments);
 
-},{"./has":10}],12:[function(require,module,exports){
+},{"./has":13}],15:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\array\\last.js", module);
 (function(){
 /**
@@ -1123,7 +1175,7 @@ module.exports = last;
 
 }).apply(this, arguments);
 
-},{}],13:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js", module);
 (function(){
 var isArray = require('../lang/isArray');
@@ -1172,7 +1224,7 @@ module.exports = zipObject;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":67}],14:[function(require,module,exports){
+},{"../lang/isArray":70}],17:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js", module);
 (function(){
 var arrayFilter = require('../internal/arrayFilter'),
@@ -1239,7 +1291,7 @@ module.exports = filter;
 
 }).apply(this, arguments);
 
-},{"../internal/arrayFilter":20,"../internal/baseCallback":25,"../internal/baseFilter":28,"../lang/isArray":67}],15:[function(require,module,exports){
+},{"../internal/arrayFilter":23,"../internal/baseCallback":28,"../internal/baseFilter":31,"../lang/isArray":70}],18:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js", module);
 (function(){
 var arrayEach = require('../internal/arrayEach'),
@@ -1282,7 +1334,7 @@ module.exports = forEach;
 
 }).apply(this, arguments);
 
-},{"../internal/arrayEach":19,"../internal/baseEach":27,"../internal/createForEach":47}],16:[function(require,module,exports){
+},{"../internal/arrayEach":22,"../internal/baseEach":30,"../internal/createForEach":50}],19:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js", module);
 (function(){
 var arrayMap = require('../internal/arrayMap'),
@@ -1356,7 +1408,7 @@ module.exports = map;
 
 }).apply(this, arguments);
 
-},{"../internal/arrayMap":21,"../internal/baseCallback":25,"../internal/baseMap":35,"../lang/isArray":67}],17:[function(require,module,exports){
+},{"../internal/arrayMap":24,"../internal/baseCallback":28,"../internal/baseMap":38,"../lang/isArray":70}],20:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js", module);
 (function(){
 var arraySome = require('../internal/arraySome'),
@@ -1429,7 +1481,7 @@ module.exports = some;
 
 }).apply(this, arguments);
 
-},{"../internal/arraySome":22,"../internal/baseCallback":25,"../internal/baseSome":41,"../internal/isIterateeCall":58,"../lang/isArray":67}],18:[function(require,module,exports){
+},{"../internal/arraySome":25,"../internal/baseCallback":28,"../internal/baseSome":44,"../internal/isIterateeCall":61,"../lang/isArray":70}],21:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\function\\restParam.js", module);
 (function(){
 /** Used as the `TypeError` message for "Functions" methods. */
@@ -1493,7 +1545,7 @@ module.exports = restParam;
 
 }).apply(this, arguments);
 
-},{}],19:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayEach.js", module);
 (function(){
 /**
@@ -1521,7 +1573,7 @@ module.exports = arrayEach;
 
 }).apply(this, arguments);
 
-},{}],20:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayFilter.js", module);
 (function(){
 /**
@@ -1552,7 +1604,7 @@ module.exports = arrayFilter;
 
 }).apply(this, arguments);
 
-},{}],21:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayMap.js", module);
 (function(){
 /**
@@ -1579,7 +1631,7 @@ module.exports = arrayMap;
 
 }).apply(this, arguments);
 
-},{}],22:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arraySome.js", module);
 (function(){
 /**
@@ -1608,7 +1660,7 @@ module.exports = arraySome;
 
 }).apply(this, arguments);
 
-},{}],23:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js", module);
 (function(){
 var keys = require('../object/keys');
@@ -1646,7 +1698,7 @@ module.exports = assignWith;
 
 }).apply(this, arguments);
 
-},{"../object/keys":74}],24:[function(require,module,exports){
+},{"../object/keys":77}],27:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js", module);
 (function(){
 var baseCopy = require('./baseCopy'),
@@ -1671,7 +1723,7 @@ module.exports = baseAssign;
 
 }).apply(this, arguments);
 
-},{"../object/keys":74,"./baseCopy":26}],25:[function(require,module,exports){
+},{"../object/keys":77,"./baseCopy":29}],28:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js", module);
 (function(){
 var baseMatches = require('./baseMatches'),
@@ -1712,7 +1764,7 @@ module.exports = baseCallback;
 
 }).apply(this, arguments);
 
-},{"../utility/identity":78,"../utility/property":79,"./baseMatches":36,"./baseMatchesProperty":37,"./bindCallback":43}],26:[function(require,module,exports){
+},{"../utility/identity":81,"../utility/property":82,"./baseMatches":39,"./baseMatchesProperty":40,"./bindCallback":46}],29:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCopy.js", module);
 (function(){
 /**
@@ -1741,7 +1793,7 @@ module.exports = baseCopy;
 
 }).apply(this, arguments);
 
-},{}],27:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js", module);
 (function(){
 var baseForOwn = require('./baseForOwn'),
@@ -1762,7 +1814,7 @@ module.exports = baseEach;
 
 }).apply(this, arguments);
 
-},{"./baseForOwn":30,"./createBaseEach":45}],28:[function(require,module,exports){
+},{"./baseForOwn":33,"./createBaseEach":48}],31:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js", module);
 (function(){
 var baseEach = require('./baseEach');
@@ -1790,7 +1842,7 @@ module.exports = baseFilter;
 
 }).apply(this, arguments);
 
-},{"./baseEach":27}],29:[function(require,module,exports){
+},{"./baseEach":30}],32:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js", module);
 (function(){
 var createBaseFor = require('./createBaseFor');
@@ -1813,7 +1865,7 @@ module.exports = baseFor;
 
 }).apply(this, arguments);
 
-},{"./createBaseFor":46}],30:[function(require,module,exports){
+},{"./createBaseFor":49}],33:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js", module);
 (function(){
 var baseFor = require('./baseFor'),
@@ -1836,7 +1888,7 @@ module.exports = baseForOwn;
 
 }).apply(this, arguments);
 
-},{"../object/keys":74,"./baseFor":29}],31:[function(require,module,exports){
+},{"../object/keys":77,"./baseFor":32}],34:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js", module);
 (function(){
 var toObject = require('./toObject');
@@ -1871,7 +1923,7 @@ module.exports = baseGet;
 
 }).apply(this, arguments);
 
-},{"./toObject":64}],32:[function(require,module,exports){
+},{"./toObject":67}],35:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js", module);
 (function(){
 var baseIsEqualDeep = require('./baseIsEqualDeep'),
@@ -1905,7 +1957,7 @@ module.exports = baseIsEqual;
 
 }).apply(this, arguments);
 
-},{"../lang/isObject":70,"./baseIsEqualDeep":33,"./isObjectLike":61}],33:[function(require,module,exports){
+},{"../lang/isObject":73,"./baseIsEqualDeep":36,"./isObjectLike":64}],36:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js", module);
 (function(){
 var equalArrays = require('./equalArrays'),
@@ -2013,7 +2065,7 @@ module.exports = baseIsEqualDeep;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":67,"../lang/isTypedArray":71,"./equalArrays":50,"./equalByTag":51,"./equalObjects":52}],34:[function(require,module,exports){
+},{"../lang/isArray":70,"../lang/isTypedArray":74,"./equalArrays":53,"./equalByTag":54,"./equalObjects":55}],37:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js", module);
 (function(){
 var baseIsEqual = require('./baseIsEqual'),
@@ -2071,7 +2123,7 @@ module.exports = baseIsMatch;
 
 }).apply(this, arguments);
 
-},{"./baseIsEqual":32,"./toObject":64}],35:[function(require,module,exports){
+},{"./baseIsEqual":35,"./toObject":67}],38:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js", module);
 (function(){
 var baseEach = require('./baseEach'),
@@ -2100,7 +2152,7 @@ module.exports = baseMap;
 
 }).apply(this, arguments);
 
-},{"./baseEach":27,"./isArrayLike":56}],36:[function(require,module,exports){
+},{"./baseEach":30,"./isArrayLike":59}],39:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js", module);
 (function(){
 var baseIsMatch = require('./baseIsMatch'),
@@ -2136,7 +2188,7 @@ module.exports = baseMatches;
 
 }).apply(this, arguments);
 
-},{"./baseIsMatch":34,"./getMatchData":54,"./toObject":64}],37:[function(require,module,exports){
+},{"./baseIsMatch":37,"./getMatchData":57,"./toObject":67}],40:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js", module);
 (function(){
 var baseGet = require('./baseGet'),
@@ -2187,7 +2239,7 @@ module.exports = baseMatchesProperty;
 
 }).apply(this, arguments);
 
-},{"../array/last":12,"../lang/isArray":67,"./baseGet":31,"./baseIsEqual":32,"./baseSlice":40,"./isKey":59,"./isStrictComparable":62,"./toObject":64,"./toPath":65}],38:[function(require,module,exports){
+},{"../array/last":15,"../lang/isArray":70,"./baseGet":34,"./baseIsEqual":35,"./baseSlice":43,"./isKey":62,"./isStrictComparable":65,"./toObject":67,"./toPath":68}],41:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseProperty.js", module);
 (function(){
 /**
@@ -2207,7 +2259,7 @@ module.exports = baseProperty;
 
 }).apply(this, arguments);
 
-},{}],39:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js", module);
 (function(){
 var baseGet = require('./baseGet'),
@@ -2232,7 +2284,7 @@ module.exports = basePropertyDeep;
 
 }).apply(this, arguments);
 
-},{"./baseGet":31,"./toPath":65}],40:[function(require,module,exports){
+},{"./baseGet":34,"./toPath":68}],43:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSlice.js", module);
 (function(){
 /**
@@ -2270,7 +2322,7 @@ module.exports = baseSlice;
 
 }).apply(this, arguments);
 
-},{}],41:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js", module);
 (function(){
 var baseEach = require('./baseEach');
@@ -2299,7 +2351,7 @@ module.exports = baseSome;
 
 }).apply(this, arguments);
 
-},{"./baseEach":27}],42:[function(require,module,exports){
+},{"./baseEach":30}],45:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseToString.js", module);
 (function(){
 /**
@@ -2318,7 +2370,7 @@ module.exports = baseToString;
 
 }).apply(this, arguments);
 
-},{}],43:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js", module);
 (function(){
 var identity = require('../utility/identity');
@@ -2363,7 +2415,7 @@ module.exports = bindCallback;
 
 }).apply(this, arguments);
 
-},{"../utility/identity":78}],44:[function(require,module,exports){
+},{"../utility/identity":81}],47:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js", module);
 (function(){
 var bindCallback = require('./bindCallback'),
@@ -2410,7 +2462,7 @@ module.exports = createAssigner;
 
 }).apply(this, arguments);
 
-},{"../function/restParam":18,"./bindCallback":43,"./isIterateeCall":58}],45:[function(require,module,exports){
+},{"../function/restParam":21,"./bindCallback":46,"./isIterateeCall":61}],48:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js", module);
 (function(){
 var getLength = require('./getLength'),
@@ -2447,7 +2499,7 @@ module.exports = createBaseEach;
 
 }).apply(this, arguments);
 
-},{"./getLength":53,"./isLength":60,"./toObject":64}],46:[function(require,module,exports){
+},{"./getLength":56,"./isLength":63,"./toObject":67}],49:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js", module);
 (function(){
 var toObject = require('./toObject');
@@ -2480,7 +2532,7 @@ module.exports = createBaseFor;
 
 }).apply(this, arguments);
 
-},{"./toObject":64}],47:[function(require,module,exports){
+},{"./toObject":67}],50:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js", module);
 (function(){
 var bindCallback = require('./bindCallback'),
@@ -2506,7 +2558,7 @@ module.exports = createForEach;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":67,"./bindCallback":43}],48:[function(require,module,exports){
+},{"../lang/isArray":70,"./bindCallback":46}],51:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js", module);
 (function(){
 var bindCallback = require('./bindCallback');
@@ -2531,7 +2583,7 @@ module.exports = createForOwn;
 
 }).apply(this, arguments);
 
-},{"./bindCallback":43}],49:[function(require,module,exports){
+},{"./bindCallback":46}],52:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js", module);
 (function(){
 var baseCallback = require('./baseCallback'),
@@ -2563,7 +2615,7 @@ module.exports = createObjectMapper;
 
 }).apply(this, arguments);
 
-},{"./baseCallback":25,"./baseForOwn":30}],50:[function(require,module,exports){
+},{"./baseCallback":28,"./baseForOwn":33}],53:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js", module);
 (function(){
 var arraySome = require('./arraySome');
@@ -2620,7 +2672,7 @@ module.exports = equalArrays;
 
 }).apply(this, arguments);
 
-},{"./arraySome":22}],51:[function(require,module,exports){
+},{"./arraySome":25}],54:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalByTag.js", module);
 (function(){
 /** `Object#toString` result references. */
@@ -2674,7 +2726,7 @@ module.exports = equalByTag;
 
 }).apply(this, arguments);
 
-},{}],52:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js", module);
 (function(){
 var keys = require('../object/keys');
@@ -2747,7 +2799,7 @@ module.exports = equalObjects;
 
 }).apply(this, arguments);
 
-},{"../object/keys":74}],53:[function(require,module,exports){
+},{"../object/keys":77}],56:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js", module);
 (function(){
 var baseProperty = require('./baseProperty');
@@ -2768,7 +2820,7 @@ module.exports = getLength;
 
 }).apply(this, arguments);
 
-},{"./baseProperty":38}],54:[function(require,module,exports){
+},{"./baseProperty":41}],57:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js", module);
 (function(){
 var isStrictComparable = require('./isStrictComparable'),
@@ -2795,7 +2847,7 @@ module.exports = getMatchData;
 
 }).apply(this, arguments);
 
-},{"../object/pairs":77,"./isStrictComparable":62}],55:[function(require,module,exports){
+},{"../object/pairs":80,"./isStrictComparable":65}],58:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js", module);
 (function(){
 var isNative = require('../lang/isNative');
@@ -2817,7 +2869,7 @@ module.exports = getNative;
 
 }).apply(this, arguments);
 
-},{"../lang/isNative":69}],56:[function(require,module,exports){
+},{"../lang/isNative":72}],59:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js", module);
 (function(){
 var getLength = require('./getLength'),
@@ -2838,7 +2890,7 @@ module.exports = isArrayLike;
 
 }).apply(this, arguments);
 
-},{"./getLength":53,"./isLength":60}],57:[function(require,module,exports){
+},{"./getLength":56,"./isLength":63}],60:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIndex.js", module);
 (function(){
 /** Used to detect unsigned integer values. */
@@ -2868,7 +2920,7 @@ module.exports = isIndex;
 
 }).apply(this, arguments);
 
-},{}],58:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js", module);
 (function(){
 var isArrayLike = require('./isArrayLike'),
@@ -2902,7 +2954,7 @@ module.exports = isIterateeCall;
 
 }).apply(this, arguments);
 
-},{"../lang/isObject":70,"./isArrayLike":56,"./isIndex":57}],59:[function(require,module,exports){
+},{"../lang/isObject":73,"./isArrayLike":59,"./isIndex":60}],62:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js", module);
 (function(){
 var isArray = require('../lang/isArray'),
@@ -2936,7 +2988,7 @@ module.exports = isKey;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":67,"./toObject":64}],60:[function(require,module,exports){
+},{"../lang/isArray":70,"./toObject":67}],63:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isLength.js", module);
 (function(){
 /**
@@ -2962,7 +3014,7 @@ module.exports = isLength;
 
 }).apply(this, arguments);
 
-},{}],61:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isObjectLike.js", module);
 (function(){
 /**
@@ -2980,7 +3032,7 @@ module.exports = isObjectLike;
 
 }).apply(this, arguments);
 
-},{}],62:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js", module);
 (function(){
 var isObject = require('../lang/isObject');
@@ -3001,7 +3053,7 @@ module.exports = isStrictComparable;
 
 }).apply(this, arguments);
 
-},{"../lang/isObject":70}],63:[function(require,module,exports){
+},{"../lang/isObject":73}],66:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js", module);
 (function(){
 var isArguments = require('../lang/isArguments'),
@@ -3048,7 +3100,7 @@ module.exports = shimKeys;
 
 }).apply(this, arguments);
 
-},{"../lang/isArguments":66,"../lang/isArray":67,"../object/keysIn":75,"./isIndex":57,"./isLength":60}],64:[function(require,module,exports){
+},{"../lang/isArguments":69,"../lang/isArray":70,"../object/keysIn":78,"./isIndex":60,"./isLength":63}],67:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js", module);
 (function(){
 var isObject = require('../lang/isObject');
@@ -3068,7 +3120,7 @@ module.exports = toObject;
 
 }).apply(this, arguments);
 
-},{"../lang/isObject":70}],65:[function(require,module,exports){
+},{"../lang/isObject":73}],68:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js", module);
 (function(){
 var baseToString = require('./baseToString'),
@@ -3102,7 +3154,7 @@ module.exports = toPath;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":67,"./baseToString":42}],66:[function(require,module,exports){
+},{"../lang/isArray":70,"./baseToString":45}],69:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js", module);
 (function(){
 var isArrayLike = require('../internal/isArrayLike'),
@@ -3142,7 +3194,7 @@ module.exports = isArguments;
 
 }).apply(this, arguments);
 
-},{"../internal/isArrayLike":56,"../internal/isObjectLike":61}],67:[function(require,module,exports){
+},{"../internal/isArrayLike":59,"../internal/isObjectLike":64}],70:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js", module);
 (function(){
 var getNative = require('../internal/getNative'),
@@ -3188,7 +3240,7 @@ module.exports = isArray;
 
 }).apply(this, arguments);
 
-},{"../internal/getNative":55,"../internal/isLength":60,"../internal/isObjectLike":61}],68:[function(require,module,exports){
+},{"../internal/getNative":58,"../internal/isLength":63,"../internal/isObjectLike":64}],71:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js", module);
 (function(){
 var isObject = require('./isObject');
@@ -3232,7 +3284,7 @@ module.exports = isFunction;
 
 }).apply(this, arguments);
 
-},{"./isObject":70}],69:[function(require,module,exports){
+},{"./isObject":73}],72:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js", module);
 (function(){
 var isFunction = require('./isFunction'),
@@ -3286,7 +3338,7 @@ module.exports = isNative;
 
 }).apply(this, arguments);
 
-},{"../internal/isObjectLike":61,"./isFunction":68}],70:[function(require,module,exports){
+},{"../internal/isObjectLike":64,"./isFunction":71}],73:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isObject.js", module);
 (function(){
 /**
@@ -3320,7 +3372,7 @@ module.exports = isObject;
 
 }).apply(this, arguments);
 
-},{}],71:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js", module);
 (function(){
 var isLength = require('../internal/isLength'),
@@ -3400,7 +3452,7 @@ module.exports = isTypedArray;
 
 }).apply(this, arguments);
 
-},{"../internal/isLength":60,"../internal/isObjectLike":61}],72:[function(require,module,exports){
+},{"../internal/isLength":63,"../internal/isObjectLike":64}],75:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js", module);
 (function(){
 var assignWith = require('../internal/assignWith'),
@@ -3449,7 +3501,7 @@ module.exports = assign;
 
 }).apply(this, arguments);
 
-},{"../internal/assignWith":23,"../internal/baseAssign":24,"../internal/createAssigner":44}],73:[function(require,module,exports){
+},{"../internal/assignWith":26,"../internal/baseAssign":27,"../internal/createAssigner":47}],76:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js", module);
 (function(){
 var baseForOwn = require('../internal/baseForOwn'),
@@ -3488,7 +3540,7 @@ module.exports = forOwn;
 
 }).apply(this, arguments);
 
-},{"../internal/baseForOwn":30,"../internal/createForOwn":48}],74:[function(require,module,exports){
+},{"../internal/baseForOwn":33,"../internal/createForOwn":51}],77:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js", module);
 (function(){
 var getNative = require('../internal/getNative'),
@@ -3539,7 +3591,7 @@ module.exports = keys;
 
 }).apply(this, arguments);
 
-},{"../internal/getNative":55,"../internal/isArrayLike":56,"../internal/shimKeys":63,"../lang/isObject":70}],75:[function(require,module,exports){
+},{"../internal/getNative":58,"../internal/isArrayLike":59,"../internal/shimKeys":66,"../lang/isObject":73}],78:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js", module);
 (function(){
 var isArguments = require('../lang/isArguments'),
@@ -3609,7 +3661,7 @@ module.exports = keysIn;
 
 }).apply(this, arguments);
 
-},{"../internal/isIndex":57,"../internal/isLength":60,"../lang/isArguments":66,"../lang/isArray":67,"../lang/isObject":70}],76:[function(require,module,exports){
+},{"../internal/isIndex":60,"../internal/isLength":63,"../lang/isArguments":69,"../lang/isArray":70,"../lang/isObject":73}],79:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js", module);
 (function(){
 var createObjectMapper = require('../internal/createObjectMapper');
@@ -3661,7 +3713,7 @@ module.exports = mapValues;
 
 }).apply(this, arguments);
 
-},{"../internal/createObjectMapper":49}],77:[function(require,module,exports){
+},{"../internal/createObjectMapper":52}],80:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js", module);
 (function(){
 var keys = require('./keys'),
@@ -3700,7 +3752,7 @@ module.exports = pairs;
 
 }).apply(this, arguments);
 
-},{"../internal/toObject":64,"./keys":74}],78:[function(require,module,exports){
+},{"../internal/toObject":67,"./keys":77}],81:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\identity.js", module);
 (function(){
 /**
@@ -3726,7 +3778,7 @@ module.exports = identity;
 
 }).apply(this, arguments);
 
-},{}],79:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js", module);
 (function(){
 var baseProperty = require('../internal/baseProperty'),
@@ -3763,7 +3815,7 @@ module.exports = property;
 
 }).apply(this, arguments);
 
-},{"../internal/baseProperty":38,"../internal/basePropertyDeep":39,"../internal/isKey":59}],80:[function(require,module,exports){
+},{"../internal/baseProperty":41,"../internal/basePropertyDeep":42,"../internal/isKey":62}],83:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\component-bind\\index.js", module);
 (function(){
 /**
@@ -3792,7 +3844,7 @@ module.exports = function(obj, fn){
 
 }).apply(this, arguments);
 
-},{}],81:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\component-emitter\\index.js", module);
 (function(){
 
@@ -3962,7 +4014,7 @@ Emitter.prototype.hasListeners = function(event){
 
 }).apply(this, arguments);
 
-},{}],82:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\component-inherit\\index.js", module);
 (function(){
 
@@ -3974,7 +4026,7 @@ module.exports = function(a, b){
 };
 }).apply(this, arguments);
 
-},{}],83:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\core-js\\library\\fn\\json\\stringify.js", module);
 (function(){
 var core  = require('../../modules/_core')
@@ -3984,14 +4036,264 @@ module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
 };
 }).apply(this, arguments);
 
-},{"../../modules/_core":84}],84:[function(require,module,exports){
+},{"../../modules/_core":90}],87:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\fn\\object\\define-property.js", module);
+(function(){
+require('../../modules/es6.object.define-property');
+var $Object = require('../../modules/_core').Object;
+module.exports = function defineProperty(it, key, desc){
+  return $Object.defineProperty(it, key, desc);
+};
+}).apply(this, arguments);
+
+},{"../../modules/_core":90,"../../modules/es6.object.define-property":103}],88:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_a-function.js", module);
+(function(){
+module.exports = function(it){
+  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
+  return it;
+};
+}).apply(this, arguments);
+
+},{}],89:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_an-object.js", module);
+(function(){
+var isObject = require('./_is-object');
+module.exports = function(it){
+  if(!isObject(it))throw TypeError(it + ' is not an object!');
+  return it;
+};
+}).apply(this, arguments);
+
+},{"./_is-object":99}],90:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_core.js", module);
 (function(){
 var core = module.exports = {version: '2.4.0'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 }).apply(this, arguments);
 
-},{}],85:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_ctx.js", module);
+(function(){
+// optional / simple context binding
+var aFunction = require('./_a-function');
+module.exports = function(fn, that, length){
+  aFunction(fn);
+  if(that === undefined)return fn;
+  switch(length){
+    case 1: return function(a){
+      return fn.call(that, a);
+    };
+    case 2: return function(a, b){
+      return fn.call(that, a, b);
+    };
+    case 3: return function(a, b, c){
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function(/* ...args */){
+    return fn.apply(that, arguments);
+  };
+};
+}).apply(this, arguments);
+
+},{"./_a-function":88}],92:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_descriptors.js", module);
+(function(){
+// Thank's IE8 for his funny defineProperty
+module.exports = !require('./_fails')(function(){
+  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+});
+}).apply(this, arguments);
+
+},{"./_fails":95}],93:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_dom-create.js", module);
+(function(){
+var isObject = require('./_is-object')
+  , document = require('./_global').document
+  // in old IE typeof document.createElement is 'object'
+  , is = isObject(document) && isObject(document.createElement);
+module.exports = function(it){
+  return is ? document.createElement(it) : {};
+};
+}).apply(this, arguments);
+
+},{"./_global":96,"./_is-object":99}],94:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_export.js", module);
+(function(){
+var global    = require('./_global')
+  , core      = require('./_core')
+  , ctx       = require('./_ctx')
+  , hide      = require('./_hide')
+  , PROTOTYPE = 'prototype';
+
+var $export = function(type, name, source){
+  var IS_FORCED = type & $export.F
+    , IS_GLOBAL = type & $export.G
+    , IS_STATIC = type & $export.S
+    , IS_PROTO  = type & $export.P
+    , IS_BIND   = type & $export.B
+    , IS_WRAP   = type & $export.W
+    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
+    , expProto  = exports[PROTOTYPE]
+    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
+    , key, own, out;
+  if(IS_GLOBAL)source = name;
+  for(key in source){
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if(own && key in exports)continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function(C){
+      var F = function(a, b, c){
+        if(this instanceof C){
+          switch(arguments.length){
+            case 0: return new C;
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if(IS_PROTO){
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if(type & $export.R && expProto && !expProto[key])hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library` 
+module.exports = $export;
+}).apply(this, arguments);
+
+},{"./_core":90,"./_ctx":91,"./_global":96,"./_hide":97}],95:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_fails.js", module);
+(function(){
+module.exports = function(exec){
+  try {
+    return !!exec();
+  } catch(e){
+    return true;
+  }
+};
+}).apply(this, arguments);
+
+},{}],96:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_global.js", module);
+(function(){
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
+}).apply(this, arguments);
+
+},{}],97:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_hide.js", module);
+(function(){
+var dP         = require('./_object-dp')
+  , createDesc = require('./_property-desc');
+module.exports = require('./_descriptors') ? function(object, key, value){
+  return dP.f(object, key, createDesc(1, value));
+} : function(object, key, value){
+  object[key] = value;
+  return object;
+};
+}).apply(this, arguments);
+
+},{"./_descriptors":92,"./_object-dp":100,"./_property-desc":101}],98:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_ie8-dom-define.js", module);
+(function(){
+module.exports = !require('./_descriptors') && !require('./_fails')(function(){
+  return Object.defineProperty(require('./_dom-create')('div'), 'a', {get: function(){ return 7; }}).a != 7;
+});
+}).apply(this, arguments);
+
+},{"./_descriptors":92,"./_dom-create":93,"./_fails":95}],99:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_is-object.js", module);
+(function(){
+module.exports = function(it){
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+}).apply(this, arguments);
+
+},{}],100:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_object-dp.js", module);
+(function(){
+var anObject       = require('./_an-object')
+  , IE8_DOM_DEFINE = require('./_ie8-dom-define')
+  , toPrimitive    = require('./_to-primitive')
+  , dP             = Object.defineProperty;
+
+exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes){
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if(IE8_DOM_DEFINE)try {
+    return dP(O, P, Attributes);
+  } catch(e){ /* empty */ }
+  if('get' in Attributes || 'set' in Attributes)throw TypeError('Accessors not supported!');
+  if('value' in Attributes)O[P] = Attributes.value;
+  return O;
+};
+}).apply(this, arguments);
+
+},{"./_an-object":89,"./_descriptors":92,"./_ie8-dom-define":98,"./_to-primitive":102}],101:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_property-desc.js", module);
+(function(){
+module.exports = function(bitmap, value){
+  return {
+    enumerable  : !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable    : !(bitmap & 4),
+    value       : value
+  };
+};
+}).apply(this, arguments);
+
+},{}],102:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\_to-primitive.js", module);
+(function(){
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = require('./_is-object');
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function(it, S){
+  if(!isObject(it))return it;
+  var fn, val;
+  if(S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  if(typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it)))return val;
+  if(!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+}).apply(this, arguments);
+
+},{"./_is-object":99}],103:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules\\core-js\\library\\modules\\es6.object.define-property.js", module);
+(function(){
+var $export = require('./_export');
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !require('./_descriptors'), 'Object', {defineProperty: require('./_object-dp').f});
+}).apply(this, arguments);
+
+},{"./_descriptors":92,"./_export":94,"./_object-dp":100}],104:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\debug\\browser.js", module);
 (function(){
 
@@ -4165,7 +4467,7 @@ function localstorage(){
 
 }).apply(this, arguments);
 
-},{"./debug":86}],86:[function(require,module,exports){
+},{"./debug":105}],105:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\debug\\debug.js", module);
 (function(){
 
@@ -4368,7 +4670,7 @@ function coerce(val) {
 
 }).apply(this, arguments);
 
-},{"ms":105}],87:[function(require,module,exports){
+},{"ms":124}],106:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\index.js", module);
 (function(){
 
@@ -4376,7 +4678,7 @@ module.exports =  require('./lib/');
 
 }).apply(this, arguments);
 
-},{"./lib/":88}],88:[function(require,module,exports){
+},{"./lib/":107}],107:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\index.js", module);
 (function(){
 
@@ -4392,7 +4694,7 @@ module.exports.parser = require('engine.io-parser');
 
 }).apply(this, arguments);
 
-},{"./socket":89,"engine.io-parser":97}],89:[function(require,module,exports){
+},{"./socket":108,"engine.io-parser":116}],108:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\socket.js", module);
 (function(){
 (function (global){
@@ -5128,7 +5430,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./transport":90,"./transports":91,"component-emitter":81,"debug":85,"engine.io-parser":97,"indexof":104,"parsejson":106,"parseqs":107,"parseuri":108}],90:[function(require,module,exports){
+},{"./transport":109,"./transports":110,"component-emitter":84,"debug":104,"engine.io-parser":116,"indexof":123,"parsejson":125,"parseqs":126,"parseuri":127}],109:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\transport.js", module);
 (function(){
 /**
@@ -5289,7 +5591,7 @@ Transport.prototype.onClose = function () {
 
 }).apply(this, arguments);
 
-},{"component-emitter":81,"engine.io-parser":97}],91:[function(require,module,exports){
+},{"component-emitter":84,"engine.io-parser":116}],110:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\transports\\index.js", module);
 (function(){
 (function (global){
@@ -5350,7 +5652,7 @@ function polling(opts){
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./polling-jsonp":92,"./polling-xhr":93,"./websocket":95,"xmlhttprequest-ssl":96}],92:[function(require,module,exports){
+},{"./polling-jsonp":111,"./polling-xhr":112,"./websocket":114,"xmlhttprequest-ssl":115}],111:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js", module);
 (function(){
 (function (global){
@@ -5596,7 +5898,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./polling":94,"component-inherit":82}],93:[function(require,module,exports){
+},{"./polling":113,"component-inherit":85}],112:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js", module);
 (function(){
 (function (global){
@@ -6016,7 +6318,7 @@ function unloadHandler() {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./polling":94,"component-emitter":81,"component-inherit":82,"debug":85,"xmlhttprequest-ssl":96}],94:[function(require,module,exports){
+},{"./polling":113,"component-emitter":84,"component-inherit":85,"debug":104,"xmlhttprequest-ssl":115}],113:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\transports\\polling.js", module);
 (function(){
 /**
@@ -6269,7 +6571,7 @@ Polling.prototype.uri = function(){
 
 }).apply(this, arguments);
 
-},{"../transport":90,"component-inherit":82,"debug":85,"engine.io-parser":97,"parseqs":107,"xmlhttprequest-ssl":96,"yeast":129}],95:[function(require,module,exports){
+},{"../transport":109,"component-inherit":85,"debug":104,"engine.io-parser":116,"parseqs":126,"xmlhttprequest-ssl":115,"yeast":148}],114:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\transports\\websocket.js", module);
 (function(){
 (function (global){
@@ -6565,7 +6867,7 @@ WS.prototype.check = function(){
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"../transport":90,"component-inherit":82,"debug":85,"engine.io-parser":97,"parseqs":107,"ws":8,"yeast":129}],96:[function(require,module,exports){
+},{"../transport":109,"component-inherit":85,"debug":104,"engine.io-parser":116,"parseqs":126,"ws":11,"yeast":148}],115:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-client\\lib\\xmlhttprequest.js", module);
 (function(){
 // browser shim for xmlhttprequest module
@@ -6607,7 +6909,7 @@ module.exports = function(opts) {
 
 }).apply(this, arguments);
 
-},{"has-cors":103}],97:[function(require,module,exports){
+},{"has-cors":122}],116:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-parser\\lib\\browser.js", module);
 (function(){
 (function (global){
@@ -7209,7 +7511,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./keys":98,"after":2,"arraybuffer.slice":3,"base64-arraybuffer":6,"blob":7,"has-binary":99,"utf8":122}],98:[function(require,module,exports){
+},{"./keys":117,"after":2,"arraybuffer.slice":3,"base64-arraybuffer":9,"blob":10,"has-binary":118,"utf8":141}],117:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-parser\\lib\\keys.js", module);
 (function(){
 
@@ -7234,7 +7536,7 @@ module.exports = Object.keys || function keys (obj){
 
 }).apply(this, arguments);
 
-},{}],99:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js", module);
 (function(){
 (function (global){
@@ -7300,7 +7602,7 @@ function hasBinary(data) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"isarray":100}],100:[function(require,module,exports){
+},{"isarray":119}],119:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\engine.io-parser\\node_modules\\isarray\\index.js", module);
 (function(){
 module.exports = Array.isArray || function (arr) {
@@ -7309,7 +7611,7 @@ module.exports = Array.isArray || function (arr) {
 
 }).apply(this, arguments);
 
-},{}],101:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\has-binary\\index.js", module);
 (function(){
 (function (global){
@@ -7376,7 +7678,7 @@ function hasBinary(data) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"isarray":102}],102:[function(require,module,exports){
+},{"isarray":121}],121:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\has-binary\\node_modules\\isarray\\index.js", module);
 (function(){
 module.exports = Array.isArray || function (arr) {
@@ -7385,7 +7687,7 @@ module.exports = Array.isArray || function (arr) {
 
 }).apply(this, arguments);
 
-},{}],103:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\has-cors\\index.js", module);
 (function(){
 
@@ -7408,7 +7710,7 @@ try {
 
 }).apply(this, arguments);
 
-},{}],104:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\indexof\\index.js", module);
 (function(){
 
@@ -7423,7 +7725,7 @@ module.exports = function(arr, obj){
 };
 }).apply(this, arguments);
 
-},{}],105:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\ms\\index.js", module);
 (function(){
 /**
@@ -7554,7 +7856,7 @@ function plural(ms, n, name) {
 
 }).apply(this, arguments);
 
-},{}],106:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\parsejson\\index.js", module);
 (function(){
 (function (global){
@@ -7593,7 +7895,7 @@ module.exports = function parsejson(data) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],107:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\parseqs\\index.js", module);
 (function(){
 /**
@@ -7636,7 +7938,7 @@ exports.decode = function(qs){
 
 }).apply(this, arguments);
 
-},{}],108:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\parseuri\\index.js", module);
 (function(){
 /**
@@ -7681,7 +7983,7 @@ module.exports = function parseuri(str) {
 
 }).apply(this, arguments);
 
-},{}],109:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\process\\browser.js", module);
 (function(){
 // shim for using process in browser
@@ -7786,7 +8088,7 @@ process.umask = function() { return 0; };
 
 }).apply(this, arguments);
 
-},{}],110:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-client\\lib\\index.js", module);
 (function(){
 
@@ -7884,7 +8186,7 @@ exports.Socket = require('./socket');
 
 }).apply(this, arguments);
 
-},{"./manager":111,"./socket":113,"./url":114,"debug":85,"socket.io-parser":117}],111:[function(require,module,exports){
+},{"./manager":130,"./socket":132,"./url":133,"debug":104,"socket.io-parser":136}],130:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-client\\lib\\manager.js", module);
 (function(){
 
@@ -8447,7 +8749,7 @@ Manager.prototype.onreconnect = function(){
 
 }).apply(this, arguments);
 
-},{"./on":112,"./socket":113,"backo2":5,"component-bind":80,"component-emitter":115,"debug":85,"engine.io-client":87,"indexof":104,"socket.io-parser":117}],112:[function(require,module,exports){
+},{"./on":131,"./socket":132,"backo2":8,"component-bind":83,"component-emitter":134,"debug":104,"engine.io-client":106,"indexof":123,"socket.io-parser":136}],131:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-client\\lib\\on.js", module);
 (function(){
 
@@ -8477,7 +8779,7 @@ function on(obj, ev, fn) {
 
 }).apply(this, arguments);
 
-},{}],113:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-client\\lib\\socket.js", module);
 (function(){
 
@@ -8895,7 +9197,7 @@ Socket.prototype.compress = function(compress){
 
 }).apply(this, arguments);
 
-},{"./on":112,"component-bind":80,"component-emitter":115,"debug":85,"has-binary":101,"socket.io-parser":117,"to-array":121}],114:[function(require,module,exports){
+},{"./on":131,"component-bind":83,"component-emitter":134,"debug":104,"has-binary":120,"socket.io-parser":136,"to-array":140}],133:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-client\\lib\\url.js", module);
 (function(){
 (function (global){
@@ -8979,7 +9281,7 @@ function url(uri, loc){
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"debug":85,"parseuri":108}],115:[function(require,module,exports){
+},{"debug":104,"parseuri":127}],134:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-client\\node_modules\\component-emitter\\index.js", module);
 (function(){
 
@@ -9146,7 +9448,7 @@ Emitter.prototype.hasListeners = function(event){
 
 }).apply(this, arguments);
 
-},{}],116:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-parser\\binary.js", module);
 (function(){
 (function (global){
@@ -9295,7 +9597,7 @@ exports.removeBlobs = function(data, callback) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./is-buffer":118,"isarray":119}],117:[function(require,module,exports){
+},{"./is-buffer":137,"isarray":138}],136:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-parser\\index.js", module);
 (function(){
 
@@ -9701,7 +10003,7 @@ function error(data){
 
 }).apply(this, arguments);
 
-},{"./binary":116,"./is-buffer":118,"component-emitter":81,"debug":85,"isarray":119,"json3":120}],118:[function(require,module,exports){
+},{"./binary":135,"./is-buffer":137,"component-emitter":84,"debug":104,"isarray":138,"json3":139}],137:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-parser\\is-buffer.js", module);
 (function(){
 (function (global){
@@ -9722,7 +10024,7 @@ function isBuf(obj) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],119:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-parser\\node_modules\\isarray\\index.js", module);
 (function(){
 module.exports = Array.isArray || function (arr) {
@@ -9731,7 +10033,7 @@ module.exports = Array.isArray || function (arr) {
 
 }).apply(this, arguments);
 
-},{}],120:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\socket.io-parser\\node_modules\\json3\\lib\\json3.js", module);
 (function(){
 (function (global){
@@ -10641,7 +10943,7 @@ _hmr["websocket:null"].initModule("node_modules\\socket.io-parser\\node_modules\
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],121:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\to-array\\index.js", module);
 (function(){
 module.exports = toArray
@@ -10660,7 +10962,7 @@ function toArray(list, index) {
 
 }).apply(this, arguments);
 
-},{}],122:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\utf8\\utf8.js", module);
 (function(){
 (function (global){
@@ -10912,7 +11214,7 @@ _hmr["websocket:null"].initModule("node_modules\\utf8\\utf8.js", module);
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],123:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vue-hot-reload-api\\index.js", module);
 (function(){
 var Vue // late bind
@@ -11216,7 +11518,7 @@ function format (id) {
 
 }).apply(this, arguments);
 
-},{}],124:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vue-resource\\dist\\vue-resource.common.js", module);
 (function(){
 /*!
@@ -12597,7 +12899,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 module.exports = plugin;
 }).apply(this, arguments);
 
-},{}],125:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vue-router\\dist\\vue-router.js", module);
 (function(){
 /*!
@@ -15311,7 +15613,7 @@ _hmr["websocket:null"].initModule("node_modules\\vue-router\\dist\\vue-router.js
 }));
 }).apply(this, arguments);
 
-},{}],126:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vue\\dist\\vue.common.js", module);
 (function(){
 (function (process,global){
@@ -25348,7 +25650,7 @@ module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"_process":109}],127:[function(require,module,exports){
+},{"_process":128}],146:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vueify\\lib\\insert-css.js", module);
 (function(){
 var inserted = exports.cache = {}
@@ -25372,7 +25674,7 @@ exports.insert = function (css) {
 
 }).apply(this, arguments);
 
-},{}],128:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\vuex\\dist\\vuex.js", module);
 (function(){
 /*!
@@ -26011,7 +26313,7 @@ _hmr["websocket:null"].initModule("node_modules\\vuex\\dist\\vuex.js", module);
 }));
 }).apply(this, arguments);
 
-},{}],129:[function(require,module,exports){
+},{}],148:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules\\yeast\\index.js", module);
 (function(){
 'use strict';
@@ -26085,7 +26387,7 @@ module.exports = yeast;
 
 }).apply(this, arguments);
 
-},{}],130:[function(require,module,exports){
+},{}],149:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\App.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
@@ -26130,7 +26432,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"../vuex/store":141,"./Chat.vue":132,"vue":126,"vue-hot-reload-api":123,"vueify/lib/insert-css":127}],131:[function(require,module,exports){
+},{"../vuex/store":161,"./Chat.vue":151,"vue":145,"vue-hot-reload-api":142,"vueify/lib/insert-css":146}],150:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\CharacterSelect.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
@@ -26214,7 +26516,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"../router":138,"../vuex/actions":139,"../vuex/getters":140,"./SelectionList.vue":135,"./SelectionListItem.vue":136,"vue":126,"vue-hot-reload-api":123,"vueify/lib/insert-css":127}],132:[function(require,module,exports){
+},{"../router":157,"../vuex/actions":159,"../vuex/getters":160,"./SelectionList.vue":154,"./SelectionListItem.vue":155,"vue":145,"vue-hot-reload-api":142,"vueify/lib/insert-css":146}],151:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\Chat.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
@@ -26254,7 +26556,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"./Chatbox.vue":133,"vue":126,"vue-hot-reload-api":123,"vueify/lib/insert-css":127}],133:[function(require,module,exports){
+},{"./Chatbox.vue":152,"vue":145,"vue-hot-reload-api":142,"vueify/lib/insert-css":146}],152:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\Chatbox.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
@@ -26314,7 +26616,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"../vuex/getters":140,"vue":126,"vue-hot-reload-api":123,"vueify/lib/insert-css":127}],134:[function(require,module,exports){
+},{"../vuex/getters":160,"vue":145,"vue-hot-reload-api":142,"vueify/lib/insert-css":146}],153:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\Login.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
@@ -26365,7 +26667,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"../vuex/actions":139,"../vuex/getters":140,"vue":126,"vue-hot-reload-api":123,"vueify/lib/insert-css":127}],135:[function(require,module,exports){
+},{"../vuex/actions":159,"../vuex/getters":160,"vue":145,"vue-hot-reload-api":142,"vueify/lib/insert-css":146}],154:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\SelectionList.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
@@ -26394,7 +26696,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"vue":126,"vue-hot-reload-api":123,"vueify/lib/insert-css":127}],136:[function(require,module,exports){
+},{"vue":145,"vue-hot-reload-api":142,"vueify/lib/insert-css":146}],155:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\components\\SelectionListItem.vue", module);
 (function(){
 var __vueify_insert__ = require("vueify/lib/insert-css")
@@ -26427,7 +26729,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 }).apply(this, arguments);
 
-},{"vue":126,"vue-hot-reload-api":123,"vueify/lib/insert-css":127}],137:[function(require,module,exports){
+},{"vue":145,"vue-hot-reload-api":142,"vueify/lib/insert-css":146}],156:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\main.js", module);
 (function(){
 'use strict';
@@ -26459,7 +26761,7 @@ _router2.default.start(_App2.default, '#app-root');
 
 }).apply(this, arguments);
 
-},{"./components/App.vue":130,"./router":138,"vue":126,"vue-resource":124}],138:[function(require,module,exports){
+},{"./components/App.vue":149,"./router":157,"vue":145,"vue-resource":143}],157:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\router.js", module);
 (function(){
 'use strict';
@@ -26503,8 +26805,8 @@ exports.default = router;
 
 }).apply(this, arguments);
 
-},{"./components/CharacterSelect.vue":131,"./components/Login.vue":134,"vue":126,"vue-router":125}],139:[function(require,module,exports){
-_hmr["websocket:null"].initModule("src\\vuex\\actions.js", module);
+},{"./components/CharacterSelect.vue":150,"./components/Login.vue":153,"vue":145,"vue-router":144}],158:[function(require,module,exports){
+_hmr["websocket:null"].initModule("src\\socket-handler.js", module);
 (function(){
 'use strict';
 
@@ -26516,10 +26818,116 @@ var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _store = require('./vuex/store');
+
+var _store2 = _interopRequireDefault(_store);
+
+var _getters = require('./vuex/getters');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var urls = {
+  mainInsecure: 'ws://chat.f-list.net:9722',
+  main: 'wss://chat.f-list.net:9799',
+  testInsecure: 'ws://chat.f-list.net:8722',
+  test: 'ws://chat.f-list.net:8799'
+};
+
+var SocketHandler = function () {
+  function SocketHandler(urlID) {
+    (0, _classCallCheck3.default)(this, SocketHandler);
+
+    /* eslint no-undef: 0 */
+    this.ws = new WebSocket(urls[urlID]);
+
+    this.ws.onopen = this.onopen.bind(this);
+    this.ws.onclose = this.onclose.bind(this);
+    this.ws.onmessage = this.onmessage.bind(this);
+    this.ws.onerror = this.onerror.bind(this);
+  }
+
+  (0, _createClass3.default)(SocketHandler, [{
+    key: 'onopen',
+    value: function onopen() {
+      _store2.default.dispatch('SOCKET_OPENED', this);
+
+      var state = _store2.default.state;
+
+
+      var params = {
+        method: 'ticket',
+        account: (0, _getters.getAccount)(state),
+        ticket: (0, _getters.getApiTicket)(state),
+        character: (0, _getters.getCharacterName)(state),
+        cname: 'fchat-next',
+        cversion: '0.1.0'
+      };
+
+      this.ws.send('IDN ' + (0, _stringify2.default)(params));
+      _store2.default.dispatch('CHAT_IDENTIFY_REQUEST');
+    }
+  }, {
+    key: 'onclose',
+    value: function onclose() {
+      _store2.default.dispatch('SOCKET_CLOSED');
+    }
+  }, {
+    key: 'onmessage',
+    value: function onmessage(_ref) {
+      var data = _ref.data;
+
+      var command = data.substring(0, 3);
+      var params = data.length > 3 ? data.substring(4) : {};
+      this.handleChatCommand(command, params);
+    }
+  }, {
+    key: 'onerror',
+    value: function onerror() {
+      _store2.default.dispatch('SOCKET_ERROR', err);
+    }
+  }, {
+    key: 'handleChatCommand',
+    value: function handleChatCommand(command, params) {
+      switch (command) {
+        case 'IDN':
+          _store2.default.dispatch('CHAT_IDENTIFY_SUCCESS');
+          break;
+
+        case 'PIN':
+          this.ws.send('PIN');
+          break;
+
+        default:
+          console.warn('Unknown command ' + command + ' with params ' + (0, _stringify2.default)(params));
+      }
+    }
+  }]);
+  return SocketHandler;
+}();
+
+exports.default = SocketHandler;
+
+}).apply(this, arguments);
+
+},{"./vuex/getters":160,"./vuex/store":161,"babel-runtime/core-js/json/stringify":4,"babel-runtime/helpers/classCallCheck":6,"babel-runtime/helpers/createClass":7}],159:[function(require,module,exports){
+_hmr["websocket:null"].initModule("src\\vuex\\actions.js", module);
+(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.submitLogin = submitLogin;
 exports.chooseCharacter = chooseCharacter;
 exports.connectToChatServer = connectToChatServer;
-exports.handleChatCommand = handleChatCommand;
 
 var _vue = require('vue');
 
@@ -26528,6 +26936,10 @@ var _router = require('../router');
 var _router2 = _interopRequireDefault(_router);
 
 var _getters = require('./getters');
+
+var _socketHandler = require('../socket-handler');
+
+var _socketHandler2 = _interopRequireDefault(_socketHandler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26557,62 +26969,14 @@ function chooseCharacter(store, char) {
 }
 
 function connectToChatServer(store) {
-  var url = 'wss://chat.f-list.net:9799';
-
-  /* eslint no-undef: 0 */
-  var socket = new WebSocket(url);
-
-  socket.onopen = function () {
-    store.dispatch('SOCKET_OPENED', socket);
-
-    var state = store.state;
-
-    var params = {
-      method: 'ticket',
-      account: (0, _getters.getAccount)(state),
-      ticket: (0, _getters.getApiTicket)(state),
-      character: (0, _getters.getCharacterName)(state),
-      cname: 'fchat-next',
-      cversion: '0.1.0'
-    };
-
-    socket.send('IDN ' + (0, _stringify2.default)(params));
-    store.dispatch('CHAT_IDENTIFY_REQUEST');
-  };
-
-  socket.onclose = function () {
-    store.dispatch('SOCKET_CLOSED');
-  };
-
-  socket.onerror = function (err) {
-    store.dispatch('SOCKET_ERROR', err);
-  };
-
-  socket.onmessage = function (_ref3) {
-    var data = _ref3.data;
-
-    var command = data.substring(0, 3);
-    var params = data.length > 3 ? data.substring(4) : {};
-    handleChatCommand(store, command, params);
-  };
-
+  /* eslint no-new: 0 */
+  new _socketHandler2.default('main');
   store.dispatch('CONNECT_REQUEST');
-}
-
-function handleChatCommand(store, command, params) {
-  switch (command) {
-    case 'IDN':
-      store.dispatch('CHAT_IDENTIFY_SUCCESS');
-      break;
-
-    default:
-      console.warn('Unknown command ' + command + ' with params ' + (0, _stringify2.default)(params));
-  }
 }
 
 }).apply(this, arguments);
 
-},{"../router":138,"./getters":140,"babel-runtime/core-js/json/stringify":4,"vue":126}],140:[function(require,module,exports){
+},{"../router":157,"../socket-handler":158,"./getters":160,"vue":145}],160:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\vuex\\getters.js", module);
 (function(){
 "use strict";
@@ -26646,7 +27010,7 @@ var getApiTicket = exports.getApiTicket = function getApiTicket(state) {
 
 }).apply(this, arguments);
 
-},{}],141:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 _hmr["websocket:null"].initModule("src\\vuex\\store.js", module);
 (function(){
 'use strict';
@@ -26711,11 +27075,11 @@ exports.default = new _vuex2.default.Store({ state: state, mutations: mutations 
 
 }).apply(this, arguments);
 
-},{"vue":126,"vuex":128}],1:[function(require,module,exports){
+},{"vue":145,"vuex":147}],1:[function(require,module,exports){
 (function(global, _main, moduleDefs, cachedModules, _entries) {
   'use strict';
 
-  var moduleMeta = {"node_modules\\browserify-hmr\\lib\\has.js":{"index":10,"hash":"Hky4QYVrU1+kFHIEuxPy","parents":["node_modules\\browserify-hmr\\lib\\str-set.js","node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\vue-resource\\dist\\vue-resource.common.js":{"index":124,"hash":"G32CaqCO1nQPln2lChmr","parents":["src\\main.js"]},"node_modules\\process\\browser.js":{"index":109,"hash":"iMqi6MQHQnIC/EB8UzCx","parents":["node_modules\\vue\\dist\\vue.common.js"]},"node_modules\\vue\\dist\\vue.common.js":{"index":126,"hash":"/4BgqwiN1C7Jn09ssqBV","parents":["src\\components\\Login.vue","src\\vuex\\store.js","src\\components\\SelectionList.vue","src\\components\\SelectionListItem.vue","src\\components\\Chatbox.vue","src\\components\\Chat.vue","src\\components\\App.vue","src\\vuex\\actions.js","src\\components\\CharacterSelect.vue","src\\router.js","src\\main.js"]},"node_modules\\parseuri\\index.js":{"index":108,"hash":"c/c7XftSI6ClFc9h2jOh","parents":["node_modules\\socket.io-client\\lib\\url.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\socket.io-client\\lib\\url.js":{"index":114,"hash":"/o7EwzytoCiGybsA7pHf","parents":["node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\debug\\browser.js":{"index":85,"hash":"S76q28f1VPJIcCtJn1eq","parents":["node_modules\\socket.io-client\\lib\\url.js","node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-parser\\index.js","node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-client\\lib\\on.js":{"index":112,"hash":"y5MOoFpTKKBHwE8q8jae","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\socket.io-client\\node_modules\\component-emitter\\index.js":{"index":115,"hash":"asxNeKKEYmnxnAxICTS6","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\component-bind\\index.js":{"index":80,"hash":"4yIcVw+afwUsnTQyI0a3","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\to-array\\index.js":{"index":121,"hash":"2EoggafxX+GLXkXiaGjm","parents":["node_modules\\socket.io-client\\lib\\socket.js"]},"node_modules\\socket.io-parser\\is-buffer.js":{"index":118,"hash":"UJBXKAfBg/BkigSZbc3Z","parents":["node_modules\\socket.io-parser\\binary.js","node_modules\\socket.io-parser\\index.js"]},"node_modules\\socket.io-parser\\node_modules\\isarray\\index.js":{"index":119,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\socket.io-parser\\binary.js","node_modules\\socket.io-parser\\index.js"]},"node_modules\\component-emitter\\index.js":{"index":81,"hash":"0uL1LSa/mOj+Llu+HTZ7","parents":["node_modules\\socket.io-parser\\index.js","node_modules\\engine.io-client\\lib\\transport.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\socket.io-parser\\node_modules\\json3\\lib\\json3.js":{"index":120,"hash":"LXnegdmM3ELMiM4tQmqu","parents":["node_modules\\socket.io-parser\\index.js"]},"node_modules\\indexof\\index.js":{"index":104,"hash":"8zMGV0j0ID5bUIeT7r+M","parents":["node_modules\\engine.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\backo2\\index.js":{"index":5,"hash":"L5ry3mfVEw1wgmx9Sa+q","parents":["node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\browserify-hmr\\lib\\str-set.js":{"index":11,"hash":"lcrDmQK4uaqOqN+FV4/9","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayFilter.js":{"index":20,"hash":"BGunz0w1QzJXyqQSOdZb","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayMap.js":{"index":21,"hash":"xdr8c0JsUFapIHTuM5VE","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayEach.js":{"index":19,"hash":"eLxUBVsb8vpFbu0VN4KL","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js":{"index":13,"hash":"fKfSwIzPo5SUx9d0DkgN","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js":{"index":67,"hash":"rpMiE1Z199/XZCjno4KN","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arraySome.js":{"index":22,"hash":"GxeJPxJj2jUg5TzV5gLv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js"]},"node_modules\\vue-router\\dist\\vue-router.js":{"index":125,"hash":"rqGwUo92D6Cv9jhBr04K","parents":["src\\router.js"]},"node_modules\\vue-hot-reload-api\\index.js":{"index":123,"hash":"f1FdC0AX0Gv6zyDU4qOs","parents":["src\\components\\Login.vue","src\\components\\SelectionList.vue","src\\components\\SelectionListItem.vue","src\\components\\Chatbox.vue","src\\components\\Chat.vue","src\\components\\App.vue","src\\components\\CharacterSelect.vue"]},"node_modules\\vueify\\lib\\insert-css.js":{"index":127,"hash":"fvTUijA6yyBpp68H+JX2","parents":["src\\components\\Login.vue","src\\components\\SelectionList.vue","src\\components\\SelectionListItem.vue","src\\components\\Chatbox.vue","src\\components\\Chat.vue","src\\components\\App.vue","src\\components\\CharacterSelect.vue"]},"node_modules\\has-binary\\node_modules\\isarray\\index.js":{"index":102,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\has-binary\\index.js"]},"node_modules\\has-binary\\index.js":{"index":101,"hash":"GofcXFXhXC0uVJvLAw+2","parents":["node_modules\\socket.io-client\\lib\\socket.js"]},"node_modules\\socket.io-client\\lib\\socket.js":{"index":113,"hash":"dZhwrF36uFIGbDZMhss6","parents":["node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-parser\\index.js":{"index":117,"hash":"7PrgORY9faIa3QvXeHjU","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\ms\\index.js":{"index":105,"hash":"HanVKm5AkV6MOdHRAMCT","parents":["node_modules\\debug\\debug.js"]},"node_modules\\debug\\debug.js":{"index":86,"hash":"yqdR7nJc7wxIHzFDNzG+","parents":["node_modules\\debug\\browser.js"]},"node_modules\\socket.io-parser\\binary.js":{"index":116,"hash":"bAee8RukaXwuD/OeGN6F","parents":["node_modules\\socket.io-parser\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js":{"index":49,"hash":"cp8s+Z6khiKdK5QCQ+Ms","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js":{"index":25,"hash":"FDEmxoh1cXY/hddgPNGW","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js":{"index":30,"hash":"sOLmHH2OosmeW92YaLK/","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js":{"index":76,"hash":"2HfAmVuaVGfc8pd5zIaC","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isLength.js":{"index":60,"hash":"DFIKI121VzeE+pBbx1Oa","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isObjectLike.js":{"index":61,"hash":"qEGnAWJNoAetOIJ7YKiV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\identity.js":{"index":78,"hash":"A/cz5O4nnho2x2e5KIWS","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js":{"index":28,"hash":"yyvQag4hw8sItBFf3/9T","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js":{"index":27,"hash":"Ji7NLCJhdzSBlpDI+qC3","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\function\\restParam.js":{"index":18,"hash":"/RRH9MCtjArr1p3Qeh63","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js":{"index":44,"hash":"X8R81jvRCofY1BnG+A/L","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js":{"index":58,"hash":"dXMnNRevAizOBisKCEes","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js":{"index":43,"hash":"S6iy1I+53IEzDLSGuW0j","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCopy.js":{"index":26,"hash":"WvGi8IywM6u7ZNXvztwg","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js":{"index":24,"hash":"6VX87YoeNgDvMUyiAc/7","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js":{"index":74,"hash":"BbXGNIcfatSp32uWOBAV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js":{"index":47,"hash":"iJtWBCzx+bzzSLwlaaRv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js":{"index":48,"hash":"KJqijjvJO7d1nU17Sz3c","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js":{"index":41,"hash":"lCW5AtHn9X2vSuPgS8pk","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIndex.js":{"index":57,"hash":"I8y5AsjL/lwDlORDOqqM","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isObject.js":{"index":70,"hash":"Go+dTLFqO1KJN+uQLb8s","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js":{"index":56,"hash":"76Awthz8ChTgjGk0JZ6Y","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js":{"index":17,"hash":"9JyJFfdCx56pmR6fwM9q","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"src\\vuex\\getters.js":{"index":140,"hash":"c0eVkN6X74EvDvm0OsXC","parents":["src\\components\\Login.vue","src\\components\\Chatbox.vue","src\\vuex\\actions.js","src\\components\\CharacterSelect.vue"]},"src\\components\\Login.vue":{"index":134,"hash":"IWOnQnE3kZNw2LtZ4GDt","parents":["src\\router.js"]},"src\\vuex\\actions.js":{"index":139,"hash":"8nZ7Tor9xuI7VVXTBZq4","parents":["src\\components\\Login.vue","src\\components\\CharacterSelect.vue"]},"node_modules\\vuex\\dist\\vuex.js":{"index":128,"hash":"po010WTliwrG7lvrWGF4","parents":["src\\vuex\\store.js"]},"src\\vuex\\store.js":{"index":141,"hash":"dPhlrPvXh0or8NBxCp8I","parents":["src\\components\\App.vue"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseProperty.js":{"index":38,"hash":"Yuk2tpof21q0Xl2sQg89","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSlice.js":{"index":40,"hash":"OLgw9XVic1W0AKjehzHB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\array\\last.js":{"index":12,"hash":"3oXXa2idWbKySVLcq3os","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js":{"index":45,"hash":"+5X3Ztm78NNPr9vQZ7fB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js":{"index":53,"hash":"UiZ6F0+nXZ0fiKckTqnM","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js":{"index":64,"hash":"8f3eulB97DddBRdcU+7v","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js":{"index":15,"hash":"0Lo1RNt18PMo/HAKbHEu","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"src\\components\\SelectionList.vue":{"index":135,"hash":"wz3BFZXsaNS4AMxa0aJ7","parents":["src\\components\\CharacterSelect.vue"]},"src\\components\\SelectionListItem.vue":{"index":136,"hash":"smVilYpzI1tzN8+6xg1R","parents":["src\\components\\CharacterSelect.vue"]},"src\\components\\Chatbox.vue":{"index":133,"hash":"X7fgRAcwZl0/q+ILDG9z","parents":["src\\components\\Chat.vue"]},"src\\components\\Chat.vue":{"index":132,"hash":"KoDOaW6jaV4jChG9iU+V","parents":["src\\components\\App.vue"]},"src\\components\\App.vue":{"index":130,"hash":"krXNYMtaDMWzOF6A4uyv","parents":["src\\main.js"]},"node_modules\\engine.io-parser\\lib\\keys.js":{"index":98,"hash":"oFyKNTA0twlyQVhVzp9n","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\utf8\\utf8.js":{"index":122,"hash":"QFL4wDvbB2+cEph5nThH","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\arraybuffer.slice\\index.js":{"index":3,"hash":"RSb5Zx9CgX3adjzbvf/k","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\after\\index.js":{"index":2,"hash":"NzPfXWECmM8rW/6fdkcj","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\blob\\index.js":{"index":7,"hash":"q7L6uHK9eN9yEvDVNxJw","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\base64-arraybuffer\\lib\\base64-arraybuffer.js":{"index":6,"hash":"dW6cnktjBIyZ6bv9vRp2","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\parsejson\\index.js":{"index":106,"hash":"3RLuznQNKZiQ/toCXNir","parents":["node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\parseqs\\index.js":{"index":107,"hash":"FI4tRELwI5Itz+ckwR+m","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js":{"index":59,"hash":"lDpw5crcRmTRExTLVTKc","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js":{"index":39,"hash":"mqX1OyYdndJ183lyl/sn","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js":{"index":31,"hash":"H9EiMd3ullQpRkvooLgz","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js":{"index":65,"hash":"faVQvsb+LSLI4uaMgtrQ","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js":{"index":79,"hash":"7IoOI/uGZCxbcY23uQDK","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js":{"index":34,"hash":"EpuJzlg204aR35T4QKcS","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js":{"index":32,"hash":"dBgoFXnhj9KH6oX3dQwa","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js":{"index":62,"hash":"ofNP4/nFrz5Rkb3kGOhn","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseToString.js":{"index":42,"hash":"ABFQFf14pRECi3sw8oKV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js":{"index":35,"hash":"ofv2jCE5QlahpynG4rkN","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js":{"index":16,"hash":"63n5x8GTiWPuxiZzm9TM","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js":{"index":46,"hash":"9RWlFaBOuelvwgkhYgPG","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js":{"index":29,"hash":"NGxcZ0n01+w2G1PzyBlY","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js":{"index":73,"hash":"LZ77PzuJW/wlgVPdvlGc","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\engine.io-parser\\node_modules\\isarray\\index.js":{"index":100,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js"]},"node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js":{"index":99,"hash":"ZLLgu+QfLGB5FJs6P2Ow","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\engine.io-parser\\lib\\browser.js":{"index":97,"hash":"6A2jdV+cDrzwkG+1P9xX","parents":["node_modules\\engine.io-client\\lib\\transport.js","node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js","node_modules\\engine.io-client\\lib\\index.js"]},"node_modules\\engine.io-client\\lib\\transport.js":{"index":90,"hash":"qAS1jC8gVTG4yb/AanoB","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\browser-resolve\\empty.js":{"index":8,"hash":"47DEQpj8HBSa+/TImW+5","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js":{"index":68,"hash":"xkfzrZNZPGGOIf0kE8Y9","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js":{"index":69,"hash":"2rstaALy1DW0JSDdijps","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js":{"index":55,"hash":"7GRZ7115BSuoc/1bdaBK","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js":{"index":77,"hash":"x6Ilwx8encvg/BW5API2","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js":{"index":54,"hash":"n0PHWhNs6YZ+DzgYMHPx","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js":{"index":36,"hash":"Cwj5GSiQv9/E8nSFBoX2","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalByTag.js":{"index":51,"hash":"+y++gesJpPvyM+2E8aNB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js":{"index":66,"hash":"xQ4mqbsKQMCmtsPbfQc6","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js":{"index":75,"hash":"8POZiGR1fRHso579G46Z","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js":{"index":63,"hash":"oO4aKopmxRfPxyKgRX9F","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js":{"index":23,"hash":"aKBKyfIKqZsNOHAbJTAI","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js":{"index":72,"hash":"9WOhJBREl8AO9Hs6Cr+Q","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\has-cors\\index.js":{"index":103,"hash":"HwTb4UF/S089ZYA8hrRl","parents":["node_modules\\engine.io-client\\lib\\xmlhttprequest.js"]},"node_modules\\engine.io-client\\lib\\xmlhttprequest.js":{"index":96,"hash":"us0FsN5s7hiT3hqVV5lx","parents":["node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\component-inherit\\index.js":{"index":82,"hash":"T0Fqch4d4akvlr8bh7lc","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js"]},"node_modules\\yeast\\index.js":{"index":129,"hash":"ZM3+5w4l/D2f6x7svySF","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js"]},"node_modules\\engine.io-client\\lib\\transports\\websocket.js":{"index":95,"hash":"HfpLTMBIovfNVzW2AUtb","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js":{"index":93,"hash":"jZ3ocO8rHG1K39sNZtMM","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\polling.js":{"index":94,"hash":"vdgStJPJzZrXTQesqN8z","parents":["node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js":{"index":50,"hash":"OBJL6vuaOotu5flUeCnv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js":{"index":52,"hash":"44Iy49kDcaAZsykEdaH3","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js":{"index":71,"hash":"aVeZyIFGadrEh7EsaDRu","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js":{"index":33,"hash":"ltZZaMHmzp6d9jBltV3Y","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js":{"index":37,"hash":"OudnSoeq2A4ql5lg51kc","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js":{"index":14,"hash":"XtU5zjCqSDlYcwOLUC13","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\inc\\index.js":{"index":9,"hash":"zTlNWZ14iIh89mO0UkaY","parents":[]},"node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js":{"index":92,"hash":"Gb1vE1gV8jcH9l3Z6/bT","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\index.js":{"index":91,"hash":"GTfOTTHr8n5FqdkZq1ur","parents":["node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\engine.io-client\\lib\\socket.js":{"index":89,"hash":"OKrqAAXxHzyJ1GLXZsq5","parents":["node_modules\\engine.io-client\\lib\\index.js"]},"node_modules\\engine.io-client\\lib\\index.js":{"index":88,"hash":"G6QYuSNu0EcS+G5tR9NE","parents":["node_modules\\engine.io-client\\index.js"]},"node_modules\\engine.io-client\\index.js":{"index":87,"hash":"HQau4MkD4lAynB9tt0Wl","parents":["node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\socket.io-client\\lib\\manager.js":{"index":111,"hash":"ycazfyz0LQGPtd/P1Ih9","parents":["node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-client\\lib\\index.js":{"index":110,"hash":"6O21Z/SJToLoAyfVkS1+","parents":[]},"node_modules\\core-js\\library\\modules\\_core.js":{"index":84,"hash":"Ibh7O9NcuXp5JVxjT18g","parents":["node_modules\\core-js\\library\\fn\\json\\stringify.js"]},"node_modules\\core-js\\library\\fn\\json\\stringify.js":{"index":83,"hash":"/7Mqb6NcOOiWzqv0YDvh","parents":["node_modules\\babel-runtime\\core-js\\json\\stringify.js"]},"node_modules\\babel-runtime\\core-js\\json\\stringify.js":{"index":4,"hash":"wB8ZWCZnz6eAdHwvJsyS","parents":["src\\vuex\\actions.js"]},"src\\router.js":{"index":138,"hash":"W+/DiiVb+pLQpq0QncdZ","parents":["src\\vuex\\actions.js","src\\components\\CharacterSelect.vue","src\\main.js"]},"src\\components\\CharacterSelect.vue":{"index":131,"hash":"J+NJtz/BiQkpG5gCDLKh","parents":["src\\router.js"]},"src\\main.js":{"index":137,"hash":"al9uSVsMbFweAYzluMcj","parents":[]}};
+  var moduleMeta = {"node_modules\\browserify-hmr\\lib\\has.js":{"index":13,"hash":"Hky4QYVrU1+kFHIEuxPy","parents":["node_modules\\browserify-hmr\\lib\\str-set.js","node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\vue-resource\\dist\\vue-resource.common.js":{"index":143,"hash":"G32CaqCO1nQPln2lChmr","parents":["src\\main.js"]},"node_modules\\process\\browser.js":{"index":128,"hash":"iMqi6MQHQnIC/EB8UzCx","parents":["node_modules\\vue\\dist\\vue.common.js"]},"node_modules\\vue\\dist\\vue.common.js":{"index":145,"hash":"/4BgqwiN1C7Jn09ssqBV","parents":["src\\vuex\\store.js","src\\components\\Chatbox.vue","src\\components\\Chat.vue","src\\components\\App.vue","src\\components\\SelectionList.vue","src\\components\\SelectionListItem.vue","src\\components\\CharacterSelect.vue","src\\vuex\\actions.js","src\\components\\Login.vue","src\\router.js","src\\main.js"]},"node_modules\\parseuri\\index.js":{"index":127,"hash":"c/c7XftSI6ClFc9h2jOh","parents":["node_modules\\socket.io-client\\lib\\url.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\socket.io-client\\lib\\url.js":{"index":133,"hash":"/o7EwzytoCiGybsA7pHf","parents":["node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\debug\\browser.js":{"index":104,"hash":"S76q28f1VPJIcCtJn1eq","parents":["node_modules\\socket.io-client\\lib\\url.js","node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-parser\\index.js","node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-client\\lib\\on.js":{"index":131,"hash":"y5MOoFpTKKBHwE8q8jae","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\socket.io-client\\node_modules\\component-emitter\\index.js":{"index":134,"hash":"asxNeKKEYmnxnAxICTS6","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\component-bind\\index.js":{"index":83,"hash":"4yIcVw+afwUsnTQyI0a3","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\to-array\\index.js":{"index":140,"hash":"2EoggafxX+GLXkXiaGjm","parents":["node_modules\\socket.io-client\\lib\\socket.js"]},"node_modules\\socket.io-parser\\is-buffer.js":{"index":137,"hash":"UJBXKAfBg/BkigSZbc3Z","parents":["node_modules\\socket.io-parser\\binary.js","node_modules\\socket.io-parser\\index.js"]},"node_modules\\socket.io-parser\\node_modules\\isarray\\index.js":{"index":138,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\socket.io-parser\\binary.js","node_modules\\socket.io-parser\\index.js"]},"node_modules\\component-emitter\\index.js":{"index":84,"hash":"0uL1LSa/mOj+Llu+HTZ7","parents":["node_modules\\socket.io-parser\\index.js","node_modules\\engine.io-client\\lib\\transport.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\socket.io-parser\\node_modules\\json3\\lib\\json3.js":{"index":139,"hash":"LXnegdmM3ELMiM4tQmqu","parents":["node_modules\\socket.io-parser\\index.js"]},"node_modules\\indexof\\index.js":{"index":123,"hash":"8zMGV0j0ID5bUIeT7r+M","parents":["node_modules\\engine.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\backo2\\index.js":{"index":8,"hash":"L5ry3mfVEw1wgmx9Sa+q","parents":["node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\browserify-hmr\\lib\\str-set.js":{"index":14,"hash":"lcrDmQK4uaqOqN+FV4/9","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arraySome.js":{"index":25,"hash":"GxeJPxJj2jUg5TzV5gLv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayFilter.js":{"index":23,"hash":"BGunz0w1QzJXyqQSOdZb","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayEach.js":{"index":22,"hash":"eLxUBVsb8vpFbu0VN4KL","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\arrayMap.js":{"index":24,"hash":"xdr8c0JsUFapIHTuM5VE","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js"]},"node_modules\\vue-hot-reload-api\\index.js":{"index":142,"hash":"f1FdC0AX0Gv6zyDU4qOs","parents":["src\\components\\Chatbox.vue","src\\components\\Chat.vue","src\\components\\App.vue","src\\components\\SelectionList.vue","src\\components\\SelectionListItem.vue","src\\components\\CharacterSelect.vue","src\\components\\Login.vue"]},"node_modules\\vueify\\lib\\insert-css.js":{"index":146,"hash":"fvTUijA6yyBpp68H+JX2","parents":["src\\components\\Chatbox.vue","src\\components\\Chat.vue","src\\components\\App.vue","src\\components\\SelectionList.vue","src\\components\\SelectionListItem.vue","src\\components\\CharacterSelect.vue","src\\components\\Login.vue"]},"node_modules\\vue-router\\dist\\vue-router.js":{"index":144,"hash":"rqGwUo92D6Cv9jhBr04K","parents":["src\\router.js"]},"node_modules\\has-binary\\node_modules\\isarray\\index.js":{"index":121,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\has-binary\\index.js"]},"node_modules\\has-binary\\index.js":{"index":120,"hash":"GofcXFXhXC0uVJvLAw+2","parents":["node_modules\\socket.io-client\\lib\\socket.js"]},"node_modules\\socket.io-client\\lib\\socket.js":{"index":132,"hash":"dZhwrF36uFIGbDZMhss6","parents":["node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-parser\\index.js":{"index":136,"hash":"7PrgORY9faIa3QvXeHjU","parents":["node_modules\\socket.io-client\\lib\\socket.js","node_modules\\socket.io-client\\lib\\manager.js","node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\ms\\index.js":{"index":124,"hash":"HanVKm5AkV6MOdHRAMCT","parents":["node_modules\\debug\\debug.js"]},"node_modules\\debug\\debug.js":{"index":105,"hash":"yqdR7nJc7wxIHzFDNzG+","parents":["node_modules\\debug\\browser.js"]},"node_modules\\socket.io-parser\\binary.js":{"index":135,"hash":"bAee8RukaXwuD/OeGN6F","parents":["node_modules\\socket.io-parser\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isLength.js":{"index":63,"hash":"DFIKI121VzeE+pBbx1Oa","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isObjectLike.js":{"index":64,"hash":"qEGnAWJNoAetOIJ7YKiV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js":{"index":52,"hash":"cp8s+Z6khiKdK5QCQ+Ms","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js":{"index":28,"hash":"FDEmxoh1cXY/hddgPNGW","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js":{"index":33,"hash":"sOLmHH2OosmeW92YaLK/","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createObjectMapper.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\mapValues.js":{"index":79,"hash":"2HfAmVuaVGfc8pd5zIaC","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\identity.js":{"index":81,"hash":"A/cz5O4nnho2x2e5KIWS","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js":{"index":44,"hash":"lCW5AtHn9X2vSuPgS8pk","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js":{"index":30,"hash":"Ji7NLCJhdzSBlpDI+qC3","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSome.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIndex.js":{"index":60,"hash":"I8y5AsjL/lwDlORDOqqM","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isObject.js":{"index":73,"hash":"Go+dTLFqO1KJN+uQLb8s","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFilter.js":{"index":31,"hash":"yyvQag4hw8sItBFf3/9T","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js":{"index":17,"hash":"XtU5zjCqSDlYcwOLUC13","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js":{"index":70,"hash":"rpMiE1Z199/XZCjno4KN","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\filter.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js","node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js":{"index":50,"hash":"iJtWBCzx+bzzSLwlaaRv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\bindCallback.js":{"index":46,"hash":"S6iy1I+53IEzDLSGuW0j","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createForOwn.js":{"index":51,"hash":"KJqijjvJO7d1nU17Sz3c","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCopy.js":{"index":29,"hash":"WvGi8IywM6u7ZNXvztwg","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js":{"index":27,"hash":"6VX87YoeNgDvMUyiAc/7","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js":{"index":77,"hash":"BbXGNIcfatSp32uWOBAV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseAssign.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\function\\restParam.js":{"index":21,"hash":"/RRH9MCtjArr1p3Qeh63","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js":{"index":47,"hash":"X8R81jvRCofY1BnG+A/L","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js":{"index":61,"hash":"dXMnNRevAizOBisKCEes","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createAssigner.js","node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\assignWith.js":{"index":26,"hash":"aKBKyfIKqZsNOHAbJTAI","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\assign.js":{"index":75,"hash":"9WOhJBREl8AO9Hs6Cr+Q","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js":{"index":38,"hash":"ofv2jCE5QlahpynG4rkN","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js":{"index":59,"hash":"76Awthz8ChTgjGk0JZ6Y","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMap.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isIterateeCall.js","node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\map.js":{"index":19,"hash":"63n5x8GTiWPuxiZzm9TM","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\vuex\\dist\\vuex.js":{"index":147,"hash":"po010WTliwrG7lvrWGF4","parents":["src\\vuex\\store.js"]},"src\\vuex\\store.js":{"index":161,"hash":"dPhlrPvXh0or8NBxCp8I","parents":["src\\components\\App.vue","src\\socket-handler.js"]},"src\\vuex\\getters.js":{"index":160,"hash":"c0eVkN6X74EvDvm0OsXC","parents":["src\\components\\Chatbox.vue","src\\components\\CharacterSelect.vue","src\\socket-handler.js","src\\vuex\\actions.js","src\\components\\Login.vue"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseProperty.js":{"index":41,"hash":"Yuk2tpof21q0Xl2sQg89","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseSlice.js":{"index":43,"hash":"OLgw9XVic1W0AKjehzHB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\array\\last.js":{"index":15,"hash":"3oXXa2idWbKySVLcq3os","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js":{"index":48,"hash":"+5X3Ztm78NNPr9vQZ7fB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseEach.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getLength.js":{"index":56,"hash":"UiZ6F0+nXZ0fiKckTqnM","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isArrayLike.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toObject.js":{"index":67,"hash":"8f3eulB97DddBRdcU+7v","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseEach.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\forEach.js":{"index":18,"hash":"0Lo1RNt18PMo/HAKbHEu","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"src\\components\\Chatbox.vue":{"index":152,"hash":"X7fgRAcwZl0/q+ILDG9z","parents":["src\\components\\Chat.vue"]},"src\\components\\Chat.vue":{"index":151,"hash":"KoDOaW6jaV4jChG9iU+V","parents":["src\\components\\App.vue"]},"src\\components\\App.vue":{"index":149,"hash":"krXNYMtaDMWzOF6A4uyv","parents":["src\\main.js"]},"src\\components\\SelectionList.vue":{"index":154,"hash":"wz3BFZXsaNS4AMxa0aJ7","parents":["src\\components\\CharacterSelect.vue"]},"src\\components\\SelectionListItem.vue":{"index":155,"hash":"smVilYpzI1tzN8+6xg1R","parents":["src\\components\\CharacterSelect.vue"]},"src\\components\\CharacterSelect.vue":{"index":150,"hash":"J+NJtz/BiQkpG5gCDLKh","parents":["src\\router.js"]},"src\\router.js":{"index":157,"hash":"W+/DiiVb+pLQpq0QncdZ","parents":["src\\components\\CharacterSelect.vue","src\\vuex\\actions.js","src\\main.js"]},"src\\vuex\\actions.js":{"index":159,"hash":"D7TXntB1jbZxHHv7x6mO","parents":["src\\components\\CharacterSelect.vue","src\\components\\Login.vue"]},"node_modules\\engine.io-parser\\lib\\keys.js":{"index":117,"hash":"oFyKNTA0twlyQVhVzp9n","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\utf8\\utf8.js":{"index":141,"hash":"QFL4wDvbB2+cEph5nThH","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\arraybuffer.slice\\index.js":{"index":3,"hash":"RSb5Zx9CgX3adjzbvf/k","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\after\\index.js":{"index":2,"hash":"NzPfXWECmM8rW/6fdkcj","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\blob\\index.js":{"index":10,"hash":"q7L6uHK9eN9yEvDVNxJw","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\base64-arraybuffer\\lib\\base64-arraybuffer.js":{"index":9,"hash":"dW6cnktjBIyZ6bv9vRp2","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\parsejson\\index.js":{"index":125,"hash":"3RLuznQNKZiQ/toCXNir","parents":["node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\parseqs\\index.js":{"index":126,"hash":"FI4tRELwI5Itz+ckwR+m","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isKey.js":{"index":62,"hash":"lDpw5crcRmTRExTLVTKc","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js":{"index":42,"hash":"mqX1OyYdndJ183lyl/sn","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseGet.js":{"index":34,"hash":"H9EiMd3ullQpRkvooLgz","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js":{"index":68,"hash":"faVQvsb+LSLI4uaMgtrQ","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\basePropertyDeep.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\utility\\property.js":{"index":82,"hash":"7IoOI/uGZCxbcY23uQDK","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js":{"index":37,"hash":"EpuJzlg204aR35T4QKcS","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js":{"index":35,"hash":"dBgoFXnhj9KH6oX3dQwa","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsMatch.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\isStrictComparable.js":{"index":65,"hash":"ofNP4/nFrz5Rkb3kGOhn","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseToString.js":{"index":45,"hash":"ABFQFf14pRECi3sw8oKV","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\toPath.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\createBaseFor.js":{"index":49,"hash":"9RWlFaBOuelvwgkhYgPG","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseFor.js":{"index":32,"hash":"NGxcZ0n01+w2G1PzyBlY","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseForOwn.js"]},"node_modules\\engine.io-parser\\node_modules\\isarray\\index.js":{"index":119,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js"]},"node_modules\\engine.io-parser\\node_modules\\has-binary\\index.js":{"index":118,"hash":"ZLLgu+QfLGB5FJs6P2Ow","parents":["node_modules\\engine.io-parser\\lib\\browser.js"]},"node_modules\\engine.io-parser\\lib\\browser.js":{"index":116,"hash":"6A2jdV+cDrzwkG+1P9xX","parents":["node_modules\\engine.io-client\\lib\\transport.js","node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js","node_modules\\engine.io-client\\lib\\index.js"]},"node_modules\\engine.io-client\\lib\\transport.js":{"index":109,"hash":"qAS1jC8gVTG4yb/AanoB","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\browser-resolve\\empty.js":{"index":11,"hash":"47DEQpj8HBSa+/TImW+5","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isFunction.js":{"index":71,"hash":"xkfzrZNZPGGOIf0kE8Y9","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isNative.js":{"index":72,"hash":"2rstaALy1DW0JSDdijps","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getNative.js":{"index":58,"hash":"7GRZ7115BSuoc/1bdaBK","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArray.js","node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\array\\zipObject.js":{"index":16,"hash":"fKfSwIzPo5SUx9d0DkgN","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\pairs.js":{"index":80,"hash":"x6Ilwx8encvg/BW5API2","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\getMatchData.js":{"index":57,"hash":"n0PHWhNs6YZ+DzgYMHPx","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatches.js":{"index":39,"hash":"Cwj5GSiQv9/E8nSFBoX2","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalByTag.js":{"index":54,"hash":"+y++gesJpPvyM+2E8aNB","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isArguments.js":{"index":69,"hash":"xQ4mqbsKQMCmtsPbfQc6","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js","node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keysIn.js":{"index":78,"hash":"8POZiGR1fRHso579G46Z","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\shimKeys.js":{"index":66,"hash":"oO4aKopmxRfPxyKgRX9F","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\object\\keys.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\object\\forOwn.js":{"index":76,"hash":"LZ77PzuJW/wlgVPdvlGc","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\has-cors\\index.js":{"index":122,"hash":"HwTb4UF/S089ZYA8hrRl","parents":["node_modules\\engine.io-client\\lib\\xmlhttprequest.js"]},"node_modules\\engine.io-client\\lib\\xmlhttprequest.js":{"index":115,"hash":"us0FsN5s7hiT3hqVV5lx","parents":["node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js","node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\component-inherit\\index.js":{"index":85,"hash":"T0Fqch4d4akvlr8bh7lc","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js","node_modules\\engine.io-client\\lib\\transports\\polling.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js"]},"node_modules\\yeast\\index.js":{"index":148,"hash":"ZM3+5w4l/D2f6x7svySF","parents":["node_modules\\engine.io-client\\lib\\transports\\websocket.js","node_modules\\engine.io-client\\lib\\transports\\polling.js"]},"node_modules\\engine.io-client\\lib\\transports\\websocket.js":{"index":114,"hash":"HfpLTMBIovfNVzW2AUtb","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js":{"index":111,"hash":"Gb1vE1gV8jcH9l3Z6/bT","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\polling.js":{"index":113,"hash":"vdgStJPJzZrXTQesqN8z","parents":["node_modules\\engine.io-client\\lib\\transports\\polling-jsonp.js","node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalArrays.js":{"index":53,"hash":"OBJL6vuaOotu5flUeCnv","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\equalObjects.js":{"index":55,"hash":"44Iy49kDcaAZsykEdaH3","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\lang\\isTypedArray.js":{"index":74,"hash":"aVeZyIFGadrEh7EsaDRu","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqualDeep.js":{"index":36,"hash":"ltZZaMHmzp6d9jBltV3Y","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseIsEqual.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseMatchesProperty.js":{"index":40,"hash":"OudnSoeq2A4ql5lg51kc","parents":["node_modules\\browserify-hmr\\node_modules\\lodash\\internal\\baseCallback.js"]},"node_modules\\browserify-hmr\\node_modules\\lodash\\collection\\some.js":{"index":20,"hash":"9JyJFfdCx56pmR6fwM9q","parents":["node_modules\\browserify-hmr\\inc\\index.js"]},"node_modules\\browserify-hmr\\inc\\index.js":{"index":12,"hash":"zTlNWZ14iIh89mO0UkaY","parents":[]},"node_modules\\engine.io-client\\lib\\transports\\polling-xhr.js":{"index":112,"hash":"jZ3ocO8rHG1K39sNZtMM","parents":["node_modules\\engine.io-client\\lib\\transports\\index.js"]},"node_modules\\engine.io-client\\lib\\transports\\index.js":{"index":110,"hash":"GTfOTTHr8n5FqdkZq1ur","parents":["node_modules\\engine.io-client\\lib\\socket.js"]},"node_modules\\engine.io-client\\lib\\socket.js":{"index":108,"hash":"OKrqAAXxHzyJ1GLXZsq5","parents":["node_modules\\engine.io-client\\lib\\index.js"]},"node_modules\\engine.io-client\\lib\\index.js":{"index":107,"hash":"G6QYuSNu0EcS+G5tR9NE","parents":["node_modules\\engine.io-client\\index.js"]},"node_modules\\engine.io-client\\index.js":{"index":106,"hash":"HQau4MkD4lAynB9tt0Wl","parents":["node_modules\\socket.io-client\\lib\\manager.js"]},"node_modules\\socket.io-client\\lib\\manager.js":{"index":130,"hash":"ycazfyz0LQGPtd/P1Ih9","parents":["node_modules\\socket.io-client\\lib\\index.js"]},"node_modules\\socket.io-client\\lib\\index.js":{"index":129,"hash":"6O21Z/SJToLoAyfVkS1+","parents":[]},"node_modules\\babel-runtime\\helpers\\classCallCheck.js":{"index":6,"hash":"CVukS8D7W0nkuW7YHyrD","parents":["src\\socket-handler.js"]},"node_modules\\core-js\\library\\modules\\_core.js":{"index":90,"hash":"Ibh7O9NcuXp5JVxjT18g","parents":["node_modules\\core-js\\library\\fn\\json\\stringify.js","node_modules\\core-js\\library\\modules\\_export.js","node_modules\\core-js\\library\\fn\\object\\define-property.js"]},"node_modules\\core-js\\library\\fn\\json\\stringify.js":{"index":86,"hash":"/7Mqb6NcOOiWzqv0YDvh","parents":["node_modules\\babel-runtime\\core-js\\json\\stringify.js"]},"node_modules\\babel-runtime\\core-js\\json\\stringify.js":{"index":4,"hash":"wB8ZWCZnz6eAdHwvJsyS","parents":["src\\socket-handler.js"]},"node_modules\\core-js\\library\\modules\\_fails.js":{"index":95,"hash":"6G4+YXaRghTGQQnkm/qp","parents":["node_modules\\core-js\\library\\modules\\_descriptors.js","node_modules\\core-js\\library\\modules\\_ie8-dom-define.js"]},"node_modules\\core-js\\library\\modules\\_descriptors.js":{"index":92,"hash":"McUDhb4rP+oATCLvDuyP","parents":["node_modules\\core-js\\library\\modules\\_hide.js","node_modules\\core-js\\library\\modules\\_ie8-dom-define.js","node_modules\\core-js\\library\\modules\\_object-dp.js","node_modules\\core-js\\library\\modules\\es6.object.define-property.js"]},"node_modules\\core-js\\library\\modules\\_global.js":{"index":96,"hash":"t7QKkyeVEU+gGSy/l5Cc","parents":["node_modules\\core-js\\library\\modules\\_export.js","node_modules\\core-js\\library\\modules\\_dom-create.js"]},"node_modules\\core-js\\library\\modules\\_a-function.js":{"index":88,"hash":"vI7NBVNoKizw/T7ablYt","parents":["node_modules\\core-js\\library\\modules\\_ctx.js"]},"node_modules\\core-js\\library\\modules\\_ctx.js":{"index":91,"hash":"7XSoqXnnvuQNnLab8whJ","parents":["node_modules\\core-js\\library\\modules\\_export.js"]},"node_modules\\core-js\\library\\modules\\_property-desc.js":{"index":101,"hash":"iSs9jpAw1JT2ZWWLScSH","parents":["node_modules\\core-js\\library\\modules\\_hide.js"]},"node_modules\\core-js\\library\\modules\\_hide.js":{"index":97,"hash":"5JdwMpfbd5b8F4itNMek","parents":["node_modules\\core-js\\library\\modules\\_export.js"]},"node_modules\\core-js\\library\\modules\\_object-dp.js":{"index":100,"hash":"USI9OT8U6SpHfWvn9r5g","parents":["node_modules\\core-js\\library\\modules\\_hide.js","node_modules\\core-js\\library\\modules\\es6.object.define-property.js"]},"node_modules\\core-js\\library\\modules\\_export.js":{"index":94,"hash":"fGTKYkdyS7XTV6bj77hA","parents":["node_modules\\core-js\\library\\modules\\es6.object.define-property.js"]},"node_modules\\core-js\\library\\modules\\_is-object.js":{"index":99,"hash":"FkaOOMIm0uw4T/qUEXed","parents":["node_modules\\core-js\\library\\modules\\_to-primitive.js","node_modules\\core-js\\library\\modules\\_an-object.js","node_modules\\core-js\\library\\modules\\_dom-create.js"]},"node_modules\\core-js\\library\\modules\\_to-primitive.js":{"index":102,"hash":"a1Cfbzo6Ix2Qb6hwaVeR","parents":["node_modules\\core-js\\library\\modules\\_object-dp.js"]},"node_modules\\core-js\\library\\modules\\_an-object.js":{"index":89,"hash":"FD1Pe34jvTZR5fMuRia3","parents":["node_modules\\core-js\\library\\modules\\_object-dp.js"]},"node_modules\\core-js\\library\\modules\\_dom-create.js":{"index":93,"hash":"24Me2VaLtFW+4kZ/bwu+","parents":["node_modules\\core-js\\library\\modules\\_ie8-dom-define.js"]},"node_modules\\core-js\\library\\modules\\_ie8-dom-define.js":{"index":98,"hash":"txBbsHMC53UVDcVkHwf9","parents":["node_modules\\core-js\\library\\modules\\_object-dp.js"]},"node_modules\\core-js\\library\\modules\\es6.object.define-property.js":{"index":103,"hash":"AJFoe7hxjyCaJtz4O6BO","parents":["node_modules\\core-js\\library\\fn\\object\\define-property.js"]},"node_modules\\core-js\\library\\fn\\object\\define-property.js":{"index":87,"hash":"GvilSZ5/iGfndw7IF+ED","parents":["node_modules\\babel-runtime\\core-js\\object\\define-property.js"]},"node_modules\\babel-runtime\\core-js\\object\\define-property.js":{"index":5,"hash":"ioyabRIs1LiP5mOVFls5","parents":["node_modules\\babel-runtime\\helpers\\createClass.js"]},"node_modules\\babel-runtime\\helpers\\createClass.js":{"index":7,"hash":"+/cZYBnMlyb3F09iji2X","parents":["src\\socket-handler.js"]},"src\\socket-handler.js":{"index":158,"hash":"JHSW9Vks+99InY6h1obc","parents":["src\\vuex\\actions.js"]},"src\\components\\Login.vue":{"index":153,"hash":"IWOnQnE3kZNw2LtZ4GDt","parents":["src\\router.js"]},"src\\main.js":{"index":156,"hash":"al9uSVsMbFweAYzluMcj","parents":[]}};
   var originalEntries = ["E:\\Kingdaro\\Projects\\web\\fchat\\src\\main.js"];
   var updateUrl = null;
   var updateMode = "websocket";
@@ -26759,4 +27123,4 @@ exports.default = new _vuex2.default.Store({ state: state, mutations: mutations 
   arguments[3], arguments[4], arguments[5], arguments[6]
 );
 
-},{"./node_modules\\browserify-hmr\\inc\\index.js":9,"./node_modules\\socket.io-client\\lib\\index.js":110,"E:\\Kingdaro\\Projects\\web\\fchat\\src\\main.js":137}]},{},[1]);
+},{"./node_modules\\browserify-hmr\\inc\\index.js":12,"./node_modules\\socket.io-client\\lib\\index.js":129,"E:\\Kingdaro\\Projects\\web\\fchat\\src\\main.js":156}]},{},[1]);
