@@ -74,6 +74,12 @@ const mutations = {
 
   SET_ADMIN_LIST (state, adminList) {
     state.admins = adminList
+  },
+
+  APPEND_CHARACTERS (state, charlist) {
+    console.time('charlist append')
+    state.onlineCharacters = state.onlineCharacters.concat(charlist)
+    console.timeEnd('charlist append')
   }
 }
 

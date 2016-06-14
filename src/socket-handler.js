@@ -67,7 +67,7 @@ export default class SocketHandler {
 
       // receiving server variables
       case 'VAR':
-        store.dispatch('SET_SERVER_VARIABLE', params.variable)
+        store.dispatch('SET_SERVER_VARIABLE', params.variable, params.value)
         break
 
       // hello :)
@@ -103,7 +103,14 @@ export default class SocketHandler {
 
       // receiving all characters online
       // comes in multiple batches
-      // case 'LIS': break
+      case 'LIS':
+        const charlist = params.characters.map(info => {
+          const [name, gender, status, statusMessage] = info
+          return { name, gender, status, statusMessage }
+        })
+
+        store.dispatch('APPEND_CHARACTERS', charlist)
+        break
 
       default:
         console.warn(`Unknown command ${command} with params:\n`, inspect(params, { depth: null }))
