@@ -1,6 +1,5 @@
 import {http} from 'vue'
 import router from '../router'
-import {getAccount, getApiTicket, getCharacterName} from './getters'
 import SocketHandler from '../socket-handler'
 
 export function submitLogin (store, account, password) {

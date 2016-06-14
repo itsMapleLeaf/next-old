@@ -4,7 +4,6 @@ import App from './components/App.vue'
 import router from './router'
 
 Vue.use(VueResource)
-
 Vue.http.options.emulateJSON = true
 
 router.go('/login')
