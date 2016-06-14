@@ -21,11 +21,23 @@
 
     <div class='divider'></div>
 
-    <div class='row row-6 fg-color padded'>test</div>
+    <div class='row row-6 fg-color'>
+      <chatbox></chatbox>
+    </div>
   </div>
 </template>
 
-<style lang="stylus">
+<script>
+import Chatbox from './Chatbox.vue'
+
+export default {
+  components: {
+    Chatbox
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
 @import '../styles/base'
 @import '../styles/grid'
 @import '../styles/components'

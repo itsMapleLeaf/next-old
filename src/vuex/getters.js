@@ -9,3 +9,6 @@ export const getUserCharacters =
 
 export const getDefaultCharacter =
   state => state.userData.default_character
+
+export const getCharacterName =
+  state => state.character
