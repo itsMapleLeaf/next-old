@@ -3,12 +3,12 @@ export const getLoginStatus =
   state => state.loginStatusMessage
 
 export const getUserCharacters =
-  state => state.userData.characters
+  state => state.loginData.characters
     .slice()
     .sort()
 
 export const getDefaultCharacter =
-  state => state.userData.default_character
+  state => state.loginData.default_character
 
 export const getCharacterName =
   state => state.character
@@ -17,4 +17,4 @@ export const getAccount =
   state => state.account
 
 export const getApiTicket =
-  state => state.userData.ticket
+  state => state.loginData.ticket

@@ -5,11 +5,13 @@ Vue.use(Vuex)
 
 const state = {
   account: '',
-  userData: {},
+  loginData: {},
   loggedIn: false,
   loginStatusMessage: '',
   character: '',
-  socket: null
+  socket: null,
+  channelList: [],
+  joinedChannels: []
 }
 
 const mutations = {
@@ -19,7 +21,7 @@ const mutations = {
   },
 
   LOGIN_SUCCESS (state, data) {
-    state.userData = data
+    state.loginData = data
     state.loggedIn = true
     state.loginStatusMessage = 'Success!'
   },
