@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form>
+    <form @submit.prevent='submit'>
       <h1>Choose a Character</h1>
       <fieldset>
         <selection-list style="position: relative">
@@ -26,6 +26,8 @@
 import SelectionList from './SelectionList.vue'
 import SelectionListItem from './SelectionListItem.vue'
 import {getUserCharacters, getDefaultCharacter} from '../vuex/getters'
+import {chooseCharacter} from '../vuex/actions'
+import router from '../router'
 
 export default {
   components: {
@@ -42,10 +44,18 @@ export default {
   methods: {
     setSelectedCharacter (name) {
       this.selectedCharacter = name
+    },
+
+    submit () {
+      this.chooseCharacter(this.selectedCharacter)
+      router.go('/chat')
     }
   },
 
   vuex: {
+    actions: {
+      chooseCharacter
+    },
     getters: {
       getUserCharacters,
       getDefaultCharacter

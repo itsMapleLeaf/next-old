@@ -7,7 +7,8 @@ const state = {
   account: '',
   userData: {},
   loggedIn: false,
-  loginStatusMessage: ''
+  loginStatusMessage: '',
+  character: ''
 }
 
 const mutations = {
@@ -24,6 +25,10 @@ const mutations = {
 
   LOGIN_FAILURE (state, err) {
     state.loginStatusMessage = err
+  },
+
+  CHOOSE_CHARACTER (state, char) {
+    state.character = char
   }
 }
 

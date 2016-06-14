@@ -14,7 +14,9 @@ export default {}
 
 .selection-list
   border-highlight()
+  width: 14em
   height: 20em
+  display: inline-block
   overflow-y: auto
   background: bg-color
 </style>

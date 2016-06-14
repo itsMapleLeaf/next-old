@@ -19,3 +19,7 @@ export function submitLogin (store, account, password) {
       store.dispatch('LOGIN_FAILURE', data)
     })
 }
+
+export function chooseCharacter (store, char) {
+  store.dispatch('CHOOSE_CHARACTER', char)
+}
