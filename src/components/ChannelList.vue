@@ -5,8 +5,12 @@
       <form>
         <fieldset>
           <selection-list>
-            <selection-list-item v-for='info in filteredChannels'>
-              {{ info.title || info.name }}
+            <selection-list-item class='row' v-for='info in filteredChannels' @click='toggleChannel(info)' :selected='isJoined(info)'>
+              <span class='grow'>
+                {{ info.title || info.name }}
+                <i class='fa fa-check' v-if='isJoined(info)'></i>
+              </span>
+              <span>{{ info.characters }}</span>
             </selection-list-item>
           </selection-list>
         </fieldset>
@@ -36,6 +40,7 @@ export default {
   data () {
     return {
       searchQuery: '',
+      joinedChannels: {}
     }
   },
 
@@ -53,6 +58,14 @@ export default {
   methods: {
     matchesSearch (info) {
       return fuzzysearch(this.searchQuery, info.title || info.name)
+    },
+
+    toggleChannel (info) {
+      this.$set(`joinedChannels["${info.name}"]`, !this.joinedChannels[info.name])
+    },
+
+    isJoined (info) {
+      return this.joinedChannels[info.name]
     }
   },
 
@@ -66,6 +79,7 @@ export default {
 
 <style lang="stylus" scoped>
 @import '../styles/base'
+@import '../styles/grid'
 @import '../styles/components'
 
 .panel
