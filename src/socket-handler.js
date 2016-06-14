@@ -104,12 +104,26 @@ export default class SocketHandler {
       // receiving all characters online
       // comes in multiple batches
       case 'LIS':
-        const charlist = params.characters.map(info => {
-          const [name, gender, status, statusMessage] = info
-          return { name, gender, status, statusMessage }
-        })
+        store.dispatch('HASH_CHARACTERS', params.characters)
+        break
 
-        store.dispatch('APPEND_CHARACTERS', charlist)
+      // character came online
+      case 'NLN':
+        store.dispatch('ADD_CHARACTER', params.identity, {
+          status: params.status,
+          gender: params.gender,
+          statusMessage: ''
+        })
+        break
+
+      // character went offline
+      case 'FLN':
+        store.dispatch('REMOVE_CHARACTER', params.character)
+        break
+
+      // character changed status
+      case 'STA':
+        store.dispatch('SET_CHARACTER_STATUS', params.character, params.status, params.statusMessage)
         break
 
       default:

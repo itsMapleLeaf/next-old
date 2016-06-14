@@ -15,7 +15,7 @@ const state = {
   joinedChannels: [],
 
   character: '',
-  onlineCharacters: [],
+  onlineCharacters: {},
   ignored: [],
   admins: [],
 
@@ -76,10 +76,24 @@ const mutations = {
     state.admins = adminList
   },
 
-  APPEND_CHARACTERS (state, charlist) {
-    console.time('charlist append')
-    state.onlineCharacters = state.onlineCharacters.concat(charlist)
-    console.timeEnd('charlist append')
+  HASH_CHARACTERS (state, characterInfoList) {
+    for (let [name, gender, status, statusMessage] of characterInfoList) {
+      state.onlineCharacters[name] = { gender, status, statusMessage }
+    }
+  },
+
+  ADD_CHARACTER (state, name, info) {
+    state.onlineCharacters[name] = Object.assign({}, info)
+  },
+
+  REMOVE_CHARACTER (state, name) {
+    delete state.onlineCharacters[name]
+  },
+
+  SET_CHARACTER_STATUS (state, name, status, statusMessage) {
+    const char = state.onlineCharacters[name]
+    char.status = status
+    char.statusMessage = statusMessage
   }
 }
 
