@@ -1,15 +1,19 @@
 <template>
   <div class='container'>
-    <router-view></router-view>
+    <chat></chat>
+    <div>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import Chat from './Chat.vue'
 import store from '../vuex/store'
 
 export default {
-  data () {
-    return {}
+  components: {
+    Chat
   },
   store
 }
