@@ -54,9 +54,9 @@ export default {
     background: rgba(0, 0, 0, 0.15)
     cursor: pointer
 
+  border-highlight(transparent)
+
   &.selected
     background: lighten(fg-color, 5%)
     border-highlight()
-
-  border-bottom: 2px solid transparent
 </style>

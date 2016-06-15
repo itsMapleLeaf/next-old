@@ -3,7 +3,7 @@
 
 .container
   color: text-color
-  font-size: 15pt
+  font-size: 16pt
   font-family: 'Roboto Condensed'
 
 *, ::before, ::after
@@ -12,10 +12,13 @@
   margin: 0
 
 input, textarea, button
-  border-highlight()
   background: bg-color
   outline: none
   margin-bottom: 1.5em
+
+  border-highlight()
+  +transition(focus)
+    border-highlight(lighten(fg-color, 40%))
 
 input, textarea
   inherit-text()

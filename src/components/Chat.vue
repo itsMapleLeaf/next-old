@@ -1,12 +1,11 @@
 <template>
   <div class='grid'>
     <div class='row'>
-      <div class='row-2 col-2 fg-color center-content'>
+      <a class='row-2 col-2 fg-color center-content app-menu-button'>
         <i class='fa fa-bars'></i>
-      </div>
+      </a>
       <div class='row grow' style='flex-wrap: wrap'>
-        <channel-tab v-for='channel in joinedChannels' :channel='channel'>
-        </channel-tab>
+        <channel-tab v-for='channel in joinedChannels' :channel='channel'></channel-tab>
       </div>
     </div>
 
@@ -17,9 +16,9 @@
     <div class='divider'></div>
 
     <div class='row grow'>
-      <div class='grow padded'>
-        <div v-for='msg in selectedChannel.messages'>
-          {{msg.character.name}}: {{msg.message}}
+      <div class='grow padded overflow'>
+        <div v-for='msg in selectedChannel.messages' style="padding: 0.15em 0em">
+          {{msg.character.name}}: {{{msg.message}}}
         </div>
       </div>
 
@@ -67,4 +66,9 @@ export default {
 
 .padded
   padding: 0.5em 0.7em
+
+.app-menu-button
+  +transition(hover)
+    background: lighten(fg-color, 10%)
+    cursor: pointer
 </style>
