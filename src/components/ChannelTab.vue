@@ -41,7 +41,7 @@ export default {
 @import '../styles/variables'
 
 .tab
-  // padding: 0.4em 0.8em
+  padding: 0.35em 0.8em
   display: inline-block !important
 
   white-space: nowrap

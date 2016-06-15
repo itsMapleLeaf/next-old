@@ -3,15 +3,9 @@
     <div class='panel material-shadow'>
       <h1>Login</h1>
       <form @submit.prevent='submit'>
-        <fieldset>
-          <input type="text" placeholder="Username" v-model="username"  :disabled='disabled'>
-        </fieldset>
-        <fieldset>
-          <input type="password" placeholder="Password" v-model="password"  :disabled='disabled'>
-        </fieldset>
-        <fieldset>
-          <button action="submit" :disabled='disabled'>Go</button>
-        </fieldset>
+        <input type="text" placeholder="Username" v-model="username"  :disabled='disabled'>
+        <input type="password" placeholder="Password" v-model="password"  :disabled='disabled'>
+        <button action="submit" :disabled='disabled'>Go</button>
       </form>
       <center>{{ loginStatus }}</center>
     </div>

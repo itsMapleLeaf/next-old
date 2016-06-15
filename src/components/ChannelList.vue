@@ -3,23 +3,17 @@
     <div class='panel material-shadow'>
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
-        <fieldset>
-          <selection-list>
-            <selection-list-item class='row' v-for='info in filteredChannels' @click='toggleChannel(info)' :selected='getJoined(info)'>
-              <span class='grow'>
-                {{ info.title || info.name }}
-                <i class='fa fa-check' v-if='getJoined(info)'></i>
-              </span>
-              <span>{{ info.characters }}</span>
-            </selection-list-item>
-          </selection-list>
-        </fieldset>
-        <fieldset>
-          <input type="text" placeholder="Search..." v-model='searchQuery'>
-        </fieldset>
-        <fieldset>
-          <button>Done</button>
-        </fieldset>
+        <selection-list>
+          <selection-list-item class='row' v-for='info in filteredChannels' @click='toggleChannel(info)' :selected='getJoined(info)'>
+            <span class='grow'>
+              {{ info.title || info.name }}
+              <i class='fa fa-check' v-if='getJoined(info)'></i>
+            </span>
+            <span>{{ info.characters }}</span>
+          </selection-list-item>
+        </selection-list><br>
+        <input type="text" placeholder="Search..." v-model='searchQuery'><br>
+        <button>Done</button><br>
       </form>
     </div>
   </div>
