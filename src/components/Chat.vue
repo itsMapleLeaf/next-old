@@ -25,7 +25,7 @@
 
       <div class='col-10 fg-color padded overflow'>
         <div v-for='char in selectedChannel.characters'>
-          {{ char ? char.name : 'unknown' }}
+          {{ char.name }}
         </div>
       </div>
     </div>

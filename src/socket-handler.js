@@ -141,16 +141,17 @@ export default class SocketHandler {
       // receiving initial channel information
       case 'ICH':
         const namelist = params.users.map(({identity}) => identity)
-        store.dispatch('CHANNEL_JOIN_SUCCESS', params.channel, namelist, params.mode)
+        store.dispatch('CHANNEL_INIT', params.channel, namelist, params.mode)
         break
 
       case 'CDS':
         store.dispatch('SET_CHANNEL_DESCRIPTION', params.channel, params.description)
         break
 
-      // user joined one of our channels (could be us)
-      // case 'JCH':
-      //   break
+      // user joined a channel (could be us)
+      case 'JCH':
+        store.dispatch('CHANNEL_JOIN', params.channel, params.character.identity)
+        break
 
       // user left a channel (could be us)
       case 'LCH':

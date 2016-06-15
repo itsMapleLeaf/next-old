@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Character from '../models/Character'
+import ChannelState from '../models/ChannelState'
 
 Vue.use(Vuex)
 
@@ -77,22 +79,12 @@ const mutations = {
 
   HASH_CHARACTERS (state, characterInfoList) {
     for (let [name, gender, status, statusMessage] of characterInfoList) {
-      state.onlineCharacters[name] = {
-        name,
-        gender,
-        status,
-        statusMessage
-      }
+      state.onlineCharacters[name] = Character(name, gender, status, statusMessage)
     }
   },
 
   ADD_CHARACTER (state, name, gender) {
-    state.onlineCharacters[name] = {
-      name,
-      gender,
-      status: 'online',
-      statusMessage: ''
-    }
+    state.onlineCharacters[name] = Character(name, gender)
   },
 
   REMOVE_CHARACTER (state, name) {
@@ -116,22 +108,31 @@ const mutations = {
   },
 
   CHANNEL_JOIN_REQUEST (state, id, name = id) {
-    state.joinedChannels.push({
-      id, name,
-      status: 'joining',
-      mode: 'both',
-      description: '',
-      characters: [],
-      messages: []
-    })
+    state.joinedChannels.push(ChannelState(id, name))
     state.socket.joinChannel(id)
   },
 
-  CHANNEL_JOIN_SUCCESS (state, id, namelist, mode) {
+  CHANNEL_INIT (state, id, namelist, mode) {
     const channel = findChannel(state, id)
-    const characters = namelist.map(name => state.onlineCharacters[name])
+    const characters = []
+
+    for (let name of namelist) {
+      const char = state.onlineCharacters[name]
+      if (char) {
+        characters.push(char)
+      }
+    }
+
     channel.mode = mode
     channel.characters = characters
+  },
+
+  CHANNEL_JOIN (state, id, name) {
+    const channel = findChannel(state, id)
+    const char = state.onlineCharacters[name]
+    if (char) {
+      channel.characters.push(char)
+    }
   },
 
   CHANNEL_LEAVE_REQUEST (state, id) {
