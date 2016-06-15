@@ -1,12 +1,11 @@
 <template>
   <div class='grid'>
-    <div class='row row-2'>
+    <div class='row'>
       <div class='col-2 fg-color center-content'>
         <i class='fa fa-bars'></i>
       </div>
       <div class='row grow' style='flex-wrap: wrap'>
-        <channel-tab v-for='channel in joinedChannels'
-          :channel='channel'>
+        <channel-tab v-for='channel in joinedChannels' :channel='channel'>
         </channel-tab>
       </div>
     </div>
