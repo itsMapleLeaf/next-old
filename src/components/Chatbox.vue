@@ -42,7 +42,8 @@ export default {
 <style lang="stylus" scoped>
 
 textarea
-  margin: none !important
+  display: block
+  margin: 0 !important
   border: none !important
   background: transparent !important
   resize: none

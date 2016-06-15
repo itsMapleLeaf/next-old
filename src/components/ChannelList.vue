@@ -5,10 +5,10 @@
       <form @submit.prevent='closeOverlay'>
         <fieldset>
           <selection-list>
-            <selection-list-item class='row' v-for='info in filteredChannels' @click='toggleChannel(info)' :selected='isJoined(info)'>
+            <selection-list-item class='row' v-for='info in filteredChannels' @click='toggleChannel(info)' :selected='getJoined(info)'>
               <span class='grow'>
                 {{ info.title || info.name }}
-                <i class='fa fa-check' v-if='isJoined(info)'></i>
+                <i class='fa fa-check' v-if='getJoined(info)'></i>
               </span>
               <span>{{ info.characters }}</span>
             </selection-list-item>
@@ -61,13 +61,13 @@ export default {
     },
 
     toggleChannel (info) {
-      if (!this.isJoined(info)) {
+      if (!this.getJoined(info)) {
         this.joinChannel(info.name, info.title)
       }
     },
 
-    isJoined (info) {
-      return this.joinedChannels[info.name]
+    getJoined (info) {
+      return this.joinedChannels.find(ch => ch.name === info.name) !== undefined
     },
 
     closeOverlay () {
