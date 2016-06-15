@@ -6,7 +6,9 @@
   "author": "Kingdaro",
   "license": "MIT",
   "dependencies": {
+    "fuzzysearch": "^1.0.3",
     "vue": "^1.0.24",
+    "vue-resource": "^0.7.4",
     "vuex": "^0.6.3"
   },
   "devDependencies": {
@@ -15,23 +17,12 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "browserify-hmr": "^0.3.1",
-    "fuzzysearch": "^1.0.3",
-    "npm-run-all": "^2.1.2",
+    "http-server": "^0.9.0",
     "postcss-flexbox": "^1.0.2",
     "postcss-short": "^1.4.0",
     "stylus": "^0.54.5",
-    "vue": "^1.0.24",
-    "vue-resource": "^0.7.4",
-    "vue-router": "^0.7.13",
     "vueify": "^8.5.4",
-    "vuex": "^0.6.3",
     "watchify": "^3.7.0"
-  },
-  "scripts": {
-    "build": "browserify src/main.js -o build/build.js",
-    "watch": "watchify -p browserify-hmr -e src/main.js -o build/build.js -v --debug",
-    "serve": "http-server -a localhost -o",
-    "dev": "npm-run-all --parallel watch serve"
   },
   "browserify": {
     "transform": [
