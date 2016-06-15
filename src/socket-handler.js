@@ -152,6 +152,11 @@ export default class SocketHandler {
       // case 'JCH':
       //   break
 
+      // user left a channel (could be us)
+      case 'LCH':
+        store.dispatch('CHANNEL_LEAVE', params.channel, params.character)
+        break
+
       default:
         console.warn(`Unknown command ${command} with params:\n`, inspect(params, { depth: null }))
     }
@@ -174,5 +179,9 @@ export default class SocketHandler {
 
   joinChannel (channel) {
     this.send('JCH', { channel })
+  }
+
+  leaveChannel (channel) {
+    this.send('LCH', { channel })
   }
 }

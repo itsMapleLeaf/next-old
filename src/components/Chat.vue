@@ -1,7 +1,7 @@
 <template>
   <div class='grid'>
     <div class='row'>
-      <div class='col-2 fg-color center-content'>
+      <div class='row-2 col-2 fg-color center-content'>
         <i class='fa fa-bars'></i>
       </div>
       <div class='row grow' style='flex-wrap: wrap'>

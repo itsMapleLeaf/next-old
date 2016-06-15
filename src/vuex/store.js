@@ -121,6 +121,21 @@ const mutations = {
     channel.characters = characters
   },
 
+  CHANNEL_LEAVE_REQUEST (state, id) {
+    const channel = state.joinedChannels.find(ch => ch.id === id)
+    channel.status = 'leaving'
+    state.socket.leaveChannel(id)
+  },
+
+  CHANNEL_LEAVE (state, id, char) {
+    if (char === state.character) {
+      state.joinedChannels = state.joinedChannels.filter(ch => ch.id !== id)
+    } else {
+      const channel = state.joinedChannels.find(ch => ch.id === id)
+      channel.characters = channel.characters.filter(c => c.name !== char)
+    }
+  },
+
   SELECT_CHANNEL (state, id) {
     const index = state.joinedChannels.findIndex(ch => ch.id === id)
     state.selectedChannelIndex = index

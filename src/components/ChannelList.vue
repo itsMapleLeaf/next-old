@@ -29,7 +29,7 @@
 import SelectionList from './SelectionList.vue'
 import SelectionListItem from './SelectionListItem.vue'
 import {allChannels, joinedChannels} from '../vuex/getters'
-import {setCurrentOverlay, joinChannel} from '../vuex/actions'
+import {setCurrentOverlay, joinChannel, leaveChannel} from '../vuex/actions'
 import fuzzysearch from 'fuzzysearch'
 
 export default {
@@ -63,6 +63,8 @@ export default {
     toggleChannel (info) {
       if (!this.getJoined(info)) {
         this.joinChannel(info.name, info.title)
+      } else {
+        this.leaveChannel(info.name)
       }
     },
 
@@ -82,7 +84,8 @@ export default {
     },
     actions: {
       setCurrentOverlay,
-      joinChannel
+      joinChannel,
+      leaveChannel
     }
   }
 }
