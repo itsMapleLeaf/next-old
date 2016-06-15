@@ -1,7 +1,8 @@
 <template>
-  <a class='tab row-2 col-8 center-content-vertical'
+  <a class='tab row-2 col col-8 center-content-vertical'
     :class='selectedClass'
-    @click='selectChannel(channel.name)'>
+    @click='selectChannel(channel.name)'
+    :title='channel.name'>
 
     {{ channel.name }}
   </a>
@@ -40,7 +41,12 @@ export default {
 @import '../styles/variables'
 
 .tab
-  padding-left: 0.8em
+  padding: 0.3em 0.8em
+  display: inline-block
+
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
 
   +transition(hover)
     background: rgba(0, 0, 0, 0.15)
