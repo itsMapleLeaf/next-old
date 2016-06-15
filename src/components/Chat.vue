@@ -23,8 +23,10 @@
 
       <div class='divider'></div>
 
-      <div class='col-10 fg-color padded'>
-        character list
+      <div class='col-10 fg-color padded overflow'>
+        <div v-for='char in selectedChannel.characters'>
+          {{ char ? char.name : 'unknown' }}
+        </div>
       </div>
     </div>
 
