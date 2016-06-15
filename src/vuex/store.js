@@ -17,7 +17,7 @@ const state = {
   serverVariables: {},
 
   character: '',
-  onlineCharacters: {},
+  onlineCharacters: new Map(),
   ignored: [],
   admins: [],
 
@@ -77,12 +77,22 @@ const mutations = {
 
   HASH_CHARACTERS (state, characterInfoList) {
     for (let [name, gender, status, statusMessage] of characterInfoList) {
-      state.onlineCharacters[name] = { name, gender, status, statusMessage }
+      state.onlineCharacters[name] = {
+        name,
+        gender,
+        status,
+        statusMessage
+      }
     }
   },
 
-  ADD_CHARACTER (state, name, info) {
-    state.onlineCharacters[name] = Object.assign({}, info)
+  ADD_CHARACTER (state, name, gender) {
+    state.onlineCharacters[name] = {
+      name,
+      gender,
+      status: 'online',
+      statusMessage: ''
+    }
   },
 
   REMOVE_CHARACTER (state, name) {

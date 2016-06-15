@@ -115,11 +115,7 @@ export default class SocketHandler {
 
       // character came online
       case 'NLN':
-        store.dispatch('ADD_CHARACTER', params.identity, {
-          status: params.status,
-          gender: params.gender,
-          statusMessage: ''
-        })
+        store.dispatch('ADD_CHARACTER', params.identity, params.gender)
         break
 
       // character went offline

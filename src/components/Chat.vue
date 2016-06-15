@@ -64,5 +64,5 @@ export default {
 @import '../styles/components'
 
 .padded
-  padding: 0.5em 0.7em 1em
+  padding: 0.5em 0.7em
 </style>
