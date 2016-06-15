@@ -158,6 +158,11 @@ export default class SocketHandler {
         store.dispatch('CHANNEL_LEAVE', params.channel, params.character)
         break
 
+      // channel message
+      case 'MSG':
+        store.dispatch('CHANNEL_MESSAGE', params.channel, params.character, params.message)
+        break
+
       default:
         console.warn(`Unknown command ${command} with params:\n`, inspect(params, { depth: null }))
     }

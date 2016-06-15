@@ -18,7 +18,9 @@
 
     <div class='row grow'>
       <div class='grow padded'>
-        chat message area
+        <div v-for='msg in selectedChannel.messages'>
+          {{msg.character.name}}: {{msg.message}}
+        </div>
       </div>
 
       <div class='divider'></div>

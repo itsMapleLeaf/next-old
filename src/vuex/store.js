@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Character from '../models/Character'
 import ChannelState from '../models/ChannelState'
+import ChatMessage from '../models/ChatMessage'
 
 Vue.use(Vuex)
 
@@ -133,6 +134,12 @@ const mutations = {
     if (char) {
       channel.characters.push(char)
     }
+  },
+
+  CHANNEL_MESSAGE (state, id, charName, message) {
+    const channel = findChannel(state, id)
+    const char = state.onlineCharacters[charName]
+    channel.messages.push(ChatMessage(char, message))
   },
 
   CHANNEL_LEAVE_REQUEST (state, id) {
