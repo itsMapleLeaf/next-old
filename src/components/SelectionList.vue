@@ -19,4 +19,5 @@ export default {}
   display: inline-block
   overflow-y: auto
   background: bg-color
+  user-select: none
 </style>

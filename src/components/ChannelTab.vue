@@ -1,5 +1,5 @@
 <template>
-  <a class='tab row-2 col col-8 center-content-vertical'
+  <a class='row-2 col col-8 center-content-vertical tab'
     :class='selectedClass'
     @click='selectChannel(channel.name)'
     :title='channel.name'>
@@ -41,12 +41,14 @@ export default {
 @import '../styles/variables'
 
 .tab
-  padding: 0.3em 0.8em
-  display: inline-block
+  padding: 0.4em 0.8em
+  display: inline-block !important
 
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
+
+  user-select: none
 
   +transition(hover)
     background: rgba(0, 0, 0, 0.15)
