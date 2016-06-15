@@ -148,6 +148,10 @@ export default class SocketHandler {
         store.dispatch('CHANNEL_JOIN_SUCCESS', params.channel, namelist, params.mode)
         break
 
+      case 'CDS':
+        store.dispatch('SET_CHANNEL_DESCRIPTION', params.channel, params.description)
+        break
+
       // user joined one of our channels (could be us)
       // case 'JCH':
       //   break

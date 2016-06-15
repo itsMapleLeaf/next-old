@@ -24,6 +24,8 @@ const state = {
   currentOverlay: 'login'
 }
 
+const findChannel = (state, id) => state.joinedChannels.find(ch => ch.id === id)
+
 const compareChannels = (a, b) => (a.title || a.name).localeCompare(b.title || b.name)
 
 const mutations = {
@@ -108,6 +110,7 @@ const mutations = {
       id, name,
       status: 'joining',
       mode: 'both',
+      description: '',
       characters: [],
       messages: []
     })
@@ -115,14 +118,14 @@ const mutations = {
   },
 
   CHANNEL_JOIN_SUCCESS (state, id, namelist, mode) {
-    const channel = state.joinedChannels.find(ch => ch.id === id)
+    const channel = findChannel(state, id)
     const characters = namelist.map(name => state.onlineCharacters[name])
     channel.mode = mode
     channel.characters = characters
   },
 
   CHANNEL_LEAVE_REQUEST (state, id) {
-    const channel = state.joinedChannels.find(ch => ch.id === id)
+    const channel = findChannel(state, id)
     channel.status = 'leaving'
     state.socket.leaveChannel(id)
   },
@@ -131,7 +134,7 @@ const mutations = {
     if (char === state.character) {
       state.joinedChannels = state.joinedChannels.filter(ch => ch.id !== id)
     } else {
-      const channel = state.joinedChannels.find(ch => ch.id === id)
+      const channel = findChannel(state, id)
       channel.characters = channel.characters.filter(c => c.name !== char)
     }
   },
@@ -139,6 +142,11 @@ const mutations = {
   SELECT_CHANNEL (state, id) {
     const index = state.joinedChannels.findIndex(ch => ch.id === id)
     state.selectedChannelIndex = index
+  },
+
+  SET_CHANNEL_DESCRIPTION (state, id, description) {
+    const channel = findChannel(state, id)
+    channel.description = description
   }
 }
 

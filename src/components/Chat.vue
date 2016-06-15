@@ -10,8 +10,8 @@
       </div>
     </div>
 
-    <div class='row row-6 fg-color padded'>
-      room info
+    <div v-if='selectedChannel' class='row row-6 fg-color padded overflow preserve-space'>
+      {{ selectedChannel.description }}
     </div>
 
     <div class='divider'></div>
@@ -39,7 +39,7 @@
 <script>
 import Chatbox from './Chatbox.vue'
 import ChannelTab from './ChannelTab.vue'
-import {joinedChannels} from '../vuex/getters'
+import {joinedChannels, selectedChannel} from '../vuex/getters'
 
 export default {
   components: {
@@ -49,7 +49,8 @@ export default {
 
   vuex: {
     getters: {
-      joinedChannels
+      joinedChannels,
+      selectedChannel
     }
   }
 }
@@ -61,5 +62,5 @@ export default {
 @import '../styles/components'
 
 .padded
-  padding: 0.5em 0.7em
+  padding: 0.5em 0.7em 1em
 </style>
