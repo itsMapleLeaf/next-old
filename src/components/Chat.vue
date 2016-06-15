@@ -1,7 +1,7 @@
 <template>
   <div class='grid'>
     <div class='row'>
-      <a class='row-2 col-2 fg-color center-content app-menu-button'>
+      <a class='row-2 col-2 fg-color center-content app-menu-button' @click='setCurrentOverlay("app-menu")'>
         <i class='fa fa-bars'></i>
       </a>
       <div class='row grow' style='flex-wrap: wrap'>
@@ -43,6 +43,7 @@
 import Chatbox from './Chatbox.vue'
 import ChannelTab from './ChannelTab.vue'
 import {joinedChannels, selectedChannel} from '../vuex/getters'
+import {setCurrentOverlay} from '../vuex/actions'
 
 export default {
   components: {
@@ -54,6 +55,9 @@ export default {
     getters: {
       joinedChannels,
       selectedChannel
+    },
+    actions: {
+      setCurrentOverlay
     }
   }
 }

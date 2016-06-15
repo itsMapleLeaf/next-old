@@ -20,5 +20,5 @@ export default {}
   overflow-y: auto
   background: bg-color
   user-select: none
-  margin-bottom: 1.5em
+  margin-bottom: 1em
 </style>

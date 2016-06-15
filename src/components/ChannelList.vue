@@ -1,12 +1,12 @@
 <template>
-  <div class='overlay-shade' @click.self='closeOverlay'>
+  <div class='overlay-shade center-content' @click.self='closeOverlay'>
     <div class='panel material-shadow'>
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
-        <selection-list>
+        <selection-list class='channel-list'>
           <selection-list-item class='row' v-for='info in filteredChannels' @click='toggleChannel(info)' :selected='getJoined(info)'>
             <span class='grow'>
-              {{ info.title || info.name }}
+              {{{ info.title || info.name }}}
               <i class='fa fa-check' v-if='getJoined(info)'></i>
             </span>
             <span>{{ info.characters }}</span>
@@ -40,8 +40,10 @@ export default {
 
   computed: {
     filteredChannels () {
-      if (this.searchQuery !== '') {
-        const filter = info => fuzzysearch(this.searchQuery, info.title || info.name)
+      if (this.searchQuery.trim() !== '') {
+        const query = this.searchQuery.toLocaleLowerCase()
+        const channel = (info.title || info.name).toLocaleLowerCase()
+        const filter = info => fuzzysearch(query, channel)
         return this.allChannels.filter(filter).slice(0, 200)
       } else {
         return this.allChannels.slice(0, 200)
@@ -90,6 +92,6 @@ export default {
 @import '../styles/grid'
 @import '../styles/components'
 
-.panel
-  width: 20em
+.channel-list
+  width: 18em
 </style>

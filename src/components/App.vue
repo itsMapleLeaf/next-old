@@ -10,6 +10,7 @@ import Chat from './Chat.vue'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import ChannelList from './ChannelList.vue'
+import AppMenu from './AppMenu.vue'
 import {currentOverlay} from '../vuex/getters'
 
 export default {
@@ -17,7 +18,8 @@ export default {
     Chat,
     Login,
     CharacterSelect,
-    ChannelList
+    ChannelList,
+    AppMenu,
   },
 
   vuex: {

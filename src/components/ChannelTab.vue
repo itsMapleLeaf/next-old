@@ -1,7 +1,7 @@
 <template>
   <a class='row-2 col col-8 center-content-vertical tab'
     :class='selectedClass'
-    @click='selectChannel(channel.name)'
+    @mousedown='selectChannel(channel.name)'
     :title='channel.name'>
 
     {{ channel.name }}

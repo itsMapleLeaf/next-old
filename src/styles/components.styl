@@ -16,10 +16,11 @@
 .bg-color
   background: bg-color
 
+.border-highlight
+  border-highlight()
+
 .overlay-shade
   position: fixed 0
-  box: middle center
-  text-align: center
   background: rgba(0, 0, 0, 0.3)
 
 
@@ -28,10 +29,15 @@
     0px 0px 6px rgba(0, 0, 0, 0.3)
 
 .panel
-  width: 16em
+  width: min-content
   max-height: 80vh
   background: fg-color
   padding: 2em 2em 1em
+  text-align: center
+
+.side-panel
+  width: 12em
+  height: 100vh
 
 .overflow
   overflow-y: auto

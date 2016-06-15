@@ -1,5 +1,5 @@
 <template>
-  <div class='overlay-shade'>
+  <div class='overlay-shade center-content'>
     <div class='panel material-shadow'>
       <h1>Login</h1>
       <form @submit.prevent='submit'>
@@ -7,7 +7,7 @@
         <input type="password" placeholder="Password" v-model="password"  :disabled='disabled'>
         <button action="submit" :disabled='disabled'>Go</button>
       </form>
-      <center>{{ loginStatus }}</center>
+      {{ loginStatus }}
     </div>
   </div>
 </template>

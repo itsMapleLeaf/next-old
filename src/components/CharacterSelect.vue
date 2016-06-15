@@ -1,20 +1,22 @@
 <template>
-  <div class="overlay-shade">
-    <form class="panel material-shadow" @submit.prevent='submit'>
-      <h1>Choose a Character</h1>
-      <selection-list style="position: relative">
-        <selection-list-item
-          v-for='name in userCharacters'
-          :selected='name === selectedCharacter'
-          @click='setSelectedCharacter(name)'>
-          <center>
-            {{ name }}
-            <i class='fa fa-check' v-show='name === selectedCharacter' style="position: absolute; margin-left: 0.2em"></i>
-          </center>
-        </selection-list-item>
-      </selection-list>
-      <button>Go</button>
-    </form>
+  <div class="overlay-shade center-content">
+    <div class="panel material-shadow">
+      <form @submit.prevent='submit'>
+        <h1>Who are you?</h1>
+        <selection-list style="position: relative">
+          <selection-list-item
+            v-for='name in userCharacters'
+            :selected='name === selectedCharacter'
+            @click='setSelectedCharacter(name)'>
+            <center>
+              {{ name }}
+              <i class='fa fa-check' v-show='name === selectedCharacter' style="position: absolute; margin-left: 0.2em"></i>
+            </center>
+          </selection-list-item>
+        </selection-list><br>
+        <button>Go</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -75,9 +77,6 @@ export default {
 @import '../styles/base'
 @import '../styles/variables'
 @import '../styles/components'
-
-form
-  width: 20em !important
 
 p
   text-align: center
