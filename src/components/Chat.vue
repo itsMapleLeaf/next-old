@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div v-if='selectedChannel' class='row row-6 fg-color padded overflow preserve-space'>
+    <div class='row row-6 fg-color padded overflow preserve-space'>
       {{ selectedChannel.description }}
     </div>
 
