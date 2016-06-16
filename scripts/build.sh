@@ -1,1 +1,2 @@
-$(npm bin)/browserify src/main.js -o build/build.js
+source scripts/env.sh
+$(npm bin)/browserify -e "$entry" -o "$out"

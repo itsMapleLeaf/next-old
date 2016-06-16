@@ -17,11 +17,15 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "browserify-hmr": "^0.3.1",
+    "eslint-plugin-html": "^1.5.1",
     "http-server": "^0.9.0",
     "postcss-flexbox": "^1.0.2",
     "postcss-short": "^1.4.0",
+    "standard": "^7.1.2",
+    "standard-format": "^2.2.1",
     "stylus": "^0.54.5",
     "vueify": "^8.5.4",
+    "watch": "^0.18.0",
     "watchify": "^3.7.0"
   },
   "browserify": {

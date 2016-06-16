@@ -1,1 +1,2 @@
-$(npm bin)/watchify -p browserify-hmr -e src/main.js -o build/build.js -v --debug
+source scripts/env.sh
+$(npm bin)/watchify -p browserify-hmr -e "$entry" -o "$out" -v --debug
