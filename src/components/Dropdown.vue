@@ -1,10 +1,12 @@
 <template>
-  <div class='dropdown' @click='toggle'>
-    <span>
+  <div class='dropdown'>
+    <div class='head' @click='toggle'>
       {{ items[selected] }} <i class='fa fa-caret-down' style='float: right'></i>
-    </span>
-    <ol class='dropdown-list' v-if='open'>
-      <li v-for='item in items'>{{ item }}</li>
+    </div>
+    <ol class='list' v-show='open'>
+      <li class='list-item' v-for='item in items' @click='select($index)'>
+        {{ item }}
+      </li>
     </ol>
   </div>
 </template>
@@ -18,6 +20,11 @@
     methods: {
       toggle () {
         this.open = !this.open
+      },
+
+      select (index) {
+        this.selected = index
+        this.open = false
       }
     },
 
@@ -37,13 +44,14 @@
 
 .dropdown
   input-styles(10em)
-
   display: inline-block
-  padding: input-padding
   font-size: input-font-size
   user-select: none
 
+.head, .list-item
   +transition(hover)
-    background: darken(bg-color, 15%)
+    background: darken(bg-color, 25%)
     cursor: pointer
+
+  padding: input-padding
 </style>
