@@ -64,9 +64,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/base'
-@import '../styles/grid'
-@import '../styles/components'
+@require '../styles/grid'
+@require '../styles/components'
 
 .padded
   padding: 0.5em 0.7em

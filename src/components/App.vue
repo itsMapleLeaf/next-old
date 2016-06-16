@@ -31,9 +31,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/base'
-@import '../styles/variables'
-@import '../styles/components'
+@require '../styles/components'
 
 .container
   position: fixed 0

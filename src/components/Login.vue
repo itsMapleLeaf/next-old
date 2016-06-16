@@ -53,6 +53,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/base'
-@import '../styles/components'
+@require '../styles/components'
 </style>

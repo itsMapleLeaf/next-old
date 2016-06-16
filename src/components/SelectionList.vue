@@ -9,8 +9,8 @@ export default {}
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/variables'
-@import '../styles/mixins'
+@require '../styles/variables'
+@require '../styles/mixins'
 
 .selection-list
   input-styles()

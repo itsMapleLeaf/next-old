@@ -74,9 +74,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/base'
-@import '../styles/variables'
-@import '../styles/components'
+@require '../styles/variables'
+@require '../styles/components'
 
 p
   text-align: center

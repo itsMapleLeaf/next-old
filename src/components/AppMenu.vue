@@ -56,10 +56,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/base'
-@import '../styles/components'
-@import '../styles/grid'
-@import '../styles/variables'
+@require '../styles/components'
+@require '../styles/grid'
+@require '../styles/variables'
 
 .divider
   height: 1px

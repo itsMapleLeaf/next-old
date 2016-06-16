@@ -1,7 +1,7 @@
-@import 'variables'
-@import 'mixins'
+@require 'variables'
+@require 'mixins'
 
-.container
+:root
   color: text-color
   font-size: 16pt
   font-family: 'Roboto Condensed'
@@ -15,7 +15,7 @@ input, textarea, button
   outline: none
 
 input
-  input-styles(10em)
+  input-styles(input-width)
 
 textarea, button
   input-styles()

@@ -10,6 +10,4 @@
   }
 </script>
 
-<style lang="stylus">
-  @import '../styles/base'
-</style>
+<style lang="stylus"></style>

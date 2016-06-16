@@ -13,9 +13,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/base'
-@import '../styles/variables'
-@import '../styles/mixins'
+@require '../styles/variables'
+@require '../styles/mixins'
 
 a
   display: block

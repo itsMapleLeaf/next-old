@@ -35,10 +35,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/base'
-@import '../styles/mixins'
-@import '../styles/components'
-@import '../styles/variables'
+@require '../styles/mixins'
+@require '../styles/components'
+@require '../styles/variables'
 
 .tab
   padding: 0.35em 0.8em

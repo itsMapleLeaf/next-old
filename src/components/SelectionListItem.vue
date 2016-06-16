@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/variables'
+@require '../styles/variables'
 
 .selection-list-item
   display: block

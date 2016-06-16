@@ -19,10 +19,12 @@
     "browserify-hmr": "^0.3.1",
     "eslint-plugin-html": "^1.5.1",
     "http-server": "^0.9.0",
+    "insert-css": "^0.2.0",
     "postcss-flexbox": "^1.0.2",
     "postcss-short": "^1.4.0",
     "standard": "^7.1.2",
     "standard-format": "^2.2.1",
+    "stylify": "^1.3.1",
     "stylus": "^0.54.5",
     "vueify": "^8.5.4",
     "watch": "^0.18.0",
@@ -31,7 +33,8 @@
   "browserify": {
     "transform": [
       "vueify",
-      "babelify"
+      "babelify",
+      "stylify"
     ]
   },
   "babel": {
@@ -41,5 +44,8 @@
     "plugins": [
       "transform-runtime"
     ]
+  },
+  "stylify": {
+    "paths": ["src/styles"]
   }
 }

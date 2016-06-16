@@ -39,12 +39,11 @@
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/base'
-@import '../styles/mixins'
-@import '../styles/variables'
+@require '../styles/mixins'
+@require '../styles/variables'
 
 .dropdown
-  input-styles(10em)
+  input-styles(input-width)
   display: inline-block
   font-size: input-font-size
   user-select: none
