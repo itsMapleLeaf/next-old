@@ -8,7 +8,7 @@
       </div>
       <div class="divider"></div>
       <div class="bg-color grow">
-        <menu-option icon='globe'>Channels</menu-option>
+        <menu-option icon='globe' @mousedown="setCurrentOverlay('channel-list')">Channels</menu-option>
         <menu-option icon='gear'>Settings</menu-option>
         <menu-option icon='user'>Switch Character</menu-option>
         <menu-option icon='sign-out'>Log Out</menu-option>
