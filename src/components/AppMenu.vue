@@ -3,7 +3,7 @@
     <div class="side-panel fg-color material-shadow col">
       <div class="padded">
         <div class="avatar bg-color border-highlight"></div>
-        <dropdown :items='statusDropdown'></dropdown>
+        <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
         <input type="text" placeholder="Status...">
       </div>
       <div class="divider"></div>
@@ -30,7 +30,20 @@ export default {
 
   computed: {
     statusDropdown () {
-      return ['online', 'looking', 'busy', 'away', 'dnd', 'idle', 'offline']
+      // return ['online', 'looking', 'busy', 'away', 'dnd']
+      return [
+        { value: 'online', label: 'Online' },
+        { value: 'looking', label: 'Looking' },
+        { value: 'busy', label: 'Busy' },
+        { value: 'away', label: 'Away' },
+        { value: 'dnd', label: 'Do Not Disturb' }
+      ]
+    }
+  },
+
+  methods: {
+    statusChanged () {
+      // set character status
     }
   },
 

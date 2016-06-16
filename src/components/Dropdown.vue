@@ -1,11 +1,11 @@
 <template>
   <div class='dropdown'>
     <div class='head' @click='toggle'>
-      {{ items[selected] }} <i class='fa fa-caret-down' style='float: right'></i>
+      {{ items[selected].label }} <i class='fa fa-caret-down' style='float: right'></i>
     </div>
     <ol class='list' v-show='open'>
       <li class='list-item' v-for='item in items' @click='select($index)'>
-        {{ item }}
+        {{ item.label }}
       </li>
     </ol>
   </div>
@@ -30,8 +30,8 @@
 
     data () {
       return {
-        selected: 0,
-        open: false
+        open: false,
+        selected: 0
       }
     }
   }
