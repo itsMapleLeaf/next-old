@@ -3,8 +3,8 @@
     <div class='panel material-shadow'>
       <h1>Login</h1>
       <form @submit.prevent='submit'>
-        <input type="text" placeholder="Username" v-model="username"  :disabled='disabled'>
-        <input type="password" placeholder="Password" v-model="password"  :disabled='disabled'>
+        <input type="text" placeholder="Username" v-model="username"  :disabled='disabled'><br>
+        <input type="password" placeholder="Password" v-model="password"  :disabled='disabled'><br>
         <button action="submit" :disabled='disabled'>Go</button>
       </form>
       {{ loginStatus }}
@@ -54,4 +54,8 @@ export default {
 
 <style lang="stylus" scoped>
 @require '../styles/components'
+
+.panel
+  width: auto
+  max-width: 16em
 </style>
