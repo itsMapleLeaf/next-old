@@ -17,9 +17,10 @@ export function submitLogin (store, account, password) {
         resolve(data)
       }
     })
-    .catch(({ data }) => {
-      store.dispatch('LOGIN_FAILURE', data)
-      reject(data)
+    .catch(() => {
+      const err = "Could not connect to F-List website. They're either doing maintenance, or someone spilled coke on the servers again."
+      store.dispatch('LOGIN_FAILURE', err)
+      reject(err)
     })
   })
 }
@@ -29,7 +30,6 @@ export function chooseCharacter (store, char) {
 }
 
 export function connectToChatServer (store, ...identInfo) {
-  /* eslint no-new: 0 */
   return new SocketHandler().connect('main', ...identInfo)
 }
 
