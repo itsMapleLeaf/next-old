@@ -3,7 +3,7 @@
     <div class="side-panel fg-color material-shadow col">
       <div class="padded">
         <div class="avatar bg-color border-highlight"></div>
-        <input type="text" placeholder="status">
+        <dropdown :items='statusDropdown'></dropdown>
         <input type="text" placeholder="Status...">
       </div>
       <div class="divider"></div>
@@ -19,12 +19,21 @@
 
 <script>
 import MenuOption from './MenuOption.vue'
+import Dropdown from './Dropdown.vue'
 import {setCurrentOverlay} from '../vuex/actions'
 
 export default {
   components: {
-    MenuOption
+    MenuOption,
+    Dropdown
   },
+
+  computed: {
+    statusDropdown () {
+      return ['online', 'looking', 'busy', 'away', 'dnd', 'idle', 'offline']
+    }
+  },
+
   vuex: {
     actions: {
       setCurrentOverlay

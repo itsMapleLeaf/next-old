@@ -15,6 +15,7 @@ export default {
 <style lang="stylus" scoped>
 @import '../styles/base'
 @import '../styles/variables'
+@import '../styles/mixins'
 
 a
   display: block
