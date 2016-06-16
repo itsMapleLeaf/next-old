@@ -1,4 +1,4 @@
-import ChannelState from '../models/ChannelState'
+import {ChannelState} from '../models'
 
 const nullChannel = ChannelState('null room', 'null room')
 

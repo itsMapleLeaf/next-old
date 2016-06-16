@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Character from '../models/Character'
-import ChannelState from '../models/ChannelState'
-import ChatMessage from '../models/ChatMessage'
+import {Character, ChannelState, ChatMessage} from '../models'
 
 Vue.use(Vuex)
 
