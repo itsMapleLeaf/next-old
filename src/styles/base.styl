@@ -11,13 +11,17 @@
   border: none
   margin: 0
 
-input, textarea, button
+img
+  box-sizing: content-box
+  display: inline-block
+
+input, textarea, button, div[contenteditable]
   outline: none
 
 input
   input-styles(input-width)
 
-textarea, button
+textarea, button, div[contenteditable]
   input-styles()
 
 input, textarea
@@ -32,6 +36,17 @@ button
   +transition(hover)
     background: darken(bg-color, 10%)
     cursor: pointer
+
+div[contenteditable]
+  width: input-width
+
+  &:empty::before
+    content: attr(placeholder)
+    opacity: 0.5
+    cursor: text
+
+textarea
+  resize: none
 
 ol, ul
   padding: 0

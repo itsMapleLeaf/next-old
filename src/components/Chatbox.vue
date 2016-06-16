@@ -1,8 +1,5 @@
 <template>
-  <textarea
-    v-model='input'
-    :placeholder="calculatePlaceholder()"
-    :style="calculateStyle()"></textarea>
+  <div class='chatbox' contenteditable :placeholder="placeholder" :style="style" @input='edited($event)'></div>
 </template>
 
 <script>
@@ -15,19 +12,25 @@ export default {
     }
   },
 
-  methods: {
-    calculateStyle () {
+  computed: {
+    style () {
       return {
         fontStyle: this.input.length === 0 ? 'italic' : 'inherit'
       }
     },
 
-    calculatePlaceholder () {
+    placeholder () {
       if (this.userCharacterName === '') {
         return 'Not chatting quite yet...'
       } else {
         return `Chatting as ${this.userCharacterName}...`
       }
+    }
+  },
+
+  methods: {
+    edited (event) {
+      this.input = event.target.innerText.trim()
     }
   },
 
@@ -40,13 +43,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
-textarea
-  display: block
-  margin: 0 !important
+.chatbox
+  size: 100% !important
+  background: none
   border: none !important
-  background: transparent !important
-  resize: none
-  width: 100% !important
-  height: 100%
 </style>
