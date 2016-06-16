@@ -13,12 +13,11 @@ export default {}
 @import '../styles/mixins'
 
 .selection-list
-  border-highlight()
+  input-styles()
   width: 14em
   height: 20em
   display: inline-block
   overflow-y: auto
-  background: bg-color
   user-select: none
   margin-bottom: 1em
 </style>

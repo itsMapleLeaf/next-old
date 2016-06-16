@@ -47,6 +47,6 @@ textarea
   border: none !important
   background: transparent !important
   resize: none
-  width: 100%
+  width: 100% !important
   height: 100%
 </style>

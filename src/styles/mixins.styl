@@ -6,10 +6,16 @@ transition(state = hover, props = all)
   &:{state}
     {block}
 
-
 border-highlight(color = lighten(fg-color, 20%))
   border-bottom: 3px solid color
 
 inherit-text()
   color: inherit
   font: inherit
+
+input-styles()
+  background: bg-color
+
+  border-highlight()
+  +transition(focus)
+    border-highlight(lighten(fg-color, 50%))

@@ -12,13 +12,9 @@
   margin: 0
 
 input, textarea, button
-  background: bg-color
   outline: none
   margin-bottom: 1.2em
-
-  border-highlight()
-  +transition(focus)
-    border-highlight(lighten(fg-color, 50%))
+  input-styles()
 
 input, textarea
   inherit-text()
