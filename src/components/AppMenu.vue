@@ -2,11 +2,15 @@
   <div class="overlay-shade" @mousedown.self="setCurrentOverlay('')">
     <div class="side-panel fg-color material-shadow col">
       <div class="padded">
-        <div class="avatar bg-color border-highlight"></div>
+        <h2>Hi, {{ userCharacterName.split(' ')[0] }}!</h2>
+        <div class="avatar bg-color border-highlight">
+          <a :href="userProfileLocation" target="_blank">
+            <img :src="avatarSource">
+          </a>
+        </div>
         <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
-        <textarea type="text" placeholder="Status..."></textarea>
+        <div contenteditable placeholder="What's up?"></div>
       </div>
-      <div class="divider"></div>
       <div class="bg-color grow">
         <menu-option icon='globe' @mousedown="setCurrentOverlay('channel-list')">Channels</menu-option>
         <menu-option icon='gear'>Settings</menu-option>
@@ -21,6 +25,7 @@
 import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
 import {setCurrentOverlay} from '../vuex/actions'
+import {userCharacterName} from '../vuex/getters'
 
 export default {
   components: {
@@ -38,6 +43,16 @@ export default {
         { value: 'away', label: 'Away' },
         { value: 'dnd', label: 'Do Not Disturb' }
       ]
+    },
+
+    avatarSource () {
+      const encoded = encodeURI(this.userCharacterName.toLowerCase())
+      return `https://static.f-list.net/images/avatar/${encoded}.png`
+    },
+
+    userProfileLocation () {
+      const encoded = encodeURI(this.userCharacterName.toLowerCase())
+      return `https://www.f-list.net/c/${encoded}`
     }
   },
 
@@ -50,6 +65,9 @@ export default {
   vuex: {
     actions: {
       setCurrentOverlay
+    },
+    getters: {
+      userCharacterName
     }
   }
 }
