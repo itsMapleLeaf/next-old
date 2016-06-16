@@ -4,7 +4,7 @@
       <div class="padded">
         <div class="avatar bg-color border-highlight"></div>
         <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
-        <input type="text" placeholder="Status...">
+        <textarea type="text" placeholder="Status..."></textarea>
       </div>
       <div class="divider"></div>
       <div class="bg-color grow">
@@ -72,4 +72,7 @@ export default {
 .avatar
   size: 6em
   margin-bottom: 1.2em
+
+textarea
+  width: input-width
 </style>
