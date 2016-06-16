@@ -21,7 +21,7 @@ export default {
     return {
       username: '',
       password: '',
-      disabled: false,
+      disabled: false
     }
   },
 
@@ -32,7 +32,9 @@ export default {
         this.setCurrentOverlay('character-select')
         this.username = this.password = ''
       })
-      .catch(() => this.disabled = false)
+      .catch(() => {
+        this.disabled = false
+      })
 
       this.disabled = true
     }

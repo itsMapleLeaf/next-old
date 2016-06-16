@@ -19,7 +19,7 @@ export default {
     Login,
     CharacterSelect,
     ChannelList,
-    AppMenu,
+    AppMenu
   },
 
   vuex: {
