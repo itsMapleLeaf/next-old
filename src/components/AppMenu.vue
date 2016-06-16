@@ -84,12 +84,16 @@ export default {
   background: bg-color
 
 .padded
-  padding: 1.5em 1em 1em
+  padding: 1em 1em 0em
 
 .avatar
-  size: 6em
-  margin-bottom: 1.2em
+  size: 120px
+  box-sizing: content-box
+  margin-bottom: input-spacing
 
-textarea
-  width: input-width
+  +transition(hover)
+    border-highlight(lighten(fg-color, 40%))
+
+  img
+    size: 100%
 </style>
