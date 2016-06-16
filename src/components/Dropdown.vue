@@ -25,6 +25,7 @@
       select (index) {
         this.selected = index
         this.open = false
+        this.$emit('selection', this.items[this.selected])
       }
     },
 
