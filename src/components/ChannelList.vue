@@ -42,8 +42,7 @@ export default {
     filteredChannels () {
       if (this.searchQuery.trim() !== '') {
         const query = this.searchQuery.toLocaleLowerCase()
-        const channel = (info.title || info.name).toLocaleLowerCase()
-        const filter = info => fuzzysearch(query, channel)
+        const filter = info => fuzzysearch(query, (info.title || info.name).toLocaleLowerCase())
         return this.allChannels.filter(filter).slice(0, 200)
       } else {
         return this.allChannels.slice(0, 200)
