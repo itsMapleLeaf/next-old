@@ -44,7 +44,3 @@ export function joinChannel (store, id, name) {
 export function leaveChannel (store, id) {
   store.dispatch('CHANNEL_LEAVE_REQUEST', id)
 }
-
-export function selectChannel (store, id) {
-  store.dispatch('SELECT_CHANNEL', id)
-}

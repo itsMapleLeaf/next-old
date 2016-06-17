@@ -5,7 +5,12 @@
         <i class='fa fa-bars'></i>
       </a>
       <div class='row grow' style='flex-wrap: wrap'>
-        <channel-tab v-for='channel in joinedChannels' :channel='channel'></channel-tab>
+        <channel-tab
+          v-for='channel in joinedChannels'
+          :selected='selectedChannel === channel'
+          :channel='channel'
+          @mousedown='selectedChannelIndex = $index'>
+        </channel-tab>
       </div>
     </div>
 
@@ -42,8 +47,11 @@
 <script>
 import Chatbox from './Chatbox.vue'
 import ChannelTab from './ChannelTab.vue'
-import {joinedChannels, selectedChannel} from '../vuex/getters'
+import {ChannelState} from '../models'
+import {joinedChannels} from '../vuex/getters'
 import {setCurrentOverlay} from '../vuex/actions'
+
+const nullChannel = ChannelState('null', 'null')
 
 export default {
   components: {
@@ -51,10 +59,21 @@ export default {
     ChannelTab
   },
 
+  data () {
+    return {
+      selectedChannelIndex: 0
+    }
+  },
+
+  computed: {
+    selectedChannel () {
+      return this.joinedChannels[this.selectedChannelIndex] || nullChannel
+    }
+  },
+
   vuex: {
     getters: {
-      joinedChannels,
-      selectedChannel
+      joinedChannels
     },
     actions: {
       setCurrentOverlay

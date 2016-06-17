@@ -46,6 +46,8 @@
     ]
   },
   "stylify": {
-    "paths": ["src/styles"]
+    "paths": [
+      "src/styles"
+    ]
   }
 }

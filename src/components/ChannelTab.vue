@@ -1,34 +1,23 @@
 <template>
-  <a class='row-2 col col-8 center-content-vertical tab'
-    :class='selectedClass'
-    @mousedown='selectChannel(channel.name)'
-    :title='channel.name'>
-
+  <a
+    class='row-2 col col-8 center-content-vertical tab'
+    :class='selectedClass'>
     {{ channel.name }}
   </a>
 </template>
 
 <script>
-import {selectedChannel} from '../vuex/getters'
-import {selectChannel} from '../vuex/actions'
-
 export default {
   props: {
-    channel: Object
+    channel: Object,
+    selected: Boolean
   },
+
   computed: {
     selectedClass () {
       return {
-        'selected': this.selectedChannel.name === this.channel.name
+        'selected': this.selected
       }
-    }
-  },
-  vuex: {
-    getters: {
-      selectedChannel
-    },
-    actions: {
-      selectChannel
     }
   }
 }

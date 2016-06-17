@@ -1,7 +1,3 @@
-import {ChannelState} from '../models'
-
-const nullChannel = ChannelState('null room', 'null room')
-
 export const loginStatus = state => state.loginStatusMessage
 
 export const userCharacters = state =>
@@ -24,6 +20,3 @@ export const allChannels = state =>
 
 export const joinedChannels = state =>
   state.joinedChannels.slice()
-
-export const selectedChannel = state =>
-  state.joinedChannels[state.selectedChannelIndex] || nullChannel
