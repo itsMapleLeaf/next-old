@@ -1,13 +1,11 @@
 <template>
-  <div>{{ content }}</div>
+  <div></div>
 </template>
 
 <script>
-  export default {
-    data () {
-      return { content: 'This is my Vue.js component template.' }
-    }
-  }
+  export default {}
 </script>
 
-<style lang="stylus"></style>
+<style lang="stylus">
+
+</style>
