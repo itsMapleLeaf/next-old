@@ -5,24 +5,25 @@
         <i class='fa fa-bars'></i>
       </a>
       <div class='row grow' style='flex-wrap: wrap'>
-        <channel-tab
-          v-for='channel in joinedChannels'
-          :selected='selectedChannel === channel'
-          :channel='channel'
-          @mousedown='selectedChannelIndex = $index'>
-        </channel-tab>
+        <chat-tab
+          v-for='tab in tabs'
+          :selected='selectedTabIndex === $index'
+          @mousedown='selectedTabIndex = $index'>
+
+          {{ tab.text }}
+        </chat-tab>
       </div>
     </div>
 
     <div class='row row-6 fg-color padded overflow preserve-space'>
-      {{ selectedChannel.description }}
+      {{ tabState.description }}
     </div>
 
     <div class='divider'></div>
 
     <div class='row grow'>
       <div class='grow padded overflow'>
-        <div v-for='msg in selectedChannel.messages' style="padding: 0.15em 0em">
+        <div v-for='msg in tabState.messages' style="padding: 0.15em 0em">
           {{msg.character.name}}: {{{msg.message}}}
         </div>
       </div>
@@ -30,7 +31,7 @@
       <div class='divider'></div>
 
       <div class='col-10 fg-color padded overflow'>
-        <div v-for='char in selectedChannel.characters'>
+        <div v-for='char in tabState.characters'>
           {{ char.name }}
         </div>
       </div>
@@ -46,7 +47,7 @@
 
 <script>
 import Chatbox from './Chatbox.vue'
-import ChannelTab from './ChannelTab.vue'
+import ChatTab from './ChatTab.vue'
 import {ChannelState} from '../models'
 import {joinedChannels} from '../vuex/getters'
 import {setCurrentOverlay} from '../vuex/actions'
@@ -56,18 +57,27 @@ const nullChannel = ChannelState('null', 'null')
 export default {
   components: {
     Chatbox,
-    ChannelTab
+    ChatTab
   },
 
   data () {
     return {
-      selectedChannelIndex: 0
+      selectedTabIndex: 0
     }
   },
 
   computed: {
-    selectedChannel () {
-      return this.joinedChannels[this.selectedChannelIndex] || nullChannel
+    tabs () {
+      return this.joinedChannels.map(channel => {
+        return {
+          text: channel.name,
+          state: channel
+        }
+      })
+    },
+
+    tabState () {
+      return this.tabs[this.selectedTabIndex].state
     }
   },
 
