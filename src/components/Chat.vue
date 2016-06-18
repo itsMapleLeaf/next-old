@@ -1,7 +1,7 @@
 <template>
   <div class='grid'>
     <div class='row'>
-      <a class='row-2 col-2 fg-color center-content app-menu-button' @click='setCurrentOverlay("app-menu")'>
+      <a class='row-2 col-2 fg-color center-content app-menu-button' @click='setCurrentOverlay('app-menu')'>
         <i class='fa fa-bars'></i>
       </a>
       <div class='row grow' style='flex-wrap: wrap'>
@@ -15,27 +15,23 @@
       </div>
     </div>
 
-    <div class='row row-6 fg-color padded overflow preserve-space'>
-      {{ tabState.description }}
-    </div>
+    <chat-view>
+      <div slot='header'>
+        <div class='row-6 preserve-space'>{{{ tabState.description }}}</div>
+      </div>
 
-    <div class='divider'></div>
-
-    <div class='row grow'>
-      <div class='grow padded overflow'>
-        <div v-for='msg in tabState.messages' style="padding: 0.15em 0em">
-          {{msg.character.name}}: {{{msg.message}}}
+      <div slot='content'>
+        <div v-for='msg in tabState.messages'>
+          {{ msg.character.name }}: {{{ msg.message }}}
         </div>
       </div>
 
-      <div class='divider'></div>
-
-      <div class='col-10 fg-color padded overflow'>
+      <div slot='sidebar'>
         <div v-for='char in tabState.characters'>
           {{ char.name }}
         </div>
       </div>
-    </div>
+    </chat-view>
 
     <div class='divider'></div>
 
@@ -48,21 +44,22 @@
 <script>
 import Chatbox from './Chatbox.vue'
 import ChatTab from './ChatTab.vue'
+import ChatView from './ChatView.vue'
 import {ChannelState} from '../models'
 import {joinedChannels} from '../vuex/getters'
 import {setCurrentOverlay} from '../vuex/actions'
 
-const nullChannel = ChannelState('null', 'null')
-
 export default {
   components: {
     Chatbox,
-    ChatTab
+    ChatTab,
+    ChatView
   },
 
   data () {
     return {
-      selectedTabIndex: 0
+      selectedTabIndex: 0,
+      nullState: ChannelState('null', 'null')
     }
   },
 
@@ -77,7 +74,7 @@ export default {
     },
 
     tabState () {
-      return this.tabs[this.selectedTabIndex].state
+      return this.$get(`tabs[selectedTabIndex].state`) || this.nullState
     }
   },
 
