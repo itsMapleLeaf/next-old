@@ -1,15 +1,54 @@
+@use precss
+@use postcss-cssnext
 @use postcss-short
+@use postcss-flexbox
 
+@import './variables.sss'
+
+@define-mixin border-highlight
+  border-bottom: 3px solid color($primary lightness(+10%))
+
+// root styles
 :root
-  --primary: rgb(44, 62, 80)
-  --secondary: rgb(52, 73, 94)
-  --text: rgb(236, 240, 241)
+  color: $text
+  font: 16pt 'Roboto Condensed', sans-serif
 
-:root
-  color: var(--text)
-  font-size: 16pt
-  font-family: 'Roboto Condensed', sans-serif
+// tag styles
+h1, h2, h3, h4, h5, h6
+  font-weight: light
+  margin: 0
+  padding-bottom: 0.75em
 
+input, textarea, button, div[contenteditable]
+  border: none
+  padding: 0.4em 0.8em
+  margin: * * 1em
+  color: inherit $secondary
+  outline: none
+  @mixin border-highlight
+  transition: 0.3s ease
+
+  &:focus
+    border-bottom-color: color($primary lightness(+30%))
+
+button:hover
+  cursor: pointer
+  background: color($secondary lightness(-5%))
+
+// class components
 .shade
   position: fixed 0
   background: rgba(0, 0, 0, 0.3)
+
+.box-center
+  box: center middle
+
+.panel
+  background: $primary
+  padding: 2em
+
+.text-center
+  text-align: center
+
+.shadow
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5)

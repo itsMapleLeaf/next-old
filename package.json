@@ -14,6 +14,7 @@
     "css-loader": "^0.23.1",
     "fuzzysearch": "^1.0.3",
     "postcss-cssnext": "^2.6.0",
+    "postcss-flexbox": "^1.0.2",
     "postcss-loader": "^0.9.1",
     "postcss-short": "^1.4.0",
     "postcss-use": "^2.1.0",

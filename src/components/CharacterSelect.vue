@@ -1,6 +1,6 @@
 <template>
-  <div class="overlay-shade center-content">
-    <div class="panel material-shadow">
+  <div class="shade box-center">
+    <div class="panel shadow">
       <form @submit.prevent='submit'>
         <h1>Who are you?</h1>
         <selection-list style="position: relative">
