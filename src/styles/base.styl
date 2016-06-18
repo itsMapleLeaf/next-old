@@ -1,0 +1,71 @@
+@import 'variables'
+@import 'mixins'
+
+// root styles
+:root
+  color: text-color
+  font: 16pt 'Roboto Condensed', sans-serif
+
+// tag styles
+h1, h2, h3, h4, h5, h6
+  font-weight: light
+  margin: 0
+  padding-bottom: 0.75em
+
+input, textarea, button, div[contenteditable]
+  border: none
+  padding: 0.4em 0.8em
+  margin-bottom: 1em
+  color: inherit bg-color
+  outline: none
+  transition: 0.3s ease
+  border-highlight()
+
+  &:focus
+    border-bottom-color: lighten(fg-color, 40%)
+
+button
+  cursor: pointer
+  hover-darken()
+
+ul, ol
+  list-style-type: none
+  padding: 0em
+
+
+// class components
+.fg-color
+  background: fg-color
+
+.bg-color
+  background: bg-color
+
+.hover-darken
+  hover-darken()
+
+.box-center
+  box: center middle
+
+.text-center
+  text-align: center
+
+.panel
+  background: fg-color
+  padding: 1.5em
+  width: max-content
+
+.shade
+  position: fixed 0
+  background: rgba(0, 0, 0, 0.3)
+
+.shadow
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5)
+
+.fullscreen
+  position: fixed 0
+
+.border-highlight
+  border-highlight()
+
+.green, .green:hover
+  color: lighten(green, 10%) rgba(green, 0.2)

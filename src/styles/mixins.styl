@@ -1,0 +1,12 @@
+@import 'variables'
+
+transition(time = 0.2s)
+  transition: time ease all
+
+border-highlight()
+  border-bottom: 3px solid lighten(fg-color, 20%)
+
+hover-darken()
+  transition()
+  &:hover
+    background: darken(bg-color, 20%)

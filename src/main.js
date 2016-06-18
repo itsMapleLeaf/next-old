@@ -3,7 +3,7 @@ import VueResource from 'vue-resource'
 import App from './components/App.vue'
 import store from './vuex/store'
 
-import './styles/base.sss'
+import './styles/base.styl'
 
 Vue.use(VueResource)
 

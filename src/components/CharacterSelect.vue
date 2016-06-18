@@ -3,17 +3,7 @@
     <div class="panel shadow">
       <form @submit.prevent='submit'>
         <h1>Who are you?</h1>
-        <selection-list style="position: relative">
-          <selection-list-item
-            v-for='name in userCharacters'
-            :selected='name === selectedCharacter'
-            @click='setSelectedCharacter(name)'>
-            <center>
-              {{ name }}
-              <i class='fa fa-check' v-show='name === selectedCharacter' style="position: absolute; margin-left: 0.2em"></i>
-            </center>
-          </selection-list-item>
-        </selection-list><br>
+        <selection-list :items='listItems' @selected='setSelectedCharacter' :init='defaultCharacter'></selection-list><br>
         <button>Go</button>
       </form>
     </div>
@@ -35,6 +25,14 @@ export default {
   data () {
     return {
       selectedCharacter: this.defaultCharacter
+    }
+  },
+
+  computed: {
+    listItems () {
+      return this.userCharacters.map(name => {
+        return { label: name, value: name }
+      })
     }
   },
 
@@ -72,3 +70,8 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.panel
+  text-align: center
+</style>

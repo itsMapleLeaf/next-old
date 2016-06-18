@@ -17,6 +17,13 @@
       items: Array
     },
 
+    data () {
+      return {
+        open: false,
+        selected: 0
+      }
+    },
+
     methods: {
       toggle () {
         this.open = !this.open
@@ -25,14 +32,7 @@
       select (index) {
         this.selected = index
         this.open = false
-        this.$emit('selection', this.items[this.selected])
-      }
-    },
-
-    data () {
-      return {
-        open: false,
-        selected: 0
+        this.$emit('selection', this.$get('items[selected].value'))
       }
     }
   }

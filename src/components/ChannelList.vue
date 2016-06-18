@@ -1,16 +1,9 @@
 <template>
-  <div class='overlay-shade center-content' @click.self='closeOverlay'>
-    <div class='panel material-shadow'>
+  <div class='shade box-center' @click.self='closeOverlay'>
+    <div class='panel shadow text-center'>
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
-        <selection-list class='channel-list'>
-          <selection-list-item class='row' v-for='info in filteredChannels' @click='toggleChannel(info)' :selected='getJoined(info)'>
-            <span class='grow'>
-              {{{ info.title || info.name }}}
-              <i class='fa fa-check' v-if='getJoined(info)'></i>
-            </span>
-            <span>{{ info.characters }}</span>
-          </selection-list-item>
+        <selection-list :items='channelListItems' :multiple='true' @selected='channelSelected' @deselected='channelDeselected'>
         </selection-list><br>
         <input type="text" placeholder="Search..." v-model='searchQuery'><br>
         <button>Done</button><br>
@@ -42,11 +35,19 @@ export default {
     filteredChannels () {
       if (this.searchQuery.trim() !== '') {
         const query = this.searchQuery.toLocaleLowerCase()
-        const filter = info => fuzzysearch(query, (info.title || info.name).toLocaleLowerCase())
+        const filter = info => {
+          return fuzzysearch(query, (info.title || info.name).toLocaleLowerCase())
+        }
         return this.allChannels.filter(filter).slice(0, 200)
       } else {
         return this.allChannels.slice(0, 200)
       }
+    },
+
+    channelListItems () {
+      return this.filteredChannels.map(info => {
+        return { label: info.title || info.name, value: info }
+      })
     }
   },
 
@@ -55,12 +56,12 @@ export default {
       return fuzzysearch(this.searchQuery, info.title || info.name)
     },
 
-    toggleChannel (info) {
-      if (!this.getJoined(info)) {
-        this.joinChannel(info.name, info.title)
-      } else {
-        this.leaveChannel(info.name)
-      }
+    channelSelected (info) {
+      this.joinChannel(info.name, info.title)
+    },
+
+    channelDeselected (info) {
+      this.leaveChannel(info.name)
     },
 
     getJoined (info) {

@@ -74,7 +74,7 @@ export default {
     },
 
     tabState () {
-      return this.$get(`tabs[selectedTabIndex].state`) || this.nullState
+      return this.$get('tabs[selectedTabIndex].state') || this.nullState
     }
   },
 

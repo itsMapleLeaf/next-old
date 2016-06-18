@@ -1,5 +1,5 @@
 const {join} = require('path')
-const use = require('postcss-use')
+const poststylus = require('poststylus')
 
 module.exports = {
   entry: join(__dirname, 'src/main.js'),
@@ -20,20 +20,23 @@ module.exports = {
         loader: 'vue'
       },
       {
-        test: /\.sss$/,
-        loader: 'style!css!postcss?parser=sugarss'
+        test: /\.styl$/,
+        loader: 'style!css!stylus'
       }
     ]
   },
   babel: {
-    presets: ["es2015"],
-    plugins: ["transform-runtime"]
+    presets: ['es2015'],
+    plugins: ['transform-runtime']
   },
-  postcss: () => [
-    use({
-      resolveFromFile: true,
-      modules: '*'
-    })
-  ],
+  stylus: {
+    use: [
+      poststylus([
+        'postcss-cssnext',
+        'postcss-short',
+        'postcss-flexbox'
+      ])
+    ]
+  },
   devtool: '#inline-source-map'
 }

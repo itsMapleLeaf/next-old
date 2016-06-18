@@ -1,5 +1,5 @@
 <template>
-  <div class='container bg-color'>
+  <div class='fullscreen bg-color'>
     <chat></chat>
     <component :is='currentOverlay'></component>
   </div>

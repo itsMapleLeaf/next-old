@@ -35,7 +35,6 @@ export default {
 
   computed: {
     statusDropdown () {
-      // return ['online', 'looking', 'busy', 'away', 'dnd']
       return [
         { value: 'online', label: 'Online' },
         { value: 'looking', label: 'Looking' },
