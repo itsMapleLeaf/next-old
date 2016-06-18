@@ -1,10 +1,10 @@
 <template>
-  <div class='grid'>
-    <div class='row'>
-      <a class='row-2 col-2 fg-color center-content app-menu-button' @click='setCurrentOverlay("app-menu")'>
+  <div class='fullscreen box box-vertical'>
+    <div class='box box-horizontal'>
+      <a class='box box-center app-menu-button' @click='setCurrentOverlay("app-menu")'>
         <i class='fa fa-bars'></i>
       </a>
-      <div class='row grow' style='flex-wrap: wrap'>
+      <div class='box box-horizontal box-wrap'>
         <chat-tab
           v-for='tab in tabs'
           :selected='selectedTabIndex === $index'
@@ -32,8 +32,6 @@
         </div>
       </div>
     </chat-view>
-
-    <div class='divider'></div>
 
     <div class='row row-6 fg-color'>
       <chatbox></chatbox>
@@ -88,3 +86,12 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/mixins'
+
+.app-menu-button
+  size: 2em
+  cursor: pointer
+  hover-darken()
+</style>

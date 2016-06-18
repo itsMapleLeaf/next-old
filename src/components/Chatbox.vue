@@ -1,5 +1,5 @@
 <template>
-  <div class='chatbox' contenteditable :placeholder="placeholder" :style="style" @input='edited($event)'></div>
+  <div class='chatbox' contenteditable :placeholder="placeholder" @input='edited($event)'></div>
 </template>
 
 <script>
@@ -13,12 +13,6 @@ export default {
   },
 
   computed: {
-    style () {
-      return {
-        fontStyle: this.input.length === 0 ? 'italic' : 'inherit'
-      }
-    },
-
     placeholder () {
       if (this.userCharacterName === '') {
         return 'Not chatting quite yet...'
@@ -41,3 +35,13 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+@import '../styles/variables'
+
+.chatbox
+  min-height: 5em
+  margin: 0em
+  border: none
+  background-color: fg-color !important
+</style>
