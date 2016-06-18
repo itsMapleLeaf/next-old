@@ -8,6 +8,8 @@ import baseStyles from './styles/base.styl'
 insertCSS(baseStyles)
 
 Vue.use(VueResource)
+
+Vue.debug = true
 Vue.http.options.emulateJSON = true
 
 /* eslint no-new: 0 */
