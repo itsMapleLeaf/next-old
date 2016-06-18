@@ -22,7 +22,7 @@ input, textarea, button, div[contenteditable]
   border-highlight()
 
   &:focus
-    border-bottom-color: lighten(fg-color, 40%)
+    border-highlight(20%)
 
 div[contenteditable]:empty::before
   content: attr(placeholder)
@@ -39,13 +39,13 @@ ul, ol
   padding: 0em
 
 ::-webkit-scrollbar
-  width: 0.7em
+  size: 12px
 
 ::-webkit-scrollbar-track
-  background-color: bg-color
+  background: darken(bg-color, 10%)
 
 ::-webkit-scrollbar-thumb
-  background-color: fg-color
+  background: lighten(fg-color, 10%)
 
 // class components
 .fg-color
@@ -56,6 +56,9 @@ ul, ol
 
 .hover-darken
   hover-darken()
+
+.hover-lighten
+  hover-lighten()
 
 .box
   flex-shrink: 0
@@ -89,19 +92,19 @@ ul, ol
   text-align: center
 
 .panel
-  background-color: fg-color
+  @extends .fg-color
   padding: 1.5em
   width: max-content
 
-.shade
+.fullscreen
   position: fixed 0
+
+.shade
+  @extends .fullscreen
   background-color: rgba(0, 0, 0, 0.3)
 
 .shadow
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5)
-
-.fullscreen
-  position: fixed 0
 
 .border-highlight
   border-highlight()

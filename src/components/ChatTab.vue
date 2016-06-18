@@ -1,5 +1,5 @@
 <template>
-  <a class='box box-center-vertical' :class="{ 'selected': selected }">
+  <a class='box box-center-vertical hover-lighten' :class="{ 'selected': selected }">
     <span><slot></slot></span>
   </a>
 </template>
@@ -14,14 +14,13 @@ export default {
 
 <style lang="stylus" scoped>
 @import '../styles/variables'
+@import '../styles/mixins'
 
 a
   width: 6em
   padding: 0em 0.5em
   cursor: pointer
-
-  &:hover
-    background-color: lighten(fg-color, 10%)
+  border-highlight(color: transparent)
 
 span
   white-space: nowrap
@@ -30,4 +29,5 @@ span
 
 .selected
   background-color: fg-color
+  border-highlight(10%)
 </style>

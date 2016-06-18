@@ -1,12 +1,17 @@
 @import 'variables'
 
-transition(time = 0.2s)
+transition(state = hover, time = 0.2s)
   transition: time ease all
+  &:{state}
+    {block}
 
-border-highlight()
-  border-bottom: 3px solid lighten(fg-color, 20%)
+border-highlight(lightness = 0%, color = fg-color)
+  border-bottom: 3px solid lighten(color, (20% + lightness))
 
 hover-darken()
-  transition()
-  &:hover
+  +transition(hover)
     background: darken(bg-color, 20%)
+
+hover-lighten()
+  +transition(hover)
+    background: lighten(fg-color, 20%)
