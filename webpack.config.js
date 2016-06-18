@@ -25,6 +25,10 @@ module.exports = {
       }
     ]
   },
+  babel: {
+    presets: ["es2015"],
+    plugins: ["transform-runtime"]
+  },
   postcss: () => [
     use({
       resolveFromFile: true,
