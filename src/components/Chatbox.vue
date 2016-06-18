@@ -41,10 +41,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.chatbox
-  size: 100% !important
-  background: none
-  border: none !important
-</style>

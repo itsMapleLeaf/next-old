@@ -37,25 +37,3 @@
     }
   }
 </script>
-
-<style lang="stylus" scoped>
-@require '../styles/mixins'
-@require '../styles/variables'
-
-.dropdown
-  input-styles(input-width)
-  position: relative
-  display: inline-block
-  font-size: input-font-size
-  user-select: none
-
-.list
-  background: darken(bg-color, 25%)
-
-.head, .list-item
-  +transition(hover)
-    background: rgba(0, 0, 0, 0.35)
-    cursor: pointer
-
-  padding: input-padding
-</style>

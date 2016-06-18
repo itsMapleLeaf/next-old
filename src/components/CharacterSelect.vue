@@ -72,11 +72,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-@require '../styles/variables'
-@require '../styles/components'
-
-p
-  text-align: center
-</style>

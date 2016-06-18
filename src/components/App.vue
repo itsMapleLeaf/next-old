@@ -29,10 +29,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-@require '../styles/components'
-
-.container
-  position: fixed 0
-</style>

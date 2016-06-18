@@ -1,5 +1,5 @@
 <template>
-  <div class='overlay-shade center-content'>
+  <div class='shade center-content'>
     <div class='panel material-shadow'>
       <h1>Login</h1>
       <form @submit.prevent='submit'>
@@ -51,11 +51,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-@require '../styles/components'
-
-.panel
-  width: auto
-  max-width: 16em
-</style>

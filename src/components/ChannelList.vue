@@ -85,11 +85,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-@require '../styles/grid'
-@require '../styles/components'
-
-.channel-list
-  width: 18em
-</style>

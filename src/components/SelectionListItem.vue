@@ -11,21 +11,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-@require '../styles/variables'
-
-.selection-list-item
-  display: block
-  padding: 0.5em
-  transition: 0.2s ease all
-  text-align: left
-
-  &.selected
-    background: rgba(46, 204, 113, 0.2)
-    color: rgb(46, 204, 113)
-
-  &:hover
-    cursor: pointer
-    background: rgba(white, 0.1)
-</style>

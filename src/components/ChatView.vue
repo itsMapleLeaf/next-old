@@ -17,12 +17,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {}
-</script>
-
-<style lang='stylus'>
-@import '../styles/grid'
-@import '../styles/components'
-</style>

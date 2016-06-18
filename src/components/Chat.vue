@@ -1,7 +1,7 @@
 <template>
   <div class='grid'>
     <div class='row'>
-      <a class='row-2 col-2 fg-color center-content app-menu-button' @click='setCurrentOverlay('app-menu')'>
+      <a class='row-2 col-2 fg-color center-content app-menu-button' @click='setCurrentOverlay("app-menu")'>
         <i class='fa fa-bars'></i>
       </a>
       <div class='row grow' style='flex-wrap: wrap'>
@@ -88,16 +88,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-@require '../styles/grid'
-@require '../styles/components'
-
-.padded
-  padding: 0.5em 0.7em
-
-.app-menu-button
-  +transition(hover)
-    background: lighten(fg-color, 10%)
-    cursor: pointer
-</style>

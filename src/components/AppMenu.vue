@@ -72,28 +72,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-@require '../styles/components'
-@require '../styles/grid'
-@require '../styles/variables'
-
-.divider
-  height: 1px
-  width: 100%
-  background: bg-color
-
-.padded
-  padding: 1em 1em 0em
-
-.avatar
-  size: 120px
-  box-sizing: content-box
-  margin-bottom: input-spacing
-
-  +transition(hover)
-    border-highlight(lighten(fg-color, 40%))
-
-  img
-    size: 100%
-</style>
