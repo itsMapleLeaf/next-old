@@ -1,6 +1,6 @@
 <template>
-  <div class='shade box-center'>
-    <div class='panel shadow text-center'>
+  <div class='shade box center'>
+    <div class='panel'>
       <h1>Login</h1>
       <form @submit.prevent='submit'>
         <input type="text" placeholder="Username" v-model="username"  :disabled='disabled'><br>

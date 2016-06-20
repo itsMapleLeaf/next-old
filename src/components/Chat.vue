@@ -1,10 +1,10 @@
 <template>
-  <div class='fullscreen box box-vertical'>
-    <div class='box box-horizontal'>
-      <a class='box box-center app-menu-button' @click='setCurrentOverlay("app-menu")'>
+  <div class='fullscreen box vertical'>
+    <div class='box horizontal'>
+      <a class='box center hover-darken app-menu-button' @click='setCurrentOverlay("app-menu")'>
         <i class='fa fa-bars'></i>
       </a>
-      <div class='box box-horizontal box-wrap'>
+      <div class='box horizontal wrap'>
         <chat-tab
           v-for='tab in tabs'
           :selected='selectedTabIndex === $index'
@@ -17,7 +17,7 @@
 
     <chat-view>
       <div slot='header'>
-        <div class='row-6 preserve-space'>{{{ tabState.description }}}</div>
+        <div class='preserve-space'>{{{ tabState.description }}}</div>
       </div>
 
       <div slot='content'>
@@ -33,7 +33,7 @@
       </div>
     </chat-view>
 
-    <div class='row row-6 fg-color'>
+    <div class='fg-color'>
       <chatbox></chatbox>
     </div>
   </div>
@@ -87,11 +87,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-@import '../styles/mixins'
-
+<style lang="stylus" scoped>
 .app-menu-button
   size: 2em
-  cursor: pointer
-  hover-darken()
 </style>

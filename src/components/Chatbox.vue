@@ -42,6 +42,9 @@ export default {
 .chatbox
   min-height: 5em
   margin: 0em
-  border: none
+  border: none !important
   background-color: fg-color !important
+
+  &:focus
+    background-color: lighten(fg-color, 5%) !important
 </style>

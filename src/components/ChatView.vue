@@ -1,23 +1,23 @@
 <template>
-  <div class='box fg-color header scroll'>
+  <div class='header box fg-color scroll'>
     <slot name='header'></slot>
   </div>
 
   <div class='box divider'></div>
 
-  <div class='box box-horizontal box-item-grow'>
-    <div class='box box-item-grow scroll content'>
+  <div class='box horizontal grow'>
+    <div class='box grow scroll'>
       <slot name='content'></slot>
     </div>
 
     <div class='box divider'></div>
 
-    <div class='box fg-color scroll sidebar'>
+    <div class='sidebar box fg-color scroll'>
       <slot name='sidebar'></slot>
     </div>
   </div>
 
-  <div class='divider'></div>
+  <div class='box divider'></div>
 </template>
 
 <style lang="stylus">

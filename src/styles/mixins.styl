@@ -10,8 +10,20 @@ border-highlight(lightness = 0%, color = fg-color)
 
 hover-darken()
   +transition(hover)
+    cursor: pointer
     background: darken(bg-color, 20%)
 
 hover-lighten()
   +transition(hover)
+    cursor: pointer
     background: lighten(fg-color, 20%)
+
+shadow()
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5)
+
+side-panel()
+  width: 12em
+  height: 100vh
+
+green-highlight()
+  color: lighten(green, 10%) rgba(green, 0.2)

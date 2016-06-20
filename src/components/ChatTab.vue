@@ -1,5 +1,5 @@
 <template>
-  <a class='box box-center-vertical hover-lighten' :class="{ 'selected': selected }">
+  <a class='box center-vertical hover-lighten' :class="{ 'selected': selected }">
     <span><slot></slot></span>
   </a>
 </template>

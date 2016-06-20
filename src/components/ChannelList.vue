@@ -1,9 +1,13 @@
 <template>
-  <div class='shade box-center' @click.self='closeOverlay'>
-    <div class='panel shadow text-center'>
+  <div class='shade box center' @click.self='closeOverlay'>
+    <div class='panel'>
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
-        <selection-list :items='channelListItems' :multiple='true' @selected='channelSelected' @deselected='channelDeselected'>
+        <selection-list
+          :items='channelListItems'
+          :multiple='true'
+          @selected='channelSelected'
+          @deselected='channelDeselected'>
         </selection-list><br>
         <input type="text" placeholder="Search..." v-model='searchQuery'><br>
         <button>Done</button><br>
@@ -14,15 +18,13 @@
 
 <script>
 import SelectionList from './SelectionList.vue'
-import SelectionListItem from './SelectionListItem.vue'
 import {allChannels, joinedChannels} from '../vuex/getters'
 import {setCurrentOverlay, joinChannel, leaveChannel} from '../vuex/actions'
 import fuzzysearch from 'fuzzysearch'
 
 export default {
   components: {
-    SelectionList,
-    SelectionListItem
+    SelectionList
   },
 
   data () {

@@ -1,10 +1,10 @@
 <template>
-  <div class='dropdown'>
-    <div class='head' @click='toggle'>
+  <div class='dropdown bg-color border-highlight'>
+    <div class='head hover-darken' @click='toggle'>
       {{ items[selected].label }} <i class='fa fa-caret-down' style='float: right'></i>
     </div>
-    <ol class='list material-shadow' v-show='open'>
-      <li class='list-item' v-for='item in items' @click='select($index)'>
+    <ol class='list' v-show='open'>
+      <li class='list-item hover-darken' v-for='item in items' @click='select($index)'>
         {{ item.label }}
       </li>
     </ol>
@@ -37,3 +37,15 @@
     }
   }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables'
+
+.dropdown
+  margin: input-margin
+
+.head, .list-item
+  padding: 0.4em 0.7em
+  user-select: none
+  padding: input-padding
+</style>

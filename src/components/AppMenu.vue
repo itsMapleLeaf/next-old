@@ -1,7 +1,7 @@
 <template>
-  <div class="overlay-shade" @mousedown.self="setCurrentOverlay('')">
-    <div class="side-panel fg-color material-shadow col">
-      <div class="padded">
+  <div class="shade" @mousedown.self="setCurrentOverlay('')">
+    <div class="box vertical side-panel fg-color shadow">
+      <div class="box user-info">
         <h2>Hi, {{ userCharacterName.split(' ')[0] }}!</h2>
         <div class="avatar bg-color border-highlight">
           <a :href="userProfileLocation" target="_blank">
@@ -11,7 +11,7 @@
         <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
         <div contenteditable placeholder="What's up?"></div>
       </div>
-      <div class="bg-color grow">
+      <div class="box vertical grow bg-color">
         <menu-option icon='globe' @mousedown="setCurrentOverlay('channel-list')">Channels</menu-option>
         <menu-option icon='gear'>Settings</menu-option>
         <menu-option icon='user'>Switch Character</menu-option>
@@ -71,3 +71,14 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+@import '../styles/variables'
+
+.user-info
+  padding: 1em 1em 0em
+
+.avatar
+  margin: input-margin
+  width: min-content
+</style>

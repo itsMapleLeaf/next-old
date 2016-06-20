@@ -14,14 +14,13 @@ h1, h2, h3, h4, h5, h6
 
 input, textarea, button, div[contenteditable]
   border: none
-  padding: 0.4em 0.8em
-  margin-bottom: 1em
-  color: inherit bg-color
   outline: none
-  transition: 0.3s ease
+  padding: input-padding
+  margin: input-margin
+  color: inherit bg-color
   border-highlight()
 
-  &:focus
+  +transition(focus)
     border-highlight(20%)
 
 div[contenteditable]:empty::before
@@ -37,6 +36,10 @@ button
 ul, ol
   list-style-type: none
   padding: 0em
+  margin: 0em
+
+img
+  display: block // get rid of that random dumb space on images
 
 ::-webkit-scrollbar
   size: 12px
@@ -47,12 +50,34 @@ ul, ol
 ::-webkit-scrollbar-thumb
   background: lighten(fg-color, 10%)
 
-// class components
-.fg-color
-  background-color: fg-color
 
 .bg-color
   background-color: bg-color
+
+.fg-color
+  background-color: fg-color
+
+.fullscreen
+  position: fixed 0
+
+.shade
+  position: fixed 0
+  background-color: rgba(0, 0, 0, 0.3)
+
+.panel
+  shadow()
+  background-color: fg-color
+  padding: 1.5em
+  width: max-content
+  text-align: center
+
+.side-panel
+  shadow()
+  width: 12em
+  height: 100vh
+
+.border-highlight
+  border-highlight()
 
 .hover-darken
   hover-darken()
@@ -60,57 +85,37 @@ ul, ol
 .hover-lighten
   hover-lighten()
 
-.box
-  flex-shrink: 0
-
-.box-vertical
-  box: vertical
-
-.box-horizontal
-  box: horizontal
-
-.box-center
-  box: center middle
-
-.box-center-vertical
-  box: center
-
-.box-center-horizontal
-  box: middle
-
-.box-item-grow
-  box-item: flex-1
-  flex-shrink: 1
-
-.box-wrap
-  flex-wrap: wrap
-
-.divider
-  size: 4px
-
-.text-center
-  text-align: center
-
-.panel
-  @extends .fg-color
-  padding: 1.5em
-  width: max-content
-
-.fullscreen
-  position: fixed 0
-
-.shade
-  @extends .fullscreen
-  background-color: rgba(0, 0, 0, 0.3)
-
-.shadow
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5)
-
-.border-highlight
-  border-highlight()
-
-.green, .green:hover
-  color: lighten(green, 10%) rgba(green, 0.2)
+.green-highlight
+  green-highlight()
 
 .scroll
   overflow-y: scroll
+
+.preserve-space
+  white-space: pre-wrap
+
+
+.box
+  flex-shrink: 0
+
+.box.horizontal
+  box: horizontal
+
+.box.vertical
+  box: vertical
+
+.box.center
+  box: center middle
+
+.box.center-vertical
+  box: center
+
+.box.wrap
+  flex-wrap: wrap
+
+.box.grow
+  box-item: flex-1
+  flex-shrink: 1
+
+.box.divider
+  size: 4px

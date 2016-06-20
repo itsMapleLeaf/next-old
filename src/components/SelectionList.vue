@@ -1,10 +1,11 @@
 <template>
   <ul class='bg-color border-highlight'>
     <li v-for='item in items'
-      :class='getClasses(item)'
+      class='hover-darken'
+      :class="{ 'green-highlight': isSelected(item) }"
       @mousedown='select(item)'>
 
-      {{ item.label }}
+      {{{ item.label }}}
     </li>
   </ul>
 </template>
@@ -34,21 +35,18 @@ export default {
   ready () {
     if (!this.multiple) {
       const item = this.items.find(item => item.value === this.init) || this.items[0]
-      this.$set('selectedItems[0]', item)
+      this.selectedItems = [item]
     }
   },
 
   methods: {
-    getClasses (item) {
-      if (this.selectedItems.indexOf(item) > -1) {
-        return 'hover-darken green green-backlight'
-      }
-      return 'hover-darken'
+    isSelected (item) {
+      return this.selectedItems.indexOf(item) > -1
     },
 
     select (item) {
       if (this.multiple) {
-        if (this.selectedItems.indexOf(item) > -1) {
+        if (this.isSelected(item)) {
           this.selectedItems.$remove(item)
           this.$emit('deselected', item.value)
         } else {
@@ -57,7 +55,7 @@ export default {
         }
       } else {
         const prev = this.selectedItems[0]
-        this.$set('selectedItems[0]', item)
+        this.selectedItems = [item]
         this.$emit('deselected', prev.value)
         this.$emit('selected', item.value)
       }

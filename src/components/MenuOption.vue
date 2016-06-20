@@ -1,5 +1,5 @@
 <template>
-  <a>
+  <a class='hover-darken'>
     <i class='fa fa-{{icon}}'></i> <slot></slot>
   </a>
 </template>
@@ -11,3 +11,8 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+a
+  padding: 0.7em 1.2em
+</style>

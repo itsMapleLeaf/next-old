@@ -1,6 +1,6 @@
 <template>
-  <div class="shade box-center">
-    <div class="panel shadow">
+  <div class="shade box center">
+    <div class="panel">
       <form @submit.prevent='submit'>
         <h1>Who are you?</h1>
         <selection-list :items='listItems' @selected='setSelectedCharacter' :init='defaultCharacter'></selection-list><br>
@@ -12,14 +12,12 @@
 
 <script>
 import SelectionList from './SelectionList.vue'
-import SelectionListItem from './SelectionListItem.vue'
 import {userCharacters, defaultCharacter, account, apiTicket} from '../vuex/getters'
 import {chooseCharacter, connectToChatServer, setCurrentOverlay} from '../vuex/actions'
 
 export default {
   components: {
-    SelectionList,
-    SelectionListItem
+    SelectionList
   },
 
   data () {
