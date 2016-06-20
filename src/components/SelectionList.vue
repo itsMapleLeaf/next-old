@@ -36,6 +36,8 @@ export default {
     if (!this.multiple) {
       const item = this.items.find(item => item.value === this.init) || this.items[0]
       this.selectedItems = [item]
+    } else {
+      this.selectedItems = this.init ? this.init.splice() : []
     }
   },
 

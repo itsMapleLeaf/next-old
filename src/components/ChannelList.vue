@@ -4,7 +4,8 @@
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
         <selection-list
-          :items='channelListItems'
+          :items='channelListItems()'
+          :init='channelListItemsInit()'
           :multiple='true'
           @selected='channelSelected'
           @deselected='channelDeselected'>
@@ -33,41 +34,37 @@ export default {
     }
   },
 
-  computed: {
-    filteredChannels () {
+  methods: {
+    channelListItems () {
+      return this.getFilteredChannels().map(info => {
+        return { label: info.title || info.name, value: info.name }
+      })
+    },
+
+    channelListItemsInit () {
+      return this.joinedChannels.map(ch => ch.name)
+    },
+
+    getFilteredChannels () {
       if (this.searchQuery.trim() !== '') {
-        const query = this.searchQuery.toLocaleLowerCase()
-        const filter = info => {
-          return fuzzysearch(query, (info.title || info.name).toLocaleLowerCase())
-        }
-        return this.allChannels.filter(filter).slice(0, 200)
+        return this.allChannels.filter(this.matchesSearch).slice(0, 200)
       } else {
         return this.allChannels.slice(0, 200)
       }
     },
 
-    channelListItems () {
-      return this.filteredChannels.map(info => {
-        return { label: info.title || info.name, value: info }
-      })
-    }
-  },
-
-  methods: {
     matchesSearch (info) {
-      return fuzzysearch(this.searchQuery, info.title || info.name)
+      const query = this.searchQuery.toLocaleLowerCase()
+      const title = (info.title || info.name).toLocaleLowerCase()
+      return fuzzysearch(query, title)
     },
 
-    channelSelected (info) {
-      this.joinChannel(info.name, info.title)
+    channelSelected (id) {
+      this.joinChannel(id)
     },
 
-    channelDeselected (info) {
-      this.leaveChannel(info.name)
-    },
-
-    getJoined (info) {
-      return this.joinedChannels.find(ch => ch.name === info.name) !== undefined
+    channelDeselected (id) {
+      this.leaveChannel(id)
     },
 
     closeOverlay () {
