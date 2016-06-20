@@ -42,7 +42,7 @@ export default {
     },
 
     channelListItemsInit () {
-      return this.joinedChannels.map(ch => ch.name)
+      return this.joinedChannels.map(ch => ch.id)
     },
 
     getFilteredChannels () {

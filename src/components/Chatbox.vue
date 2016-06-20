@@ -1,9 +1,17 @@
 <template>
-  <div class='chatbox' contenteditable :placeholder="placeholder" @input='edited($event)'></div>
+  <div
+    class='chatbox'
+    contenteditable
+    :placeholder="placeholder"
+    maxlength="4096"
+    @input='edited($event)'
+    @keydown.enter.prevent='messageSent($event)'>
+  </div>
 </template>
 
 <script>
 import {userCharacterName} from '../vuex/getters'
+import {sendChannelMessage} from '../vuex/actions'
 
 export default {
   data () {
@@ -25,12 +33,21 @@ export default {
   methods: {
     edited (event) {
       this.input = event.target.innerText.trim()
+    },
+
+    messageSent (event) {
+      this.sendChannelMessage(this.input)
+      this.input = ''
+      event.target.innerText = ''
     }
   },
 
   vuex: {
     getters: {
       userCharacterName
+    },
+    actions: {
+      sendChannelMessage
     }
   }
 }

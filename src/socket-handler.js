@@ -190,4 +190,8 @@ export default class SocketHandler {
   leaveChannel (channel) {
     this.send('LCH', { channel })
   }
+
+  sendMessage (channel, message) {
+    this.send('MSG', { channel, message })
+  }
 }

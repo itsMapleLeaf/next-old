@@ -140,6 +140,13 @@ const mutations = {
     channel.messages.push(ChatMessage(char, message))
   },
 
+  SEND_CHANNEL_MESSAGE (state, message) {
+    const channel = state.joinedChannels[state.selectedChannelIndex]
+    const msgModel = ChatMessage(state.onlineCharacters[state.character], message)
+    state.socket.sendMessage(channel.id, message)
+    channel.messages.push(msgModel)
+  },
+
   CHANNEL_LEAVE_REQUEST (state, id) {
     const channel = findChannel(state, id)
     channel.status = 'leaving'
