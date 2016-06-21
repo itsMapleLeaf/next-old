@@ -101,5 +101,5 @@ export default {
 
 .room-info
   padding: 0.3em 0.5em
-
+  white-space: pre-wrap
 </style>

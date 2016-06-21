@@ -5,6 +5,7 @@ import store from './vuex/store'
 import parseBBC from './bbcode'
 
 import './styles/base.styl'
+import './styles/chat-colors.styl'
 
 Vue.filter('bbcode', parseBBC)
 
