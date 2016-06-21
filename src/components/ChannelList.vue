@@ -37,7 +37,7 @@ export default {
   methods: {
     channelListItems () {
       return this.getFilteredChannels().map(info => {
-        return { label: info.title || info.name, value: info.name }
+        return { label: info.name, value: info.id }
       })
     },
 
@@ -55,12 +55,13 @@ export default {
 
     matchesSearch (info) {
       const query = this.searchQuery.toLocaleLowerCase()
-      const title = (info.title || info.name).toLocaleLowerCase()
+      const title = info.name.toLocaleLowerCase()
       return fuzzysearch(query, title)
     },
 
     channelSelected (id) {
-      this.joinChannel(id)
+      const info = this.allChannels.find(ch => ch.id === id)
+      this.joinChannel(info.id, info.name)
     },
 
     channelDeselected (id) {

@@ -27,7 +27,7 @@ const state = {
 
 const findChannel = (state, id) => state.joinedChannels.find(ch => ch.id === id)
 
-const compareChannels = (a, b) => (a.title || a.name).localeCompare(b.title || b.name)
+const compareChannels = (a, b) => a.name.localeCompare(b.name)
 
 const mutations = {
   SET_OVERLAY (state, overlay) {

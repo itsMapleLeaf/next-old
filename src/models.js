@@ -1,3 +1,10 @@
+export function ChannelInfo (id, name, userCount) {
+  return {
+    id,        // string: channel id used to join/leave
+    name,      // string: channel title for display
+    userCount, // number: number of characters in the channel
+  }
+}
 
 export function ChannelState (id, name) {
   return {

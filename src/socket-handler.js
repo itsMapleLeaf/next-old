@@ -1,5 +1,6 @@
 import store from './vuex/store'
 import {inspect} from 'util'
+import {ChannelInfo} from './models'
 
 const urls = {
   mainInsecure: 'ws://chat.f-list.net:9722',
@@ -129,14 +130,20 @@ export default class SocketHandler {
         break
 
       // received list of public channels
-      case 'CHA':
-        store.dispatch('SET_PUBLIC_CHANNEL_LIST', params.channels)
+      case 'CHA': {
+        const toChannelInfo = ({ name, count }) => ChannelInfo(name, name, count)
+        const list = params.channels.map(toChannelInfo)
+        store.dispatch('SET_PUBLIC_CHANNEL_LIST', list)
         break
+      }
 
       // received list of private channels
-      case 'ORS':
-        store.dispatch('SET_PRIVATE_CHANNEL_LIST', params.channels)
+      case 'ORS': {
+        const toChannelInfo = ({ name, title, count }) => ChannelInfo(name, title, count)
+        const list = params.channels.map(toChannelInfo)
+        store.dispatch('SET_PRIVATE_CHANNEL_LIST', list)
         break
+      }
 
       // receiving initial channel information
       case 'ICH':
