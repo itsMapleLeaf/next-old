@@ -79,6 +79,6 @@ export default {
   padding: 1em 1em 0em
 
 .avatar
+  size: min-content
   margin: input-margin
-  width: min-content
 </style>
