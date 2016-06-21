@@ -15,7 +15,7 @@
 
     <chat-view>
       <div slot='header'>
-        <div class='room-info'>{{{ tabState.description }}}</div>
+        <div class='room-info'>{{{ tabState.description | bbcode }}}</div>
       </div>
 
       <div slot='content'>

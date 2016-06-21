@@ -2,7 +2,7 @@
   <div class='chat-message'
   :style="{ fontStyle: message.startsWith('/me') ? 'italic' : 'none' }">
     <character :character='character'></character>
-    <span class='message'>{{ parsedMessage }}</span>
+    <span class='message'>{{{ parsedMessage | bbcode }}}</span>
   </div>
 </template>
 
