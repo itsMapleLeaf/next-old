@@ -4,11 +4,11 @@
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
         <selection-list
-          :items='channelListItems()'
-          :init='channelListItemsInit()'
-          :multiple='true'
-          @selected='channelSelected'
-          @deselected='channelDeselected'>
+        :items='channelListItems()'
+        :init='channelListItemsInit()'
+        :multiple='true'
+        @selected='channelSelected'
+        @deselected='channelDeselected'>
         </selection-list><br>
         <input type="text" placeholder="Search..." v-model='searchQuery'><br>
         <button>Done</button><br>

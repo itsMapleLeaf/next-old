@@ -23,7 +23,11 @@ export function Character (name, gender, status = 'online', statusMessage = '') 
     name,          // string
     gender,        // enum: 'Male' | 'Female' | 'Transgender' | 'Herm' | 'Shemale' | 'Cunt-boy' | 'Male-herm' | 'None'
     status,        // enum: 'online' | 'looking' | 'busy' | 'away' | 'dnd' | 'idle' | 'offline'
-    statusMessage  // string
+    statusMessage, // string
+
+    getProfileURL () {
+      return `https://f-list.net/c/${encodeURI(this.name)}`
+    }
   }
 }
 

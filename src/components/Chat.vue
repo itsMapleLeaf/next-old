@@ -5,11 +5,9 @@
         <i class='fa fa-bars'></i>
       </a>
       <div class='box horizontal wrap'>
-        <chat-tab
-          v-for='tab in tabs'
-          :selected='selectedTabIndex === $index'
-          @mousedown='selectedTabIndex = $index'>
-
+        <chat-tab v-for='tab in tabs'
+        :selected='selectedTabIndex === $index'
+        @mousedown='selectedTabIndex = $index'>
           {{ tab.text }}
         </chat-tab>
       </div>
@@ -17,19 +15,18 @@
 
     <chat-view>
       <div slot='header'>
-        <div class='preserve-space'>{{{ tabState.description }}}</div>
+        <span class='preserve-space'>{{{ tabState.description }}}</span>
       </div>
 
       <div slot='content'>
-        <div v-for='msg in tabState.messages'>
-          {{ msg.character.name }}: {{{ msg.message }}}
+        <div class='chat-message' v-for='msg in tabState.messages'>
+          <character :character='msg.character'></character>
+          <span style='margin-left: 0.4em'>{{{ msg.message }}}</span>
         </div>
       </div>
 
       <div slot='sidebar'>
-        <div v-for='char in tabState.characters'>
-          {{ char.name }}
-        </div>
+        <character v-for='char in tabState.characters' class='character-list-item hover-darken' :character='char'></character>
       </div>
     </chat-view>
 
@@ -43,6 +40,7 @@
 import Chatbox from './Chatbox.vue'
 import ChatTab from './ChatTab.vue'
 import ChatView from './ChatView.vue'
+import Character from './Character.vue'
 import {ChannelState} from '../models'
 import {joinedChannels} from '../vuex/getters'
 import {setCurrentOverlay} from '../vuex/actions'
@@ -51,7 +49,8 @@ export default {
   components: {
     Chatbox,
     ChatTab,
-    ChatView
+    ChatView,
+    Character
   },
 
   data () {
@@ -88,6 +87,16 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '../styles/mixins'
+
 .app-menu-button
   size: 2em
+
+.chat-message
+  padding: 0.2em 0.5em
+
+.character-list-item
+  display: block
+  padding: 0.2em 0.5em
+  overflow-wrap: break-word
 </style>
