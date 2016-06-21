@@ -15,7 +15,7 @@
 
     <chat-view>
       <div slot='header'>
-        <span class='preserve-space'>{{{ tabState.description }}}</span>
+        <div class='room-info'>{{{ tabState.description }}}</div>
       </div>
 
       <div slot='content'>
@@ -98,4 +98,8 @@ export default {
   display: block
   padding: 0.2em 0.5em
   overflow-wrap: break-word
+
+.room-info
+  padding: 0.3em 0.5em
+
 </style>
