@@ -10,19 +10,9 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
-        test: /\.js$/,
-        loader: 'babel',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue'
-      },
-      {
-        test: /\.styl$/,
-        loader: 'style!css!stylus'
-      }
+      { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
+      { test: /\.vue$/, loader: 'vue' },
+      { test: /\.styl$/, loader: 'style!css!stylus' }
     ]
   },
   babel: {
@@ -38,5 +28,5 @@ module.exports = {
       ])
     ]
   },
-  devtool: '#inline-source-map'
+  devtool: 'source-map'
 }
