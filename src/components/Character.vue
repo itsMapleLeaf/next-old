@@ -1,7 +1,6 @@
 <template>
-  <a :href="character.getProfileURL()"
-  :class="character.gender.toLowerCase()"
-  target="_blank">
+  <a :href="character.getProfileURL()" target="_blank"
+  :class="character.gender.toLowerCase()">
     {{character.name}}
   </a>
 </template>

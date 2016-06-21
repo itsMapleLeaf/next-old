@@ -19,10 +19,10 @@
       </div>
 
       <div slot='content'>
-        <div class='chat-message' v-for='msg in tabState.messages'>
-          <character :character='msg.character'></character>
-          <span style='margin-left: 0.4em'>{{{ msg.message }}}</span>
-        </div>
+        <chat-message v-for='msg in tabState.messages'
+        :character='msg.character'
+        :message='msg.message'>
+        </chat-message>
       </div>
 
       <div slot='sidebar'>
@@ -41,6 +41,7 @@ import Chatbox from './Chatbox.vue'
 import ChatTab from './ChatTab.vue'
 import ChatView from './ChatView.vue'
 import Character from './Character.vue'
+import ChatMessage from './ChatMessage.vue'
 import {ChannelState} from '../models'
 import {joinedChannels} from '../vuex/getters'
 import {setCurrentOverlay} from '../vuex/actions'
@@ -50,7 +51,8 @@ export default {
     Chatbox,
     ChatTab,
     ChatView,
-    Character
+    Character,
+    ChatMessage
   },
 
   data () {
@@ -91,9 +93,6 @@ export default {
 
 .app-menu-button
   size: 2em
-
-.chat-message
-  padding: 0.2em 0.5em
 
 .character-list-item
   display: block

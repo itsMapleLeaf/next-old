@@ -10,8 +10,6 @@
       <slot name='content'></slot>
     </div>
 
-    <div class='box divider'></div>
-
     <div class='sidebar box fg-color scroll'>
       <slot name='sidebar'></slot>
     </div>
@@ -25,5 +23,5 @@
   height: 5em
 
 .sidebar
-  width: 10em
+  width: 12em
 </style>
