@@ -1,53 +1,57 @@
 <template>
   <div
-    class='chatbox'
-    contenteditable
-    :placeholder="placeholder"
-    maxlength="4096"
-    @input='edited($event)'
-    @keydown.enter.prevent='messageSent($event)'>
-  </div>
+  class='chatbox'
+  contenteditable
+  :placeholder="placeholder"
+  maxlength="4096"
+  @keydown.enter="messageSent($event)"
+  @input="fixContent"
+  v-el:textarea></div>
 </template>
 
 <script>
-import {userCharacterName} from '../vuex/getters'
-import {sendChannelMessage} from '../vuex/actions'
+import {userData} from '../vuex/getters'
 
 export default {
-  data () {
-    return {
-      input: ''
-    }
-  },
-
   computed: {
     placeholder () {
-      if (this.userCharacterName === '') {
+      if (this.userData.character === '') {
         return 'Not chatting quite yet...'
       } else {
-        return `Chatting as ${this.userCharacterName}...`
+        return `Chatting as ${this.userData.character}...`
       }
     }
   },
 
   methods: {
-    edited (event) {
-      this.input = event.target.innerText.trim()
+    getContent () {
+      return this.$els.textarea.innerText.trim()
+    },
+
+    setContent (text) {
+      this.$els.textarea.innerText = text
     },
 
     messageSent (event) {
-      this.sendChannelMessage(this.input)
-      this.input = ''
-      event.target.innerText = ''
+      if (!event.shiftKey) {
+        // this.$dispatch('send-channel-message', this.content)
+        console.log('message sent', this.getContent())
+        event.preventDefault()
+        this.setContent('')
+      }
+    },
+
+    fixContent () {
+      // this seems useless but things are way less buggy and awkward with this
+      if (this.getContent() === '') {
+        this.setContent('')
+      }
     }
   },
 
   vuex: {
     getters: {
-      userCharacterName
-    },
-    actions: {
-      sendChannelMessage
+      userData
     }
   }
 }
