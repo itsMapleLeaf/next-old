@@ -12,7 +12,7 @@ export default function parseBBC(input) {
       case 'u': return `<u>${content}</u>`
       case 's': return `<del>${content}</del>`
       case 'sup': return `<sup>${content}</sup>`
-      case 'sub': return `<sub>${content}</sub>`
+      case 'sub': return `<small>${content}</small>`
       case 'color': return `<span class="chat-color ${value}">${content}</span>`
 
       case 'url': {
