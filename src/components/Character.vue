@@ -1,5 +1,5 @@
 <template>
-  <a :href="character.getProfileURL()" target="_blank"
+  <a :href="profileURL" target="_blank"
   :class="character.gender.toLowerCase()">
     {{character.name}}
   </a>
@@ -37,9 +37,17 @@ a
 </style>
 
 <script>
+import * as util from '../util'
+
 export default {
   props: {
     character: Object
+  },
+
+  data () {
+    return {
+      profileURL: util.getCharacterProfileURL(this.character.name)
+    }
   }
 }
 </script>

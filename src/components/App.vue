@@ -38,6 +38,7 @@ export default {
 
   created () {
     this.$on('overlay-change-request', this.setOverlay)
+    this.$on('send-channel-message', this.sendChannelMessage)
   },
 
   methods: {
@@ -70,15 +71,20 @@ export default {
         const channel = this.userChannels[id]
         if (channel.status === 'left') {
           this.socket.joinChannel(id)
-        }
-        else if (channel.status === 'joined') {
+          this.$broadcast('joined-channel', channel)
+        } else if (channel.status === 'joined') {
           this.socket.leaveChannel(id)
+          this.$broadcast('left-channel', channel)
         }
       })
     },
 
     setOverlay (overlay) {
       this.currentOverlay = overlay
+    },
+
+    sendChannelMessage (message) {
+      // this.socket.sendChannelMessage(message)
     }
   },
 

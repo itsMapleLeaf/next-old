@@ -34,10 +34,9 @@ export default {
 
     messageSent (event) {
       if (!event.shiftKey) {
-        // this.$dispatch('send-channel-message', this.content)
-        console.log('message sent', this.getContent())
-        event.preventDefault()
+        this.$emit('message-sent', this.getContent())
         this.setContent('')
+        event.preventDefault()
       }
     },
 
