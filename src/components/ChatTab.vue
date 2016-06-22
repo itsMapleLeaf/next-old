@@ -18,6 +18,7 @@ export default {
 
 a
   width: 6em
+  height: 2em
   padding: 0em 0.8em
   cursor: pointer
   border-highlight(color: transparent)

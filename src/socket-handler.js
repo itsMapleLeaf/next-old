@@ -175,12 +175,12 @@ export default class SocketHandler {
 
       // channel message
       case 'MSG':
-        store.dispatch('CHANNEL_MESSAGE', params.channel, params.character, params.message)
+        store.dispatch('RECEIVED_CHANNEL_MESSAGE', params.channel, params.character, params.message)
         break
 
       // private message
       case 'PRI':
-        store.dispatch('PRIVATE_MESSAGE', params.character, params.message)
+        store.dispatch('RECEIVED_PRIVATE_MESSAGE', params.character, params.message)
         this.callbacks.privateMessageReceived(params.character, params.message)
         break
 
@@ -216,5 +216,10 @@ export default class SocketHandler {
 
   sendChannelMessage (channel, message) {
     this.send('MSG', { channel, message })
+  }
+
+  sendPrivateMessage (recipient, message) {
+    this.send('PRI', { recipient, message })
+    store.dispatch('SENT_PRIVATE_MESSAGE', recipient, message)
   }
 }

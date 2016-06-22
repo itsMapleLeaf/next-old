@@ -46,7 +46,8 @@ export default {
     }
 
     this.$on('overlay-change-request', this.setOverlay)
-    this.$on('channel-message', this.sendChannelMessage)
+    this.$on('private-message-sent', this.privateMessageSent)
+    // this.$on('channel-message', this.sendChannelMessage)
   },
 
   methods: {
@@ -77,17 +78,22 @@ export default {
 
       this.$nextTick(() => {
         const channel = this.userChannels[id]
+
         if (channel.status === 'left') {
           this.socket.joinChannel(id)
         } else if (channel.status === 'joined') {
           this.socket.leaveChannel(id)
-          this.$broadcast('left-channel', channel)
+          this.$broadcast('left-channel', id)
         }
       })
     },
 
     setOverlay (overlay) {
       this.currentOverlay = overlay
+    },
+
+    privateMessageSent (character, message) {
+      this.socket.sendPrivateMessage(character.name, message)
     },
 
     sendChannelMessage (message) {

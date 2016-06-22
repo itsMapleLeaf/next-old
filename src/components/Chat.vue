@@ -5,7 +5,7 @@
       @click="$dispatch('overlay-change-request', 'app-menu')">
         <i class='fa fa-bars'></i>
       </a>
-      <div class='box horizontal wrap'>
+      <div class='box grow horizontal wrap'>
         <chat-tab v-for='tab in tabs'
         :selected='selectedTabIndex === $index'
         @mousedown='selectedTabIndex = $index'>
@@ -50,6 +50,14 @@ export default {
     }
   },
 
+  created () {
+    this.$on('channel-joined', this.channelJoined)
+    this.$on('left-channel', this.leftChannel)
+    this.$on('chatbox-message-sent', this.messageSent)
+    this.$on('private-message-received', this.privateMessageReceived)
+    this.$on('chatbox-message-sent', this.chatboxMessageSent)
+  },
+
   methods: {
     channelJoined (channel) {
       const tabState = {
@@ -82,14 +90,14 @@ export default {
       }
     },
 
-    messageSent (message) {}
-  },
+    messageSent (message) {},
 
-  ready () {
-    this.$on('channel-joined', this.channelJoined)
-    this.$on('left-channel', this.leftChannel)
-    this.$on('chatbox-message-sent', this.messageSent)
-    this.$on('private-message-received', this.privateMessageReceived)
+    chatboxMessageSent (message) {
+      const tab = this.currentTab
+      if (tab.view === 'private-chat-view') {
+        this.$dispatch('private-message-sent', tab.state.character, message)
+      }
+    }
   },
 
   vuex: {

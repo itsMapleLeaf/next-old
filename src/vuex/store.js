@@ -25,8 +25,6 @@ const state = {
   admins: []            // string[]
 }
 
-const compareChannels = (a, b) => a.name.localeCompare(b.name)
-
 const mutations = {
   LOGIN_REQUEST (state, account) {
     state.userData.account = account
@@ -112,6 +110,11 @@ const mutations = {
     channel.status = 'joined'
   },
 
+  SET_CHANNEL_DESCRIPTION (state, id, description) {
+    const channel = state.channels[id]
+    channel.description = description
+  },
+
   CHANNEL_JOIN (state, id, charname) {
     const channel = state.channels[id]
     const char = state.onlineCharacters[charname]
@@ -129,31 +132,34 @@ const mutations = {
     }
   },
 
-  CHANNEL_MESSAGE (state, id, charName, message) {
+  RECEIVED_CHANNEL_MESSAGE (state, id, charName, message) {
     const channel = state.channels[id]
     const char = state.onlineCharacters[charName]
     channel.messages.push(ChatMessage(char, message))
   },
 
-  SEND_CHANNEL_MESSAGE (state, message) {
-    const channel = state.joinedChannels[state.selectedChannelIndex]
-    const msgModel = ChatMessage(state.onlineCharacters[state.character], message)
-    state.socket.sendMessage(channel.id, message)
-    channel.messages.push(msgModel)
-  },
+  // SEND_CHANNEL_MESSAGE (state, message) {
+  //   const channel = state.joinedChannels[state.selectedChannelIndex]
+  //   const msgModel = ChatMessage(state.onlineCharacters[state.character], message)
+  //   channel.messages.push(msgModel)
+  // },
 
-  SET_CHANNEL_DESCRIPTION (state, id, description) {
-    const channel = state.channels[id]
-    channel.description = description
-  },
-
-  PRIVATE_MESSAGE (state, charname, message) {
+  RECEIVED_PRIVATE_MESSAGE (state, charname, message) {
     const character = state.onlineCharacters[charname]
     let pmstate = state.privateMessages[charname]
     if (!pmstate) {
       pmstate = Vue.set(state.privateMessages, charname, PrivateChatState(character))
     }
     pmstate.messages.push(ChatMessage(character, message))
+  },
+
+  SENT_PRIVATE_MESSAGE (state, recipient, message) {
+    const character = state.onlineCharacters[recipient]
+    let pmstate = state.privateMessages[recipient]
+    if (!pmstate) {
+      pmstate = Vue.set(state.privateMessages, recipient, PrivateChatState(character))
+    }
+    pmstate.messages.push(ChatMessage(state.onlineCharacters[state.userData.character], message))
   }
 }
 
