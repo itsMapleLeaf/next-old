@@ -23,15 +23,10 @@
 </template>
 
 <script>
-import SelectionList from './SelectionList.vue'
 import {publicChannels, privateChannels, userChannels} from '../vuex/getters'
 import fuzzysearch from 'fuzzysearch'
 
 export default {
-  components: {
-    SelectionList
-  },
-
   data () {
     return {
       searchQuery: ''
