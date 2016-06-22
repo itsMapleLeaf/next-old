@@ -5,7 +5,7 @@
     @login-request='loginRequest'
     @login-success='loginSuccess'
     @character-selected='characterSelected'
-    @overlay-closed='closeOverlay'
+    @overlay-closed="currentOverlay = ''"
     @channel-list-clicked='channelListClicked'>
     </component>
   </div>
@@ -35,6 +35,10 @@ export default {
       currentOverlay: 'login',
       socket: new SocketHandler()
     }
+  },
+
+  created () {
+    this.$on('overlay-change-request', this.setOverlay)
   },
 
   methods: {
@@ -74,8 +78,8 @@ export default {
       })
     },
 
-    closeOverlay () {
-      this.currentOverlay = ''
+    setOverlay (overlay) {
+      this.currentOverlay = overlay
     }
   },
 

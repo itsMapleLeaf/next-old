@@ -4,7 +4,7 @@
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
         <ul class='selection-list'>
-          <li v-for='channel in channelList'
+          <li v-for='channel in filteredChannelList'
           @click='channelClicked(channel)'
           :class="{ 'selected': isJoined(channel.id) } ">
             {{channel.name}}
@@ -40,7 +40,17 @@ export default {
 
   computed: {
     channelList () {
-      return this.publicChannels.sort()
+      return this.publicChannels.sort(this.compareChannelInfo)
+    },
+
+    filteredChannelList () {
+      if (this.searchQuery.trim() === '') {
+        return this.channelList
+      } else {
+        const query = this.searchQuery.toLocaleLowerCase()
+        const filter = ch => fuzzysearch(query, ch.name.toLocaleLowerCase())
+        return this.channelList.filter(filter)
+      }
     }
   },
 
@@ -56,6 +66,10 @@ export default {
 
     channelClicked (channel) {
       this.$emit('channel-list-clicked', channel)
+    },
+
+    compareChannelInfo (a, b) {
+      return a.name.localeCompare(b.name)
     }
   },
 

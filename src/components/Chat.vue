@@ -1,7 +1,8 @@
 <template>
   <div class='fullscreen box vertical'>
     <div class='box horizontal'>
-      <a class='box center hover-darken app-menu-button' @click='setCurrentOverlay("app-menu")'>
+      <a class='box center hover-darken app-menu-button'
+      @click="$dispatch('overlay-change-request', 'app-menu')">
         <i class='fa fa-bars'></i>
       </a>
       <div class='box horizontal wrap'>
@@ -14,8 +15,8 @@
     </div>
 
     <chat-view>
-      <div slot='header'>
-        <div class='room-info'>{{{ currentTab.channel.description | bbcode }}}</div>
+      <div slot='header' class='room-info'>
+        <span>{{{ currentTab.channel.description | bbcode }}}</span>
       </div>
 
       <div slot='content'>
@@ -103,6 +104,8 @@ export default {
 
 .room-info
   padding: 0.3em 0.5em
-  white-space: pre-wrap
   line-height: 1.5
+
+  span
+    white-space: pre-wrap
 </style>

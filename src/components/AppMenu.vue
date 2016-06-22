@@ -1,18 +1,18 @@
 <template>
-  <div class="shade" @mousedown.self="setCurrentOverlay('')">
+  <div class="shade" @mousedown.self="closeAppMenu">
     <div class="box vertical side-panel fg-color shadow">
       <div class="box user-info">
-        <h2>Hi, {{ userCharacterName.split(' ')[0] }}!</h2>
+        <h2>{{greeting}}</h2>
         <div class="avatar bg-color border-highlight">
-          <a :href="userProfileLocation" target="_blank">
-            <img :src="avatarSource">
+          <a :href="profileURL" target="_blank">
+            <img :src="avatarURL">
           </a>
         </div>
         <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
         <div contenteditable placeholder="What's up?"></div>
       </div>
       <div class="box vertical grow bg-color">
-        <menu-option icon='globe' @mousedown="setCurrentOverlay('channel-list')">Channels</menu-option>
+        <menu-option icon='globe' @mousedown="openChannelMenu">Channels</menu-option>
         <menu-option icon='gear'>Settings</menu-option>
         <menu-option icon='user'>Switch Character</menu-option>
         <menu-option icon='sign-out'>Log Out</menu-option>
@@ -24,6 +24,8 @@
 <script>
 import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
+import {userData} from '../vuex/getters'
+import * as util from '../util'
 
 export default {
   components: {
@@ -42,20 +44,36 @@ export default {
       ]
     },
 
-    avatarSource () {
-      const encoded = encodeURI(this.userCharacterName.toLowerCase())
-      return `https://static.f-list.net/images/avatar/${encoded}.png`
+    greeting () {
+      return `Hi, ${this.userData.character.split(' ')[0]}!`
     },
 
-    userProfileLocation () {
-      const encoded = encodeURI(this.userCharacterName.toLowerCase())
-      return `https://www.f-list.net/c/${encoded}`
+    profileURL () {
+      return util.getCharacterProfileURL(this.userData.character)
+    },
+
+    avatarURL () {
+      return util.getCharacterAvatarURL(this.userData.character)
     }
   },
 
   methods: {
     statusChanged () {
       // set character status
+    },
+
+    openChannelMenu () {
+      this.$dispatch('overlay-change-request', 'channel-list')
+    },
+
+    closeAppMenu () {
+      this.$dispatch('overlay-change-request', '')
+    }
+  },
+
+  vuex: {
+    getters: {
+      userData
     }
   }
 }
