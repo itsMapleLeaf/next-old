@@ -7,9 +7,10 @@ import parseBBC from './bbcode'
 import './styles/base.styl'
 import './styles/chat-colors.styl'
 
-Vue.filter('bbcode', parseBBC)
-
 Vue.config.debug = true
+Vue.config.devtools = true
+
+Vue.filter('bbcode', parseBBC)
 
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true

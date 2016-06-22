@@ -26,7 +26,7 @@
     <div class='box divider'></div>
 
     <div class='box fg-color'>
-      <chatbox @message-sent='messageSent'></chatbox>
+      <chatbox></chatbox>
     </div>
   </div>
 </template>

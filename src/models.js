@@ -18,16 +18,19 @@ export function ChannelState (id, name) {
   }
 }
 
+export function PrivateChatState (character) {
+  return {
+    character,   // Character
+    messages: [] // ChatMessage[]
+  }
+}
+
 export function Character (name, gender, status = 'online', statusMessage = '') {
   return {
     name,          // string
     gender,        // enum: 'Male' | 'Female' | 'Transgender' | 'Herm' | 'Shemale' | 'Cunt-boy' | 'Male-herm' | 'None'
     status,        // enum: 'online' | 'looking' | 'busy' | 'away' | 'dnd' | 'idle' | 'offline'
-    statusMessage, // string
-
-    getProfileURL () {
-      return `https://f-list.net/c/${encodeURI(this.name)}`
-    }
+    statusMessage  // string
   }
 }
 

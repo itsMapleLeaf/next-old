@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {Character, ChannelState, ChatMessage} from '../models'
+import {Character, ChannelState, ChatMessage, PrivateChatState} from '../models'
 
 Vue.use(Vuex)
 
@@ -18,6 +18,7 @@ const state = {
   publicChannels: [],   // ChannelInfo[]
   privateChannels: [],  // ChannelInfo[]
   channels: {},         // channelID (string) => ChannelState
+  privateMessages: {},  // characterName (string) => PMState
   serverVariables: {},  // variableName (string) => any
   onlineCharacters: {}, // characterName (string) => Character
   ignored: [],          // string[]
@@ -144,6 +145,15 @@ const mutations = {
   SET_CHANNEL_DESCRIPTION (state, id, description) {
     const channel = state.channels[id]
     channel.description = description
+  },
+
+  PRIVATE_MESSAGE (state, charname, message) {
+    const character = state.onlineCharacters[charname]
+    let pmstate = state.privateMessages[charname]
+    if (!pmstate) {
+      pmstate = Vue.set(state.privateMessages, charname, PrivateChatState(character))
+    }
+    pmstate.messages.push(ChatMessage(character, message))
   }
 }
 

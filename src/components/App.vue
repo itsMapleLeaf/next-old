@@ -37,8 +37,16 @@ export default {
   },
 
   created () {
+    this.socket.callbacks.channelJoined = (id) => {
+      this.$broadcast('channel-joined', this.userChannels[id])
+    }
+
+    this.socket.callbacks.privateMessageReceived = (charname, message) => {
+      this.$broadcast('private-message-received', charname, message)
+    }
+
     this.$on('overlay-change-request', this.setOverlay)
-    this.$on('send-channel-message', this.sendChannelMessage)
+    this.$on('channel-message', this.sendChannelMessage)
   },
 
   methods: {
@@ -71,7 +79,6 @@ export default {
         const channel = this.userChannels[id]
         if (channel.status === 'left') {
           this.socket.joinChannel(id)
-          this.$broadcast('joined-channel', channel)
         } else if (channel.status === 'joined') {
           this.socket.leaveChannel(id)
           this.$broadcast('left-channel', channel)

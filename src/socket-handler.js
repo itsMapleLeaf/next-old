@@ -10,6 +10,13 @@ const urls = {
 }
 
 export default class SocketHandler {
+  constructor () {
+    this.callbacks = {
+      privateMessageReceived () {},
+      channelJoined () {}
+    }
+  }
+
   connect (urlID, userData) {
     return new Promise((resolve, reject) => {
       /* eslint no-undef: 0 */
@@ -148,8 +155,10 @@ export default class SocketHandler {
       case 'ICH':
         const namelist = params.users.map(({identity}) => identity)
         store.dispatch('CHANNEL_INIT', params.channel, namelist, params.mode)
+        this.callbacks.channelJoined(params.channel)
         break
 
+      // receiving a channel description
       case 'CDS':
         store.dispatch('SET_CHANNEL_DESCRIPTION', params.channel, params.description)
         break
@@ -167,6 +176,12 @@ export default class SocketHandler {
       // channel message
       case 'MSG':
         store.dispatch('CHANNEL_MESSAGE', params.channel, params.character, params.message)
+        break
+
+      // private message
+      case 'PRI':
+        store.dispatch('PRIVATE_MESSAGE', params.character, params.message)
+        this.callbacks.privateMessageReceived(params.character, params.message)
         break
 
       default:
@@ -199,7 +214,7 @@ export default class SocketHandler {
     store.dispatch('LEAVE_CHANNEL_REQUEST', id)
   }
 
-  sendMessage (channel, message) {
+  sendChannelMessage (channel, message) {
     this.send('MSG', { channel, message })
   }
 }

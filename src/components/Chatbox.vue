@@ -34,7 +34,7 @@ export default {
 
     messageSent (event) {
       if (!event.shiftKey) {
-        this.$emit('message-sent', this.getContent())
+        this.$dispatch('chatbox-message-sent', this.getContent())
         this.setContent('')
         event.preventDefault()
       }

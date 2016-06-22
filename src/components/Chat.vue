@@ -22,7 +22,8 @@
 <script>
 import ChatTab from './ChatTab.vue'
 import ChannelView from './ChannelView.vue'
-import {userChannels} from '../vuex/getters'
+import PrivateChatView from './PrivateChatView.vue'
+import {userChannels, privateMessages} from '../vuex/getters'
 import {ChannelState} from '../models'
 
 const nullTab = { text: 'null tab', view: '' }
@@ -30,7 +31,8 @@ const nullTab = { text: 'null tab', view: '' }
 export default {
   components: {
     ChatTab,
-    ChannelView
+    ChannelView,
+    PrivateChatView
   },
 
   data () {
@@ -49,7 +51,7 @@ export default {
   },
 
   methods: {
-    joinedChannel (channel) {
+    channelJoined (channel) {
       const tabState = {
         view: 'channel-view',
         title: channel.name,
@@ -67,17 +69,33 @@ export default {
       })
     },
 
-    messageSent () {}
+    privateMessageReceived (charname, message) {
+      const filter = tab => tab.view === 'private-chat-view' && tab.state.character.name === charname
+      let tabState = this.tabs.find(filter)
+      if (!tabState) {
+        tabState = {
+          view: 'private-chat-view',
+          title: charname,
+          state: this.privateMessages[charname]
+        }
+        this.tabs.push(tabState)
+      }
+    },
+
+    messageSent (message) {}
   },
 
   ready () {
-    this.$on('joined-channel', this.joinedChannel)
+    this.$on('channel-joined', this.channelJoined)
     this.$on('left-channel', this.leftChannel)
+    this.$on('chatbox-message-sent', this.messageSent)
+    this.$on('private-message-received', this.privateMessageReceived)
   },
 
   vuex: {
     getters: {
-      userChannels
+      userChannels,
+      privateMessages
     }
   }
 }
