@@ -3,7 +3,13 @@
     <div class="panel">
       <form @submit.prevent='submit'>
         <h1>Who are you?</h1>
-        <selection-list :items='listItems' @selected='setSelectedCharacter' :init='defaultCharacter'></selection-list><br>
+        <ul class='selection-list'>
+          <li v-for='name in characters'
+          :class='{ "selected": name === selectedCharacter }'
+          @click='setSelectedCharacter(name)'>
+            {{name}}
+          </li>
+        </ul>
         <button>Go</button>
       </form>
     </div>
@@ -11,26 +17,18 @@
 </template>
 
 <script>
-import SelectionList from './SelectionList.vue'
-import {userCharacters, defaultCharacter, account, apiTicket} from '../vuex/getters'
-import {chooseCharacter, connectToChatServer, setCurrentOverlay} from '../vuex/actions'
+import {userData} from '../vuex/getters'
 
 export default {
-  components: {
-    SelectionList
-  },
-
   data () {
     return {
-      selectedCharacter: this.defaultCharacter
+      selectedCharacter: this.userData.default_character
     }
   },
 
   computed: {
-    listItems () {
-      return this.userCharacters.map(name => {
-        return { label: name, value: name }
-      })
+    characters () {
+      return this.userData.characters.sort()
     }
   },
 
@@ -40,30 +38,13 @@ export default {
     },
 
     submit () {
-      this.setCurrentOverlay('')
-
-      this.chooseCharacter(this.selectedCharacter)
-      this.connectToChatServer(this.account, this.apiTicket, this.selectedCharacter)
-      .then(() => {
-        this.setCurrentOverlay('channel-list')
-      })
-      .catch(() => {
-        this.setCurrentOverlay('login')
-      })
+      this.$emit('character-selected', this.selectedCharacter)
     }
   },
 
   vuex: {
-    actions: {
-      chooseCharacter,
-      connectToChatServer,
-      setCurrentOverlay
-    },
     getters: {
-      userCharacters,
-      defaultCharacter,
-      account,
-      apiTicket
+      userData
     }
   }
 }

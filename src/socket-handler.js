@@ -10,23 +10,21 @@ const urls = {
 }
 
 export default class SocketHandler {
-  connect (urlID, ...identInfo) {
+  connect (urlID, userData) {
     return new Promise((resolve, reject) => {
       /* eslint no-undef: 0 */
       this.ws = new WebSocket(urls[urlID])
 
       this.ws.onopen = () => {
-        this.sendIdentifyRequest(...identInfo)
+        this.sendIdentifyRequest(userData)
       }
 
       this.ws.onclose = () => {
         const err = 'Lost connection to server. :('
-        store.dispatch('SOCKET_ERROR', err)
         reject(err)
       }
 
       this.ws.onerror = err => {
-        store.dispatch('SOCKET_ERROR', err)
         reject(err)
       }
 
@@ -35,16 +33,17 @@ export default class SocketHandler {
         this.handleChatCommand(command, params)
 
         if (command === 'IDN') {
-          store.dispatch('CHAT_IDENTIFY_SUCCESS', this)
           resolve()
         }
       }
     })
   }
 
-  sendIdentifyRequest (account, ticket, character) {
+  sendIdentifyRequest ({account, ticket, character}) {
     const params = {
-      account, ticket, character,
+      account,
+      ticket,
+      character,
       method: 'ticket',
       cname: 'fchat-next',
       cversion: '0.1.0'
@@ -131,7 +130,7 @@ export default class SocketHandler {
 
       // received list of public channels
       case 'CHA': {
-        const toChannelInfo = ({ name, count }) => ChannelInfo(name, name, count)
+        const toChannelInfo = ({ name, characters }) => ChannelInfo(name, name, characters)
         const list = params.channels.map(toChannelInfo)
         store.dispatch('SET_PUBLIC_CHANNEL_LIST', list)
         break
@@ -139,7 +138,7 @@ export default class SocketHandler {
 
       // received list of private channels
       case 'ORS': {
-        const toChannelInfo = ({ name, title, count }) => ChannelInfo(name, title, count)
+        const toChannelInfo = ({ name, title, characters }) => ChannelInfo(name, title, characters)
         const list = params.channels.map(toChannelInfo)
         store.dispatch('SET_PRIVATE_CHANNEL_LIST', list)
         break
@@ -190,12 +189,14 @@ export default class SocketHandler {
     this.send('ORS')
   }
 
-  joinChannel (channel) {
-    this.send('JCH', { channel })
+  joinChannel (id) {
+    this.send('JCH', { channel: id })
+    store.dispatch('JOIN_CHANNEL_REQUEST', id)
   }
 
-  leaveChannel (channel) {
-    this.send('LCH', { channel })
+  leaveChannel (id) {
+    this.send('LCH', { channel: id })
+    store.dispatch('LEAVE_CHANNEL_REQUEST', id)
   }
 
   sendMessage (channel, message) {

@@ -1,22 +1,19 @@
-export const loginStatus = state => state.loginStatusMessage
+import {ChannelState} from '../models'
+
+export const userData = state => Object.assign({}, state.userData)
 
 export const userCharacters = state =>
   state.loginData.characters
     .slice()
     .sort()
 
-export const defaultCharacter = state => state.loginData.default_character
+export const userAccount = state => state.account
 
-export const userCharacterName = state => state.character
+export const userCharacter = state => state.character
 
-export const account = state => state.account
+export const publicChannels = state => state.publicChannels.slice()
 
-export const apiTicket = state => state.loginData.ticket
+export const privateChannels = state => state.privateChannels.slice()
 
-export const currentOverlay = state => state.currentOverlay
-
-export const allChannels = state =>
-  state.publicChannels.concat(state.privateChannels)
-
-export const joinedChannels = state =>
-  state.joinedChannels.slice()
+export const userChannels = state =>
+  Object.assign({}, state.channels)

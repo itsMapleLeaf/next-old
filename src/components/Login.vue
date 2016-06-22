@@ -3,50 +3,53 @@
     <div class='panel'>
       <h1>Login</h1>
       <form @submit.prevent='submit'>
-        <input type="text" placeholder="Username" v-model="username"  :disabled='disabled'><br>
-        <input type="password" placeholder="Password" v-model="password"  :disabled='disabled'><br>
+        <input type="text" placeholder="Username"
+        v-model="username" :disabled='disabled'><br>
+
+        <input type="password" placeholder="Password"
+        v-model="password" :disabled='disabled'><br>
+
         <button action="submit" :disabled='disabled'>Go</button>
       </form>
-      {{ loginStatus }}
+      <span>{{ status }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import {submitLogin, setCurrentOverlay} from '../vuex/actions'
-import {loginStatus} from '../vuex/getters'
-
 export default {
   data () {
     return {
       username: '',
       password: '',
+      status: '',
       disabled: false
     }
   },
 
   methods: {
     submit () {
-      this.submitLogin(this.username, this.password)
+      const url = 'https://www.f-list.net/json/getApiTicket.php'
+
+      const data = {
+        account: this.username,
+        password: this.password
+      }
+
+      this.$http.post(url, data)
+      .then(res => {
+        this.$dispatch('login-success', res.data)
+      })
+      .catch(err => {
+        this.status = err || "Could not connect to F-List website. They're either doing maintenance, or someone spilled coke on the servers again."
+      })
       .then(() => {
-        this.setCurrentOverlay('character-select')
-        this.username = this.password = ''
-      })
-      .catch(() => {
         this.disabled = false
+        this.password = ''
       })
 
+      this.$dispatch('login-request', this.username)
       this.disabled = true
-    }
-  },
-
-  vuex: {
-    actions: {
-      submitLogin,
-      setCurrentOverlay
-    },
-    getters: {
-      loginStatus
     }
   }
 }

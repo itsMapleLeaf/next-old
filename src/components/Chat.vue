@@ -15,18 +15,18 @@
 
     <chat-view>
       <div slot='header'>
-        <div class='room-info'>{{{ tabState.description | bbcode }}}</div>
+        <div class='room-info'>{{{ currentTab.channel.description | bbcode }}}</div>
       </div>
 
       <div slot='content'>
-        <chat-message v-for='msg in tabState.messages'
+        <chat-message v-for='msg in currentTab.channel.messages'
         :character='msg.character'
         :message='msg.message'>
         </chat-message>
       </div>
 
       <div slot='sidebar'>
-        <character v-for='char in tabState.characters' class='character-list-item hover-darken' :character='char'></character>
+        <character v-for='char in currentTab.channel.characters' class='character-list-item hover-darken' :character='char'></character>
       </div>
     </chat-view>
 
@@ -42,9 +42,8 @@ import ChatTab from './ChatTab.vue'
 import ChatView from './ChatView.vue'
 import Character from './Character.vue'
 import ChatMessage from './ChatMessage.vue'
+import {userChannels} from '../vuex/getters'
 import {ChannelState} from '../models'
-import {joinedChannels} from '../vuex/getters'
-import {setCurrentOverlay} from '../vuex/actions'
 
 export default {
   components: {
@@ -57,32 +56,35 @@ export default {
 
   data () {
     return {
-      selectedTabIndex: 0,
-      nullState: ChannelState('null', 'null')
+      tabs: [],
+      selectedTabIndex: 0
     }
   },
 
   computed: {
-    tabs () {
-      return this.joinedChannels.map(channel => {
-        return {
-          text: channel.name,
-          state: channel
+    currentTab () {
+      for (let id in this.userChannels) {
+        const channel = this.userChannels[id]
+        const existing = this.tabs.find(tab => tab.channel === channel)
+        if (!existing) {
+          this.tabs.push({ text: channel.name, channel })
         }
-      })
-    },
+      }
 
-    tabState () {
-      return this.$get('tabs[selectedTabIndex].state') || this.nullState
+      this.tabs = this.tabs.filter(tab => {
+        return tab.channel.status === 'joined'
+      })
+
+      return this.tabs[this.selectedTabIndex] || {
+        text: '',
+        channel: ChannelState('null channel', 'null channel')
+      }
     }
   },
 
   vuex: {
     getters: {
-      joinedChannels
-    },
-    actions: {
-      setCurrentOverlay
+      userChannels
     }
   }
 }

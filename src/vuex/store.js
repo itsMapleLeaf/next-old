@@ -5,63 +5,38 @@ import {Character, ChannelState, ChatMessage} from '../models'
 Vue.use(Vuex)
 
 const state = {
-  account: '',
-  loginData: {},
-  loginStatusMessage: '',
+  userData: {
+    account: '',
+    character: '',
+    bookmarks: [],
+    characters: [],
+    default_character: '',
+    friends: [],
+    ticket: ''
+  },
 
-  publicChannels: [],
-  privateChannels: [],
-  joinedChannels: [],
-  selectedChannelIndex: 0,
-
-  socket: null,
-  serverVariables: {},
-
-  character: '',
-  onlineCharacters: new Map(),
-  ignored: [],
-  admins: [],
-
-  currentOverlay: 'login'
+  publicChannels: [],   // ChannelInfo[]
+  privateChannels: [],  // ChannelInfo[]
+  channels: {},         // channelID (string) => ChannelState
+  serverVariables: {},  // variableName (string) => any
+  onlineCharacters: {}, // characterName (string) => Character
+  ignored: [],          // string[]
+  admins: []            // string[]
 }
-
-const findChannel = (state, id) => state.joinedChannels.find(ch => ch.id === id)
 
 const compareChannels = (a, b) => a.name.localeCompare(b.name)
 
 const mutations = {
-  SET_OVERLAY (state, overlay) {
-    state.currentOverlay = overlay
-  },
-
   LOGIN_REQUEST (state, account) {
-    state.account = account
-    state.loginStatusMessage = 'Hold on...'
+    state.userData.account = account
   },
 
-  LOGIN_SUCCESS (state, data) {
-    state.loginData = data
-    state.loginStatusMessage = 'Success!'
+  LOGIN_SUCCESS (state, loginData) {
+    Object.assign(state.userData, loginData)
   },
 
-  LOGIN_FAILURE (state, err) {
-    state.loginStatusMessage = err
-  },
-
-  CHOOSE_CHARACTER (state, char) {
-    state.character = char
-  },
-
-  CONNECT_REQUEST (state) {},
-
-  SOCKET_ERROR (state, err) {
-    state.loginStatusMessage = err
-  },
-
-  CHAT_IDENTIFY_REQUEST (state) {},
-
-  CHAT_IDENTIFY_SUCCESS (state, socket) {
-    state.socket = socket
+  CHARACTER_SELECTED (state, char) {
+    state.userData.character = char
   },
 
   SET_SERVER_VARIABLE (state, key, value) {
@@ -99,20 +74,29 @@ const mutations = {
   },
 
   SET_PUBLIC_CHANNEL_LIST (state, channels) {
-    state.publicChannels = channels.slice().sort(compareChannels)
+    state.publicChannels = channels.slice()
   },
 
   SET_PRIVATE_CHANNEL_LIST (state, channels) {
-    state.privateChannels = channels.slice().sort(compareChannels)
+    state.privateChannels = channels.slice()
   },
 
-  CHANNEL_JOIN_REQUEST (state, id, name = id) {
-    state.joinedChannels.push(ChannelState(id, name))
-    state.socket.joinChannel(id)
+  CREATE_CHANNEL_STATE (state, id, name) {
+    if (!state.channels[id]) {
+      Vue.set(state.channels, id, ChannelState(id, name))
+    }
+  },
+
+  JOIN_CHANNEL_REQUEST (state, id) {
+    state.channels[id].status = 'joining'
+  },
+
+  LEAVE_CHANNEL_REQUEST (state, id) {
+    state.channels[id].status = 'leaving'
   },
 
   CHANNEL_INIT (state, id, namelist, mode) {
-    const channel = findChannel(state, id)
+    const channel = state.channels[id]
     const characters = []
 
     for (let name of namelist) {
@@ -124,18 +108,28 @@ const mutations = {
 
     channel.mode = mode
     channel.characters = characters
+    channel.status = 'joined'
   },
 
-  CHANNEL_JOIN (state, id, name) {
-    const channel = findChannel(state, id)
-    const char = state.onlineCharacters[name]
+  CHANNEL_JOIN (state, id, charname) {
+    const channel = state.channels[id]
+    const char = state.onlineCharacters[charname]
     if (char) {
       channel.characters.push(char)
     }
   },
 
+  CHANNEL_LEAVE (state, id, charname) {
+    if (charname === state.userData.character) {
+      state.channels[id].status = 'left'
+    } else {
+      const channel = state.channels[id]
+      channel.characters = channel.characters.filter(c => c.name !== charname)
+    }
+  },
+
   CHANNEL_MESSAGE (state, id, charName, message) {
-    const channel = findChannel(state, id)
+    const channel = state.channels[id]
     const char = state.onlineCharacters[charName]
     channel.messages.push(ChatMessage(char, message))
   },
@@ -147,28 +141,8 @@ const mutations = {
     channel.messages.push(msgModel)
   },
 
-  CHANNEL_LEAVE_REQUEST (state, id) {
-    const channel = findChannel(state, id)
-    channel.status = 'leaving'
-    state.socket.leaveChannel(id)
-  },
-
-  CHANNEL_LEAVE (state, id, char) {
-    if (char === state.character) {
-      state.joinedChannels = state.joinedChannels.filter(ch => ch.id !== id)
-    } else {
-      const channel = findChannel(state, id)
-      channel.characters = channel.characters.filter(c => c.name !== char)
-    }
-  },
-
-  SELECT_CHANNEL (state, id) {
-    const index = state.joinedChannels.findIndex(ch => ch.id === id)
-    state.selectedChannelIndex = index
-  },
-
   SET_CHANNEL_DESCRIPTION (state, id, description) {
-    const channel = findChannel(state, id)
+    const channel = state.channels[id]
     channel.description = description
   }
 }

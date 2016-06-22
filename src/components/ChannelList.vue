@@ -3,15 +3,20 @@
     <div class='panel'>
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
-        <selection-list
-        :items='channelListItems()'
-        :init='channelListItemsInit()'
-        :multiple='true'
-        @selected='channelSelected'
-        @deselected='channelDeselected'>
-        </selection-list><br>
-        <input type="text" placeholder="Search..." v-model='searchQuery'><br>
-        <button>Done</button><br>
+        <ul class='selection-list'>
+          <li v-for='channel in channelList'
+          @click='channelClicked(channel)'
+          :class="{ 'selected': isJoined(channel.id) } ">
+            {{channel.name}}
+          </li>
+        </ul>
+
+        <input type="text" placeholder="Search..."
+        v-model='searchQuery'>
+        <br>
+
+        <button>Done</button>
+        <br>
       </form>
     </div>
   </div>
@@ -19,8 +24,7 @@
 
 <script>
 import SelectionList from './SelectionList.vue'
-import {allChannels, joinedChannels} from '../vuex/getters'
-import {setCurrentOverlay, joinChannel, leaveChannel} from '../vuex/actions'
+import {publicChannels, privateChannels, userChannels} from '../vuex/getters'
 import fuzzysearch from 'fuzzysearch'
 
 export default {
@@ -34,54 +38,37 @@ export default {
     }
   },
 
+  computed: {
+    channelList () {
+      return this.publicChannels.sort()
+    }
+  },
+
   methods: {
-    channelListItems () {
-      return this.getFilteredChannels().map(info => {
-        return { label: info.name, value: info.id }
-      })
-    },
-
-    channelListItemsInit () {
-      return this.joinedChannels.map(ch => ch.id)
-    },
-
-    getFilteredChannels () {
-      if (this.searchQuery.trim() !== '') {
-        return this.allChannels.filter(this.matchesSearch).slice(0, 200)
-      } else {
-        return this.allChannels.slice(0, 200)
-      }
-    },
-
-    matchesSearch (info) {
-      const query = this.searchQuery.toLocaleLowerCase()
-      const title = info.name.toLocaleLowerCase()
-      return fuzzysearch(query, title)
-    },
-
-    channelSelected (id) {
-      const info = this.allChannels.find(ch => ch.id === id)
-      this.joinChannel(info.id, info.name)
-    },
-
-    channelDeselected (id) {
-      this.leaveChannel(id)
+    isJoined (id) {
+      const channel = this.userChannels[id]
+      return channel && channel.status === 'joined'
     },
 
     closeOverlay () {
-      this.setCurrentOverlay('')
+      this.$emit('overlay-closed')
+    },
+
+    channelClicked (channel) {
+      this.$emit('channel-list-clicked', channel)
     }
   },
 
   vuex: {
-    getters: {
-      allChannels,
-      joinedChannels
-    },
     actions: {
-      setCurrentOverlay,
-      joinChannel,
-      leaveChannel
+      joinChannel (store) {},
+      leaveChannel (store) {}
+    },
+
+    getters: {
+      publicChannels,
+      privateChannels,
+      userChannels
     }
   }
 }

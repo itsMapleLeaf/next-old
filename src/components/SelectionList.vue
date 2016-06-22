@@ -68,14 +68,4 @@ export default {
 
 <style lang="stylus" scoped>
 @import '../styles/variables'
-
-ul
-  width: 14em
-  height: 16em
-  overflow: auto
-
-li
-  padding: 0.5em
-  cursor: pointer
-  user-select: none
 </style>

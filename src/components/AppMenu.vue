@@ -24,8 +24,6 @@
 <script>
 import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
-import {setCurrentOverlay} from '../vuex/actions'
-import {userCharacterName} from '../vuex/getters'
 
 export default {
   components: {
@@ -59,15 +57,6 @@ export default {
     statusChanged () {
       // set character status
     }
-  },
-
-  vuex: {
-    actions: {
-      setCurrentOverlay
-    },
-    getters: {
-      userCharacterName
-    }
   }
 }
 </script>
@@ -79,6 +68,9 @@ export default {
   padding: 1em 1em 0em
 
 .avatar
-  size: min-content
+  size: 100px
   margin: input-margin
+
+  img
+    size: 100%
 </style>

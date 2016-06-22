@@ -128,3 +128,21 @@ u
 
 .box.divider
   size: 4px
+
+
+.selection-list
+  width: 14em
+  height: 16em
+  overflow: auto
+  background-color: bg-color
+  margin: input-margin
+  border-highlight()
+
+  li
+    padding: 0.5em
+    cursor: pointer
+    user-select: none
+    hover-darken()
+
+    &.selected
+      green-highlight()
