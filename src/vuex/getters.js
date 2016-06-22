@@ -6,5 +6,4 @@ export const publicChannels = state => state.publicChannels.slice()
 
 export const privateChannels = state => state.privateChannels.slice()
 
-export const userChannels = state =>
-  Object.assign({}, state.channels)
+export const userChannels = state => Object.assign({}, state.channels)
