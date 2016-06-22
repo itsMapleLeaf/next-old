@@ -15,7 +15,7 @@
         v-model='searchQuery'>
         <br>
 
-        <button>Done</button>
+        <button @click='closeOverlay'>Done</button>
         <br>
       </form>
     </div>
@@ -61,7 +61,7 @@ export default {
     },
 
     closeOverlay () {
-      this.$emit('overlay-closed')
+      this.$dispatch('overlay-change-request', '')
     },
 
     channelClicked (channel) {

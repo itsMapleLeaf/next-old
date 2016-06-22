@@ -5,7 +5,6 @@
     @login-request='loginRequest'
     @login-success='loginSuccess'
     @character-selected='characterSelected'
-    @overlay-closed="currentOverlay = ''"
     @channel-list-clicked='channelListClicked'>
     </component>
   </div>
