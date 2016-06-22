@@ -53,7 +53,6 @@ export default {
   created () {
     this.$on('channel-joined', this.channelJoined)
     this.$on('left-channel', this.leftChannel)
-    this.$on('chatbox-message-sent', this.messageSent)
     this.$on('private-message-received', this.privateMessageReceived)
     this.$on('chatbox-message-sent', this.chatboxMessageSent)
   },
@@ -90,12 +89,12 @@ export default {
       }
     },
 
-    messageSent (message) {},
-
     chatboxMessageSent (message) {
       const tab = this.currentTab
       if (tab.view === 'private-chat-view') {
         this.$dispatch('private-message-sent', tab.state.character, message)
+      } else if (tab.view === 'channel-view') {
+        this.$dispatch('channel-message-sent', )
       }
     }
   },
