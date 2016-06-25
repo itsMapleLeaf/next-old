@@ -64,8 +64,8 @@ export function PrivateChatState (character) {
 export function Character (name, gender, status = UserStatus.online, statusMessage = '') {
   return {
     name,          // string
-    gender,        // enum: 'Male' | 'Female' | 'Transgender' | 'Herm' | 'Shemale' | 'Cunt-boy' | 'Male-herm' | 'None'
-    status,        // enum: 'online' | 'looking' | 'busy' | 'away' | 'dnd' | 'idle' | 'offline'
+    gender,        // Gender
+    status,        // UserStatus
     statusMessage  // string
   }
 }

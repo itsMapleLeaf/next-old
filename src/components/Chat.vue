@@ -78,8 +78,10 @@ export default {
     },
 
     privateMessageReceived (charname, message) {
-      const filter = tab => tab.view === 'private-chat-view' && tab.state.character.name === charname
-      let tabState = this.tabs.find(filter)
+      let tabState = this.tabs.find(tab => {
+        return tab.view === 'private-chat-view' && tab.state.character.name === charname
+      })
+
       if (!tabState) {
         tabState = {
           view: 'private-chat-view',
