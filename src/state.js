@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   Character,
   ChannelState,
@@ -87,7 +85,7 @@ class State {
   // setters
   setAccount (account) {
     this.data.userData.account = account
-    window.localStorage.setItem(`fchat-next:account`, account)
+    window.localStorage.setItem('fchat-next:account', account)
   }
 
   setUserData (userData) {

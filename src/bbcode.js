@@ -1,4 +1,4 @@
-export default function parseBBC(input) {
+export default function parseBBC (input) {
   return input.replace(/\[(\w+?)=?(.*?)\](.*?)\[\/\1\]/g, (match, tag, value, content) => {
     if (tag !== 'noparse') {
       content = parseBBC(content)
