@@ -42,7 +42,7 @@ export function ChannelInfo (id, name, userCount) {
   }
 }
 
-export function ChannelState (id, name) {
+export function ChannelState (id, name = id) {
   return {
     id,                        // string: the channel id (either 'channel' or 'name' from the server)
     name,                      // string: the channel name (or 'title' from the server)

@@ -42,7 +42,7 @@ export default {
     }
   },
 
-  created () {
+  ready () {
     this.$on('overlay-change-request', this.setOverlay)
 
     const { account, ticket } = this.state.getUserData()

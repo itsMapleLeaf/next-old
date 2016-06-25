@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 import {
   Character,
   ChannelState,
@@ -50,7 +52,7 @@ class State {
   getChannel (id) {
     let channel = this.data.channels[id]
     if (!channel) {
-      channel = this.data.channels[id] = ChannelState(id)
+      channel = Vue.set(this.data.channels, id, ChannelState(id))
     }
     return channel
   }
@@ -58,7 +60,7 @@ class State {
   getPrivateChat (partner) {
     let chat = this.data.privateChats[partner]
     if (!chat) {
-      chat = this.data.privateChats[partner] = PrivateChatState(partner)
+      chat = Vue.set(this.data.privateChats, partner, PrivateChatState(partner))
     }
     return chat
   }
@@ -123,17 +125,19 @@ class State {
   }
 
   setServerVariable (key, value) {
-    this.data.serverVariables[key] = value
+    Vue.set(this.data.serverVariables, key, value)
   }
 
   hashCharacters (chars) {
+    const hash = {}
     for (let [name, gender, status, statusMessage] of chars) {
-      this.data.onlineCharacters[name] = Character(name, gender, status, statusMessage)
+      hash[name] = Character(name, gender, status, statusMessage)
     }
+    Object.assign(this.data.onlineCharacters, hash)
   }
 
   addCharacter (name, gender) {
-    this.data.onlineCharacters[name] = Character(name, gender)
+    Vue.set(this.data.onlineCharacters, name, Character(name, gender))
   }
 
   removeCharacter (name) {

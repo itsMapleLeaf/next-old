@@ -4,7 +4,7 @@
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
         <ul class='selection-list'>
-          <li v-for='channel in filteredChannelList'
+          <li v-for='channel in slicedChannelList'
           @click='channelClicked(channel)'
           :class="{ 'selected': isJoined(channel.id) } ">
             {{channel.name}}
@@ -54,6 +54,10 @@ export default {
         const filter = ch => fuzzysearch(query, ch.name.toLocaleLowerCase())
         return this.channelList.filter(filter)
       }
+    },
+
+    slicedChannelList () {
+      return this.filteredChannelList.slice(0, 200)
     }
   },
 
@@ -67,8 +71,9 @@ export default {
     },
 
     channelClicked (channel) {
+      console.log(this.state.getChannelStatus(channel.id))
       this.$emit('channel-list-clicked', channel)
-    },
+    }
   }
 }
 </script>
