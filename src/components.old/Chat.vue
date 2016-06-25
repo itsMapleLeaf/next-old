@@ -94,7 +94,7 @@ export default {
       if (tab.view === 'private-chat-view') {
         this.$dispatch('private-message-sent', tab.state.character, message)
       } else if (tab.view === 'channel-view') {
-        this.$dispatch('channel-message-sent', )
+        this.$dispatch('channel-message-sent', tab.state.id, message)
       }
     }
   },
