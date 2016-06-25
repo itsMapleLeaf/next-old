@@ -35,6 +35,10 @@ class State {
       if (ticket) {
         Object.assign(this.data.userData, { account, ticket })
       }
+      const character = window.localStorage.getItem(`fchat-next:character:${account}`)
+      if (character) {
+        this.data.userData.default_character = character
+      }
     }
   }
 
@@ -95,14 +99,19 @@ class State {
 
   setCharacter (charname) {
     this.data.userData.character = charname
+    window.localStorage.setItem(`fchat-next:character:${this.data.userData.account}`, charname)
   }
 
   setUserCharacterList (characters) {
     this.data.userData.characters = characters
   }
 
-  setServerVariable (key, value) {
-    this.data.serverVariables[key] = value
+  setFriendsList (friends) {
+    this.data.userData.friends = friends
+  }
+
+  setBookmarkList (bookmarks) {
+    this.data.userData.bookmarks = bookmarks
   }
 
   setIgnoreList (names) {
@@ -111,6 +120,10 @@ class State {
 
   setAdminList (names) {
     this.data.admins = names
+  }
+
+  setServerVariable (key, value) {
+    this.data.serverVariables[key] = value
   }
 
   hashCharacters (chars) {

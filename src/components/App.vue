@@ -50,8 +50,12 @@ export default {
         this.state.setUserCharacterList(data.characters)
         this.state.setFriendsList(data.friends)
         this.state.setBookmarkList(data.bookmarks)
+        this.currentOverlay = 'character-select'
       })
-      .catch(err => console.warn(err))
+      .catch(err => {
+        this.currentOverlay = 'login'
+        console.warn(err)
+      })
     } else {
       this.currentOverlay = 'login'
     }
