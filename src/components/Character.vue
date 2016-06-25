@@ -1,7 +1,7 @@
 <template>
   <a :href="profileURL" target="_blank"
   :class="character.gender.toLowerCase()">
-    <i class="fa fa-circle status-dot {{character.status}}"></i> {{character.name}}
+    <i class="fa fa-circle status-dot {{character.status.toLowerCase()}}"></i> {{character.name}}
   </a>
 </template>
 
@@ -24,19 +24,20 @@ a
   color: rgb(32, 223, 109)
 
 .busy
-  color: rgb(235, 237, 129)
+  color: white
+  opacity: 0.5
 
 .away
   color: rgb(58, 111, 246)
 
 .idle
-  color: rgb(255, 185, 56)
+  color: rgb(235, 237, 129)
 
 .dnd
   color: rgb(191, 77, 64)
 
 .offline
-  color: white
+  @extend .online
   opacity: 0.5
 
 
