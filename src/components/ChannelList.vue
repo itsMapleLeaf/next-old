@@ -25,7 +25,7 @@
 <script>
 import state from '../state'
 import fuzzysearch from 'fuzzysearch'
-import {ChannelStatus} from '../models'
+import {ChannelStatus} from '../types'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)

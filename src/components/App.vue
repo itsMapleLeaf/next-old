@@ -19,7 +19,7 @@ import AppMenu from './AppMenu.vue'
 
 import state from '../state'
 import SocketHandler from '../socket-handler'
-import {ChannelStatus} from '../models'
+import {ChannelStatus} from '../types'
 import * as flist from '../flist'
 
 export default {

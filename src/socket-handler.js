@@ -1,6 +1,6 @@
 // import store from './vuex/store'
 import state from './state'
-import {ChannelInfo, ChannelMode, ChannelStatus} from './models'
+import {ChannelInfo, ChannelMode, ChannelStatus} from './types'
 import {inspect} from 'util'
 
 const urls = {

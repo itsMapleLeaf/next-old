@@ -4,7 +4,7 @@ import {
   ChannelStatus,
   ChatMessage,
   PrivateChatState
-} from './models'
+} from './types'
 
 class State {
   constructor () {
