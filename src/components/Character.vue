@@ -1,7 +1,7 @@
 <template>
   <a :href="profileURL" target="_blank"
   :class="character.gender.toLowerCase()">
-    {{character.name}}
+    <i class="fa fa-circle status-dot {{character.status}}"></i> {{character.name}}
   </a>
 </template>
 
@@ -10,6 +10,35 @@ a
   font-weight: 700
   text-shadow: 0px 1px 2px rgba(black, 0.5)
   margin-right: -0.2em
+
+.status-dot
+  font-size: 40%
+  position: relative
+  top: -0.4em
+
+
+.online
+  color: rgb(62, 62, 62)
+
+.looking
+  color: rgb(32, 223, 109)
+
+.busy
+  color: rgb(235, 237, 129)
+
+.away
+  color: rgb(58, 111, 246)
+
+.idle
+  color: rgb(255, 185, 56)
+
+.dnd
+  color: rgb(191, 77, 64)
+
+.offline
+  color: white
+  opacity: 0.5
+
 
 .male
   color: hsl(210, 50%, 60%)

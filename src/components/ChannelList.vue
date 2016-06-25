@@ -71,7 +71,6 @@ export default {
     },
 
     channelClicked (channel) {
-      console.log(this.state.getChannelStatus(channel.id))
       this.$emit('channel-list-clicked', channel)
     }
   }
