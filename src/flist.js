@@ -33,3 +33,20 @@ export function getFriendsList (account, ticket) {
 export function getBookmarkList (account, ticket) {
   return resolvePromise(http.post(endpoints.bookmarkList, { account, ticket }))
 }
+
+export function getUserData (account, ticket) {
+  const data = {}
+  return getCharacterList(account, ticket)
+  .then(charlist => {
+    data.characters = charlist
+    return getFriendsList(account, ticket)
+  })
+  .then(friends => {
+    data.friends = friends
+    return getBookmarkList(account, ticket)
+  })
+  .then(bookmarks => {
+    data.bookmarks = bookmarks
+    return Promise.resolve(data)
+  })
+}

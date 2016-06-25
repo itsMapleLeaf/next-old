@@ -45,19 +45,15 @@ export default {
 
     const { account, ticket } = this.state.getUserData()
     if (ticket !== '') {
-      flist.getCharacterList(account, ticket)
-      .then(charlist => {
-        this.state.setUserCharacterList(charlist)
-        return flist.getFriendsList(account, ticket)
-      })
-      .then(friends => {
-        this.state.setFriendsList(friends)
-        return flist.getBookmarkList(account, ticket)
-      })
-      .then(bookmarks => {
-        this.state.setBookmarkList(bookmarks)
+      flist.getUserData(account, ticket)
+      .then(data => {
+        this.state.setUserCharacterList(data.characters)
+        this.state.setFriendsList(data.friends)
+        this.state.setBookmarkList(data.bookmarks)
       })
       .catch(err => console.warn(err))
+    } else {
+      this.currentOverlay = 'login'
     }
   },
 
