@@ -20,6 +20,7 @@ import AppMenu from './AppMenu.vue'
 import state from '../state'
 import SocketHandler from '../socket-handler'
 import {ChannelStatus} from '../models'
+import * as flist from '../flist'
 
 export default {
   components: {
@@ -44,10 +45,17 @@ export default {
 
     const { account, ticket } = this.state.getUserData()
     if (ticket !== '') {
-      const url = 'https://www.f-list.net/json/api/character-list.php'
-      this.$http.post(url, { account, ticket })
-      .then(res => {
-        this.state.setUserCharacterList(res.data.characters)
+      flist.getCharacterList(account, ticket)
+      .then(charlist => {
+        this.state.setUserCharacterList(charlist)
+        return flist.getFriendsList(account, ticket)
+      })
+      .then(friends => {
+        this.state.setFriendsList(friends)
+        return flist.getBookmarkList(account, ticket)
+      })
+      .then(bookmarks => {
+        this.state.setBookmarkList(bookmarks)
       })
       .catch(err => console.warn(err))
     }

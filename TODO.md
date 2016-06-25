@@ -1,1 +1,0 @@
-- pass App into socket handler component (lmao)
