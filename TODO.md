@@ -1,0 +1,2 @@
+- navigate away from vuex
+- convert socket handler into Vue component
