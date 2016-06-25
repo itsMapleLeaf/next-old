@@ -60,7 +60,8 @@ class State {
   getPrivateChat (partner) {
     let chat = this.data.privateChats[partner]
     if (!chat) {
-      chat = Vue.set(this.data.privateChats, partner, PrivateChatState(partner))
+      const character = this.data.onlineCharacters[partner]
+      chat = Vue.set(this.data.privateChats, partner, PrivateChatState(character))
     }
     return chat
   }
@@ -211,9 +212,9 @@ class State {
 
   addPrivateMessage (partner, name, message) {
     const chat = this.getPrivateChat(partner)
-    const char = this.data.onlineCharacters[name]
-    if (char) {
-      chat.messages.push(ChatMessage(char, message))
+    const character = this.data.onlineCharacters[name]
+    if (character) {
+      chat.messages.push(ChatMessage(character, message))
     }
   }
 }

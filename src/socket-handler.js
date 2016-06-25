@@ -189,7 +189,8 @@ class SocketHandler {
 
       // private message
       case 'PRI':
-        this.vm.privateMessageReceived(params.character, params.message)
+        state.addPrivateMessage(params.character, params.character, params.message)
+        this.vm.privateMessageReceived(params.character, params.character, params.message)
         break
 
       default:
