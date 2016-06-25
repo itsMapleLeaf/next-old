@@ -16,8 +16,7 @@ class SocketHandler {
   }
 
   connect (urlID) {
-    /* eslint no-undef: 0 */
-    this.ws = new WebSocket(urls[urlID])
+    this.ws = new window.WebSocket(urls[urlID])
 
     this.ws.onopen = () => {
       this.sendIdentifyRequest()
