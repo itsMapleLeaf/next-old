@@ -1,5 +1,4 @@
 // import store from './vuex/store'
-import state from './state'
 import {ChannelInfo, ChannelMode, ChannelStatus} from './types'
 import {inspect} from 'util'
 
@@ -13,6 +12,7 @@ const urls = {
 class SocketHandler {
   constructor (vm) {
     this.vm = vm
+    this.state = vm.state
   }
 
   connect (urlID) {
@@ -38,7 +38,7 @@ class SocketHandler {
   }
 
   sendIdentifyRequest () {
-    const {account, ticket, character} = state.getUserData()
+    const {account, ticket, character} = this.state.getUserData()
     const params = {
       account,
       ticket,
@@ -72,7 +72,7 @@ class SocketHandler {
 
       // receiving server variables
       case 'VAR':
-        state.setServerVariable(params.variable, params.value)
+        this.state.setServerVariable(params.variable, params.value)
         break
 
       // hello :)
@@ -93,7 +93,7 @@ class SocketHandler {
       case 'IGN':
         switch (params.action) {
           case 'init':
-            state.setIgnoreList(params.characters)
+            this.state.setIgnoreList(params.characters)
             break
 
           default:
@@ -103,36 +103,36 @@ class SocketHandler {
 
       // receiving list of admins
       case 'ADL':
-        state.setAdminList(params.ops)
+        this.state.setAdminList(params.ops)
         break
 
       // receiving all characters online
       // comes in multiple batches
       case 'LIS':
-        state.hashCharacters(params.characters)
+        this.state.hashCharacters(params.characters)
         break
 
       // character came online
       case 'NLN':
-        state.addCharacter(params.identity, params.gender)
+        this.state.addCharacter(params.identity, params.gender)
         break
 
       // character went offline
       case 'FLN':
-        state.removeCharacter(params.character)
+        this.state.removeCharacter(params.character)
         break
 
       // character changed status
       case 'STA':
         const {character, status, statusmsg} = params
-        state.setCharacterStatus(character, status, statusmsg)
+        this.state.setCharacterStatus(character, status, statusmsg)
         break
 
       // received list of public channels
       case 'CHA': {
         const toChannelInfo = ({ name, characters }) => ChannelInfo(name, name, characters)
         const list = params.channels.map(toChannelInfo)
-        state.setPublicChannelList(list)
+        this.state.setPublicChannelList(list)
         break
       }
 
@@ -140,28 +140,28 @@ class SocketHandler {
       case 'ORS': {
         const toChannelInfo = ({ name, title, characters }) => ChannelInfo(name, title, characters)
         const list = params.channels.map(toChannelInfo)
-        state.setPrivateChannelList(list)
+        this.state.setPrivateChannelList(list)
         break
       }
 
       // receiving initial channel information
       case 'ICH':
         const namelist = params.users.map(({identity}) => identity)
-        state.setChannelCharacters(params.channel, namelist)
-        state.setChannelMode(params.channel, ChannelMode[params.mode])
+        this.state.setChannelCharacters(params.channel, namelist)
+        this.state.setChannelMode(params.channel, ChannelMode[params.mode])
         break
 
       // receiving a channel description
       case 'CDS':
-        state.setChannelDescription(params.channel, params.description)
+        this.state.setChannelDescription(params.channel, params.description)
         break
 
       // user joined a channel (could be us)
       case 'JCH': {
         const { identity } = params.character
-        state.addChannelCharacter(params.channel, identity)
-        if (identity === state.getCharacter()) {
-          state.setChannelStatus(params.channel, ChannelStatus.joined)
+        this.state.addChannelCharacter(params.channel, identity)
+        if (identity === this.state.getCharacter()) {
+          this.state.setChannelStatus(params.channel, ChannelStatus.joined)
           this.vm.socketChannelJoined(params.channel)
         }
         break
@@ -169,16 +169,16 @@ class SocketHandler {
 
       // user left a channel (could be us)
       case 'LCH':
-        state.removeChannelCharacter(params.channel, params.character)
-        if (params.character === state.getCharacter()) {
-          state.setChannelStatus(params.channel, ChannelStatus.left)
+        this.state.removeChannelCharacter(params.channel, params.character)
+        if (params.character === this.state.getCharacter()) {
+          this.state.setChannelStatus(params.channel, ChannelStatus.left)
           this.vm.socketChannelLeft(params.channel)
         }
         break
 
       // channel message
       case 'MSG':
-        state.addChannelMessage(params.channel, params.character, params.message)
+        this.state.addChannelMessage(params.channel, params.character, params.message)
         break
 
       // private message
@@ -208,22 +208,22 @@ class SocketHandler {
 
   joinChannel (id) {
     this.send('JCH', { channel: id })
-    state.setChannelStatus(id, ChannelStatus.joining)
+    this.state.setChannelStatus(id, ChannelStatus.joining)
   }
 
   leaveChannel (id) {
     this.send('LCH', { channel: id })
-    state.setChannelStatus(id, ChannelStatus.leaving)
+    this.state.setChannelStatus(id, ChannelStatus.leaving)
   }
 
   sendChannelMessage (channel, message) {
     this.send('MSG', { channel, message })
-    state.addChannelMessage(channel, state.getCharacter(), message)
+    this.state.addChannelMessage(channel, this.state.getCharacter(), message)
   }
 
   sendPrivateMessage (recipient, message) {
     this.send('PRI', { recipient, message })
-    state.addPrivateMessage(recipient, state.getCharacter(), message)
+    this.state.addPrivateMessage(recipient, this.state.getCharacter(), message)
   }
 }
 
