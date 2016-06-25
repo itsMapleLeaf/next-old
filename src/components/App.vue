@@ -32,7 +32,7 @@ export default {
 
   data () {
     return {
-      currentOverlay: 'login',
+      currentOverlay: '',
       socket: new SocketHandler(this),
       state
     }
@@ -41,6 +41,16 @@ export default {
   created () {
     this.$on('overlay-change-request', this.setOverlay)
     this.$on('private-message-sent', this.privateMessageSent)
+
+    const { account, ticket } = this.state.getUserData()
+    if (ticket !== '') {
+      const url = 'https://www.f-list.net/json/api/character-list.php'
+      this.$http.post(url, { account, ticket })
+      .then(res => {
+        this.state.setUserCharacterList(res.data.characters)
+      })
+      .catch(err => console.warn(err))
+    }
   },
 
   methods: {

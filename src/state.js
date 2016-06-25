@@ -30,6 +30,14 @@ class State {
       ignored: [],          // string[]
       admins: []            // string[]
     }
+
+    const account = window.localStorage.getItem('fchat-next:account')
+    if (account) {
+      const ticket = window.localStorage.getItem(`fchat-next:ticket:${account}`)
+      if (ticket) {
+        Object.assign(this.data.userData, { account, ticket })
+      }
+    }
   }
 
   // getters
@@ -79,14 +87,20 @@ class State {
   // setters
   setAccount (account) {
     this.data.userData.account = account
+    window.localStorage.setItem(`fchat-next:account`, account)
   }
 
   setUserData (userData) {
-    Object.assign(this.data.userData, userData)
+    const { account, ticket } = Object.assign(this.data.userData, userData)
+    window.localStorage.setItem(`fchat-next:ticket:${account}`, ticket)
   }
 
   setCharacter (charname) {
     this.data.userData.character = charname
+  }
+
+  setUserCharacterList (characters) {
+    this.data.userData.characters = characters
   }
 
   setServerVariable (key, value) {
