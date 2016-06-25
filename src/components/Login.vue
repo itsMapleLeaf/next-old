@@ -38,7 +38,7 @@ export default {
 
       this.$http.post(url, data)
       .then(res => {
-        this.$dispatch('login-success', res.data)
+        this.$emit('login-success', res.data)
       })
       .catch(err => {
         this.status = err || "Could not connect to F-List website. They're either doing maintenance, or someone spilled coke on the servers again."
@@ -48,7 +48,7 @@ export default {
         this.password = ''
       })
 
-      this.$dispatch('login-request', this.username)
+      this.$emit('login-request', this.username)
       this.disabled = true
     }
   }

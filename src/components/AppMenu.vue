@@ -24,13 +24,17 @@
 <script>
 import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
-import {userData} from '../vuex/getters'
+import state from '../state'
 import * as util from '../util'
 
 export default {
   components: {
     MenuOption,
     Dropdown
+  },
+
+  data () {
+    return { state }
   },
 
   computed: {
@@ -45,15 +49,15 @@ export default {
     },
 
     greeting () {
-      return `Hi, ${this.userData.character.split(' ')[0]}!`
+      return `Hi, ${this.state.getCharacter().split(' ')[0]}!`
     },
 
     profileURL () {
-      return util.getCharacterProfileURL(this.userData.character)
+      return util.getCharacterProfileURL(this.state.getCharacter())
     },
 
     avatarURL () {
-      return util.getCharacterAvatarURL(this.userData.character)
+      return util.getCharacterAvatarURL(this.state.getCharacter())
     }
   },
 
@@ -68,12 +72,6 @@ export default {
 
     closeAppMenu () {
       this.$dispatch('overlay-change-request', '')
-    }
-  },
-
-  vuex: {
-    getters: {
-      userData
     }
   }
 }

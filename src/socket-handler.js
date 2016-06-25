@@ -1,6 +1,7 @@
-import store from './vuex/store'
+// import store from './vuex/store'
+import state from './state'
+import {ChannelInfo, ChannelMode, ChannelStatus} from './models'
 import {inspect} from 'util'
-import {ChannelInfo} from './models'
 
 const urls = {
   mainInsecure: 'ws://chat.f-list.net:9722',
@@ -9,44 +10,36 @@ const urls = {
   test: 'ws://chat.f-list.net:8799'
 }
 
-export default class SocketHandler {
-  constructor () {
-    this.callbacks = {
-      privateMessageReceived () {},
-      channelJoined () {}
+class SocketHandler {
+  constructor (vm) {
+    this.vm = vm
+  }
+
+  connect (urlID) {
+    /* eslint no-undef: 0 */
+    this.ws = new WebSocket(urls[urlID])
+
+    this.ws.onopen = () => {
+      this.sendIdentifyRequest()
+    }
+
+    this.ws.onclose = () => {
+      const err = 'Lost connection to server. :('
+      this.vm.socketError(err)
+    }
+
+    this.ws.onerror = err => {
+      this.vm.socketError(err)
+    }
+
+    this.ws.onmessage = ({data}) => {
+      const {command, params} = this.parseServerCommand(data)
+      this.handleChatCommand(command, params)
     }
   }
 
-  connect (urlID, userData) {
-    return new Promise((resolve, reject) => {
-      /* eslint no-undef: 0 */
-      this.ws = new WebSocket(urls[urlID])
-
-      this.ws.onopen = () => {
-        this.sendIdentifyRequest(userData)
-      }
-
-      this.ws.onclose = () => {
-        const err = 'Lost connection to server. :('
-        reject(err)
-      }
-
-      this.ws.onerror = err => {
-        reject(err)
-      }
-
-      this.ws.onmessage = ({data}) => {
-        const {command, params} = this.parseServerCommand(data)
-        this.handleChatCommand(command, params)
-
-        if (command === 'IDN') {
-          resolve()
-        }
-      }
-    })
-  }
-
-  sendIdentifyRequest ({account, ticket, character}) {
+  sendIdentifyRequest () {
+    const {account, ticket, character} = state.getUserData()
     const params = {
       account,
       ticket,
@@ -69,7 +62,7 @@ export default class SocketHandler {
     switch (command) {
       // identify with server
       case 'IDN':
-        this.fetchChannelList()
+        this.vm.socketIdentifySuccess()
         break
 
       /* ping~! */
@@ -80,7 +73,7 @@ export default class SocketHandler {
 
       // receiving server variables
       case 'VAR':
-        store.dispatch('SET_SERVER_VARIABLE', params.variable, params.value)
+        state.setServerVariable(params.variable, params.value)
         break
 
       // hello :)
@@ -101,7 +94,7 @@ export default class SocketHandler {
       case 'IGN':
         switch (params.action) {
           case 'init':
-            store.dispatch('SET_IGNORE_LIST', params.characters)
+            state.setIgnoreList(params.characters)
             break
 
           default:
@@ -111,35 +104,36 @@ export default class SocketHandler {
 
       // receiving list of admins
       case 'ADL':
-        store.dispatch('SET_ADMIN_LIST', params.ops)
+        state.setAdminList(params.ops)
         break
 
       // receiving all characters online
       // comes in multiple batches
       case 'LIS':
-        store.dispatch('HASH_CHARACTERS', params.characters)
+        state.hashCharacters(params.characters)
         break
 
       // character came online
       case 'NLN':
-        store.dispatch('ADD_CHARACTER', params.identity, params.gender)
+        state.addCharacter(params.identity, params.gender)
         break
 
       // character went offline
       case 'FLN':
-        store.dispatch('REMOVE_CHARACTER', params.character)
+        state.removeCharacter(params.character)
         break
 
       // character changed status
       case 'STA':
-        store.dispatch('SET_CHARACTER_STATUS', params.character, params.status, params.statusMessage)
+        const {character, status, statusmsg} = params
+        state.setCharacterStatus(character, status, statusmsg)
         break
 
       // received list of public channels
       case 'CHA': {
         const toChannelInfo = ({ name, characters }) => ChannelInfo(name, name, characters)
         const list = params.channels.map(toChannelInfo)
-        store.dispatch('SET_PUBLIC_CHANNEL_LIST', list)
+        state.setPublicChannelList(list)
         break
       }
 
@@ -147,41 +141,48 @@ export default class SocketHandler {
       case 'ORS': {
         const toChannelInfo = ({ name, title, characters }) => ChannelInfo(name, title, characters)
         const list = params.channels.map(toChannelInfo)
-        store.dispatch('SET_PRIVATE_CHANNEL_LIST', list)
+        state.setPrivateChannelList(list)
         break
       }
 
       // receiving initial channel information
       case 'ICH':
         const namelist = params.users.map(({identity}) => identity)
-        store.dispatch('CHANNEL_INIT', params.channel, namelist, params.mode)
-        this.callbacks.channelJoined(params.channel)
+        state.setChannelCharacters(params.channel, namelist)
+        state.setChannelMode(params.channel, ChannelMode[params.mode])
         break
 
       // receiving a channel description
       case 'CDS':
-        store.dispatch('SET_CHANNEL_DESCRIPTION', params.channel, params.description)
+        state.setChannelDescription(params.channel, params.description)
         break
 
       // user joined a channel (could be us)
       case 'JCH':
-        store.dispatch('CHANNEL_JOIN', params.channel, params.character.identity)
+        state.addChannelCharacter(params.channel, params.character)
+        if (params.character === state.getCharacter()) {
+          state.setChannelStatus(params.channel, ChannelStatus.joined)
+          this.vm.socketChannelJoined(params.channel)
+        }
         break
 
       // user left a channel (could be us)
       case 'LCH':
-        store.dispatch('CHANNEL_LEAVE', params.channel, params.character)
+        state.removeChannelCharacter(params.channel, params.character)
+        if (params.character === state.getCharacter()) {
+          state.setChannelStatus(params.channel, ChannelStatus.left)
+          this.vm.socketChannelLeft(params.channel)
+        }
         break
 
       // channel message
       case 'MSG':
-        store.dispatch('RECEIVED_CHANNEL_MESSAGE', params.channel, params.character, params.message)
+        state.addChannelMessage(params.channel, params.character, params.message)
         break
 
       // private message
       case 'PRI':
-        store.dispatch('RECEIVED_PRIVATE_MESSAGE', params.character, params.message)
-        this.callbacks.privateMessageReceived(params.character, params.message)
+        this.vm.privateMessageReceived(params.character, params.message)
         break
 
       default:
@@ -206,20 +207,23 @@ export default class SocketHandler {
 
   joinChannel (id) {
     this.send('JCH', { channel: id })
-    store.dispatch('JOIN_CHANNEL_REQUEST', id)
+    state.setChannelStatus(id, ChannelStatus.joining)
   }
 
   leaveChannel (id) {
     this.send('LCH', { channel: id })
-    store.dispatch('LEAVE_CHANNEL_REQUEST', id)
+    state.setChannelStatus(id, ChannelStatus.leaving)
   }
 
   sendChannelMessage (channel, message) {
     this.send('MSG', { channel, message })
+    state.addChannelMessage(channel, state.getCharacter(), message)
   }
 
   sendPrivateMessage (recipient, message) {
     this.send('PRI', { recipient, message })
-    store.dispatch('SENT_PRIVATE_MESSAGE', recipient, message)
+    state.addPrivateMessage(recipient, state.getCharacter(), message)
   }
 }
+
+export default SocketHandler

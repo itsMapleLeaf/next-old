@@ -16,9 +16,10 @@ import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import ChannelList from './ChannelList.vue'
 import AppMenu from './AppMenu.vue'
-import store from '../vuex/store'
-import {userData, userChannels} from '../vuex/getters'
+
+import state from '../state'
 import SocketHandler from '../socket-handler'
+import {ChannelStatus} from '../models'
 
 export default {
   components: {
@@ -32,60 +33,58 @@ export default {
   data () {
     return {
       currentOverlay: 'login',
-      socket: new SocketHandler()
+      socket: new SocketHandler(this),
+      state
     }
   },
 
   created () {
-    this.socket.callbacks.channelJoined = (id) => {
-      this.$broadcast('channel-joined', this.userChannels[id])
-    }
-
-    this.socket.callbacks.privateMessageReceived = (charname, message) => {
-      this.$broadcast('private-message-received', charname, message)
-    }
-
     this.$on('overlay-change-request', this.setOverlay)
     this.$on('private-message-sent', this.privateMessageSent)
-    // this.$on('channel-message', this.sendChannelMessage)
   },
 
   methods: {
     loginRequest (account) {
-      store.dispatch('LOGIN_REQUEST', account)
+      this.state.setAccount(account)
     },
 
     loginSuccess (userData) {
-      store.dispatch('LOGIN_SUCCESS', userData)
+      this.state.setUserData(userData)
       this.currentOverlay = 'character-select'
     },
 
     characterSelected (character) {
-      store.dispatch('CHARACTER_SELECTED', character)
+      this.state.setCharacter(character)
       this.currentOverlay = ''
+      this.socket.connect('main')
+    },
 
-      this.socket.connect('main', this.userData)
-      .then(() => {
-        this.currentOverlay = 'channel-list'
-      })
-      .catch(err => {
-        this.currentOverlay = ''
-      })
+    socketIdentifySuccess () {
+      this.socket.fetchChannelList()
+      this.currentOverlay = 'channel-list'
+    },
+
+    socketError () {
+      this.currentOverlay = 'login'
+    },
+
+    socketChannelJoined (id) {
+      this.$broadcast('joined-channel', id)
+    },
+
+    socketChannelLeft (id) {
+      this.$broadcast('left-channel', id)
     },
 
     channelListClicked ({ id, name }) {
-      store.dispatch('CREATE_CHANNEL_STATE', id, name)
+      this.state.setChannelName(id, name)
 
-      this.$nextTick(() => {
-        const channel = this.userChannels[id]
-
-        if (channel.status === 'left') {
-          this.socket.joinChannel(id)
-        } else if (channel.status === 'joined') {
-          this.socket.leaveChannel(id)
-          this.$broadcast('left-channel', id)
-        }
-      })
+      const status = this.state.getChannelStatus(id)
+      if (status === ChannelStatus.left) {
+        this.socket.joinChannel(id)
+      } else if (status === ChannelStatus.joined) {
+        this.socket.leaveChannel(id)
+      }
     },
 
     setOverlay (overlay) {
@@ -96,15 +95,12 @@ export default {
       this.socket.sendPrivateMessage(character.name, message)
     },
 
-    sendChannelMessage (message) {
-      // this.socket.sendChannelMessage(message)
-    }
-  },
+    privateMessageReceived (character, message) {
+      this.$broadcast('private-message-received', character, message)
+    },
 
-  vuex: {
-    getters: {
-      userData,
-      userChannels
+    sendChannelMessage (message) {
+      this.socket.sendChannelMessage(message)
     }
   }
 }

@@ -23,8 +23,8 @@
 import ChatTab from './ChatTab.vue'
 import ChannelView from './ChannelView.vue'
 import PrivateChatView from './PrivateChatView.vue'
-import {userChannels, privateMessages} from '../vuex/getters'
 import {ChannelState} from '../models'
+import state from '../state'
 
 const nullTab = { text: 'null tab', view: '' }
 
@@ -38,7 +38,8 @@ export default {
   data () {
     return {
       tabs: [],
-      selectedTabIndex: 0
+      selectedTabIndex: 0,
+      state
     }
   },
 
@@ -51,14 +52,14 @@ export default {
   },
 
   created () {
-    this.$on('channel-joined', this.channelJoined)
+    this.$on('joined-channel', this.joinedChannel)
     this.$on('left-channel', this.leftChannel)
     this.$on('private-message-received', this.privateMessageReceived)
     this.$on('chatbox-message-sent', this.chatboxMessageSent)
   },
 
   methods: {
-    channelJoined (channel) {
+    joinedChannel (channel) {
       const tabState = {
         view: 'channel-view',
         title: channel.name,
@@ -83,7 +84,7 @@ export default {
         tabState = {
           view: 'private-chat-view',
           title: charname,
-          state: this.privateMessages[charname]
+          state: this.state.getPrivateChat(charname)
         }
         this.tabs.push(tabState)
       }
@@ -96,13 +97,6 @@ export default {
       } else if (tab.view === 'channel-view') {
         this.$dispatch('channel-message-sent', tab.state.id, message)
       }
-    }
-  },
-
-  vuex: {
-    getters: {
-      userChannels,
-      privateMessages
     }
   }
 }

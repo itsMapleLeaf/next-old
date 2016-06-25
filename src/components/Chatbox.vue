@@ -10,15 +10,19 @@
 </template>
 
 <script>
-import {userData} from '../vuex/getters'
+import state from '../state'
 
 export default {
+  data () {
+    return { state }
+  },
+
   computed: {
     placeholder () {
-      if (this.userData.character === '') {
+      if (this.state.getCharacter() === '') {
         return 'Not chatting quite yet...'
       } else {
-        return `Chatting as ${this.userData.character}...`
+        return `Chatting as ${this.state.getCharacter()}...`
       }
     }
   },
@@ -45,12 +49,6 @@ export default {
       if (this.getContent() === '') {
         this.setContent('')
       }
-    }
-  },
-
-  vuex: {
-    getters: {
-      userData
     }
   }
 }

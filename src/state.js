@@ -1,6 +1,9 @@
+import Vue from 'vue'
+
 import {
   Character,
   ChannelState,
+  ChannelStatus,
   ChatMessage,
   PrivateChatState
 } from './models'
@@ -21,8 +24,8 @@ class State {
       publicChannels: [],   // ChannelInfo[]
       privateChannels: [],  // ChannelInfo[]
       channels: {},         // channelID (string) => ChannelState
-      privateChats: {},  // characterName (string) => PrivateChatState
-      serverVariables: {},  // variableName (string) => any
+      privateChats: {},     // characterName (string) => PrivateChatState
+      serverVariables: {},  // variableName (string) => number
       onlineCharacters: {}, // characterName (string) => Character
       ignored: [],          // string[]
       admins: []            // string[]
@@ -30,6 +33,10 @@ class State {
   }
 
   // getters
+  getUserData () {
+    return Object.assign({}, this.data.userData)
+  }
+
   getChannel (id) {
     let channel = this.data.channels[id]
     if (!channel) {
@@ -46,6 +53,29 @@ class State {
     return chat
   }
 
+  getCharacter () {
+    return this.data.userData.character
+  }
+
+  getChannelStatus (id) {
+    if (!this.data.channels[id]) {
+      return ChannelStatus.left
+    }
+    return this.data.channels[id].status
+  }
+
+  getPublicChannelList () {
+    return this.data.publicChannels.slice()
+  }
+
+  getPrivateChannelList () {
+    return this.data.privateChannels.slice()
+  }
+
+  getUserChannels () {
+    return this.data.channels.slice()
+  }
+
   // setters
   setAccount (account) {
     this.data.userData.account = account
@@ -56,7 +86,7 @@ class State {
   }
 
   setCharacter (charname) {
-    this.data.character = charname
+    this.data.userData.character = charname
   }
 
   setServerVariable (key, value) {
@@ -137,6 +167,11 @@ class State {
     }
   }
 
+  removeChannelCharacter (id, name) {
+    const channel = this.getChannel(id)
+    channel.characters = channel.characters.filter(char => char.name !== name)
+  }
+
   addChannelMessage (id, name, message) {
     const channel = this.getChannel(id)
     const char = this.data.onlineCharacters[name]
@@ -145,7 +180,7 @@ class State {
     }
   }
 
-  addPrivateMessage (id, partner, name, message) {
+  addPrivateMessage (partner, name, message) {
     const chat = this.getPrivateChat(partner)
     const char = this.data.onlineCharacters[name]
     if (char) {

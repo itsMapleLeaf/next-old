@@ -17,18 +17,19 @@
 </template>
 
 <script>
-import {userData} from '../vuex/getters'
+import state from '../state'
 
 export default {
   data () {
     return {
-      selectedCharacter: this.userData.default_character
+      state,
+      selectedCharacter: state.getUserData().default_character
     }
   },
 
   computed: {
     characters () {
-      return this.userData.characters.sort()
+      return this.state.getUserData().characters.sort()
     }
   },
 
@@ -39,12 +40,6 @@ export default {
 
     submit () {
       this.$emit('character-selected', this.selectedCharacter)
-    }
-  },
-
-  vuex: {
-    getters: {
-      userData
     }
   }
 }

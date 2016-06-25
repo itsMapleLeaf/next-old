@@ -23,19 +23,27 @@
 </template>
 
 <script>
-import {publicChannels, privateChannels, userChannels} from '../vuex/getters'
+import state from '../state'
 import fuzzysearch from 'fuzzysearch'
+import {ChannelStatus} from '../models'
+
+function compareChannelInfo (a, b) {
+  return a.name.localeCompare(b.name)
+}
 
 export default {
   data () {
     return {
-      searchQuery: ''
+      searchQuery: '',
+      state
     }
   },
 
   computed: {
     channelList () {
-      return this.publicChannels.sort(this.compareChannelInfo)
+      const publicChannels = this.state.getPublicChannelList().sort(compareChannelInfo)
+      const privateChannels = this.state.getPrivateChannelList().sort(compareChannelInfo)
+      return publicChannels.concat(privateChannels)
     },
 
     filteredChannelList () {
@@ -51,8 +59,7 @@ export default {
 
   methods: {
     isJoined (id) {
-      const channel = this.userChannels[id]
-      return channel && channel.status === 'joined'
+      return this.state.getChannelStatus(id) === ChannelStatus.joined
     },
 
     closeOverlay () {
@@ -62,23 +69,6 @@ export default {
     channelClicked (channel) {
       this.$emit('channel-list-clicked', channel)
     },
-
-    compareChannelInfo (a, b) {
-      return a.name.localeCompare(b.name)
-    }
-  },
-
-  vuex: {
-    actions: {
-      joinChannel (store) {},
-      leaveChannel (store) {}
-    },
-
-    getters: {
-      publicChannels,
-      privateChannels,
-      userChannels
-    }
   }
 }
 </script>

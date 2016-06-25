@@ -1,2 +1,1 @@
-- navigate away from vuex
-- convert socket handler into Vue component
+- pass App into socket handler component (lmao)
