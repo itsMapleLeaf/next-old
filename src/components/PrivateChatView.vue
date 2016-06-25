@@ -2,7 +2,9 @@
   <div class='box vertical grow'>
     <div class='box fg-color scroll header'>
       <character :character='viewState.character'></character>
-      <span style="margin-left: 0.3em">- {{viewState.character.status}}, {{{viewState.character.statusMessage | bbcode}}}</span>
+      <span style="margin-left: 0.3em">
+        - {{viewState.character.status}}, <span v-html='viewState.character.statusMessage | bbcode'></span>
+      </span>
     </div>
 
     <div class='box divider'></div>
@@ -17,7 +19,7 @@
     <div class='box divider'></div>
 
     <div class='box fg-color'>
-      <chatbox></chatbox>
+      <chatbox @message-sent='messageSent'></chatbox>
     </div>
   </div>
 </template>
@@ -46,6 +48,12 @@ export default {
 
   props: {
     viewState: Object
+  },
+
+  methods: {
+    messageSent (message) {
+      this.$emit('message-sent', message)
+    }
   }
 }
 </script>

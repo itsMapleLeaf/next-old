@@ -157,13 +157,15 @@ class SocketHandler {
         break
 
       // user joined a channel (could be us)
-      case 'JCH':
-        state.addChannelCharacter(params.channel, params.character)
-        if (params.character === state.getCharacter()) {
+      case 'JCH': {
+        const { identity } = params.character
+        state.addChannelCharacter(params.channel, identity)
+        if (identity === state.getCharacter()) {
           state.setChannelStatus(params.channel, ChannelStatus.joined)
           this.vm.socketChannelJoined(params.channel)
         }
         break
+      }
 
       // user left a channel (could be us)
       case 'LCH':

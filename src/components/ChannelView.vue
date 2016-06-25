@@ -26,7 +26,7 @@
     <div class='box divider'></div>
 
     <div class='box fg-color'>
-      <chatbox></chatbox>
+      <chatbox @message-sent='messageSent'></chatbox>
     </div>
   </div>
 </template>
@@ -65,6 +65,12 @@ export default {
 
   props: {
     viewState: Object
+  },
+
+  methods: {
+    messageSent (message) {
+      this.$emit('message-sent', message)
+    }
   }
 }
 </script>

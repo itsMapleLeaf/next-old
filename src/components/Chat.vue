@@ -15,7 +15,8 @@
     </div>
 
     <component :is="currentTab.view"
-    :view-state="currentTab.state"></component>
+    :view-state="currentTab.state"
+    @message-sent='messageSent'></component>
   </div>
 </template>
 
@@ -23,7 +24,6 @@
 import ChatTab from './ChatTab.vue'
 import ChannelView from './ChannelView.vue'
 import PrivateChatView from './PrivateChatView.vue'
-import {ChannelState} from '../types'
 import state from '../state'
 
 const nullTab = { text: 'null tab', view: '' }
@@ -51,7 +51,7 @@ export default {
     }
   },
 
-  created () {
+  ready () {
     this.$on('joined-channel', this.joinedChannel)
     this.$on('left-channel', this.leftChannel)
     this.$on('private-message-received', this.privateMessageReceived)
@@ -90,12 +90,12 @@ export default {
       }
     },
 
-    chatboxMessageSent (message) {
+    messageSent (message) {
       const tab = this.currentTab
       if (tab.view === 'private-chat-view') {
-        this.$dispatch('private-message-sent', tab.state.character, message)
+        this.$emit('private-message-sent', tab.state.character, message)
       } else if (tab.view === 'channel-view') {
-        this.$dispatch('channel-message-sent', tab.state.id, message)
+        this.$emit('channel-message-sent', tab.state.id, message)
       }
     }
   }

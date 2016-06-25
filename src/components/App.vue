@@ -1,6 +1,9 @@
 <template>
   <div class='fullscreen bg-color'>
-    <chat></chat>
+    <chat
+    @channel-message-sent='channelMessageSent'
+    @private-message-sent='privateMessageSent'>
+    </chat>
     <component :is='currentOverlay'
     @login-request='loginRequest'
     @login-success='loginSuccess'
@@ -41,7 +44,6 @@ export default {
 
   created () {
     this.$on('overlay-change-request', this.setOverlay)
-    this.$on('private-message-sent', this.privateMessageSent)
 
     const { account, ticket } = this.state.getUserData()
     if (ticket !== '') {
@@ -87,11 +89,11 @@ export default {
     },
 
     socketChannelJoined (id) {
-      this.$broadcast('joined-channel', id)
+      this.$broadcast('joined-channel', this.state.getChannel(id))
     },
 
     socketChannelLeft (id) {
-      this.$broadcast('left-channel', id)
+      this.$broadcast('left-channel', this.state.getChannel(id))
     },
 
     channelListClicked ({ id, name }) {
@@ -109,16 +111,16 @@ export default {
       this.currentOverlay = overlay
     },
 
+    channelMessageSent (id, message) {
+      this.socket.sendChannelMessage(id, message)
+    },
+
     privateMessageSent (character, message) {
       this.socket.sendPrivateMessage(character.name, message)
     },
 
     privateMessageReceived (character, message) {
       this.$broadcast('private-message-received', character, message)
-    },
-
-    sendChannelMessage (message) {
-      this.socket.sendChannelMessage(message)
     }
   }
 }
