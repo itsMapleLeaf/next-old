@@ -10,6 +10,7 @@ a
   font-weight: 700
   text-shadow: 0px 1px 2px rgba(black, 0.5)
   margin-right: -0.2em
+  border: none
 
 .status-dot
   font-size: 40%

@@ -17,9 +17,9 @@ export default function parseBBC (input) {
 
       case 'url': {
         if (value.trim() !== '') {
-          return `<a href="${value}">${content}</a>`
+          return `<a href="${value}" target="_blank">${content}</a>`
         } else {
-          return `<a href="${content}">${content}</a>`
+          return `<a href="${content}" target="_blank">${content}</a>`
         }
       }
 
