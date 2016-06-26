@@ -12,30 +12,30 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      items: Array
+export default {
+  props: {
+    items: Array
+  },
+
+  data () {
+    return {
+      open: false,
+      selected: 0
+    }
+  },
+
+  methods: {
+    toggle () {
+      this.open = !this.open
     },
 
-    data () {
-      return {
-        open: false,
-        selected: 0
-      }
-    },
-
-    methods: {
-      toggle () {
-        this.open = !this.open
-      },
-
-      select (index) {
-        this.selected = index
-        this.open = false
-        this.$emit('selection', this.$get('items[selected].value'))
-      }
+    select (index) {
+      this.selected = index
+      this.open = false
+      this.$emit('selection', this.$get('items[selected].value'))
     }
   }
+}
 </script>
 
 <style lang="stylus">

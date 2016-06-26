@@ -25,7 +25,7 @@
 import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
 import state from '../state'
-import * as util from '../util'
+import {getProfileURL, getAvatarURL} from '../flist'
 
 export default {
   components: {
@@ -53,11 +53,11 @@ export default {
     },
 
     profileURL () {
-      return util.getCharacterProfileURL(this.state.getCharacter())
+      return getProfileURL(this.state.getCharacter())
     },
 
     avatarURL () {
-      return util.getCharacterAvatarURL(this.state.getCharacter())
+      return getAvatarURL(this.state.getCharacter())
     }
   },
 

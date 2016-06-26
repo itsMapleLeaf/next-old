@@ -68,7 +68,7 @@ a
 </style>
 
 <script>
-import * as util from '../util'
+import {getProfileURL} from '../flist'
 
 export default {
   props: {
@@ -77,7 +77,7 @@ export default {
 
   data () {
     return {
-      profileURL: util.getCharacterProfileURL(this.character.name)
+      profileURL: getProfileURL(this.character.name)
     }
   }
 }

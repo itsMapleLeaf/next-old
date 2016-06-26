@@ -13,12 +13,12 @@ function resolvePromise (promise) {
     if (data.error) {
       return Promise.reject(data.error)
     } else {
-      return Promise.resolve(data.characters)
+      return Promise.resolve(data)
     }
   })
 }
 
-export function login (account, password) {
+export function sendLoginRequest (account, password) {
   return resolvePromise(http.post(endpoints.login, { account, password }))
 }
 
@@ -37,16 +37,26 @@ export function getBookmarkList (account, ticket) {
 export function getUserData (account, ticket) {
   const data = {}
   return getCharacterList(account, ticket)
-  .then(charlist => {
-    data.characters = charlist
+  .then(({characters}) => {
+    data.characters = characters
     return getFriendsList(account, ticket)
   })
-  .then(friends => {
-    data.friends = friends
+  .then(({characters}) => {
+    data.friends = characters
     return getBookmarkList(account, ticket)
   })
-  .then(bookmarks => {
-    data.bookmarks = bookmarks
+  .then(({characters}) => {
+    data.bookmarks = characters
     return Promise.resolve(data)
   })
+}
+
+export function getProfileURL (name) {
+  const encoded = encodeURI(name.toLowerCase())
+  return `https://www.f-list.net/c/${encoded}`
+}
+
+export function getAvatarURL (name) {
+  const encoded = encodeURI(name.toLowerCase())
+  return `https://static.f-list.net/images/avatar/${encoded}.png`
 }

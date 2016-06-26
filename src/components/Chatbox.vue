@@ -58,7 +58,7 @@ export default {
 @import '../styles/variables'
 
 .chatbox
-  min-height: 5em
+  min-height: 6em
   margin: 0em
   border: none !important
   background-color: fg-color !important

@@ -17,6 +17,12 @@
 </template>
 
 <script>
+import {sendLoginRequest} from '../flist'
+
+const errorMessage = `
+Could not connect to F-List website.
+They're either doing maintenance, or someone spilled coke on the servers again.`
+
 export default {
   data () {
     return {
@@ -29,19 +35,12 @@ export default {
 
   methods: {
     submit () {
-      const url = 'https://www.f-list.net/json/getApiTicket.php'
-
-      const data = {
-        account: this.username,
-        password: this.password
-      }
-
-      this.$http.post(url, data)
-      .then(res => {
-        this.$emit('login-success', res.data)
+      sendLoginRequest(this.username, this.password)
+      .then(data => {
+        this.$emit('login-success', data)
       })
       .catch(err => {
-        this.status = err || "Could not connect to F-List website. They're either doing maintenance, or someone spilled coke on the servers again."
+        this.status = err || errorMessage
       })
       .then(() => {
         this.disabled = false

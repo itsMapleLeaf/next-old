@@ -23,7 +23,7 @@ import AppMenu from './AppMenu.vue'
 import state from '../state'
 import SocketHandler from '../socket-handler'
 import {ChannelStatus} from '../types'
-import * as flist from '../flist'
+import {getUserData} from '../flist'
 
 export default {
   components: {
@@ -47,7 +47,7 @@ export default {
 
     const { account, ticket } = this.state.getUserData()
     if (ticket !== '') {
-      flist.getUserData(account, ticket)
+      getUserData(account, ticket)
       .then(data => {
         this.state.setUserCharacterList(data.characters)
         this.state.setFriendsList(data.friends)
