@@ -1,5 +1,5 @@
 <template>
-  <div class='fullscreen bg-color'>
+  <div class='container'>
     <chat
     @channel-message-sent='channelMessageSent'
     @private-message-sent='privateMessageSent'>
@@ -12,6 +12,50 @@
     </component>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+@import '../styles/layout'
+@import '../styles/theme-colors'
+
+.container
+  @extend .fullscreen
+  @extend .bg-theme-darker
+</style>
+
+<style lang="stylus">
+@import '../styles/theme-colors'
+@import '../styles/typography'
+@import '../styles/components'
+
+*
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+:root
+  @extend .text-normal
+  font-size: 14pt
+
+h1, h2, h3, h4, h5, h6
+  @extend .text-light
+  margin: 0em 0em 0.75em
+
+input
+  @extend .input
+
+button
+  @extend .button
+
+::-webkit-scrollbar
+  width: 0.5em
+  height: 0.5em
+
+::-webkit-scrollbar-track
+  @extend .bg-theme-darkest
+
+::-webkit-scrollbar-thumb
+  @extend .bg-theme-lighter
+</style>
 
 <script>
 import Chat from './Chat.vue'

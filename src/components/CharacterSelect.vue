@@ -1,6 +1,6 @@
 <template>
-  <div class="shade box center">
-    <div class="panel">
+  <div class="overlay-shade flex-center">
+    <div class="overlay-panel text-align-center">
       <form @submit.prevent='submit'>
         <h1>Who are you?</h1>
         <ul class='selection-list'>
@@ -10,11 +10,17 @@
             {{name}}
           </li>
         </ul>
+        <br />
         <button>Go</button>
       </form>
     </div>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+@import '../styles/components'
+@import '../styles/layout'
+</style>
 
 <script>
 import state from '../state'
@@ -44,8 +50,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.panel
-  text-align: center
-</style>

@@ -3,9 +3,6 @@ import VueResource from 'vue-resource'
 import App from './components/App.vue'
 import parseBBC from './bbcode'
 
-import './styles/base.styl'
-import './styles/chat-colors.styl'
-
 Vue.config.debug = true
 Vue.config.devtools = true
 

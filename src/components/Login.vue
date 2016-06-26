@@ -1,6 +1,6 @@
 <template>
-  <div class='shade box center'>
-    <div class='panel'>
+  <div class='overlay-shade flex-center'>
+    <div class='overlay-panel text-align-center'>
       <h1>Login</h1>
       <form @submit.prevent='submit'>
         <input type="text" placeholder="Username"
@@ -15,6 +15,11 @@
     </div>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+@import '../styles/components'
+@import '../styles/layout'
+</style>
 
 <script>
 import {sendLoginRequest} from '../flist'

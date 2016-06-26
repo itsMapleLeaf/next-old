@@ -1,6 +1,6 @@
 <template>
-  <div class='shade box center' @click.self='closeOverlay'>
-    <div class='panel'>
+  <div class='overlay-shade flex-center' @click.self='closeOverlay'>
+    <div class='overlay-panel text-align-center'>
       <h1>Channel List</h1>
       <form @submit.prevent='closeOverlay'>
         <ul class='selection-list'>
@@ -21,6 +21,11 @@
     </div>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+@import '../styles/components'
+@import '../styles/layout'
+</style>
 
 <script>
 import state from '../state'

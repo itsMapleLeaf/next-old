@@ -1,0 +1,23 @@
+$theme-color = hsl(210, 50%, 30%)
+$theme-color-darker = hsl(211, 50%, 23%)
+$theme-color-lighter = hsl(210, 43%, 44%)
+
+.bg-theme
+  background-color: $theme-color
+
+.bg-theme-darker
+  background-color: $theme-color-darker
+
+.bg-theme-darkest
+  background-color: darken($theme-color-darker, 20%)
+
+.bg-theme-lighter
+  background-color: $theme-color-lighter
+
+.border-highlight
+  border: none
+  border-bottom: 3px solid $theme-color-lighter
+
+.border-highlight-bright
+  border: none
+  border-bottom: 3px solid lighten($theme-color-lighter, 20%)

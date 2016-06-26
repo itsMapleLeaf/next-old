@@ -1,5 +1,4 @@
 const {join} = require('path')
-const poststylus = require('poststylus')
 
 module.exports = {
   entry: join(__dirname, 'src/main.js'),
@@ -18,15 +17,6 @@ module.exports = {
   babel: {
     presets: ['es2015'],
     plugins: ['transform-runtime']
-  },
-  stylus: {
-    use: [
-      poststylus([
-        'postcss-cssnext',
-        'postcss-short',
-        'postcss-flexbox'
-      ])
-    ]
   },
   devtool: 'source-map'
 }
