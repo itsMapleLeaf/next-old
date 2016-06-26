@@ -68,8 +68,11 @@ export default {
       this.state.setAccount(account)
     },
 
-    loginSuccess (userData) {
-      this.state.setUserData(userData)
+    loginSuccess (data) {
+      this.state.setUserCharacterList(data.characters)
+      this.state.setFriendsList(data.friends)
+      this.state.setBookmarkList(data.bookmarks)
+      this.state.setTicket(data.ticket)
       this.currentOverlay = 'character-select'
     },
 

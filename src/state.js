@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import {keys} from './storage'
 
 import {
   Character,
@@ -31,13 +32,13 @@ class State {
       admins: []            // string[]
     }
 
-    const account = window.localStorage.getItem('fchat-next:account')
+    const account = window.localStorage.getItem(keys.account())
     if (account) {
-      const ticket = window.localStorage.getItem(`fchat-next:ticket:${account}`)
+      const ticket = window.localStorage.getItem(keys.ticket(account))
       if (ticket) {
         Object.assign(this.data.userData, { account, ticket })
       }
-      const character = window.localStorage.getItem(`fchat-next:character:${account}`)
+      const character = window.localStorage.getItem(keys.character(account))
       if (character) {
         this.data.userData.default_character = character
       }
@@ -92,17 +93,16 @@ class State {
   // setters
   setAccount (account) {
     this.data.userData.account = account
-    window.localStorage.setItem('fchat-next:account', account)
+    window.localStorage.setItem(keys.account(), account)
   }
 
-  setUserData (userData) {
-    const { account, ticket } = Object.assign(this.data.userData, userData)
-    window.localStorage.setItem(`fchat-next:ticket:${account}`, ticket)
+  setTicket (ticket) {
+    window.localStorage.setItem(keys.ticket(this.data.userData.account), ticket)
   }
 
   setCharacter (charname) {
     this.data.userData.character = charname
-    window.localStorage.setItem(`fchat-next:character:${this.data.userData.account}`, charname)
+    window.localStorage.setItem(keys.character(this.data.userData.account), charname)
   }
 
   setUserCharacterList (characters) {
