@@ -1,0 +1,29 @@
+$flex
+  display: flex
+
+$flex-horizontal
+  @extend $flex
+  flex-direction: row
+
+$flex-vertical
+  @extend $flex
+  flex-direction: column
+
+$flex-stretch
+  flex: 1 1 auto
+
+$flex-fixed
+  flex-shrink: 0
+
+.grid
+  &.horizontal
+    @extend $flex-horizontal
+
+  &.vertical
+    @extend $flex-vertical
+
+  &.stretch
+    @extend $flex-stretch
+
+  &.fixed
+    @extend $flex-fixed

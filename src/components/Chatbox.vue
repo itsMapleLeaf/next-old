@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/variables'
+/*@import '../styles/variables'
 
 .chatbox
   min-height: 5em
@@ -64,5 +64,5 @@ export default {
   background-color: fg-color !important
 
   &:focus
-    background-color: lighten(fg-color, 5%) !important
+    background-color: lighten(fg-color, 5%) !important*/
 </style>

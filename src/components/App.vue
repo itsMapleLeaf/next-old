@@ -1,5 +1,5 @@
 <template>
-  <div class='container'>
+  <div class='fullscreen bg-theme-darker'>
     <chat
     @channel-message-sent='channelMessageSent'
     @private-message-sent='privateMessageSent'>
@@ -15,11 +15,6 @@
 
 <style lang="stylus" scoped>
 @import '../styles/layout'
-@import '../styles/theme-colors'
-
-.container
-  @extend .fullscreen
-  @extend .bg-theme-darker
 </style>
 
 <style lang="stylus">
@@ -45,6 +40,10 @@ input
 
 button
   @extend .button
+
+a
+  text-decoration: none
+  color: inherit
 
 ::-webkit-scrollbar
   width: 0.5em
@@ -86,7 +85,7 @@ export default {
     }
   },
 
-  ready () {
+  created () {
     this.$on('overlay-change-request', this.setOverlay)
 
     const { account, ticket } = this.state.getUserData()

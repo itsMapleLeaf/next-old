@@ -1,11 +1,12 @@
 <template>
-  <div class='fullscreen box vertical'>
-    <div class='box horizontal'>
-      <a class='box center hover-darken app-menu-button'
+  <div class='grid vertical fixed fullscreen'>
+    <div class='header grid horizontal fixed'>
+      <a class='app-menu-button'
       @click="$dispatch('overlay-change-request', 'app-menu')">
         <i class='fa fa-bars'></i>
       </a>
-      <div class='box grow horizontal wrap'>
+
+      <div class='grid horizontal stretch'>
         <chat-tab v-for='tab in tabs'
         :selected='selectedTabIndex === $index'
         @mousedown='selectedTabIndex = $index'>
@@ -16,9 +17,24 @@
 
     <component :is="currentTab.view"
     :view-state="currentTab.state"
-    @message-sent='messageSent'></component>
+    @message-sent='messageSent'>
+    </component>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+@import '../styles/layout'
+@import '../styles/grid'
+
+.header
+  height: 2.5em
+
+.app-menu-button
+  width: 2.5em
+  height: 2.5em
+  @extend .center-children
+  @extend .grid.fixed
+</style>
 
 <script>
 import ChatTab from './ChatTab.vue'
@@ -105,8 +121,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/mixins'
+/*@import '../styles/mixins'
 
 .app-menu-button
-  size: 2em
+  size: 2em*/
 </style>

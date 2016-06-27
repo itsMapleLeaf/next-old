@@ -15,7 +15,7 @@
         v-model='searchQuery'>
         <br>
 
-        <button @click='closeOverlay'>Done</button>
+        <button>Done</button>
         <br>
       </form>
     </div>

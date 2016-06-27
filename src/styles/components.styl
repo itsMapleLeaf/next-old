@@ -19,6 +19,11 @@
   @extend .input
   padding-left: 1.3em
   padding-right: 1.3em
+  cursor: pointer
+
+  &:hover
+    @extend .bg-theme-lighter
+    @extend .border-highlight-bright
 
 .textarea
   @extend .input
@@ -28,7 +33,7 @@
 
 .overlay-shade
   @extend .fullscreen
-  @extend .flex-box
+  @extend .center-children
   background-color: rgba(black, 0.3)
 
 .overlay-panel
@@ -45,7 +50,7 @@
 ul.selection-list
   @extend .input
   @extend .flow-margin
-    
+
   $selected-color = rgb(39, 174, 96)
 
   display: inline-block
@@ -57,7 +62,7 @@ ul.selection-list
 
   li
     transition: 0.2s
-    padding: 0.5em 0em
+    padding: 0.5em 0.5em
     cursor: pointer
     user-select: none
 

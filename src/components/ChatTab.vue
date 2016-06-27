@@ -1,5 +1,5 @@
 <template>
-  <a class='box center-vertical hover-lighten' :class="{ 'selected': selected }">
+  <a class='tab' :class="{ 'selected': selected }">
     <span><slot></slot></span>
   </a>
 </template>
@@ -13,7 +13,30 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/variables'
+@import '../styles/layout'
+@import '../styles/theme-colors'
+
+.tab
+  @extend .border-highlight
+  width: 8em
+  height: 100%
+  border-bottom-color: transparent
+  padding: 0.6em 1em
+
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  cursor: pointer
+  transition: 0.3s all
+
+.tab:hover:not(.selected)
+  @extend .bg-theme-darkest
+
+.tab.selected
+  @extend .bg-theme
+  @extend .border-highlight-bright
+
+/*@import '../styles/variables'
 @import '../styles/mixins'
 
 a
@@ -30,5 +53,5 @@ span
 
 .selected
   background-color: fg-color
-  border-highlight(10%)
+  border-highlight(10%)*/
 </style>

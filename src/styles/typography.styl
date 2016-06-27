@@ -14,4 +14,8 @@ $text-color = hsl(205, 30%, 90%)
 .text-underline
   @extend .text-normal
   text-decoration: none
-  border-bottom: 1px solid rgba($text-color, 0.5)
+  border-bottom: 1px solid rgba($text-color, 0.2)
+
+.text-underline-bright
+  @extend .text-underline
+  border-bottom-color: rgba($text-color, 0.5)

@@ -97,6 +97,7 @@ class State {
   }
 
   setTicket (ticket) {
+    this.data.userData.ticket = ticket
     window.localStorage.setItem(keys.ticket(this.data.userData.account), ticket)
   }
 

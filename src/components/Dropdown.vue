@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../styles/variables'
+/*@import '../styles/variables'
 
 .dropdown
   margin: input-margin
@@ -47,5 +47,5 @@ export default {
 .head, .list-item
   padding: 0.4em 0.7em
   user-select: none
-  padding: input-padding
+  padding: input-padding*/
 </style>

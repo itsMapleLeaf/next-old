@@ -78,7 +78,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../styles/variables'
+/*@import '../styles/variables'
 
 .user-info
   padding: 1em 1em 0em
@@ -88,5 +88,5 @@ export default {
   margin: input-margin
 
   img
-    size: 100%
+    size: 100%*/
 </style>
