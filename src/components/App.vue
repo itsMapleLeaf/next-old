@@ -1,5 +1,5 @@
 <template>
-  <div class='fullscreen bg-theme-darker'>
+  <div class="">
     <chat
     @channel-message-sent='channelMessageSent'
     @private-message-sent='privateMessageSent'>
@@ -12,8 +12,6 @@
     </component>
   </div>
 </template>
-
-<style lang="stylus"></style>
 
 <script>
 import Chat from './Chat.vue'

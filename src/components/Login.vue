@@ -1,6 +1,6 @@
 <template>
-  <div class='overlay-shade flex-center'>
-    <div class='overlay-panel text-align-center'>
+  <div class=''>
+    <div class=''>
       <h1>Login</h1>
       <form @submit.prevent='submit'>
         <input type="text" placeholder="Username"
@@ -11,12 +11,10 @@
 
         <button action="submit" :disabled='disabled'>Go</button>
       </form>
-      <span>{{ status }}</span>
+      <span>{{status}}</span>
     </div>
   </div>
 </template>
-
-<style lang="stylus" scoped></style>
 
 <script>
 import {sendLoginRequest} from '../flist'
