@@ -27,10 +27,4 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-.chat-message
-  padding: 0.2em 0.5em
-
-.message
-  margin-left: 0.5em
-</style>
+<style lang="stylus" scoped></style>

@@ -13,48 +13,7 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-@import '../styles/layout'
-</style>
-
-<style lang="stylus">
-@import '../styles/theme-colors'
-@import '../styles/typography'
-@import '../styles/components'
-
-*
-  box-sizing: border-box
-  margin: 0
-  padding: 0
-
-:root
-  @extend .text-normal
-  font-size: 14pt
-
-h1, h2, h3, h4, h5, h6
-  @extend .text-light
-  margin: 0em 0em 0.75em
-
-input
-  @extend .input
-
-button
-  @extend .button
-
-a
-  text-decoration: none
-  color: inherit
-
-::-webkit-scrollbar
-  width: 0.5em
-  height: 0.5em
-
-::-webkit-scrollbar-track
-  @extend .bg-theme-darkest
-
-::-webkit-scrollbar-thumb
-  @extend .bg-theme-lighter
-</style>
+<style lang="stylus"></style>
 
 <script>
 import Chat from './Chat.vue'

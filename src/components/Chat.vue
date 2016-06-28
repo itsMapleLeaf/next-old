@@ -22,19 +22,7 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-@import '../styles/layout'
-@import '../styles/grid'
-
-.header
-  height: 2.5em
-
-.app-menu-button
-  width: 2.5em
-  height: 2.5em
-  @extend .center-children
-  @extend .grid.fixed
-</style>
+<style lang="stylus" scoped></style>
 
 <script>
 import ChatTab from './ChatTab.vue'

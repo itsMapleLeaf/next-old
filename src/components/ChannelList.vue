@@ -22,10 +22,7 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-@import '../styles/components'
-@import '../styles/layout'
-</style>
+<style lang="stylus" scoped></style>
 
 <script>
 import state from '../state'

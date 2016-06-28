@@ -31,54 +31,7 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-@import '../styles/layout'
-@import '../styles/grid'
-@import '../styles/typography'
-@import '../styles/theme-colors'
-
-.room-description
-  height: 5em
-  padding: 0.3em 0.5em
-  line-height: 1.5
-
-  span
-    white-space: pre-wrap
-
-.chatbox
-  height: 5em
-
-.user-list
-  width: 12em
-
-.user-list li
-  padding: 0.2em 0.6em
-  text-overflow: break-word
-
-/*a
-  @extend .text-underline
-
-a:hover
-  @extend .text-underline-bright*/
-
-/*.header
-  height: 5em
-
-.sidebar
-  width: 12em
-
-.character-list-item
-  display: block
-  padding: 0.2em 0.5em
-  overflow-wrap: break-word
-
-.room-info
-  padding: 0.3em 0.5em
-  line-height: 1.5
-
-  span
-    white-space: pre-wrap*/
-</style>
+<style lang="stylus" scoped></style>
 
 <script>
 import Chatbox from './Chatbox.vue'

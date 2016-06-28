@@ -12,7 +12,4 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-a
-  padding: 0.7em 1.2em
-</style>
+<style lang="stylus" scoped></style>

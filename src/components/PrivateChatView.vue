@@ -22,15 +22,7 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-.header
-  height: 5em
-  padding: 0.3em 0.5em
-  line-height: 1.5
-
-  span
-    white-space: pre-wrap
-</style>
+<style lang="stylus" scoped></style>
 
 <script>
 import Chatbox from './Chatbox.vue'

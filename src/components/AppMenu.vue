@@ -77,16 +77,4 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-/*@import '../styles/variables'
-
-.user-info
-  padding: 1em 1em 0em
-
-.avatar
-  size: 100px
-  margin: input-margin
-
-  img
-    size: 100%*/
-</style>
+<style lang="stylus" scoped></style>

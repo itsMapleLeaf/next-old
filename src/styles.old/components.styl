@@ -1,39 +1,31 @@
-@import 'typography'
-@import 'theme-colors'
-@import 'layout'
-
-.input
-  @extend .text-normal
-  @extend .flow-margin
-  @extend .bg-theme-darker
-  @extend .border-highlight
+.text-field
+  composes: 'normal' from './typography.styl'
+  composes: 'flow-margin' from './layout.styl'
+  composes: dark border-highlight from './theme-colors.styl'
   outline: none
   padding: 0.4em 0.6em
   transition: 0.2s
 
   &:focus
-    @extend .border-highlight-bright
-    @extend .bg-theme-darkest
+    composes: dark border-highlight-bright from './theme-colors.styl'
 
 .button
-  @extend .input
+  composes: text-field
   padding-left: 1.3em
   padding-right: 1.3em
   cursor: pointer
 
   &:hover
-    @extend .bg-theme-lighter
-    @extend .border-highlight-bright
+    composes: light border-highlight-bright from './theme-colors.styl'
 
 .textarea
-  @extend .input
+  composes: text-field
 
 .shadow
   box-shadow: 0px 0.5em 1em rgba(black, 0.5)
 
 .overlay-shade
-  @extend .fullscreen
-  @extend .center-children
+  composes: fullscreen center-children from './layout.styl'
   background-color: rgba(black, 0.3)
 
 .overlay-panel

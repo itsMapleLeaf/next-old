@@ -54,15 +54,4 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-/*@import '../styles/variables'
-
-.chatbox
-  min-height: 5em
-  margin: 0em
-  border: none !important
-  background-color: fg-color !important
-
-  &:focus
-    background-color: lighten(fg-color, 5%) !important*/
-</style>
+<style lang="stylus" scoped></style>
