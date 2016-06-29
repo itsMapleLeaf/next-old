@@ -8,11 +8,6 @@ Vue.config.devtools = true
 
 Vue.filter('bbcode', parseBBC)
 
-console.log(parseBBC('[url]https://www.google.com[/url]'))
-console.log(parseBBC('[url=http://www.google.com]http://www.google.com[/url]'))
-console.log(parseBBC('https://www.google.com'))
-console.log(parseBBC('[sub]http://example.website.com[/sub]'))
-
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true
 
