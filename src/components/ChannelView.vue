@@ -1,8 +1,8 @@
 <template>
   <div class='flex col stretch'>
     <!-- description -->
-    <div class='flex fixed ui theme-color main scroll'>
-      <div class='description' v-html="viewState.description | bbcode"></div>
+    <div class='flex fixed ui theme-color main scroll description'>
+      <span v-html="viewState.description | bbcode"></span>
     </div>
 
     <div class='flex row stretch'>
@@ -42,8 +42,10 @@ ul
 .description
   height: 5em
   padding: 0.3em 0.5em
-  white-space: pre-wrap
   line-height: 1.4
+
+  span
+    white-space: pre-wrap
 
 .chatbox
   height: 5em
