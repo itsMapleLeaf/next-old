@@ -30,3 +30,6 @@
 # Optimization / Cleanup
 - [ ] use computed() less, wherever possible
 - [ ] find a way to solve the bottleneck rendering 400~500 character elements at once
+- [ ] holy memory usage batman
+- [ ] move user / session storage to an offline JSON config file
+- [x] move to electron
