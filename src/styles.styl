@@ -18,16 +18,16 @@ $theme-color-light = lighten($theme-color, 15%)
   -webkit-font-smoothing: antialiased
 
 h1, h2, h3, h4, h5, h6
-  font-weight: 400
-  opacity: 0.8
+  font-weight: 300
+  opacity: 0.9
   // text-shadow: 0px 1px 1px darken($theme-color-dark, 20%)
 
 ::-webkit-scrollbar
   width: 0.5em
   height: 0.5em
 
-::-webkit-scrollbar-track
-  background-color: $theme-color-dark
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner
+  background-color: darken($theme-color-dark, 20%)
 
 ::-webkit-scrollbar-thumb
   background-color: $theme-color-light
@@ -43,15 +43,14 @@ h1, h2, h3, h4, h5, h6
     &.main { background-color: $theme-color }
     &.dark { background-color: $theme-color-dark }
     &.light { background-color: $theme-color-light }
-    &.darker { background-color: darken($theme-color-dark, 10%) }
+    &.darker { background-color: darken($theme-color-dark, 20%) }
     &.lighter { background-color: lighten($theme-color-light, 15%) }
 
   &.border
-    border-bottom: 1px solid $theme-color-light
-    outline: 1px solid darken($theme-color-dark, 40%)
+    border-bottom: 3px solid $theme-color-light
 
     &.bright
-      border-bottom: 1px solid lighten($theme-color-light, 30%)
+      border-bottom-color: lighten($theme-color-light, 30%)
 
   &.hover-darken
     @extend .ui.transition
@@ -124,3 +123,25 @@ h1, h2, h3, h4, h5, h6
   &.form
     .field
       margin-bottom: 1.2em
+
+  &.selection
+    @extend .ui.theme-color.dark
+    @extend .ui.border
+
+    width: 12em
+    height: 16em
+    list-style: none
+    overflow-y: scroll
+    display: inline-block
+
+    li
+      @extend .ui.hover-darken
+      padding: 0.4em
+
+      &:hover
+        border-bottom: none
+
+      &.selected
+        $selected-color = rgb(39, 174, 96)
+        background-color: rgba($selected-color, 0.3)
+        color: lighten($selected-color, 20%)
