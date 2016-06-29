@@ -1,4 +1,5 @@
 const {join} = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: join(__dirname, 'src/main.js'),
@@ -20,6 +21,14 @@ module.exports = {
       }
     ]
   },
+  vue: {
+    loaders: {
+      stylus: ExtractTextPlugin.extract('css!stylus')
+    }
+  },
+  plugins: [
+    new ExtractTextPlugin('styles.css')
+  ],
   babel: {
     presets: ['es2015'],
     plugins: ['transform-runtime']
