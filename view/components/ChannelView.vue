@@ -7,16 +7,7 @@
 
     <div class='flex row stretch'>
       <!-- message -->
-      <div class='flex stretch ui scroll message-list' v-el:message-list>
-        <ul>
-          <li v-for='msg in viewState.messages'>
-            <chat-message
-            :character='msg.character'
-            :message='msg.message'
-            </chat-message>
-          </li>
-        </ul>
-      </div>
+      <chat-message-list class="flex stretch" :messages='viewState.messages'></chat-message-list>
 
       <!-- users -->
       <div class='flex fixed ui theme-color main scroll character-list'>
@@ -65,25 +56,18 @@ ul
 import Chatbox from './Chatbox.vue'
 import Character from './Character.vue'
 import ChatMessage from './ChatMessage.vue'
+import ChatMessageList from './ChatMessageList.vue'
 
 export default {
   components: {
     Chatbox,
     Character,
-    ChatMessage
+    ChatMessage,
+    ChatMessageList
   },
 
   props: {
     viewState: Object
-  },
-
-  ready () {
-    this.$watch('viewState.messages', () => {
-      const element = this.$els.messageList
-      if (element.scrollTop + element.clientHeight > element.scrollHeight - 100) {
-        element.scrollTop = element.scrollHeight
-      }
-    }, { immediate: true })
   },
 
   methods: {

@@ -23,8 +23,10 @@
 - [ ] add dividers to split up the interface a bit
 - [ ] look into darklighting OOC?
 - [ ] on application start, scroll the character list down so the selected character is within view
+- [ ] remove window border, add custom window buttons
 - [x] TRANSITIONS
 - [x] add hover-darken to character list items
 
 # Optimization / Cleanup
 - [ ] use computed() less, wherever possible
+- [ ] find a way to solve the bottleneck rendering 400~500 character elements at once

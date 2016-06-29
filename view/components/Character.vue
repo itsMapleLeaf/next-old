@@ -1,7 +1,6 @@
 <template>
-  <a href='#' :class="character.gender.toLowerCase()"
-  @click.prevent='clicked'>
-    <i class="fa fa-circle status-dot {{character.status.toLowerCase()}}"></i> {{character.name}}
+  <a href='#' :class="gender" @click='clicked'>
+    <i class="fa fa-circle status-dot" :class="status"></i> {{character.name}}
   </a>
 </template>
 
@@ -77,7 +76,9 @@ export default {
 
   data () {
     return {
-      profileURL: getProfileURL(this.character.name)
+      profileURL: getProfileURL(this.character.name),
+      gender: this.character.gender.toLowerCase(),
+      status: this.character.status.toLowerCase()
     }
   },
 
