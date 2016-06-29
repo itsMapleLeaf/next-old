@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class='ui input icon right hover-darken' @click='toggle'>
+    <div class='ui section icon right hover-darken' @click='toggle'>
       <i class='fa fa-caret-down'></i> {{ items[active].label }}
     </div>
     <ol v-show='open'>

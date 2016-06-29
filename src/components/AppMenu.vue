@@ -1,31 +1,30 @@
 <template>
-  <div class="ui overlay" @mousedown.self="closeAppMenu">
-    <div class="ui side-panel left flex col">
-      <div class="ui form flex fixed">
-        <h2>{{greeting}}</h2>
-        <div class="ui field">
-          <div class="ui border hover-darken avatar">
-            <a :href="profileURL" target="_blank">
-              <img :src="avatarURL">
-            </a>
-          </div>
-        </div>
-        <div class="ui field">
-          <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
-        </div>
-        <div class="ui field text-input icon right">
-          <i class='fa fa-pencil'></i>
-          <div contenteditable placeholder="What's up?"></div>
+  <action-panel side="left">
+    <form slot="content" class="ui form">
+      <h2>{{greeting}}</h2>
+      <div class="ui field">
+        <div class="ui border hover-darken avatar">
+          <a :href="profileURL" target="_blank">
+            <img :src="avatarURL">
+          </a>
         </div>
       </div>
-      <div class="flex stretch ui theme-color dark">
-        <menu-option icon='globe' @mousedown="openChannelMenu">Channels</menu-option>
-        <menu-option icon='gear'>Settings</menu-option>
-        <menu-option icon='user'>Switch Character</menu-option>
-        <menu-option icon='sign-out'>Log Out</menu-option>
+      <div class="ui field">
+        <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
       </div>
+      <div class="ui field text-input icon right">
+        <i class='fa fa-pencil'></i>
+        <div contenteditable placeholder="What's up?"></div>
+      </div>
+    </form>
+
+    <div slot="options">
+      <menu-option icon='globe' @mousedown="openChannelMenu">Channels</menu-option>
+      <menu-option icon='gear'>Settings</menu-option>
+      <menu-option icon='user'>Switch Character</menu-option>
+      <menu-option icon='sign-out'>Log Out</menu-option>
     </div>
-  </div>
+  </action-panel>
 </template>
 
 <style lang="stylus" scoped>
@@ -40,6 +39,7 @@ img
 </style>
 
 <script>
+import ActionPanel from './ActionPanel.vue'
 import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
 import state from '../state'
@@ -48,7 +48,8 @@ import {getProfileURL, getAvatarURL} from '../flist'
 export default {
   components: {
     MenuOption,
-    Dropdown
+    Dropdown,
+    ActionPanel
   },
 
   data () {
