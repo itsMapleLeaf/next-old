@@ -1,11 +1,11 @@
 <template>
-  <div class='grid vertical stretch'>
-    <div class='grid fixed room-description overflow-scroll bg-theme'>
-      <span>{{{ viewState.description | bbcode }}}</span>
+  <div class='flex col stretch'>
+    <div class='flex fixed ui theme-color main scroll'>
+      <div class='description' v-html="viewState.description | bbcode"></div>
     </div>
 
-    <div class='grid horizontal stretch'>
-      <div class='grid vertical stretch messages overflow-scroll'>
+    <div class='flex row stretch'>
+      <div class='flex stretch scroll'>
         <ul>
           <li v-for='msg in viewState.messages'>
             <chat-message
@@ -16,7 +16,7 @@
         </ul>
       </div>
 
-      <div class='grid vertical fixed user-list overflow-scroll bg-theme'>
+      <div class='flex fixed ui theme-color main scroll'>
         <ul>
           <li v-for='char in viewState.characters'>
             <character :character='char'></character>
@@ -25,13 +25,22 @@
       </div>
     </div>
 
-    <div class='grid horizontal fixed bg-theme chatbox'>
-      <chatbox @message-sent='messageSent'></chatbox>
+    <div class='flex fixed ui theme-color main'>
+      <chatbox class='chatbox' @message-sent='messageSent'></chatbox>
     </div>
   </div>
 </template>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.description
+  height: 5em
+  padding: 0.3em 0.5em
+  white-space: pre-wrap
+  line-height: 1.4
+
+.chatbox
+  height: 5em
+</style>
 
 <script>
 import Chatbox from './Chatbox.vue'

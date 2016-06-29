@@ -1,5 +1,5 @@
 <template>
-  <div class="ui theme-color dark fullscreen">
+  <div>
     <chat
     @channel-message-sent='channelMessageSent'
     @private-message-sent='privateMessageSent'>
@@ -13,11 +13,9 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-</style>
-
 <style lang="stylus">
-@import '../styles.styl'
+@import '../styles/ui.styl'
+@import '../styles/flex.styl'
 </style>
 
 <script>
@@ -52,6 +50,7 @@ export default {
   created () {
     this.$on('overlay-change-request', this.setOverlay)
 
+    // TODO: don't auth to website if we're already connected to chat
     const { account, ticket } = this.state.getUserData()
     if (ticket !== '') {
       getUserData(account, ticket)

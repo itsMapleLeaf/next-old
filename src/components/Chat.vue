@@ -1,12 +1,12 @@
 <template>
-  <div class='grid vertical fixed fullscreen'>
-    <div class='header grid horizontal fixed'>
+  <div class='flex col ui theme-color dark fullscreen'>
+    <div class='flex fixed row'>
       <a class='app-menu-button'
       @click="$dispatch('overlay-change-request', 'app-menu')">
         <i class='fa fa-bars'></i>
       </a>
 
-      <div class='grid horizontal stretch'>
+      <div class='flex row stretch'>
         <chat-tab v-for='tab in tabs'
         :selected='selectedTabIndex === $index'
         @mousedown='selectedTabIndex = $index'>
