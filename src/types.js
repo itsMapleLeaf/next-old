@@ -34,6 +34,7 @@ export const UserStatus = {
 }
 
 // structs / object types
+// TODO: add field for channel type (private or public)
 export function ChannelInfo (id, name, userCount) {
   return {
     id,        // string: channel id used to join/leave
@@ -70,6 +71,7 @@ export function Character (name, gender, status = UserStatus.online, statusMessa
   }
 }
 
+// TODO: add time field
 export function ChatMessage (character, message) {
   return {
     character, // Character

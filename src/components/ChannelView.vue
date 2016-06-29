@@ -53,6 +53,9 @@ ul
 
   li
     padding: 0.2em 0.6em
+
+.message-list
+  padding: 0.3em 0em
 </style>
 
 <script>
@@ -77,6 +80,7 @@ export default {
       element.scrollTop = element.scrollHeight
     })
 
+    // TODO: make this immediate + remove threshold
     this.$watch('viewState.messages', () => {
       const element = this.$els.messageList
       if (element.scrollTop + element.clientHeight > element.scrollHeight - 100) {

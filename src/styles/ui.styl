@@ -138,6 +138,12 @@ ul, ol
     &.icon
       @extend .ui.input.icon
 
+      &.left
+        input, [contenteditable] { padding-left: 1.8em }
+
+      &.right
+        input, [contenteditable] { padding-right: 1.8em }
+
   &.button
     @extend .ui.theme-color.dark
     @extend .ui.border
