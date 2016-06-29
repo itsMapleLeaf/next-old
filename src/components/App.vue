@@ -17,6 +17,7 @@
 <style lang="stylus">
 @import '../styles/ui.styl'
 @import '../styles/flex.styl'
+@import '../styles/transitions.styl'
 </style>
 
 <script>

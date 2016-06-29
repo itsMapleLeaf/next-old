@@ -1,5 +1,5 @@
 <template>
-  <div class='ui overlay' @click.self='closeOverlay'>
+  <div class='ui overlay' transition="fade" @click.self='closeOverlay'>
     <div class='ui panel'>
       <h1>Channel List</h1>
       <form class='ui form' @submit.prevent='closeOverlay'>

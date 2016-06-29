@@ -3,7 +3,7 @@
     <div class='ui section icon right hover-darken' @click='toggle'>
       <i class='fa fa-caret-down'></i> {{ items[active].label }}
     </div>
-    <ol v-show='open'>
+    <ol v-show='open' transition="collapse">
       <li class='ui theme-color dark hover-darken' v-for='item in items' @click='select($index)'>
         {{ item.label }}
       </li>

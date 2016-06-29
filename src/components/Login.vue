@@ -1,5 +1,5 @@
 <template>
-  <div class='ui overlay'>
+  <div class='ui overlay' transition='fade'>
     <div class='ui panel'>
       <h1>Login</h1>
       <form class='ui form' @submit.prevent='submit'>

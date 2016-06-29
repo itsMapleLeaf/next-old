@@ -6,10 +6,10 @@
         <character-avatar-link :character="activeCharacter"></character-avatar-link>
       </div>
       <div class="ui field wrap-break-word section">
-        <em>
+        <em><small>
           {{char.status}}
           <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
-        </em>
+        </small></em>
       </div>
     </form>
     <div slot="options">

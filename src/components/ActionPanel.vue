@@ -1,5 +1,5 @@
 <template>
-  <div class="ui overlay" @click.self="$dispatch('overlay-change-request', '')">
+  <div class="ui overlay" :transition="transition" @click.self="$dispatch('overlay-change-request', '')">
     <div class="ui side-panel {{side}} flex col">
       <div class="flex fixed">
         <slot name="content"></slot>
@@ -17,6 +17,12 @@ export default {
     side: {
       type: String,
       default: 'left'
+    }
+  },
+
+  data () {
+    return {
+      transition: 'slide-' + this.side
     }
   }
 }

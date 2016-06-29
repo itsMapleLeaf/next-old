@@ -1,0 +1,28 @@
+animate($property = all)
+  transition: $property 0.3s ease
+
+.fade
+  &-transition
+    animate: opacity
+    opacity: 1
+
+  &-enter, &-leave
+    opacity: 0
+
+slide($side)
+  .slide-{$side}
+    &-transition
+      animate: all
+      opacity: 1
+      .ui.side-panel
+        animate: all
+        {$side}: 0em
+
+    &-enter, &-leave
+      opacity: 0
+      .ui.side-panel
+        animate: all
+        {$side}: -14em
+
+slide('left')
+slide('right')
