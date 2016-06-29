@@ -67,7 +67,11 @@ class State {
     return chat
   }
 
-  getCharacter () {
+  getUserCharacter () {
+    return this.data.onlineCharacters[this.getUserCharacterName()]
+  }
+
+  getUserCharacterName () {
     return this.data.userData.character
   }
 

@@ -30,10 +30,10 @@ export default {
 
   computed: {
     placeholder () {
-      if (this.state.getCharacter() === '') {
+      if (this.state.getUserCharacterName() === '') {
         return 'Not chatting quite yet...'
       } else {
-        return `Chatting as ${this.state.getCharacter()}...`
+        return `Chatting as ${this.state.getUserCharacterName()}...`
       }
     }
   },

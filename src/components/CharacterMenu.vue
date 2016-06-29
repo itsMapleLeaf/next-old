@@ -2,10 +2,8 @@
   <action-panel side="right">
     <form slot="content" class="ui form">
       <h2 class="wrap-break-word">{{char.name}}</h2>
-      <div class="ui field" style="margin-bottom: 0.8em">
-        <a :href="getProfileURL(char.name)" style="display: inline-block">
-          <img class="ui theme-color dark border hover-darken" :src='getAvatarURL(char.name)' />
-        </a>
+      <div class="ui field">
+        <character-avatar-link :character="activeCharacter"></character-avatar-link>
       </div>
       <div class="ui field wrap-break-word section">
         <em>
@@ -37,6 +35,7 @@ img
 <script>
 import MenuOption from './MenuOption.vue'
 import ActionPanel from './ActionPanel.vue'
+import CharacterAvatarLink from './CharacterAvatarLink.vue'
 import {getProfileURL, getAvatarURL} from '../flist'
 
 export default {
@@ -46,7 +45,8 @@ export default {
 
   components: {
     MenuOption,
-    ActionPanel
+    ActionPanel,
+    CharacterAvatarLink
   },
 
   data () {

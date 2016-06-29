@@ -166,7 +166,7 @@ class SocketHandler {
       case 'JCH': {
         const { identity } = params.character
         state.addChannelCharacter(params.channel, identity)
-        if (identity === state.getCharacter()) {
+        if (identity === state.getUserCharacterName()) {
           state.setChannelStatus(params.channel, ChannelStatus.joined)
           this.vm.socketChannelJoined(params.channel)
         }
@@ -176,7 +176,7 @@ class SocketHandler {
       // user left a channel (could be us)
       case 'LCH':
         state.removeChannelCharacter(params.channel, params.character)
-        if (params.character === state.getCharacter()) {
+        if (params.character === state.getUserCharacterName()) {
           state.setChannelStatus(params.channel, ChannelStatus.left)
           this.vm.socketChannelLeft(params.channel)
         }
@@ -225,12 +225,12 @@ class SocketHandler {
 
   sendChannelMessage (channel, message) {
     this.send('MSG', { channel, message })
-    this.vm.state.addChannelMessage(channel, this.vm.state.getCharacter(), message)
+    this.vm.state.addChannelMessage(channel, this.vm.state.getUserCharacterName(), message)
   }
 
   sendPrivateMessage (recipient, message) {
     this.send('PRI', { recipient, message })
-    this.vm.state.addPrivateMessage(recipient, this.vm.state.getCharacter(), message)
+    this.vm.state.addPrivateMessage(recipient, this.vm.state.getUserCharacterName(), message)
   }
 }
 

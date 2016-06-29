@@ -3,11 +3,7 @@
     <form slot="content" class="ui form">
       <h2>{{greeting}}</h2>
       <div class="ui field">
-        <div class="ui border hover-darken avatar">
-          <a :href="profileURL" target="_blank">
-            <img :src="avatarURL">
-          </a>
-        </div>
+        <character-avatar-link :character="state.getUserCharacter()"></character-avatar-link>
       </div>
       <div class="ui field">
         <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
@@ -40,6 +36,7 @@ img
 
 <script>
 import ActionPanel from './ActionPanel.vue'
+import CharacterAvatarLink from './CharacterAvatarLink.vue'
 import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
 import state from '../state'
@@ -49,7 +46,8 @@ export default {
   components: {
     MenuOption,
     Dropdown,
-    ActionPanel
+    ActionPanel,
+    CharacterAvatarLink
   },
 
   data () {
@@ -68,15 +66,15 @@ export default {
     },
 
     greeting () {
-      return `Hi, ${this.state.getCharacter().split(' ')[0]}!`
+      return `Hi, ${this.state.getUserCharacterName().split(' ')[0]}!`
     },
 
     profileURL () {
-      return getProfileURL(this.state.getCharacter())
+      return getProfileURL(this.state.getUserCharacterName())
     },
 
     avatarURL () {
-      return getAvatarURL(this.state.getCharacter())
+      return getAvatarURL(this.state.getUserCharacterName())
     }
   },
 
