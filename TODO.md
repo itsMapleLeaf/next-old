@@ -8,6 +8,7 @@
   - rest
 
 # UX / Styling
+- TRANSITIONS
 - add hover-darken to character list items
 - add a plus button to the tab bar for a server list shortcut
 - add dividers to split up the interface a bit
