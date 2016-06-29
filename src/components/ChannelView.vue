@@ -78,11 +78,6 @@ export default {
   },
 
   created () {
-    this.$watch('viewState', () => {
-      const element = this.$els.messageList
-      element.scrollTop = element.scrollHeight
-    })
-
     // TODO: make this immediate + remove threshold
     this.$watch('viewState.messages', () => {
       const element = this.$els.messageList
