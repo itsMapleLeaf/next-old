@@ -1,28 +1,43 @@
 <template>
-  <div class='overlay-shade flex-center' @click.self='closeOverlay'>
-    <div class='overlay-panel text-align-center'>
+  <div class='ui overlay' @click.self='closeOverlay'>
+    <div class='ui panel'>
       <h1>Channel List</h1>
-      <form @submit.prevent='closeOverlay'>
-        <ul class='selection-list'>
-          <li v-for='channel in slicedChannelList'
-          @click='channelClicked(channel)'
-          :class="{ 'selected': isJoined(channel.id) } ">
-            {{channel.name}}
-          </li>
-        </ul>
+      <form class='ui form' @submit.prevent='closeOverlay'>
+        <div class='ui field'>
+          <ul class='ui selection'>
+            <li v-for='channel in slicedChannelList'
+            v-if="channel.name.trim() !== ''"
+            @click='channelClicked(channel)'
+            :class="{ 'selected': isJoined(channel.id) } ">
+              <span class='ui pull right'>{{channel.userCount}}</span>
+              <span v-html="channel.name"></span>
+            </li>
+          </ul>
+        </div>
 
-        <input type="text" placeholder="Search..."
-        v-model='searchQuery'>
-        <br>
+        <div class='ui field text-input icon left'>
+          <i class='fa fa-search'></i>
+          <input type="text" placeholder="Search..."
+          v-model='searchQuery'>
+        </div>
 
-        <button>Done</button>
-        <br>
+        <div class='ui field'>
+          <button class='ui button'>Done</button>
+        </div>
       </form>
     </div>
   </div>
 </template>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.selection
+  width: 14em
+  text-align: left
+
+  li
+    padding-left: 0.8em
+    padding-right: 0.8em
+</style>
 
 <script>
 import state from '../state'

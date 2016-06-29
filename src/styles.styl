@@ -83,7 +83,7 @@ h1, h2, h3, h4, h5, h6
     .panel
       @extend .ui.theme-color.main
 
-      width: 14em
+      width: 16em
       text-align: center
       box-shadow: 0px 2px 16px rgba(black, 0.4)
 
@@ -129,14 +129,15 @@ h1, h2, h3, h4, h5, h6
     @extend .ui.border
 
     width: 12em
-    height: 16em
+    height: 18em
     list-style: none
     overflow-y: scroll
     display: inline-block
 
     li
       @extend .ui.hover-darken
-      padding: 0.4em
+      display: block
+      padding: 0.5em
 
       &:hover
         border-bottom: none
@@ -145,3 +146,6 @@ h1, h2, h3, h4, h5, h6
         $selected-color = rgb(39, 174, 96)
         background-color: rgba($selected-color, 0.3)
         color: lighten($selected-color, 20%)
+
+  &.pull.right
+    float: right
