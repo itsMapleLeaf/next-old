@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="ui theme-color dark fullscreen">
     <chat
     @channel-message-sent='channelMessageSent'
     @private-message-sent='privateMessageSent'>
@@ -12,6 +12,13 @@
     </component>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+</style>
+
+<style lang="stylus">
+@import '../styles.styl'
+</style>
 
 <script>
 import Chat from './Chat.vue'

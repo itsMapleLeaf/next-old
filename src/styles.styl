@@ -1,0 +1,126 @@
+$text-color = hsl(205, 30%, 90%)
+$theme-color = hsl(210, 50%, 30%)
+$theme-color-dark = hsl(211, 50%, 23%)
+$theme-color-light = lighten($theme-color, 15%)
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  color: inherit
+  border: none
+  outline: none
+  outline-offset: 0
+
+:root
+  font: 14pt 'Roboto', sans-serif
+  color: $text-color
+  -webkit-font-smoothing: antialiased
+
+h1, h2, h3, h4, h5, h6
+  font-weight: 400
+  opacity: 0.8
+  // text-shadow: 0px 1px 1px darken($theme-color-dark, 20%)
+
+::-webkit-scrollbar
+  width: 0.5em
+  height: 0.5em
+
+::-webkit-scrollbar-track
+  background-color: $theme-color-dark
+
+::-webkit-scrollbar-thumb
+  background-color: $theme-color-light
+
+::selection
+  background: rgba(black, 0.3)
+
+.ui
+  &.transition
+    transition: 0.2s ease all
+
+  &.theme-color
+    &.main { background-color: $theme-color }
+    &.dark { background-color: $theme-color-dark }
+    &.light { background-color: $theme-color-light }
+    &.darker { background-color: darken($theme-color-dark, 10%) }
+    &.lighter { background-color: lighten($theme-color-light, 15%) }
+
+  &.border
+    border-bottom: 1px solid $theme-color-light
+    outline: 1px solid darken($theme-color-dark, 40%)
+
+    &.bright
+      border-bottom: 1px solid lighten($theme-color-light, 30%)
+
+  &.hover-darken
+    @extend .ui.transition
+    cursor: pointer
+    &:hover
+      @extend .ui.theme-color.darker
+      @extend .ui.border.bright
+
+  &.focus-darken
+    @extend .ui.transition
+    &:focus
+      @extend .ui.theme-color.darker
+      @extend .ui.border.bright
+
+  &.fullscreen
+    position: fixed
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0
+
+  &.overlay
+    @extend .ui.fullscreen
+
+    background-color: rgba(black, 0.3)
+    display: flex
+    justify-content: center
+    align-items: center
+
+    .panel
+      @extend .ui.theme-color.main
+
+      width: 14em
+      text-align: center
+      box-shadow: 0px 2px 16px rgba(black, 0.4)
+
+  &.text-input
+    display: inline-block
+    width: max-content
+
+    input
+      @extend .ui.theme-color.dark
+      @extend .ui.border
+      @extend .ui.transition
+      @extend .ui.focus-darken
+      width: 10em
+      padding: 0.4em 0.4em
+
+    &.icon.left
+      position: relative
+
+      input
+        padding-left: 1.8em
+
+      .fa
+        opacity: 0.5
+        position: absolute
+        top: 0.6em
+        left: 0.6em
+        pointer-events: none
+
+  &.button
+    @extend .ui.theme-color.dark
+    @extend .ui.border
+    @extend .ui.hover-darken
+    @extend .ui.focus-darken
+    padding: 0.4em 1.5em
+    user-select: none
+
+  &.form
+    .field
+      margin-bottom: 1.2em
