@@ -16,11 +16,15 @@ export default function parseBBC (input) {
       case 'color': return `<span class="chat-color ${value}">${content}</span>`
 
       case 'url': {
+        let href, text
         if (value.trim() !== '') {
-          return `<a href="${value}" target="_blank">${content}</a>`
+          href = value
+          text = content
         } else {
-          return `<a href="${content}" target="_blank">${content}</a>`
+          href = content
+          text = content
         }
+        return `<a class="ui link" href="${href}" target="_blank">${text}</a>`
       }
 
       default: return content
