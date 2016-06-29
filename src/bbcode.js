@@ -27,7 +27,7 @@ export default function parseBBC (input) {
         return `<a class="ui link" href="${href}" target="_blank">${text}</a>`
       }
 
-      default: return content
+      default: return match
     }
   })
 }

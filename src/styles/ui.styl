@@ -186,5 +186,9 @@ ul, ol
     overflow-y: auto
 
   &.link
+    @extend .ui.transition
     text-decoration: none
     border-bottom: 1px solid rgba($text-color, 0.3)
+
+    &:hover
+      border-bottom-color: rgba($text-color, 0.5)
