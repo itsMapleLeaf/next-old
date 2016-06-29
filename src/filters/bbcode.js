@@ -1,33 +1,44 @@
+function matchTag (tag) {
+  return new RegExp(`\\[${tag}\\]([\\s\\S]+?)\\[\\/${tag}\\]`, 'gi')
+}
+
+function matchTagWithParam (tag) {
+  return new RegExp(`\\[${tag}=(.+?)\\]([\\s\\S]+?)\\[\\/${tag}\\]`, 'gi')
+}
+
+function wrapText (tag) {
+  return (match, text) => `<${tag}>${text}</${tag}>`
+}
+
 export default function parseBBC (input) {
-  return input.replace(/\[(\w+?)=?(.*?)\](.*?)\[\/\1\]/g, (match, tag, value, content) => {
-    if (tag !== 'noparse') {
-      content = parseBBC(content)
-    } else {
-      return content
-    }
-
-    switch (tag) {
-      case 'i': return `<em>${content}</em>`
-      case 'b': return `<strong>${content}</strong>`
-      case 'u': return `<u>${content}</u>`
-      case 's': return `<del>${content}</del>`
-      case 'sup': return `<sup>${content}</sup>`
-      case 'sub': return `<small>${content}</small>`
-      case 'color': return `<span class="chat-color ${value}">${content}</span>`
-
-      case 'url': {
-        let href, text
-        if (value.trim() !== '') {
-          href = value
-          text = content
-        } else {
-          href = content
-          text = content
-        }
-        return `<a class="ui link" href="${href}" target="_blank">${text}</a>`
+  return input
+    // wrap links with [url] tags
+    // also account for [url] tags that already exist so we don't double-wrap them
+    .replace(/\[url\].+?\[\/url\]|\[url=.+?\].+?\[\/url\]|(https?:\/\/[^\[\]\(\)\s]+)/, (match, url) => {
+      if (url) {
+        return `[url]${url}[/url]`
+      } else {
+        return match
       }
+    })
 
-      default: return match
-    }
-  })
+    .replace(matchTag('i'), wrapText('em'))
+    .replace(matchTag('b'), wrapText('strong'))
+    .replace(matchTag('u'), wrapText('u'))
+    .replace(matchTag('s'), wrapText('del'))
+    .replace(matchTag('sup'), wrapText('sup'))
+    .replace(matchTag('sub'), wrapText('small'))
+    .replace(matchTag('sub'), wrapText('small'))
+
+    .replace(matchTagWithParam('color'), (match, param, text) => {
+      return `<span class="chat-color ${param}">${text}</span>`
+    })
+
+    .replace(matchTag('url'), (match, text) => {
+      return `<a class="ui link" href="${text}" target="_blank">${text}</a>`
+    })
+
+    .replace(matchTagWithParam('url'), (match, param, text) => {
+      return `<a class="ui link" href="${param}" target="_blank">${text}</a>`
+    })
 }
