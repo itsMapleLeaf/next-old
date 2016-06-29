@@ -22,8 +22,7 @@
       <div class='flex fixed ui theme-color main scroll character-list'>
         <ul>
           <li class='ui hover-darken' v-for='char in viewState.characters'>
-            <character :character='char'>
-            </character>
+            <character class='character-list-item' :character='char'></character>
           </li>
         </ul>
       </div>
@@ -54,8 +53,9 @@ ul
 .character-list
   width: 12em
 
-  li
-    padding: 0.2em 0.6em
+.character-list-item
+  display: block
+  padding: 0.2em 0.6em
 
 .message-list
   padding: 0.3em 0em
@@ -77,14 +77,13 @@ export default {
     viewState: Object
   },
 
-  created () {
-    // TODO: make this immediate + remove threshold
+  ready () {
     this.$watch('viewState.messages', () => {
       const element = this.$els.messageList
       if (element.scrollTop + element.clientHeight > element.scrollHeight - 100) {
         element.scrollTop = element.scrollHeight
       }
-    })
+    }, { immediate: true })
   },
 
   methods: {

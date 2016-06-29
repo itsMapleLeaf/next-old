@@ -23,9 +23,9 @@ export default function parseBBC (input) {
 
       case 'url': {
         if (param) {
-          return `<a class="ui link" href="${param}">${content}</a>`
+          return `<a class="ui link" href="${param}" target="_blank">${content}</a>`
         } else {
-          return `<a class="ui link" href="${content}">${content}</a>`
+          return `<a class="ui link" href="${content}" target="_blank">${content}</a>`
         }
       }
 

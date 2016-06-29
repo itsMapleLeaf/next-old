@@ -6,7 +6,7 @@
         <i class='fa fa-bars'></i>
       </a>
 
-      <div class='flex row stretch wrap'>
+      <div class='flex row stretch' style="flex-wrap: wrap-reverse">
         <chat-tab v-for='tab in tabs'
         :active='activeTabIndex === $index'
         @mousedown='activeTabIndex = $index'>
