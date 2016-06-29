@@ -43,7 +43,7 @@ ul.selection-list
   @extend .input
   @extend .flow-margin
 
-  $selected-color = rgb(39, 174, 96)
+  $active-color = rgb(39, 174, 96)
 
   display: inline-block
   list-style: none
@@ -61,6 +61,6 @@ ul.selection-list
     &:hover
       @extend .bg-theme-darkest
 
-  li.selected
-    background-color: rgba($selected-color, 0.3)
-    color: lighten($selected-color, 10%)
+  li.active
+    background-color: rgba($active-color, 0.3)
+    color: lighten($active-color, 10%)

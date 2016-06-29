@@ -1,15 +1,20 @@
 <template>
-  <div class='dropdown bg-color border-highlight'>
-    <div class='head hover-darken' @click='toggle'>
-      {{ items[selected].label }} <i class='fa fa-caret-down' style='float: right'></i>
+  <div>
+    <div class='ui input icon right hover-darken' @click='toggle'>
+      <i class='fa fa-caret-down'></i> {{ items[active].label }}
     </div>
-    <ol class='list' v-show='open'>
-      <li class='list-item hover-darken' v-for='item in items' @click='select($index)'>
+    <ol v-show='open'>
+      <li class='ui theme-color dark hover-darken' v-for='item in items' @click='select($index)'>
         {{ item.label }}
       </li>
     </ol>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+li
+  padding: 0.5em 0.5em
+</style>
 
 <script>
 export default {
@@ -20,7 +25,7 @@ export default {
   data () {
     return {
       open: false,
-      selected: 0
+      active: 0
     }
   },
 
@@ -30,12 +35,10 @@ export default {
     },
 
     select (index) {
-      this.selected = index
+      this.active = index
       this.open = false
-      this.$emit('selection', this.$get('items[selected].value'))
+      this.$emit('selection', this.$get('items[active].value'))
     }
   }
 }
 </script>
-
-<style lang="stylus"></style>

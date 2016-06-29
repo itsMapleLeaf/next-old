@@ -1,15 +1,15 @@
 <template>
   <div class='flex col ui theme-color dark fullscreen'>
     <div class='flex fixed row'>
-      <a class='app-menu-button'
+      <a class='ui hover-darken flex fixed app-menu-button'
       @click="$dispatch('overlay-change-request', 'app-menu')">
         <i class='fa fa-bars'></i>
       </a>
 
-      <div class='flex row stretch'>
+      <div class='flex row stretch wrap'>
         <chat-tab v-for='tab in tabs'
-        :selected='selectedTabIndex === $index'
-        @mousedown='selectedTabIndex = $index'>
+        :active='activeTabIndex === $index'
+        @mousedown='activeTabIndex = $index'>
           {{ tab.title }}
         </chat-tab>
       </div>
@@ -22,7 +22,14 @@
   </div>
 </template>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.app-menu-button
+  width: 2em
+  height: 2em
+  display: flex
+  align-items: center
+  justify-content: center
+</style>
 
 <script>
 import ChatTab from './ChatTab.vue'
@@ -42,15 +49,15 @@ export default {
   data () {
     return {
       tabs: [],
-      selectedTabIndex: 0,
+      activeTabIndex: 0,
       state
     }
   },
 
   computed: {
     currentTab () {
-      this.selectedTabIndex = Math.min(Math.max(this.selectedTabIndex, 0), this.tabs.length - 1)
-      const current = this.tabs[this.selectedTabIndex]
+      this.activeTabIndex = Math.min(Math.max(this.activeTabIndex, 0), this.tabs.length - 1)
+      const current = this.tabs[this.activeTabIndex]
       return current || nullTab
     }
   },

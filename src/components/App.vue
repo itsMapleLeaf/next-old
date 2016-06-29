@@ -7,7 +7,7 @@
     <component :is='currentOverlay'
     @login-request='loginRequest'
     @login-success='loginSuccess'
-    @character-selected='characterSelected'
+    @character-active='characterSelected'
     @channel-list-clicked='channelListClicked'>
     </component>
   </div>

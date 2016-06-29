@@ -1,17 +1,24 @@
 <template>
-  <div class="shade" @mousedown.self="closeAppMenu">
-    <div class="box vertical side-panel fg-color shadow">
-      <div class="box user-info">
+  <div class="ui overlay" @mousedown.self="closeAppMenu">
+    <div class="ui side-panel flex col">
+      <div class="ui form flex fixed">
         <h2>{{greeting}}</h2>
-        <div class="avatar bg-color border-highlight">
-          <a :href="profileURL" target="_blank">
-            <img :src="avatarURL">
-          </a>
+        <div class="ui field">
+          <div class="ui border hover-darken avatar">
+            <a :href="profileURL" target="_blank">
+              <img :src="avatarURL">
+            </a>
+          </div>
         </div>
-        <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
-        <div contenteditable placeholder="What's up?"></div>
+        <div class="ui field">
+          <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
+        </div>
+        <div class="ui field text-input icon right">
+          <i class='fa fa-pencil'></i>
+          <div contenteditable placeholder="What's up?"></div>
+        </div>
       </div>
-      <div class="box vertical grow bg-color">
+      <div class="flex stretch ui theme-color dark">
         <menu-option icon='globe' @mousedown="openChannelMenu">Channels</menu-option>
         <menu-option icon='gear'>Settings</menu-option>
         <menu-option icon='user'>Switch Character</menu-option>
@@ -20,6 +27,17 @@
     </div>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+.form
+  padding: 0em 1em
+
+.avatar
+  display: inline-block
+
+img
+  display: block
+</style>
 
 <script>
 import MenuOption from './MenuOption.vue'
@@ -76,5 +94,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped></style>

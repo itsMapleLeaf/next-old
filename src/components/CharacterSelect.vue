@@ -6,7 +6,7 @@
         <div class='ui field'>
           <ul class='ui selection'>
             <li v-for='name in characters'
-            :class='{ "selected": name === selectedCharacter }'
+            :class='{ "active": name === activeCharacter }'
             @click='setSelectedCharacter(name)'>
               {{name}}
             </li>
@@ -29,7 +29,7 @@ export default {
   data () {
     return {
       state,
-      selectedCharacter: state.getUserData().default_character
+      activeCharacter: state.getUserData().default_character
     }
   },
 
@@ -41,11 +41,11 @@ export default {
 
   methods: {
     setSelectedCharacter (name) {
-      this.selectedCharacter = name
+      this.activeCharacter = name
     },
 
     submit () {
-      this.$emit('character-selected', this.selectedCharacter)
+      this.$emit('character-active', this.activeCharacter)
     }
   }
 }

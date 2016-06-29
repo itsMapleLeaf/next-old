@@ -1,11 +1,13 @@
 <template>
   <div class='flex col stretch'>
+    <!-- description -->
     <div class='flex fixed ui theme-color main scroll'>
       <div class='description' v-html="viewState.description | bbcode"></div>
     </div>
 
     <div class='flex row stretch'>
-      <div class='flex stretch scroll'>
+      <!-- message -->
+      <div class='flex stretch ui scroll message-list' v-el:message-list>
         <ul>
           <li v-for='msg in viewState.messages'>
             <chat-message
@@ -16,7 +18,8 @@
         </ul>
       </div>
 
-      <div class='flex fixed ui theme-color main scroll'>
+      <!-- users -->
+      <div class='flex fixed ui theme-color main scroll character-list'>
         <ul>
           <li v-for='char in viewState.characters'>
             <character :character='char'></character>
@@ -25,6 +28,7 @@
       </div>
     </div>
 
+    <!-- chatbox -->
     <div class='flex fixed ui theme-color main'>
       <chatbox class='chatbox' @message-sent='messageSent'></chatbox>
     </div>
@@ -32,6 +36,9 @@
 </template>
 
 <style lang="stylus" scoped>
+ul
+  list-style: none
+
 .description
   height: 5em
   padding: 0.3em 0.5em
@@ -40,6 +47,12 @@
 
 .chatbox
   height: 5em
+
+.character-list
+  width: 12em
+
+  li
+    padding: 0.2em 0.6em
 </style>
 
 <script>
@@ -56,6 +69,20 @@ export default {
 
   props: {
     viewState: Object
+  },
+
+  created () {
+    this.$watch('viewState', () => {
+      const element = this.$els.messageList
+      element.scrollTop = element.scrollHeight
+    })
+
+    this.$watch('viewState.messages', () => {
+      const element = this.$els.messageList
+      if (element.scrollTop + element.clientHeight > element.scrollHeight - 100) {
+        element.scrollTop = element.scrollHeight
+      }
+    })
   },
 
   methods: {

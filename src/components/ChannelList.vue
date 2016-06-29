@@ -8,7 +8,7 @@
             <li v-for='channel in slicedChannelList'
             v-if="channel.name.trim() !== ''"
             @click='channelClicked(channel)'
-            :class="{ 'selected': isJoined(channel.id) } ">
+            :class="{ 'active': isJoined(channel.id) } ">
               <span class='ui pull right'>{{channel.userCount}}</span>
               <span v-html="channel.name"></span>
             </li>

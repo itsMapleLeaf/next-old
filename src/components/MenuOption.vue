@@ -1,8 +1,14 @@
 <template>
-  <a class='hover-darken'>
-    <i class='fa fa-{{icon}}'></i> <slot></slot>
+  <a class='ui hover-darken'>
+    <i class='fa fa-{{icon}} fa-fw'></i> <slot></slot>
   </a>
 </template>
+
+<style lang="stylus" scoped>
+a
+  display: block
+  padding: 0.8em 1em
+</style>
 
 <script>
 export default {
@@ -11,5 +17,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped></style>

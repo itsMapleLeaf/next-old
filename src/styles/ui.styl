@@ -4,13 +4,14 @@ $theme-color-dark = hsl(211, 50%, 23%)
 $theme-color-light = lighten($theme-color, 15%)
 
 *
-  margin: 0
   padding: 0
+  margin: 0
   box-sizing: border-box
   color: inherit
   border: none
   outline: none
   outline-offset: 0
+  resize: none
 
 :root
   font: 14pt 'Roboto', sans-serif
@@ -20,7 +21,17 @@ $theme-color-light = lighten($theme-color, 15%)
 h1, h2, h3, h4, h5, h6
   font-weight: 300
   opacity: 0.9
+  margin: 1rem 0
   // text-shadow: 0px 1px 1px darken($theme-color-dark, 20%)
+
+ul, ol
+  list-style: none
+
+[contenteditable]:empty::after
+  content: attr(placeholder)
+  opacity: 0.5
+  font-style: italic
+  cursor: text
 
 ::-webkit-scrollbar
   width: 0.5em
@@ -31,6 +42,9 @@ h1, h2, h3, h4, h5, h6
 
 ::-webkit-scrollbar-thumb
   background-color: $theme-color-light
+
+::-webkit-scrollbar-button
+  display: none
 
 ::selection
   background: rgba(black, 0.3)
@@ -80,37 +94,68 @@ h1, h2, h3, h4, h5, h6
     justify-content: center
     align-items: center
 
-    .panel
-      @extend .ui.theme-color.main
+  &.panel
+    @extend .ui.theme-color.main
 
-      width: 16em
-      text-align: center
-      box-shadow: 0px 2px 16px rgba(black, 0.4)
+    width: 16em
+    text-align: center
+    box-shadow: 0px 2px 16px rgba(black, 0.4)
 
-  &.text-input
-    display: inline-block
-    width: max-content
+  &.side-panel
+    @extend .ui.panel
+    position: fixed
+    left: 0; top: 0; bottom: 0
+    width: 12em
+    text-align: left
 
-    input
-      @extend .ui.theme-color.dark
-      @extend .ui.border
-      @extend .ui.transition
-      @extend .ui.focus-darken
-      width: 10em
-      padding: 0.4em 0.4em
+  &.input
+    @extend .ui.theme-color.dark
+    @extend .ui.border
+    @extend .ui.transition
+    @extend .ui.focus-darken
+    width: 10em
+    padding: 0.4em 0.6em
 
-    &.icon.left
+    &.icon
       position: relative
-
-      input
-        padding-left: 1.8em
 
       .fa
         opacity: 0.5
         position: absolute
         top: 0.6em
-        left: 0.6em
         pointer-events: none
+
+      &.left .fa { left: 0.6em }
+      &.right .fa { right: 0.6em }
+
+  &.text-input
+    display: inline-block
+    width: max-content
+
+    input, [contenteditable]
+      @extend .ui.theme-color.dark
+      @extend .ui.border
+      @extend .ui.transition
+      @extend .ui.focus-darken
+      width: 10em
+      padding: 0.4em 0.6em
+
+    &.icon
+      position: relative
+
+      .fa
+        opacity: 0.5
+        position: absolute
+        top: 0.6em
+        pointer-events: none
+
+      &.left
+        input, [contenteditable] { padding-left: 1.8em }
+        .fa { left: 0.6em }
+
+      &.right
+        input, [contenteditable] { padding-right: 1.8em }
+        .fa { right: 0.6em }
 
   &.button
     @extend .ui.theme-color.dark
@@ -142,13 +187,13 @@ h1, h2, h3, h4, h5, h6
       &:hover
         border-bottom: none
 
-      &.selected
-        $selected-color = rgb(39, 174, 96)
-        background-color: rgba($selected-color, 0.3)
-        color: lighten($selected-color, 20%)
+      &.active
+        $active-color = rgb(39, 174, 96)
+        background-color: rgba($active-color, 0.3)
+        color: lighten($active-color, 20%)
 
   &.pull.right
     float: right
 
   &.scroll
-    overflow-y: scroll
+    overflow-y: auto
