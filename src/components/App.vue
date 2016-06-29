@@ -8,7 +8,9 @@
     @login-request='loginRequest'
     @login-success='loginSuccess'
     @character-active='characterSelected'
-    @channel-list-clicked='channelListClicked'>
+    @channel-list-clicked='channelListClicked'
+    :active-character='activeCharacter'
+    keep-alive>
     </component>
   </div>
 </template>
@@ -24,6 +26,7 @@ import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import ChannelList from './ChannelList.vue'
 import AppMenu from './AppMenu.vue'
+import CharacterMenu from './CharacterMenu.vue'
 
 import state from '../state'
 import SocketHandler from '../socket-handler'
@@ -36,12 +39,14 @@ export default {
     Login,
     CharacterSelect,
     ChannelList,
-    AppMenu
+    AppMenu,
+    CharacterMenu
   },
 
   data () {
     return {
       currentOverlay: '',
+      activeCharacter: {},
       socket: new SocketHandler(this),
       state
     }
@@ -49,6 +54,7 @@ export default {
 
   created () {
     this.$on('overlay-change-request', this.setOverlay)
+    this.$on('character-action-request', this.openCharacterMenu)
 
     // TODO: don't auth to website if we're already connected to chat
     const { account, ticket } = this.state.getUserData()
@@ -118,6 +124,11 @@ export default {
 
     setOverlay (overlay) {
       this.currentOverlay = overlay
+    },
+
+    openCharacterMenu (character) {
+      this.activeCharacter = character
+      this.currentOverlay = 'character-menu'
     },
 
     channelMessageSent (id, message) {

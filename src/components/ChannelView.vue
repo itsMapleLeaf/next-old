@@ -12,7 +12,7 @@
           <li v-for='msg in viewState.messages'>
             <chat-message
             :character='msg.character'
-            :message='msg.message'>
+            :message='msg.message'
             </chat-message>
           </li>
         </ul>
@@ -21,8 +21,9 @@
       <!-- users -->
       <div class='flex fixed ui theme-color main scroll character-list'>
         <ul>
-          <li v-for='char in viewState.characters'>
-            <character :character='char'></character>
+          <li class='ui hover-darken' v-for='char in viewState.characters'>
+            <character :character='char'>
+            </character>
           </li>
         </ul>
       </div>

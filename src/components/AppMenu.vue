@@ -1,6 +1,6 @@
 <template>
   <div class="ui overlay" @mousedown.self="closeAppMenu">
-    <div class="ui side-panel flex col">
+    <div class="ui side-panel left flex col">
       <div class="ui form flex fixed">
         <h2>{{greeting}}</h2>
         <div class="ui field">

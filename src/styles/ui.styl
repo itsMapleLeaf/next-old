@@ -104,9 +104,13 @@ ul, ol
   &.side-panel
     @extend .ui.panel
     position: fixed
-    left: 0; top: 0; bottom: 0
+    top: 0
+    bottom: 0
     width: 12em
     text-align: left
+
+    &.left { left: 0 }
+    &.right { right: 0 }
 
   &.input
     @extend .ui.theme-color.dark
@@ -189,6 +193,10 @@ ul, ol
     @extend .ui.transition
     text-decoration: none
     border-bottom: 1px solid rgba($text-color, 0.3)
+    position: relative
 
     &:hover
-      border-bottom-color: rgba($text-color, 0.5)
+      border-bottom-color: rgba($text-color, 0.8)
+
+  &.divider
+    border-bottom: 1px solid rgba($text-color, 0.2)

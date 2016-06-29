@@ -1,6 +1,6 @@
 <template>
-  <a :href="profileURL" target="_blank"
-  :class="character.gender.toLowerCase()">
+  <a href='#' :class="character.gender.toLowerCase()"
+  @click.prevent='clicked'>
     <i class="fa fa-circle status-dot {{character.status.toLowerCase()}}"></i> {{character.name}}
   </a>
 </template>
@@ -78,6 +78,12 @@ export default {
   data () {
     return {
       profileURL: getProfileURL(this.character.name)
+    }
+  },
+
+  methods: {
+    clicked () {
+      this.$dispatch('character-action-request', this.character)
     }
   }
 }
