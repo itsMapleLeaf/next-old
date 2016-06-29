@@ -39,8 +39,8 @@ import ActionPanel from './ActionPanel.vue'
 import CharacterAvatarLink from './CharacterAvatarLink.vue'
 import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
-import state from '../state'
-import {getProfileURL, getAvatarURL} from '../flist'
+import state from '../lib/state'
+import {getProfileURL, getAvatarURL} from '../lib/flist'
 
 export default {
   components: {

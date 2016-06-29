@@ -23,7 +23,7 @@
 <style lang="stylus" scoped></style>
 
 <script>
-import state from '../state'
+import state from '../lib/state'
 
 export default {
   data () {

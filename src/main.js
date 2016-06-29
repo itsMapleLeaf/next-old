@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './components/App.vue'
-import parseBBC from './bbcode'
+import parseBBC from './filters/bbcode'
 
 Vue.config.debug = true
 Vue.config.devtools = true

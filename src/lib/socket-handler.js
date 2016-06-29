@@ -1,4 +1,3 @@
-// import store from './vuex/store'
 import {ChannelInfo, ChannelMode, ChannelStatus} from './types'
 import {inspect} from 'util'
 

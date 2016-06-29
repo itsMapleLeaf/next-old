@@ -35,7 +35,7 @@
 import ChatTab from './ChatTab.vue'
 import ChannelView from './ChannelView.vue'
 import PrivateChatView from './PrivateChatView.vue'
-import state from '../state'
+import state from '../lib/state'
 
 const nullTab = { text: 'null tab', view: '' }
 

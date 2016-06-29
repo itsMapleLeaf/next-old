@@ -28,10 +28,10 @@ import ChannelList from './ChannelList.vue'
 import AppMenu from './AppMenu.vue'
 import CharacterMenu from './CharacterMenu.vue'
 
-import state from '../state'
-import SocketHandler from '../socket-handler'
-import {ChannelStatus} from '../types'
-import {getUserData} from '../flist'
+import state from '../lib/state'
+import SocketHandler from '../lib/socket-handler'
+import {ChannelStatus} from '../lib/types'
+import {getUserData} from '../lib/flist'
 
 export default {
   components: {

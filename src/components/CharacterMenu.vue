@@ -36,7 +36,7 @@ img
 import MenuOption from './MenuOption.vue'
 import ActionPanel from './ActionPanel.vue'
 import CharacterAvatarLink from './CharacterAvatarLink.vue'
-import {getProfileURL, getAvatarURL} from '../flist'
+import {getProfileURL, getAvatarURL} from '../lib/flist'
 
 export default {
   props: {

@@ -40,9 +40,9 @@
 </style>
 
 <script>
-import state from '../state'
+import state from '../lib/state'
 import fuzzysearch from 'fuzzysearch'
-import {ChannelStatus} from '../types'
+import {ChannelStatus} from '../lib/types'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)

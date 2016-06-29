@@ -30,7 +30,7 @@
 </style>
 
 <script>
-import {sendLoginRequest} from '../flist'
+import {sendLoginRequest} from '../lib/flist'
 
 const errorMessage = `
 Could not connect to F-List website.

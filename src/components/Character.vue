@@ -68,7 +68,7 @@ a
 </style>
 
 <script>
-import {getProfileURL} from '../flist'
+import {getProfileURL} from '../lib/flist'
 
 export default {
   props: {
