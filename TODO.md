@@ -1,4 +1,6 @@
 # Functionality
+- [ ] save open channels
+  - [ ] and log them?
 - [ ] add a functional character menu
   - [ ] open private chat tabs
   - [ ] link to character's profile
@@ -16,13 +18,13 @@
 - [ ] add a global character list, with friends sorted to top
 
 # UX / Styling
-- [x] TRANSITIONS
 - [ ] add a waiting status screen for logging in
-- [x] add hover-darken to character list items
 - [ ] add a plus button to the tab bar for a server list shortcut
 - [ ] add dividers to split up the interface a bit
 - [ ] look into darklighting OOC?
 - [ ] on application start, scroll the character list down so the selected character is within view
+- [x] TRANSITIONS
+- [x] add hover-darken to character list items
 
 # Optimization / Cleanup
 - [ ] use computed() less, wherever possible
