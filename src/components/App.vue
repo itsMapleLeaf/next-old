@@ -9,8 +9,7 @@
     @login-success='loginSuccess'
     @character-active='characterSelected'
     @channel-list-clicked='channelListClicked'
-    :active-character='activeCharacter'
-    keep-alive>
+    :active-character='activeCharacter'>
     </component>
   </div>
 </template>
