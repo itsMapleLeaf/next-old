@@ -1,18 +1,29 @@
 <template>
   <div
-  class='chatbox'
   contenteditable
+  :maxlength="maxLength"
   :placeholder="placeholder"
-  maxlength="4096"
+  @keydown="fixContent($event)"
   @keydown.enter="messageSent($event)"
-  @input="fixContent"
   v-el:textarea></div>
 </template>
+
+<style lang="stylus" scoped>
+div
+  padding: 0.4em 0.6em
+</style>
 
 <script>
 import state from '../state'
 
 export default {
+  props: {
+    maxLength: {
+      type: Number,
+      default: Infinity
+    }
+  },
+
   data () {
     return { state }
   },
@@ -44,14 +55,12 @@ export default {
       }
     },
 
-    fixContent () {
-      // this seems useless but things are way less buggy and awkward with this
-      if (this.getContent() === '') {
-        this.setContent('')
+    fixContent (event) {
+      const content = this.getContent()
+      if (content.length >= this.maxLength && (event.code !== 'Backspace' && event.code !== 'Enter')) {
+        event.preventDefault()
       }
     }
   }
 }
 </script>
-
-<style lang="stylus" scoped></style>
