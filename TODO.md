@@ -2,12 +2,12 @@
 - [ ] save open channels
   - [ ] and log them?
 - [ ] add a functional character menu
-  - [x] open private chat tabs
-  - [ ] link to character's profile
   - [ ] ignore
-  - [ ] bookmark
   - [ ] report (low priority)
-  - [ ] show friendship status & reflect it in the options
+  - [x] open private chat tabs
+  - [x] link to character's profile
+  - [x] bookmark
+  - [x] show friendship status & reflect it in the options
   - [ ] ~~add friend~~ accidentally adding someone will be awkward
 - [ ] sort the user list alphabetically, with precedence:
   - [ ] friends (green highlight)
