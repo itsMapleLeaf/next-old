@@ -1,5 +1,5 @@
 <template>
-  <div class="ui overlay" :transition="transition" @click.self="$dispatch('overlay-change-request', '')">
+  <div class="ui overlay" :transition="transition" @click.self="close">
     <div class="ui side-panel {{side}} flex col">
       <div class="flex fixed">
         <slot name="content"></slot>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import * as events from '../lib/events'
+
 export default {
   props: {
     side: {
@@ -23,6 +25,12 @@ export default {
   data () {
     return {
       transition: 'slide-' + this.side
+    }
+  },
+
+  methods: {
+    close () {
+      this.$dispatch(events.OverlayChangeRequest, '')
     }
   }
 }

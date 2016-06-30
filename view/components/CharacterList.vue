@@ -24,6 +24,7 @@
 
 <script>
 import state from '../lib/state'
+import {CharacterSelected} from '../lib/events'
 
 export default {
   data () {
@@ -45,7 +46,7 @@ export default {
     },
 
     submit () {
-      this.$emit('character-active', this.activeCharacter)
+      this.$dispatch(CharacterSelected, this.activeCharacter)
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class='flex col ui theme-color dark fullscreen'>
     <div class='flex fixed row'>
       <a class='ui hover-darken flex fixed app-menu-button'
-      @click="$dispatch('overlay-change-request', 'app-menu')">
+      @click="openAppMenu">
         <i class='fa fa-bars'></i>
       </a>
 
@@ -15,9 +15,7 @@
       </div>
     </div>
 
-    <component :is="currentTab.view"
-    :view-state="currentTab.state"
-    @message-sent='messageSent'>
+    <component :is="currentTab.view" :view-state="currentTab.state">
     </component>
   </div>
 </template>
@@ -36,6 +34,7 @@ import ChatTab from './ChatTab.vue'
 import ChannelView from './ChannelView.vue'
 import PrivateChatView from './PrivateChatView.vue'
 import state from '../lib/state'
+import * as events from '../lib/events'
 
 const nullTab = { text: 'null tab', view: '' }
 
@@ -69,6 +68,32 @@ export default {
     this.$on('chatbox-message-sent', this.chatboxMessageSent)
   },
 
+  events: {
+    [events.ChatboxSubmit] (message) {
+      const tab = this.currentTab
+      if (tab.view === 'private-chat-view') {
+        this.$dispatch(events.PrivateMessageSent, tab.state.character, message)
+      } else if (tab.view === 'channel-view') {
+        this.$dispatch(events.ChannelMessageSent, tab.state.id, message)
+      }
+    },
+
+    [events.PrivateMessageReceived] (charname, message) {
+      let tabState = this.tabs.find(tab => {
+        return tab.view === 'private-chat-view' && tab.state.character.name === charname
+      })
+
+      if (!tabState) {
+        tabState = {
+          view: 'private-chat-view',
+          title: charname,
+          state: this.state.getPrivateChat(charname)
+        }
+        this.tabs.push(tabState)
+      }
+    }
+  },
+
   methods: {
     joinedChannel (channel) {
       const tabState = {
@@ -88,28 +113,8 @@ export default {
       })
     },
 
-    privateMessageReceived (charname, message) {
-      let tabState = this.tabs.find(tab => {
-        return tab.view === 'private-chat-view' && tab.state.character.name === charname
-      })
-
-      if (!tabState) {
-        tabState = {
-          view: 'private-chat-view',
-          title: charname,
-          state: this.state.getPrivateChat(charname)
-        }
-        this.tabs.push(tabState)
-      }
-    },
-
-    messageSent (message) {
-      const tab = this.currentTab
-      if (tab.view === 'private-chat-view') {
-        this.$emit('private-message-sent', tab.state.character, message)
-      } else if (tab.view === 'channel-view') {
-        this.$emit('channel-message-sent', tab.state.id, message)
-      }
+    openAppMenu () {
+      this.$dispatch(events.OverlayChangeRequest, 'app-menu')
     }
   }
 }

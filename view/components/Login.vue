@@ -31,10 +31,13 @@
 
 <script>
 import {sendLoginRequest} from '../lib/flist'
+import {LoginRequest, LoginSuccess} from '../lib/events'
 
 const errorMessage = `
 Could not connect to F-List website.
-They're either doing maintenance, or someone spilled coke on the servers again.`
+They're either doing maintenance,
+or someone spilled coke on the servers again.
+`
 
 export default {
   data () {
@@ -50,7 +53,7 @@ export default {
     submit () {
       sendLoginRequest(this.username, this.password)
       .then(data => {
-        this.$emit('login-success', data)
+        this.$dispatch(LoginSuccess, data)
       })
       .catch(err => {
         this.status = err || errorMessage
@@ -60,7 +63,7 @@ export default {
         this.password = ''
       })
 
-      this.$emit('login-request', this.username)
+      this.$dispatch(LoginRequest, this.username)
       this.disabled = true
     }
   }

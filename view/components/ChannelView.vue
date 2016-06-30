@@ -21,7 +21,7 @@
 
     <!-- chatbox -->
     <div class='flex fixed ui theme-color main'>
-      <chatbox class='chatbox' @message-sent='messageSent'></chatbox>
+      <chatbox class='chatbox'></chatbox>
     </div>
   </div>
 </template>
@@ -68,12 +68,6 @@ export default {
 
   props: {
     viewState: Object
-  },
-
-  methods: {
-    messageSent (message) {
-      this.$emit('message-sent', message)
-    }
   }
 }
 </script>

@@ -1,15 +1,7 @@
 <template>
   <div>
-    <chat
-    @channel-message-sent='channelMessageSent'
-    @private-message-sent='privateMessageSent'>
-    </chat>
-    <component :is='currentOverlay'
-    @login-request='loginRequest'
-    @login-success='loginSuccess'
-    @character-active='characterSelected'
-    @channel-list-clicked='channelListClicked'
-    :active-character='activeCharacter'>
+    <chat></chat>
+    <component :is='currentOverlay' :active-character='activeCharacter'>
     </component>
   </div>
 </template>
@@ -23,7 +15,7 @@
 <script>
 import Chat from './Chat.vue'
 import Login from './Login.vue'
-import CharacterSelect from './CharacterSelect.vue'
+import CharacterList from './CharacterList.vue'
 import ChannelList from './ChannelList.vue'
 import AppMenu from './AppMenu.vue'
 import CharacterMenu from './CharacterMenu.vue'
@@ -32,12 +24,13 @@ import state from '../lib/state'
 import SocketHandler from '../lib/socket-handler'
 import {ChannelStatus} from '../lib/types'
 import {getUserData} from '../lib/flist'
+import * as events from '../lib/events'
 
 export default {
   components: {
     Chat,
     Login,
-    CharacterSelect,
+    CharacterList,
     ChannelList,
     AppMenu,
     CharacterMenu
@@ -53,9 +46,6 @@ export default {
   },
 
   created () {
-    this.$on('overlay-change-request', this.setOverlay)
-    this.$on('character-action-request', this.openCharacterMenu)
-
     // TODO: don't auth to website if we're already connected to chat
     const { account, ticket } = this.state.getUserData()
     if (ticket !== '') {
@@ -64,7 +54,7 @@ export default {
         this.state.setUserCharacterList(data.characters)
         this.state.setFriendsList(data.friends)
         this.state.setBookmarkList(data.bookmarks)
-        this.currentOverlay = 'character-select'
+        this.currentOverlay = 'character-list'
       })
       .catch(err => {
         this.currentOverlay = 'login'
@@ -75,45 +65,36 @@ export default {
     }
   },
 
-  methods: {
-    loginRequest (account) {
-      this.state.setAccount(account)
+  events: {
+    [events.OverlayChangeRequest] (overlay) {
+      this.currentOverlay = overlay
     },
 
-    loginSuccess (data) {
-      this.state.setUserCharacterList(data.characters)
-      this.state.setFriendsList(data.friends)
-      this.state.setBookmarkList(data.bookmarks)
-      this.state.setTicket(data.ticket)
-      this.currentOverlay = 'character-select'
-    },
-
-    characterSelected (character) {
-      this.state.setCharacter(character)
+    [events.CharacterSelected] (name) {
+      this.state.setUserCharacter(name)
       this.currentOverlay = ''
       this.socket.connect('main')
     },
 
-    socketIdentifySuccess () {
-      this.socket.fetchChannelList()
-      this.currentOverlay = 'channel-list'
+    [events.CharacterActivated] (character) {
+      this.activeCharacter = character
+      this.currentOverlay = 'character-menu'
     },
 
-    socketError () {
-      this.currentOverlay = 'login'
+    [events.LoginRequest] (account) {
+      this.state.setAccount(account)
     },
 
-    socketChannelJoined (id) {
-      this.$broadcast('joined-channel', this.state.getChannel(id))
+    [events.LoginSuccess] (data) {
+      this.state.setUserCharacterList(data.characters)
+      this.state.setFriendsList(data.friends)
+      this.state.setBookmarkList(data.bookmarks)
+      this.state.setTicket(data.ticket)
+      this.currentOverlay = 'character-list'
     },
 
-    socketChannelLeft (id) {
-      this.$broadcast('left-channel', this.state.getChannel(id))
-    },
-
-    channelListClicked ({ id, name }) {
+    [events.ToggleChannelRequest] ({ id, name }) {
       this.state.setChannelName(id, name)
-
       const status = this.state.getChannelStatus(id)
       if (status === ChannelStatus.left) {
         this.socket.joinChannel(id)
@@ -122,25 +103,33 @@ export default {
       }
     },
 
-    setOverlay (overlay) {
-      this.currentOverlay = overlay
+    [events.SocketIdentifySuccess] () {
+      this.socket.fetchChannelList()
+      this.currentOverlay = 'channel-list'
     },
 
-    openCharacterMenu (character) {
-      this.activeCharacter = character
-      this.currentOverlay = 'character-menu'
+    [events.SocketError] () {
+      this.currentOverlay = 'login'
     },
 
-    channelMessageSent (id, message) {
+    [events.SocketChannelJoined] (id) {
+      this.$broadcast('joined-channel', this.state.getChannel(id))
+    },
+
+    [events.SocketChannelLeft] (id) {
+      this.$broadcast('left-channel', this.state.getChannel(id))
+    },
+
+    [events.ChannelMessageSent] (id, message) {
       this.socket.sendChannelMessage(id, message)
     },
 
-    privateMessageSent (character, message) {
+    [events.PrivateMessageSent] (character, message) {
       this.socket.sendPrivateMessage(character.name, message)
     },
 
-    privateMessageReceived (character, message) {
-      this.$broadcast('private-message-received', character, message)
+    [events.PrivateMessageReceived] (name, message) {
+      this.$broadcast(events.PrivateMessageReceived, name, message)
     }
   }
 }

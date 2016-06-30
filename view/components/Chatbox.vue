@@ -4,7 +4,7 @@
   :maxlength="maxLength"
   :placeholder="placeholder"
   @keydown="fixContent($event)"
-  @keydown.enter="messageSent($event)"
+  @keydown.enter="submit($event)"
   v-el:textarea></div>
 </template>
 
@@ -15,6 +15,7 @@ div
 
 <script>
 import state from '../lib/state'
+import {ChatboxSubmit} from '../lib/events'
 
 export default {
   props: {
@@ -47,9 +48,9 @@ export default {
       this.$els.textarea.innerText = text
     },
 
-    messageSent (event) {
+    submit (event) {
       if (!event.shiftKey) {
-        this.$emit('message-sent', this.getContent())
+        this.$dispatch(ChatboxSubmit, this.getContent())
         this.setContent('')
         event.preventDefault()
       }

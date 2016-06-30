@@ -68,6 +68,7 @@ a
 
 <script>
 import {getProfileURL} from '../lib/flist'
+import {CharacterActivated} from '../lib/events'
 
 export default {
   props: {
@@ -75,16 +76,17 @@ export default {
   },
 
   data () {
+    const {status, gender} = this.character
     return {
       profileURL: getProfileURL(this.character.name),
-      gender: this.character.gender.toLowerCase(),
-      status: this.character.status.toLowerCase()
+      gender: gender.toLowerCase(),
+      status: status.toLowerCase()
     }
   },
 
   methods: {
     clicked () {
-      this.$dispatch('character-action-request', this.character)
+      this.$dispatch(CharacterActivated, this.character)
     }
   }
 }

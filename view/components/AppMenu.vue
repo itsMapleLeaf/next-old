@@ -41,6 +41,7 @@ import MenuOption from './MenuOption.vue'
 import Dropdown from './Dropdown.vue'
 import state from '../lib/state'
 import {getProfileURL, getAvatarURL} from '../lib/flist'
+import {OverlayChangeRequest} from '../lib/events'
 
 export default {
   components: {
@@ -61,7 +62,7 @@ export default {
         { value: 'looking', label: 'Looking' },
         { value: 'busy', label: 'Busy' },
         { value: 'away', label: 'Away' },
-        { value: 'dnd', label: 'Do Not Disturb' }
+        { value: 'dnd', label: 'DND' }
       ]
     },
 
@@ -84,11 +85,11 @@ export default {
     },
 
     openChannelMenu () {
-      this.$dispatch('overlay-change-request', 'channel-list')
+      this.$dispatch(OverlayChangeRequest, 'channel-list')
     },
 
     closeAppMenu () {
-      this.$dispatch('overlay-change-request', '')
+      this.$dispatch(OverlayChangeRequest, '')
     }
   }
 }

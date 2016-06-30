@@ -18,12 +18,14 @@
 - [ ] add a global character list, with friends sorted to top
 
 # UX / Styling
+- [ ] fix the private chat view
 - [ ] add a waiting status screen for logging in
 - [ ] add a plus button to the tab bar for a server list shortcut
 - [ ] add dividers to split up the interface a bit
 - [ ] look into darklighting OOC?
 - [ ] on application start, scroll the character list down so the selected character is within view
 - [ ] remove window border, add custom window buttons
+- [ ] add a checkbox Vue component for easy styling
 - [x] TRANSITIONS
 - [x] add hover-darken to character list items
 
@@ -32,4 +34,5 @@
 - [ ] find a way to solve the bottleneck rendering 400~500 character elements at once
 - [ ] holy memory usage batman
 - [ ] move user / session storage to an offline JSON config file
+- [x] make a file for reference events that pass through the program
 - [x] move to electron

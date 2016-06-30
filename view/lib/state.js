@@ -105,7 +105,7 @@ class State {
     window.localStorage.setItem(keys.ticket(this.data.userData.account), ticket)
   }
 
-  setCharacter (charname) {
+  setUserCharacter (charname) {
     this.data.userData.character = charname
     window.localStorage.setItem(keys.character(this.data.userData.account), charname)
   }

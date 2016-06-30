@@ -1,5 +1,6 @@
 import {ChannelInfo, ChannelMode, ChannelStatus} from './types'
 import {inspect} from 'util'
+import * as events from './events'
 
 const urls = {
   mainInsecure: 'ws://chat.f-list.net:9722',
@@ -27,11 +28,11 @@ class SocketHandler {
 
     this.ws.onclose = () => {
       const err = 'Lost connection to server. :('
-      this.vm.socketError(err)
+      this.vm.$emit(events.SocketError, err)
     }
 
     this.ws.onerror = err => {
-      this.vm.socketError(err)
+      this.vm.$emit(events.SocketError, err)
     }
 
     this.ws.onmessage = ({data}) => {
@@ -66,7 +67,7 @@ class SocketHandler {
     switch (command) {
       // identify with server
       case 'IDN':
-        this.vm.socketIdentifySuccess()
+        this.vm.$emit(events.SocketIdentifySuccess)
         break
 
       /* ping~! */
@@ -163,11 +164,11 @@ class SocketHandler {
 
       // user joined a channel (could be us)
       case 'JCH': {
-        const { identity } = params.character
+        const {identity} = params.character
         state.addChannelCharacter(params.channel, identity)
         if (identity === state.getUserCharacterName()) {
           state.setChannelStatus(params.channel, ChannelStatus.joined)
-          this.vm.socketChannelJoined(params.channel)
+          this.vm.$emit(events.SocketChannelJoined, params.channel)
         }
         break
       }
@@ -177,19 +178,20 @@ class SocketHandler {
         state.removeChannelCharacter(params.channel, params.character)
         if (params.character === state.getUserCharacterName()) {
           state.setChannelStatus(params.channel, ChannelStatus.left)
-          this.vm.socketChannelLeft(params.channel)
+          this.vm.$emit(events.SocketChannelLeft, params.channel)
         }
         break
 
       // channel message
       case 'MSG':
         state.addChannelMessage(params.channel, params.character, params.message)
+        this.vm.$emit(events.ChannelMessageReceived, params.channel, params.character, params.message)
         break
 
       // private message
       case 'PRI':
         state.addPrivateMessage(params.character, params.character, params.message)
-        this.vm.privateMessageReceived(params.character, params.character, params.message)
+        this.vm.$emit(events.PrivateMessageReceived, params.character, params.character, params.message)
         break
 
       default:

@@ -7,7 +7,7 @@
           <ul class='ui selection'>
             <li v-for='channel in slicedChannelList'
             v-if="channel.name.trim() !== ''"
-            @click='channelClicked(channel)'
+            @click='toggle(channel)'
             :class="{ 'active': isJoined(channel.id) } ">
               <span class='ui pull right'>{{channel.userCount}}</span>
               <span v-html="channel.name"></span>
@@ -43,6 +43,7 @@
 import state from '../lib/state'
 import fuzzysearch from 'fuzzysearch'
 import {ChannelStatus} from '../lib/types'
+import {OverlayChangeRequest, ToggleChannelRequest} from '../lib/events'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)
@@ -84,11 +85,11 @@ export default {
     },
 
     closeOverlay () {
-      this.$dispatch('overlay-change-request', '')
+      this.$dispatch(OverlayChangeRequest, '')
     },
 
-    channelClicked (channel) {
-      this.$emit('channel-list-clicked', channel)
+    toggle (channel) {
+      this.$dispatch(ToggleChannelRequest, channel)
     }
   }
 }
