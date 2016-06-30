@@ -113,11 +113,11 @@ export default {
     },
 
     [events.SocketChannelJoined] (id) {
-      this.$broadcast('joined-channel', this.state.getChannel(id))
+      this.$broadcast(events.SocketChannelJoined, this.state.getChannel(id))
     },
 
     [events.SocketChannelLeft] (id) {
-      this.$broadcast('left-channel', this.state.getChannel(id))
+      this.$broadcast(events.SocketChannelLeft, this.state.getChannel(id))
     },
 
     [events.ChannelMessageSent] (id, message) {
@@ -130,6 +130,10 @@ export default {
 
     [events.PrivateMessageReceived] (name, message) {
       this.$broadcast(events.PrivateMessageReceived, name, message)
+    },
+
+    [events.OpenPrivateChatRequest] (name) {
+      this.$broadcast(events.OpenPrivateChatRequest, name)
     }
   }
 }

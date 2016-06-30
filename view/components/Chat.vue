@@ -61,14 +61,25 @@ export default {
     }
   },
 
-  ready () {
-    this.$on('joined-channel', this.joinedChannel)
-    this.$on('left-channel', this.leftChannel)
-    this.$on('private-message-received', this.privateMessageReceived)
-    this.$on('chatbox-message-sent', this.chatboxMessageSent)
-  },
-
   events: {
+    [events.SocketChannelJoined] (channel) {
+      const tabState = {
+        view: 'channel-view',
+        title: channel.name,
+        state: channel
+      }
+      this.tabs.push(tabState)
+    },
+
+    [events.SocketChannelLeft] (channel) {
+      this.tabs = this.tabs.filter(tab => {
+        if (tab.view === 'channel-view' && tab.state.id === channel.id) {
+          return false
+        }
+        return true
+      })
+    },
+
     [events.ChatboxSubmit] (message) {
       const tab = this.currentTab
       if (tab.view === 'private-chat-view') {
@@ -91,28 +102,18 @@ export default {
         }
         this.tabs.push(tabState)
       }
+    },
+
+    [events.OpenPrivateChatRequest] (name) {
+      this.tabs.push({
+        view: 'private-chat-view',
+        title: name,
+        state: this.state.getPrivateChat(name)
+      })
     }
   },
 
   methods: {
-    joinedChannel (channel) {
-      const tabState = {
-        view: 'channel-view',
-        title: channel.name,
-        state: channel
-      }
-      this.tabs.push(tabState)
-    },
-
-    leftChannel (channel) {
-      this.tabs = this.tabs.filter(tab => {
-        if (tab.view === 'channel-view' && tab.state.id === channel.id) {
-          return false
-        }
-        return true
-      })
-    },
-
     openAppMenu () {
       this.$dispatch(events.OverlayChangeRequest, 'app-menu')
     }

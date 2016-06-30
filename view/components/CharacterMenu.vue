@@ -13,7 +13,7 @@
       </div>
     </form>
     <div slot="options">
-      <menu-option icon='comment'>Send Message</menu-option>
+      <menu-option icon='comment' @click='openPrivateChat'>Send Message</menu-option>
       <menu-option icon='heart'>Add Friend</menu-option>
       <menu-option icon='user-times'>Ignore</menu-option>
       <menu-option icon='link'>View Profile</menu-option>
@@ -37,6 +37,7 @@ import MenuOption from './MenuOption.vue'
 import ActionPanel from './ActionPanel.vue'
 import CharacterAvatarLink from './CharacterAvatarLink.vue'
 import {getProfileURL, getAvatarURL} from '../lib/flist'
+import {OpenPrivateChatRequest} from '../lib/events'
 
 export default {
   props: {
@@ -53,6 +54,12 @@ export default {
     return {
       getProfileURL,
       getAvatarURL
+    }
+  },
+
+  methods: {
+    openPrivateChat () {
+      this.$dispatch(OpenPrivateChatRequest, this.activeCharacter.name)
     }
   },
 

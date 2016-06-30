@@ -1,21 +1,23 @@
-export const LoginRequest = 'LoginRequest'
-export const LoginSuccess = 'LoginSuccess'
+export const LoginRequest = 'LoginRequest' // (account: string)
+export const LoginSuccess = 'LoginSuccess' // (userData: object)
 
-export const OverlayChangeRequest = 'OverlayChangeRequest'
+export const OverlayChangeRequest = 'OverlayChangeRequest' // (overlay: string)
 
-export const CharacterSelected = 'CharacterSelected'
-export const CharacterActivated = 'CharacterActivated'
+export const CharacterSelected = 'CharacterSelected'   // (characterName: string)
+export const CharacterActivated = 'CharacterActivated' // (character: Character)
 
-export const SocketIdentifySuccess = 'IdentifySuccess'
-export const SocketError = 'SocketError'
-export const SocketChannelJoined = 'SocketChannelJoined'
-export const SocketChannelLeft = 'SocketChannelLeft'
+export const SocketIdentifySuccess = 'IdentifySuccess'   // ()
+export const SocketError = 'SocketError'                 // (error: string)
+export const SocketChannelJoined = 'SocketChannelJoined' // (channelID: string)
+export const SocketChannelLeft = 'SocketChannelLeft'     // (channelID: string)
 
-export const ToggleChannelRequest = 'ToggleChannelRequest'
+export const ToggleChannelRequest = 'ToggleChannelRequest' // (channelID: string)
 
-export const ChannelMessageSent = 'ChannelMessageSent'
-export const ChannelMessageReceived = 'ChannelMessageReceived'
-export const PrivateMessageSent = 'PrivateMessageSent'
-export const PrivateMessageReceived = 'PrivateMessageReceived'
+export const ChannelMessageSent = 'ChannelMessageSent'         // (channelID: string, message: string)
+export const ChannelMessageReceived = 'ChannelMessageReceived' // (channelID: string, characterName: string, message: string)
 
-export const ChatboxSubmit = 'ChatboxSubmit'
+export const PrivateMessageSent = 'PrivateMessageSent'         // (character: Character, message: string)
+export const PrivateMessageReceived = 'PrivateMessageReceived' // (characterName: string, message: string)
+export const OpenPrivateChatRequest = 'OpenPrivateChatRequest' // (partner: string)
+
+export const ChatboxSubmit = 'ChatboxSubmit' // (message: string)
