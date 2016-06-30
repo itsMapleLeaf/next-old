@@ -30,6 +30,8 @@
 - [ ] add a checkbox Vue component for easy styling
 - [ ] make the tabs reorderable... ugh
 - [ ] translate statuses into human readable text in CharacterMenu
+- [ ] add a view to read the channel description on a larger modal
+- [ ] make the description and userlist collapsible
 - [x] fix the private chat view
 - [x] TRANSITIONS
 - [x] add hover-darken to character list items
