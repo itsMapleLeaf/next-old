@@ -9,15 +9,15 @@
   - [x] bookmark
   - [x] show friendship status & reflect it in the options
   - [ ] ~~add friend~~ accidentally adding someone will be awkward
-- [ ] sort the user list alphabetically, with precedence:
-  - [ ] friends (green highlight)
-  - [ ] bookmarks (blue highlight)
-  - [ ] admins (red highlight)
-  - [ ] looking
-  - [ ] rest
 - [ ] render ads
 - [ ] add a global character list, with friends sorted to top
 - [ ] add a BBCode toolbar for the chatbox
+- [x] sort the user list alphabetically, with precedence:
+  - [x] friends (green highlight)
+  - [x] bookmarks (blue highlight)
+  - [x] admins (red highlight)
+  - [x] looking
+  - [x] rest
 
 # UX / Styling
 - [ ] add a waiting status screen for logging in
@@ -32,6 +32,7 @@
 - [ ] translate statuses into human readable text in CharacterMenu
 - [ ] add a view to read the channel description on a larger modal
 - [ ] make the description and userlist collapsible
+- [ ] add icons to tabs to indicate tab type
 - [x] fix the private chat view
 - [x] TRANSITIONS
 - [x] add hover-darken to character list items

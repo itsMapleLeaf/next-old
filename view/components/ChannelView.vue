@@ -12,7 +12,19 @@
       <!-- users -->
       <div class='flex fixed ui theme-color main scroll character-list'>
         <ul>
-          <li class='ui hover-darken' v-for='char in viewState.characters'>
+          <li class='ui hover-darken highlight green' v-for='char in characterGroups.friends'>
+            <character class='character-list-item' :character='char'></character>
+          </li>
+          <li class='ui hover-darken highlight blue' v-for='char in characterGroups.bookmarks'>
+            <character class='character-list-item' :character='char'></character>
+          </li>
+          <li class='ui hover-darken highlight red' v-for='char in characterGroups.admins'>
+            <character class='character-list-item' :character='char'></character>
+          </li>
+          <li class='ui hover-darken' v-for='char in characterGroups.looking'>
+            <character class='character-list-item' :character='char'></character>
+          </li>
+          <li class='ui hover-darken' v-for='char in characterGroups.rest'>
             <character class='character-list-item' :character='char'></character>
           </li>
         </ul>
@@ -57,6 +69,11 @@ import Chatbox from './Chatbox.vue'
 import Character from './Character.vue'
 import ChatMessage from './ChatMessage.vue'
 import ChatMessageList from './ChatMessageList.vue'
+import state from '../lib/state'
+
+function compareNames (a, b) {
+  return a.name.localeCompare(b.name)
+}
 
 export default {
   components: {
@@ -68,6 +85,42 @@ export default {
 
   props: {
     viewState: Object
+  },
+
+  data () {
+    return { state }
+  },
+
+  computed: {
+    characterGroups () {
+      const groups = {
+        friends: [],
+        bookmarks: [],
+        admins: [],
+        looking: [],
+        rest: []
+      }
+
+      this.viewState.characters.forEach(char => {
+        if (this.state.getFriendship(char.name).length > 0) {
+          groups.friends.push(char)
+        } else if (this.state.isBookmarked(char.name)) {
+          groups.bookmarks.push(char)
+        } else if (this.state.isAdmin(char.name)) {
+          groups.admins.push(char)
+        } else if (char.status === 'looking') {
+          groups.looking.push(char)
+        } else {
+          groups.rest.push(char)
+        }
+      })
+
+      for (let group in groups) {
+        groups[group].sort(compareNames)
+      }
+
+      return groups
+    }
   }
 }
 </script>

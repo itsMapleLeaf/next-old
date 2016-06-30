@@ -98,7 +98,7 @@ class State {
   // return the user character that another character is friends with
   // if not friends, returns undefined
   getFriendship (name) {
-    return this.data.friends[name]
+    return this.data.friends[name] || []
   }
 
   isBookmarked (name) {
@@ -108,6 +108,12 @@ class State {
   isIgnored (name) {
     return this.data.ignored.includes(name)
   }
+
+  isAdmin (name) {
+    return this.data.admins.includes(name)
+  }
+
+  isChannelOp (name, channel) {}
 
   // setters
   setAccount (account) {
