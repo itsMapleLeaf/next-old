@@ -1,5 +1,5 @@
 <template>
-  <div
+  <div class="ui theme-color main focus-lighten"
   contenteditable
   :maxlength="maxLength"
   :placeholder="placeholder"
@@ -10,6 +10,7 @@
 
 <style lang="stylus" scoped>
 div
+  height: 5em
   padding: 0.4em 0.6em
 </style>
 

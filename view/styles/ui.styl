@@ -1,7 +1,7 @@
 $text-color = hsl(205, 30%, 90%)
 $theme-color = hsl(210, 50%, 30%)
 $theme-color-dark = hsl(211, 50%, 23%)
-$theme-color-light = lighten($theme-color, 15%)
+$theme-color-light = lighten($theme-color, 10%)
 
 *
   padding: 0
@@ -60,7 +60,7 @@ a
     &.dark { background-color: $theme-color-dark }
     &.light { background-color: $theme-color-light }
     &.darker { background-color: darken($theme-color-dark, 20%) }
-    &.lighter { background-color: lighten($theme-color-light, 15%) }
+    &.lighter { background-color: lighten($theme-color-light, 10%) }
 
   &.border
     border-bottom: 3px solid $theme-color-light
@@ -79,6 +79,12 @@ a
     @extend .ui.transition
     &:focus
       @extend .ui.theme-color.darker
+      @extend .ui.border.bright
+
+  &.focus-lighten
+    @extend .ui.transition
+    &:focus
+      @extend .ui.theme-color.light
       @extend .ui.border.bright
 
   &.fullscreen

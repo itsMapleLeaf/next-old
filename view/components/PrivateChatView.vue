@@ -1,28 +1,34 @@
 <template>
-  <div class='box vertical grow'>
-    <div class='box fg-color scroll header'>
+  <div class='flex col stretch'>
+    <header class='flex fixed ui theme-color main'>
       <character :character='viewState.character'></character>
-      <span style="margin-left: 0.3em">- {{viewState.character.status}}, <span v-html='viewState.character.statusMessage | bbcode'></span></span>
-    </div>
+      <em>
+        <span>- {{viewState.character.status}}</span>
+        <span v-if="viewState.character.statusMessage" v-html='", " + viewState.character.statusMessage | bbcode'></span>
+      </em>
+    </header>
 
-    <div class='box divider'></div>
+    <!-- <div class='box divider'></div> -->
 
-    <div class='box grow scroll'>
+    <section class='flex stretch ui scroll'>
       <chat-message v-for='msg in viewState.messages'
       :character='msg.character'
       :message='msg.message'>
       </chat-message>
-    </div>
+    </section>
 
-    <div class='box divider'></div>
+    <!-- <div class='box divider'></div> -->
 
-    <div class='box fg-color'>
+    <section class='flex fixed ui theme-color main'>
       <chatbox @message-sent='messageSent'></chatbox>
-    </div>
+    </section>
   </div>
 </template>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+header
+  padding: 0.5em
+</style>
 
 <script>
 import Chatbox from './Chatbox.vue'
