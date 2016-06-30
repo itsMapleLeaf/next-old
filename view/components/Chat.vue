@@ -55,25 +55,24 @@ export default {
 
   computed: {
     currentTab () {
-      this.activeTabIndex = Math.min(Math.max(this.activeTabIndex, 0), this.tabs.length - 1)
-      const current = this.tabs[this.activeTabIndex]
-      return current || nullTab
+      return this.tabs[this.activeTabIndex] || nullTab
     }
   },
 
   events: {
     [events.SocketChannelJoined] (channel) {
-      const tabState = {
+      this.addTab({
         view: 'channel-view',
         title: channel.name,
         state: channel
-      }
-      this.tabs.push(tabState)
+      })
+      this.activeTabIndex = this.tabs.length - 1
     },
 
     [events.SocketChannelLeft] (channel) {
       this.tabs = this.tabs.filter(tab => {
         if (tab.view === 'channel-view' && tab.state.id === channel.id) {
+          this.activeTabIndex = Math.max(this.activeTabIndex - 1, 0)
           return false
         }
         return true
@@ -89,33 +88,42 @@ export default {
       }
     },
 
-    [events.PrivateMessageReceived] (charname, message) {
-      let tabState = this.tabs.find(tab => {
-        return tab.view === 'private-chat-view' && tab.state.character.name === charname
-      })
-
-      if (!tabState) {
-        tabState = {
-          view: 'private-chat-view',
-          title: charname,
-          state: this.state.getPrivateChat(charname)
-        }
-        this.tabs.push(tabState)
-      }
+    [events.PrivateMessageReceived] (name, message) {
+      this.addPrivateChat(name)
     },
 
     [events.OpenPrivateChatRequest] (name) {
-      this.tabs.push({
-        view: 'private-chat-view',
-        title: name,
-        state: this.state.getPrivateChat(name)
-      })
+      this.activeTabIndex = this.addPrivateChat(name)
     }
   },
 
   methods: {
     openAppMenu () {
       this.$dispatch(events.OverlayChangeRequest, 'app-menu')
+    },
+
+    addTab (tabState) {
+      this.tabs.push(tabState)
+      return tabState
+    },
+
+    addPrivateChat (partner) {
+      const index = this.tabs.findIndex(tab => {
+        return tab.view === 'private-chat-view' && tab.state.character.name === partner
+      })
+
+      // add a new PM tab if we couldn't find one
+      if (index === -1) {
+        this.addTab({
+          view: 'private-chat-view',
+          title: partner,
+          state: this.state.getPrivateChat(partner)
+        })
+        return this.tabs.length - 1
+      }
+
+      // return the index so we can set the active tab if we want
+      return index
     }
   }
 }

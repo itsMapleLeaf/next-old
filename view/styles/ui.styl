@@ -3,6 +3,11 @@ $theme-color = hsl(210, 50%, 30%)
 $theme-color-dark = hsl(211, 50%, 23%)
 $theme-color-light = lighten($theme-color, 10%)
 
+
+highlight($color)
+  background-color: rgba($color, 0.3)
+  color: lighten($color, 20%)
+
 *
   padding: 0
   margin: 0
@@ -68,6 +73,12 @@ a
     &.bright
       border-bottom-color: lighten($theme-color-light, 30%)
 
+  &.highlight
+    &.green { highlight: rgb(39, 174, 96) }
+    &.blue { highlight: rgb(52, 152, 219) }
+    &.red { highlight: rgb(231, 76, 60) }
+    &.section { border: none }
+
   &.hover-darken
     @extend .ui.transition
     cursor: pointer
@@ -127,8 +138,9 @@ a
     @extend .ui.border
     @extend .ui.transition
     @extend .ui.focus-darken
-    width: 10em
+    width: 10rem
     padding: 0.4em 0.6em
+    display: block
 
   &.section.icon
     position: relative

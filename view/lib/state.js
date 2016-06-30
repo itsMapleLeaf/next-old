@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {keys} from './storage'
+import * as flist from '../lib/flist'
 
 import {
   Character,
@@ -18,10 +19,10 @@ class State {
         bookmarks: [],
         characters: [],
         default_character: '',
-        friends: [],
         ticket: ''
       },
 
+      friends: {},          // userCharacter (string) => friendName (string)
       publicChannels: [],   // ChannelInfo[]
       privateChannels: [],  // ChannelInfo[]
       channels: {},         // channelID (string) => ChannelState
@@ -97,10 +98,7 @@ class State {
   // return the user character that another character is friends with
   // if not friends, returns undefined
   getFriendship (name) {
-    const entry = this.data.userData.friends.find(entry => entry.dest === name)
-    if (entry) {
-      return entry.source
-    }
+    return this.data.friends[name]
   }
 
   isBookmarked (name) {
@@ -132,7 +130,11 @@ class State {
   }
 
   setFriendsList (friends) {
-    this.data.userData.friends = friends
+    for (let entry of friends) {
+      const userCharacter = entry.source_name || entry.source
+      const friend = entry.dest_name || entry.dest
+      this.data.friends[friend] = (this.data.friends[friend] || []).concat([userCharacter])
+    }
   }
 
   setBookmarkList (bookmarks) {
@@ -238,6 +240,22 @@ class State {
     if (character) {
       chat.messages.push(ChatMessage(character, message))
     }
+  }
+
+  addBookmark (name) {
+    const {account, ticket, bookmarks} = this.data.userData
+    flist.addBookmark(account, ticket, name)
+    .then(() => {
+      bookmarks.push(name)
+    })
+  }
+
+  removeBookmark (name) {
+    const {account, ticket, bookmarks} = this.data.userData
+    flist.addBookmark(account, ticket, name)
+    .then(() => {
+      bookmarks.$remove(name)
+    })
   }
 }
 

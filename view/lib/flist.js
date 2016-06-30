@@ -4,7 +4,9 @@ const endpoints = {
   login: 'https://www.f-list.net/json/getApiTicket.php',
   characterList: 'https://www.f-list.net/json/api/character-list.php',
   friendsList: 'https://www.f-list.net/json/api/friend-list.php',
-  bookmarkList: 'https://www.f-list.net/json/api/bookmark-list.php'
+  bookmarkList: 'https://www.f-list.net/json/api/bookmark-list.php',
+  bookmarkAdd: 'https://www.f-list.net/json/api/bookmark-add.php',
+  bookmarkRemove: 'https://www.f-list.net/json/api/bookmark-remove.php'
 }
 
 function resolvePromise (promise) {
@@ -48,6 +50,28 @@ export function getUserData (account, ticket) {
   .then(({ characters }) => {
     data.bookmarks = characters
     return Promise.resolve(data)
+  })
+}
+
+export function addBookmark (account, ticket, name) {
+  return http.post(endpoints.bookmarkAdd, { account, ticket, name })
+  .then(res => {
+    if (res.error) {
+      return Promise.reject(res.error)
+    } else {
+      return Promise.resolve()
+    }
+  })
+}
+
+export function removeBookmark (account, ticket, name) {
+  return http.post(endpoints.bookmarkRemove, { account, ticket, name })
+  .then(res => {
+    if (res.error) {
+      return Promise.reject(res.error)
+    } else {
+      return Promise.resolve()
+    }
   })
 }
 

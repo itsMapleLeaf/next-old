@@ -40,5 +40,6 @@
 - [ ] holy memory usage batman
 - [ ] move user / session storage to an offline JSON config file
 - [ ] return a null character from the store to handle offline users
+- [x] ~~find a better way to organize chat tabs declaratively~~ just using events and not being stupid with focusing works
 - [x] make a file for reference events that pass through the program
 - [x] move to electron

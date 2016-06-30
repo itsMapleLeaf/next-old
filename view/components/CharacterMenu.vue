@@ -5,22 +5,25 @@
       <div class="ui field">
         <character-avatar-link :character="activeCharacter"></character-avatar-link>
       </div>
-      <div class="ui field wrap-break-word section">
-        <em><small>
-          <p>
-            {{char.status}}
-            <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
-          </p>
-          <p v-if="friendship">Friends with {{friendship}}</p>
-        </small></em>
-      </div>
+      <small class="ui field wrap-break-word section">
+        <em>
+          {{char.status}}
+          <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
+        </em>
+      </small>
+      <small class="ui field section highlight green" v-for="friend in friendships">
+        <em><i class="fa fa-heart"></i> {{friend}}</em>
+      </small>
     </form>
     <div slot="options">
       <menu-option icon='comment' @click='openPrivateChat'>Send Message</menu-option>
-      <menu-option icon='star-o' v-if='!bookmarked'>Bookmark</menu-option>
-      <menu-option icon='star' v-else>Unbookmark</menu-option>
+
+      <menu-option icon='star-o' v-if='!bookmarked' @click='state.addBookmark(char.name)'>Bookmark</menu-option>
+      <menu-option icon='star' v-else @click='state.removeBookmark(char.name)'>Unbookmark</menu-option>
+
       <menu-option icon='minus-square-o' v-if='!ignored'>Ignore</menu-option>
       <menu-option icon='minus-square' v-else>Unignore</menu-option>
+
       <menu-option icon='link' :href="getProfileURL(char.name)">View Profile</menu-option>
     </div>
   </action-panel>
@@ -42,7 +45,7 @@ import MenuOption from './MenuOption.vue'
 import ActionPanel from './ActionPanel.vue'
 import CharacterAvatarLink from './CharacterAvatarLink.vue'
 import {getProfileURL, getAvatarURL} from '../lib/flist'
-import {OpenPrivateChatRequest} from '../lib/events'
+import {OpenPrivateChatRequest, OverlayChangeRequest} from '../lib/events'
 import state from '../lib/state'
 
 export default {
@@ -67,6 +70,11 @@ export default {
   methods: {
     openPrivateChat () {
       this.$dispatch(OpenPrivateChatRequest, this.activeCharacter.name)
+      this.close()
+    },
+
+    close () {
+      this.$dispatch(OverlayChangeRequest, '')
     }
   },
 
@@ -75,7 +83,7 @@ export default {
       return this.activeCharacter
     },
 
-    friendship () {
+    friendships () {
       return this.state.getFriendship(this.char.name)
     },
 
