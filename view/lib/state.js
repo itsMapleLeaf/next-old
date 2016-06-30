@@ -94,6 +94,23 @@ class State {
     return this.data.channels.slice()
   }
 
+  // return the user character that another character is friends with
+  // if not friends, returns undefined
+  getFriendship (name) {
+    const entry = this.data.userData.friends.find(entry => entry.dest === name)
+    if (entry) {
+      return entry.source
+    }
+  }
+
+  isBookmarked (name) {
+    return this.data.userData.bookmarks.includes(name)
+  }
+
+  isIgnored (name) {
+    return this.data.ignored.includes(name)
+  }
+
   // setters
   setAccount (account) {
     this.data.userData.account = account

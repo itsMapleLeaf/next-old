@@ -37,15 +37,15 @@ export function getBookmarkList (account, ticket) {
 export function getUserData (account, ticket) {
   const data = {}
   return getCharacterList(account, ticket)
-  .then(({characters}) => {
+  .then(({ characters }) => {
     data.characters = characters
     return getFriendsList(account, ticket)
   })
-  .then(({characters}) => {
-    data.friends = characters
+  .then(({ friends }) => {
+    data.friends = friends
     return getBookmarkList(account, ticket)
   })
-  .then(({characters}) => {
+  .then(({ characters }) => {
     data.bookmarks = characters
     return Promise.resolve(data)
   })

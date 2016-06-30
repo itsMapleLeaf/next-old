@@ -7,16 +7,21 @@
       </div>
       <div class="ui field wrap-break-word section">
         <em><small>
-          {{char.status}}
-          <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
+          <p>
+            {{char.status}}
+            <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
+          </p>
+          <p v-if="friendship">Friends with {{friendship}}</p>
         </small></em>
       </div>
     </form>
     <div slot="options">
       <menu-option icon='comment' @click='openPrivateChat'>Send Message</menu-option>
-      <menu-option icon='heart'>Add Friend</menu-option>
-      <menu-option icon='user-times'>Ignore</menu-option>
-      <menu-option icon='link'>View Profile</menu-option>
+      <menu-option icon='star-o' v-if='!bookmarked'>Bookmark</menu-option>
+      <menu-option icon='star' v-else>Unbookmark</menu-option>
+      <menu-option icon='minus-square-o' v-if='!ignored'>Ignore</menu-option>
+      <menu-option icon='minus-square' v-else>Unignore</menu-option>
+      <menu-option icon='link' :href="getProfileURL(char.name)">View Profile</menu-option>
     </div>
   </action-panel>
 </template>
@@ -38,6 +43,7 @@ import ActionPanel from './ActionPanel.vue'
 import CharacterAvatarLink from './CharacterAvatarLink.vue'
 import {getProfileURL, getAvatarURL} from '../lib/flist'
 import {OpenPrivateChatRequest} from '../lib/events'
+import state from '../lib/state'
 
 export default {
   props: {
@@ -53,7 +59,8 @@ export default {
   data () {
     return {
       getProfileURL,
-      getAvatarURL
+      getAvatarURL,
+      state
     }
   },
 
@@ -66,6 +73,18 @@ export default {
   computed: {
     char () {
       return this.activeCharacter
+    },
+
+    friendship () {
+      return this.state.getFriendship(this.char.name)
+    },
+
+    bookmarked () {
+      return this.state.isBookmarked(this.char.name)
+    },
+
+    ignored () {
+      return this.state.isIgnored(this.char.name)
     }
   }
 }

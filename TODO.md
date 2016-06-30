@@ -4,10 +4,11 @@
 - [ ] add a functional character menu
   - [x] open private chat tabs
   - [ ] link to character's profile
-  - [ ] add friend
   - [ ] ignore
   - [ ] bookmark
   - [ ] report (low priority)
+  - [ ] show friendship status & reflect it in the options
+  - [ ] ~~add friend~~ accidentally adding someone will be awkward
 - [ ] sort the user list alphabetically, with precedence:
   - [ ] friends (green highlight)
   - [ ] bookmarks (blue highlight)
@@ -28,6 +29,7 @@
 - [ ] remove window border, add custom window buttons
 - [ ] add a checkbox Vue component for easy styling
 - [ ] make the tabs reorderable... ugh
+- [ ] translate statuses into human readable text in CharacterMenu
 - [x] fix the private chat view
 - [x] TRANSITIONS
 - [x] add hover-darken to character list items
@@ -37,6 +39,6 @@
 - [ ] find a way to solve the bottleneck rendering 400~500 character elements at once
 - [ ] holy memory usage batman
 - [ ] move user / session storage to an offline JSON config file
-- [ ] use an array queue for sending messages down to components?
+- [ ] return a null character from the store to handle offline users
 - [x] make a file for reference events that pass through the program
 - [x] move to electron

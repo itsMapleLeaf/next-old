@@ -1,5 +1,5 @@
 <template>
-  <a class='ui hover-darken' :class="{ 'theme-color main border': active }">
+  <a class='ui hover-darken' :class="{ 'theme-color main border': active }" transition="fade">
     <span><slot></slot></span>
   </a>
 </template>

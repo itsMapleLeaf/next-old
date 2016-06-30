@@ -1,5 +1,5 @@
 <template>
-  <a class='ui hover-darken'>
+  <a class='ui hover-darken' target="_blank">
     <i class='fa fa-{{icon}} fa-fw'></i> <slot></slot>
   </a>
 </template>
