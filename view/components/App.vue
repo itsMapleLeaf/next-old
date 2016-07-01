@@ -69,15 +69,6 @@ export default {
   },
 
   events: {
-    [events.OverlayChangeRequest] (overlay) {
-      console.error('warning: OverlayChangeRequest event is deprecated')
-      if (overlay === '') {
-        this.overlays.pop()
-      } else {
-        this.overlays.push(overlay)
-      }
-    },
-
     [events.PushOverlay] (overlay) {
       this.overlays.push(overlay)
     },

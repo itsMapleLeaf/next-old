@@ -23,7 +23,7 @@
 
     <div slot="options">
       <menu-option icon='globe' @mousedown="openChannelMenu">Channels</menu-option>
-      <menu-option icon='users' @mousedown="openOnlineUsers">Online Users</menu-option>
+      <menu-option icon='paw' @mousedown="openOnlineUsers">Online Users</menu-option>
       <menu-option icon='gear'>Settings</menu-option>
       <menu-option icon='user'>Switch Character</menu-option>
       <menu-option icon='sign-out'>Log Out</menu-option>
@@ -50,7 +50,7 @@ import Dropdown from '../elements/Dropdown.vue'
 
 import state from '../../lib/state'
 import {getProfileURL, getAvatarURL} from '../../lib/flist'
-import {OverlayChangeRequest} from '../../lib/events'
+import {PushOverlay, PopOverlay} from '../../lib/events'
 
 export default {
   components: {
@@ -94,15 +94,13 @@ export default {
     },
 
     openChannelMenu () {
-      this.$dispatch(OverlayChangeRequest, 'channel-list')
+      this.$dispatch(PopOverlay)
+      this.$dispatch(PushOverlay, 'channel-list')
     },
 
     openOnlineUsers () {
-      this.$dispatch(OverlayChangeRequest, 'online-users')
-    },
-
-    closeAppMenu () {
-      this.$dispatch(OverlayChangeRequest, '')
+      this.$dispatch(PopOverlay)
+      this.$dispatch(PushOverlay, 'online-users')
     }
   }
 }

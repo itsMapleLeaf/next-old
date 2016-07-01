@@ -46,6 +46,8 @@
 - [ ] render channel/session BBC links
 - [ ] put .noselect on the friend tooltips in CharacterMenu
 - [ ] add notification sounds
+- [ ] open the app menu by default instead of the channel menu
+- [x] close the app menu when selecting an option
 - [x] use a state stack for overlays, for better UX experience
 - [x] show gender in character menu
 - [x] fix the private chat view
@@ -67,7 +69,7 @@
 - [x] move to electron
 
 # Bugs
-- [ ] fix the goddamn overlays
+- [x] fix the goddamn overlays
 - [x] fix most things broken with the socket handler
 - [x] characters are not removed from active channels when they go offline
 - [x] bookmarks seem a little wonky. look into that

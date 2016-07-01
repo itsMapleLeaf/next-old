@@ -50,7 +50,7 @@
 import state from '../../lib/state'
 import fuzzysearch from 'fuzzysearch'
 import {ChannelStatus} from '../../lib/types'
-import {OverlayChangeRequest, ToggleChannelRequest} from '../../lib/events'
+import {PushOverlay, PopOverlay, ToggleChannelRequest} from '../../lib/events'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)
@@ -92,7 +92,7 @@ export default {
     },
 
     closeOverlay () {
-      this.$dispatch(OverlayChangeRequest, '')
+      this.$dispatch(PopOverlay)
     }
   }
 }

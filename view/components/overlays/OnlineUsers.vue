@@ -51,7 +51,7 @@ import Dropdown from '../elements/Dropdown.vue'
 
 import state from '../../lib/state'
 import {compareNames} from '../../lib/util'
-import {OverlayChangeRequest} from '../../lib/events'
+import {PushOverlay, PopOverlay} from '../../lib/events'
 import Fuse from 'fuse.js'
 
 export default {
@@ -144,7 +144,7 @@ export default {
     },
 
     close () {
-      this.$dispatch(OverlayChangeRequest, '')
+      this.$dispatch(PopOverlay)
     }
   }
 }

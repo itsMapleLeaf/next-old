@@ -100,7 +100,7 @@ export default {
 
   methods: {
     openAppMenu () {
-      this.$dispatch(events.OverlayChangeRequest, 'app-menu')
+      this.$dispatch(events.PushOverlay, 'app-menu')
     },
 
     addTab (tabState) {

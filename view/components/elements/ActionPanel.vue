@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import * as events from '../../lib/events'
+import {PopOverlay} from '../../lib/events'
 
 export default {
   props: {
@@ -30,7 +30,7 @@ export default {
 
   methods: {
     close () {
-      this.$dispatch(events.OverlayChangeRequest, '')
+      this.$dispatch(PopOverlay)
     }
   }
 }
