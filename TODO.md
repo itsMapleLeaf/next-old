@@ -23,6 +23,9 @@
   - [x] rest
 
 # UX / Styling
+- [ ] mobile responsive styling
+  - [ ] make center panels fullscreen at mobile size
+  - [ ] make the description and userlist collapsible
 - [ ] redo the chat colors (currently absent)
 - [ ] add a waiting status screen for logging in
 - [ ] add a plus button to the tab bar for a server list shortcut
@@ -33,11 +36,10 @@
 - [ ] remove window border, add custom window buttons
 - [ ] add a checkbox Vue component for easy styling
 - [ ] make the tabs reorderable... ugh
-- [ ] translate statuses into human readable text in CharacterMenu
 - [ ] add a view to read the channel description on a larger modal
-- [ ] make the description and userlist collapsible
 - [ ] add icons to tabs to indicate tab type
-- [ ] check if the socket connection already exists before showing the character list
+- [ ] translate statuses into human readable text in CharacterMenu
+- [ ] render channel/session BBC links
 - [x] use a state stack for overlays, for better UX experience
 - [x] show gender in character menu
 - [x] fix the private chat view
@@ -56,3 +58,7 @@
 - [x] ~~find a better way to organize chat tabs declaratively~~ just using events and not being stupid with focusing works
 - [x] make a file for reference events that pass through the program
 - [x] move to electron
+
+# Bugs
+- [ ] check if the socket connection already exists before authenticating
+- [ ] characters are not removed from active channels when they go offline
