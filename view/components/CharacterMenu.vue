@@ -7,7 +7,7 @@
       </div>
       <small class="ui field wrap-break-word section">
         <em>
-          {{char.status}}
+          {{char.gender}}, {{char.status}}
           <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
         </em>
       </small>

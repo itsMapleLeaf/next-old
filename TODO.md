@@ -35,7 +35,7 @@
 - [ ] add a view to read the channel description on a larger modal
 - [ ] make the description and userlist collapsible
 - [ ] add icons to tabs to indicate tab type
-- [ ] show gender in character menu
+- [x] show gender in character menu
 - [x] fix the private chat view
 - [x] TRANSITIONS
 - [x] add hover-darken to character list items
