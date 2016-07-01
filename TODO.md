@@ -1,5 +1,4 @@
 # Functionality
-- [ ] add a global character list, with friends sorted to top
 - [ ] save open channels
   - [ ] and log them? (see JSON optimization)
 - [ ] add a functional character menu
@@ -12,16 +11,19 @@
   - [ ] ~~add friend~~ accidentally adding someone will be awkward
 - [ ] render ads
 - [ ] add a BBCode toolbar for the chatbox
+- [ ] default left click to open profile, right click to open character menu
+- [ ] add user preferences
+- [ ] open character profiles in an iframe
+- [x] add a global character list, with friends sorted to top
 - [x] sort the user list alphabetically, with precedence:
   - [x] friends (green highlight)
   - [x] bookmarks (blue highlight)
   - [x] admins (red highlight)
   - [x] looking
   - [x] rest
-- [ ] default left click to open profile, right click to open character menu
-- [ ] add user preferences
 
 # UX / Styling
+- [ ] redo the chat colors (currently absent)
 - [ ] add a waiting status screen for logging in
 - [ ] add a plus button to the tab bar for a server list shortcut
 - [ ] add close buttons for the tabs
@@ -35,6 +37,8 @@
 - [ ] add a view to read the channel description on a larger modal
 - [ ] make the description and userlist collapsible
 - [ ] add icons to tabs to indicate tab type
+- [ ] check if the socket connection already exists before showing the character list
+- [x] use a state stack for overlays, for better UX experience
 - [x] show gender in character menu
 - [x] fix the private chat view
 - [x] TRANSITIONS
@@ -46,6 +50,7 @@
 - [ ] return a null character from the store to handle offline users
 - [ ] organize components into subfolders (overlays, chat views, etc.)
 - [ ] limit the size of the message list to prevent hardcore memory leaks
+- [ ] move socket logic to application side out of the view
 - [x] find a way to solve the bottleneck rendering 400~500 character elements at once
 - [x] holy memory usage batman
 - [x] ~~find a better way to organize chat tabs declaratively~~ just using events and not being stupid with focusing works
