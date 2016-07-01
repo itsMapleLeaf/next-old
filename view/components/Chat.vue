@@ -1,26 +1,9 @@
 <template>
   <div class='flex col ui theme-color dark fullscreen'>
     <div class='flex row fixed' style='flex-wrap: wrap'>
-      <!-- app menu shortcut -->
-      <a class='ui hover-darken flex fixed center-content header-shortcut'
-      title="Actions"
-      @click="openAppMenu">
-        <i class='fa fa-bars'></i>
-      </a>
-
-      <!-- channel list shortcut -->
-      <a class='ui hover-darken flex fixed center-content header-shortcut'
-      title="Channels"
-      @click="openChannelList">
-        <i class='fa fa-globe'></i>
-      </a>
-
-      <!-- user list shortcut -->
-      <a class='ui hover-darken flex fixed center-content header-shortcut'
-      title="Online Users"
-      @click="openOnlineUsers">
-        <i class='fa fa-heart'></i>
-      </a>
+      <shortcut title="Actions" icon="bars" overlay="app-menu"></shortcut>
+      <shortcut title="Channels" icon="globe" overlay="channel-list"></shortcut>
+      <shortcut title="Users" icon="heart" overlay="online-users"></shortcut>
 
       <chat-tab v-for='tab in tabs'
       :active='activeTabIndex === $index'
@@ -52,11 +35,33 @@ import * as events from '../lib/events'
 
 const nullTab = { text: 'null tab', view: '' }
 
+const Shortcut = {
+  template: `
+    <a class='ui hover-darken flex fixed center-content header-shortcut'
+    title="Actions"
+    @click="pushOverlay(overlay)">
+      <i class='fa fa-{{icon}}'></i>
+    </a>
+  `,
+
+  props: {
+    icon: String,
+    overlay: String
+  },
+
+  methods: {
+    pushOverlay (overlay) {
+      this.$dispatch(events.PushOverlay, overlay)
+    }
+  }
+}
+
 export default {
   components: {
     ChatTab,
     ChannelView,
-    PrivateChatView
+    PrivateChatView,
+    Shortcut
   },
 
   data () {
@@ -112,18 +117,6 @@ export default {
   },
 
   methods: {
-    openAppMenu () {
-      this.$dispatch(events.PushOverlay, 'app-menu')
-    },
-
-    openChannelList () {
-      this.$dispatch(events.PushOverlay, 'channel-list')
-    },
-
-    openOnlineUsers () {
-      this.$dispatch(events.PushOverlay, 'online-users')
-    },
-
     closeTab (tab) {
       if (tab.view === 'channel-view') {
         this.$dispatch(events.LeaveChannelRequest, tab.state.id)
