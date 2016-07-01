@@ -2,6 +2,8 @@ export const LoginRequest = 'LoginRequest' // (account: string)
 export const LoginSuccess = 'LoginSuccess' // (userData: object)
 
 export const OverlayChangeRequest = 'OverlayChangeRequest' // (overlay: string)
+export const PushOverlay = 'PushOverlay' // (overlay: string)
+export const PopOverlay = 'PopOverlay'   // ()
 
 export const CharacterSelected = 'CharacterSelected'   // (characterName: string)
 export const CharacterActivated = 'CharacterActivated' // (character: string)

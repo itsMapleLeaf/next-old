@@ -1,8 +1,7 @@
 <template>
   <div @click='checkDataAttribute($event)'>
     <chat></chat>
-    <component :is='currentOverlay' :active-character='activeCharacter'>
-    </component>
+    <component v-for="overlay in overlays" :is='overlay' :active-character='activeCharacter'></component>
   </div>
 </template>
 
@@ -40,7 +39,7 @@ export default {
 
   data () {
     return {
-      currentOverlay: '',
+      overlays: [],
       activeCharacter: {},
       socket: new SocketHandler(this),
       state
@@ -56,31 +55,44 @@ export default {
         this.state.setUserCharacterList(data.characters)
         this.state.setFriendsList(data.friends)
         this.state.setBookmarkList(data.bookmarks)
-        this.currentOverlay = 'character-list'
+        this.$emit(events.PushOverlay, 'character-list')
       })
       .catch(err => {
-        this.currentOverlay = 'login'
+        this.$emit(events.PushOverlay, 'login')
         console.warn(err)
       })
     } else {
-      this.currentOverlay = 'login'
+      this.$emit(events.PushOverlay, 'login')
     }
   },
 
   events: {
     [events.OverlayChangeRequest] (overlay) {
-      this.currentOverlay = overlay
+      console.error('warning: OverlayChangeRequest event is deprecated')
+      if (overlay === '') {
+        this.overlays.pop()
+      } else {
+        this.overlays.push(overlay)
+      }
+    },
+
+    [events.PushOverlay] (overlay) {
+      this.overlays.push(overlay)
+    },
+
+    [events.PopOverlay] () {
+      this.overlays.pop()
     },
 
     [events.CharacterSelected] (name) {
       this.state.setUserCharacter(name)
-      this.currentOverlay = ''
       this.socket.connect('main')
+      this.$emit(events.PopOverlay)
     },
 
     [events.CharacterActivated] (character) {
       this.activeCharacter = this.state.getCharacter(character)
-      this.currentOverlay = 'character-menu'
+      this.$emit(events.PushOverlay, 'character-menu')
     },
 
     [events.LoginRequest] (account) {
@@ -92,7 +104,8 @@ export default {
       this.state.setFriendsList(data.friends)
       this.state.setBookmarkList(data.bookmarks)
       this.state.setTicket(data.ticket)
-      this.currentOverlay = 'character-list'
+      this.$emit(events.PopOverlay)
+      this.$emit(events.PushOverlay, 'character-list')
     },
 
     [events.ToggleChannelRequest] (id) {
@@ -106,11 +119,11 @@ export default {
 
     [events.SocketIdentifySuccess] () {
       this.socket.fetchChannelList()
-      this.currentOverlay = 'channel-list'
+      this.$emit(events.PushOverlay, 'channel-list')
     },
 
     [events.SocketError] () {
-      this.currentOverlay = 'login'
+      this.$emit(events.PushOverlay, 'login')
     },
 
     [events.SocketChannelJoined] (id) {
