@@ -19,8 +19,8 @@
               <i class="fa fa-paw ui pull-right" v-if="characterIs(char, 'looking')"></i>
               <character :character='char'></character>
             </li>
-            <center class="ui small subtle" style="padding: 0.5em">
-              <em>Results truncated for performance. Search for more results.</em>
+            <center class="ui small subtle" style="padding: 0.5em" v-if="slicedCharacters.length === 200">
+              <em>List truncated for performance. Search for more results.</em>
             </center>
           </ul>
         </div>
