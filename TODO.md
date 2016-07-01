@@ -45,6 +45,7 @@
 - [ ] move user / session storage to an offline JSON config file
 - [ ] return a null character from the store to handle offline users
 - [ ] organize components into subfolders (overlays, chat views, etc.)
+- [ ] limit the size of the message list to prevent hardcore memory leaks
 - [x] find a way to solve the bottleneck rendering 400~500 character elements at once
 - [x] holy memory usage batman
 - [x] ~~find a better way to organize chat tabs declaratively~~ just using events and not being stupid with focusing works

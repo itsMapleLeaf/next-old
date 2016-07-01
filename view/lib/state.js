@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import {keys} from './storage'
 import * as flist from '../lib/flist'
+// import {compareNames} from '../lib/util'
 
 import {
   Character,
@@ -101,6 +102,43 @@ class State {
     return this.data.onlineCharacters[name]
   }
 
+  // returns an array of every online character
+  getOnlineCharacters () {
+    const {onlineCharacters} = this.data
+    return Object.keys(onlineCharacters).map(name => onlineCharacters[name])
+  }
+
+  // returns a hash of different characters grouped by priority sort
+  // getSortedCharacters () {
+  //   const groups = {
+  //     friends: [],
+  //     bookmarks: [],
+  //     admins: [],
+  //     looking: [],
+  //     rest: []
+  //   }
+  //
+  //   this.getOnlineCharacters().forEach(char => {
+  //     if (this.getFriendship(char.name).length > 0) {
+  //       groups.friends.push(char)
+  //     } else if (this.isBookmarked(char.name)) {
+  //       groups.bookmarks.push(char)
+  //     } else if (this.isAdmin(char.name)) {
+  //       groups.admins.push(char)
+  //     } else if (char.status === 'looking') {
+  //       groups.looking.push(char)
+  //     } else {
+  //       groups.rest.push(char)
+  //     }
+  //   })
+  //
+  //   for (let group in groups) {
+  //     groups[group].sort(compareNames)
+  //   }
+  //
+  //   return groups
+  // }
+
   // return the user character that another character is friends with
   // if not friends, returns undefined
   getFriendship (name) {
@@ -120,6 +158,28 @@ class State {
   }
 
   isChannelOp (name, channel) {}
+
+  // returns a classification for a character
+  // useful for list sorting by friends, bookmarks, etc.
+  getCharacterCategory (character) {
+    const cat = []
+    if (this.getFriendship(character.name).length > 0) {
+      cat.push('friend')
+    }
+    if (this.isBookmarked(character.name)) {
+      cat.push('bookmark')
+    }
+    if (this.isAdmin(character.name)) {
+      cat.push('admin')
+    }
+    if (this.isIgnored(character.name)) {
+      cat.push('ignored')
+    }
+    if (character.status === 'looking') {
+      cat.push('looking')
+    }
+    return cat
+  }
 
   // setters
   setAccount (account) {

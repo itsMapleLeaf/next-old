@@ -1,32 +1,45 @@
 <template>
   <div>
-    <div class='ui section icon right hover-darken' @click='toggle'>
-      <i class='fa fa-caret-down'></i> {{ items[active].label }}
-    </div>
-    <ol v-show='open' transition="collapse">
-      <li class='ui theme-color dark hover-darken' v-for='item in items' @click='select($index)'>
-        {{ item.label }}
-      </li>
+    <span class='ui section icon right hover-darken head' @click='toggle'>
+      <i class='fa fa-caret-down'></i> {{ valueLabel }}
+    </span>
+    <ol class='ui border' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
+      <slot></slot>
     </ol>
   </div>
 </template>
 
 <style lang="stylus" scoped>
-li
-  padding: 0.5em 0.5em
+div
+  display: inline-block
+  text-align: left
+  position: relative
+
+.head
+  width: 100%
+
+ol
+  width: 100%
+  position: absolute
+  z-index: 9999
 </style>
 
 <script>
 export default {
-  props: {
-    items: Array
-  },
-
   data () {
     return {
       open: false,
-      active: 0
+      selected: undefined
     }
+  },
+
+  ready () {
+    const {children} = this.$els.listItems
+    for (let item of children) {
+      item.style.padding = '0.5em'
+      item.classList.add('ui', 'theme-color', 'dark', 'hover-darken')
+    }
+    this.selected = children[0]
   },
 
   methods: {
@@ -34,10 +47,24 @@ export default {
       this.open = !this.open
     },
 
-    select (index) {
-      this.active = index
+    selectItem (event) {
+      this.selected = event.target
       this.open = false
-      this.$emit('selection', this.$get('items[active].value'))
+    }
+  },
+
+  computed: {
+    value () {
+      if (this.selected) {
+        const value = this.selected.getAttribute('value')
+        return value !== null ? value : this.selected.innerText
+      } else {
+        return ''
+      }
+    },
+
+    valueLabel () {
+      return this.selected ? this.selected.innerText : ''
     }
   }
 }

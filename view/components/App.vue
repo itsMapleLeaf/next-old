@@ -19,6 +19,7 @@ import CharacterList from './CharacterList.vue'
 import ChannelList from './ChannelList.vue'
 import AppMenu from './AppMenu.vue'
 import CharacterMenu from './CharacterMenu.vue'
+import OnlineUsers from './OnlineUsers.vue'
 
 import state from '../lib/state'
 import SocketHandler from '../lib/socket-handler'
@@ -33,7 +34,8 @@ export default {
     CharacterList,
     ChannelList,
     AppMenu,
-    CharacterMenu
+    CharacterMenu,
+    OnlineUsers
   },
 
   data () {
