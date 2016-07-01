@@ -75,16 +75,20 @@ export default {
       ]
     },
 
+    character () {
+      return this.state.getUserCharacterName()
+    },
+
     greeting () {
-      return `Hi, ${this.state.getUserCharacterName().split(' ')[0]}!`
+      return `Hi, ${this.character.split(' ')[0]}!`
     },
 
     profileURL () {
-      return getProfileURL(this.state.getUserCharacterName())
+      return getProfileURL(this.character)
     },
 
     avatarURL () {
-      return getAvatarURL(this.state.getUserCharacterName())
+      return getAvatarURL(this.character)
     }
   },
 

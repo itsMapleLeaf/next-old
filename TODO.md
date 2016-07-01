@@ -18,6 +18,7 @@
   - [ ] show an icon for the link type (image, webpage, etc.)
 - [ ] use tickboxes for the user list filter instead of a dropdown
 - [ ] make the status form work
+- [ ] add character memos
 - [x] add a global character list, with friends sorted to top
 - [x] sort the user list alphabetically, with precedence:
   - [x] friends (green highlight)
@@ -46,7 +47,7 @@
 - [ ] render channel/session BBC links
 - [ ] put .noselect on the friend tooltips in CharacterMenu
 - [ ] add notification sounds
-- [ ] open the app menu by default instead of the channel menu
+- [x] open the app menu by default instead of the channel menu
 - [x] close the app menu when selecting an option
 - [x] use a state stack for overlays, for better UX experience
 - [x] show gender in character menu

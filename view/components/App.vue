@@ -112,7 +112,7 @@ export default {
 
     [events.SocketIdentifySuccess] () {
       this.socket.fetchChannelList()
-      this.$emit(events.PushOverlay, 'channel-list')
+      this.$emit(events.PushOverlay, 'app-menu')
     },
 
     [events.SocketError] () {
