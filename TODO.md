@@ -13,7 +13,8 @@
 - [ ] add a BBCode toolbar for the chatbox
 - [ ] default left click to open profile, right click to open character menu
 - [ ] add user preferences
-- [ ] open character profiles in an iframe
+- [ ] open all links in a child window
+- [ ] make the status form work
 - [x] add a global character list, with friends sorted to top
 - [x] sort the user list alphabetically, with precedence:
   - [x] friends (green highlight)
@@ -40,6 +41,8 @@
 - [ ] add icons to tabs to indicate tab type
 - [ ] translate statuses into human readable text in CharacterMenu
 - [ ] render channel/session BBC links
+- [ ] put .noselect on the friend tooltips in CharacterMenu
+- [ ] add notification sounds
 - [x] use a state stack for overlays, for better UX experience
 - [x] show gender in character menu
 - [x] fix the private chat view
@@ -49,6 +52,7 @@
 # Optimization / Cleanup
 - [ ] use computed() less, wherever possible
 - [ ] move user / session storage to an offline JSON config file
+  - [ ] also consider using firebase? mostly because of the storage limit on mobile
 - [ ] return a null character from the store to handle offline users
 - [ ] organize components into subfolders (overlays, chat views, etc.)
 - [ ] limit the size of the message list to prevent hardcore memory leaks
@@ -62,3 +66,5 @@
 # Bugs
 - [ ] check if the socket connection already exists before authenticating
 - [ ] characters are not removed from active channels when they go offline
+- [ ] bookmarks seem a little wonky. look into that
+- [ ] fix the goddamn overlays
