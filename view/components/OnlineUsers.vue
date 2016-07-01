@@ -12,10 +12,16 @@
           </dropdown>
         </div>
         <div class="ui field">
-          <ul class="ui selection" style="text-align: left; height: 14em">
-            <li v-for="char in slicedCharacters" :data-activate-character='char.name'>
+          <ul class="ui selection" style="">
+            <li v-for="char in slicedCharacters" :class="getListClass(char)" :data-activate-character='char.name'>
+              <i class="fa fa-heart ui pull-right" v-if="characterIs(char, 'friend')"></i>
+              <i class="fa fa-star ui pull-right" v-if="characterIs(char, 'bookmark')"></i>
+              <i class="fa fa-paw ui pull-right" v-if="characterIs(char, 'looking')"></i>
               <character :character='char'></character>
             </li>
+            <center class="ui small subtle" style="padding: 0.5em">
+              <em>Results truncated for performance. Search for more results.</em>
+            </center>
           </ul>
         </div>
         <div class="ui field text-input icon right">
@@ -29,6 +35,15 @@
     </div>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+.selection
+  text-align: left
+  width: calc(100vh - 38em)
+  height: calc(100vh - 30em)
+  min-width: 14em
+  min-height: 18em
+</style>
 
 <script>
 import Character from './Character.vue'
@@ -108,6 +123,23 @@ export default {
 
     slicedCharacters () {
       return this.searchedCharacters.slice(0, 200)
+    }
+  },
+
+  methods: {
+    characterIs (char, what) {
+      const cat = this.state.getCharacterCategory(char)
+      return cat.includes(what)
+    },
+
+    getListClass (char) {
+      const cat = this.state.getCharacterCategory(char)
+      if (cat[0] === 'friend') {
+        return 'ui highlight green'
+      } else if (cat[0] === 'bookmark') {
+        return 'ui highlight blue'
+      }
+      return ''
     }
   }
 }
