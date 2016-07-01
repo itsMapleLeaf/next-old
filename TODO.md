@@ -1,6 +1,7 @@
 # Functionality
+- [ ] add a global character list, with friends sorted to top
 - [ ] save open channels
-  - [ ] and log them?
+  - [ ] and log them? (see JSON optimization)
 - [ ] add a functional character menu
   - [ ] ignore
   - [ ] report (low priority)
@@ -10,7 +11,6 @@
   - [x] show friendship status & reflect it in the options
   - [ ] ~~add friend~~ accidentally adding someone will be awkward
 - [ ] render ads
-- [ ] add a global character list, with friends sorted to top
 - [ ] add a BBCode toolbar for the chatbox
 - [x] sort the user list alphabetically, with precedence:
   - [x] friends (green highlight)
@@ -18,6 +18,8 @@
   - [x] admins (red highlight)
   - [x] looking
   - [x] rest
+- [ ] default left click to open profile, right click to open character menu
+- [ ] add user preferences
 
 # UX / Styling
 - [ ] add a waiting status screen for logging in
@@ -33,6 +35,7 @@
 - [ ] add a view to read the channel description on a larger modal
 - [ ] make the description and userlist collapsible
 - [ ] add icons to tabs to indicate tab type
+- [ ] show gender in character menu
 - [x] fix the private chat view
 - [x] TRANSITIONS
 - [x] add hover-darken to character list items
@@ -41,6 +44,7 @@
 - [ ] use computed() less, wherever possible
 - [ ] move user / session storage to an offline JSON config file
 - [ ] return a null character from the store to handle offline users
+- [ ] organize components into subfolders (overlays, chat views, etc.)
 - [x] find a way to solve the bottleneck rendering 400~500 character elements at once
 - [x] holy memory usage batman
 - [x] ~~find a better way to organize chat tabs declaratively~~ just using events and not being stupid with focusing works
