@@ -24,7 +24,7 @@ img:hover
 </style>
 
 <script>
-import {getProfileURL, getAvatarURL} from '../lib/flist'
+import {getProfileURL, getAvatarURL} from '../../lib/flist'
 
 export default {
   props: {

@@ -30,9 +30,10 @@
 </style>
 
 <script>
-import ChatTab from './ChatTab.vue'
-import ChannelView from './ChannelView.vue'
-import PrivateChatView from './PrivateChatView.vue'
+import ChatTab from './elements/ChatTab.vue'
+import ChannelView from './chat-views/ChannelView.vue'
+import PrivateChatView from './chat-views/PrivateChatView.vue'
+
 import state from '../lib/state'
 import * as events from '../lib/events'
 

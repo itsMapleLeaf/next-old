@@ -15,8 +15,8 @@ div
 </style>
 
 <script>
-import state from '../lib/state'
-import {ChatboxSubmit} from '../lib/events'
+import state from '../../lib/state'
+import {ChatboxSubmit} from '../../lib/events'
 
 export default {
   props: {

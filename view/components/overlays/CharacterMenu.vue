@@ -41,12 +41,13 @@ img
 </style>
 
 <script>
-import MenuOption from './MenuOption.vue'
-import ActionPanel from './ActionPanel.vue'
-import CharacterAvatarLink from './CharacterAvatarLink.vue'
-import {getProfileURL, getAvatarURL} from '../lib/flist'
-import {OpenPrivateChatRequest, OverlayChangeRequest} from '../lib/events'
-import state from '../lib/state'
+import MenuOption from '../elements/MenuOption.vue'
+import ActionPanel from '../elements/ActionPanel.vue'
+import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
+
+import {getProfileURL, getAvatarURL} from '../../lib/flist'
+import {OpenPrivateChatRequest, OverlayChangeRequest} from '../../lib/events'
+import state from '../../lib/state'
 
 export default {
   props: {

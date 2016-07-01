@@ -57,9 +57,9 @@
 - [ ] move user / session storage to an offline JSON config file
   - [ ] also consider using firebase? mostly because of the storage limit on mobile
 - [ ] return a null character from the store to handle offline users
-- [ ] organize components into subfolders (overlays, chat views, etc.)
 - [ ] limit the size of the message list to prevent hardcore memory leaks
 - [ ] move socket logic to application side out of the view
+- [x] organize components into subfolders (overlays, chat views, etc.)
 - [x] find a way to solve the bottleneck rendering 400~500 character elements at once
 - [x] holy memory usage batman
 - [x] ~~find a better way to organize chat tabs declaratively~~ just using events and not being stupid with focusing works
@@ -71,3 +71,4 @@
 - [x] check if the socket connection already exists before authenticating
 - [x] characters are not removed from active channels when they go offline
 - [x] bookmarks seem a little wonky. look into that
+- [x] fix the login data from authentication

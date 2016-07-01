@@ -30,8 +30,8 @@
 </style>
 
 <script>
-import {sendLoginRequest} from '../lib/flist'
-import {LoginRequest, LoginSuccess} from '../lib/events'
+import {sendLoginRequest} from '../../lib/flist'
+import {LoginRequest, LoginSuccess} from '../../lib/events'
 
 const errorMessage = `
 Could not connect to F-List website.
@@ -53,7 +53,16 @@ export default {
     submit () {
       sendLoginRequest(this.username, this.password)
       .then(data => {
-        this.$dispatch(LoginSuccess, data)
+        const correctedDataBecauseTheAPIIsReallyInconsistentAndStupid = {
+          characters: data.characters,
+          bookmarks: data.bookmarks.map(({name}) => name),
+          friends: data.friends.map(({ source_name, dest_name }) => {
+            return { source: dest_name, dest: source_name }
+          }),
+          ticket: data.ticket
+        }
+
+        this.$dispatch(LoginSuccess, correctedDataBecauseTheAPIIsReallyInconsistentAndStupid)
       })
       .catch(err => {
         this.status = err || errorMessage

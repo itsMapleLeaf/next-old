@@ -23,8 +23,8 @@
 <style lang="stylus" scoped></style>
 
 <script>
-import state from '../lib/state'
-import {CharacterSelected} from '../lib/events'
+import state from '../../lib/state'
+import {CharacterSelected} from '../../lib/events'
 
 export default {
   data () {

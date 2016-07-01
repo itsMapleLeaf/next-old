@@ -47,10 +47,10 @@
 </style>
 
 <script>
-import state from '../lib/state'
+import state from '../../lib/state'
 import fuzzysearch from 'fuzzysearch'
-import {ChannelStatus} from '../lib/types'
-import {OverlayChangeRequest, ToggleChannelRequest} from '../lib/events'
+import {ChannelStatus} from '../../lib/types'
+import {OverlayChangeRequest, ToggleChannelRequest} from '../../lib/events'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)

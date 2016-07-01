@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import * as events from '../lib/events'
+import * as events from '../../lib/events'
 
 export default {
   props: {

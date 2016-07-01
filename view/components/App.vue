@@ -13,12 +13,12 @@
 
 <script>
 import Chat from './Chat.vue'
-import Login from './Login.vue'
-import CharacterList from './CharacterList.vue'
-import ChannelList from './ChannelList.vue'
-import AppMenu from './AppMenu.vue'
-import CharacterMenu from './CharacterMenu.vue'
-import OnlineUsers from './OnlineUsers.vue'
+import Login from './overlays/Login.vue'
+import CharacterList from './overlays/CharacterList.vue'
+import ChannelList from './overlays/ChannelList.vue'
+import AppMenu from './overlays/AppMenu.vue'
+import CharacterMenu from './overlays/CharacterMenu.vue'
+import OnlineUsers from './overlays/OnlineUsers.vue'
 
 import state from '../lib/state'
 import SocketHandler from '../lib/socket-handler'
@@ -47,27 +47,29 @@ export default {
   },
 
   ready () {
-    this.$nextTick(() => {
-      this.overlays = []
-      if (!this.socket.isConnected()) {
-        const { account, ticket } = this.state.getUserData()
-        if (ticket !== '') {
-          getUserData(account, ticket)
-          .then(data => {
-            this.state.setUserCharacterList(data.characters)
-            this.state.setFriendsList(data.friends)
-            this.state.setBookmarkList(data.bookmarks)
-            this.$emit(events.PushOverlay, 'character-list')
-          })
-          .catch(err => {
-            this.$emit(events.PushOverlay, 'login')
-            console.warn(err)
-          })
-        } else {
-          this.$emit(events.PushOverlay, 'login')
-        }
-      }
-    })
+    // this.$nextTick(() => {
+    //   this.overlays = []
+    //   if (!this.socket.isConnected()) {
+    //     const { account, ticket } = this.state.getUserData()
+    //     if (ticket !== '') {
+    //       getUserData(account, ticket)
+    //       .then(data => {
+    //         this.state.setUserCharacterList(data.characters)
+    //         this.state.setFriendsList(data.friends)
+    //         this.state.setBookmarkList(data.bookmarks)
+    //         this.$emit(events.PushOverlay, 'character-list')
+    //       })
+    //       .catch(err => {
+    //         this.$emit(events.PushOverlay, 'login')
+    //         console.warn(err)
+    //       })
+    //     } else {
+    //       this.$emit(events.PushOverlay, 'login')
+    //     }
+    //   }
+    // })
+
+    this.overlays = ['login']
   },
 
   events: {
@@ -88,17 +90,6 @@ export default {
       this.overlays.pop()
     },
 
-    [events.CharacterSelected] (name) {
-      this.state.setUserCharacter(name)
-      this.socket.connect('main')
-      this.$emit(events.PopOverlay)
-    },
-
-    [events.CharacterActivated] (character) {
-      this.activeCharacter = this.state.getCharacter(character)
-      this.$emit(events.PushOverlay, 'character-menu')
-    },
-
     [events.LoginRequest] (account) {
       this.state.setAccount(account)
     },
@@ -110,6 +101,17 @@ export default {
       this.state.setTicket(data.ticket)
       this.$emit(events.PopOverlay)
       this.$emit(events.PushOverlay, 'character-list')
+    },
+
+    [events.CharacterSelected] (name) {
+      this.state.setUserCharacter(name)
+      this.socket.connect('main')
+      this.$emit(events.PopOverlay)
+    },
+
+    [events.CharacterActivated] (character) {
+      this.activeCharacter = this.state.getCharacter(character)
+      this.$emit(events.PushOverlay, 'character-menu')
     },
 
     [events.ToggleChannelRequest] (id) {

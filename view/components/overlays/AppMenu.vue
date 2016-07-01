@@ -43,13 +43,14 @@ img
 </style>
 
 <script>
-import ActionPanel from './ActionPanel.vue'
-import CharacterAvatarLink from './CharacterAvatarLink.vue'
-import MenuOption from './MenuOption.vue'
-import Dropdown from './Dropdown.vue'
-import state from '../lib/state'
-import {getProfileURL, getAvatarURL} from '../lib/flist'
-import {OverlayChangeRequest} from '../lib/events'
+import ActionPanel from '../elements/ActionPanel.vue'
+import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
+import MenuOption from '../elements/MenuOption.vue'
+import Dropdown from '../elements/Dropdown.vue'
+
+import state from '../../lib/state'
+import {getProfileURL, getAvatarURL} from '../../lib/flist'
+import {OverlayChangeRequest} from '../../lib/events'
 
 export default {
   components: {

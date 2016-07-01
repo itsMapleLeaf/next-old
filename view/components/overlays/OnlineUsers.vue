@@ -46,12 +46,12 @@
 </style>
 
 <script>
-import Character from './Character.vue'
-import Dropdown from './Dropdown.vue'
+import Character from '../elements/Character.vue'
+import Dropdown from '../elements/Dropdown.vue'
 
-import state from '../lib/state'
-import {compareNames} from '../lib/util'
-import {OverlayChangeRequest} from '../lib/events'
+import state from '../../lib/state'
+import {compareNames} from '../../lib/util'
+import {OverlayChangeRequest} from '../../lib/events'
 import Fuse from 'fuse.js'
 
 export default {

@@ -35,7 +35,7 @@ span
 </style>
 
 <script>
-import {getProfileURL} from '../lib/flist'
+import {getProfileURL} from '../../lib/flist'
 
 export default {
   props: {
