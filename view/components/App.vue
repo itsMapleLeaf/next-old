@@ -46,24 +46,28 @@ export default {
     }
   },
 
-  created () {
-    // TODO: don't auth to website if we're already connected to chat
-    const { account, ticket } = this.state.getUserData()
-    if (ticket !== '') {
-      getUserData(account, ticket)
-      .then(data => {
-        this.state.setUserCharacterList(data.characters)
-        this.state.setFriendsList(data.friends)
-        this.state.setBookmarkList(data.bookmarks)
-        this.$emit(events.PushOverlay, 'character-list')
-      })
-      .catch(err => {
-        this.$emit(events.PushOverlay, 'login')
-        console.warn(err)
-      })
-    } else {
-      this.$emit(events.PushOverlay, 'login')
-    }
+  ready () {
+    this.$nextTick(() => {
+      this.overlays = []
+      if (!this.socket.isConnected()) {
+        const { account, ticket } = this.state.getUserData()
+        if (ticket !== '') {
+          getUserData(account, ticket)
+          .then(data => {
+            this.state.setUserCharacterList(data.characters)
+            this.state.setFriendsList(data.friends)
+            this.state.setBookmarkList(data.bookmarks)
+            this.$emit(events.PushOverlay, 'character-list')
+          })
+          .catch(err => {
+            this.$emit(events.PushOverlay, 'login')
+            console.warn(err)
+          })
+        } else {
+          this.$emit(events.PushOverlay, 'login')
+        }
+      }
+    })
   },
 
   events: {

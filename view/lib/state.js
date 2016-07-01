@@ -202,7 +202,6 @@ class State {
   }
 
   setFriendsList (friends) {
-    console.log(friends)
     for (let entry of friends) {
       // i love inconsistent APIs
       const friend = entry.dest || entry.source_name
@@ -240,7 +239,12 @@ class State {
   }
 
   removeCharacter (name) {
-    delete this.data.onlineCharacters[name]
+    const {onlineCharacters, channels} = this.data
+    delete onlineCharacters[name]
+    for (let id in channels) {
+      const channel = channels[id]
+      channel.characters = channel.characters.filter(char => char.name !== name)
+    }
   }
 
   setCharacterStatus (name, status, statusMessage) {
@@ -326,7 +330,7 @@ class State {
 
   removeBookmark (name) {
     const {account, ticket, bookmarks} = this.data.userData
-    flist.addBookmark(account, ticket, name)
+    flist.removeBookmark(account, ticket, name)
     .then(() => {
       bookmarks.$remove(name)
     })

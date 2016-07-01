@@ -39,16 +39,16 @@ export function getBookmarkList (account, ticket) {
 export function getUserData (account, ticket) {
   const data = {}
   return getCharacterList(account, ticket)
-  .then(({ characters }) => {
-    data.characters = characters
+  .then(res => {
+    data.characters = res.characters
     return getFriendsList(account, ticket)
   })
-  .then(({ friends }) => {
-    data.friends = friends
+  .then(res => {
+    data.friends = res.friends
     return getBookmarkList(account, ticket)
   })
-  .then(({ characters }) => {
-    data.bookmarks = characters
+  .then(res => {
+    data.bookmarks = res.characters
     return Promise.resolve(data)
   })
 }
@@ -56,7 +56,7 @@ export function getUserData (account, ticket) {
 export function addBookmark (account, ticket, name) {
   return http.post(endpoints.bookmarkAdd, { account, ticket, name })
   .then(res => {
-    if (res.error) {
+    if (res.data.error) {
       return Promise.reject(res.error)
     } else {
       return Promise.resolve()
@@ -67,7 +67,7 @@ export function addBookmark (account, ticket, name) {
 export function removeBookmark (account, ticket, name) {
   return http.post(endpoints.bookmarkRemove, { account, ticket, name })
   .then(res => {
-    if (res.error) {
+    if (res.data.error) {
       return Promise.reject(res.error)
     } else {
       return Promise.resolve()

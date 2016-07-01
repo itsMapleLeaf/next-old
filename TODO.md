@@ -13,7 +13,10 @@
 - [ ] add a BBCode toolbar for the chatbox
 - [ ] default left click to open profile, right click to open character menu
 - [ ] add user preferences
-- [ ] open all links in a child window
+- [ ] better link handling
+  - [ ] open links in a modal
+  - [ ] show an icon for the link type (image, webpage, etc.)
+- [ ] use tickboxes for the user list filter instead of a dropdown
 - [ ] make the status form work
 - [x] add a global character list, with friends sorted to top
 - [x] sort the user list alphabetically, with precedence:
@@ -64,7 +67,7 @@
 - [x] move to electron
 
 # Bugs
-- [ ] check if the socket connection already exists before authenticating
-- [ ] characters are not removed from active channels when they go offline
-- [ ] bookmarks seem a little wonky. look into that
 - [ ] fix the goddamn overlays
+- [x] check if the socket connection already exists before authenticating
+- [x] characters are not removed from active channels when they go offline
+- [x] bookmarks seem a little wonky. look into that

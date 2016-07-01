@@ -233,6 +233,16 @@ class SocketHandler {
     this.send('PRI', { recipient, message })
     this.vm.state.addPrivateMessage(recipient, this.vm.state.getUserCharacterName(), message)
   }
+
+  disconnect () {
+    this.ws.onclose = () => {}
+    this.ws.close()
+    this.ws = undefined
+  }
+
+  isConnected () {
+    return this.ws != null
+  }
 }
 
 export default SocketHandler
