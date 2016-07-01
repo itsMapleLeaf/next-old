@@ -5,10 +5,10 @@
       <form class="ui form" @submit.prevent>
         <div class="ui field">
           <dropdown style="width: 8em" v-ref:filter>
+            <li value="all">All</li>
             <li value="friend">Friends</li>
             <li value="bookmark">Bookmarks</li>
             <li value="looking">Looking</li>
-            <li value="all">All</li>
           </dropdown>
         </div>
         <div class="ui field">
@@ -36,7 +36,7 @@ import Dropdown from './Dropdown.vue'
 
 import state from '../lib/state'
 import {compareNames} from '../lib/util'
-// import Fuse from 'fuse.js'
+import Fuse from 'fuse.js'
 
 export default {
   components: {
@@ -97,8 +97,17 @@ export default {
       })
     },
 
+    searchedCharacters () {
+      const filtered = this.filteredCharacters
+      if (this.search.trim() !== '') {
+        const fuse = new Fuse(filtered, { keys: ['name', 'gender'] })
+        return fuse.search(this.search)
+      }
+      return filtered
+    },
+
     slicedCharacters () {
-      return this.filteredCharacters.slice(0, 200)
+      return this.searchedCharacters.slice(0, 200)
     }
   }
 }
