@@ -1,5 +1,5 @@
 <template>
-  <div class="ui overlay" transition="fade">
+  <div class="ui overlay" transition="fade" @click='close'>
     <div class="ui panel">
       <h2>Let's find some friends!</h2>
       <form class="ui form" @submit.prevent>
@@ -29,7 +29,7 @@
           <input type="text" placeholder="Search..." v-model="search" debounce="500" />
         </div>
         <div class="ui field">
-          <button class="ui button">Done</button>
+          <button class="ui button" @click='close'>Done</button>
         </div>
       </form>
     </div>
@@ -51,6 +51,7 @@ import Dropdown from './Dropdown.vue'
 
 import state from '../lib/state'
 import {compareNames} from '../lib/util'
+import {OverlayChangeRequest} from '../lib/events'
 import Fuse from 'fuse.js'
 
 export default {
@@ -140,6 +141,10 @@ export default {
         return 'ui highlight blue'
       }
       return ''
+    },
+
+    close () {
+      this.$dispatch(OverlayChangeRequest, '')
     }
   }
 }
