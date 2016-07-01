@@ -6,7 +6,14 @@
         <character-avatar-link :character="state.getUserCharacter()"></character-avatar-link>
       </div>
       <div class="ui field">
-        <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown>
+        <!-- <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown> -->
+        <dropdown>
+          <li value="online">Online</li>
+          <li value="looking">Looking</li>
+          <li value="busy">Busy</li>
+          <li value="away">Away</li>
+          <li value="dnd">DND</li>
+        </dropdown>
       </div>
       <div class="ui field text-input icon right">
         <i class='fa fa-pencil'></i>

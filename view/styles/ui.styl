@@ -69,6 +69,9 @@ a
   &.subtle
     opacity: 0.5
 
+  &.shadow
+    box-shadow: 0px 4px 12px rgba(black, 0.2)
+
   &.theme-color
     &.main { background-color: $theme-color }
     &.dark { background-color: $theme-color-dark }
@@ -124,11 +127,11 @@ a
 
   &.panel
     @extend .ui.theme-color.main
+    @extend .ui.shadow
 
     width: min-content
     padding: 0em 1.5em
     text-align: center
-    box-shadow: 0px 2px 16px rgba(black, 0.4)
 
   &.side-panel
     @extend .ui.panel
