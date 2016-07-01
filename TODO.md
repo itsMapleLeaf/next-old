@@ -31,6 +31,8 @@
 - [ ] mobile responsive styling
   - [ ] make center panels fullscreen at mobile size
   - [ ] make the description and userlist collapsible
+  - [ ] 1px scrollbars on mobile
+  - [ ] always show tab close buttons on mobile
 - [ ] redo the chat colors (currently absent)
 - [ ] add a waiting status screen for logging in
 - [ ] add dividers to split up the interface a bit

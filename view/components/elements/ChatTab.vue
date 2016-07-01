@@ -25,14 +25,12 @@ a
   right: 0.5em
   top: 0.7em
   opacity: 0
-  visibility: hidden
 
 a:hover
   padding-right: 1.3em
 
   .fa
     opacity: 0.5
-    visibility: visible
 </style>
 
 <script>
