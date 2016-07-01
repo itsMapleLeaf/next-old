@@ -16,10 +16,13 @@ Vue.transition('collapse', {
   css: false,
 
   enter (el, done) {
-    el.style.transition = 'ease 0.3s max-height'
-    el.style.maxHeight = el.scrollHeight + 'px'
-    el.style.overflow = 'hidden'
-    window.setTimeout(done, 300)
+    el.style.maxHeight = '0px'
+    window.requestAnimationFrame(() => {
+      el.style.transition = 'ease 0.3s max-height'
+      el.style.maxHeight = el.scrollHeight + 'px'
+      el.style.overflow = 'hidden'
+      window.setTimeout(done, 300)
+    })
   },
 
   leave (el, done) {
