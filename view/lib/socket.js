@@ -9,8 +9,8 @@ const urls = {
   test: 'ws://chat.f-list.net:8799'
 }
 
-class SocketHandler {
-  constructor (vm) {
+class Socket {
+  setRootVM (vm) {
     this.vm = vm
   }
 
@@ -245,4 +245,4 @@ class SocketHandler {
   }
 }
 
-export default SocketHandler
+export default new Socket()

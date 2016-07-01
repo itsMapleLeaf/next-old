@@ -21,7 +21,7 @@ import CharacterMenu from './overlays/CharacterMenu.vue'
 import OnlineUsers from './overlays/OnlineUsers.vue'
 
 import state from '../lib/state'
-import SocketHandler from '../lib/socket-handler'
+import socket from '../lib/socket'
 import {ChannelStatus} from '../lib/types'
 import {getUserData} from '../lib/flist'
 import * as events from '../lib/events'
@@ -41,35 +41,31 @@ export default {
     return {
       overlays: [],
       activeCharacter: {},
-      socket: new SocketHandler(this),
-      state
+      socket, state
     }
   },
 
   ready () {
-    // this.$nextTick(() => {
-    //   this.overlays = []
-    //   if (!this.socket.isConnected()) {
-    //     const { account, ticket } = this.state.getUserData()
-    //     if (ticket !== '') {
-    //       getUserData(account, ticket)
-    //       .then(data => {
-    //         this.state.setUserCharacterList(data.characters)
-    //         this.state.setFriendsList(data.friends)
-    //         this.state.setBookmarkList(data.bookmarks)
-    //         this.$emit(events.PushOverlay, 'character-list')
-    //       })
-    //       .catch(err => {
-    //         this.$emit(events.PushOverlay, 'login')
-    //         console.warn(err)
-    //       })
-    //     } else {
-    //       this.$emit(events.PushOverlay, 'login')
-    //     }
-    //   }
-    // })
+    this.socket.setRootVM(this)
 
-    this.overlays = ['login']
+    if (!this.socket.isConnected()) {
+      const { account, ticket } = this.state.getUserData()
+      if (ticket !== '') {
+        getUserData(account, ticket)
+        .then(data => {
+          this.state.setUserCharacterList(data.characters)
+          this.state.setFriendsList(data.friends)
+          this.state.setBookmarkList(data.bookmarks)
+          this.$emit(events.PushOverlay, 'character-list')
+        })
+        .catch(err => {
+          this.$emit(events.PushOverlay, 'login')
+          console.warn(err)
+        })
+      } else {
+        this.$emit(events.PushOverlay, 'login')
+      }
+    }
   },
 
   events: {

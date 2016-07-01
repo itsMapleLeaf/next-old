@@ -68,7 +68,7 @@
 
 # Bugs
 - [ ] fix the goddamn overlays
-- [x] check if the socket connection already exists before authenticating
+- [x] fix most things broken with the socket handler
 - [x] characters are not removed from active channels when they go offline
 - [x] bookmarks seem a little wonky. look into that
 - [x] fix the login data from authentication
