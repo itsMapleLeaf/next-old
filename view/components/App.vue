@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <chat @click='activateCharacter($event)'></chat>
+  <div @click='checkDataAttribute($event)'>
+    <chat></chat>
     <component :is='currentOverlay' :active-character='activeCharacter'>
     </component>
   </div>
@@ -93,8 +93,7 @@ export default {
       this.currentOverlay = 'character-list'
     },
 
-    [events.ToggleChannelRequest] ({ id, name }) {
-      this.state.setChannelName(id, name)
+    [events.ToggleChannelRequest] (id) {
       const status = this.state.getChannelStatus(id)
       if (status === ChannelStatus.left) {
         this.socket.joinChannel(id)
@@ -138,10 +137,15 @@ export default {
   },
 
   methods: {
-    activateCharacter (event) {
+    checkDataAttribute (event) {
       const name = event.target.getAttribute('data-activate-character')
       if (name) {
         this.$emit(events.CharacterActivated, name)
+      }
+
+      const channelToggle = event.target.getAttribute('data-toggle-channel')
+      if (channelToggle) {
+        this.$emit(events.ToggleChannelRequest, channelToggle)
       }
     }
   }

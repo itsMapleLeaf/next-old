@@ -7,8 +7,8 @@
           <ul class='ui selection'>
             <li v-for='channel in slicedChannelList'
             v-if="channel.name.trim() !== ''"
-            @click='toggle(channel)'
-            :class="{ 'active': isJoined(channel.id) } ">
+            class="ui noselect {{isJoined(channel.id) ? 'active' : ''}}"
+            :data-toggle-channel='channel.name'>
               <span class='ui pull right'>{{channel.userCount}}</span>
               <span v-html="channel.name"></span>
             </li>
@@ -37,6 +37,9 @@
   li
     padding-left: 0.8em
     padding-right: 0.8em
+
+    span
+      pointer-events: none
 </style>
 
 <script>
@@ -86,10 +89,6 @@ export default {
 
     closeOverlay () {
       this.$dispatch(OverlayChangeRequest, '')
-    },
-
-    toggle (channel) {
-      this.$dispatch(ToggleChannelRequest, channel)
     }
   }
 }

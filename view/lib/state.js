@@ -54,7 +54,9 @@ class State {
   getChannel (id) {
     let channel = this.data.channels[id]
     if (!channel) {
-      channel = Vue.set(this.data.channels, id, ChannelState(id))
+      const {publicChannels, privateChannels} = this.data
+      const name = publicChannels.concat(privateChannels).find(ch => ch.id === id).name
+      channel = Vue.set(this.data.channels, id, ChannelState(id, name))
     }
     return channel
   }
