@@ -1,7 +1,7 @@
 <template>
   <div class="ui overlay" transition="fade">
     <div class="ui panel">
-      <h1>Who are you?</h1>
+      <h2>Who do we feel like playing today?</h2>
       <form class='ui form' @submit.prevent='submit'>
         <div class='ui field'>
           <ul class='ui selection'>

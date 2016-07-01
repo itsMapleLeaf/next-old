@@ -1,18 +1,34 @@
 <template>
   <div class='flex col ui theme-color dark fullscreen'>
-    <div class='flex fixed row'>
-      <a class='ui hover-darken flex fixed app-menu-button'
+    <div class='flex row fixed' style='flex-wrap: wrap'>
+      <!-- app menu shortcut -->
+      <a class='ui hover-darken flex fixed center-content header-shortcut'
+      title="Actions"
       @click="openAppMenu">
         <i class='fa fa-bars'></i>
       </a>
 
-      <div class='flex row stretch' style="flex-wrap: wrap-reverse">
-        <chat-tab v-for='tab in tabs'
-        :active='activeTabIndex === $index'
-        @mousedown='activeTabIndex = $index'>
-          {{ tab.title }}
-        </chat-tab>
-      </div>
+      <!-- channel list shortcut -->
+      <a class='ui hover-darken flex fixed center-content header-shortcut'
+      title="Channels"
+      @click="openChannelList">
+        <i class='fa fa-globe'></i>
+      </a>
+
+      <!-- user list shortcut -->
+      <a class='ui hover-darken flex fixed center-content header-shortcut'
+      title="Online Users"
+      @click="openOnlineUsers">
+        <i class='fa fa-heart'></i>
+      </a>
+
+      <chat-tab v-for='tab in tabs'
+      :active='activeTabIndex === $index'
+      :title='tab.title'
+      @closed='closeTab(tab)'
+      @mousedown='activeTabIndex = $index'>
+        {{ tab.title }}
+      </chat-tab>
     </div>
 
     <component :is="currentTab.view" :view-state="currentTab.state">
@@ -21,12 +37,9 @@
 </template>
 
 <style lang="stylus" scoped>
-.app-menu-button
+.header-shortcut
   width: 2em
-  height: 2em
-  display: flex
-  align-items: center
-  justify-content: center
+  height: @width
 </style>
 
 <script>
@@ -101,6 +114,22 @@ export default {
   methods: {
     openAppMenu () {
       this.$dispatch(events.PushOverlay, 'app-menu')
+    },
+
+    openChannelList () {
+      this.$dispatch(events.PushOverlay, 'channel-list')
+    },
+
+    openOnlineUsers () {
+      this.$dispatch(events.PushOverlay, 'online-users')
+    },
+
+    closeTab (tab) {
+      if (tab.view === 'channel-view') {
+        this.$dispatch(events.LeaveChannelRequest, tab.state.id)
+      }
+      this.tabs.$remove(tab)
+      this.activeTabIndex--
     },
 
     addTab (tabState) {

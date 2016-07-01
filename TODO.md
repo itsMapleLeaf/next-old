@@ -33,8 +33,6 @@
   - [ ] make the description and userlist collapsible
 - [ ] redo the chat colors (currently absent)
 - [ ] add a waiting status screen for logging in
-- [ ] add a plus button to the tab bar for a server list shortcut
-- [ ] add close buttons for the tabs
 - [ ] add dividers to split up the interface a bit
 - [ ] look into darklighting OOC?
 - [ ] on application start, scroll the character list down so the selected character is within view
@@ -47,6 +45,9 @@
 - [ ] render channel/session BBC links
 - [ ] put .noselect on the friend tooltips in CharacterMenu
 - [ ] add notification sounds
+- [x] friendly titles!
+- [x] add close buttons for the tabs
+- [x] add more shortcuts
 - [x] open the app menu by default instead of the channel menu
 - [x] close the app menu when selecting an option
 - [x] use a state stack for overlays, for better UX experience

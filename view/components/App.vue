@@ -110,6 +110,10 @@ export default {
       }
     },
 
+    [events.LeaveChannelRequest] (id) {
+      this.socket.leaveChannel(id)
+    },
+
     [events.SocketIdentifySuccess] () {
       this.socket.fetchChannelList()
       this.$emit(events.PushOverlay, 'app-menu')

@@ -1,7 +1,7 @@
 <template>
   <div class='ui overlay' transition="fade" @click.self='closeOverlay'>
     <div class='ui panel'>
-      <h1>Channel List</h1>
+      <h2>Chill and chat? Sounds good.</h2>
       <form class='ui form' @submit.prevent='closeOverlay'>
         <div class='ui field'>
           <ul class='ui selection'>

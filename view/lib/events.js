@@ -14,6 +14,7 @@ export const SocketChannelJoined = 'SocketChannelJoined' // (channelID: string)
 export const SocketChannelLeft = 'SocketChannelLeft'     // (channelID: string)
 
 export const ToggleChannelRequest = 'ToggleChannelRequest' // (channelID: string)
+export const LeaveChannelRequest = 'LeaveChannelRequest'   // (channelID: string)
 
 export const ChannelMessageSent = 'ChannelMessageSent'         // (channelID: string, message: string)
 export const ChannelMessageReceived = 'ChannelMessageReceived' // (channelID: string, characterName: string, message: string)
