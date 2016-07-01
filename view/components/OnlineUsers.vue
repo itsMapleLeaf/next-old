@@ -1,5 +1,5 @@
 <template>
-  <div class="ui overlay" transition="fade" @click='close'>
+  <div class="ui overlay" transition="fade" @click.self='close'>
     <div class="ui panel">
       <h2>Let's find some friends!</h2>
       <form class="ui form" @submit.prevent>
