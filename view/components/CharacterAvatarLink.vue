@@ -1,7 +1,7 @@
 <template>
   <a target="_blank" :href="profileURL">
-    <img class="ui transition" v-show="imageLoaded" :src="avatarURL" @load="imageLoaded = true" />
-    <i v-else class="fa fa-circle-o-notch fa-spin fa-2x"></i>
+    <img class="ui transition" v-show="imageLoaded" transition="fade" :src="avatarURL" @load="imageLoaded = true" />
+    <i v-show="!imageLoaded" class="fa fa-circle-o-notch fa-spin fa-2x"></i>
   </a>
 </template>
 

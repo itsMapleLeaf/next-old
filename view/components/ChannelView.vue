@@ -70,6 +70,7 @@ import Character from './Character.vue'
 import ChatMessage from './ChatMessage.vue'
 import ChatMessageList from './ChatMessageList.vue'
 import state from '../lib/state'
+import {CharacterActivated} from '../lib/events'
 
 function compareNames (a, b) {
   return a.name.localeCompare(b.name)
@@ -120,6 +121,13 @@ export default {
       }
 
       return groups
+    }
+  },
+
+  methods: {
+    characterListClicked (event) {
+      const character = event.target.getAttribute('data-character')
+      this.$dispatch(CharacterActivated, character)
     }
   }
 }

@@ -4,7 +4,7 @@ export const LoginSuccess = 'LoginSuccess' // (userData: object)
 export const OverlayChangeRequest = 'OverlayChangeRequest' // (overlay: string)
 
 export const CharacterSelected = 'CharacterSelected'   // (characterName: string)
-export const CharacterActivated = 'CharacterActivated' // (character: Character)
+export const CharacterActivated = 'CharacterActivated' // (character: string)
 
 export const SocketIdentifySuccess = 'IdentifySuccess'   // ()
 export const SocketError = 'SocketError'                 // (error: string)

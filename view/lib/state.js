@@ -95,6 +95,10 @@ class State {
     return this.data.channels.slice()
   }
 
+  getCharacter (name) {
+    return this.data.onlineCharacters[name]
+  }
+
   // return the user character that another character is friends with
   // if not friends, returns undefined
   getFriendship (name) {
@@ -136,9 +140,11 @@ class State {
   }
 
   setFriendsList (friends) {
+    console.log(friends)
     for (let entry of friends) {
-      const userCharacter = entry.source_name || entry.source
-      const friend = entry.dest_name || entry.dest
+      // i love inconsistent APIs
+      const friend = entry.dest || entry.source_name
+      const userCharacter = entry.source || entry.dest_name
       this.data.friends[friend] = (this.data.friends[friend] || []).concat([userCharacter])
     }
   }

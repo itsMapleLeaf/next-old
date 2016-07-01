@@ -5,8 +5,11 @@ $theme-color-light = lighten($theme-color, 10%)
 
 
 highlight($color)
-  background-color: rgba($color, 0.3)
+  background-color: rgba($color, 0.2)
   color: lighten($color, 20%)
+
+  &:hover
+    background-color: rgba(darken($color, 30%), 0.4)
 
 *
   padding: 0

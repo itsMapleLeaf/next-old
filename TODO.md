@@ -39,10 +39,10 @@
 
 # Optimization / Cleanup
 - [ ] use computed() less, wherever possible
-- [ ] find a way to solve the bottleneck rendering 400~500 character elements at once
-- [ ] holy memory usage batman
 - [ ] move user / session storage to an offline JSON config file
 - [ ] return a null character from the store to handle offline users
+- [x] find a way to solve the bottleneck rendering 400~500 character elements at once
+- [x] holy memory usage batman
 - [x] ~~find a better way to organize chat tabs declaratively~~ just using events and not being stupid with focusing works
 - [x] make a file for reference events that pass through the program
 - [x] move to electron

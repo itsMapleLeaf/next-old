@@ -1,6 +1,6 @@
 <template>
   <div>
-    <chat></chat>
+    <chat @click='activateCharacter($event)'></chat>
     <component :is='currentOverlay' :active-character='activeCharacter'>
     </component>
   </div>
@@ -77,7 +77,7 @@ export default {
     },
 
     [events.CharacterActivated] (character) {
-      this.activeCharacter = character
+      this.activeCharacter = this.state.getCharacter(character)
       this.currentOverlay = 'character-menu'
     },
 
@@ -134,6 +134,15 @@ export default {
 
     [events.OpenPrivateChatRequest] (name) {
       this.$broadcast(events.OpenPrivateChatRequest, name)
+    }
+  },
+
+  methods: {
+    activateCharacter (event) {
+      const name = event.target.getAttribute('data-activate-character')
+      if (name) {
+        this.$emit(events.CharacterActivated, name)
+      }
     }
   }
 }
