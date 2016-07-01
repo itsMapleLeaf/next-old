@@ -31,8 +31,12 @@
 
 <style lang="stylus" scoped>
 .selection
-  width: 14em
+  min-width: 14em
+  min-height: 20em
   text-align: left
+
+  width: calc(100vh - 35em)
+  height: calc(100vh - 25em)
 
   li
     padding-left: 0.8em
