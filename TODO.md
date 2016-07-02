@@ -92,4 +92,4 @@
 - [x] fix the login data from authentication
 - [x] private channels are broken
 - [x] closing a tab activates it awkwardly before actually closing it
-- [ ] does not save last active character
+- [x] does not load last active character

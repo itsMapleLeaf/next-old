@@ -16346,7 +16346,7 @@
 	  data: function data() {
 	    return {
 	      state: _state2.default,
-	      activeCharacter: _state2.default.getCharacter()
+	      activeCharacter: _state2.default.getUserCharacterName()
 	    };
 	  },
 	
