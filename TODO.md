@@ -21,6 +21,8 @@
 - [ ] use tickboxes for the user list filter instead of a dropdown
 - [ ] make the status form work
 - [ ] add character memos
+- [ ] functional character switching
+- [ ] functional logging out
 - [x] add a global character list, with friends sorted to top
 - [x] sort the user list alphabetically, with precedence:
   - [x] friends (green highlight)
