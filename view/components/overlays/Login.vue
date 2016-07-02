@@ -1,6 +1,6 @@
 <template>
   <div class='ui overlay flex col' transition='fade'>
-    <div class='ui panel' style='margin-bottom: 1em'>
+    <div class='ui panel'>
       <h1>Hi there!</h1>
       <form class='ui form' @submit.prevent='submit'>
         <div class='ui field text-input icon left'>
@@ -22,9 +22,9 @@
       </form>
       <span>{{status}}</span>
     </div>
-    <center class='ui small subtle'>
+    <center class='ui small subtle footer'>
       <em>
-        <p>fchat-next alpha v0.1.0</p>
+        <p>fchat-next alpha v{{version}}</p>
         <p>
           <i class='fa fa-code'></i> with
           <i class='fa fa-heart'></i> by
@@ -41,11 +41,17 @@
 <style lang="stylus" scoped>
 .panel
   width: 14em
+
+.footer
+  width: 100vw
+  position: absolute
+  padding: 2em
 </style>
 
 <script>
 import {sendLoginRequest} from '../../lib/flist'
 import {LoginRequest, LoginSuccess} from '../../lib/events'
+import {version} from '../../../package'
 
 const errorMessage = `
 Could not connect to F-List website.
@@ -59,7 +65,8 @@ export default {
       username: '',
       password: '',
       status: '',
-      disabled: false
+      disabled: false,
+      version
     }
   },
 
