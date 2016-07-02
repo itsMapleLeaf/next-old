@@ -1,9 +1,6 @@
 <template>
   <div class="ui scroll" v-el:container @scroll='onScroll'>
-    <chat-message v-for='msg in messages'
-    :character='msg.character'
-    :message='msg.message'>
-    </chat-message>
+    <chat-message v-for='msg in messages' :message='msg'></chat-message>
   </div>
 </template>
 

@@ -17,6 +17,14 @@ export const ChannelType = {
   private: 'private'
 }
 
+export const ChatMessageType = {
+  chat: 'chat',
+  lfrp: 'lfrp',
+  admin: 'admin',
+  system: 'system'
+}
+
+// TODO: use this
 export const Gender = {
   'Male': 0,
   'Female': 1,
@@ -78,9 +86,10 @@ export function Character (name, gender, status = UserStatus.online, statusMessa
 }
 
 // TODO: add time field
-export function ChatMessage (character, message) {
+export function ChatMessage (character, message, type) {
   return {
     character, // Character
-    message    // string
+    message,   // string
+    type       // ChatMessageType
   }
 }

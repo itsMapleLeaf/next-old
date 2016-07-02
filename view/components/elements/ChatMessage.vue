@@ -1,12 +1,20 @@
 <template>
-  <div class='ui hover-darken' style="padding: 0.2em 0.5em"
-  :style="{ fontStyle: message.startsWith('/me') ? 'italic' : 'none' }">
-    <character :character='character'></character>
-    <span style="margin-left: 0.3em; white-space: pre-wrap" v-html="parsedMessage | bbcode"></span>
+  <div class="ui hover-darken"
+  :class="{'highlight green': kind === 'lfrp'}"
+  :style="{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }">
+    <character :character='sender'></character>
+    <span class='message-text' v-html="parsedMessage | bbcode"></span>
   </div>
 </template>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+div
+  padding: 0.2em 0.5em
+
+.message-text
+  margin-left: 0.3em
+  white-space: pre-wrap
+</style>
 
 <script>
 import Character from './Character.vue'
@@ -17,13 +25,16 @@ export default {
   },
 
   props: {
-    character: Object,
-    message: String
+    message: Object
   },
 
   computed: {
+    text () { return this.message.message },
+    sender () { return this.message.character },
+    kind () { return this.message.type },
+
     parsedMessage () {
-      return this.message.replace(/^\/me\s*/gi, '')
+      return this.message.message.replace(/^\/me\s*/i, '')
     }
   }
 }

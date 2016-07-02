@@ -58,7 +58,7 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _bbcode = __webpack_require__(196);
+	var _bbcode = __webpack_require__(198);
 	
 	var _bbcode2 = _interopRequireDefault(_bbcode);
 	
@@ -11676,7 +11676,7 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(5)
 	__vue_script__ = __webpack_require__(9)
-	__vue_template__ = __webpack_require__(195)
+	__vue_template__ = __webpack_require__(197)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -12079,27 +12079,27 @@
 	
 	var _Chat2 = _interopRequireDefault(_Chat);
 	
-	var _Login = __webpack_require__(133);
+	var _Login = __webpack_require__(135);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _CharacterList = __webpack_require__(139);
+	var _CharacterList = __webpack_require__(141);
 	
 	var _CharacterList2 = _interopRequireDefault(_CharacterList);
 	
-	var _ChannelList = __webpack_require__(142);
+	var _ChannelList = __webpack_require__(144);
 	
 	var _ChannelList2 = _interopRequireDefault(_ChannelList);
 	
-	var _AppMenu = __webpack_require__(156);
+	var _AppMenu = __webpack_require__(158);
 	
 	var _AppMenu2 = _interopRequireDefault(_AppMenu);
 	
-	var _CharacterMenu = __webpack_require__(179);
+	var _CharacterMenu = __webpack_require__(181);
 	
 	var _CharacterMenu2 = _interopRequireDefault(_CharacterMenu);
 	
-	var _OnlineUsers = __webpack_require__(184);
+	var _OnlineUsers = __webpack_require__(186);
 	
 	var _OnlineUsers2 = _interopRequireDefault(_OnlineUsers);
 	
@@ -12107,7 +12107,7 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _socket = __webpack_require__(191);
+	var _socket = __webpack_require__(193);
 	
 	var _socket2 = _interopRequireDefault(_socket);
 	
@@ -12892,7 +12892,7 @@
 	__webpack_require__(52)
 	__webpack_require__(54)
 	__vue_script__ = __webpack_require__(56)
-	__vue_template__ = __webpack_require__(132)
+	__vue_template__ = __webpack_require__(134)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -13040,7 +13040,7 @@
 	
 	var _ChannelView2 = _interopRequireDefault(_ChannelView);
 	
-	var _PrivateChatView = __webpack_require__(127);
+	var _PrivateChatView = __webpack_require__(129);
 	
 	var _PrivateChatView2 = _interopRequireDefault(_PrivateChatView);
 	
@@ -13338,7 +13338,7 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(63)
 	__vue_script__ = __webpack_require__(65)
-	__vue_template__ = __webpack_require__(126)
+	__vue_template__ = __webpack_require__(128)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -13416,7 +13416,7 @@
 	
 	var _ChatMessage2 = _interopRequireDefault(_ChatMessage);
 	
-	var _ChatMessageList = __webpack_require__(121);
+	var _ChatMessageList = __webpack_require__(123);
 	
 	var _ChatMessageList2 = _interopRequireDefault(_ChatMessageList);
 	
@@ -14187,11 +14187,11 @@
 	    }
 	  }, {
 	    key: 'addChannelMessage',
-	    value: function addChannelMessage(id, name, message) {
+	    value: function addChannelMessage(id, name, message, type) {
 	      var channel = this.getChannel(id);
 	      var char = this.data.onlineCharacters[name];
 	      if (char) {
-	        channel.messages.push((0, _types.ChatMessage)(char, message));
+	        channel.messages.push((0, _types.ChatMessage)(char, message, type));
 	      }
 	    }
 	  }, {
@@ -15456,6 +15456,14 @@
 	  private: 'private'
 	};
 	
+	var ChatMessageType = exports.ChatMessageType = {
+	  chat: 'chat',
+	  lfrp: 'lfrp',
+	  admin: 'admin',
+	  system: 'system'
+	};
+	
+	// TODO: use this
 	var Gender = exports.Gender = {
 	  'Male': 0,
 	  'Female': 1,
@@ -15522,10 +15530,11 @@
 	}
 	
 	// TODO: add time field
-	function ChatMessage(character, message) {
+	function ChatMessage(character, message, type) {
 	  return {
 	    character: character, // Character
-	    message: message // string
+	    message: message, // string
+	    type: type // ChatMessageType
 	  };
 	}
 
@@ -15716,8 +15725,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(119)
-	__vue_template__ = __webpack_require__(120)
+	__webpack_require__(119)
+	__vue_script__ = __webpack_require__(121)
+	__vue_template__ = __webpack_require__(122)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -15735,6 +15745,46 @@
 
 /***/ },
 /* 119 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(120);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-33c8bc42&file=ChatMessage.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessage.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-33c8bc42&file=ChatMessage.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessage.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 120 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "div[_v-33c8bc42] {\n  padding: 0.2em 0.5em;\n}\n.message-text[_v-33c8bc42] {\n  margin-left: 0.3em;\n  white-space: pre-wrap;\n}\n", "", {"version":3,"sources":["/./view/components/elements/ChatMessage.vue.style","/./view/components/elements/ChatMessage.vue"],"names":[],"mappings":"AACA;EACE,qBAAA;CCAD;ADED;EACE,mBAAA;EACA,sBAAA;CCAD","file":"ChatMessage.vue","sourcesContent":["\r\ndiv\r\n  padding: 0.2em 0.5em\r\n\r\n.message-text\r\n  margin-left: 0.3em\r\n  white-space: pre-wrap\r\n","div {\n  padding: 0.2em 0.5em;\n}\n.message-text {\n  margin-left: 0.3em;\n  white-space: pre-wrap;\n}\n"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+
+
+/***/ },
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15755,13 +15805,21 @@
 	  },
 	
 	  props: {
-	    character: Object,
-	    message: String
+	    message: Object
 	  },
 	
 	  computed: {
+	    text: function text() {
+	      return this.message.message;
+	    },
+	    sender: function sender() {
+	      return this.message.character;
+	    },
+	    kind: function kind() {
+	      return this.message.type;
+	    },
 	    parsedMessage: function parsedMessage() {
-	      return this.message.replace(/^\/me\s*/gi, '');
+	      return this.message.message.replace(/^\/me\s*/i, '');
 	    }
 	  }
 	};
@@ -15769,31 +15827,39 @@
 	//
 	/* generated by vue-loader */
 	// <template>
-	//   <div class='ui hover-darken' style="padding: 0.2em 0.5em"
-	//   :style="{ fontStyle: message.startsWith('/me') ? 'italic' : 'none' }">
-	//     <character :character='character'></character>
-	//     <span style="margin-left: 0.3em; white-space: pre-wrap" v-html="parsedMessage | bbcode"></span>
+	//   <div class="ui hover-darken"
+	//   :class="{'highlight green': kind === 'lfrp'}"
+	//   :style="{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }">
+	//     <character :character='sender'></character>
+	//     <span class='message-text' v-html="parsedMessage | bbcode"></span>
 	//   </div>
 	// </template>
 	//
-	// <style lang="stylus" scoped></style>
+	// <style lang="stylus" scoped>
+	// div
+	//   padding: 0.2em 0.5em
+	//
+	// .message-text
+	//   margin-left: 0.3em
+	//   white-space: pre-wrap
+	// </style>
 	//
 	// <script>
 
 /***/ },
-/* 120 */
+/* 122 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n  <div class='ui hover-darken' style=\"padding: 0.2em 0.5em\"\r\n  :style=\"{ fontStyle: message.startsWith('/me') ? 'italic' : 'none' }\">\r\n    <character :character='character'></character>\r\n    <span style=\"margin-left: 0.3em; white-space: pre-wrap\" v-html=\"parsedMessage | bbcode\"></span>\r\n  </div>\r\n";
+	module.exports = "\n  <div class=\"ui hover-darken\" :class=\"{'highlight green': kind === 'lfrp'}\" :style=\"{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }\" _v-33c8bc42=\"\">\n    <character :character=\"sender\" _v-33c8bc42=\"\"></character>\n    <span class=\"message-text\" v-html=\"parsedMessage | bbcode\" _v-33c8bc42=\"\"></span>\n  </div>\n";
 
 /***/ },
-/* 121 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(122)
-	__vue_script__ = __webpack_require__(124)
-	__vue_template__ = __webpack_require__(125)
+	__webpack_require__(124)
+	__vue_script__ = __webpack_require__(126)
+	__vue_template__ = __webpack_require__(127)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -15810,13 +15876,13 @@
 	})()}
 
 /***/ },
-/* 122 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(123);
+	var content = __webpack_require__(125);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -15836,7 +15902,7 @@
 	}
 
 /***/ },
-/* 123 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -15850,7 +15916,7 @@
 
 
 /***/ },
-/* 124 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15916,10 +15982,7 @@
 	/* generated by vue-loader */
 	// <template>
 	//   <div class="ui scroll" v-el:container @scroll='onScroll'>
-	//     <chat-message v-for='msg in messages'
-	//     :character='msg.character'
-	//     :message='msg.message'>
-	//     </chat-message>
+	//     <chat-message v-for='msg in messages' :message='msg'></chat-message>
 	//   </div>
 	// </template>
 	//
@@ -15931,25 +15994,25 @@
 	// <script>
 
 /***/ },
-/* 125 */
+/* 127 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui scroll\" v-el:container=\"\" @scroll=\"onScroll\" _v-784787c6=\"\">\n    <chat-message v-for=\"msg in messages\" :character=\"msg.character\" :message=\"msg.message\" _v-784787c6=\"\">\n    </chat-message>\n  </div>\n";
+	module.exports = "\n  <div class=\"ui scroll\" v-el:container=\"\" @scroll=\"onScroll\" _v-784787c6=\"\">\n    <chat-message v-for=\"msg in messages\" :message=\"msg\" _v-784787c6=\"\"></chat-message>\n  </div>\n";
 
 /***/ },
-/* 126 */
+/* 128 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"flex col stretch\" _v-0c853d9a=\"\">\n    <!-- description -->\n    <div class=\"flex fixed ui theme-color main scroll description\" _v-0c853d9a=\"\">\n      <span v-html=\"viewState.description | bbcode\" _v-0c853d9a=\"\"></span>\n    </div>\n\n    <div class=\"flex row stretch\" _v-0c853d9a=\"\">\n      <!-- message -->\n      <chat-message-list class=\"flex stretch\" :messages=\"viewState.messages\" _v-0c853d9a=\"\"></chat-message-list>\n\n      <!-- users -->\n      <div class=\"flex fixed ui theme-color main scroll character-list\" _v-0c853d9a=\"\">\n        <ul _v-0c853d9a=\"\">\n          <li class=\"ui hover-darken highlight green\" v-for=\"char in characterGroups.friends\" _v-0c853d9a=\"\">\n            <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n          </li>\n          <li class=\"ui hover-darken highlight blue\" v-for=\"char in characterGroups.bookmarks\" _v-0c853d9a=\"\">\n            <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n          </li>\n          <li class=\"ui hover-darken highlight red\" v-for=\"char in characterGroups.admins\" _v-0c853d9a=\"\">\n            <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n          </li>\n          <li class=\"ui hover-darken\" v-for=\"char in characterGroups.looking\" _v-0c853d9a=\"\">\n            <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n          </li>\n          <li class=\"ui hover-darken\" v-for=\"char in characterGroups.rest\" _v-0c853d9a=\"\">\n            <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n          </li>\n        </ul>\n      </div>\n    </div>\n\n    <!-- chatbox -->\n    <div class=\"flex fixed ui theme-color main\" _v-0c853d9a=\"\">\n      <chatbox class=\"chatbox\" _v-0c853d9a=\"\"></chatbox>\n    </div>\n  </div>\n";
 
 /***/ },
-/* 127 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(128)
-	__vue_script__ = __webpack_require__(130)
-	__vue_template__ = __webpack_require__(131)
+	__webpack_require__(130)
+	__vue_script__ = __webpack_require__(132)
+	__vue_template__ = __webpack_require__(133)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -15966,13 +16029,13 @@
 	})()}
 
 /***/ },
-/* 128 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(129);
+	var content = __webpack_require__(131);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -15992,7 +16055,7 @@
 	}
 
 /***/ },
-/* 129 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16006,7 +16069,7 @@
 
 
 /***/ },
-/* 130 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16084,25 +16147,25 @@
 	// <script>
 
 /***/ },
-/* 131 */
+/* 133 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"flex col stretch\" _v-39d38f12=\"\">\n    <header class=\"flex fixed ui theme-color main\" _v-39d38f12=\"\">\n      <character :character=\"viewState.character\" _v-39d38f12=\"\"></character>\n      <em _v-39d38f12=\"\">\n        <span _v-39d38f12=\"\">- {{viewState.character.status}}</span>\n        <span v-if=\"viewState.character.statusMessage\" v-html=\"&quot;, &quot; + viewState.character.statusMessage | bbcode\" _v-39d38f12=\"\"></span>\n      </em>\n    </header>\n\n    <!-- <div class='box divider'></div> -->\n\n    <section class=\"flex stretch ui scroll\" _v-39d38f12=\"\">\n      <chat-message v-for=\"msg in viewState.messages\" :character=\"msg.character\" :message=\"msg.message\" _v-39d38f12=\"\">\n      </chat-message>\n    </section>\n\n    <!-- <div class='box divider'></div> -->\n\n    <section class=\"flex fixed ui theme-color main\" _v-39d38f12=\"\">\n      <chatbox @message-sent=\"messageSent\" _v-39d38f12=\"\"></chatbox>\n    </section>\n  </div>\n";
 
 /***/ },
-/* 132 */
+/* 134 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"flex col ui theme-color dark fullscreen\" _v-56ad2e4d=\"\">\n    <div class=\"flex row fixed\" style=\"flex-wrap: wrap\" _v-56ad2e4d=\"\">\n      <shortcut title=\"Actions\" icon=\"bars\" overlay=\"app-menu\" _v-56ad2e4d=\"\"></shortcut>\n      <shortcut title=\"Channels\" icon=\"globe\" overlay=\"channel-list\" _v-56ad2e4d=\"\"></shortcut>\n      <shortcut title=\"Users\" icon=\"heart\" overlay=\"online-users\" _v-56ad2e4d=\"\"></shortcut>\n\n      <chat-tab v-for=\"tab in tabs\" :active=\"activeTabIndex === $index\" :title=\"tab.title\" @closed=\"closeTab(tab)\" @selected=\"activeTabIndex = $index\" _v-56ad2e4d=\"\">\n        {{ tab.title }}\n      </chat-tab>\n    </div>\n\n    <component :is=\"currentTab.view\" :view-state=\"currentTab.state\" _v-56ad2e4d=\"\">\n    </component>\n  </div>\n";
 
 /***/ },
-/* 133 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(134)
-	__vue_script__ = __webpack_require__(136)
-	__vue_template__ = __webpack_require__(138)
+	__webpack_require__(136)
+	__vue_script__ = __webpack_require__(138)
+	__vue_template__ = __webpack_require__(140)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -16119,13 +16182,13 @@
 	})()}
 
 /***/ },
-/* 134 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(135);
+	var content = __webpack_require__(137);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -16145,7 +16208,7 @@
 	}
 
 /***/ },
-/* 135 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16159,7 +16222,7 @@
 
 
 /***/ },
-/* 136 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16172,7 +16235,7 @@
 	
 	var _events = __webpack_require__(111);
 	
-	var _package = __webpack_require__(137);
+	var _package = __webpack_require__(139);
 	
 	var errorMessage = '\nCould not connect to F-List website.\nThey\'re either doing maintenance,\nor someone spilled coke on the servers again.\n'; // <template>
 	//   <div class='ui overlay flex col' transition='fade'>
@@ -16277,12 +16340,12 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 137 */
+/* 139 */
 /***/ function(module, exports) {
 
 	module.exports = {
 		"name": "fchat-next",
-		"version": "0.2.0",
+		"version": "0.2.1",
 		"description": "A modernized responsive client for F-Chat",
 		"repository": "https://github.com/Kingdaro/fchat",
 		"author": "Kingdaro",
@@ -16323,18 +16386,18 @@
 	};
 
 /***/ },
-/* 138 */
+/* 140 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"ui overlay flex col\" transition=\"fade\" _v-6c636a36=\"\">\n    <div class=\"ui panel\" _v-6c636a36=\"\">\n      <h1 _v-6c636a36=\"\">Hi there!</h1>\n      <form class=\"ui form\" @submit.prevent=\"submit\" _v-6c636a36=\"\">\n        <div class=\"ui field text-input icon left\" _v-6c636a36=\"\">\n          <i class=\"fa fa-user\" _v-6c636a36=\"\"></i>\n          <input type=\"text\" placeholder=\"Username\" v-model=\"username\" :disabled=\"disabled\" _v-6c636a36=\"\">\n        </div>\n        <div class=\"ui field text-input icon left\" _v-6c636a36=\"\">\n          <i class=\"fa fa-lock\" _v-6c636a36=\"\"></i>\n          <input type=\"password\" placeholder=\"Password\" v-model=\"password\" :disabled=\"disabled\" _v-6c636a36=\"\">\n        </div>\n        <div class=\"ui field\" _v-6c636a36=\"\">\n          <label _v-6c636a36=\"\">\n            <input type=\"checkbox\" tabindex=\"0\" _v-6c636a36=\"\"> Remember me\n          </label>\n        </div>\n        <div class=\"ui field\" _v-6c636a36=\"\">\n          <button class=\"ui button\" action=\"submit\" :disabled=\"disabled\" _v-6c636a36=\"\">Go</button>\n        </div>\n      </form>\n      <span _v-6c636a36=\"\">{{status}}</span>\n    </div>\n    <center class=\"ui small subtle footer\" _v-6c636a36=\"\">\n      <em _v-6c636a36=\"\">\n        <p _v-6c636a36=\"\">fchat-next alpha v{{version}}</p>\n        <p _v-6c636a36=\"\">\n          <i class=\"fa fa-code\" _v-6c636a36=\"\"></i> with\n          <i class=\"fa fa-heart\" _v-6c636a36=\"\"></i> by\n          <a class=\"ui link\" href=\"https://www.f-list.net/c/alexander%20grapevine/\" target=\"_blank\" _v-6c636a36=\"\">Alexander Grapevine</a><br _v-6c636a36=\"\">\n          Note me for questions or concerns.\n        </p>\n        <p _v-6c636a36=\"\"><a class=\"ui link\" href=\"https://github.com/Kingdaro/fchat\" _v-6c636a36=\"\">Github Repository</a></p>\n        <p _v-6c636a36=\"\">Warning: buggy and incomplete. Many things do not work.</p>\n      </em>\n    </center>\n  </div>\n";
 
 /***/ },
-/* 139 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(140)
-	__vue_template__ = __webpack_require__(141)
+	__vue_script__ = __webpack_require__(142)
+	__vue_template__ = __webpack_require__(143)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -16351,7 +16414,7 @@
 	})()}
 
 /***/ },
-/* 140 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16422,19 +16485,19 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 141 */
+/* 143 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div class=\"ui overlay\" transition=\"fade\">\r\n    <div class=\"ui panel\">\r\n      <h2>Who do we feel like playing today?</h2>\r\n      <form class='ui form' @submit.prevent='submit'>\r\n        <div class='ui field'>\r\n          <ul class='ui selection'>\r\n            <li v-for='name in characters'\r\n            :class='{ \"active\": name === activeCharacter }'\r\n            @click='setSelectedCharacter(name)'>\r\n              {{name}}\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class='ui field'>\r\n          <button class='ui button'>Go</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n";
 
 /***/ },
-/* 142 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(143)
-	__vue_script__ = __webpack_require__(145)
-	__vue_template__ = __webpack_require__(155)
+	__webpack_require__(145)
+	__vue_script__ = __webpack_require__(147)
+	__vue_template__ = __webpack_require__(157)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -16451,13 +16514,13 @@
 	})()}
 
 /***/ },
-/* 143 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(144);
+	var content = __webpack_require__(146);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -16477,7 +16540,7 @@
 	}
 
 /***/ },
-/* 144 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16491,7 +16554,7 @@
 
 
 /***/ },
-/* 145 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16500,7 +16563,7 @@
 	  value: true
 	});
 	
-	var _typeof2 = __webpack_require__(146);
+	var _typeof2 = __webpack_require__(148);
 	
 	var _typeof3 = _interopRequireDefault(_typeof2);
 	
@@ -16508,7 +16571,7 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _fuzzysearch = __webpack_require__(154);
+	var _fuzzysearch = __webpack_require__(156);
 	
 	var _fuzzysearch2 = _interopRequireDefault(_fuzzysearch);
 	
@@ -16626,12 +16689,12 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 146 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _Symbol = __webpack_require__(147)["default"];
+	var _Symbol = __webpack_require__(149)["default"];
 	
 	exports["default"] = function (obj) {
 	  return obj && obj.constructor === _Symbol ? "symbol" : typeof obj;
@@ -16640,21 +16703,21 @@
 	exports.__esModule = true;
 
 /***/ },
-/* 147 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(148), __esModule: true };
+	module.exports = { "default": __webpack_require__(150), __esModule: true };
 
 /***/ },
-/* 148 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(149);
+	__webpack_require__(151);
 	__webpack_require__(86);
 	module.exports = __webpack_require__(29).Symbol;
 
 /***/ },
-/* 149 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16670,10 +16733,10 @@
 	  , setToStringTag = __webpack_require__(39)
 	  , uid            = __webpack_require__(42)
 	  , wks            = __webpack_require__(40)
-	  , keyOf          = __webpack_require__(150)
-	  , $names         = __webpack_require__(151)
-	  , enumKeys       = __webpack_require__(152)
-	  , isArray        = __webpack_require__(153)
+	  , keyOf          = __webpack_require__(152)
+	  , $names         = __webpack_require__(153)
+	  , enumKeys       = __webpack_require__(154)
+	  , isArray        = __webpack_require__(155)
 	  , anObject       = __webpack_require__(47)
 	  , toIObject      = __webpack_require__(21)
 	  , createDesc     = __webpack_require__(34)
@@ -16886,7 +16949,7 @@
 	setToStringTag(global.JSON, 'JSON', true);
 
 /***/ },
-/* 150 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $         = __webpack_require__(13)
@@ -16901,7 +16964,7 @@
 	};
 
 /***/ },
-/* 151 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -16926,7 +16989,7 @@
 	};
 
 /***/ },
-/* 152 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// all enumerable object keys, includes symbols
@@ -16945,7 +17008,7 @@
 	};
 
 /***/ },
-/* 153 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.2.2 IsArray(argument)
@@ -16955,7 +17018,7 @@
 	};
 
 /***/ },
-/* 154 */
+/* 156 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -16985,19 +17048,19 @@
 
 
 /***/ },
-/* 155 */
+/* 157 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"closeOverlay\" _v-7c5afcbd=\"\">\n    <div class=\"ui panel\" _v-7c5afcbd=\"\">\n      <h2 _v-7c5afcbd=\"\">Chill and chat? Sounds good.</h2>\n      <form class=\"ui form\" @submit.prevent=\"closeOverlay\" _v-7c5afcbd=\"\">\n        <div class=\"ui field\" _v-7c5afcbd=\"\">\n          <ul class=\"ui selection\" _v-7c5afcbd=\"\">\n            <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.id\" _v-7c5afcbd=\"\">\n              <span class=\"ui pull right\" _v-7c5afcbd=\"\">{{channel.userCount}}</span>\n              <span v-html=\"channel.name\" _v-7c5afcbd=\"\"></span>\n            </li>\n          </ul>\n        </div>\n\n        <div class=\"ui field text-input icon left\" _v-7c5afcbd=\"\">\n          <i class=\"fa fa-search\" _v-7c5afcbd=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"searchQuery\" _v-7c5afcbd=\"\">\n        </div>\n\n        <div class=\"ui field\" _v-7c5afcbd=\"\">\n          <button class=\"ui button\" _v-7c5afcbd=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
 
 /***/ },
-/* 156 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(157)
-	__vue_script__ = __webpack_require__(159)
-	__vue_template__ = __webpack_require__(178)
+	__webpack_require__(159)
+	__vue_script__ = __webpack_require__(161)
+	__vue_template__ = __webpack_require__(180)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -17014,13 +17077,13 @@
 	})()}
 
 /***/ },
-/* 157 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(158);
+	var content = __webpack_require__(160);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17040,7 +17103,7 @@
 	}
 
 /***/ },
-/* 158 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17054,7 +17117,7 @@
 
 
 /***/ },
-/* 159 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17063,19 +17126,19 @@
 	  value: true
 	});
 	
-	var _ActionPanel = __webpack_require__(160);
+	var _ActionPanel = __webpack_require__(162);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _CharacterAvatarLink = __webpack_require__(163);
+	var _CharacterAvatarLink = __webpack_require__(165);
 	
 	var _CharacterAvatarLink2 = _interopRequireDefault(_CharacterAvatarLink);
 	
-	var _MenuOption = __webpack_require__(168);
+	var _MenuOption = __webpack_require__(170);
 	
 	var _MenuOption2 = _interopRequireDefault(_MenuOption);
 	
-	var _Dropdown = __webpack_require__(173);
+	var _Dropdown = __webpack_require__(175);
 	
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 	
@@ -17184,12 +17247,12 @@
 	// <script>
 
 /***/ },
-/* 160 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(161)
-	__vue_template__ = __webpack_require__(162)
+	__vue_script__ = __webpack_require__(163)
+	__vue_template__ = __webpack_require__(164)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -17206,7 +17269,7 @@
 	})()}
 
 /***/ },
-/* 161 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17257,19 +17320,19 @@
 	// <script>
 
 /***/ },
-/* 162 */
+/* 164 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div class=\"ui overlay\" :transition=\"transition\" @click.self=\"close\">\r\n    <div class=\"ui side-panel {{side}} flex col\">\r\n      <div class=\"flex fixed\">\r\n        <slot name=\"content\"></slot>\r\n      </div>\r\n      <div class=\"flex stretch ui theme-color dark\">\r\n        <slot name=\"options\"></slot>\r\n      </div>\r\n    </div>\r\n  </div>\r\n";
 
 /***/ },
-/* 163 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(164)
-	__vue_script__ = __webpack_require__(166)
-	__vue_template__ = __webpack_require__(167)
+	__webpack_require__(166)
+	__vue_script__ = __webpack_require__(168)
+	__vue_template__ = __webpack_require__(169)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -17286,13 +17349,13 @@
 	})()}
 
 /***/ },
-/* 164 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(165);
+	var content = __webpack_require__(167);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17312,7 +17375,7 @@
 	}
 
 /***/ },
-/* 165 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17326,7 +17389,7 @@
 
 
 /***/ },
-/* 166 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17387,19 +17450,19 @@
 	// <script>
 
 /***/ },
-/* 167 */
+/* 169 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <a target=\"_blank\" :href=\"profileURL\" _v-3a713a68=\"\">\n    <img class=\"ui transition\" v-show=\"imageLoaded\" transition=\"fade\" :src=\"avatarURL\" @load=\"imageLoaded = true\" _v-3a713a68=\"\">\n    <i v-show=\"!imageLoaded\" class=\"fa fa-circle-o-notch fa-spin fa-2x\" _v-3a713a68=\"\"></i>\n  </a>\n";
 
 /***/ },
-/* 168 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(169)
-	__vue_script__ = __webpack_require__(171)
-	__vue_template__ = __webpack_require__(172)
+	__webpack_require__(171)
+	__vue_script__ = __webpack_require__(173)
+	__vue_template__ = __webpack_require__(174)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -17416,13 +17479,13 @@
 	})()}
 
 /***/ },
-/* 169 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(170);
+	var content = __webpack_require__(172);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17442,7 +17505,7 @@
 	}
 
 /***/ },
-/* 170 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17456,7 +17519,7 @@
 
 
 /***/ },
-/* 171 */
+/* 173 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -17487,19 +17550,19 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 172 */
+/* 174 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <a class=\"ui hover-darken noselect\" target=\"_blank\" _v-422d3b14=\"\">\n    <i class=\"fa fa-{{icon}} fa-fw\" _v-422d3b14=\"\"></i> <slot _v-422d3b14=\"\"></slot>\n  </a>\n";
 
 /***/ },
-/* 173 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(174)
-	__vue_script__ = __webpack_require__(176)
-	__vue_template__ = __webpack_require__(177)
+	__webpack_require__(176)
+	__vue_script__ = __webpack_require__(178)
+	__vue_template__ = __webpack_require__(179)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -17516,13 +17579,13 @@
 	})()}
 
 /***/ },
-/* 174 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(175);
+	var content = __webpack_require__(177);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17542,7 +17605,7 @@
 	}
 
 /***/ },
-/* 175 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17556,7 +17619,7 @@
 
 
 /***/ },
-/* 176 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17668,25 +17731,25 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 177 */
+/* 179 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div _v-0d0213f1=\"\">\n    <span class=\"ui section icon right hover-darken noselect head\" @click=\"toggle\" _v-0d0213f1=\"\">\n      <i class=\"fa fa-caret-down\" _v-0d0213f1=\"\"></i> {{ valueLabel }}\n    </span>\n    <ol class=\"ui theme-color dark border shadow\" v-show=\"open\" transition=\"collapse\" v-el:list-items=\"\" @click=\"selectItem($event)\" _v-0d0213f1=\"\">\n      <slot _v-0d0213f1=\"\"></slot>\n    </ol>\n  </div>\n";
 
 /***/ },
-/* 178 */
+/* 180 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <action-panel side=\"left\" _v-eed82bc8=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-eed82bc8=\"\">\n      <h2 _v-eed82bc8=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-eed82bc8=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-eed82bc8=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-eed82bc8=\"\">\n        <!-- <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown> -->\n        <dropdown _v-eed82bc8=\"\">\n          <li value=\"online\" _v-eed82bc8=\"\">Online</li>\n          <li value=\"looking\" _v-eed82bc8=\"\">Looking</li>\n          <li value=\"busy\" _v-eed82bc8=\"\">Busy</li>\n          <li value=\"away\" _v-eed82bc8=\"\">Away</li>\n          <li value=\"dnd\" _v-eed82bc8=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-eed82bc8=\"\">\n        <i class=\"fa fa-pencil\" _v-eed82bc8=\"\"></i>\n        <div contenteditable=\"\" placeholder=\"What's up?\" _v-eed82bc8=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-eed82bc8=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"openChannelMenu\" _v-eed82bc8=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"openOnlineUsers\" _v-eed82bc8=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-eed82bc8=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" _v-eed82bc8=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" _v-eed82bc8=\"\">Log Out</menu-option>\n    </div>\n  </action-panel>\n";
 
 /***/ },
-/* 179 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(180)
-	__vue_script__ = __webpack_require__(182)
-	__vue_template__ = __webpack_require__(183)
+	__webpack_require__(182)
+	__vue_script__ = __webpack_require__(184)
+	__vue_template__ = __webpack_require__(185)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -17703,13 +17766,13 @@
 	})()}
 
 /***/ },
-/* 180 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(181);
+	var content = __webpack_require__(183);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17729,7 +17792,7 @@
 	}
 
 /***/ },
-/* 181 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17743,7 +17806,7 @@
 
 
 /***/ },
-/* 182 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17752,15 +17815,15 @@
 	  value: true
 	});
 	
-	var _MenuOption = __webpack_require__(168);
+	var _MenuOption = __webpack_require__(170);
 	
 	var _MenuOption2 = _interopRequireDefault(_MenuOption);
 	
-	var _ActionPanel = __webpack_require__(160);
+	var _ActionPanel = __webpack_require__(162);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _CharacterAvatarLink = __webpack_require__(163);
+	var _CharacterAvatarLink = __webpack_require__(165);
 	
 	var _CharacterAvatarLink2 = _interopRequireDefault(_CharacterAvatarLink);
 	
@@ -17869,19 +17932,19 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <action-panel side=\"right\" _v-645a6fb8=\"\">\n    <section slot=\"content\" _v-645a6fb8=\"\">\n      <form slot=\"content\" class=\"ui form\" _v-645a6fb8=\"\">\n        <h2 class=\"wrap-break-word\" _v-645a6fb8=\"\">{{char.name}}</h2>\n        <div class=\"ui field\" _v-645a6fb8=\"\">\n          <character-avatar-link :character=\"activeCharacter\" _v-645a6fb8=\"\"></character-avatar-link>\n        </div>\n        <small class=\"ui field wrap-break-word section\" _v-645a6fb8=\"\">\n          <em _v-645a6fb8=\"\">\n            {{char.gender}}, {{char.status}}\n            <span v-if=\"char.statusMessage !== ''\" v-html=\"'- ' + char.statusMessage | bbcode\" _v-645a6fb8=\"\"></span>\n          </em>\n        </small>\n        <small class=\"ui field section highlight green\" v-for=\"friend in friendships\" _v-645a6fb8=\"\">\n          <em _v-645a6fb8=\"\"><i class=\"fa fa-heart\" _v-645a6fb8=\"\"></i> {{friend}}</em>\n        </small>\n      </form>\n    </section>\n    <section slot=\"options\" _v-645a6fb8=\"\">\n      <menu-option icon=\"comment\" @click=\"openPrivateChat\" _v-645a6fb8=\"\">Send Message</menu-option>\n\n      <menu-option icon=\"star-o\" v-if=\"!bookmarked\" @click=\"state.addBookmark(char.name)\" _v-645a6fb8=\"\">Bookmark</menu-option>\n      <menu-option icon=\"star\" v-else=\"\" @click=\"state.removeBookmark(char.name)\" _v-645a6fb8=\"\">Unbookmark</menu-option>\n\n      <menu-option icon=\"minus-square-o\" v-if=\"!ignored\" _v-645a6fb8=\"\">Ignore</menu-option>\n      <menu-option icon=\"minus-square\" v-else=\"\" _v-645a6fb8=\"\">Unignore</menu-option>\n\n      <menu-option icon=\"link\" :href=\"getProfileURL(char.name)\" _v-645a6fb8=\"\">View Profile</menu-option>\n    </section>\n  </action-panel>\n";
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(185)
-	__vue_script__ = __webpack_require__(187)
-	__vue_template__ = __webpack_require__(190)
+	__webpack_require__(187)
+	__vue_script__ = __webpack_require__(189)
+	__vue_template__ = __webpack_require__(192)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -17898,13 +17961,13 @@
 	})()}
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(186);
+	var content = __webpack_require__(188);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17924,7 +17987,7 @@
 	}
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17938,7 +18001,7 @@
 
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17955,7 +18018,7 @@
 	
 	var _Character2 = _interopRequireDefault(_Character);
 	
-	var _Dropdown = __webpack_require__(173);
+	var _Dropdown = __webpack_require__(175);
 	
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 	
@@ -17963,11 +18026,11 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _util = __webpack_require__(188);
+	var _util = __webpack_require__(190);
 	
 	var _events = __webpack_require__(111);
 	
-	var _fuse = __webpack_require__(189);
+	var _fuse = __webpack_require__(191);
 	
 	var _fuse2 = _interopRequireDefault(_fuse);
 	
@@ -18140,7 +18203,7 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -18154,7 +18217,7 @@
 	}
 
 /***/ },
-/* 189 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18940,13 +19003,13 @@
 
 
 /***/ },
-/* 190 */
+/* 192 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"close\" _v-7a68841e=\"\">\n    <div class=\"ui panel\" _v-7a68841e=\"\">\n      <h2 _v-7a68841e=\"\">Let's find some friends!</h2>\n      <form class=\"ui form\" @submit.prevent=\"\" _v-7a68841e=\"\">\n        <div class=\"ui field\" _v-7a68841e=\"\">\n          <dropdown style=\"width: 8em\" v-ref:filter=\"\" _v-7a68841e=\"\">\n            <li value=\"all\" _v-7a68841e=\"\">All</li>\n            <li value=\"friend\" _v-7a68841e=\"\">Friends</li>\n            <li value=\"bookmark\" _v-7a68841e=\"\">Bookmarks</li>\n            <li value=\"looking\" _v-7a68841e=\"\">Looking</li>\n          </dropdown>\n        </div>\n        <div class=\"ui field\" _v-7a68841e=\"\">\n          <ul class=\"ui selection\" style=\"\" _v-7a68841e=\"\">\n            <li v-for=\"char in slicedCharacters\" :class=\"getListClass(char)\" :data-activate-character=\"char.name\" _v-7a68841e=\"\">\n              <i class=\"fa fa-heart ui pull-right\" v-if=\"characterIs(char, 'friend')\" _v-7a68841e=\"\"></i>\n              <i class=\"fa fa-star ui pull-right\" v-if=\"characterIs(char, 'bookmark')\" _v-7a68841e=\"\"></i>\n              <i class=\"fa fa-paw ui pull-right\" v-if=\"characterIs(char, 'looking')\" _v-7a68841e=\"\"></i>\n              <character :character=\"char\" _v-7a68841e=\"\"></character>\n            </li>\n            <center class=\"ui small subtle\" style=\"padding: 0.5em\" v-if=\"slicedCharacters.length === 200\" _v-7a68841e=\"\">\n              <em _v-7a68841e=\"\">List truncated for performance. Search for more results.</em>\n            </center>\n          </ul>\n        </div>\n        <div class=\"ui field text-input icon right\" _v-7a68841e=\"\">\n          <i class=\"fa fa-search\" _v-7a68841e=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" debounce=\"500\" _v-7a68841e=\"\">\n        </div>\n        <div class=\"ui field\" _v-7a68841e=\"\">\n          <button class=\"ui button\" @click=\"close\" _v-7a68841e=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
 
 /***/ },
-/* 191 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18969,7 +19032,7 @@
 	
 	var _types = __webpack_require__(110);
 	
-	var _util = __webpack_require__(192);
+	var _util = __webpack_require__(194);
 	
 	var _events = __webpack_require__(111);
 	
@@ -19203,8 +19266,13 @@
 	
 	        // channel message
 	        case 'MSG':
-	          state.addChannelMessage(params.channel, params.character, params.message);
-	          this.vm.$emit(events.ChannelMessageReceived, params.channel, params.character, params.message);
+	          state.addChannelMessage(params.channel, params.character, params.message, _types.ChatMessageType.chat);
+	          // this.vm.$emit(events.ChannelMessageReceived, params.channel, params.character, params.message)
+	          break;
+	
+	        // LFRP channel message
+	        case 'LRP':
+	          state.addChannelMessage(params.channel, params.character, params.message, _types.ChatMessageType.lfrp);
 	          break;
 	
 	        // private message
@@ -19277,7 +19345,7 @@
 	exports.default = new Socket();
 
 /***/ },
-/* 192 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -19805,7 +19873,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 	
-	exports.isBuffer = __webpack_require__(193);
+	exports.isBuffer = __webpack_require__(195);
 	
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -19849,7 +19917,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(194);
+	exports.inherits = __webpack_require__(196);
 	
 	exports._extend = function(origin, add) {
 	  // Don't do anything if add isn't an object
@@ -19870,7 +19938,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(2)))
 
 /***/ },
-/* 193 */
+/* 195 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -19881,7 +19949,7 @@
 	}
 
 /***/ },
-/* 194 */
+/* 196 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -19910,13 +19978,13 @@
 
 
 /***/ },
-/* 195 */
+/* 197 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div @click='checkDataAttribute($event)'>\r\n    <chat v-ref:chat></chat>\r\n    <component v-for=\"overlay in overlays\" :is='overlay' :active-character='activeCharacter'></component>\r\n  </div>\r\n";
 
 /***/ },
-/* 196 */
+/* 198 */
 /***/ function(module, exports) {
 
 	'use strict';

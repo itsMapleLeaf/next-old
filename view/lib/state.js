@@ -291,11 +291,11 @@ class State {
     channel.characters = channel.characters.filter(char => char.name !== name)
   }
 
-  addChannelMessage (id, name, message) {
+  addChannelMessage (id, name, message, type) {
     const channel = this.getChannel(id)
     const char = this.data.onlineCharacters[name]
     if (char) {
-      channel.messages.push(ChatMessage(char, message))
+      channel.messages.push(ChatMessage(char, message, type))
     }
   }
 

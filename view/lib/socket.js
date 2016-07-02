@@ -1,4 +1,11 @@
-import {ChannelInfo, ChannelMode, ChannelStatus, ChannelType} from './types'
+import {
+  ChannelInfo,
+  ChannelMode,
+  ChannelStatus,
+  ChannelType,
+  ChatMessageType
+} from './types'
+
 import {inspect} from 'util'
 import * as events from './events'
 
@@ -186,8 +193,13 @@ class Socket {
 
       // channel message
       case 'MSG':
-        state.addChannelMessage(params.channel, params.character, params.message)
-        this.vm.$emit(events.ChannelMessageReceived, params.channel, params.character, params.message)
+        state.addChannelMessage(params.channel, params.character, params.message, ChatMessageType.chat)
+        // this.vm.$emit(events.ChannelMessageReceived, params.channel, params.character, params.message)
+        break
+
+      // LFRP channel message
+      case 'LRP':
+        state.addChannelMessage(params.channel, params.character, params.message, ChatMessageType.lfrp)
         break
 
       // private message

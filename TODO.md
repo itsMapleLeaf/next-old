@@ -7,7 +7,7 @@
   - [x] bookmark
   - [x] show friendship status & reflect it in the options
   - [x] ~~add friend~~ accidentally adding someone will be awkward
-- [ ] render LFRP ads
+- [x] render LFRP ads
 - [ ] add a BBCode toolbar for the chatbox
 - [ ] add a messaging mode toggle for channels (to send LFRP ads)
 - [ ] default left click to open profile, right click to open character menu
