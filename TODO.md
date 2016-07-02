@@ -1,6 +1,6 @@
 # Functionality
 - [ ] save open channels
-  - [ ] and log them? (see JSON optimization)
+  - [ ] ~~and log them? (see JSON optimization)~~ bad idea
 - [ ] add a functional character menu
   - [ ] ignore
   - [ ] report (low priority)
@@ -8,14 +8,16 @@
   - [x] link to character's profile
   - [x] bookmark
   - [x] show friendship status & reflect it in the options
-  - [ ] ~~add friend~~ accidentally adding someone will be awkward
-- [ ] render ads
+  - [x] ~~add friend~~ accidentally adding someone will be awkward
+- [ ] render LFRP ads
 - [ ] add a BBCode toolbar for the chatbox
+- [ ] add a messaging mode toggle for channels (to send LFRP ads)
 - [ ] default left click to open profile, right click to open character menu
-- [ ] add user preferences
+- [ ] settings menu
 - [ ] better link handling
   - [ ] open links in a modal
   - [ ] show an icon for the link type (image, webpage, etc.)
+  - [ ] possibly embed some media?
 - [ ] use tickboxes for the user list filter instead of a dropdown
 - [ ] make the status form work
 - [ ] add character memos
@@ -33,20 +35,21 @@
   - [ ] make the description and userlist collapsible
   - [ ] 1px scrollbars on mobile
   - [ ] always show tab close buttons on mobile
+  - [ ] possibly remove transition styles for performance
 - [ ] redo the chat colors (currently absent)
-- [ ] add a waiting status screen for logging in
+- [ ] add a waiting status screen for logging in and other slow operations
 - [ ] add dividers to split up the interface a bit
-- [ ] look into darklighting OOC?
+- [ ] look into optionally darklighting OOC? complicated and unreliable, but an interesting thought...
 - [ ] on application start, scroll the character list down so the selected character is within view
-- [ ] remove window border, add custom window buttons
-- [ ] add a checkbox Vue component for easy styling
-- [ ] make the tabs reorderable... ugh
-- [ ] add a view to read the channel description on a larger modal
-- [ ] add icons to tabs to indicate tab type
-- [ ] translate statuses into human readable text in CharacterMenu
+- [ ] (offline app) remove window border, add custom window buttons
+- [ ] create a checkbox component to use instead of the default HTML checkbox, for styling, more functionality and such
+- [ ] make the tabs reorderable... _ugh_
+- [ ] add a view to read the channel description on a larger panel instead of needing to scroll through that tiny div
+- [ ] add icons to tabs to indicate tab type (public channel, private channel, PM, etc.)
 - [ ] render channel/session BBC links
 - [ ] put .noselect on the friend tooltips in CharacterMenu
 - [ ] add notification sounds
+- [x] ~~translate statuses into human readable text in CharacterMenu~~ unnecessary
 - [x] friendly titles!
 - [x] add close buttons for the tabs
 - [x] add more shortcuts
@@ -59,12 +62,12 @@
 - [x] add hover-darken to character list items
 
 # Optimization / Cleanup
-- [ ] use computed() less, wherever possible
 - [ ] move user / session storage to an offline JSON config file
-  - [ ] also consider using firebase? mostly because of the storage limit on mobile
+  - [ ] also consider using firebase for user prefs? mostly because of the storage limit on mobile
 - [ ] return a null character from the store to handle offline users
 - [ ] limit the size of the message list to prevent hardcore memory leaks
-- [ ] move socket logic to application side out of the view
+- [ ] (offline app) move socket logic to application side out of the view
+- [x] ~~use computed() less, wherever possible~~ turns out there are probably more useful optimizations we can make here
 - [x] organize components into subfolders (overlays, chat views, etc.)
 - [x] find a way to solve the bottleneck rendering 400~500 character elements at once
 - [x] holy memory usage batman
