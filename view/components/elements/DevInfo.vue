@@ -1,6 +1,6 @@
 <template >
   <em>
-    <p>fchat-next alpha v{{version}}</p>
+    <h2>fchat-next alpha v{{version}}</h2>
     <p>
       <i class='fa fa-code'></i> with
       <i class='fa fa-heart'></i> by
