@@ -1,7 +1,7 @@
 <template>
   <div class='ui overlay' transition='fade'>
     <div class='ui panel'>
-      <h1>Lookin' good, beautiful.</h1>
+      <h1>Hi there!</h1>
       <form class='ui form' @submit.prevent='submit'>
         <div class='ui field text-input icon left'>
           <i class='fa fa-user'></i>
