@@ -42,7 +42,6 @@
   - [ ] possibly remove transition styles for performance
 - [ ] redo the chat colors (currently absent)
 - [ ] add a waiting status screen for logging in and other slow operations
-- [ ] add dividers to split up the interface a bit
 - [ ] look into optionally darklighting OOC? complicated and unreliable, but an interesting thought...
 - [ ] on application start, scroll the character list down so the selected character is within view
 - [ ] (offline app) remove window border, add custom window buttons
@@ -55,6 +54,7 @@
 - [ ] add notification sounds
 - [ ] hide the "bookmark" and "ignore" options (and other irrelevant options) on self characters
 - [ ] only show app menu if there are no active channels loaded from storage
+- [x] add dividers to split up the interface a bit
 - [x] ~~translate statuses into human readable text in CharacterMenu~~ unnecessary
 - [x] friendly titles!
 - [x] add close buttons for the tabs
@@ -93,3 +93,4 @@
 - [x] private channels are broken
 - [x] closing a tab activates it awkwardly before actually closing it
 - [x] does not load last active character
+- [x] PrivateChatView does not use the MessageList component (for some reason???)

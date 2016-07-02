@@ -8,16 +8,11 @@
       </em>
     </header>
 
-    <!-- <div class='box divider'></div> -->
+    <div class='flex divider'></div>
 
-    <section class='flex stretch ui scroll'>
-      <chat-message v-for='msg in viewState.messages'
-      :character='msg.character'
-      :message='msg.message'>
-      </chat-message>
-    </section>
+    <chat-message-list class='flex stretch' :messages='viewState.messages'></chat-message-list>
 
-    <!-- <div class='box divider'></div> -->
+    <div class='flex divider'></div>
 
     <section class='flex fixed ui theme-color main'>
       <chatbox @message-sent='messageSent'></chatbox>
@@ -34,12 +29,14 @@ header
 import Chatbox from '../elements/Chatbox.vue'
 import Character from '../elements/Character.vue'
 import ChatMessage from '../elements/ChatMessage.vue'
+import ChatMessageList from '../elements/ChatMessageList.vue'
 
 export default {
   components: {
     Chatbox,
     Character,
-    ChatMessage
+    ChatMessage,
+    ChatMessageList
   },
 
   props: {

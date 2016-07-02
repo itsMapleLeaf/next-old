@@ -1,40 +1,44 @@
 <template>
   <div class='flex col stretch'>
     <!-- description -->
-    <div class='flex fixed ui theme-color main scroll description'>
+    <section class='flex fixed ui theme-color main scroll description'>
       <span v-html="viewState.description | bbcode"></span>
-    </div>
+    </section>
 
-    <div class='flex row stretch'>
+    <div class='flex divider'></div>
+
+    <section class='flex row stretch'>
       <!-- message -->
       <chat-message-list class="flex stretch" :messages='viewState.messages'></chat-message-list>
 
+      <!-- <div class='flex divider'></div> -->
+
       <!-- users -->
-      <div class='flex fixed ui theme-color main scroll character-list'>
-        <ul>
-          <li class='ui hover-darken highlight green' v-for='char in characterGroups.friends'>
-            <character class='character-list-item' :character='char'></character>
-          </li>
-          <li class='ui hover-darken highlight blue' v-for='char in characterGroups.bookmarks'>
-            <character class='character-list-item' :character='char'></character>
-          </li>
-          <li class='ui hover-darken highlight red' v-for='char in characterGroups.admins'>
-            <character class='character-list-item' :character='char'></character>
-          </li>
-          <li class='ui hover-darken' v-for='char in characterGroups.looking'>
-            <character class='character-list-item' :character='char'></character>
-          </li>
-          <li class='ui hover-darken' v-for='char in characterGroups.rest'>
-            <character class='character-list-item' :character='char'></character>
-          </li>
-        </ul>
-      </div>
-    </div>
+      <ul class='flex fixed ui theme-color main scroll character-list'>
+        <li class='ui hover-darken highlight green' v-for='char in characterGroups.friends'>
+          <character class='character-list-item' :character='char'></character>
+        </li>
+        <li class='ui hover-darken highlight blue' v-for='char in characterGroups.bookmarks'>
+          <character class='character-list-item' :character='char'></character>
+        </li>
+        <li class='ui hover-darken highlight red' v-for='char in characterGroups.admins'>
+          <character class='character-list-item' :character='char'></character>
+        </li>
+        <li class='ui hover-darken' v-for='char in characterGroups.looking'>
+          <character class='character-list-item' :character='char'></character>
+        </li>
+        <li class='ui hover-darken' v-for='char in characterGroups.rest'>
+          <character class='character-list-item' :character='char'></character>
+        </li>
+      </ul>
+    </section>
+
+    <div class='flex divider'></div>
 
     <!-- chatbox -->
-    <div class='flex fixed ui theme-color main'>
+    <section class='flex fixed ui theme-color main'>
       <chatbox class='chatbox'></chatbox>
-    </div>
+    </section>
   </div>
 </template>
 
