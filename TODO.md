@@ -51,6 +51,7 @@
 - [ ] render channel/session BBC links
 - [ ] put .noselect on the friend tooltips in CharacterMenu
 - [ ] add notification sounds
+- [ ] hide the "bookmark" and "ignore" options (and other irrelevant options) on self characters
 - [x] ~~translate statuses into human readable text in CharacterMenu~~ unnecessary
 - [x] friendly titles!
 - [x] add close buttons for the tabs
@@ -85,6 +86,6 @@
 - [x] characters are not removed from active channels when they go offline
 - [x] bookmarks seem a little wonky. look into that
 - [x] fix the login data from authentication
-- [ ] private channels are broken
+- [x] private channels are broken
 - [ ] closing a tab activates it awkwardly before actually closing it
 - [ ] does not save last active character

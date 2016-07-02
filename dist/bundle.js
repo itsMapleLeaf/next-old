@@ -16476,7 +16476,7 @@
 	//             <li v-for='channel in slicedChannelList'
 	//             v-if="channel.name.trim() !== ''"
 	//             class="ui noselect {{isJoined(channel.id) ? 'active' : ''}}"
-	//             :data-toggle-channel='channel.name'>
+	//             :data-toggle-channel='channel.id'>
 	//               <span class='ui pull right'>{{channel.userCount}}</span>
 	//               <span v-html="channel.name"></span>
 	//             </li>
@@ -16936,7 +16936,7 @@
 /* 154 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"closeOverlay\" _v-7c5afcbd=\"\">\n    <div class=\"ui panel\" _v-7c5afcbd=\"\">\n      <h2 _v-7c5afcbd=\"\">Chill and chat? Sounds good.</h2>\n      <form class=\"ui form\" @submit.prevent=\"closeOverlay\" _v-7c5afcbd=\"\">\n        <div class=\"ui field\" _v-7c5afcbd=\"\">\n          <ul class=\"ui selection\" _v-7c5afcbd=\"\">\n            <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.name\" _v-7c5afcbd=\"\">\n              <span class=\"ui pull right\" _v-7c5afcbd=\"\">{{channel.userCount}}</span>\n              <span v-html=\"channel.name\" _v-7c5afcbd=\"\"></span>\n            </li>\n          </ul>\n        </div>\n\n        <div class=\"ui field text-input icon left\" _v-7c5afcbd=\"\">\n          <i class=\"fa fa-search\" _v-7c5afcbd=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"searchQuery\" _v-7c5afcbd=\"\">\n        </div>\n\n        <div class=\"ui field\" _v-7c5afcbd=\"\">\n          <button class=\"ui button\" _v-7c5afcbd=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
+	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"closeOverlay\" _v-7c5afcbd=\"\">\n    <div class=\"ui panel\" _v-7c5afcbd=\"\">\n      <h2 _v-7c5afcbd=\"\">Chill and chat? Sounds good.</h2>\n      <form class=\"ui form\" @submit.prevent=\"closeOverlay\" _v-7c5afcbd=\"\">\n        <div class=\"ui field\" _v-7c5afcbd=\"\">\n          <ul class=\"ui selection\" _v-7c5afcbd=\"\">\n            <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.id\" _v-7c5afcbd=\"\">\n              <span class=\"ui pull right\" _v-7c5afcbd=\"\">{{channel.userCount}}</span>\n              <span v-html=\"channel.name\" _v-7c5afcbd=\"\"></span>\n            </li>\n          </ul>\n        </div>\n\n        <div class=\"ui field text-input icon left\" _v-7c5afcbd=\"\">\n          <i class=\"fa fa-search\" _v-7c5afcbd=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"searchQuery\" _v-7c5afcbd=\"\">\n        </div>\n\n        <div class=\"ui field\" _v-7c5afcbd=\"\">\n          <button class=\"ui button\" _v-7c5afcbd=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
 
 /***/ },
 /* 155 */

@@ -8,7 +8,7 @@
             <li v-for='channel in slicedChannelList'
             v-if="channel.name.trim() !== ''"
             class="ui noselect {{isJoined(channel.id) ? 'active' : ''}}"
-            :data-toggle-channel='channel.name'>
+            :data-toggle-channel='channel.id'>
               <span class='ui pull right'>{{channel.userCount}}</span>
               <span v-html="channel.name"></span>
             </li>
