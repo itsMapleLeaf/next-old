@@ -21,8 +21,8 @@
 - [ ] functional logging out
 - [ ] timestamps
 - [ ] eventually figure a performant way to allow people to browse all characters/channels
-- [ ] add an "about" screen
 - [ ] add a BBCode toolbar for the chatbox
+- [x] add an "about" screen
 - [x] add a messages display mode bar for channels (chat, ads, both)
 - [x] render LFRP ads
 - [x] save open channels
@@ -77,6 +77,8 @@
 - [ ] (offline app) move socket logic to application side out of the view
 - [ ] add a global getter for the application version
 - [ ] stop using so many goddamn transitions (but keep overlay transitions)
+- [ ] make an overlay vue component
+- [ ] allow requiring absolute paths from root folder to resolve the absolute path madness
 - [x] create an interface for session storage to support multiple platforms later on
 - [x] ~~rewrite style classes to account a little better for collisions~~ not necessary
 - [x] ~~use computed() less, wherever possible~~ turns out there are probably more useful optimizations we can make here

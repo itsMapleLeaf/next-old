@@ -2,6 +2,7 @@
 - Showing LFRP ads
 - Added some thin subtle dividers to the layout to separate things a little better.
 - Added the ability to change channel message display mode (chat, lfrp, both)
+- Added an 'about' panel to the menu, to always have access to developer info.
 
 # 0.2.1
 - Fixed a nasty bug where the login menu didn't show up.

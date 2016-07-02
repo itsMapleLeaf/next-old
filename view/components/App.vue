@@ -20,6 +20,7 @@ import ChannelList from './overlays/ChannelList.vue'
 import AppMenu from './overlays/AppMenu.vue'
 import CharacterMenu from './overlays/CharacterMenu.vue'
 import OnlineUsers from './overlays/OnlineUsers.vue'
+import About from './overlays/About.vue'
 
 import state from '../lib/state'
 import socket from '../lib/socket'
@@ -36,7 +37,8 @@ export default {
     ChannelList,
     AppMenu,
     CharacterMenu,
-    OnlineUsers
+    OnlineUsers,
+    About
   },
 
   data () {

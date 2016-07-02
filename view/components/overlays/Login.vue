@@ -1,6 +1,6 @@
 <template>
   <div class='ui overlay flex col' transition='fade'>
-    <div class='ui panel'>
+    <section class='ui panel'>
       <h1>Hi there!</h1>
       <form class='ui form' @submit.prevent='submit'>
         <div class='ui field text-input icon left'>
@@ -21,22 +21,24 @@
         </div>
       </form>
       <span>{{status}}</span>
-    </div>
-    <center class='ui small subtle footer'>
-      <dev-info></dev-info>
-      <em>Including the "remember me" option there.<br />It will remember you whether you like it or not.<br /><small>Deal with it.</small></em>
-    </center>
+    </section>
+    <footer>
+      <center class='ui small subtle'>
+        <dev-info></dev-info>
+        <em>Including the "remember me" option there.<br />It will remember you whether you like it or not.<br /><small>Deal with it.</small></em>
+      </center>
+    </footer>
   </div>
 </template>
 
 <style lang="stylus" scoped>
 .panel
-  width: 14em
+  width: 12em
 
-.footer
+footer
   width: 100vw
   position: absolute
-  padding: 2em
+  padding: 1em
 </style>
 
 <script>

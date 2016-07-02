@@ -21,11 +21,12 @@
     </form>
 
     <div slot="options">
-      <menu-option icon='globe' @mousedown="openChannelMenu">Channels</menu-option>
-      <menu-option icon='heart' @mousedown="openOnlineUsers">Online Users</menu-option>
+      <menu-option icon='globe' @mousedown="pushOverlay('channel-list')">Channels</menu-option>
+      <menu-option icon='heart' @mousedown="pushOverlay('online-users')">Online Users</menu-option>
       <menu-option icon='gear'>Settings</menu-option>
       <menu-option icon='user'>Switch Character</menu-option>
       <menu-option icon='sign-out'>Log Out</menu-option>
+      <menu-option icon='info' @mousedown="pushOverlay('about')">About</menu-option>
     </div>
   </action-panel>
 </template>
@@ -86,14 +87,9 @@ export default {
       // set character status
     },
 
-    openChannelMenu () {
+    pushOverlay (overlay) {
       this.$dispatch(PopOverlay)
-      this.$dispatch(PushOverlay, 'channel-list')
-    },
-
-    openOnlineUsers () {
-      this.$dispatch(PopOverlay)
-      this.$dispatch(PushOverlay, 'online-users')
+      this.$dispatch(PushOverlay, overlay)
     }
   }
 }
