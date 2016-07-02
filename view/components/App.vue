@@ -133,7 +133,7 @@ export default {
         }
       })
       .catch(msg => {
-        console.log(msg)
+        console.warn(msg)
       })
     },
 

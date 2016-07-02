@@ -1,7 +1,8 @@
 <template>
-  <a class='ui hover-darken' :class="{ 'theme-color main border': active }" transition="fade">
-    <span><slot></slot></span>
-    <i class="fa fa-times ui transition small" @click="$emit('closed')"></i>
+  <a class='ui hover-darken' :class="{ 'theme-color main border': active }" transition="fade"
+  @click.self="$emit('selected')">
+    <span @click.self="$emit('selected')"><slot></slot></span>
+    <i class="fa fa-times ui transition small" @click.prevent.stop="$emit('closed')"></i>
   </a>
 </template>
 

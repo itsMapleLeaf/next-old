@@ -9,7 +9,7 @@
       :active='activeTabIndex === $index'
       :title='tab.title'
       @closed='closeTab(tab)'
-      @mousedown='activeTabIndex = $index'>
+      @selected='activeTabIndex = $index'>
         {{ tab.title }}
       </chat-tab>
     </div>

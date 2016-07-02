@@ -12239,7 +12239,7 @@
 	        }
 	      }
 	    }).catch(function (msg) {
-	      console.log(msg);
+	      console.warn(msg);
 	    });
 	  }), (0, _defineProperty3.default)(_events, events.SocketError, function () {
 	    this.$emit(events.PushOverlay, 'login');
@@ -12466,7 +12466,7 @@
 	//       :active='activeTabIndex === $index'
 	//       :title='tab.title'
 	//       @closed='closeTab(tab)'
-	//       @mousedown='activeTabIndex = $index'>
+	//       @selected='activeTabIndex = $index'>
 	//         {{ tab.title }}
 	//       </chat-tab>
 	//     </div>
@@ -12733,9 +12733,10 @@
 	  value: true
 	});
 	// <template>
-	//   <a class='ui hover-darken' :class="{ 'theme-color main border': active }" transition="fade">
-	//     <span><slot></slot></span>
-	//     <i class="fa fa-times ui transition small" @click="$emit('closed')"></i>
+	//   <a class='ui hover-darken' :class="{ 'theme-color main border': active }" transition="fade"
+	//   @click.self="$emit('selected')">
+	//     <span @click.self="$emit('selected')"><slot></slot></span>
+	//     <i class="fa fa-times ui transition small" @click.prevent.stop="$emit('closed')"></i>
 	//   </a>
 	// </template>
 	//
@@ -12781,7 +12782,7 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <a class=\"ui hover-darken\" :class=\"{ 'theme-color main border': active }\" transition=\"fade\" _v-27416b26=\"\">\n    <span _v-27416b26=\"\"><slot _v-27416b26=\"\"></slot></span>\n    <i class=\"fa fa-times ui transition small\" @click=\"$emit('closed')\" _v-27416b26=\"\"></i>\n  </a>\n";
+	module.exports = "\n  <a class=\"ui hover-darken\" :class=\"{ 'theme-color main border': active }\" transition=\"fade\" @click.self=\"$emit('selected')\" _v-27416b26=\"\">\n    <span @click.self=\"$emit('selected')\" _v-27416b26=\"\"><slot _v-27416b26=\"\"></slot></span>\n    <i class=\"fa fa-times ui transition small\" @click.prevent.stop=\"$emit('closed')\" _v-27416b26=\"\"></i>\n  </a>\n";
 
 /***/ },
 /* 25 */
@@ -16093,7 +16094,7 @@
 /* 132 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"flex col ui theme-color dark fullscreen\" _v-56ad2e4d=\"\">\n    <div class=\"flex row fixed\" style=\"flex-wrap: wrap\" _v-56ad2e4d=\"\">\n      <shortcut title=\"Actions\" icon=\"bars\" overlay=\"app-menu\" _v-56ad2e4d=\"\"></shortcut>\n      <shortcut title=\"Channels\" icon=\"globe\" overlay=\"channel-list\" _v-56ad2e4d=\"\"></shortcut>\n      <shortcut title=\"Users\" icon=\"heart\" overlay=\"online-users\" _v-56ad2e4d=\"\"></shortcut>\n\n      <chat-tab v-for=\"tab in tabs\" :active=\"activeTabIndex === $index\" :title=\"tab.title\" @closed=\"closeTab(tab)\" @mousedown=\"activeTabIndex = $index\" _v-56ad2e4d=\"\">\n        {{ tab.title }}\n      </chat-tab>\n    </div>\n\n    <component :is=\"currentTab.view\" :view-state=\"currentTab.state\" _v-56ad2e4d=\"\">\n    </component>\n  </div>\n";
+	module.exports = "\n  <div class=\"flex col ui theme-color dark fullscreen\" _v-56ad2e4d=\"\">\n    <div class=\"flex row fixed\" style=\"flex-wrap: wrap\" _v-56ad2e4d=\"\">\n      <shortcut title=\"Actions\" icon=\"bars\" overlay=\"app-menu\" _v-56ad2e4d=\"\"></shortcut>\n      <shortcut title=\"Channels\" icon=\"globe\" overlay=\"channel-list\" _v-56ad2e4d=\"\"></shortcut>\n      <shortcut title=\"Users\" icon=\"heart\" overlay=\"online-users\" _v-56ad2e4d=\"\"></shortcut>\n\n      <chat-tab v-for=\"tab in tabs\" :active=\"activeTabIndex === $index\" :title=\"tab.title\" @closed=\"closeTab(tab)\" @selected=\"activeTabIndex = $index\" _v-56ad2e4d=\"\">\n        {{ tab.title }}\n      </chat-tab>\n    </div>\n\n    <component :is=\"currentTab.view\" :view-state=\"currentTab.state\" _v-56ad2e4d=\"\">\n    </component>\n  </div>\n";
 
 /***/ },
 /* 133 */

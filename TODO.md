@@ -22,6 +22,8 @@
 - [ ] functional character switching
 - [ ] functional logging out
 - [ ] timestamps
+- [ ] eventually figure a performant way to allow people to browse all characters/channels
+- [ ] add an "about" screen
 - [x] save open channels
 - [x] add a global character list, with friends sorted to top
 - [x] sort the user list alphabetically, with precedence:
@@ -52,6 +54,7 @@
 - [ ] put .noselect on the friend tooltips in CharacterMenu
 - [ ] add notification sounds
 - [ ] hide the "bookmark" and "ignore" options (and other irrelevant options) on self characters
+- [ ] only show app menu if there are no active channels loaded from storage
 - [x] ~~translate statuses into human readable text in CharacterMenu~~ unnecessary
 - [x] friendly titles!
 - [x] add close buttons for the tabs
@@ -70,6 +73,7 @@
 - [ ] return a null character from the store to handle offline users
 - [ ] limit the size of the message list to prevent hardcore memory leaks
 - [ ] (offline app) move socket logic to application side out of the view
+- [ ] add a global getter for the application version
 - [x] create an interface for session storage to support multiple platforms later on
 - [x] ~~rewrite style classes to account a little better for collisions~~ not necessary
 - [x] ~~use computed() less, wherever possible~~ turns out there are probably more useful optimizations we can make here
@@ -87,5 +91,5 @@
 - [x] bookmarks seem a little wonky. look into that
 - [x] fix the login data from authentication
 - [x] private channels are broken
-- [ ] closing a tab activates it awkwardly before actually closing it
+- [x] closing a tab activates it awkwardly before actually closing it
 - [ ] does not save last active character
