@@ -32,7 +32,11 @@
 
     <section class='flex row stretch'>
       <!-- message -->
-      <chat-message-list class="flex stretch" :messages='viewState.messages'></chat-message-list>
+      <chat-message-list
+        class="flex stretch"
+        :messages='viewState.messages'
+        :preference='viewState.preference'>
+      </chat-message-list>
 
       <div class='flex divider'></div>
 

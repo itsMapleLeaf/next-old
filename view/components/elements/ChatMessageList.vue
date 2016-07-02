@@ -1,6 +1,6 @@
 <template>
   <div class="ui scroll" v-el:container @scroll='onScroll'>
-    <chat-message v-for='msg in messages' :message='msg'></chat-message>
+    <chat-message v-for='msg in filteredMessages' :message='msg'></chat-message>
   </div>
 </template>
 
@@ -12,9 +12,16 @@
 <script>
 import ChatMessage from './ChatMessage.vue'
 
+import {ChatMessageType} from '../../lib/types'
+
 export default {
   props: {
-    messages: Array
+    messages: Array,
+    preference: String
+  },
+
+  components: {
+    ChatMessage
   },
 
   data () {
@@ -48,8 +55,16 @@ export default {
     }
   },
 
-  components: {
-    ChatMessage
+  computed: {
+    filteredMessages () {
+      if (this.preference === 'both') {
+        return this.messages
+      } else if (this.preference === 'chat') {
+        return this.messages.filter(msg => msg.type === ChatMessageType.chat)
+      } else if (this.preference === 'ads') {
+        return this.messages.filter(msg => msg.type === ChatMessageType.lfrp)
+      }
+    }
   }
 }
 </script>
