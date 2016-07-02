@@ -23,6 +23,7 @@
 - [ ] add character memos
 - [ ] functional character switching
 - [ ] functional logging out
+- [ ] timestamps
 - [x] add a global character list, with friends sorted to top
 - [x] sort the user list alphabetically, with precedence:
   - [x] friends (green highlight)
@@ -69,6 +70,7 @@
 - [ ] return a null character from the store to handle offline users
 - [ ] limit the size of the message list to prevent hardcore memory leaks
 - [ ] (offline app) move socket logic to application side out of the view
+- [x] ~~rewrite style classes to account a little better for collisions~~ not necessary
 - [x] ~~use computed() less, wherever possible~~ turns out there are probably more useful optimizations we can make here
 - [x] organize components into subfolders (overlays, chat views, etc.)
 - [x] find a way to solve the bottleneck rendering 400~500 character elements at once

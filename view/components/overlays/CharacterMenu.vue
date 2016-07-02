@@ -1,21 +1,23 @@
 <template>
   <action-panel side="right">
-    <form slot="content" class="ui form">
-      <h2 class="wrap-break-word">{{char.name}}</h2>
-      <div class="ui field">
-        <character-avatar-link :character="activeCharacter"></character-avatar-link>
-      </div>
-      <small class="ui field wrap-break-word section">
-        <em>
-          {{char.gender}}, {{char.status}}
-          <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
-        </em>
-      </small>
-      <small class="ui field section highlight green" v-for="friend in friendships">
-        <em><i class="fa fa-heart"></i> {{friend}}</em>
-      </small>
-    </form>
-    <div slot="options">
+    <section slot="content">
+      <form slot="content" class="ui form">
+        <h2 class="wrap-break-word">{{char.name}}</h2>
+        <div class="ui field">
+          <character-avatar-link :character="activeCharacter"></character-avatar-link>
+        </div>
+        <small class="ui field wrap-break-word section">
+          <em>
+            {{char.gender}}, {{char.status}}
+            <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
+          </em>
+        </small>
+        <small class="ui field section highlight green" v-for="friend in friendships">
+          <em><i class="fa fa-heart"></i> {{friend}}</em>
+        </small>
+      </form>
+    </section>
+    <section slot="options">
       <menu-option icon='comment' @click='openPrivateChat'>Send Message</menu-option>
 
       <menu-option icon='star-o' v-if='!bookmarked' @click='state.addBookmark(char.name)'>Bookmark</menu-option>
@@ -25,7 +27,7 @@
       <menu-option icon='minus-square' v-else>Unignore</menu-option>
 
       <menu-option icon='link' :href="getProfileURL(char.name)">View Profile</menu-option>
-    </div>
+    </section>
   </action-panel>
 </template>
 

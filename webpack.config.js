@@ -24,5 +24,5 @@ module.exports = {
     presets: ['es2015'],
     plugins: ['transform-runtime']
   },
-  devtool: '#inline-source-map'
+  devtool: 'source-map'
 }

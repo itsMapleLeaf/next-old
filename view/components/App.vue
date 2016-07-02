@@ -6,6 +6,7 @@
 </template>
 
 <style lang="stylus">
+@import '../styles/root.styl'
 @import '../styles/ui.styl'
 @import '../styles/flex.styl'
 @import '../styles/transitions.styl'
