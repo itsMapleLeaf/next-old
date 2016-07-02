@@ -57,7 +57,7 @@ export function addBookmark (account, ticket, name) {
   return http.post(endpoints.bookmarkAdd, { account, ticket, name })
   .then(res => {
     if (res.data.error) {
-      return Promise.reject(res.error)
+      return Promise.reject(res.data.error)
     } else {
       return Promise.resolve()
     }
@@ -68,7 +68,7 @@ export function removeBookmark (account, ticket, name) {
   return http.post(endpoints.bookmarkRemove, { account, ticket, name })
   .then(res => {
     if (res.data.error) {
-      return Promise.reject(res.error)
+      return Promise.reject(res.data.error)
     } else {
       return Promise.resolve()
     }

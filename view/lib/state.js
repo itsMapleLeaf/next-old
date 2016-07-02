@@ -313,6 +313,9 @@ class State {
     .then(() => {
       bookmarks.push(name)
     })
+    .catch(msg => {
+      console.warn(msg)
+    })
   }
 
   removeBookmark (name) {
@@ -320,6 +323,9 @@ class State {
     flist.removeBookmark(account, ticket, name)
     .then(() => {
       bookmarks.$remove(name)
+    })
+    .catch(msg => {
+      console.warn(msg)
     })
   }
 }

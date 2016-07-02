@@ -13665,6 +13665,8 @@
 	
 	      flist.addBookmark(account, ticket, name).then(function () {
 	        bookmarks.push(name);
+	      }).catch(function (msg) {
+	        console.warn(msg);
 	      });
 	    }
 	  }, {
@@ -13677,6 +13679,8 @@
 	
 	      flist.removeBookmark(account, ticket, name).then(function () {
 	        bookmarks.$remove(name);
+	      }).catch(function (msg) {
+	        console.warn(msg);
 	      });
 	    }
 	  }]);
@@ -15392,7 +15396,7 @@
 	function addBookmark(account, ticket, name) {
 	  return _vue.http.post(endpoints.bookmarkAdd, { account: account, ticket: ticket, name: name }).then(function (res) {
 	    if (res.data.error) {
-	      return _promise2.default.reject(res.error);
+	      return _promise2.default.reject(res.data.error);
 	    } else {
 	      return _promise2.default.resolve();
 	    }
@@ -15402,7 +15406,7 @@
 	function removeBookmark(account, ticket, name) {
 	  return _vue.http.post(endpoints.bookmarkRemove, { account: account, ticket: ticket, name: name }).then(function (res) {
 	    if (res.data.error) {
-	      return _promise2.default.reject(res.error);
+	      return _promise2.default.reject(res.data.error);
 	    } else {
 	      return _promise2.default.resolve();
 	    }
@@ -17106,7 +17110,7 @@
 	//
 	//     <div slot="options">
 	//       <menu-option icon='globe' @mousedown="openChannelMenu">Channels</menu-option>
-	//       <menu-option icon='paw' @mousedown="openOnlineUsers">Online Users</menu-option>
+	//       <menu-option icon='heart' @mousedown="openOnlineUsers">Online Users</menu-option>
 	//       <menu-option icon='gear'>Settings</menu-option>
 	//       <menu-option icon='user'>Switch Character</menu-option>
 	//       <menu-option icon='sign-out'>Log Out</menu-option>
@@ -17409,7 +17413,7 @@
 	  value: true
 	});
 	// <template>
-	//   <a class='ui hover-darken' target="_blank">
+	//   <a class='ui hover-darken noselect' target="_blank">
 	//     <i class='fa fa-{{icon}} fa-fw'></i> <slot></slot>
 	//   </a>
 	// </template>
@@ -17434,7 +17438,7 @@
 /* 171 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <a class=\"ui hover-darken\" target=\"_blank\" _v-422d3b14=\"\">\n    <i class=\"fa fa-{{icon}} fa-fw\" _v-422d3b14=\"\"></i> <slot _v-422d3b14=\"\"></slot>\n  </a>\n";
+	module.exports = "\n  <a class=\"ui hover-darken noselect\" target=\"_blank\" _v-422d3b14=\"\">\n    <i class=\"fa fa-{{icon}} fa-fw\" _v-422d3b14=\"\"></i> <slot _v-422d3b14=\"\"></slot>\n  </a>\n";
 
 /***/ },
 /* 172 */
@@ -17621,7 +17625,7 @@
 /* 177 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <action-panel side=\"left\" _v-eed82bc8=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-eed82bc8=\"\">\n      <h2 _v-eed82bc8=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-eed82bc8=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-eed82bc8=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-eed82bc8=\"\">\n        <!-- <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown> -->\n        <dropdown _v-eed82bc8=\"\">\n          <li value=\"online\" _v-eed82bc8=\"\">Online</li>\n          <li value=\"looking\" _v-eed82bc8=\"\">Looking</li>\n          <li value=\"busy\" _v-eed82bc8=\"\">Busy</li>\n          <li value=\"away\" _v-eed82bc8=\"\">Away</li>\n          <li value=\"dnd\" _v-eed82bc8=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-eed82bc8=\"\">\n        <i class=\"fa fa-pencil\" _v-eed82bc8=\"\"></i>\n        <div contenteditable=\"\" placeholder=\"What's up?\" _v-eed82bc8=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-eed82bc8=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"openChannelMenu\" _v-eed82bc8=\"\">Channels</menu-option>\n      <menu-option icon=\"paw\" @mousedown=\"openOnlineUsers\" _v-eed82bc8=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-eed82bc8=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" _v-eed82bc8=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" _v-eed82bc8=\"\">Log Out</menu-option>\n    </div>\n  </action-panel>\n";
+	module.exports = "\n  <action-panel side=\"left\" _v-eed82bc8=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-eed82bc8=\"\">\n      <h2 _v-eed82bc8=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-eed82bc8=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-eed82bc8=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-eed82bc8=\"\">\n        <!-- <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown> -->\n        <dropdown _v-eed82bc8=\"\">\n          <li value=\"online\" _v-eed82bc8=\"\">Online</li>\n          <li value=\"looking\" _v-eed82bc8=\"\">Looking</li>\n          <li value=\"busy\" _v-eed82bc8=\"\">Busy</li>\n          <li value=\"away\" _v-eed82bc8=\"\">Away</li>\n          <li value=\"dnd\" _v-eed82bc8=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-eed82bc8=\"\">\n        <i class=\"fa fa-pencil\" _v-eed82bc8=\"\"></i>\n        <div contenteditable=\"\" placeholder=\"What's up?\" _v-eed82bc8=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-eed82bc8=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"openChannelMenu\" _v-eed82bc8=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"openOnlineUsers\" _v-eed82bc8=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-eed82bc8=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" _v-eed82bc8=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" _v-eed82bc8=\"\">Log Out</menu-option>\n    </div>\n  </action-panel>\n";
 
 /***/ },
 /* 178 */

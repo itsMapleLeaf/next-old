@@ -48,7 +48,7 @@ import ActionPanel from '../elements/ActionPanel.vue'
 import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
 
 import {getProfileURL, getAvatarURL} from '../../lib/flist'
-import {OpenPrivateChatRequest, PushOverlay, PopOverlay} from '../../lib/events'
+import {OpenPrivateChatRequest, PopOverlay} from '../../lib/events'
 import state from '../../lib/state'
 
 export default {

@@ -1,5 +1,5 @@
 <template>
-  <a class='ui hover-darken' target="_blank">
+  <a class='ui hover-darken noselect' target="_blank">
     <i class='fa fa-{{icon}} fa-fw'></i> <slot></slot>
   </a>
 </template>
