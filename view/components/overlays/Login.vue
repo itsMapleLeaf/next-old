@@ -23,17 +23,8 @@
       <span>{{status}}</span>
     </div>
     <center class='ui small subtle footer'>
-      <em>
-        <p>fchat-next alpha v{{version}}</p>
-        <p>
-          <i class='fa fa-code'></i> with
-          <i class='fa fa-heart'></i> by
-          <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a><br />
-          Note me for questions or concerns.
-        </p>
-        <p><a class='ui link' href='https://github.com/Kingdaro/fchat'>Github Repository</a></p>
-        <p>Warning: buggy and incomplete. Many things do not work.</p>
-      </em>
+      <dev-info></dev-info>
+      <em>Including the "remember me" option there.<br />It will remember you whether you like it or not.<br /><small>Deal with it.</small></em>
     </center>
   </div>
 </template>
@@ -49,6 +40,8 @@
 </style>
 
 <script>
+import DevInfo from '../elements/DevInfo.vue'
+
 import {sendLoginRequest} from '../../lib/flist'
 import {LoginRequest, LoginSuccess} from '../../lib/events'
 import {version} from '../../../package'
@@ -68,6 +61,10 @@ export default {
       disabled: false,
       version
     }
+  },
+
+  components: {
+    DevInfo
   },
 
   methods: {
