@@ -6,7 +6,6 @@
         <character-avatar-link :character="state.getUserCharacter()"></character-avatar-link>
       </div>
       <div class="ui field">
-        <!-- <dropdown :items='statusDropdown' @selection='statusChanged'></dropdown> -->
         <dropdown>
           <li value="online">Online</li>
           <li value="looking">Looking</li>
@@ -65,16 +64,6 @@ export default {
   },
 
   computed: {
-    statusDropdown () {
-      return [
-        { value: 'online', label: 'Online' },
-        { value: 'looking', label: 'Looking' },
-        { value: 'busy', label: 'Busy' },
-        { value: 'away', label: 'Away' },
-        { value: 'dnd', label: 'DND' }
-      ]
-    },
-
     character () {
       return this.state.getUserCharacterName()
     },
