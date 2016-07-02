@@ -45,8 +45,8 @@ class State {
       return Promise.resolve()
     })
     .catch(msg => {
-      console.log(msg)
-      return Promise.reject()
+      window.localStorage.clear()
+      return Promise.reject("Couldn't load user data from storage. Starting fresh.")
     })
   }
 

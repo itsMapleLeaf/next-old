@@ -69,6 +69,10 @@ export default {
           this.$emit(events.PushOverlay, 'login')
         }
       })
+      .catch(msg => {
+        console.log(msg)
+        this.$emit(events.PushOverlay, 'login')
+      })
     }
   },
 
@@ -133,7 +137,7 @@ export default {
         }
       })
       .catch(msg => {
-        console.warn(msg)
+        console.log(msg)
       })
     },
 

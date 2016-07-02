@@ -12,11 +12,10 @@ let win
 function createWindow () {
   win = new BrowserWindow({ title: 'F-Chat Next' })
 
-  BrowserWindow.addDevToolsExtension(path.join(extensionFolder, vuejsExtensionID, vuejsExtensionVersion))
-
   const index = path.resolve(__dirname, '../index.html')
 
   if (process.argv.includes('--dev')) {
+    BrowserWindow.addDevToolsExtension(path.join(extensionFolder, vuejsExtensionID, vuejsExtensionVersion))
     win.loadURL('http://localhost:8080')
     win.webContents.openDevTools()
   } else {

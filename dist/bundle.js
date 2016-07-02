@@ -12170,6 +12170,9 @@
 	        } else {
 	          _this.$emit(events.PushOverlay, 'login');
 	        }
+	      }).catch(function (msg) {
+	        console.log(msg);
+	        _this.$emit(events.PushOverlay, 'login');
 	      });
 	    }
 	  },
@@ -12239,7 +12242,7 @@
 	        }
 	      }
 	    }).catch(function (msg) {
-	      console.warn(msg);
+	      console.log(msg);
 	    });
 	  }), (0, _defineProperty3.default)(_events, events.SocketError, function () {
 	    this.$emit(events.PushOverlay, 'login');
@@ -13800,8 +13803,8 @@
 	        _this.data.character = character;
 	        return _promise2.default.resolve();
 	      }).catch(function (msg) {
-	        console.log(msg);
-	        return _promise2.default.reject();
+	        window.localStorage.clear();
+	        return _promise2.default.reject("Couldn't load user data from storage. Starting fresh.");
 	      });
 	    }
 	
@@ -15211,10 +15214,6 @@
 	  function Storage() {
 	    (0, _classCallCheck3.default)(this, Storage);
 	
-	    // clear out old storage implementations and start fresh
-	    if (ls.getItem(storageKey) == null) {
-	      ls.clear();
-	    }
 	    this.data = JSON.parse(ls.getItem(storageKey) || '{}');
 	  }
 	

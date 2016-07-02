@@ -10,10 +10,6 @@ const dataKeys = {
 
 class Storage {
   constructor () {
-    // clear out old storage implementations and start fresh
-    if (ls.getItem(storageKey) == null) {
-      ls.clear()
-    }
     this.data = JSON.parse(ls.getItem(storageKey) || '{}')
   }
 
