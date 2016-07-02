@@ -1,3 +1,6 @@
+# 0.3.0
+- Showing LFRP ads
+
 # 0.2.1
 - Fixed a nasty bug where the login menu didn't show up.
 
