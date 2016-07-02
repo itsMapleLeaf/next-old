@@ -1,6 +1,6 @@
 <template>
-  <div class='ui overlay' transition='fade'>
-    <div class='ui panel'>
+  <div class='ui overlay flex col' transition='fade'>
+    <div class='ui panel' style='margin-bottom: 1em'>
       <h1>Hi there!</h1>
       <form class='ui form' @submit.prevent='submit'>
         <div class='ui field text-input icon left'>
@@ -16,17 +16,31 @@
             <input type='checkbox' tabindex='0' /> Remember me
           </label>
         </div>
-        <div class='field'>
+        <div class='ui field'>
           <button class='ui button' action="submit" :disabled='disabled'>Go</button>
         </div>
       </form>
       <span>{{status}}</span>
     </div>
+    <center class='ui small subtle'>
+      <em>
+        <p>fchat-next alpha v0.1.0</p>
+        <p>
+          <i class='fa fa-code'></i> with
+          <i class='fa fa-heart'></i> by
+          <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a><br />
+          Note me for questions or concerns.
+        </p>
+        <p><a class='ui link' href='https://github.com/Kingdaro/fchat'>Github Repository</a></p>
+        <p>Warning: buggy and incomplete. Many things do not work.</p>
+      </em>
+    </center>
   </div>
 </template>
 
-<style lang="stylus">
-
+<style lang="stylus" scoped>
+.panel
+  width: 14em
 </style>
 
 <script>
