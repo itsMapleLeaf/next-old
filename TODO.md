@@ -86,3 +86,5 @@
 - [x] bookmarks seem a little wonky. look into that
 - [x] fix the login data from authentication
 - [ ] private channels are broken
+- [ ] closing a tab activates it awkwardly before actually closing it
+- [ ] does not save last active character
