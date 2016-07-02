@@ -7,8 +7,6 @@
   - [x] bookmark
   - [x] show friendship status & reflect it in the options
   - [x] ~~add friend~~ accidentally adding someone will be awkward
-- [x] render LFRP ads
-- [ ] add a BBCode toolbar for the chatbox
 - [ ] add a messaging mode toggle for channels (to send LFRP ads)
 - [ ] default left click to open profile, right click to open character menu
 - [ ] settings menu
@@ -24,6 +22,8 @@
 - [ ] timestamps
 - [ ] eventually figure a performant way to allow people to browse all characters/channels
 - [ ] add an "about" screen
+- [ ] add a BBCode toolbar for the chatbox
+- [x] render LFRP ads
 - [x] save open channels
 - [x] add a global character list, with friends sorted to top
 - [x] sort the user list alphabetically, with precedence:
