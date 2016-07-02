@@ -7,9 +7,9 @@ export const ChannelStatus = {
 }
 
 export const ChannelMode = {
-  both: 0,
-  chat: 1,
-  ads: 2
+  both: 'both',
+  chat: 'chat',
+  ads: 'ads'
 }
 
 export const ChannelType = {
@@ -58,14 +58,15 @@ export function ChannelInfo (type, id, name, userCount) {
 
 export function ChannelState (type, id, name = id) {
   return {
-    type,                      // ChannelType
-    id,                        // string: the channel id (either 'channel' or 'name' from the server)
-    name,                      // string: the channel name (or 'title' from the server)
-    mode: ChannelMode.both,    // ChannelMode
-    description: '',           // string
-    characters: [],            // Character[]
-    messages: [],              // ChatMessage[]
-    status: ChannelStatus.left // ChannelStatus
+    type,                         // ChannelType
+    id,                           // string: the channel id (either 'channel' or 'name' from the server)
+    name,                         // string: the channel name (or 'title' from the server)
+    mode: ChannelMode.both,       // ChannelMode
+    preference: ChannelMode.both, // ChannelMode
+    description: '',              // string
+    characters: [],               // Character[]
+    messages: [],                 // ChatMessage[]
+    status: ChannelStatus.left    // ChannelStatus
   }
 }
 

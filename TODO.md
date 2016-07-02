@@ -23,6 +23,7 @@
 - [ ] eventually figure a performant way to allow people to browse all characters/channels
 - [ ] add an "about" screen
 - [ ] add a BBCode toolbar for the chatbox
+- [x] add a messages display mode bar for channels (chat, ads, both)
 - [x] render LFRP ads
 - [x] save open channels
 - [x] add a global character list, with friends sorted to top
@@ -54,6 +55,7 @@
 - [ ] add notification sounds
 - [ ] hide the "bookmark" and "ignore" options (and other irrelevant options) on self characters
 - [ ] only show app menu if there are no active channels loaded from storage
+- [ ] highlight messages in channels sent by friends and bookmarks
 - [x] add dividers to split up the interface a bit
 - [x] ~~translate statuses into human readable text in CharacterMenu~~ unnecessary
 - [x] friendly titles!
@@ -74,6 +76,7 @@
 - [ ] limit the size of the message list to prevent hardcore memory leaks
 - [ ] (offline app) move socket logic to application side out of the view
 - [ ] add a global getter for the application version
+- [ ] stop using so many goddamn transitions (but keep overlay transitions)
 - [x] create an interface for session storage to support multiple platforms later on
 - [x] ~~rewrite style classes to account a little better for collisions~~ not necessary
 - [x] ~~use computed() less, wherever possible~~ turns out there are probably more useful optimizations we can make here
@@ -94,3 +97,4 @@
 - [x] closing a tab activates it awkwardly before actually closing it
 - [x] does not load last active character
 - [x] PrivateChatView does not use the MessageList component (for some reason???)
+- [ ] sometimes the user session storage clears itself when it shouldn't

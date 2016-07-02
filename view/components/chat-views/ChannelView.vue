@@ -1,8 +1,31 @@
 <template>
-  <div class='flex col stretch'>
-    <!-- description -->
-    <section class='flex fixed ui theme-color main scroll description'>
-      <span v-html="viewState.description | bbcode"></span>
+  <div class='flex stretch col'>
+    <section class='flex fixed row channel-head'>
+      <!-- channel prefs -->
+      <section class='flex fixed col channel-prefs' style='justify-content: space-between'>
+        <template v-if="viewState.mode === 'both'">
+          <a class="ui theme-color {{viewState.preference === 'both' ? 'light' : 'darker'}}" @click="viewState.preference = 'both'">Both</a>
+          <a class="ui theme-color {{viewState.preference === 'chat' ? 'light' : 'darker'}}" @click="viewState.preference = 'chat'">Chat</a>
+          <a class="ui theme-color {{viewState.preference === 'ads' ? 'light' : 'darker'}}" @click="viewState.preference = 'ads'">LFRP</a>
+        </template>
+        <template v-if="viewState.mode === 'chat'">
+          <a class="ui theme-color darker subtle">Both</a>
+          <a class="ui theme-color light">Chat</a>
+          <a class="ui theme-color darker subtle">LFRP</a>
+        </template>
+        <template v-if="viewState.mode === 'ads'">
+          <a class="ui theme-color darker subtle">Both</a>
+          <a class="ui theme-color darker subtle">Chat</a>
+          <a class="ui theme-color light">LFRP</a>
+        </template>
+      </section>
+
+      <div class='flex divider'></div>
+
+      <!-- description -->
+      <section class='flex stretch col ui scroll theme-color main description'>
+        <span v-html="viewState.description | bbcode"></span>
+      </section>
     </section>
 
     <div class='flex divider'></div>
@@ -11,7 +34,7 @@
       <!-- message -->
       <chat-message-list class="flex stretch" :messages='viewState.messages'></chat-message-list>
 
-      <!-- <div class='flex divider'></div> -->
+      <div class='flex divider'></div>
 
       <!-- users -->
       <ul class='flex fixed ui theme-color main scroll character-list'>
@@ -47,6 +70,7 @@ ul
   list-style: none
 
 .description
+  position: relative
   height: 5em
   padding: 0.3em 0.5em
   line-height: 1.4
@@ -66,6 +90,12 @@ ul
 
 .message-list
   padding: 0.3em 0em
+
+.channel-prefs a
+  font-size: 0.9em
+  display: block
+  padding: 0.3em 1em
+  cursor: pointer
 </style>
 
 <script>
@@ -133,6 +163,20 @@ export default {
     characterListClicked (event) {
       const character = event.target.getAttribute('data-character')
       this.$dispatch(CharacterActivated, character)
+    },
+
+    getChannelPrefClass (which) {
+      if (which === 'both') {
+        if (this.viewState.mode === 'both') {
+          if (this.viewState.preference === 'both') {
+            return 'light'
+          } else {
+            return 'darker'
+          }
+        } else {
+          return 'darker subtle'
+        }
+      }
     }
   }
 }
