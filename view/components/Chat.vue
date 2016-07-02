@@ -31,7 +31,9 @@ import ChannelView from './chat-views/ChannelView.vue'
 import PrivateChatView from './chat-views/PrivateChatView.vue'
 
 import state from '../lib/state'
+import storage from '../lib/storage'
 import * as events from '../lib/events'
+import {ChannelType} from '../lib/types'
 
 const nullTab = { text: 'null tab', view: '' }
 
@@ -80,12 +82,7 @@ export default {
 
   events: {
     [events.SocketChannelJoined] (channel) {
-      this.addTab({
-        view: 'channel-view',
-        title: channel.name,
-        state: channel
-      })
-      this.activeTabIndex = this.tabs.length - 1
+      this.activeTabIndex = this.addChannelTab(channel)
     },
 
     [events.SocketChannelLeft] (channel) {
@@ -117,20 +114,30 @@ export default {
   },
 
   methods: {
-    closeTab (tab) {
-      if (tab.view === 'channel-view') {
-        this.$dispatch(events.LeaveChannelRequest, tab.state.id)
-      }
-      this.tabs.$remove(tab)
-      this.activeTabIndex--
-    },
-
     addTab (tabState) {
       this.tabs.push(tabState)
-      return tabState
+      return this.tabs.length - 1 // return the index so we can set the active tab if if needed
+    },
+
+    createChannelTabState (channel) {
+      return {
+        view: 'channel-view',
+        title: channel.name,
+        state: channel
+      }
+    },
+
+    addChannelTab (channel) {
+      this.addTab({
+        view: 'channel-view',
+        title: channel.name,
+        state: channel
+      })
+      return this.tabs.length - 1
     },
 
     addPrivateChat (partner) {
+      // try to find an already active private chat
       const index = this.tabs.findIndex(tab => {
         return tab.view === 'private-chat-view' && tab.state.character.name === partner
       })
@@ -145,8 +152,34 @@ export default {
         return this.tabs.length - 1
       }
 
-      // return the index so we can set the active tab if we want
       return index
+    },
+
+    closeTab (tab) {
+      if (tab.view === 'channel-view') {
+        this.$dispatch(events.LeaveChannelRequest, tab.state.id)
+      }
+      this.tabs.$remove(tab)
+      this.activeTabIndex--
+    }
+  },
+
+  watch: {
+    tabs (_, tablist) {
+      const channels = tablist.filter(tab => tab.view === 'channel-view')
+
+      const pubChannels = channels
+        .filter(tab => tab.state.type === ChannelType.public)
+        .map(tab => tab.state.id)
+
+      const privChannels = channels
+        .filter(tab => tab.state.type === ChannelType.private)
+        .map(tab => tab.state.id)
+
+      storage.setActiveChannels(
+        this.state.getAccount(),
+        this.state.getUserCharacterName(),
+        { public: pubChannels, private: privChannels })
     }
   }
 }

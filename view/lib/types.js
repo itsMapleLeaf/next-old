@@ -12,6 +12,11 @@ export const ChannelMode = {
   ads: 2
 }
 
+export const ChannelType = {
+  public: 'public',
+  private: 'private'
+}
+
 export const Gender = {
   'Male': 0,
   'Female': 1,
@@ -34,17 +39,18 @@ export const UserStatus = {
 }
 
 // structs / object types
-// TODO: add field for channel type (private or public)
-export function ChannelInfo (id, name, userCount) {
+export function ChannelInfo (type, id, name, userCount) {
   return {
+    type,      // ChannelType
     id,        // string: channel id used to join/leave
     name,      // string: channel title for display
     userCount  // number: number of characters in the channel
   }
 }
 
-export function ChannelState (id, name = id) {
+export function ChannelState (type, id, name = id) {
   return {
+    type,                      // ChannelType
     id,                        // string: the channel id (either 'channel' or 'name' from the server)
     name,                      // string: the channel name (or 'title' from the server)
     mode: ChannelMode.both,    // ChannelMode

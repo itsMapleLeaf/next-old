@@ -11,7 +11,7 @@
           <i class='fa fa-lock'></i>
           <input type="password" placeholder="Password" v-model="password" :disabled='disabled'>
         </div>
-        <div class='field'>
+        <div class='ui field'>
           <label>
             <input type='checkbox' tabindex='0' /> Remember me
           </label>
@@ -71,7 +71,7 @@ export default {
           characters: data.characters,
           bookmarks: data.bookmarks.map(({name}) => name),
           friends: data.friends.map(({ source_name, dest_name }) => {
-            return { source: dest_name, dest: source_name }
+            return { source: dest_name, dest: source_name } // ??????
           }),
           ticket: data.ticket
         }

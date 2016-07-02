@@ -30,13 +30,13 @@ export default {
   data () {
     return {
       state,
-      activeCharacter: state.getUserData().default_character
+      activeCharacter: state.getCharacter()
     }
   },
 
   computed: {
     characters () {
-      return this.state.getUserData().characters.sort()
+      return this.state.getUserCharacterList().sort()
     }
   },
 

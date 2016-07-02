@@ -1,4 +1,4 @@
-import {ChannelInfo, ChannelMode, ChannelStatus} from './types'
+import {ChannelInfo, ChannelMode, ChannelStatus, ChannelType} from './types'
 import {inspect} from 'util'
 import * as events from './events'
 
@@ -42,11 +42,11 @@ class Socket {
   }
 
   sendIdentifyRequest () {
-    const {account, ticket, character} = this.vm.state.getUserData()
+    const {state} = this.vm
     const params = {
-      account,
-      ticket,
-      character,
+      account: state.getAccount(),
+      ticket: state.getTicket(),
+      character: state.getUserCharacterName(),
       method: 'ticket',
       cname: 'fchat-next',
       cversion: '0.1.0'
@@ -136,17 +136,19 @@ class Socket {
 
       // received list of public channels
       case 'CHA': {
-        const toChannelInfo = ({ name, characters }) => ChannelInfo(name, name, characters)
+        const toChannelInfo = ({ name, characters }) => ChannelInfo(ChannelType.public, name, name, characters)
         const list = params.channels.map(toChannelInfo)
         state.setPublicChannelList(list)
+        this.vm.$emit(events.SocketChannelListReceived, ChannelType.public)
         break
       }
 
       // received list of private channels
       case 'ORS': {
-        const toChannelInfo = ({ name, title, characters }) => ChannelInfo(name, title, characters)
+        const toChannelInfo = ({ name, title, characters }) => ChannelInfo(ChannelType.private, name, title, characters)
         const list = params.channels.map(toChannelInfo)
         state.setPrivateChannelList(list)
+        this.vm.$emit(events.SocketChannelListReceived, ChannelType.private)
         break
       }
 

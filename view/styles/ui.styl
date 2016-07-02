@@ -1,5 +1,9 @@
 @import 'colors'
 
+highlight($color)
+  background-color: rgba($color, 0.25)
+  color: lighten($color, 20%)
+
 .ui
   &.transition
     transition: 0.2s ease all

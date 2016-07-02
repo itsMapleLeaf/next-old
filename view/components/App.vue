@@ -1,6 +1,6 @@
 <template>
   <div @click='checkDataAttribute($event)'>
-    <chat></chat>
+    <chat v-ref:chat></chat>
     <component v-for="overlay in overlays" :is='overlay' :active-character='activeCharacter'></component>
   </div>
 </template>
@@ -23,6 +23,7 @@ import OnlineUsers from './overlays/OnlineUsers.vue'
 
 import state from '../lib/state'
 import socket from '../lib/socket'
+import storage from '../lib/storage'
 import {ChannelStatus} from '../lib/types'
 import {getUserData} from '../lib/flist'
 import * as events from '../lib/events'
@@ -50,22 +51,24 @@ export default {
     this.socket.setRootVM(this)
 
     if (!this.socket.isConnected()) {
-      const { account, ticket } = this.state.getUserData()
-      if (ticket !== '') {
-        getUserData(account, ticket)
-        .then(data => {
-          this.state.setUserCharacterList(data.characters)
-          this.state.setFriendsList(data.friends)
-          this.state.setBookmarkList(data.bookmarks)
-          this.$emit(events.PushOverlay, 'character-list')
-        })
-        .catch(err => {
+      this.state.loadStorageData().then(() => {
+        const { account, ticket } = this.state.getAuthData()
+        if (ticket !== '') {
+          getUserData(account, ticket)
+          .then(data => {
+            this.state.setUserCharacterList(data.characters)
+            this.state.setFriendsList(data.friends)
+            this.state.setBookmarkList(data.bookmarks)
+            this.$emit(events.PushOverlay, 'character-list')
+          })
+          .catch(err => {
+            this.$emit(events.PushOverlay, 'login')
+            console.warn(err)
+          })
+        } else {
           this.$emit(events.PushOverlay, 'login')
-          console.warn(err)
-        })
-      } else {
-        this.$emit(events.PushOverlay, 'login')
-      }
+        }
+      })
     }
   },
 
@@ -118,6 +121,20 @@ export default {
     [events.SocketIdentifySuccess] () {
       this.socket.fetchChannelList()
       this.$emit(events.PushOverlay, 'app-menu')
+    },
+
+    [events.SocketChannelListReceived] (type) {
+      const account = this.state.getAccount()
+      const character = this.state.getUserCharacterName()
+
+      storage.getActiveChannels(account, character).then(channels => {
+        for (let id of channels[type]) {
+          this.socket.joinChannel(id)
+        }
+      })
+      .catch(msg => {
+        console.log(msg)
+      })
     },
 
     [events.SocketError] () {

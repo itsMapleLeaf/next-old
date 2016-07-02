@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {keys} from './storage'
+import storage from './storage'
 import * as flist from '../lib/flist'
 // import {compareNames} from '../lib/util'
 
@@ -14,15 +14,12 @@ import {
 class State {
   constructor () {
     this.data = {
-      userData: {
-        account: '',
-        character: '',
-        bookmarks: [],
-        characters: [],
-        default_character: '',
-        ticket: ''
-      },
-
+      account: '',          // string
+      ticket: '',           // string
+      character: '',        // string
+      characterList: [],    // string[]
+      bookmarks: [],        // string[]
+      ignored: [],          // string[]
       friends: {},          // userCharacter (string) => friendName (string)
       publicChannels: [],   // ChannelInfo[]
       privateChannels: [],  // ChannelInfo[]
@@ -30,36 +27,48 @@ class State {
       privateChats: {},     // characterName (string) => PrivateChatState
       serverVariables: {},  // variableName (string) => number
       onlineCharacters: {}, // characterName (string) => Character
-      ignored: [],          // string[]
       admins: []            // string[]
     }
+  }
 
-    const account = window.localStorage.getItem(keys.account())
-    if (account) {
-      const ticket = window.localStorage.getItem(keys.ticket(account))
-      if (ticket) {
-        Object.assign(this.data.userData, { account, ticket })
-      }
-      const character = window.localStorage.getItem(keys.character(account))
-      if (character) {
-        this.data.userData.default_character = character
-      }
-    }
+  loadStorageData () {
+    return storage.getAccount().then(account => {
+      this.data.account = account
+      return storage.getTicket(this.data.account)
+    })
+    .then(ticket => {
+      this.data.ticket = ticket
+      return storage.getCharacter(this.data.account)
+    })
+    .then(character => {
+      this.data.character = character
+      return Promise.resolve()
+    })
+    .catch(msg => {
+      console.log(msg)
+      return Promise.reject()
+    })
   }
 
   // getters
-  getUserData () {
-    return Object.assign({}, this.data.userData)
+  getAccount () {
+    return this.data.account
+  }
+
+  getTicket () {
+    return this.data.ticket
+  }
+
+  getUserCharacterList () {
+    return this.data.characterList.slice()
+  }
+
+  getAuthData () {
+    return { account: this.getAccount(), ticket: this.getTicket() }
   }
 
   getChannel (id) {
-    let channel = this.data.channels[id]
-    if (!channel) {
-      const {publicChannels, privateChannels} = this.data
-      const name = publicChannels.concat(privateChannels).find(ch => ch.id === id).name
-      channel = Vue.set(this.data.channels, id, ChannelState(id, name))
-    }
-    return channel
+    return this.data.channels[id] || this.createChannelState(id)
   }
 
   getPrivateChat (partner) {
@@ -76,7 +85,7 @@ class State {
   }
 
   getUserCharacterName () {
-    return this.data.userData.character
+    return this.data.character
   }
 
   getChannelStatus (id) {
@@ -108,37 +117,6 @@ class State {
     return Object.keys(onlineCharacters).map(name => onlineCharacters[name])
   }
 
-  // returns a hash of different characters grouped by priority sort
-  // getSortedCharacters () {
-  //   const groups = {
-  //     friends: [],
-  //     bookmarks: [],
-  //     admins: [],
-  //     looking: [],
-  //     rest: []
-  //   }
-  //
-  //   this.getOnlineCharacters().forEach(char => {
-  //     if (this.getFriendship(char.name).length > 0) {
-  //       groups.friends.push(char)
-  //     } else if (this.isBookmarked(char.name)) {
-  //       groups.bookmarks.push(char)
-  //     } else if (this.isAdmin(char.name)) {
-  //       groups.admins.push(char)
-  //     } else if (char.status === 'looking') {
-  //       groups.looking.push(char)
-  //     } else {
-  //       groups.rest.push(char)
-  //     }
-  //   })
-  //
-  //   for (let group in groups) {
-  //     groups[group].sort(compareNames)
-  //   }
-  //
-  //   return groups
-  // }
-
   // return the user character that another character is friends with
   // if not friends, returns undefined
   getFriendship (name) {
@@ -146,7 +124,7 @@ class State {
   }
 
   isBookmarked (name) {
-    return this.data.userData.bookmarks.includes(name)
+    return this.data.bookmarks.includes(name)
   }
 
   isIgnored (name) {
@@ -183,22 +161,22 @@ class State {
 
   // setters
   setAccount (account) {
-    this.data.userData.account = account
-    window.localStorage.setItem(keys.account(), account)
+    this.data.account = account
+    storage.setAccount(account)
   }
 
   setTicket (ticket) {
-    this.data.userData.ticket = ticket
-    window.localStorage.setItem(keys.ticket(this.data.userData.account), ticket)
+    this.data.ticket = ticket
+    storage.setTicket(this.data.account, ticket)
   }
 
   setUserCharacter (charname) {
-    this.data.userData.character = charname
-    window.localStorage.setItem(keys.character(this.data.userData.account), charname)
+    this.data.character = charname
+    storage.setCharacter(this.data.account, charname)
   }
 
-  setUserCharacterList (characters) {
-    this.data.userData.characters = characters
+  setUserCharacterList (list) {
+    this.data.characterList = list
   }
 
   setFriendsList (friends) {
@@ -211,7 +189,7 @@ class State {
   }
 
   setBookmarkList (bookmarks) {
-    this.data.userData.bookmarks = bookmarks
+    this.data.bookmarks = bookmarks
   }
 
   setIgnoreList (names) {
@@ -261,6 +239,15 @@ class State {
 
   setPrivateChannelList (channels) {
     this.data.privateChannels = channels
+  }
+
+  createChannelState (id) {
+    // lazy hacks are lazy
+    const {publicChannels, privateChannels} = this.data
+    const info = publicChannels.concat(privateChannels).find(ch => ch.id === id)
+    if (info) {
+      return Vue.set(this.data.channels, id, ChannelState(info.type, info.id, info.name))
+    }
   }
 
   setChannelName (id, name) {
@@ -321,7 +308,7 @@ class State {
   }
 
   addBookmark (name) {
-    const {account, ticket, bookmarks} = this.data.userData
+    const {account, ticket, bookmarks} = this.data
     flist.addBookmark(account, ticket, name)
     .then(() => {
       bookmarks.push(name)
@@ -329,7 +316,7 @@ class State {
   }
 
   removeBookmark (name) {
-    const {account, ticket, bookmarks} = this.data.userData
+    const {account, ticket, bookmarks} = this.data
     flist.removeBookmark(account, ticket, name)
     .then(() => {
       bookmarks.$remove(name)
