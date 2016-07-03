@@ -4,7 +4,6 @@ import App from './components/App.vue'
 import parseBBC from './filters/bbcode'
 
 Vue.config.debug = true
-Vue.config.devtools = true
 
 Vue.filter('bbcode', parseBBC)
 
