@@ -78,7 +78,7 @@
 - [ ] add a global getter for the application version
 - [ ] stop using so many goddamn transitions (but keep overlay transitions)
 - [ ] make an overlay vue component
-- [ ] allow requiring absolute paths from root folder to resolve the absolute path madness
+- [x] ~~allow requiring absolute paths from root folder to resolve the absolute path madness~~ we'll just stick with relative paths for now
 - [x] create an interface for session storage to support multiple platforms later on
 - [x] ~~rewrite style classes to account a little better for collisions~~ not necessary
 - [x] ~~use computed() less, wherever possible~~ turns out there are probably more useful optimizations we can make here
