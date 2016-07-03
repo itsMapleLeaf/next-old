@@ -1,6 +1,6 @@
 <template>
-  <span class='gender {{gender}}' :data-activate-character='character.name'>
-    <i class="fa fa-circle status {{status}}"></i> {{character.name}}
+  <span class="gender" :class="gender" :data-activate-character='character.name'>
+    <i class="fa fa-circle status" :class="status"></i> {{character.name}}
   </span>
 </template>
 

@@ -5,8 +5,8 @@ highlight($color)
   color: lighten($color, 20%)
 
 .ui
-  &.transition
-    transition: 0.2s ease all
+  // &.transition
+  //   transition: 0.2s ease all
 
   &.noselect
     user-select: none
@@ -27,7 +27,7 @@ highlight($color)
     &.main { background-color: $theme-color }
     &.dark { background-color: $theme-color-dark }
     &.light { background-color: $theme-color-light }
-    &.darker { background-color: darken($theme-color-dark, 20%) }
+    &.darker { background-color: darken($theme-color-dark, 10%) }
     &.lighter { background-color: lighten($theme-color-light, 10%) }
 
   &.border
@@ -43,20 +43,20 @@ highlight($color)
     &.section { border: none }
 
   &.hover-darken
-    @extend .ui.transition
+    // @extend .ui.transition
     cursor: pointer
     &:hover
       @extend .ui.theme-color.darker
       @extend .ui.border.bright
 
   &.focus-darken
-    @extend .ui.transition
+    // @extend .ui.transition
     &:focus
       @extend .ui.theme-color.darker
       @extend .ui.border.bright
 
   &.focus-lighten
-    @extend .ui.transition
+    // @extend .ui.transition
     &:focus
       @extend .ui.theme-color.light
       @extend .ui.border.bright
@@ -100,7 +100,7 @@ highlight($color)
   &.section
     @extend .ui.theme-color.dark
     @extend .ui.border
-    @extend .ui.transition
+    // @extend .ui.transition
     @extend .ui.focus-darken
     width: 10rem
     padding: 0.4em 0.6em
@@ -176,7 +176,7 @@ highlight($color)
     overflow-y: auto
 
   &.link
-    @extend .ui.transition
+    // @extend .ui.transition
     text-decoration: none
     border-bottom: 1px solid rgba($text-color, 0.3)
     position: relative
