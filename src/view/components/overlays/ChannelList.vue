@@ -1,8 +1,8 @@
 <template>
-  <overlay panel-width='20em' panel-height='32em'>
+  <overlay>
     <h2>Chill and chat? Sounds good.</h2>
     <form class='ui form'>
-      <div class='ui field'>
+      <section class='ui field'>
         <ul class='ui selection'>
           <li v-for='channel in slicedChannelList'
           v-if="channel.name.trim() !== ''"
@@ -12,17 +12,13 @@
             <span v-html="channel.name"></span>
           </li>
         </ul>
-      </div>
+      </section>
 
-      <div class='ui field text-input icon left'>
+      <section class='ui field text-input icon left'>
         <i class='fa fa-search'></i>
         <input type="text" placeholder="Search..."
         v-model='searchQuery'>
-      </div>
-
-      <div class='ui field'>
-        <button class='ui button'>Done</button>
-      </div>
+      </section>
     </form>
   </overlay>
 </template>
@@ -30,8 +26,8 @@
 <style lang="stylus" scoped>
 .selection
   text-align: left
-  width: 16em
-  height: 20em
+  width: 18em
+  height: 28em
 
   li
     padding-left: 0.8em

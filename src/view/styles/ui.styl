@@ -46,8 +46,7 @@ highlight($color)
     // @extend .ui.transition
     cursor: pointer
     &:hover
-      @extend .ui.theme-color.darker
-      @extend .ui.border.bright
+      background-color: rgba(black, 0.2)
 
   &.focus-darken
     // @extend .ui.transition
@@ -136,14 +135,22 @@ highlight($color)
 
   &.button
     @extend .ui.theme-color.dark
-    @extend .ui.border
     @extend .ui.hover-darken
     @extend .ui.focus-darken
-    padding: 0.3em 1.2em
+    padding: 0.3em 0.3em
     user-select: none
 
+  &.square-button
+    @extend .ui.button
+    width: 2em
+    height: 2em
+
+  &.padded-button
+    @extend .ui.button
+    padding: 0.3em 1.5em
+
   &.form &.field
-    margin-bottom: 1rem
+    margin-bottom: 0.8em
 
   &.selection
     @extend .ui.theme-color.dark

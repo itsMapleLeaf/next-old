@@ -14,7 +14,7 @@
         <toggle :enabled='remember' @click='remember = !remember'>Remember me</toggle>
       </div>
       <div class='ui field'>
-        <button class='ui button' action="submit" :disabled='disabled'>Go</button>
+        <button class='ui padded-button' action="submit" :disabled='disabled'>Go</button>
       </div>
       <div class='ui field'>
         <span>{{status}}</span>

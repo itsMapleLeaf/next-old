@@ -1,5 +1,5 @@
 <template>
-  <span class="ui theme-color dark hover-darken small noselect" :class="{ 'subtle': !enabled }">
+  <span class="ui hover-darken small noselect" :class="{ 'subtle': !enabled }">
     <i class="fa fa-fw" :class="{ 'fa-square': enabled, 'fa-square-o': !enabled }"></i>
     <slot></slot>
   </span>

@@ -12,7 +12,7 @@
         </ul>
       </div>
       <div class='ui field'>
-        <button class='ui button'>Go</button>
+        <button class='ui padded-button'>Go</button>
       </div>
     </form>
   </overlay>
