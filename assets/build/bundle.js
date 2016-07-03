@@ -12050,6 +12050,10 @@
 	  value: true
 	});
 	
+	var _promise = __webpack_require__(84);
+	
+	var _promise2 = _interopRequireDefault(_promise);
+	
 	var _defineProperty2 = __webpack_require__(10);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
@@ -12167,6 +12171,7 @@
 	    this.state.setFriendsList(data.friends);
 	    this.state.setBookmarkList(data.bookmarks);
 	    this.state.setTicket(data.ticket);
+	
 	    this.$emit(events.PopOverlay);
 	    this.$emit(events.PushOverlay, 'character-list');
 	  }), (0, _defineProperty3.default)(_events, events.LogoutRequest, function () {
@@ -12251,14 +12256,13 @@
 	      var _this2 = this;
 	
 	      if (!this.socket.isConnected()) {
-	        this.state.loadStorageData().then(function () {
-	          var _state$getAuthData = _this2.state.getAuthData();
-	
-	          var account = _state$getAuthData.account;
-	          var ticket = _state$getAuthData.ticket;
-	
-	          if (ticket !== '') {
-	            return (0, _flist.getUserData)(account, ticket);
+	        this.loadStorageData().then(function (data) {
+	          if (data.ticket !== '') {
+	            _this2.state.setAccount(data.account);
+	            _this2.state.setTicket(data.ticket);
+	            return (0, _flist.getUserData)(data.account, data.ticket);
+	          } else {
+	            return _promise2.default.reject('no ticket found');
 	          }
 	        }).then(function (data) {
 	          _this2.state.setUserCharacterList(data.characters);
@@ -12270,6 +12274,24 @@
 	          _this2.$emit(events.PushOverlay, 'login');
 	        });
 	      }
+	    },
+	    loadStorageData: function loadStorageData() {
+	      var _this3 = this;
+	
+	      var data = {};
+	      return this.storage.getAccount().then(function (account) {
+	        data.account = account;
+	        return _this3.storage.getTicket(data.account);
+	      }).then(function (ticket) {
+	        data.ticket = ticket;
+	        return _this3.storage.getCharacter(data.account);
+	      }).then(function (character) {
+	        data.character = character;
+	        return _promise2.default.resolve(data);
+	      }).catch(function (msg) {
+	        window.localStorage.clear();
+	        return _promise2.default.reject("Couldn't load user data from storage. Starting fresh.");
+	      });
 	    },
 	    checkDataAttribute: function checkDataAttribute(event) {
 	      var name = event.target.getAttribute('data-activate-character');
@@ -13804,10 +13826,6 @@
 	
 	var _keys2 = _interopRequireDefault(_keys);
 	
-	var _promise = __webpack_require__(84);
-	
-	var _promise2 = _interopRequireDefault(_promise);
-	
 	var _classCallCheck2 = __webpack_require__(104);
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -13856,29 +13874,10 @@
 	    };
 	  }
 	
+	  // getters
+	
+	
 	  (0, _createClass3.default)(State, [{
-	    key: 'loadStorageData',
-	    value: function loadStorageData() {
-	      var _this = this;
-	
-	      return _storage2.default.getAccount().then(function (account) {
-	        _this.data.account = account;
-	        return _storage2.default.getTicket(_this.data.account);
-	      }).then(function (ticket) {
-	        _this.data.ticket = ticket;
-	        return _storage2.default.getCharacter(_this.data.account);
-	      }).then(function (character) {
-	        _this.data.character = character;
-	        return _promise2.default.resolve();
-	      }).catch(function (msg) {
-	        window.localStorage.clear();
-	        return _promise2.default.reject("Couldn't load user data from storage. Starting fresh.");
-	      });
-	    }
-	
-	    // getters
-	
-	  }, {
 	    key: 'getAccount',
 	    value: function getAccount() {
 	      return this.data.account;
@@ -18238,7 +18237,7 @@
 	//         <input type="text" placeholder="Search..." v-model="search" debounce="500" />
 	//       </div>
 	//       <div class="ui field">
-	//         <button class="ui button" @click='close'>Done</button>
+	//         <button class="ui button">Done</button>
 	//       </div>
 	//     </form>
 	//   </overlay>
@@ -19174,7 +19173,7 @@
 /* 195 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <overlay _v-96ca842e=\"\">\n    <h2 _v-96ca842e=\"\">Let's find some friends!</h2>\n    <form class=\"ui form\" @submit.prevent=\"\" _v-96ca842e=\"\">\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <dropdown style=\"width: 8em\" v-ref:filter=\"\" _v-96ca842e=\"\">\n          <li value=\"all\" _v-96ca842e=\"\">All</li>\n          <li value=\"friend\" _v-96ca842e=\"\">Friends</li>\n          <li value=\"bookmark\" _v-96ca842e=\"\">Bookmarks</li>\n          <li value=\"looking\" _v-96ca842e=\"\">Looking</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <ul class=\"ui selection\" style=\"\" _v-96ca842e=\"\">\n          <li v-for=\"char in slicedCharacters\" :class=\"getListClass(char)\" :data-activate-character=\"char.name\" _v-96ca842e=\"\">\n            <i class=\"fa fa-heart ui pull-right\" v-if=\"characterIs(char, 'friend')\" _v-96ca842e=\"\"></i>\n            <i class=\"fa fa-star ui pull-right\" v-if=\"characterIs(char, 'bookmark')\" _v-96ca842e=\"\"></i>\n            <i class=\"fa fa-paw ui pull-right\" v-if=\"characterIs(char, 'looking')\" _v-96ca842e=\"\"></i>\n            <character :character=\"char\" _v-96ca842e=\"\"></character>\n          </li>\n          <center class=\"ui small subtle\" style=\"padding: 0.5em\" v-if=\"slicedCharacters.length === 200\" _v-96ca842e=\"\">\n            <em _v-96ca842e=\"\">List truncated for performance. Search for more results.</em>\n          </center>\n        </ul>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-96ca842e=\"\">\n        <i class=\"fa fa-search\" _v-96ca842e=\"\"></i>\n        <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" debounce=\"500\" _v-96ca842e=\"\">\n      </div>\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <button class=\"ui button\" @click=\"close\" _v-96ca842e=\"\">Done</button>\n      </div>\n    </form>\n  </overlay>\n";
+	module.exports = "\n  <overlay _v-96ca842e=\"\">\n    <h2 _v-96ca842e=\"\">Let's find some friends!</h2>\n    <form class=\"ui form\" @submit.prevent=\"\" _v-96ca842e=\"\">\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <dropdown style=\"width: 8em\" v-ref:filter=\"\" _v-96ca842e=\"\">\n          <li value=\"all\" _v-96ca842e=\"\">All</li>\n          <li value=\"friend\" _v-96ca842e=\"\">Friends</li>\n          <li value=\"bookmark\" _v-96ca842e=\"\">Bookmarks</li>\n          <li value=\"looking\" _v-96ca842e=\"\">Looking</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <ul class=\"ui selection\" style=\"\" _v-96ca842e=\"\">\n          <li v-for=\"char in slicedCharacters\" :class=\"getListClass(char)\" :data-activate-character=\"char.name\" _v-96ca842e=\"\">\n            <i class=\"fa fa-heart ui pull-right\" v-if=\"characterIs(char, 'friend')\" _v-96ca842e=\"\"></i>\n            <i class=\"fa fa-star ui pull-right\" v-if=\"characterIs(char, 'bookmark')\" _v-96ca842e=\"\"></i>\n            <i class=\"fa fa-paw ui pull-right\" v-if=\"characterIs(char, 'looking')\" _v-96ca842e=\"\"></i>\n            <character :character=\"char\" _v-96ca842e=\"\"></character>\n          </li>\n          <center class=\"ui small subtle\" style=\"padding: 0.5em\" v-if=\"slicedCharacters.length === 200\" _v-96ca842e=\"\">\n            <em _v-96ca842e=\"\">List truncated for performance. Search for more results.</em>\n          </center>\n        </ul>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-96ca842e=\"\">\n        <i class=\"fa fa-search\" _v-96ca842e=\"\"></i>\n        <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" debounce=\"500\" _v-96ca842e=\"\">\n      </div>\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <button class=\"ui button\" _v-96ca842e=\"\">Done</button>\n      </div>\n    </form>\n  </overlay>\n";
 
 /***/ },
 /* 196 */

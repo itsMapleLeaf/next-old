@@ -31,25 +31,6 @@ class State {
     }
   }
 
-  loadStorageData () {
-    return storage.getAccount().then(account => {
-      this.data.account = account
-      return storage.getTicket(this.data.account)
-    })
-    .then(ticket => {
-      this.data.ticket = ticket
-      return storage.getCharacter(this.data.account)
-    })
-    .then(character => {
-      this.data.character = character
-      return Promise.resolve()
-    })
-    .catch(msg => {
-      window.localStorage.clear()
-      return Promise.reject("Couldn't load user data from storage. Starting fresh.")
-    })
-  }
-
   // getters
   getAccount () {
     return this.data.account

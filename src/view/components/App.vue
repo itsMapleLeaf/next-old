@@ -72,6 +72,7 @@ export default {
       this.state.setFriendsList(data.friends)
       this.state.setBookmarkList(data.bookmarks)
       this.state.setTicket(data.ticket)
+
       this.$emit(events.PopOverlay)
       this.$emit(events.PushOverlay, 'character-list')
     },
@@ -163,10 +164,13 @@ export default {
   methods: {
     authenticate () {
       if (!this.socket.isConnected()) {
-        this.state.loadStorageData().then(() => {
-          const { account, ticket } = this.state.getAuthData()
-          if (ticket !== '') {
-            return getUserData(account, ticket)
+        this.loadStorageData().then(data => {
+          if (data.ticket !== '') {
+            this.state.setAccount(data.account)
+            this.state.setTicket(data.ticket)
+            return getUserData(data.account, data.ticket)
+          } else {
+            return Promise.reject('no ticket found')
           }
         })
         .then(data => {
@@ -180,6 +184,26 @@ export default {
           this.$emit(events.PushOverlay, 'login')
         })
       }
+    },
+
+    loadStorageData () {
+      const data = {}
+      return this.storage.getAccount().then(account => {
+        data.account = account
+        return this.storage.getTicket(data.account)
+      })
+      .then(ticket => {
+        data.ticket = ticket
+        return this.storage.getCharacter(data.account)
+      })
+      .then(character => {
+        data.character = character
+        return Promise.resolve(data)
+      })
+      .catch(msg => {
+        window.localStorage.clear()
+        return Promise.reject("Couldn't load user data from storage. Starting fresh.")
+      })
     },
 
     checkDataAttribute (event) {
