@@ -3,8 +3,8 @@ const path = require('path')
 module.exports = {
   entry: path.join(__dirname, 'src/view/main.js'),
   output: {
+    publicPath: '/assets/build/',
     path: path.join(__dirname, 'assets/build'),
-    publicPath: '/assets/',
     filename: 'bundle.js'
   },
   module: {
@@ -23,9 +23,6 @@ module.exports = {
         loader: 'vue'
       }
     ]
-  },
-  resolve: {
-    root: path.resolve('src')
   },
   babel: {
     presets: ['es2015'],

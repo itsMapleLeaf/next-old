@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/assets/";
+/******/ 	__webpack_require__.p = "/assets/build/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -16192,7 +16192,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".panel[_v-02faa4dd] {\n  width: 12em;\n}\nfooter[_v-02faa4dd] {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/Login.vue.style","/./src/view/components/overlays/Login.vue"],"names":[],"mappings":"AACA;EACE,YAAA;CCAD;ADED;EACE,aAAA;EACA,mBAAA;EACA,aAAA;CCAD","file":"Login.vue","sourcesContent":["\r\n.panel\r\n  width: 12em\r\n\r\nfooter\r\n  width: 100vw\r\n  position: absolute\r\n  padding: 1em\r\n",".panel {\n  width: 12em;\n}\nfooter {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "footer[_v-02faa4dd] {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/Login.vue.style","/./src/view/components/overlays/Login.vue"],"names":[],"mappings":"AACA;EACE,aAAA;EACA,mBAAA;EACA,aAAA;CCAD","file":"Login.vue","sourcesContent":["\r\nfooter\r\n  width: 100vw\r\n  position: absolute\r\n  padding: 1em\r\n","footer {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -16243,7 +16243,7 @@
 	//     </section>
 	//     <footer>
 	//       <center class='ui small subtle'>
-	//         <dev-info></dev-info>
+	//         <em><dev-info></dev-info></em>
 	//         <em>Including the "remember me" option there.<br />It will remember you whether you like it or not.<br /><small>Deal with it.</small></em>
 	//       </center>
 	//     </footer>
@@ -16251,9 +16251,6 @@
 	// </template>
 	//
 	// <style lang="stylus" scoped>
-	// .panel
-	//   width: 12em
-	//
 	// footer
 	//   width: 100vw
 	//   position: absolute
@@ -16358,8 +16355,8 @@
 	//       <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>
 	//     </p>
 	//     <p>Note me for questions, concerns, suggestions, and comments.</p>
-	//     <h3><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></h3>
-	//     <p><small><strong>Warning:</strong> buggy and incomplete. Many things do not work.</small></p>
+	//     <p><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></p>
+	//     <p><strong>Warning:</strong> buggy and incomplete. Many things do not work.</p>
 	//   </p>
 	// </template>
 	//
@@ -16417,13 +16414,13 @@
 /* 142 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n  <p>\r\n    <h2>fchat-next alpha v{{version}}</h2>\r\n    <p>\r\n      <i class='fa fa-code'></i> with\r\n      <i class='fa fa-heart'></i> by\r\n      <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>\r\n    </p>\r\n    <p>Note me for questions, concerns, suggestions, and comments.</p>\r\n    <h3><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></h3>\r\n    <p><small><strong>Warning:</strong> buggy and incomplete. Many things do not work.</small></p>\r\n  </p>\r\n";
+	module.exports = "\r\n  <p>\r\n    <h2>fchat-next alpha v{{version}}</h2>\r\n    <p>\r\n      <i class='fa fa-code'></i> with\r\n      <i class='fa fa-heart'></i> by\r\n      <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>\r\n    </p>\r\n    <p>Note me for questions, concerns, suggestions, and comments.</p>\r\n    <p><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></p>\r\n    <p><strong>Warning:</strong> buggy and incomplete. Many things do not work.</p>\r\n  </p>\r\n";
 
 /***/ },
 /* 143 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui overlay flex col\" transition=\"fade\" _v-02faa4dd=\"\">\n    <section class=\"ui panel\" _v-02faa4dd=\"\">\n      <h1 _v-02faa4dd=\"\">Hi there!</h1>\n      <form class=\"ui form\" @submit.prevent=\"submit\" _v-02faa4dd=\"\">\n        <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n          <i class=\"fa fa-user\" _v-02faa4dd=\"\"></i>\n          <input type=\"text\" placeholder=\"Username\" v-model=\"username\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n        </div>\n        <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n          <i class=\"fa fa-lock\" _v-02faa4dd=\"\"></i>\n          <input type=\"password\" placeholder=\"Password\" v-model=\"password\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n        </div>\n        <div class=\"ui field\" _v-02faa4dd=\"\">\n          <label _v-02faa4dd=\"\">\n            <input type=\"checkbox\" tabindex=\"0\" _v-02faa4dd=\"\"> Remember me\n          </label>\n        </div>\n        <div class=\"ui field\" _v-02faa4dd=\"\">\n          <button class=\"ui button\" action=\"submit\" :disabled=\"disabled\" _v-02faa4dd=\"\">Go</button>\n        </div>\n      </form>\n      <span _v-02faa4dd=\"\">{{status}}</span>\n    </section>\n    <footer _v-02faa4dd=\"\">\n      <center class=\"ui small subtle\" _v-02faa4dd=\"\">\n        <dev-info _v-02faa4dd=\"\"></dev-info>\n        <em _v-02faa4dd=\"\">Including the \"remember me\" option there.<br _v-02faa4dd=\"\">It will remember you whether you like it or not.<br _v-02faa4dd=\"\"><small _v-02faa4dd=\"\">Deal with it.</small></em>\n      </center>\n    </footer>\n  </div>\n";
+	module.exports = "\n  <div class=\"ui overlay flex col\" transition=\"fade\" _v-02faa4dd=\"\">\n    <section class=\"ui panel\" _v-02faa4dd=\"\">\n      <h1 _v-02faa4dd=\"\">Hi there!</h1>\n      <form class=\"ui form\" @submit.prevent=\"submit\" _v-02faa4dd=\"\">\n        <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n          <i class=\"fa fa-user\" _v-02faa4dd=\"\"></i>\n          <input type=\"text\" placeholder=\"Username\" v-model=\"username\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n        </div>\n        <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n          <i class=\"fa fa-lock\" _v-02faa4dd=\"\"></i>\n          <input type=\"password\" placeholder=\"Password\" v-model=\"password\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n        </div>\n        <div class=\"ui field\" _v-02faa4dd=\"\">\n          <label _v-02faa4dd=\"\">\n            <input type=\"checkbox\" tabindex=\"0\" _v-02faa4dd=\"\"> Remember me\n          </label>\n        </div>\n        <div class=\"ui field\" _v-02faa4dd=\"\">\n          <button class=\"ui button\" action=\"submit\" :disabled=\"disabled\" _v-02faa4dd=\"\">Go</button>\n        </div>\n      </form>\n      <span _v-02faa4dd=\"\">{{status}}</span>\n    </section>\n    <footer _v-02faa4dd=\"\">\n      <center class=\"ui small subtle\" _v-02faa4dd=\"\">\n        <em _v-02faa4dd=\"\"><dev-info _v-02faa4dd=\"\"></dev-info></em>\n        <em _v-02faa4dd=\"\">Including the \"remember me\" option there.<br _v-02faa4dd=\"\">It will remember you whether you like it or not.<br _v-02faa4dd=\"\"><small _v-02faa4dd=\"\">Deal with it.</small></em>\n      </center>\n    </footer>\n  </div>\n";
 
 /***/ },
 /* 144 */
