@@ -58,7 +58,7 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _bbcode = __webpack_require__(206);
+	var _bbcode = __webpack_require__(209);
 	
 	var _bbcode2 = _interopRequireDefault(_bbcode);
 	
@@ -11676,11 +11676,21 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(5)
 	__vue_script__ = __webpack_require__(9)
-	__vue_template__ = __webpack_require__(205)
+	__vue_template__ = __webpack_require__(208)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\App.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 5 */
@@ -12101,7 +12111,7 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _socket = __webpack_require__(201);
+	var _socket = __webpack_require__(204);
 	
 	var _socket2 = _interopRequireDefault(_socket);
 	
@@ -12265,6 +12275,11 @@
 	      var channelToggle = event.target.getAttribute('data-toggle-channel');
 	      if (channelToggle) {
 	        this.$emit(events.ToggleChannelRequest, channelToggle);
+	      }
+	
+	      var overlay = event.target.getAttribute('data-push-overlay');
+	      if (overlay) {
+	        this.$emit(events.PushOverlay, overlay);
 	      }
 	    }
 	  }
@@ -12891,7 +12906,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\Chat.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 52 */
@@ -13203,7 +13228,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\ChatTab.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 58 */
@@ -13317,7 +13352,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\chat-views\\ChannelView.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 63 */
@@ -13590,7 +13635,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\Chatbox.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 67 */
@@ -15599,7 +15654,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\Character.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 114 */
@@ -15728,7 +15793,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\ChatMessage.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 119 */
@@ -15850,7 +15925,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\ChatMessageList.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 124 */
@@ -16012,7 +16097,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\chat-views\\PrivateChatView.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 130 */
@@ -16155,7 +16250,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\overlays\\Login.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 136 */
@@ -16192,7 +16297,7 @@
 	
 	
 	// module
-	exports.push([module.id, "footer[_v-02faa4dd] {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/Login.vue.style","/./src/view/components/overlays/Login.vue"],"names":[],"mappings":"AACA;EACE,aAAA;EACA,mBAAA;EACA,aAAA;CCAD","file":"Login.vue","sourcesContent":["\r\nfooter\r\n  width: 100vw\r\n  position: absolute\r\n  padding: 1em\r\n","footer {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "footer[_v-02faa4dd] {\n  width: 100vw;\n  position: absolute;\n  bottom: 2em;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/Login.vue.style","/./src/view/components/overlays/Login.vue"],"names":[],"mappings":"AACA;EACE,aAAA;EACA,mBAAA;EACA,YAAA;EACA,aAAA;CCAD","file":"Login.vue","sourcesContent":["\r\nfooter\r\n  width: 100vw\r\n  position: absolute\r\n  bottom: 2em\r\n  padding: 1em\r\n","footer {\n  width: 100vw;\n  position: absolute;\n  bottom: 2em;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -16211,54 +16316,58 @@
 	
 	var _DevInfo2 = _interopRequireDefault(_DevInfo);
 	
+	var _Overlay = __webpack_require__(200);
+	
+	var _Overlay2 = _interopRequireDefault(_Overlay);
+	
 	var _flist = __webpack_require__(109);
 	
 	var _events = __webpack_require__(111);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var errorMessage = '\nCould not connect to F-List website.\nThey\'re either doing maintenance,\nor someone spilled coke on the servers again.\n'; // <template>
-	//   <div class='ui overlay flex col' transition='fade'>
-	//     <section class='ui panel'>
-	//       <h1>Hi there!</h1>
-	//       <form class='ui form' @submit.prevent='submit'>
-	//         <div class='ui field text-input icon left'>
-	//           <i class='fa fa-user'></i>
-	//           <input type="text" placeholder="Username" v-model="username" :disabled='disabled'>
-	//         </div>
-	//         <div class='ui field text-input icon left'>
-	//           <i class='fa fa-lock'></i>
-	//           <input type="password" placeholder="Password" v-model="password" :disabled='disabled'>
-	//         </div>
-	//         <div class='ui field'>
-	//           <label>
-	//             <input type='checkbox' tabindex='0' /> Remember me
-	//           </label>
-	//         </div>
-	//         <div class='ui field'>
-	//           <button class='ui button' action="submit" :disabled='disabled'>Go</button>
-	//         </div>
-	//       </form>
-	//       <span>{{status}}</span>
-	//     </section>
-	//     <footer>
-	//       <center class='ui small subtle'>
-	//         <em><dev-info></dev-info></em>
-	//         <em>Including the "remember me" option there.<br />It will remember you whether you like it or not.<br /><small>Deal with it.</small></em>
-	//       </center>
-	//     </footer>
-	//   </div>
+	// <template>
+	//   <overlay :close-on-shade-clicked='false'>
+	//     <h1>Hi there!</h1>
+	//     <form class='ui form' @submit.prevent='submit'>
+	//       <div class='ui field text-input icon left'>
+	//         <i class='fa fa-user'></i>
+	//         <input type="text" placeholder="Username" v-model="username" :disabled='disabled'>
+	//       </div>
+	//       <div class='ui field text-input icon left'>
+	//         <i class='fa fa-lock'></i>
+	//         <input type="password" placeholder="Password" v-model="password" :disabled='disabled'>
+	//       </div>
+	//       <div class='ui field'>
+	//         <label>
+	//           <input type='checkbox' tabindex='0' /> Remember me
+	//         </label>
+	//       </div>
+	//       <div class='ui field'>
+	//         <button class='ui button' action="submit" :disabled='disabled'>Go</button>
+	//       </div>
+	//       <div class='ui field'>
+	//         <span>{{status}}</span>
+	//       </div>
+	//       <div class='ui field small subtle'>
+	//         <em><a class='ui link' href='#' data-push-overlay='about'>About</a></em>
+	//       </div>
+	//     </form>
+	//   </overlay>
 	// </template>
 	//
 	// <style lang="stylus" scoped>
 	// footer
 	//   width: 100vw
 	//   position: absolute
+	//   bottom: 2em
 	//   padding: 1em
 	// </style>
 	//
 	// <script>
 	
+	
+	var errorMessage = '\nCould not connect to F-List website.\nThey\'re either doing maintenance,\nor someone spilled coke on the servers again.\n';
 	
 	exports.default = {
 	  data: function data() {
@@ -16272,7 +16381,8 @@
 	
 	
 	  components: {
-	    DevInfo: _DevInfo2.default
+	    DevInfo: _DevInfo2.default,
+	    Overlay: _Overlay2.default
 	  },
 	
 	  methods: {
@@ -16322,7 +16432,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\DevInfo.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 140 */
@@ -16420,7 +16540,7 @@
 /* 143 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui overlay flex col\" transition=\"fade\" _v-02faa4dd=\"\">\n    <section class=\"ui panel\" _v-02faa4dd=\"\">\n      <h1 _v-02faa4dd=\"\">Hi there!</h1>\n      <form class=\"ui form\" @submit.prevent=\"submit\" _v-02faa4dd=\"\">\n        <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n          <i class=\"fa fa-user\" _v-02faa4dd=\"\"></i>\n          <input type=\"text\" placeholder=\"Username\" v-model=\"username\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n        </div>\n        <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n          <i class=\"fa fa-lock\" _v-02faa4dd=\"\"></i>\n          <input type=\"password\" placeholder=\"Password\" v-model=\"password\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n        </div>\n        <div class=\"ui field\" _v-02faa4dd=\"\">\n          <label _v-02faa4dd=\"\">\n            <input type=\"checkbox\" tabindex=\"0\" _v-02faa4dd=\"\"> Remember me\n          </label>\n        </div>\n        <div class=\"ui field\" _v-02faa4dd=\"\">\n          <button class=\"ui button\" action=\"submit\" :disabled=\"disabled\" _v-02faa4dd=\"\">Go</button>\n        </div>\n      </form>\n      <span _v-02faa4dd=\"\">{{status}}</span>\n    </section>\n    <footer _v-02faa4dd=\"\">\n      <center class=\"ui small subtle\" _v-02faa4dd=\"\">\n        <em _v-02faa4dd=\"\"><dev-info _v-02faa4dd=\"\"></dev-info></em>\n        <em _v-02faa4dd=\"\">Including the \"remember me\" option there.<br _v-02faa4dd=\"\">It will remember you whether you like it or not.<br _v-02faa4dd=\"\"><small _v-02faa4dd=\"\">Deal with it.</small></em>\n      </center>\n    </footer>\n  </div>\n";
+	module.exports = "\n  <overlay :close-on-shade-clicked=\"false\" _v-02faa4dd=\"\">\n    <h1 _v-02faa4dd=\"\">Hi there!</h1>\n    <form class=\"ui form\" @submit.prevent=\"submit\" _v-02faa4dd=\"\">\n      <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n        <i class=\"fa fa-user\" _v-02faa4dd=\"\"></i>\n        <input type=\"text\" placeholder=\"Username\" v-model=\"username\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n      </div>\n      <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n        <i class=\"fa fa-lock\" _v-02faa4dd=\"\"></i>\n        <input type=\"password\" placeholder=\"Password\" v-model=\"password\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n      </div>\n      <div class=\"ui field\" _v-02faa4dd=\"\">\n        <label _v-02faa4dd=\"\">\n          <input type=\"checkbox\" tabindex=\"0\" _v-02faa4dd=\"\"> Remember me\n        </label>\n      </div>\n      <div class=\"ui field\" _v-02faa4dd=\"\">\n        <button class=\"ui button\" action=\"submit\" :disabled=\"disabled\" _v-02faa4dd=\"\">Go</button>\n      </div>\n      <div class=\"ui field\" _v-02faa4dd=\"\">\n        <span _v-02faa4dd=\"\">{{status}}</span>\n      </div>\n      <div class=\"ui field small subtle\" _v-02faa4dd=\"\">\n        <em _v-02faa4dd=\"\"><a class=\"ui link\" href=\"#\" data-push-overlay=\"about\" _v-02faa4dd=\"\">About</a></em>\n      </div>\n    </form>\n  </overlay>\n";
 
 /***/ },
 /* 144 */
@@ -16432,7 +16552,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\overlays\\CharacterList.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 145 */
@@ -16444,6 +16574,10 @@
 	  value: true
 	});
 	
+	var _Overlay = __webpack_require__(200);
+	
+	var _Overlay2 = _interopRequireDefault(_Overlay);
+	
 	var _state = __webpack_require__(70);
 	
 	var _state2 = _interopRequireDefault(_state);
@@ -16452,31 +16586,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// <template>
-	//   <div class="ui overlay" transition="fade">
-	//     <div class="ui panel">
-	//       <h2>Who do we feel like playing today?</h2>
-	//       <form class='ui form' @submit.prevent='submit'>
-	//         <div class='ui field'>
-	//           <ul class='ui selection'>
-	//             <li v-for='name in characters'
-	//             :class='{ "active": name === activeCharacter }'
-	//             @click='setSelectedCharacter(name)'>
-	//               {{name}}
-	//             </li>
-	//           </ul>
-	//         </div>
-	//         <div class='ui field'>
-	//           <button class='ui button'>Go</button>
-	//         </div>
-	//       </form>
-	//     </div>
-	//   </div>
-	// </template>
-	//
-	// <style lang="stylus" scoped></style>
-	//
-	// <script>
 	exports.default = {
 	  data: function data() {
 	    return {
@@ -16485,6 +16594,10 @@
 	    };
 	  },
 	
+	
+	  components: {
+	    Overlay: _Overlay2.default
+	  },
 	
 	  computed: {
 	    characters: function characters() {
@@ -16504,12 +16617,35 @@
 	// </script>
 	//
 	/* generated by vue-loader */
+	// <template>
+	//   <overlay :close-on-shade-clicked='false'>
+	//     <h2>Who do we feel like playing today?</h2>
+	//     <form class='ui form' @submit.prevent='submit'>
+	//       <div class='ui field'>
+	//         <ul class='ui selection'>
+	//           <li v-for='name in characters'
+	//           :class='{ "active": name === activeCharacter }'
+	//           @click='setSelectedCharacter(name)'>
+	//             {{name}}
+	//           </li>
+	//         </ul>
+	//       </div>
+	//       <div class='ui field'>
+	//         <button class='ui button'>Go</button>
+	//       </div>
+	//     </form>
+	//   </overlay>
+	// </template>
+	//
+	// <style lang="stylus" scoped></style>
+	//
+	// <script>
 
 /***/ },
 /* 146 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n  <div class=\"ui overlay\" transition=\"fade\">\r\n    <div class=\"ui panel\">\r\n      <h2>Who do we feel like playing today?</h2>\r\n      <form class='ui form' @submit.prevent='submit'>\r\n        <div class='ui field'>\r\n          <ul class='ui selection'>\r\n            <li v-for='name in characters'\r\n            :class='{ \"active\": name === activeCharacter }'\r\n            @click='setSelectedCharacter(name)'>\r\n              {{name}}\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class='ui field'>\r\n          <button class='ui button'>Go</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n";
+	module.exports = "\r\n  <overlay :close-on-shade-clicked='false'>\r\n    <h2>Who do we feel like playing today?</h2>\r\n    <form class='ui form' @submit.prevent='submit'>\r\n      <div class='ui field'>\r\n        <ul class='ui selection'>\r\n          <li v-for='name in characters'\r\n          :class='{ \"active\": name === activeCharacter }'\r\n          @click='setSelectedCharacter(name)'>\r\n            {{name}}\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class='ui field'>\r\n        <button class='ui button'>Go</button>\r\n      </div>\r\n    </form>\r\n  </overlay>\r\n";
 
 /***/ },
 /* 147 */
@@ -16522,7 +16658,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\overlays\\ChannelList.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 148 */
@@ -16559,7 +16705,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".selection[_v-6e29fcb5] {\n  min-width: 14em;\n  min-height: 20em;\n  text-align: left;\n  width: calc(100vh - 35em);\n  height: calc(100vh - 25em);\n}\n.selection li[_v-6e29fcb5] {\n  padding-left: 0.8em;\n  padding-right: 0.8em;\n}\n.selection li span[_v-6e29fcb5] {\n  pointer-events: none;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/ChannelList.vue.style","/./src/view/components/overlays/ChannelList.vue"],"names":[],"mappings":"AACA;EACE,gBAAA;EACA,iBAAA;EACA,iBAAA;EAEA,0BAAA;EACA,2BAAA;CCDD;ADGC;EACE,oBAAA;EACA,qBAAA;CCDH;ADGG;EACE,qBAAA;CCDL","file":"ChannelList.vue","sourcesContent":["\r\n.selection\r\n  min-width: 14em\r\n  min-height: 20em\r\n  text-align: left\r\n\r\n  width: calc(100vh - 35em)\r\n  height: calc(100vh - 25em)\r\n\r\n  li\r\n    padding-left: 0.8em\r\n    padding-right: 0.8em\r\n\r\n    span\r\n      pointer-events: none\r\n",".selection {\n  min-width: 14em;\n  min-height: 20em;\n  text-align: left;\n  width: calc(100vh - 35em);\n  height: calc(100vh - 25em);\n}\n.selection li {\n  padding-left: 0.8em;\n  padding-right: 0.8em;\n}\n.selection li span {\n  pointer-events: none;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".selection[_v-6e29fcb5] {\n  text-align: left;\n  width: 16em;\n  height: 20em;\n}\n.selection li[_v-6e29fcb5] {\n  padding-left: 0.8em;\n  padding-right: 0.8em;\n}\n.selection li span[_v-6e29fcb5] {\n  pointer-events: none;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/ChannelList.vue.style","/./src/view/components/overlays/ChannelList.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;EACA,YAAA;EACA,aAAA;CCAD;ADEC;EACE,oBAAA;EACA,qBAAA;CCAH;ADEG;EACE,qBAAA;CCAL","file":"ChannelList.vue","sourcesContent":["\r\n.selection\r\n  text-align: left\r\n  width: 16em\r\n  height: 20em\r\n\r\n  li\r\n    padding-left: 0.8em\r\n    padding-right: 0.8em\r\n\r\n    span\r\n      pointer-events: none\r\n",".selection {\n  text-align: left;\n  width: 16em;\n  height: 20em;\n}\n.selection li {\n  padding-left: 0.8em;\n  padding-right: 0.8em;\n}\n.selection li span {\n  pointer-events: none;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -16578,59 +16724,56 @@
 	
 	var _typeof3 = _interopRequireDefault(_typeof2);
 	
+	var _Overlay = __webpack_require__(200);
+	
+	var _Overlay2 = _interopRequireDefault(_Overlay);
+	
 	var _state = __webpack_require__(70);
 	
 	var _state2 = _interopRequireDefault(_state);
+	
+	var _types = __webpack_require__(110);
 	
 	var _fuzzysearch = __webpack_require__(159);
 	
 	var _fuzzysearch2 = _interopRequireDefault(_fuzzysearch);
 	
-	var _types = __webpack_require__(110);
-	
-	var _events = __webpack_require__(111);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// <template>
-	//   <div class='ui overlay' transition="fade" @click.self='closeOverlay'>
-	//     <div class='ui panel'>
-	//       <h2>Chill and chat? Sounds good.</h2>
-	//       <form class='ui form' @submit.prevent='closeOverlay'>
-	//         <div class='ui field'>
-	//           <ul class='ui selection'>
-	//             <li v-for='channel in slicedChannelList'
-	//             v-if="channel.name.trim() !== ''"
-	//             class="ui noselect {{isJoined(channel.id) ? 'active' : ''}}"
-	//             :data-toggle-channel='channel.id'>
-	//               <span class='ui pull right'>{{channel.userCount}}</span>
-	//               <span v-html="channel.name"></span>
-	//             </li>
-	//           </ul>
-	//         </div>
+	//   <overlay panel-width='20em' panel-height='32em'>
+	//     <h2>Chill and chat? Sounds good.</h2>
+	//     <form class='ui form'>
+	//       <div class='ui field'>
+	//         <ul class='ui selection'>
+	//           <li v-for='channel in slicedChannelList'
+	//           v-if="channel.name.trim() !== ''"
+	//           class="ui noselect {{isJoined(channel.id) ? 'active' : ''}}"
+	//           :data-toggle-channel='channel.id'>
+	//             <span class='ui pull right'>{{channel.userCount}}</span>
+	//             <span v-html="channel.name"></span>
+	//           </li>
+	//         </ul>
+	//       </div>
 	//
-	//         <div class='ui field text-input icon left'>
-	//           <i class='fa fa-search'></i>
-	//           <input type="text" placeholder="Search..."
-	//           v-model='searchQuery'>
-	//         </div>
+	//       <div class='ui field text-input icon left'>
+	//         <i class='fa fa-search'></i>
+	//         <input type="text" placeholder="Search..."
+	//         v-model='searchQuery'>
+	//       </div>
 	//
-	//         <div class='ui field'>
-	//           <button class='ui button'>Done</button>
-	//         </div>
-	//       </form>
-	//     </div>
-	//   </div>
+	//       <div class='ui field'>
+	//         <button class='ui button'>Done</button>
+	//       </div>
+	//     </form>
+	//   </overlay>
 	// </template>
 	//
 	// <style lang="stylus" scoped>
 	// .selection
-	//   min-width: 14em
-	//   min-height: 20em
 	//   text-align: left
-	//
-	//   width: calc(100vh - 35em)
-	//   height: calc(100vh - 25em)
+	//   width: 16em
+	//   height: 20em
 	//
 	//   li
 	//     padding-left: 0.8em
@@ -16655,6 +16798,10 @@
 	    };
 	  },
 	
+	
+	  components: {
+	    Overlay: _Overlay2.default
+	  },
 	
 	  computed: {
 	    channelList: function channelList() {
@@ -16689,9 +16836,6 @@
 	  methods: {
 	    isJoined: function isJoined(id) {
 	      return this.state.getChannelStatus(id) === _types.ChannelStatus.joined;
-	    },
-	    closeOverlay: function closeOverlay() {
-	      this.$dispatch(_events.PopOverlay);
 	    }
 	  }
 	};
@@ -17062,7 +17206,7 @@
 /* 160 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"closeOverlay\" _v-6e29fcb5=\"\">\n    <div class=\"ui panel\" _v-6e29fcb5=\"\">\n      <h2 _v-6e29fcb5=\"\">Chill and chat? Sounds good.</h2>\n      <form class=\"ui form\" @submit.prevent=\"closeOverlay\" _v-6e29fcb5=\"\">\n        <div class=\"ui field\" _v-6e29fcb5=\"\">\n          <ul class=\"ui selection\" _v-6e29fcb5=\"\">\n            <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.id\" _v-6e29fcb5=\"\">\n              <span class=\"ui pull right\" _v-6e29fcb5=\"\">{{channel.userCount}}</span>\n              <span v-html=\"channel.name\" _v-6e29fcb5=\"\"></span>\n            </li>\n          </ul>\n        </div>\n\n        <div class=\"ui field text-input icon left\" _v-6e29fcb5=\"\">\n          <i class=\"fa fa-search\" _v-6e29fcb5=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"searchQuery\" _v-6e29fcb5=\"\">\n        </div>\n\n        <div class=\"ui field\" _v-6e29fcb5=\"\">\n          <button class=\"ui button\" _v-6e29fcb5=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
+	module.exports = "\n  <overlay panel-width=\"20em\" panel-height=\"32em\" _v-6e29fcb5=\"\">\n    <h2 _v-6e29fcb5=\"\">Chill and chat? Sounds good.</h2>\n    <form class=\"ui form\" _v-6e29fcb5=\"\">\n      <div class=\"ui field\" _v-6e29fcb5=\"\">\n        <ul class=\"ui selection\" _v-6e29fcb5=\"\">\n          <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.id\" _v-6e29fcb5=\"\">\n            <span class=\"ui pull right\" _v-6e29fcb5=\"\">{{channel.userCount}}</span>\n            <span v-html=\"channel.name\" _v-6e29fcb5=\"\"></span>\n          </li>\n        </ul>\n      </div>\n\n      <div class=\"ui field text-input icon left\" _v-6e29fcb5=\"\">\n        <i class=\"fa fa-search\" _v-6e29fcb5=\"\"></i>\n        <input type=\"text\" placeholder=\"Search...\" v-model=\"searchQuery\" _v-6e29fcb5=\"\">\n      </div>\n\n      <div class=\"ui field\" _v-6e29fcb5=\"\">\n        <button class=\"ui button\" _v-6e29fcb5=\"\">Done</button>\n      </div>\n    </form>\n  </overlay>\n";
 
 /***/ },
 /* 161 */
@@ -17075,7 +17219,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\overlays\\AppMenu.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 162 */
@@ -17250,7 +17404,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\ActionPanel.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 166 */
@@ -17320,7 +17484,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\CharacterAvatarLink.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 169 */
@@ -17440,7 +17614,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\MenuOption.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 174 */
@@ -17530,7 +17714,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\Dropdown.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 179 */
@@ -17707,7 +17901,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\overlays\\CharacterMenu.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 185 */
@@ -17892,7 +18096,17 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\overlays\\OnlineUsers.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 190 */
@@ -17956,13 +18170,15 @@
 	
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 	
+	var _Overlay = __webpack_require__(200);
+	
+	var _Overlay2 = _interopRequireDefault(_Overlay);
+	
 	var _state = __webpack_require__(70);
 	
 	var _state2 = _interopRequireDefault(_state);
 	
 	var _util = __webpack_require__(193);
-	
-	var _events = __webpack_require__(111);
 	
 	var _fuse = __webpack_require__(194);
 	
@@ -17971,41 +18187,39 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// <template>
-	//   <div class="ui overlay" transition="fade" @click.self='close'>
-	//     <div class="ui panel">
-	//       <h2>Let's find some friends!</h2>
-	//       <form class="ui form" @submit.prevent>
-	//         <div class="ui field">
-	//           <dropdown style="width: 8em" v-ref:filter>
-	//             <li value="all">All</li>
-	//             <li value="friend">Friends</li>
-	//             <li value="bookmark">Bookmarks</li>
-	//             <li value="looking">Looking</li>
-	//           </dropdown>
-	//         </div>
-	//         <div class="ui field">
-	//           <ul class="ui selection" style="">
-	//             <li v-for="char in slicedCharacters" :class="getListClass(char)" :data-activate-character='char.name'>
-	//               <i class="fa fa-heart ui pull-right" v-if="characterIs(char, 'friend')"></i>
-	//               <i class="fa fa-star ui pull-right" v-if="characterIs(char, 'bookmark')"></i>
-	//               <i class="fa fa-paw ui pull-right" v-if="characterIs(char, 'looking')"></i>
-	//               <character :character='char'></character>
-	//             </li>
-	//             <center class="ui small subtle" style="padding: 0.5em" v-if="slicedCharacters.length === 200">
-	//               <em>List truncated for performance. Search for more results.</em>
-	//             </center>
-	//           </ul>
-	//         </div>
-	//         <div class="ui field text-input icon right">
-	//           <i class="fa fa-search"></i>
-	//           <input type="text" placeholder="Search..." v-model="search" debounce="500" />
-	//         </div>
-	//         <div class="ui field">
-	//           <button class="ui button" @click='close'>Done</button>
-	//         </div>
-	//       </form>
-	//     </div>
-	//   </div>
+	//   <overlay>
+	//     <h2>Let's find some friends!</h2>
+	//     <form class="ui form" @submit.prevent>
+	//       <div class="ui field">
+	//         <dropdown style="width: 8em" v-ref:filter>
+	//           <li value="all">All</li>
+	//           <li value="friend">Friends</li>
+	//           <li value="bookmark">Bookmarks</li>
+	//           <li value="looking">Looking</li>
+	//         </dropdown>
+	//       </div>
+	//       <div class="ui field">
+	//         <ul class="ui selection" style="">
+	//           <li v-for="char in slicedCharacters" :class="getListClass(char)" :data-activate-character='char.name'>
+	//             <i class="fa fa-heart ui pull-right" v-if="characterIs(char, 'friend')"></i>
+	//             <i class="fa fa-star ui pull-right" v-if="characterIs(char, 'bookmark')"></i>
+	//             <i class="fa fa-paw ui pull-right" v-if="characterIs(char, 'looking')"></i>
+	//             <character :character='char'></character>
+	//           </li>
+	//           <center class="ui small subtle" style="padding: 0.5em" v-if="slicedCharacters.length === 200">
+	//             <em>List truncated for performance. Search for more results.</em>
+	//           </center>
+	//         </ul>
+	//       </div>
+	//       <div class="ui field text-input icon right">
+	//         <i class="fa fa-search"></i>
+	//         <input type="text" placeholder="Search..." v-model="search" debounce="500" />
+	//       </div>
+	//       <div class="ui field">
+	//         <button class="ui button" @click='close'>Done</button>
+	//       </div>
+	//     </form>
+	//   </overlay>
 	// </template>
 	//
 	// <style lang="stylus" scoped>
@@ -18021,7 +18235,8 @@
 	exports.default = {
 	  components: {
 	    Character: _Character2.default,
-	    Dropdown: _Dropdown2.default
+	    Dropdown: _Dropdown2.default,
+	    Overlay: _Overlay2.default
 	  },
 	
 	  data: function data() {
@@ -18126,9 +18341,6 @@
 	        return 'ui highlight blue';
 	      }
 	      return '';
-	    },
-	    close: function close() {
-	      this.$dispatch(_events.PopOverlay);
 	    }
 	  }
 	};
@@ -18940,7 +19152,7 @@
 /* 195 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"close\" _v-96ca842e=\"\">\n    <div class=\"ui panel\" _v-96ca842e=\"\">\n      <h2 _v-96ca842e=\"\">Let's find some friends!</h2>\n      <form class=\"ui form\" @submit.prevent=\"\" _v-96ca842e=\"\">\n        <div class=\"ui field\" _v-96ca842e=\"\">\n          <dropdown style=\"width: 8em\" v-ref:filter=\"\" _v-96ca842e=\"\">\n            <li value=\"all\" _v-96ca842e=\"\">All</li>\n            <li value=\"friend\" _v-96ca842e=\"\">Friends</li>\n            <li value=\"bookmark\" _v-96ca842e=\"\">Bookmarks</li>\n            <li value=\"looking\" _v-96ca842e=\"\">Looking</li>\n          </dropdown>\n        </div>\n        <div class=\"ui field\" _v-96ca842e=\"\">\n          <ul class=\"ui selection\" style=\"\" _v-96ca842e=\"\">\n            <li v-for=\"char in slicedCharacters\" :class=\"getListClass(char)\" :data-activate-character=\"char.name\" _v-96ca842e=\"\">\n              <i class=\"fa fa-heart ui pull-right\" v-if=\"characterIs(char, 'friend')\" _v-96ca842e=\"\"></i>\n              <i class=\"fa fa-star ui pull-right\" v-if=\"characterIs(char, 'bookmark')\" _v-96ca842e=\"\"></i>\n              <i class=\"fa fa-paw ui pull-right\" v-if=\"characterIs(char, 'looking')\" _v-96ca842e=\"\"></i>\n              <character :character=\"char\" _v-96ca842e=\"\"></character>\n            </li>\n            <center class=\"ui small subtle\" style=\"padding: 0.5em\" v-if=\"slicedCharacters.length === 200\" _v-96ca842e=\"\">\n              <em _v-96ca842e=\"\">List truncated for performance. Search for more results.</em>\n            </center>\n          </ul>\n        </div>\n        <div class=\"ui field text-input icon right\" _v-96ca842e=\"\">\n          <i class=\"fa fa-search\" _v-96ca842e=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" debounce=\"500\" _v-96ca842e=\"\">\n        </div>\n        <div class=\"ui field\" _v-96ca842e=\"\">\n          <button class=\"ui button\" @click=\"close\" _v-96ca842e=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
+	module.exports = "\n  <overlay _v-96ca842e=\"\">\n    <h2 _v-96ca842e=\"\">Let's find some friends!</h2>\n    <form class=\"ui form\" @submit.prevent=\"\" _v-96ca842e=\"\">\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <dropdown style=\"width: 8em\" v-ref:filter=\"\" _v-96ca842e=\"\">\n          <li value=\"all\" _v-96ca842e=\"\">All</li>\n          <li value=\"friend\" _v-96ca842e=\"\">Friends</li>\n          <li value=\"bookmark\" _v-96ca842e=\"\">Bookmarks</li>\n          <li value=\"looking\" _v-96ca842e=\"\">Looking</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <ul class=\"ui selection\" style=\"\" _v-96ca842e=\"\">\n          <li v-for=\"char in slicedCharacters\" :class=\"getListClass(char)\" :data-activate-character=\"char.name\" _v-96ca842e=\"\">\n            <i class=\"fa fa-heart ui pull-right\" v-if=\"characterIs(char, 'friend')\" _v-96ca842e=\"\"></i>\n            <i class=\"fa fa-star ui pull-right\" v-if=\"characterIs(char, 'bookmark')\" _v-96ca842e=\"\"></i>\n            <i class=\"fa fa-paw ui pull-right\" v-if=\"characterIs(char, 'looking')\" _v-96ca842e=\"\"></i>\n            <character :character=\"char\" _v-96ca842e=\"\"></character>\n          </li>\n          <center class=\"ui small subtle\" style=\"padding: 0.5em\" v-if=\"slicedCharacters.length === 200\" _v-96ca842e=\"\">\n            <em _v-96ca842e=\"\">List truncated for performance. Search for more results.</em>\n          </center>\n        </ul>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-96ca842e=\"\">\n        <i class=\"fa fa-search\" _v-96ca842e=\"\"></i>\n        <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" debounce=\"500\" _v-96ca842e=\"\">\n      </div>\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <button class=\"ui button\" @click=\"close\" _v-96ca842e=\"\">Done</button>\n      </div>\n    </form>\n  </overlay>\n";
 
 /***/ },
 /* 196 */
@@ -18949,11 +19161,21 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(197)
 	__vue_script__ = __webpack_require__(199)
-	__vue_template__ = __webpack_require__(200)
+	__vue_template__ = __webpack_require__(203)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\overlays\\About.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 197 */
@@ -18990,7 +19212,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".panel[_v-199b2701] {\n  width: 18em;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/About.vue.style","/./src/view/components/overlays/About.vue"],"names":[],"mappings":"AACA;EACE,YAAA;EACA,aAAA;CCAD","file":"About.vue","sourcesContent":["\r\n.panel\r\n  width: 18em\r\n  padding: 1em\r\n",".panel {\n  width: 18em;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"About.vue","sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -19005,41 +19227,33 @@
 	  value: true
 	});
 	
+	var _Overlay = __webpack_require__(200);
+	
+	var _Overlay2 = _interopRequireDefault(_Overlay);
+	
 	var _DevInfo = __webpack_require__(139);
 	
 	var _DevInfo2 = _interopRequireDefault(_DevInfo);
 	
-	var _events = __webpack_require__(111);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// <template>
-	//   <div class='ui overlay' @click.self='close'>
-	//     <section class='ui panel'>
-	//       <p><a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/'>
-	//         <img src="https://static.f-list.net/images/avatar/alexander%20grapevine.png" />
-	//       </a></p>
-	//       <p><dev-info></dev-info></p>
-	//     </section>
-	//   </div>
+	//   <overlay panel-width='18em'>
+	//     <p><a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/'>
+	//       <img src="https://static.f-list.net/images/avatar/alexander%20grapevine.png" />
+	//     </a></p>
+	//     <p><dev-info></dev-info></p>
+	//   </overlay>
 	// </template>
 	//
 	// <style lang="stylus" scoped>
-	// .panel
-	//   width: 18em
-	//   padding: 1em
 	// </style>
 	//
 	// <script>
 	exports.default = {
 	  components: {
-	    DevInfo: _DevInfo2.default
-	  },
-	
-	  methods: {
-	    close: function close() {
-	      this.$dispatch(_events.PopOverlay);
-	    }
+	    DevInfo: _DevInfo2.default,
+	    Overlay: _Overlay2.default
 	  }
 	};
 	// </script>
@@ -19048,12 +19262,94 @@
 
 /***/ },
 /* 200 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n  <div class=\"ui overlay\" @click.self=\"close\" _v-199b2701=\"\">\n    <section class=\"ui panel\" _v-199b2701=\"\">\n      <p _v-199b2701=\"\"><a class=\"ui link\" href=\"https://www.f-list.net/c/alexander%20grapevine/\" _v-199b2701=\"\">\n        <img src=\"https://static.f-list.net/images/avatar/alexander%20grapevine.png\" _v-199b2701=\"\">\n      </a></p>\n      <p _v-199b2701=\"\"><dev-info _v-199b2701=\"\"></dev-info></p>\n    </section>\n  </div>\n";
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(201)
+	__vue_template__ = __webpack_require__(202)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\src\\view\\components\\elements\\Overlay.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _events = __webpack_require__(111);
+	
+	exports.default = {
+	  props: {
+	    closeOnShadeClicked: {
+	      type: Boolean,
+	      default: true
+	    },
+	
+	    panelWidth: {
+	      type: String,
+	      default: 'min-content'
+	    },
+	
+	    panelHeight: {
+	      type: String,
+	      default: 'auto'
+	    }
+	  },
+	
+	  methods: {
+	    shadeClicked: function shadeClicked() {
+	      if (this.closeOnShadeClicked) {
+	        this.close();
+	      }
+	    },
+	    close: function close() {
+	      this.$dispatch(_events.PopOverlay);
+	    }
+	  }
+	};
+	// </script>
+	//
+	/* generated by vue-loader */
+	// <template>
+	//   <div class='ui overlay' transition='fade' @click.self='shadeClicked'>
+	//     <div class='ui panel' :style="{ width: panelWidth, height: panelHeight }">
+	//       <slot></slot>
+	//     </div>
+	//   </div>
+	// </template>
+	//
+	// <script>
+
+/***/ },
+/* 202 */
+/***/ function(module, exports) {
+
+	module.exports = "\r\n  <div class='ui overlay' transition='fade' @click.self='shadeClicked'>\r\n    <div class='ui panel' :style=\"{ width: panelWidth, height: panelHeight }\">\r\n      <slot></slot>\r\n    </div>\r\n  </div>\r\n";
+
+/***/ },
+/* 203 */
+/***/ function(module, exports) {
+
+	module.exports = "\n  <overlay panel-width=\"18em\" _v-199b2701=\"\">\n    <p _v-199b2701=\"\"><a class=\"ui link\" href=\"https://www.f-list.net/c/alexander%20grapevine/\" _v-199b2701=\"\">\n      <img src=\"https://static.f-list.net/images/avatar/alexander%20grapevine.png\" _v-199b2701=\"\">\n    </a></p>\n    <p _v-199b2701=\"\"><dev-info _v-199b2701=\"\"></dev-info></p>\n  </overlay>\n";
+
+/***/ },
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19076,7 +19372,7 @@
 	
 	var _types = __webpack_require__(110);
 	
-	var _util = __webpack_require__(202);
+	var _util = __webpack_require__(205);
 	
 	var _events = __webpack_require__(111);
 	
@@ -19389,7 +19685,7 @@
 	exports.default = new Socket();
 
 /***/ },
-/* 202 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -19917,7 +20213,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 	
-	exports.isBuffer = __webpack_require__(203);
+	exports.isBuffer = __webpack_require__(206);
 	
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -19961,7 +20257,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(204);
+	exports.inherits = __webpack_require__(207);
 	
 	exports._extend = function(origin, add) {
 	  // Don't do anything if add isn't an object
@@ -19982,7 +20278,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(2)))
 
 /***/ },
-/* 203 */
+/* 206 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -19993,7 +20289,7 @@
 	}
 
 /***/ },
-/* 204 */
+/* 207 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -20022,13 +20318,13 @@
 
 
 /***/ },
-/* 205 */
+/* 208 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div @click='checkDataAttribute($event)'>\r\n    <chat v-ref:chat></chat>\r\n    <component v-for=\"overlay in overlays\" :is='overlay' :active-character='activeCharacter'></component>\r\n  </div>\r\n";
 
 /***/ },
-/* 206 */
+/* 209 */
 /***/ function(module, exports) {
 
 	'use strict';

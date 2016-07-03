@@ -183,6 +183,11 @@ export default {
       if (channelToggle) {
         this.$emit(events.ToggleChannelRequest, channelToggle)
       }
+
+      const overlay = event.target.getAttribute('data-push-overlay')
+      if (overlay) {
+        this.$emit(events.PushOverlay, overlay)
+      }
     }
   }
 }

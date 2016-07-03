@@ -1,28 +1,28 @@
 <template>
-  <div class="ui overlay" transition="fade">
-    <div class="ui panel">
-      <h2>Who do we feel like playing today?</h2>
-      <form class='ui form' @submit.prevent='submit'>
-        <div class='ui field'>
-          <ul class='ui selection'>
-            <li v-for='name in characters'
-            :class='{ "active": name === activeCharacter }'
-            @click='setSelectedCharacter(name)'>
-              {{name}}
-            </li>
-          </ul>
-        </div>
-        <div class='ui field'>
-          <button class='ui button'>Go</button>
-        </div>
-      </form>
-    </div>
-  </div>
+  <overlay :close-on-shade-clicked='false'>
+    <h2>Who do we feel like playing today?</h2>
+    <form class='ui form' @submit.prevent='submit'>
+      <div class='ui field'>
+        <ul class='ui selection'>
+          <li v-for='name in characters'
+          :class='{ "active": name === activeCharacter }'
+          @click='setSelectedCharacter(name)'>
+            {{name}}
+          </li>
+        </ul>
+      </div>
+      <div class='ui field'>
+        <button class='ui button'>Go</button>
+      </div>
+    </form>
+  </overlay>
 </template>
 
 <style lang="stylus" scoped></style>
 
 <script>
+import Overlay from '../elements/Overlay.vue'
+
 import state from '../../lib/state'
 import {CharacterSelected} from '../../lib/events'
 
@@ -32,6 +32,10 @@ export default {
       state,
       activeCharacter: state.getUserCharacterName()
     }
+  },
+
+  components: {
+    Overlay
   },
 
   computed: {

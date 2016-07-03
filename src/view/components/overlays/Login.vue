@@ -1,45 +1,44 @@
 <template>
-  <div class='ui overlay flex col' transition='fade'>
-    <section class='ui panel'>
-      <h1>Hi there!</h1>
-      <form class='ui form' @submit.prevent='submit'>
-        <div class='ui field text-input icon left'>
-          <i class='fa fa-user'></i>
-          <input type="text" placeholder="Username" v-model="username" :disabled='disabled'>
-        </div>
-        <div class='ui field text-input icon left'>
-          <i class='fa fa-lock'></i>
-          <input type="password" placeholder="Password" v-model="password" :disabled='disabled'>
-        </div>
-        <div class='ui field'>
-          <label>
-            <input type='checkbox' tabindex='0' /> Remember me
-          </label>
-        </div>
-        <div class='ui field'>
-          <button class='ui button' action="submit" :disabled='disabled'>Go</button>
-        </div>
-      </form>
-      <span>{{status}}</span>
-    </section>
-    <footer>
-      <center class='ui small subtle'>
-        <em><dev-info></dev-info></em>
-        <em>Including the "remember me" option there.<br />It will remember you whether you like it or not.<br /><small>Deal with it.</small></em>
-      </center>
-    </footer>
-  </div>
+  <overlay :close-on-shade-clicked='false'>
+    <h1>Hi there!</h1>
+    <form class='ui form' @submit.prevent='submit'>
+      <div class='ui field text-input icon left'>
+        <i class='fa fa-user'></i>
+        <input type="text" placeholder="Username" v-model="username" :disabled='disabled'>
+      </div>
+      <div class='ui field text-input icon left'>
+        <i class='fa fa-lock'></i>
+        <input type="password" placeholder="Password" v-model="password" :disabled='disabled'>
+      </div>
+      <div class='ui field'>
+        <label>
+          <input type='checkbox' tabindex='0' /> Remember me
+        </label>
+      </div>
+      <div class='ui field'>
+        <button class='ui button' action="submit" :disabled='disabled'>Go</button>
+      </div>
+      <div class='ui field'>
+        <span>{{status}}</span>
+      </div>
+      <div class='ui field small subtle'>
+        <em><a class='ui link' href='#' data-push-overlay='about'>About</a></em>
+      </div>
+    </form>
+  </overlay>
 </template>
 
 <style lang="stylus" scoped>
 footer
   width: 100vw
   position: absolute
+  bottom: 2em
   padding: 1em
 </style>
 
 <script>
 import DevInfo from '../elements/DevInfo.vue'
+import Overlay from '../elements/Overlay.vue'
 
 import {sendLoginRequest} from '../../lib/flist'
 import {LoginRequest, LoginSuccess} from '../../lib/events'
@@ -61,7 +60,8 @@ export default {
   },
 
   components: {
-    DevInfo
+    DevInfo,
+    Overlay
   },
 
   methods: {

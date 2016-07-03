@@ -1,42 +1,37 @@
 <template>
-  <div class='ui overlay' transition="fade" @click.self='closeOverlay'>
-    <div class='ui panel'>
-      <h2>Chill and chat? Sounds good.</h2>
-      <form class='ui form' @submit.prevent='closeOverlay'>
-        <div class='ui field'>
-          <ul class='ui selection'>
-            <li v-for='channel in slicedChannelList'
-            v-if="channel.name.trim() !== ''"
-            class="ui noselect {{isJoined(channel.id) ? 'active' : ''}}"
-            :data-toggle-channel='channel.id'>
-              <span class='ui pull right'>{{channel.userCount}}</span>
-              <span v-html="channel.name"></span>
-            </li>
-          </ul>
-        </div>
+  <overlay panel-width='20em' panel-height='32em'>
+    <h2>Chill and chat? Sounds good.</h2>
+    <form class='ui form'>
+      <div class='ui field'>
+        <ul class='ui selection'>
+          <li v-for='channel in slicedChannelList'
+          v-if="channel.name.trim() !== ''"
+          class="ui noselect {{isJoined(channel.id) ? 'active' : ''}}"
+          :data-toggle-channel='channel.id'>
+            <span class='ui pull right'>{{channel.userCount}}</span>
+            <span v-html="channel.name"></span>
+          </li>
+        </ul>
+      </div>
 
-        <div class='ui field text-input icon left'>
-          <i class='fa fa-search'></i>
-          <input type="text" placeholder="Search..."
-          v-model='searchQuery'>
-        </div>
+      <div class='ui field text-input icon left'>
+        <i class='fa fa-search'></i>
+        <input type="text" placeholder="Search..."
+        v-model='searchQuery'>
+      </div>
 
-        <div class='ui field'>
-          <button class='ui button'>Done</button>
-        </div>
-      </form>
-    </div>
-  </div>
+      <div class='ui field'>
+        <button class='ui button'>Done</button>
+      </div>
+    </form>
+  </overlay>
 </template>
 
 <style lang="stylus" scoped>
 .selection
-  min-width: 14em
-  min-height: 20em
   text-align: left
-
-  width: calc(100vh - 35em)
-  height: calc(100vh - 25em)
+  width: 16em
+  height: 20em
 
   li
     padding-left: 0.8em
@@ -47,10 +42,11 @@
 </style>
 
 <script>
+import Overlay from '../elements/Overlay.vue'
+
 import state from '../../lib/state'
-import fuzzysearch from 'fuzzysearch'
 import {ChannelStatus} from '../../lib/types'
-import {PushOverlay, PopOverlay, ToggleChannelRequest} from '../../lib/events'
+import fuzzysearch from 'fuzzysearch'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)
@@ -62,6 +58,10 @@ export default {
       searchQuery: '',
       state
     }
+  },
+
+  components: {
+    Overlay
   },
 
   computed: {
@@ -89,10 +89,6 @@ export default {
   methods: {
     isJoined (id) {
       return this.state.getChannelStatus(id) === ChannelStatus.joined
-    },
-
-    closeOverlay () {
-      this.$dispatch(PopOverlay)
     }
   }
 }
