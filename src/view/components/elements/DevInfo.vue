@@ -15,7 +15,7 @@
 <style lang="stylus" scoped></style>
 
 <script>
-import {version} from '../../../package.json'
+import {version} from '../../../../package.json' // jesus christ
 
 export default {
   data () {

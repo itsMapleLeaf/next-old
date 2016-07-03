@@ -1,10 +1,10 @@
-const {join} = require('path')
+const path = require('path')
 
 module.exports = {
-  entry: join(__dirname, 'view/main.js'),
+  entry: path.join(__dirname, 'src/view/main.js'),
   output: {
-    path: join(__dirname, 'dist'),
-    publicPath: '/dist/',
+    path: path.join(__dirname, 'assets/build'),
+    publicPath: '/assets/',
     filename: 'bundle.js'
   },
   module: {
@@ -23,6 +23,9 @@ module.exports = {
         loader: 'vue'
       }
     ]
+  },
+  resolve: {
+    root: path.resolve('src')
   },
   babel: {
     presets: ['es2015'],

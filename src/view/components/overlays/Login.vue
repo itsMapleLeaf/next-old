@@ -46,7 +46,6 @@ import DevInfo from '../elements/DevInfo.vue'
 
 import {sendLoginRequest} from '../../lib/flist'
 import {LoginRequest, LoginSuccess} from '../../lib/events'
-import {version} from '../../../package'
 
 const errorMessage = `
 Could not connect to F-List website.
@@ -60,8 +59,7 @@ export default {
       username: '',
       password: '',
       status: '',
-      disabled: false,
-      version
+      disabled: false
     }
   },
 

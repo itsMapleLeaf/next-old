@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/dist/";
+/******/ 	__webpack_require__.p = "/assets/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -58,7 +58,7 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _bbcode = __webpack_require__(198);
+	var _bbcode = __webpack_require__(206);
 	
 	var _bbcode2 = _interopRequireDefault(_bbcode);
 	
@@ -11676,21 +11676,11 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(5)
 	__vue_script__ = __webpack_require__(9)
-	__vue_template__ = __webpack_require__(197)
+	__vue_template__ = __webpack_require__(205)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\App.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 5 */
@@ -11708,8 +11698,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-7e10603c&file=App.vue!./../../node_modules/stylus-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./App.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-7e10603c&file=App.vue!./../../node_modules/stylus-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./App.vue");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-a3cedd78&file=App.vue!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./App.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-a3cedd78&file=App.vue!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./App.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -11727,7 +11717,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n  color: inherit;\n  border: none;\n  outline: none;\n  outline-offset: 0;\n  resize: none;\n}\n:root {\n  font: 14pt 'Roboto', sans-serif;\n  color: #dee7ed;\n  -webkit-font-smoothing: antialiased;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 300;\n  opacity: 0.9;\n  margin: 1rem 0;\n}\nul,\nol {\n  list-style: none;\n}\na {\n  text-decoration: none;\n}\np {\n  margin-top: 0.8em;\n  margin-bottom: 0.8em;\n}\nem .fa {\n  margin-left: 0.2em;\n  margin-right: 0.1em;\n}\n[contenteditable]:empty::after {\n  content: attr(placeholder);\n  opacity: 0.5;\n  font-style: italic;\n  cursor: text;\n}\n::-webkit-scrollbar {\n  width: 8px;\n  height: 8px;\n}\n::-webkit-scrollbar-track,\n::-webkit-scrollbar-corner {\n  background-color: #172e46;\n}\n::-webkit-scrollbar-thumb {\n  background-color: #2f5e8e;\n}\n::-webkit-scrollbar-button {\n  display: none;\n}\n::-moz-selection {\n  background: rgba(0,0,0,0.3);\n}\n::selection {\n  background: rgba(0,0,0,0.3);\n}\n.ui.transition,\n.ui.hover-darken,\n.ui.focus-darken,\n.ui.focus-lighten,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection li,\n.ui.link {\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\n.ui.noselect,\n.ui.selection {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.no-border {\n  border: none;\n}\n.ui.small {\n  font-size: 85%;\n}\n.ui.subtle {\n  opacity: 0.5;\n}\n.ui.shadow,\n.ui.panel,\n.ui.side-panel {\n  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);\n}\n.ui.theme-color.main,\n.ui.panel,\n.ui.side-panel {\n  background-color: #264c73;\n}\n.ui.theme-color.dark,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  background-color: #1d3a58;\n}\n.ui.theme-color.light,\n.ui.focus-lighten:focus {\n  background-color: #2f5e8e;\n}\n.ui.theme-color.darker,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  background-color: #172e46;\n}\n.ui.theme-color.lighter {\n  background-color: #376ea6;\n}\n.ui.border,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  border-bottom: 3px solid #2f5e8e;\n}\n.ui.border.bright,\n.ui.section.bright,\n.ui.text-input input.bright,\n.ui.text-input [contenteditable].bright,\n.ui.button.bright,\n.ui.selection.bright,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.focus-lighten:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  border-bottom-color: #568ec7;\n}\n.ui.highlight.green {\n  background-color: rgba(39,174,96,0.25);\n  color: #3dd37c;\n}\n.ui.highlight.blue {\n  background-color: rgba(52,152,219,0.25);\n  color: #5dade2;\n}\n.ui.highlight.red {\n  background-color: rgba(231,76,60,0.25);\n  color: #ec7063;\n}\n.ui.highlight.section {\n  border: none;\n}\n.ui.hover-darken,\n.ui.button,\n.ui.selection li {\n  cursor: pointer;\n}\n.ui.fullscreen,\n.ui.overlay {\n  position: fixed;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\n.ui.overlay {\n  background-color: rgba(0,0,0,0.3);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.ui.panel,\n.ui.side-panel {\n  width: -webkit-min-content;\n  width: -moz-min-content;\n  width: min-content;\n  padding: 0em 1.5em;\n  text-align: center;\n}\n.ui.side-panel {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 12em;\n  padding: 0;\n  text-align: left;\n  overflow-y: auto;\n}\n.ui.side-panel.left {\n  left: 0;\n}\n.ui.side-panel.right {\n  right: 0;\n}\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable] {\n  width: 10rem;\n  padding: 0.4em 0.6em;\n  display: block;\n}\n.ui.section.icon,\n.ui.text-input.icon {\n  position: relative;\n}\n.ui.section.icon .fa,\n.ui.text-input.icon .fa {\n  opacity: 0.5;\n  position: absolute;\n  top: 0.6em;\n  pointer-events: none;\n}\n.ui.section.icon.left .fa,\n.ui.text-input.icon.left .fa {\n  left: 0.6em;\n}\n.ui.section.icon.right .fa,\n.ui.text-input.icon.right .fa {\n  right: 0.6em;\n}\n.ui.text-input {\n  display: inline-block;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n}\n.ui.text-input.icon.left input,\n.ui.text-input.icon.left [contenteditable] {\n  padding-left: 1.8em;\n}\n.ui.text-input.icon.right input,\n.ui.text-input.icon.right [contenteditable] {\n  padding-right: 1.8em;\n}\n.ui.button {\n  padding: 0.4em 1.5em;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.form .ui.field {\n  margin-bottom: 1em;\n}\n.ui.selection {\n  width: 14em;\n  height: 18em;\n  list-style: none;\n  overflow-y: scroll;\n  display: inline-block;\n}\n.ui.selection li {\n  display: block;\n  padding: 0.5em;\n}\n.ui.selection li:hover {\n  border-bottom: none;\n}\n.ui.selection li.active {\n  background-color: rgba(39,174,96,0.3);\n  color: #3dd37c;\n}\n.ui.pull.right {\n  float: right;\n}\n.ui.scroll {\n  overflow-y: auto;\n}\n.ui.link {\n  text-decoration: none;\n  border-bottom: 1px solid rgba(222,231,237,0.3);\n  position: relative;\n}\n.ui.link:hover {\n  border-bottom-color: rgba(222,231,237,0.8);\n}\n.ui.divider {\n  border-bottom: 1px solid rgba(222,231,237,0.2);\n}\n.flex.row,\n.flex.col,\n.flex.center-content {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.flex.row {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n.flex.col {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.flex.stretch {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  -ms-flex-negative: 1;\n      flex-shrink: 1;\n}\n.flex.fixed,\n.flex.divider {\n  -webkit-box-flex: 0;\n      -ms-flex-positive: 0;\n          flex-grow: 0;\n  -ms-flex-negative: 0;\n      flex-shrink: 0;\n}\n.flex.center-content {\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n              -ms-grid-row-align: center;\n          align-items: center;\n}\n.flex.divider {\n  width: 4px;\n  height: 4px;\n}\n.fade-transition {\n  -webkit-transition: opacity 0.3s ease;\n  transition: opacity 0.3s ease;\n  opacity: 1;\n}\n.fade-enter,\n.fade-leave {\n  opacity: 0;\n}\n.slide-left-transition {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  opacity: 1;\n}\n.slide-left-transition .ui.side-panel {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  left: 0em;\n}\n.slide-left-enter,\n.slide-left-leave {\n  opacity: 0;\n}\n.slide-left-enter .ui.side-panel,\n.slide-left-leave .ui.side-panel {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  left: -14em;\n}\n.slide-right-transition {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  opacity: 1;\n}\n.slide-right-transition .ui.side-panel {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  right: 0em;\n}\n.slide-right-enter,\n.slide-right-leave {\n  opacity: 0;\n}\n.slide-right-enter .ui.side-panel,\n.slide-right-leave .ui.side-panel {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  right: -14em;\n}\n", "", {"version":3,"sources":["/./view/components/App.vue.style","/./view/components/App.vue","/./view/components/view/styles/ui.styl","/./view/components/view/styles/flex.styl","/./view/components/view/styles/transitions.styl"],"names":[],"mappings":"AAEA;EACE,WAAA;EACA,UAAA;EACA,uBAAA;EACA,eAAA;EACA,aAAA;EACA,cAAA;EACA,kBAAA;EACA,aAAA;CCDD;ADGD;EACE,gCAAA;EACA,eAAA;EACA,oCAAA;CCDD;ADGD;;;;;;EACE,iBAAA;EACA,aAAA;EACA,eAAA;CCID;ADFD;;EACE,iBAAA;CCKD;ADHD;EACE,sBAAA;CCKD;ADHD;EACE,kBAAA;EACA,qBAAA;CCKD;ADHD;EACE,mBAAA;EACA,oBAAA;CCKD;ADFD;EACE,2BAAA;EACA,aAAA;EACA,mBAAA;EACA,aAAA;CCID;ADFD;EACE,WAAA;EACA,YAAA;CCID;ADFD;;EACE,0BAAA;CCKD;ADHD;EACE,0BAAA;CCKD;ADHD;EACE,cAAA;CCKD;ADHD;EACE,4BAAA;CCKD;ADND;EACE,4BAAA;CCKD;ACvDC;;;;;;;;;;EACE,kCAAA;EAAA,0BAAA;CDkEH;AChEC;;EACE,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;CDmEH;ACjEC;EACE,aAAA;CDmEH;ACjEC;EACE,eAAA;CDmEH;ACjEC;EACE,aAAA;CDmEH;ACjEC;;;EACE,yCAAA;CDqEH;AClEG;;;EAAS,0BAAA;CDuEZ;ACtEG;;;;;;EAAS,0BAAA;CD8EZ;AC7EG;;EAAU,0BAAA;CDiFb;AChFG;;;;;;;;;EAAW,0BAAA;CD2Fd;AC1FG;EAAY,0BAAA;CD6Ff;AC3FC;;;;;;EACE,iCAAA;CDkGH;AChGG;;;;;;;;;;;;;;;EACE,6BAAA;CDgHL;AC7GG;EApCF,uCAAA;EACA,eAAA;CDoJD;AChHG;EArCF,wCAAA;EACA,eAAA;CDwJD;ACnHG;EAtCF,uCAAA;EACA,eAAA;CD4JD;ACtHG;EAAY,aAAA;CDyHf;ACvHC;;;EAEE,gBAAA;CD0HH;ACzGC;;EACE,gBAAA;EACA,QAAA;EACA,OAAA;EACA,SAAA;EACA,UAAA;CD4GH;AC1GC;EAGE,kCAAA;EACA,qBAAA;EAAA,qBAAA;EAAA,cAAA;EACA,yBAAA;MAAA,sBAAA;UAAA,wBAAA;EACA,0BAAA;MAAA,uBAAA;UAAA,oBAAA;CD0GH;ACxGC;;EAIE,2BAAA;EAAA,wBAAA;EAAA,mBAAA;EACA,mBAAA;EACA,mBAAA;CDwGH;ACtGC;EAEE,mBAAA;EACA,OAAA;EACA,UAAA;EACA,YAAA;EACA,WAAA;EACA,iBAAA;EACA,iBAAA;CDuGH;ACrGG;EAAS,QAAA;CDwGZ;ACvGG;EAAU,SAAA;CD0Gb;ACxGC;;;EAKE,aAAA;EACA,qBAAA;EACA,eAAA;CDwGH;ACtGC;;EACE,mBAAA;CDyGH;ACvGG;;EACE,aAAA;EACA,mBAAA;EACA,WAAA;EACA,qBAAA;CD0GL;ACxGG;;EAAa,YAAA;CD4GhB;AC3GG;;EAAc,aAAA;CD+GjB;AC7GC;EACE,sBAAA;EACA,2BAAA;EAAA,wBAAA;EAAA,mBAAA;CD+GH;ACtGO;;EAA2B,oBAAA;CD0GlC;ACvGO;;EAA2B,qBAAA;CD2GlC;ACzGC;EAKE,qBAAA;EACA,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;CDuGH;ACrGC;EACE,mBAAA;CDuGH;ACrGC;EAKE,YAAA;EACA,aAAA;EACA,iBAAA;EACA,mBAAA;EACA,sBAAA;CDmGH;ACjGG;EAEE,eAAA;EACA,eAAA;CDkGL;AChGK;EACE,oBAAA;CDkGP;AChGK;EAEE,sCAAA;EACA,eAAA;CDiGP;AC/FC;EACE,aAAA;CDiGH;AC/FC;EACE,iBAAA;CDiGH;AC/FC;EAEE,sBAAA;EACA,+CAAA;EACA,mBAAA;CDgGH;AC9FG;EACE,2CAAA;CDgGL;AC9FC;EACE,+CAAA;CDgGH;AE1RC;;;EACE,qBAAA;EAAA,qBAAA;EAAA,cAAA;CF8RH;AE5RC;EACE,+BAAA;EAAA,8BAAA;MAAA,wBAAA;UAAA,oBAAA;CF8RH;AE5RC;EACE,6BAAA;EAAA,8BAAA;MAAA,2BAAA;UAAA,uBAAA;CF8RH;AE5RC;EACE,oBAAA;MAAA,qBAAA;UAAA,aAAA;EACA,qBAAA;MAAA,eAAA;CF8RH;AE5RC;;EACE,oBAAA;MAAA,qBAAA;UAAA,aAAA;EACA,qBAAA;MAAA,eAAA;CF+RH;AE7RC;EACE,yBAAA;MAAA,sBAAA;UAAA,wBAAA;EACA,0BAAA;MAAA,uBAAA;cAAA,2BAAA;UAAA,oBAAA;CF+RH;AE7RC;EAEE,WAAA;EACA,YAAA;CF8RH;AGnTC;EAHA,sCAAA;EAAA,8BAAA;EAKE,WAAA;CHqTH;AGnTC;;EACE,WAAA;CHsTH;AGlTG;EAZF,kCAAA;EAAA,0BAAA;EAcI,WAAA;CHoTL;AGnTK;EAfJ,kCAAA;EAAA,0BAAA;EAiBY,UAAA;CHqTb;AGnTG;;EACE,WAAA;CHsTL;AGrTK;;EArBJ,kCAAA;EAAA,0BAAA;EAuBY,YAAA;CHwTb;AGnUG;EAZF,kCAAA;EAAA,0BAAA;EAcI,WAAA;CHqUL;AGpUK;EAfJ,kCAAA;EAAA,0BAAA;EAiBY,WAAA;CHsUb;AGpUG;;EACE,WAAA;CHuUL;AGtUK;;EArBJ,kCAAA;EAAA,0BAAA;EAuBY,aAAA;CHyUb","file":"App.vue","sourcesContent":["@import 'colors'\r\n\r\n*\r\n  padding: 0\r\n  margin: 0\r\n  box-sizing: border-box\r\n  color: inherit\r\n  border: none\r\n  outline: none\r\n  outline-offset: 0\r\n  resize: none\r\n\r\n:root\r\n  font: 14pt 'Roboto', sans-serif\r\n  color: $text-color\r\n  -webkit-font-smoothing: antialiased\r\n\r\nh1, h2, h3, h4, h5, h6\r\n  font-weight: 300\r\n  opacity: 0.9\r\n  margin: 1rem 0\r\n\r\nul, ol\r\n  list-style: none\r\n\r\na\r\n  text-decoration: none\r\n\r\np\r\n  margin-top: 0.8em\r\n  margin-bottom: 0.8em\r\n\r\nem .fa\r\n  margin-left: 0.2em\r\n  margin-right: 0.1em\r\n\r\n\r\n[contenteditable]:empty::after\r\n  content: attr(placeholder)\r\n  opacity: 0.5\r\n  font-style: italic\r\n  cursor: text\r\n\r\n::-webkit-scrollbar\r\n  width: 8px\r\n  height: @width\r\n\r\n::-webkit-scrollbar-track, ::-webkit-scrollbar-corner\r\n  background-color: darken($theme-color-dark, 20%)\r\n\r\n::-webkit-scrollbar-thumb\r\n  background-color: $theme-color-light\r\n\r\n::-webkit-scrollbar-button\r\n  display: none\r\n\r\n::selection\r\n  background: rgba(black, 0.3)\r\n","* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n  color: inherit;\n  border: none;\n  outline: none;\n  outline-offset: 0;\n  resize: none;\n}\n:root {\n  font: 14pt 'Roboto', sans-serif;\n  color: #dee7ed;\n  -webkit-font-smoothing: antialiased;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 300;\n  opacity: 0.9;\n  margin: 1rem 0;\n}\nul,\nol {\n  list-style: none;\n}\na {\n  text-decoration: none;\n}\np {\n  margin-top: 0.8em;\n  margin-bottom: 0.8em;\n}\nem .fa {\n  margin-left: 0.2em;\n  margin-right: 0.1em;\n}\n[contenteditable]:empty::after {\n  content: attr(placeholder);\n  opacity: 0.5;\n  font-style: italic;\n  cursor: text;\n}\n::-webkit-scrollbar {\n  width: 8px;\n  height: 8px;\n}\n::-webkit-scrollbar-track,\n::-webkit-scrollbar-corner {\n  background-color: #172e46;\n}\n::-webkit-scrollbar-thumb {\n  background-color: #2f5e8e;\n}\n::-webkit-scrollbar-button {\n  display: none;\n}\n::selection {\n  background: rgba(0,0,0,0.3);\n}\n.ui.transition,\n.ui.hover-darken,\n.ui.focus-darken,\n.ui.focus-lighten,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection li,\n.ui.link {\n  transition: 0.2s ease all;\n}\n.ui.noselect,\n.ui.selection {\n  user-select: none;\n}\n.ui.no-border {\n  border: none;\n}\n.ui.small {\n  font-size: 85%;\n}\n.ui.subtle {\n  opacity: 0.5;\n}\n.ui.shadow,\n.ui.panel,\n.ui.side-panel {\n  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);\n}\n.ui.theme-color.main,\n.ui.panel,\n.ui.side-panel {\n  background-color: #264c73;\n}\n.ui.theme-color.dark,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  background-color: #1d3a58;\n}\n.ui.theme-color.light,\n.ui.focus-lighten:focus {\n  background-color: #2f5e8e;\n}\n.ui.theme-color.darker,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  background-color: #172e46;\n}\n.ui.theme-color.lighter {\n  background-color: #376ea6;\n}\n.ui.border,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  border-bottom: 3px solid #2f5e8e;\n}\n.ui.border.bright,\n.ui.section.bright,\n.ui.text-input input.bright,\n.ui.text-input [contenteditable].bright,\n.ui.button.bright,\n.ui.selection.bright,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.focus-lighten:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  border-bottom-color: #568ec7;\n}\n.ui.highlight.green {\n  background-color: rgba(39,174,96,0.25);\n  color: #3dd37c;\n}\n.ui.highlight.blue {\n  background-color: rgba(52,152,219,0.25);\n  color: #5dade2;\n}\n.ui.highlight.red {\n  background-color: rgba(231,76,60,0.25);\n  color: #ec7063;\n}\n.ui.highlight.section {\n  border: none;\n}\n.ui.hover-darken,\n.ui.button,\n.ui.selection li {\n  cursor: pointer;\n}\n.ui.fullscreen,\n.ui.overlay {\n  position: fixed;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\n.ui.overlay {\n  background-color: rgba(0,0,0,0.3);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.ui.panel,\n.ui.side-panel {\n  width: min-content;\n  padding: 0em 1.5em;\n  text-align: center;\n}\n.ui.side-panel {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 12em;\n  padding: 0;\n  text-align: left;\n  overflow-y: auto;\n}\n.ui.side-panel.left {\n  left: 0;\n}\n.ui.side-panel.right {\n  right: 0;\n}\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable] {\n  width: 10rem;\n  padding: 0.4em 0.6em;\n  display: block;\n}\n.ui.section.icon,\n.ui.text-input.icon {\n  position: relative;\n}\n.ui.section.icon .fa,\n.ui.text-input.icon .fa {\n  opacity: 0.5;\n  position: absolute;\n  top: 0.6em;\n  pointer-events: none;\n}\n.ui.section.icon.left .fa,\n.ui.text-input.icon.left .fa {\n  left: 0.6em;\n}\n.ui.section.icon.right .fa,\n.ui.text-input.icon.right .fa {\n  right: 0.6em;\n}\n.ui.text-input {\n  display: inline-block;\n  width: max-content;\n}\n.ui.text-input.icon.left input,\n.ui.text-input.icon.left [contenteditable] {\n  padding-left: 1.8em;\n}\n.ui.text-input.icon.right input,\n.ui.text-input.icon.right [contenteditable] {\n  padding-right: 1.8em;\n}\n.ui.button {\n  padding: 0.4em 1.5em;\n  user-select: none;\n}\n.ui.form .ui.field {\n  margin-bottom: 1em;\n}\n.ui.selection {\n  width: 14em;\n  height: 18em;\n  list-style: none;\n  overflow-y: scroll;\n  display: inline-block;\n}\n.ui.selection li {\n  display: block;\n  padding: 0.5em;\n}\n.ui.selection li:hover {\n  border-bottom: none;\n}\n.ui.selection li.active {\n  background-color: rgba(39,174,96,0.3);\n  color: #3dd37c;\n}\n.ui.pull.right {\n  float: right;\n}\n.ui.scroll {\n  overflow-y: auto;\n}\n.ui.link {\n  text-decoration: none;\n  border-bottom: 1px solid rgba(222,231,237,0.3);\n  position: relative;\n}\n.ui.link:hover {\n  border-bottom-color: rgba(222,231,237,0.8);\n}\n.ui.divider {\n  border-bottom: 1px solid rgba(222,231,237,0.2);\n}\n.flex.row,\n.flex.col,\n.flex.center-content {\n  display: flex;\n}\n.flex.row {\n  flex-direction: row;\n}\n.flex.col {\n  flex-direction: column;\n}\n.flex.stretch {\n  flex-grow: 1;\n  flex-shrink: 1;\n}\n.flex.fixed,\n.flex.divider {\n  flex-grow: 0;\n  flex-shrink: 0;\n}\n.flex.center-content {\n  justify-content: center;\n  align-items: center;\n}\n.flex.divider {\n  width: 4px;\n  height: 4px;\n}\n.fade-transition {\n  transition: opacity 0.3s ease;\n  opacity: 1;\n}\n.fade-enter,\n.fade-leave {\n  opacity: 0;\n}\n.slide-left-transition {\n  transition: all 0.3s ease;\n  opacity: 1;\n}\n.slide-left-transition .ui.side-panel {\n  transition: all 0.3s ease;\n  left: 0em;\n}\n.slide-left-enter,\n.slide-left-leave {\n  opacity: 0;\n}\n.slide-left-enter .ui.side-panel,\n.slide-left-leave .ui.side-panel {\n  transition: all 0.3s ease;\n  left: -14em;\n}\n.slide-right-transition {\n  transition: all 0.3s ease;\n  opacity: 1;\n}\n.slide-right-transition .ui.side-panel {\n  transition: all 0.3s ease;\n  right: 0em;\n}\n.slide-right-enter,\n.slide-right-leave {\n  opacity: 0;\n}\n.slide-right-enter .ui.side-panel,\n.slide-right-leave .ui.side-panel {\n  transition: all 0.3s ease;\n  right: -14em;\n}\n","@import 'colors'\r\n\r\nhighlight($color)\r\n  background-color: rgba($color, 0.25)\r\n  color: lighten($color, 20%)\r\n\r\n.ui\r\n  &.transition\r\n    transition: 0.2s ease all\r\n\r\n  &.noselect\r\n    user-select: none\r\n\r\n  &.no-border\r\n    border: none\r\n\r\n  &.small\r\n    font-size: 85%\r\n\r\n  &.subtle\r\n    opacity: 0.5\r\n\r\n  &.shadow\r\n    box-shadow: 0px 4px 12px rgba(black, 0.2)\r\n\r\n  &.theme-color\r\n    &.main { background-color: $theme-color }\r\n    &.dark { background-color: $theme-color-dark }\r\n    &.light { background-color: $theme-color-light }\r\n    &.darker { background-color: darken($theme-color-dark, 20%) }\r\n    &.lighter { background-color: lighten($theme-color-light, 10%) }\r\n\r\n  &.border\r\n    border-bottom: 3px solid $theme-color-light\r\n\r\n    &.bright\r\n      border-bottom-color: lighten($theme-color-light, 30%)\r\n\r\n  &.highlight\r\n    &.green { highlight: rgb(39, 174, 96) }\r\n    &.blue { highlight: rgb(52, 152, 219) }\r\n    &.red { highlight: rgb(231, 76, 60) }\r\n    &.section { border: none }\r\n\r\n  &.hover-darken\r\n    @extend .ui.transition\r\n    cursor: pointer\r\n    &:hover\r\n      @extend .ui.theme-color.darker\r\n      @extend .ui.border.bright\r\n\r\n  &.focus-darken\r\n    @extend .ui.transition\r\n    &:focus\r\n      @extend .ui.theme-color.darker\r\n      @extend .ui.border.bright\r\n\r\n  &.focus-lighten\r\n    @extend .ui.transition\r\n    &:focus\r\n      @extend .ui.theme-color.light\r\n      @extend .ui.border.bright\r\n\r\n  &.fullscreen\r\n    position: fixed\r\n    left: 0\r\n    top: 0\r\n    right: 0\r\n    bottom: 0\r\n\r\n  &.overlay\r\n    @extend .ui.fullscreen\r\n\r\n    background-color: rgba(black, 0.3)\r\n    display: flex\r\n    justify-content: center\r\n    align-items: center\r\n\r\n  &.panel\r\n    @extend .ui.theme-color.main\r\n    @extend .ui.shadow\r\n\r\n    width: min-content\r\n    padding: 0em 1.5em\r\n    text-align: center\r\n\r\n  &.side-panel\r\n    @extend .ui.panel\r\n    position: absolute\r\n    top: 0\r\n    bottom: 0\r\n    width: 12em\r\n    padding: 0\r\n    text-align: left\r\n    overflow-y: auto\r\n\r\n    &.left { left: 0 }\r\n    &.right { right: 0 }\r\n\r\n  &.section\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.transition\r\n    @extend .ui.focus-darken\r\n    width: 10rem\r\n    padding: 0.4em 0.6em\r\n    display: block\r\n\r\n  &.section.icon\r\n    position: relative\r\n\r\n    .fa\r\n      opacity: 0.5\r\n      position: absolute\r\n      top: 0.6em\r\n      pointer-events: none\r\n\r\n    &.left .fa { left: 0.6em }\r\n    &.right .fa { right: 0.6em }\r\n\r\n  &.text-input\r\n    display: inline-block\r\n    width: max-content\r\n\r\n    input, [contenteditable]\r\n      @extend .ui.section\r\n\r\n    &.icon\r\n      @extend .ui.section.icon\r\n\r\n      &.left\r\n        input, [contenteditable] { padding-left: 1.8em }\r\n\r\n      &.right\r\n        input, [contenteditable] { padding-right: 1.8em }\r\n\r\n  &.button\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.hover-darken\r\n    @extend .ui.focus-darken\r\n    padding: 0.4em 1.5em\r\n    user-select: none\r\n\r\n  &.form &.field\r\n    margin-bottom: 1em\r\n\r\n  &.selection\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.noselect\r\n\r\n    width: 14em\r\n    height: 18em\r\n    list-style: none\r\n    overflow-y: scroll\r\n    display: inline-block\r\n\r\n    li\r\n      @extend .ui.hover-darken\r\n      display: block\r\n      padding: 0.5em\r\n\r\n      &:hover\r\n        border-bottom: none\r\n\r\n      &.active\r\n        $active-color = rgb(39, 174, 96)\r\n        background-color: rgba($active-color, 0.3)\r\n        color: lighten($active-color, 20%)\r\n\r\n  &.pull.right\r\n    float: right\r\n\r\n  &.scroll\r\n    overflow-y: auto\r\n\r\n  &.link\r\n    @extend .ui.transition\r\n    text-decoration: none\r\n    border-bottom: 1px solid rgba($text-color, 0.3)\r\n    position: relative\r\n\r\n    &:hover\r\n      border-bottom-color: rgba($text-color, 0.8)\r\n\r\n  &.divider\r\n    border-bottom: 1px solid rgba($text-color, 0.2)\r\n",".flex\r\n  &.row, &.col, &.center-content\r\n    display: flex\r\n\r\n  &.row\r\n    flex-direction: row\r\n\r\n  &.col\r\n    flex-direction: column\r\n\r\n  &.stretch\r\n    flex-grow: 1\r\n    flex-shrink: 1\r\n\r\n  &.fixed\r\n    flex-grow: 0\r\n    flex-shrink: 0\r\n\r\n  &.center-content\r\n    justify-content: center\r\n    align-items: center\r\n\r\n  &.divider\r\n    @extend .flex.fixed\r\n    width: 4px\r\n    height: @width\r\n","animate($property = all)\r\n  transition: $property 0.3s ease\r\n\r\n.fade\r\n  &-transition\r\n    animate: opacity\r\n    opacity: 1\r\n\r\n  &-enter, &-leave\r\n    opacity: 0\r\n\r\nslide($side)\r\n  .slide-{$side}\r\n    &-transition\r\n      animate: all\r\n      opacity: 1\r\n      .ui.side-panel\r\n        animate: all\r\n        {$side}: 0em\r\n\r\n    &-enter, &-leave\r\n      opacity: 0\r\n      .ui.side-panel\r\n        animate: all\r\n        {$side}: -14em\r\n\r\nslide('left')\r\nslide('right')\r\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n  color: inherit;\n  border: none;\n  outline: none;\n  outline-offset: 0;\n  resize: none;\n}\n:root {\n  font: 14pt 'Roboto', sans-serif;\n  color: #dee7ed;\n  -webkit-font-smoothing: antialiased;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 300;\n  opacity: 0.9;\n  margin: 1rem 0;\n}\nul,\nol {\n  list-style: none;\n}\na {\n  text-decoration: none;\n}\np {\n  margin-top: 0.8em;\n  margin-bottom: 0.8em;\n}\nem .fa {\n  margin-left: 0.2em;\n  margin-right: 0.1em;\n}\n[contenteditable]:empty::after {\n  content: attr(placeholder);\n  opacity: 0.5;\n  font-style: italic;\n  cursor: text;\n}\n::-webkit-scrollbar {\n  width: 8px;\n  height: 8px;\n}\n::-webkit-scrollbar-track,\n::-webkit-scrollbar-corner {\n  background-color: #172e46;\n}\n::-webkit-scrollbar-thumb {\n  background-color: #2f5e8e;\n}\n::-webkit-scrollbar-button {\n  display: none;\n}\n::-moz-selection {\n  background: rgba(0,0,0,0.3);\n}\n::selection {\n  background: rgba(0,0,0,0.3);\n}\n.ui.transition,\n.ui.hover-darken,\n.ui.focus-darken,\n.ui.focus-lighten,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection li,\n.ui.link {\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\n.ui.noselect,\n.ui.selection {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.no-border {\n  border: none;\n}\n.ui.small {\n  font-size: 85%;\n}\n.ui.subtle {\n  opacity: 0.5;\n}\n.ui.shadow,\n.ui.panel,\n.ui.side-panel {\n  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);\n}\n.ui.theme-color.main,\n.ui.panel,\n.ui.side-panel {\n  background-color: #264c73;\n}\n.ui.theme-color.dark,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  background-color: #1d3a58;\n}\n.ui.theme-color.light,\n.ui.focus-lighten:focus {\n  background-color: #2f5e8e;\n}\n.ui.theme-color.darker,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  background-color: #172e46;\n}\n.ui.theme-color.lighter {\n  background-color: #376ea6;\n}\n.ui.border,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  border-bottom: 3px solid #2f5e8e;\n}\n.ui.border.bright,\n.ui.section.bright,\n.ui.text-input input.bright,\n.ui.text-input [contenteditable].bright,\n.ui.button.bright,\n.ui.selection.bright,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.focus-lighten:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  border-bottom-color: #568ec7;\n}\n.ui.highlight.green {\n  background-color: rgba(39,174,96,0.25);\n  color: #3dd37c;\n}\n.ui.highlight.blue {\n  background-color: rgba(52,152,219,0.25);\n  color: #5dade2;\n}\n.ui.highlight.red {\n  background-color: rgba(231,76,60,0.25);\n  color: #ec7063;\n}\n.ui.highlight.section {\n  border: none;\n}\n.ui.hover-darken,\n.ui.button,\n.ui.selection li {\n  cursor: pointer;\n}\n.ui.fullscreen,\n.ui.overlay {\n  position: fixed;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\n.ui.overlay {\n  background-color: rgba(0,0,0,0.3);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.ui.panel,\n.ui.side-panel {\n  width: -webkit-min-content;\n  width: -moz-min-content;\n  width: min-content;\n  padding: 0em 1.5em;\n  text-align: center;\n}\n.ui.side-panel {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 12em;\n  padding: 0;\n  text-align: left;\n  overflow-y: auto;\n}\n.ui.side-panel.left {\n  left: 0;\n}\n.ui.side-panel.right {\n  right: 0;\n}\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable] {\n  width: 10rem;\n  padding: 0.4em 0.6em;\n  display: block;\n}\n.ui.section.icon,\n.ui.text-input.icon {\n  position: relative;\n}\n.ui.section.icon .fa,\n.ui.text-input.icon .fa {\n  opacity: 0.5;\n  position: absolute;\n  top: 0.6em;\n  pointer-events: none;\n}\n.ui.section.icon.left .fa,\n.ui.text-input.icon.left .fa {\n  left: 0.6em;\n}\n.ui.section.icon.right .fa,\n.ui.text-input.icon.right .fa {\n  right: 0.6em;\n}\n.ui.text-input {\n  display: inline-block;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n}\n.ui.text-input.icon.left input,\n.ui.text-input.icon.left [contenteditable] {\n  padding-left: 1.8em;\n}\n.ui.text-input.icon.right input,\n.ui.text-input.icon.right [contenteditable] {\n  padding-right: 1.8em;\n}\n.ui.button {\n  padding: 0.4em 1.5em;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.form .ui.field {\n  margin-bottom: 1em;\n}\n.ui.selection {\n  width: 14em;\n  height: 18em;\n  list-style: none;\n  overflow-y: scroll;\n  display: inline-block;\n}\n.ui.selection li {\n  display: block;\n  padding: 0.5em;\n}\n.ui.selection li:hover {\n  border-bottom: none;\n}\n.ui.selection li.active {\n  background-color: rgba(39,174,96,0.3);\n  color: #3dd37c;\n}\n.ui.pull.right {\n  float: right;\n}\n.ui.scroll {\n  overflow-y: auto;\n}\n.ui.link {\n  text-decoration: none;\n  border-bottom: 1px solid rgba(222,231,237,0.3);\n  position: relative;\n}\n.ui.link:hover {\n  border-bottom-color: rgba(222,231,237,0.8);\n}\n.ui.divider {\n  border-bottom: 1px solid rgba(222,231,237,0.2);\n}\n.flex.row,\n.flex.col,\n.flex.center-content {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.flex.row {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n.flex.col {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.flex.stretch {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  -ms-flex-negative: 1;\n      flex-shrink: 1;\n}\n.flex.fixed,\n.flex.divider {\n  -webkit-box-flex: 0;\n      -ms-flex-positive: 0;\n          flex-grow: 0;\n  -ms-flex-negative: 0;\n      flex-shrink: 0;\n}\n.flex.center-content {\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n              -ms-grid-row-align: center;\n          align-items: center;\n}\n.flex.divider {\n  width: 4px;\n  height: 4px;\n}\n.fade-transition {\n  -webkit-transition: opacity 0.3s ease;\n  transition: opacity 0.3s ease;\n  opacity: 1;\n}\n.fade-enter,\n.fade-leave {\n  opacity: 0;\n}\n.slide-left-transition {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  opacity: 1;\n}\n.slide-left-transition .ui.side-panel {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  left: 0em;\n}\n.slide-left-enter,\n.slide-left-leave {\n  opacity: 0;\n}\n.slide-left-enter .ui.side-panel,\n.slide-left-leave .ui.side-panel {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  left: -14em;\n}\n.slide-right-transition {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  opacity: 1;\n}\n.slide-right-transition .ui.side-panel {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  right: 0em;\n}\n.slide-right-enter,\n.slide-right-leave {\n  opacity: 0;\n}\n.slide-right-enter .ui.side-panel,\n.slide-right-leave .ui.side-panel {\n  -webkit-transition: all 0.3s ease;\n  transition: all 0.3s ease;\n  right: -14em;\n}\n", "", {"version":3,"sources":["/./src/view/components/App.vue.style","/./src/view/components/App.vue","/./src/view/components/src/view/styles/ui.styl","/./src/view/components/src/view/styles/flex.styl","/./src/view/components/src/view/styles/transitions.styl"],"names":[],"mappings":"AAEA;EACE,WAAA;EACA,UAAA;EACA,uBAAA;EACA,eAAA;EACA,aAAA;EACA,cAAA;EACA,kBAAA;EACA,aAAA;CCDD;ADGD;EACE,gCAAA;EACA,eAAA;EACA,oCAAA;CCDD;ADGD;;;;;;EACE,iBAAA;EACA,aAAA;EACA,eAAA;CCID;ADFD;;EACE,iBAAA;CCKD;ADHD;EACE,sBAAA;CCKD;ADHD;EACE,kBAAA;EACA,qBAAA;CCKD;ADHD;EACE,mBAAA;EACA,oBAAA;CCKD;ADFD;EACE,2BAAA;EACA,aAAA;EACA,mBAAA;EACA,aAAA;CCID;ADFD;EACE,WAAA;EACA,YAAA;CCID;ADFD;;EACE,0BAAA;CCKD;ADHD;EACE,0BAAA;CCKD;ADHD;EACE,cAAA;CCKD;ADHD;EACE,4BAAA;CCKD;ADND;EACE,4BAAA;CCKD;ACvDC;;;;;;;;;;EACE,kCAAA;EAAA,0BAAA;CDkEH;AChEC;;EACE,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;CDmEH;ACjEC;EACE,aAAA;CDmEH;ACjEC;EACE,eAAA;CDmEH;ACjEC;EACE,aAAA;CDmEH;ACjEC;;;EACE,yCAAA;CDqEH;AClEG;;;EAAS,0BAAA;CDuEZ;ACtEG;;;;;;EAAS,0BAAA;CD8EZ;AC7EG;;EAAU,0BAAA;CDiFb;AChFG;;;;;;;;;EAAW,0BAAA;CD2Fd;AC1FG;EAAY,0BAAA;CD6Ff;AC3FC;;;;;;EACE,iCAAA;CDkGH;AChGG;;;;;;;;;;;;;;;EACE,6BAAA;CDgHL;AC7GG;EApCF,uCAAA;EACA,eAAA;CDoJD;AChHG;EArCF,wCAAA;EACA,eAAA;CDwJD;ACnHG;EAtCF,uCAAA;EACA,eAAA;CD4JD;ACtHG;EAAY,aAAA;CDyHf;ACvHC;;;EAEE,gBAAA;CD0HH;ACzGC;;EACE,gBAAA;EACA,QAAA;EACA,OAAA;EACA,SAAA;EACA,UAAA;CD4GH;AC1GC;EAGE,kCAAA;EACA,qBAAA;EAAA,qBAAA;EAAA,cAAA;EACA,yBAAA;MAAA,sBAAA;UAAA,wBAAA;EACA,0BAAA;MAAA,uBAAA;UAAA,oBAAA;CD0GH;ACxGC;;EAIE,2BAAA;EAAA,wBAAA;EAAA,mBAAA;EACA,mBAAA;EACA,mBAAA;CDwGH;ACtGC;EAEE,mBAAA;EACA,OAAA;EACA,UAAA;EACA,YAAA;EACA,WAAA;EACA,iBAAA;EACA,iBAAA;CDuGH;ACrGG;EAAS,QAAA;CDwGZ;ACvGG;EAAU,SAAA;CD0Gb;ACxGC;;;EAKE,aAAA;EACA,qBAAA;EACA,eAAA;CDwGH;ACtGC;;EACE,mBAAA;CDyGH;ACvGG;;EACE,aAAA;EACA,mBAAA;EACA,WAAA;EACA,qBAAA;CD0GL;ACxGG;;EAAa,YAAA;CD4GhB;AC3GG;;EAAc,aAAA;CD+GjB;AC7GC;EACE,sBAAA;EACA,2BAAA;EAAA,wBAAA;EAAA,mBAAA;CD+GH;ACtGO;;EAA2B,oBAAA;CD0GlC;ACvGO;;EAA2B,qBAAA;CD2GlC;ACzGC;EAKE,qBAAA;EACA,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;CDuGH;ACrGC;EACE,mBAAA;CDuGH;ACrGC;EAKE,YAAA;EACA,aAAA;EACA,iBAAA;EACA,mBAAA;EACA,sBAAA;CDmGH;ACjGG;EAEE,eAAA;EACA,eAAA;CDkGL;AChGK;EACE,oBAAA;CDkGP;AChGK;EAEE,sCAAA;EACA,eAAA;CDiGP;AC/FC;EACE,aAAA;CDiGH;AC/FC;EACE,iBAAA;CDiGH;AC/FC;EAEE,sBAAA;EACA,+CAAA;EACA,mBAAA;CDgGH;AC9FG;EACE,2CAAA;CDgGL;AC9FC;EACE,+CAAA;CDgGH;AE1RC;;;EACE,qBAAA;EAAA,qBAAA;EAAA,cAAA;CF8RH;AE5RC;EACE,+BAAA;EAAA,8BAAA;MAAA,wBAAA;UAAA,oBAAA;CF8RH;AE5RC;EACE,6BAAA;EAAA,8BAAA;MAAA,2BAAA;UAAA,uBAAA;CF8RH;AE5RC;EACE,oBAAA;MAAA,qBAAA;UAAA,aAAA;EACA,qBAAA;MAAA,eAAA;CF8RH;AE5RC;;EACE,oBAAA;MAAA,qBAAA;UAAA,aAAA;EACA,qBAAA;MAAA,eAAA;CF+RH;AE7RC;EACE,yBAAA;MAAA,sBAAA;UAAA,wBAAA;EACA,0BAAA;MAAA,uBAAA;cAAA,2BAAA;UAAA,oBAAA;CF+RH;AE7RC;EAEE,WAAA;EACA,YAAA;CF8RH;AGnTC;EAHA,sCAAA;EAAA,8BAAA;EAKE,WAAA;CHqTH;AGnTC;;EACE,WAAA;CHsTH;AGlTG;EAZF,kCAAA;EAAA,0BAAA;EAcI,WAAA;CHoTL;AGnTK;EAfJ,kCAAA;EAAA,0BAAA;EAiBY,UAAA;CHqTb;AGnTG;;EACE,WAAA;CHsTL;AGrTK;;EArBJ,kCAAA;EAAA,0BAAA;EAuBY,YAAA;CHwTb;AGnUG;EAZF,kCAAA;EAAA,0BAAA;EAcI,WAAA;CHqUL;AGpUK;EAfJ,kCAAA;EAAA,0BAAA;EAiBY,WAAA;CHsUb;AGpUG;;EACE,WAAA;CHuUL;AGtUK;;EArBJ,kCAAA;EAAA,0BAAA;EAuBY,aAAA;CHyUb","file":"App.vue","sourcesContent":["@import 'colors'\r\n\r\n*\r\n  padding: 0\r\n  margin: 0\r\n  box-sizing: border-box\r\n  color: inherit\r\n  border: none\r\n  outline: none\r\n  outline-offset: 0\r\n  resize: none\r\n\r\n:root\r\n  font: 14pt 'Roboto', sans-serif\r\n  color: $text-color\r\n  -webkit-font-smoothing: antialiased\r\n\r\nh1, h2, h3, h4, h5, h6\r\n  font-weight: 300\r\n  opacity: 0.9\r\n  margin: 1rem 0\r\n\r\nul, ol\r\n  list-style: none\r\n\r\na\r\n  text-decoration: none\r\n\r\np\r\n  margin-top: 0.8em\r\n  margin-bottom: 0.8em\r\n\r\nem .fa\r\n  margin-left: 0.2em\r\n  margin-right: 0.1em\r\n\r\n\r\n[contenteditable]:empty::after\r\n  content: attr(placeholder)\r\n  opacity: 0.5\r\n  font-style: italic\r\n  cursor: text\r\n\r\n::-webkit-scrollbar\r\n  width: 8px\r\n  height: @width\r\n\r\n::-webkit-scrollbar-track, ::-webkit-scrollbar-corner\r\n  background-color: darken($theme-color-dark, 20%)\r\n\r\n::-webkit-scrollbar-thumb\r\n  background-color: $theme-color-light\r\n\r\n::-webkit-scrollbar-button\r\n  display: none\r\n\r\n::selection\r\n  background: rgba(black, 0.3)\r\n","* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n  color: inherit;\n  border: none;\n  outline: none;\n  outline-offset: 0;\n  resize: none;\n}\n:root {\n  font: 14pt 'Roboto', sans-serif;\n  color: #dee7ed;\n  -webkit-font-smoothing: antialiased;\n}\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 300;\n  opacity: 0.9;\n  margin: 1rem 0;\n}\nul,\nol {\n  list-style: none;\n}\na {\n  text-decoration: none;\n}\np {\n  margin-top: 0.8em;\n  margin-bottom: 0.8em;\n}\nem .fa {\n  margin-left: 0.2em;\n  margin-right: 0.1em;\n}\n[contenteditable]:empty::after {\n  content: attr(placeholder);\n  opacity: 0.5;\n  font-style: italic;\n  cursor: text;\n}\n::-webkit-scrollbar {\n  width: 8px;\n  height: 8px;\n}\n::-webkit-scrollbar-track,\n::-webkit-scrollbar-corner {\n  background-color: #172e46;\n}\n::-webkit-scrollbar-thumb {\n  background-color: #2f5e8e;\n}\n::-webkit-scrollbar-button {\n  display: none;\n}\n::selection {\n  background: rgba(0,0,0,0.3);\n}\n.ui.transition,\n.ui.hover-darken,\n.ui.focus-darken,\n.ui.focus-lighten,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection li,\n.ui.link {\n  transition: 0.2s ease all;\n}\n.ui.noselect,\n.ui.selection {\n  user-select: none;\n}\n.ui.no-border {\n  border: none;\n}\n.ui.small {\n  font-size: 85%;\n}\n.ui.subtle {\n  opacity: 0.5;\n}\n.ui.shadow,\n.ui.panel,\n.ui.side-panel {\n  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);\n}\n.ui.theme-color.main,\n.ui.panel,\n.ui.side-panel {\n  background-color: #264c73;\n}\n.ui.theme-color.dark,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  background-color: #1d3a58;\n}\n.ui.theme-color.light,\n.ui.focus-lighten:focus {\n  background-color: #2f5e8e;\n}\n.ui.theme-color.darker,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  background-color: #172e46;\n}\n.ui.theme-color.lighter {\n  background-color: #376ea6;\n}\n.ui.border,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  border-bottom: 3px solid #2f5e8e;\n}\n.ui.border.bright,\n.ui.section.bright,\n.ui.text-input input.bright,\n.ui.text-input [contenteditable].bright,\n.ui.button.bright,\n.ui.selection.bright,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.focus-lighten:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  border-bottom-color: #568ec7;\n}\n.ui.highlight.green {\n  background-color: rgba(39,174,96,0.25);\n  color: #3dd37c;\n}\n.ui.highlight.blue {\n  background-color: rgba(52,152,219,0.25);\n  color: #5dade2;\n}\n.ui.highlight.red {\n  background-color: rgba(231,76,60,0.25);\n  color: #ec7063;\n}\n.ui.highlight.section {\n  border: none;\n}\n.ui.hover-darken,\n.ui.button,\n.ui.selection li {\n  cursor: pointer;\n}\n.ui.fullscreen,\n.ui.overlay {\n  position: fixed;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\n.ui.overlay {\n  background-color: rgba(0,0,0,0.3);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.ui.panel,\n.ui.side-panel {\n  width: min-content;\n  padding: 0em 1.5em;\n  text-align: center;\n}\n.ui.side-panel {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 12em;\n  padding: 0;\n  text-align: left;\n  overflow-y: auto;\n}\n.ui.side-panel.left {\n  left: 0;\n}\n.ui.side-panel.right {\n  right: 0;\n}\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable] {\n  width: 10rem;\n  padding: 0.4em 0.6em;\n  display: block;\n}\n.ui.section.icon,\n.ui.text-input.icon {\n  position: relative;\n}\n.ui.section.icon .fa,\n.ui.text-input.icon .fa {\n  opacity: 0.5;\n  position: absolute;\n  top: 0.6em;\n  pointer-events: none;\n}\n.ui.section.icon.left .fa,\n.ui.text-input.icon.left .fa {\n  left: 0.6em;\n}\n.ui.section.icon.right .fa,\n.ui.text-input.icon.right .fa {\n  right: 0.6em;\n}\n.ui.text-input {\n  display: inline-block;\n  width: max-content;\n}\n.ui.text-input.icon.left input,\n.ui.text-input.icon.left [contenteditable] {\n  padding-left: 1.8em;\n}\n.ui.text-input.icon.right input,\n.ui.text-input.icon.right [contenteditable] {\n  padding-right: 1.8em;\n}\n.ui.button {\n  padding: 0.4em 1.5em;\n  user-select: none;\n}\n.ui.form .ui.field {\n  margin-bottom: 1em;\n}\n.ui.selection {\n  width: 14em;\n  height: 18em;\n  list-style: none;\n  overflow-y: scroll;\n  display: inline-block;\n}\n.ui.selection li {\n  display: block;\n  padding: 0.5em;\n}\n.ui.selection li:hover {\n  border-bottom: none;\n}\n.ui.selection li.active {\n  background-color: rgba(39,174,96,0.3);\n  color: #3dd37c;\n}\n.ui.pull.right {\n  float: right;\n}\n.ui.scroll {\n  overflow-y: auto;\n}\n.ui.link {\n  text-decoration: none;\n  border-bottom: 1px solid rgba(222,231,237,0.3);\n  position: relative;\n}\n.ui.link:hover {\n  border-bottom-color: rgba(222,231,237,0.8);\n}\n.ui.divider {\n  border-bottom: 1px solid rgba(222,231,237,0.2);\n}\n.flex.row,\n.flex.col,\n.flex.center-content {\n  display: flex;\n}\n.flex.row {\n  flex-direction: row;\n}\n.flex.col {\n  flex-direction: column;\n}\n.flex.stretch {\n  flex-grow: 1;\n  flex-shrink: 1;\n}\n.flex.fixed,\n.flex.divider {\n  flex-grow: 0;\n  flex-shrink: 0;\n}\n.flex.center-content {\n  justify-content: center;\n  align-items: center;\n}\n.flex.divider {\n  width: 4px;\n  height: 4px;\n}\n.fade-transition {\n  transition: opacity 0.3s ease;\n  opacity: 1;\n}\n.fade-enter,\n.fade-leave {\n  opacity: 0;\n}\n.slide-left-transition {\n  transition: all 0.3s ease;\n  opacity: 1;\n}\n.slide-left-transition .ui.side-panel {\n  transition: all 0.3s ease;\n  left: 0em;\n}\n.slide-left-enter,\n.slide-left-leave {\n  opacity: 0;\n}\n.slide-left-enter .ui.side-panel,\n.slide-left-leave .ui.side-panel {\n  transition: all 0.3s ease;\n  left: -14em;\n}\n.slide-right-transition {\n  transition: all 0.3s ease;\n  opacity: 1;\n}\n.slide-right-transition .ui.side-panel {\n  transition: all 0.3s ease;\n  right: 0em;\n}\n.slide-right-enter,\n.slide-right-leave {\n  opacity: 0;\n}\n.slide-right-enter .ui.side-panel,\n.slide-right-leave .ui.side-panel {\n  transition: all 0.3s ease;\n  right: -14em;\n}\n","@import 'colors'\r\n\r\nhighlight($color)\r\n  background-color: rgba($color, 0.25)\r\n  color: lighten($color, 20%)\r\n\r\n.ui\r\n  &.transition\r\n    transition: 0.2s ease all\r\n\r\n  &.noselect\r\n    user-select: none\r\n\r\n  &.no-border\r\n    border: none\r\n\r\n  &.small\r\n    font-size: 85%\r\n\r\n  &.subtle\r\n    opacity: 0.5\r\n\r\n  &.shadow\r\n    box-shadow: 0px 4px 12px rgba(black, 0.2)\r\n\r\n  &.theme-color\r\n    &.main { background-color: $theme-color }\r\n    &.dark { background-color: $theme-color-dark }\r\n    &.light { background-color: $theme-color-light }\r\n    &.darker { background-color: darken($theme-color-dark, 20%) }\r\n    &.lighter { background-color: lighten($theme-color-light, 10%) }\r\n\r\n  &.border\r\n    border-bottom: 3px solid $theme-color-light\r\n\r\n    &.bright\r\n      border-bottom-color: lighten($theme-color-light, 30%)\r\n\r\n  &.highlight\r\n    &.green { highlight: rgb(39, 174, 96) }\r\n    &.blue { highlight: rgb(52, 152, 219) }\r\n    &.red { highlight: rgb(231, 76, 60) }\r\n    &.section { border: none }\r\n\r\n  &.hover-darken\r\n    @extend .ui.transition\r\n    cursor: pointer\r\n    &:hover\r\n      @extend .ui.theme-color.darker\r\n      @extend .ui.border.bright\r\n\r\n  &.focus-darken\r\n    @extend .ui.transition\r\n    &:focus\r\n      @extend .ui.theme-color.darker\r\n      @extend .ui.border.bright\r\n\r\n  &.focus-lighten\r\n    @extend .ui.transition\r\n    &:focus\r\n      @extend .ui.theme-color.light\r\n      @extend .ui.border.bright\r\n\r\n  &.fullscreen\r\n    position: fixed\r\n    left: 0\r\n    top: 0\r\n    right: 0\r\n    bottom: 0\r\n\r\n  &.overlay\r\n    @extend .ui.fullscreen\r\n\r\n    background-color: rgba(black, 0.3)\r\n    display: flex\r\n    justify-content: center\r\n    align-items: center\r\n\r\n  &.panel\r\n    @extend .ui.theme-color.main\r\n    @extend .ui.shadow\r\n\r\n    width: min-content\r\n    padding: 0em 1.5em\r\n    text-align: center\r\n\r\n  &.side-panel\r\n    @extend .ui.panel\r\n    position: absolute\r\n    top: 0\r\n    bottom: 0\r\n    width: 12em\r\n    padding: 0\r\n    text-align: left\r\n    overflow-y: auto\r\n\r\n    &.left { left: 0 }\r\n    &.right { right: 0 }\r\n\r\n  &.section\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.transition\r\n    @extend .ui.focus-darken\r\n    width: 10rem\r\n    padding: 0.4em 0.6em\r\n    display: block\r\n\r\n  &.section.icon\r\n    position: relative\r\n\r\n    .fa\r\n      opacity: 0.5\r\n      position: absolute\r\n      top: 0.6em\r\n      pointer-events: none\r\n\r\n    &.left .fa { left: 0.6em }\r\n    &.right .fa { right: 0.6em }\r\n\r\n  &.text-input\r\n    display: inline-block\r\n    width: max-content\r\n\r\n    input, [contenteditable]\r\n      @extend .ui.section\r\n\r\n    &.icon\r\n      @extend .ui.section.icon\r\n\r\n      &.left\r\n        input, [contenteditable] { padding-left: 1.8em }\r\n\r\n      &.right\r\n        input, [contenteditable] { padding-right: 1.8em }\r\n\r\n  &.button\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.hover-darken\r\n    @extend .ui.focus-darken\r\n    padding: 0.4em 1.5em\r\n    user-select: none\r\n\r\n  &.form &.field\r\n    margin-bottom: 1em\r\n\r\n  &.selection\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.noselect\r\n\r\n    width: 14em\r\n    height: 18em\r\n    list-style: none\r\n    overflow-y: scroll\r\n    display: inline-block\r\n\r\n    li\r\n      @extend .ui.hover-darken\r\n      display: block\r\n      padding: 0.5em\r\n\r\n      &:hover\r\n        border-bottom: none\r\n\r\n      &.active\r\n        $active-color = rgb(39, 174, 96)\r\n        background-color: rgba($active-color, 0.3)\r\n        color: lighten($active-color, 20%)\r\n\r\n  &.pull.right\r\n    float: right\r\n\r\n  &.scroll\r\n    overflow-y: auto\r\n\r\n  &.link\r\n    @extend .ui.transition\r\n    text-decoration: none\r\n    border-bottom: 1px solid rgba($text-color, 0.3)\r\n    position: relative\r\n\r\n    &:hover\r\n      border-bottom-color: rgba($text-color, 0.8)\r\n\r\n  &.divider\r\n    border-bottom: 1px solid rgba($text-color, 0.2)\r\n",".flex\r\n  &.row, &.col, &.center-content\r\n    display: flex\r\n\r\n  &.row\r\n    flex-direction: row\r\n\r\n  &.col\r\n    flex-direction: column\r\n\r\n  &.stretch\r\n    flex-grow: 1\r\n    flex-shrink: 1\r\n\r\n  &.fixed\r\n    flex-grow: 0\r\n    flex-shrink: 0\r\n\r\n  &.center-content\r\n    justify-content: center\r\n    align-items: center\r\n\r\n  &.divider\r\n    @extend .flex.fixed\r\n    width: 4px\r\n    height: @width\r\n","animate($property = all)\r\n  transition: $property 0.3s ease\r\n\r\n.fade\r\n  &-transition\r\n    animate: opacity\r\n    opacity: 1\r\n\r\n  &-enter, &-leave\r\n    opacity: 0\r\n\r\nslide($side)\r\n  .slide-{$side}\r\n    &-transition\r\n      animate: all\r\n      opacity: 1\r\n      .ui.side-panel\r\n        animate: all\r\n        {$side}: 0em\r\n\r\n    &-enter, &-leave\r\n      opacity: 0\r\n      .ui.side-panel\r\n        animate: all\r\n        {$side}: -14em\r\n\r\nslide('left')\r\nslide('right')\r\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -12083,27 +12073,27 @@
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _CharacterList = __webpack_require__(141);
+	var _CharacterList = __webpack_require__(144);
 	
 	var _CharacterList2 = _interopRequireDefault(_CharacterList);
 	
-	var _ChannelList = __webpack_require__(144);
+	var _ChannelList = __webpack_require__(147);
 	
 	var _ChannelList2 = _interopRequireDefault(_ChannelList);
 	
-	var _AppMenu = __webpack_require__(158);
+	var _AppMenu = __webpack_require__(161);
 	
 	var _AppMenu2 = _interopRequireDefault(_AppMenu);
 	
-	var _CharacterMenu = __webpack_require__(181);
+	var _CharacterMenu = __webpack_require__(184);
 	
 	var _CharacterMenu2 = _interopRequireDefault(_CharacterMenu);
 	
-	var _OnlineUsers = __webpack_require__(186);
+	var _OnlineUsers = __webpack_require__(189);
 	
 	var _OnlineUsers2 = _interopRequireDefault(_OnlineUsers);
 	
-	var _About = __webpack_require__(202);
+	var _About = __webpack_require__(196);
 	
 	var _About2 = _interopRequireDefault(_About);
 	
@@ -12111,7 +12101,7 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _socket = __webpack_require__(193);
+	var _socket = __webpack_require__(201);
 	
 	var _socket2 = _interopRequireDefault(_socket);
 	
@@ -12901,17 +12891,7 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\Chat.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 52 */
@@ -12929,8 +12909,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-56ad2e4d&file=Chat.vue&scoped=true!./../../node_modules/stylus-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Chat.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-56ad2e4d&file=Chat.vue&scoped=true!./../../node_modules/stylus-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Chat.vue");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-27ab1e45&file=Chat.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Chat.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-27ab1e45&file=Chat.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Chat.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -12948,7 +12928,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".header-shortcut[_v-56ad2e4d] {\n  width: 2em;\n  height: 2em;\n}\n", "", {"version":3,"sources":["/./view/components/Chat.vue.style","/./view/components/Chat.vue"],"names":[],"mappings":"AACA;EACE,WAAA;EACA,YAAA;CCAD","file":"Chat.vue","sourcesContent":["\r\n.header-shortcut\r\n  width: 2em\r\n  height: @width\r\n",".header-shortcut {\n  width: 2em;\n  height: 2em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".header-shortcut[_v-27ab1e45] {\n  width: 2em;\n  height: 2em;\n}\n", "", {"version":3,"sources":["/./src/view/components/Chat.vue.style","/./src/view/components/Chat.vue"],"names":[],"mappings":"AACA;EACE,WAAA;EACA,YAAA;CCAD","file":"Chat.vue","sourcesContent":["\r\n.header-shortcut\r\n  width: 2em\r\n  height: @width\r\n",".header-shortcut {\n  width: 2em;\n  height: 2em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -12969,8 +12949,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-56ad2e4d&file=Chat.vue&scoped=true!./../../node_modules/stylus-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=1!./Chat.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-56ad2e4d&file=Chat.vue&scoped=true!./../../node_modules/stylus-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=1!./Chat.vue");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-27ab1e45&file=Chat.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=1!./Chat.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-27ab1e45&file=Chat.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=1!./Chat.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -12988,7 +12968,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/*@import '../styles/mixins'\n\n.app-menu-button\n  size: 2em*/\n", "", {"version":3,"sources":["/./view/components/Chat.vue.style","/./view/components/Chat.vue"],"names":[],"mappings":"AACA;;;aCEa","file":"Chat.vue","sourcesContent":["\r\n/*@import '../styles/mixins'\r\n\r\n.app-menu-button\r\n  size: 2em*/\r\n","/*@import '../styles/mixins'\n\n.app-menu-button\n  size: 2em*/\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "/*@import '../styles/mixins'\n\n.app-menu-button\n  size: 2em*/\n", "", {"version":3,"sources":["/./src/view/components/Chat.vue.style","/./src/view/components/Chat.vue"],"names":[],"mappings":"AACA;;;aCEa","file":"Chat.vue","sourcesContent":["\r\n/*@import '../styles/mixins'\r\n\r\n.app-menu-button\r\n  size: 2em*/\r\n","/*@import '../styles/mixins'\n\n.app-menu-button\n  size: 2em*/\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -13223,17 +13203,7 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\ChatTab.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 58 */
@@ -13251,8 +13221,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-27416b26&file=ChatTab.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatTab.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-27416b26&file=ChatTab.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatTab.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-e845f336&file=ChatTab.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatTab.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-e845f336&file=ChatTab.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatTab.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -13270,7 +13240,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".ui.transition[_v-27416b26],\n.ui.hover-darken[_v-27416b26],\n.ui.focus-darken[_v-27416b26],\n.ui.focus-lighten[_v-27416b26],\n.ui.section[_v-27416b26],\n.ui.text-input input[_v-27416b26],\n.ui.text-input [contenteditable][_v-27416b26],\n.ui.button[_v-27416b26],\n.ui.selection li[_v-27416b26],\n.ui.link[_v-27416b26] {\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\n.ui.noselect[_v-27416b26],\n.ui.selection[_v-27416b26] {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.no-border[_v-27416b26] {\n  border: none;\n}\n.ui.small[_v-27416b26] {\n  font-size: 85%;\n}\n.ui.subtle[_v-27416b26] {\n  opacity: 0.5;\n}\n.ui.shadow[_v-27416b26],\n.ui.panel[_v-27416b26],\n.ui.side-panel[_v-27416b26] {\n  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);\n}\n.ui.theme-color.main[_v-27416b26],\n.ui.panel[_v-27416b26],\n.ui.side-panel[_v-27416b26] {\n  background-color: #264c73;\n}\n.ui.theme-color.dark[_v-27416b26],\n.ui.section[_v-27416b26],\n.ui.text-input input[_v-27416b26],\n.ui.text-input [contenteditable][_v-27416b26],\n.ui.button[_v-27416b26],\n.ui.selection[_v-27416b26] {\n  background-color: #1d3a58;\n}\n.ui.theme-color.light[_v-27416b26],\n.ui.focus-lighten[_v-27416b26]:focus {\n  background-color: #2f5e8e;\n}\n.ui.theme-color.darker[_v-27416b26],\n.ui.hover-darken[_v-27416b26]:hover,\n.ui.focus-darken[_v-27416b26]:focus,\n.ui.section[_v-27416b26]:focus,\n.ui.text-input input[_v-27416b26]:focus,\n.ui.text-input [contenteditable][_v-27416b26]:focus,\n.ui.button[_v-27416b26]:hover,\n.ui.button[_v-27416b26]:focus,\n.ui.selection li[_v-27416b26]:hover {\n  background-color: #172e46;\n}\n.ui.theme-color.lighter[_v-27416b26] {\n  background-color: #376ea6;\n}\n.ui.border[_v-27416b26],\n.ui.section[_v-27416b26],\n.ui.text-input input[_v-27416b26],\n.ui.text-input [contenteditable][_v-27416b26],\n.ui.button[_v-27416b26],\n.ui.selection[_v-27416b26] {\n  border-bottom: 3px solid #2f5e8e;\n}\n.ui.border.bright[_v-27416b26],\n.ui.section.bright[_v-27416b26],\n.ui.text-input input.bright[_v-27416b26],\n.ui.text-input [contenteditable].bright[_v-27416b26],\n.ui.button.bright[_v-27416b26],\n.ui.selection.bright[_v-27416b26],\n.ui.hover-darken[_v-27416b26]:hover,\n.ui.focus-darken[_v-27416b26]:focus,\n.ui.focus-lighten[_v-27416b26]:focus,\n.ui.section[_v-27416b26]:focus,\n.ui.text-input input[_v-27416b26]:focus,\n.ui.text-input [contenteditable][_v-27416b26]:focus,\n.ui.button[_v-27416b26]:hover,\n.ui.button[_v-27416b26]:focus,\n.ui.selection li[_v-27416b26]:hover {\n  border-bottom-color: #568ec7;\n}\n.ui.highlight.green[_v-27416b26] {\n  background-color: rgba(39,174,96,0.25);\n  color: #3dd37c;\n}\n.ui.highlight.blue[_v-27416b26] {\n  background-color: rgba(52,152,219,0.25);\n  color: #5dade2;\n}\n.ui.highlight.red[_v-27416b26] {\n  background-color: rgba(231,76,60,0.25);\n  color: #ec7063;\n}\n.ui.highlight.section[_v-27416b26] {\n  border: none;\n}\n.ui.hover-darken[_v-27416b26],\n.ui.button[_v-27416b26],\n.ui.selection li[_v-27416b26] {\n  cursor: pointer;\n}\n.ui.fullscreen[_v-27416b26],\n.ui.overlay[_v-27416b26] {\n  position: fixed;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\n.ui.overlay[_v-27416b26] {\n  background-color: rgba(0,0,0,0.3);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.ui.panel[_v-27416b26],\n.ui.side-panel[_v-27416b26] {\n  width: -webkit-min-content;\n  width: -moz-min-content;\n  width: min-content;\n  padding: 0em 1.5em;\n  text-align: center;\n}\n.ui.side-panel[_v-27416b26] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 12em;\n  padding: 0;\n  text-align: left;\n  overflow-y: auto;\n}\n.ui.side-panel.left[_v-27416b26] {\n  left: 0;\n}\n.ui.side-panel.right[_v-27416b26] {\n  right: 0;\n}\n.ui.section[_v-27416b26],\n.ui.text-input input[_v-27416b26],\n.ui.text-input [contenteditable][_v-27416b26] {\n  width: 10rem;\n  padding: 0.4em 0.6em;\n  display: block;\n}\n.ui.section.icon[_v-27416b26],\n.ui.text-input.icon[_v-27416b26] {\n  position: relative;\n}\n.ui.section.icon .fa[_v-27416b26],\n.ui.text-input.icon .fa[_v-27416b26] {\n  opacity: 0.5;\n  position: absolute;\n  top: 0.6em;\n  pointer-events: none;\n}\n.ui.section.icon.left .fa[_v-27416b26],\n.ui.text-input.icon.left .fa[_v-27416b26] {\n  left: 0.6em;\n}\n.ui.section.icon.right .fa[_v-27416b26],\n.ui.text-input.icon.right .fa[_v-27416b26] {\n  right: 0.6em;\n}\n.ui.text-input[_v-27416b26] {\n  display: inline-block;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n}\n.ui.text-input.icon.left input[_v-27416b26],\n.ui.text-input.icon.left [contenteditable][_v-27416b26] {\n  padding-left: 1.8em;\n}\n.ui.text-input.icon.right input[_v-27416b26],\n.ui.text-input.icon.right [contenteditable][_v-27416b26] {\n  padding-right: 1.8em;\n}\n.ui.button[_v-27416b26] {\n  padding: 0.4em 1.5em;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.form .ui.field[_v-27416b26] {\n  margin-bottom: 1em;\n}\n.ui.selection[_v-27416b26] {\n  width: 14em;\n  height: 18em;\n  list-style: none;\n  overflow-y: scroll;\n  display: inline-block;\n}\n.ui.selection li[_v-27416b26] {\n  display: block;\n  padding: 0.5em;\n}\n.ui.selection li[_v-27416b26]:hover {\n  border-bottom: none;\n}\n.ui.selection li.active[_v-27416b26] {\n  background-color: rgba(39,174,96,0.3);\n  color: #3dd37c;\n}\n.ui.pull.right[_v-27416b26] {\n  float: right;\n}\n.ui.scroll[_v-27416b26] {\n  overflow-y: auto;\n}\n.ui.link[_v-27416b26] {\n  text-decoration: none;\n  border-bottom: 1px solid rgba(222,231,237,0.3);\n  position: relative;\n}\n.ui.link[_v-27416b26]:hover {\n  border-bottom-color: rgba(222,231,237,0.8);\n}\n.ui.divider[_v-27416b26] {\n  border-bottom: 1px solid rgba(222,231,237,0.2);\n}\na[_v-27416b26] {\n  width: 8em;\n  display: inline-block;\n  height: 2em;\n  border-bottom: 3px solid transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  padding: 0.3em 0.5em;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  position: relative;\n}\n.fa[_v-27416b26] {\n  position: absolute;\n  right: 0.5em;\n  top: 0.7em;\n  opacity: 0;\n}\na[_v-27416b26]:hover {\n  padding-right: 1.3em;\n}\na:hover .fa[_v-27416b26] {\n  opacity: 0.5;\n}\n", "", {"version":3,"sources":["/./view/components/elements/ChatTab.vue.style","/./view/components/elements/ChatTab.vue","/./view/components/elements/view/components/elements/ChatTab.vue"],"names":[],"mappings":"AAOE;;;;;;;;;;EACE,kCAAA;EAAA,0BAAA;CCGH;ADDC;;EACE,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;CCIH;ADFC;EACE,aAAA;CCIH;ADFC;EACE,eAAA;CCIH;ADFC;EACE,aAAA;CCIH;ADFC;;;EACE,yCAAA;CCMH;ADHG;;;EAAS,0BAAA;CCQZ;ADPG;;;;;;EAAS,0BAAA;CCeZ;ADdG;;EAAU,0BAAA;CCkBb;ADjBG;;;;;;;;;EAAW,0BAAA;CC4Bd;AD3BG;EAAY,0BAAA;CC8Bf;AD5BC;;;;;;EACE,iCAAA;CCmCH;ADjCG;;;;;;;;;;;;;;;EACE,6BAAA;CCiDL;AD9CG;EApCF,uCAAA;EACA,eAAA;CCqFD;ADjDG;EArCF,wCAAA;EACA,eAAA;CCyFD;ADpDG;EAtCF,uCAAA;EACA,eAAA;CC6FD;ADvDG;EAAY,aAAA;CC0Df;ADxDC;;;EAEE,gBAAA;CC2DH;AD1CC;;EACE,gBAAA;EACA,QAAA;EACA,OAAA;EACA,SAAA;EACA,UAAA;CC6CH;AD3CC;EAGE,kCAAA;EACA,qBAAA;EAAA,qBAAA;EAAA,cAAA;EACA,yBAAA;MAAA,sBAAA;UAAA,wBAAA;EACA,0BAAA;MAAA,uBAAA;UAAA,oBAAA;CC2CH;ADzCC;;EAIE,2BAAA;EAAA,wBAAA;EAAA,mBAAA;EACA,mBAAA;EACA,mBAAA;CCyCH;ADvCC;EAEE,mBAAA;EACA,OAAA;EACA,UAAA;EACA,YAAA;EACA,WAAA;EACA,iBAAA;EACA,iBAAA;CCwCH;ADtCG;EAAS,QAAA;CCyCZ;ADxCG;EAAU,SAAA;CC2Cb;ADzCC;;;EAKE,aAAA;EACA,qBAAA;EACA,eAAA;CCyCH;ADvCC;;EACE,mBAAA;CC0CH;ADxCG;;EACE,aAAA;EACA,mBAAA;EACA,WAAA;EACA,qBAAA;CC2CL;ADzCG;;EAAa,YAAA;CC6ChB;AD5CG;;EAAc,aAAA;CCgDjB;AD9CC;EACE,sBAAA;EACA,2BAAA;EAAA,wBAAA;EAAA,mBAAA;CCgDH;ADvCO;;EAA2B,oBAAA;CC2ClC;ADxCO;;EAA2B,qBAAA;CC4ClC;AD1CC;EAKE,qBAAA;EACA,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;CCwCH;ADtCC;EACE,mBAAA;CCwCH;ADtCC;EAKE,YAAA;EACA,aAAA;EACA,iBAAA;EACA,mBAAA;EACA,sBAAA;CCoCH;ADlCG;EAEE,eAAA;EACA,eAAA;CCmCL;ADjCK;EACE,oBAAA;CCmCP;ADjCK;EAEE,sCAAA;EACA,eAAA;CCkCP;ADhCC;EACE,aAAA;CCkCH;ADhCC;EACE,iBAAA;CCkCH;ADhCC;EAEE,sBAAA;EACA,+CAAA;EACA,mBAAA;CCiCH;AD/BG;EACE,2CAAA;CCiCL;AD/BC;EACE,+CAAA;CCiCH;ACzND;EACE,WAAA;EACA,sBAAA;EACA,YAAA;EACA,qCAAA;EACA,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;EACA,qBAAA;EACA,iBAAA;EACA,wBAAA;EACA,oBAAA;EACA,mBAAA;CD2ND;ACzND;EACE,mBAAA;EACA,aAAA;EACA,WAAA;EACA,WAAA;CD2ND;ACzND;EACE,qBAAA;CD2ND;ACzNC;EACE,aAAA;CD2NH","file":"ChatTab.vue","sourcesContent":["@import 'colors'\r\n\r\nhighlight($color)\r\n  background-color: rgba($color, 0.25)\r\n  color: lighten($color, 20%)\r\n\r\n.ui\r\n  &.transition\r\n    transition: 0.2s ease all\r\n\r\n  &.noselect\r\n    user-select: none\r\n\r\n  &.no-border\r\n    border: none\r\n\r\n  &.small\r\n    font-size: 85%\r\n\r\n  &.subtle\r\n    opacity: 0.5\r\n\r\n  &.shadow\r\n    box-shadow: 0px 4px 12px rgba(black, 0.2)\r\n\r\n  &.theme-color\r\n    &.main { background-color: $theme-color }\r\n    &.dark { background-color: $theme-color-dark }\r\n    &.light { background-color: $theme-color-light }\r\n    &.darker { background-color: darken($theme-color-dark, 20%) }\r\n    &.lighter { background-color: lighten($theme-color-light, 10%) }\r\n\r\n  &.border\r\n    border-bottom: 3px solid $theme-color-light\r\n\r\n    &.bright\r\n      border-bottom-color: lighten($theme-color-light, 30%)\r\n\r\n  &.highlight\r\n    &.green { highlight: rgb(39, 174, 96) }\r\n    &.blue { highlight: rgb(52, 152, 219) }\r\n    &.red { highlight: rgb(231, 76, 60) }\r\n    &.section { border: none }\r\n\r\n  &.hover-darken\r\n    @extend .ui.transition\r\n    cursor: pointer\r\n    &:hover\r\n      @extend .ui.theme-color.darker\r\n      @extend .ui.border.bright\r\n\r\n  &.focus-darken\r\n    @extend .ui.transition\r\n    &:focus\r\n      @extend .ui.theme-color.darker\r\n      @extend .ui.border.bright\r\n\r\n  &.focus-lighten\r\n    @extend .ui.transition\r\n    &:focus\r\n      @extend .ui.theme-color.light\r\n      @extend .ui.border.bright\r\n\r\n  &.fullscreen\r\n    position: fixed\r\n    left: 0\r\n    top: 0\r\n    right: 0\r\n    bottom: 0\r\n\r\n  &.overlay\r\n    @extend .ui.fullscreen\r\n\r\n    background-color: rgba(black, 0.3)\r\n    display: flex\r\n    justify-content: center\r\n    align-items: center\r\n\r\n  &.panel\r\n    @extend .ui.theme-color.main\r\n    @extend .ui.shadow\r\n\r\n    width: min-content\r\n    padding: 0em 1.5em\r\n    text-align: center\r\n\r\n  &.side-panel\r\n    @extend .ui.panel\r\n    position: absolute\r\n    top: 0\r\n    bottom: 0\r\n    width: 12em\r\n    padding: 0\r\n    text-align: left\r\n    overflow-y: auto\r\n\r\n    &.left { left: 0 }\r\n    &.right { right: 0 }\r\n\r\n  &.section\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.transition\r\n    @extend .ui.focus-darken\r\n    width: 10rem\r\n    padding: 0.4em 0.6em\r\n    display: block\r\n\r\n  &.section.icon\r\n    position: relative\r\n\r\n    .fa\r\n      opacity: 0.5\r\n      position: absolute\r\n      top: 0.6em\r\n      pointer-events: none\r\n\r\n    &.left .fa { left: 0.6em }\r\n    &.right .fa { right: 0.6em }\r\n\r\n  &.text-input\r\n    display: inline-block\r\n    width: max-content\r\n\r\n    input, [contenteditable]\r\n      @extend .ui.section\r\n\r\n    &.icon\r\n      @extend .ui.section.icon\r\n\r\n      &.left\r\n        input, [contenteditable] { padding-left: 1.8em }\r\n\r\n      &.right\r\n        input, [contenteditable] { padding-right: 1.8em }\r\n\r\n  &.button\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.hover-darken\r\n    @extend .ui.focus-darken\r\n    padding: 0.4em 1.5em\r\n    user-select: none\r\n\r\n  &.form &.field\r\n    margin-bottom: 1em\r\n\r\n  &.selection\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.noselect\r\n\r\n    width: 14em\r\n    height: 18em\r\n    list-style: none\r\n    overflow-y: scroll\r\n    display: inline-block\r\n\r\n    li\r\n      @extend .ui.hover-darken\r\n      display: block\r\n      padding: 0.5em\r\n\r\n      &:hover\r\n        border-bottom: none\r\n\r\n      &.active\r\n        $active-color = rgb(39, 174, 96)\r\n        background-color: rgba($active-color, 0.3)\r\n        color: lighten($active-color, 20%)\r\n\r\n  &.pull.right\r\n    float: right\r\n\r\n  &.scroll\r\n    overflow-y: auto\r\n\r\n  &.link\r\n    @extend .ui.transition\r\n    text-decoration: none\r\n    border-bottom: 1px solid rgba($text-color, 0.3)\r\n    position: relative\r\n\r\n    &:hover\r\n      border-bottom-color: rgba($text-color, 0.8)\r\n\r\n  &.divider\r\n    border-bottom: 1px solid rgba($text-color, 0.2)\r\n",".ui.transition,\n.ui.hover-darken,\n.ui.focus-darken,\n.ui.focus-lighten,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection li,\n.ui.link {\n  transition: 0.2s ease all;\n}\n.ui.noselect,\n.ui.selection {\n  user-select: none;\n}\n.ui.no-border {\n  border: none;\n}\n.ui.small {\n  font-size: 85%;\n}\n.ui.subtle {\n  opacity: 0.5;\n}\n.ui.shadow,\n.ui.panel,\n.ui.side-panel {\n  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);\n}\n.ui.theme-color.main,\n.ui.panel,\n.ui.side-panel {\n  background-color: #264c73;\n}\n.ui.theme-color.dark,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  background-color: #1d3a58;\n}\n.ui.theme-color.light,\n.ui.focus-lighten:focus {\n  background-color: #2f5e8e;\n}\n.ui.theme-color.darker,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  background-color: #172e46;\n}\n.ui.theme-color.lighter {\n  background-color: #376ea6;\n}\n.ui.border,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  border-bottom: 3px solid #2f5e8e;\n}\n.ui.border.bright,\n.ui.section.bright,\n.ui.text-input input.bright,\n.ui.text-input [contenteditable].bright,\n.ui.button.bright,\n.ui.selection.bright,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.focus-lighten:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  border-bottom-color: #568ec7;\n}\n.ui.highlight.green {\n  background-color: rgba(39,174,96,0.25);\n  color: #3dd37c;\n}\n.ui.highlight.blue {\n  background-color: rgba(52,152,219,0.25);\n  color: #5dade2;\n}\n.ui.highlight.red {\n  background-color: rgba(231,76,60,0.25);\n  color: #ec7063;\n}\n.ui.highlight.section {\n  border: none;\n}\n.ui.hover-darken,\n.ui.button,\n.ui.selection li {\n  cursor: pointer;\n}\n.ui.fullscreen,\n.ui.overlay {\n  position: fixed;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\n.ui.overlay {\n  background-color: rgba(0,0,0,0.3);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.ui.panel,\n.ui.side-panel {\n  width: min-content;\n  padding: 0em 1.5em;\n  text-align: center;\n}\n.ui.side-panel {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 12em;\n  padding: 0;\n  text-align: left;\n  overflow-y: auto;\n}\n.ui.side-panel.left {\n  left: 0;\n}\n.ui.side-panel.right {\n  right: 0;\n}\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable] {\n  width: 10rem;\n  padding: 0.4em 0.6em;\n  display: block;\n}\n.ui.section.icon,\n.ui.text-input.icon {\n  position: relative;\n}\n.ui.section.icon .fa,\n.ui.text-input.icon .fa {\n  opacity: 0.5;\n  position: absolute;\n  top: 0.6em;\n  pointer-events: none;\n}\n.ui.section.icon.left .fa,\n.ui.text-input.icon.left .fa {\n  left: 0.6em;\n}\n.ui.section.icon.right .fa,\n.ui.text-input.icon.right .fa {\n  right: 0.6em;\n}\n.ui.text-input {\n  display: inline-block;\n  width: max-content;\n}\n.ui.text-input.icon.left input,\n.ui.text-input.icon.left [contenteditable] {\n  padding-left: 1.8em;\n}\n.ui.text-input.icon.right input,\n.ui.text-input.icon.right [contenteditable] {\n  padding-right: 1.8em;\n}\n.ui.button {\n  padding: 0.4em 1.5em;\n  user-select: none;\n}\n.ui.form .ui.field {\n  margin-bottom: 1em;\n}\n.ui.selection {\n  width: 14em;\n  height: 18em;\n  list-style: none;\n  overflow-y: scroll;\n  display: inline-block;\n}\n.ui.selection li {\n  display: block;\n  padding: 0.5em;\n}\n.ui.selection li:hover {\n  border-bottom: none;\n}\n.ui.selection li.active {\n  background-color: rgba(39,174,96,0.3);\n  color: #3dd37c;\n}\n.ui.pull.right {\n  float: right;\n}\n.ui.scroll {\n  overflow-y: auto;\n}\n.ui.link {\n  text-decoration: none;\n  border-bottom: 1px solid rgba(222,231,237,0.3);\n  position: relative;\n}\n.ui.link:hover {\n  border-bottom-color: rgba(222,231,237,0.8);\n}\n.ui.divider {\n  border-bottom: 1px solid rgba(222,231,237,0.2);\n}\na {\n  width: 8em;\n  display: inline-block;\n  height: 2em;\n  border-bottom: 3px solid transparent;\n  user-select: none;\n  padding: 0.3em 0.5em;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  position: relative;\n}\n.fa {\n  position: absolute;\n  right: 0.5em;\n  top: 0.7em;\n  opacity: 0;\n}\na:hover {\n  padding-right: 1.3em;\n}\na:hover .fa {\n  opacity: 0.5;\n}\n","\r\n@import '../../styles/ui.styl'\r\n\r\na\r\n  width: 8em\r\n  display: inline-block\r\n  height: 2em\r\n  border-bottom: 3px solid transparent\r\n  user-select: none\r\n  padding: 0.3em 0.5em\r\n  overflow: hidden\r\n  text-overflow: ellipsis\r\n  white-space: nowrap\r\n  position: relative\r\n\r\n.fa\r\n  position: absolute\r\n  right: 0.5em\r\n  top: 0.7em\r\n  opacity: 0\r\n\r\na:hover\r\n  padding-right: 1.3em\r\n\r\n  .fa\r\n    opacity: 0.5\r\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".ui.transition[_v-e845f336],\n.ui.hover-darken[_v-e845f336],\n.ui.focus-darken[_v-e845f336],\n.ui.focus-lighten[_v-e845f336],\n.ui.section[_v-e845f336],\n.ui.text-input input[_v-e845f336],\n.ui.text-input [contenteditable][_v-e845f336],\n.ui.button[_v-e845f336],\n.ui.selection li[_v-e845f336],\n.ui.link[_v-e845f336] {\n  -webkit-transition: 0.2s ease all;\n  transition: 0.2s ease all;\n}\n.ui.noselect[_v-e845f336],\n.ui.selection[_v-e845f336] {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.no-border[_v-e845f336] {\n  border: none;\n}\n.ui.small[_v-e845f336] {\n  font-size: 85%;\n}\n.ui.subtle[_v-e845f336] {\n  opacity: 0.5;\n}\n.ui.shadow[_v-e845f336],\n.ui.panel[_v-e845f336],\n.ui.side-panel[_v-e845f336] {\n  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);\n}\n.ui.theme-color.main[_v-e845f336],\n.ui.panel[_v-e845f336],\n.ui.side-panel[_v-e845f336] {\n  background-color: #264c73;\n}\n.ui.theme-color.dark[_v-e845f336],\n.ui.section[_v-e845f336],\n.ui.text-input input[_v-e845f336],\n.ui.text-input [contenteditable][_v-e845f336],\n.ui.button[_v-e845f336],\n.ui.selection[_v-e845f336] {\n  background-color: #1d3a58;\n}\n.ui.theme-color.light[_v-e845f336],\n.ui.focus-lighten[_v-e845f336]:focus {\n  background-color: #2f5e8e;\n}\n.ui.theme-color.darker[_v-e845f336],\n.ui.hover-darken[_v-e845f336]:hover,\n.ui.focus-darken[_v-e845f336]:focus,\n.ui.section[_v-e845f336]:focus,\n.ui.text-input input[_v-e845f336]:focus,\n.ui.text-input [contenteditable][_v-e845f336]:focus,\n.ui.button[_v-e845f336]:hover,\n.ui.button[_v-e845f336]:focus,\n.ui.selection li[_v-e845f336]:hover {\n  background-color: #172e46;\n}\n.ui.theme-color.lighter[_v-e845f336] {\n  background-color: #376ea6;\n}\n.ui.border[_v-e845f336],\n.ui.section[_v-e845f336],\n.ui.text-input input[_v-e845f336],\n.ui.text-input [contenteditable][_v-e845f336],\n.ui.button[_v-e845f336],\n.ui.selection[_v-e845f336] {\n  border-bottom: 3px solid #2f5e8e;\n}\n.ui.border.bright[_v-e845f336],\n.ui.section.bright[_v-e845f336],\n.ui.text-input input.bright[_v-e845f336],\n.ui.text-input [contenteditable].bright[_v-e845f336],\n.ui.button.bright[_v-e845f336],\n.ui.selection.bright[_v-e845f336],\n.ui.hover-darken[_v-e845f336]:hover,\n.ui.focus-darken[_v-e845f336]:focus,\n.ui.focus-lighten[_v-e845f336]:focus,\n.ui.section[_v-e845f336]:focus,\n.ui.text-input input[_v-e845f336]:focus,\n.ui.text-input [contenteditable][_v-e845f336]:focus,\n.ui.button[_v-e845f336]:hover,\n.ui.button[_v-e845f336]:focus,\n.ui.selection li[_v-e845f336]:hover {\n  border-bottom-color: #568ec7;\n}\n.ui.highlight.green[_v-e845f336] {\n  background-color: rgba(39,174,96,0.25);\n  color: #3dd37c;\n}\n.ui.highlight.blue[_v-e845f336] {\n  background-color: rgba(52,152,219,0.25);\n  color: #5dade2;\n}\n.ui.highlight.red[_v-e845f336] {\n  background-color: rgba(231,76,60,0.25);\n  color: #ec7063;\n}\n.ui.highlight.section[_v-e845f336] {\n  border: none;\n}\n.ui.hover-darken[_v-e845f336],\n.ui.button[_v-e845f336],\n.ui.selection li[_v-e845f336] {\n  cursor: pointer;\n}\n.ui.fullscreen[_v-e845f336],\n.ui.overlay[_v-e845f336] {\n  position: fixed;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\n.ui.overlay[_v-e845f336] {\n  background-color: rgba(0,0,0,0.3);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.ui.panel[_v-e845f336],\n.ui.side-panel[_v-e845f336] {\n  width: -webkit-min-content;\n  width: -moz-min-content;\n  width: min-content;\n  padding: 0em 1.5em;\n  text-align: center;\n}\n.ui.side-panel[_v-e845f336] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 12em;\n  padding: 0;\n  text-align: left;\n  overflow-y: auto;\n}\n.ui.side-panel.left[_v-e845f336] {\n  left: 0;\n}\n.ui.side-panel.right[_v-e845f336] {\n  right: 0;\n}\n.ui.section[_v-e845f336],\n.ui.text-input input[_v-e845f336],\n.ui.text-input [contenteditable][_v-e845f336] {\n  width: 10rem;\n  padding: 0.4em 0.6em;\n  display: block;\n}\n.ui.section.icon[_v-e845f336],\n.ui.text-input.icon[_v-e845f336] {\n  position: relative;\n}\n.ui.section.icon .fa[_v-e845f336],\n.ui.text-input.icon .fa[_v-e845f336] {\n  opacity: 0.5;\n  position: absolute;\n  top: 0.6em;\n  pointer-events: none;\n}\n.ui.section.icon.left .fa[_v-e845f336],\n.ui.text-input.icon.left .fa[_v-e845f336] {\n  left: 0.6em;\n}\n.ui.section.icon.right .fa[_v-e845f336],\n.ui.text-input.icon.right .fa[_v-e845f336] {\n  right: 0.6em;\n}\n.ui.text-input[_v-e845f336] {\n  display: inline-block;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n}\n.ui.text-input.icon.left input[_v-e845f336],\n.ui.text-input.icon.left [contenteditable][_v-e845f336] {\n  padding-left: 1.8em;\n}\n.ui.text-input.icon.right input[_v-e845f336],\n.ui.text-input.icon.right [contenteditable][_v-e845f336] {\n  padding-right: 1.8em;\n}\n.ui.button[_v-e845f336] {\n  padding: 0.4em 1.5em;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.form .ui.field[_v-e845f336] {\n  margin-bottom: 1em;\n}\n.ui.selection[_v-e845f336] {\n  width: 14em;\n  height: 18em;\n  list-style: none;\n  overflow-y: scroll;\n  display: inline-block;\n}\n.ui.selection li[_v-e845f336] {\n  display: block;\n  padding: 0.5em;\n}\n.ui.selection li[_v-e845f336]:hover {\n  border-bottom: none;\n}\n.ui.selection li.active[_v-e845f336] {\n  background-color: rgba(39,174,96,0.3);\n  color: #3dd37c;\n}\n.ui.pull.right[_v-e845f336] {\n  float: right;\n}\n.ui.scroll[_v-e845f336] {\n  overflow-y: auto;\n}\n.ui.link[_v-e845f336] {\n  text-decoration: none;\n  border-bottom: 1px solid rgba(222,231,237,0.3);\n  position: relative;\n}\n.ui.link[_v-e845f336]:hover {\n  border-bottom-color: rgba(222,231,237,0.8);\n}\n.ui.divider[_v-e845f336] {\n  border-bottom: 1px solid rgba(222,231,237,0.2);\n}\na[_v-e845f336] {\n  width: 8em;\n  display: inline-block;\n  height: 2em;\n  border-bottom: 3px solid transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  padding: 0.3em 0.5em;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  position: relative;\n}\n.fa[_v-e845f336] {\n  position: absolute;\n  right: 0.5em;\n  top: 0.7em;\n  opacity: 0;\n}\na[_v-e845f336]:hover {\n  padding-right: 1.3em;\n}\na:hover .fa[_v-e845f336] {\n  opacity: 0.5;\n}\n", "", {"version":3,"sources":["/./src/view/components/elements/ChatTab.vue.style","/./src/view/components/elements/ChatTab.vue","/./src/view/components/elements/src/view/components/elements/ChatTab.vue"],"names":[],"mappings":"AAOE;;;;;;;;;;EACE,kCAAA;EAAA,0BAAA;CCGH;ADDC;;EACE,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;CCIH;ADFC;EACE,aAAA;CCIH;ADFC;EACE,eAAA;CCIH;ADFC;EACE,aAAA;CCIH;ADFC;;;EACE,yCAAA;CCMH;ADHG;;;EAAS,0BAAA;CCQZ;ADPG;;;;;;EAAS,0BAAA;CCeZ;ADdG;;EAAU,0BAAA;CCkBb;ADjBG;;;;;;;;;EAAW,0BAAA;CC4Bd;AD3BG;EAAY,0BAAA;CC8Bf;AD5BC;;;;;;EACE,iCAAA;CCmCH;ADjCG;;;;;;;;;;;;;;;EACE,6BAAA;CCiDL;AD9CG;EApCF,uCAAA;EACA,eAAA;CCqFD;ADjDG;EArCF,wCAAA;EACA,eAAA;CCyFD;ADpDG;EAtCF,uCAAA;EACA,eAAA;CC6FD;ADvDG;EAAY,aAAA;CC0Df;ADxDC;;;EAEE,gBAAA;CC2DH;AD1CC;;EACE,gBAAA;EACA,QAAA;EACA,OAAA;EACA,SAAA;EACA,UAAA;CC6CH;AD3CC;EAGE,kCAAA;EACA,qBAAA;EAAA,qBAAA;EAAA,cAAA;EACA,yBAAA;MAAA,sBAAA;UAAA,wBAAA;EACA,0BAAA;MAAA,uBAAA;UAAA,oBAAA;CC2CH;ADzCC;;EAIE,2BAAA;EAAA,wBAAA;EAAA,mBAAA;EACA,mBAAA;EACA,mBAAA;CCyCH;ADvCC;EAEE,mBAAA;EACA,OAAA;EACA,UAAA;EACA,YAAA;EACA,WAAA;EACA,iBAAA;EACA,iBAAA;CCwCH;ADtCG;EAAS,QAAA;CCyCZ;ADxCG;EAAU,SAAA;CC2Cb;ADzCC;;;EAKE,aAAA;EACA,qBAAA;EACA,eAAA;CCyCH;ADvCC;;EACE,mBAAA;CC0CH;ADxCG;;EACE,aAAA;EACA,mBAAA;EACA,WAAA;EACA,qBAAA;CC2CL;ADzCG;;EAAa,YAAA;CC6ChB;AD5CG;;EAAc,aAAA;CCgDjB;AD9CC;EACE,sBAAA;EACA,2BAAA;EAAA,wBAAA;EAAA,mBAAA;CCgDH;ADvCO;;EAA2B,oBAAA;CC2ClC;ADxCO;;EAA2B,qBAAA;CC4ClC;AD1CC;EAKE,qBAAA;EACA,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;CCwCH;ADtCC;EACE,mBAAA;CCwCH;ADtCC;EAKE,YAAA;EACA,aAAA;EACA,iBAAA;EACA,mBAAA;EACA,sBAAA;CCoCH;ADlCG;EAEE,eAAA;EACA,eAAA;CCmCL;ADjCK;EACE,oBAAA;CCmCP;ADjCK;EAEE,sCAAA;EACA,eAAA;CCkCP;ADhCC;EACE,aAAA;CCkCH;ADhCC;EACE,iBAAA;CCkCH;ADhCC;EAEE,sBAAA;EACA,+CAAA;EACA,mBAAA;CCiCH;AD/BG;EACE,2CAAA;CCiCL;AD/BC;EACE,+CAAA;CCiCH;ACzND;EACE,WAAA;EACA,sBAAA;EACA,YAAA;EACA,qCAAA;EACA,0BAAA;KAAA,uBAAA;MAAA,sBAAA;UAAA,kBAAA;EACA,qBAAA;EACA,iBAAA;EACA,wBAAA;EACA,oBAAA;EACA,mBAAA;CD2ND;ACzND;EACE,mBAAA;EACA,aAAA;EACA,WAAA;EACA,WAAA;CD2ND;ACzND;EACE,qBAAA;CD2ND;ACzNC;EACE,aAAA;CD2NH","file":"ChatTab.vue","sourcesContent":["@import 'colors'\r\n\r\nhighlight($color)\r\n  background-color: rgba($color, 0.25)\r\n  color: lighten($color, 20%)\r\n\r\n.ui\r\n  &.transition\r\n    transition: 0.2s ease all\r\n\r\n  &.noselect\r\n    user-select: none\r\n\r\n  &.no-border\r\n    border: none\r\n\r\n  &.small\r\n    font-size: 85%\r\n\r\n  &.subtle\r\n    opacity: 0.5\r\n\r\n  &.shadow\r\n    box-shadow: 0px 4px 12px rgba(black, 0.2)\r\n\r\n  &.theme-color\r\n    &.main { background-color: $theme-color }\r\n    &.dark { background-color: $theme-color-dark }\r\n    &.light { background-color: $theme-color-light }\r\n    &.darker { background-color: darken($theme-color-dark, 20%) }\r\n    &.lighter { background-color: lighten($theme-color-light, 10%) }\r\n\r\n  &.border\r\n    border-bottom: 3px solid $theme-color-light\r\n\r\n    &.bright\r\n      border-bottom-color: lighten($theme-color-light, 30%)\r\n\r\n  &.highlight\r\n    &.green { highlight: rgb(39, 174, 96) }\r\n    &.blue { highlight: rgb(52, 152, 219) }\r\n    &.red { highlight: rgb(231, 76, 60) }\r\n    &.section { border: none }\r\n\r\n  &.hover-darken\r\n    @extend .ui.transition\r\n    cursor: pointer\r\n    &:hover\r\n      @extend .ui.theme-color.darker\r\n      @extend .ui.border.bright\r\n\r\n  &.focus-darken\r\n    @extend .ui.transition\r\n    &:focus\r\n      @extend .ui.theme-color.darker\r\n      @extend .ui.border.bright\r\n\r\n  &.focus-lighten\r\n    @extend .ui.transition\r\n    &:focus\r\n      @extend .ui.theme-color.light\r\n      @extend .ui.border.bright\r\n\r\n  &.fullscreen\r\n    position: fixed\r\n    left: 0\r\n    top: 0\r\n    right: 0\r\n    bottom: 0\r\n\r\n  &.overlay\r\n    @extend .ui.fullscreen\r\n\r\n    background-color: rgba(black, 0.3)\r\n    display: flex\r\n    justify-content: center\r\n    align-items: center\r\n\r\n  &.panel\r\n    @extend .ui.theme-color.main\r\n    @extend .ui.shadow\r\n\r\n    width: min-content\r\n    padding: 0em 1.5em\r\n    text-align: center\r\n\r\n  &.side-panel\r\n    @extend .ui.panel\r\n    position: absolute\r\n    top: 0\r\n    bottom: 0\r\n    width: 12em\r\n    padding: 0\r\n    text-align: left\r\n    overflow-y: auto\r\n\r\n    &.left { left: 0 }\r\n    &.right { right: 0 }\r\n\r\n  &.section\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.transition\r\n    @extend .ui.focus-darken\r\n    width: 10rem\r\n    padding: 0.4em 0.6em\r\n    display: block\r\n\r\n  &.section.icon\r\n    position: relative\r\n\r\n    .fa\r\n      opacity: 0.5\r\n      position: absolute\r\n      top: 0.6em\r\n      pointer-events: none\r\n\r\n    &.left .fa { left: 0.6em }\r\n    &.right .fa { right: 0.6em }\r\n\r\n  &.text-input\r\n    display: inline-block\r\n    width: max-content\r\n\r\n    input, [contenteditable]\r\n      @extend .ui.section\r\n\r\n    &.icon\r\n      @extend .ui.section.icon\r\n\r\n      &.left\r\n        input, [contenteditable] { padding-left: 1.8em }\r\n\r\n      &.right\r\n        input, [contenteditable] { padding-right: 1.8em }\r\n\r\n  &.button\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.hover-darken\r\n    @extend .ui.focus-darken\r\n    padding: 0.4em 1.5em\r\n    user-select: none\r\n\r\n  &.form &.field\r\n    margin-bottom: 1em\r\n\r\n  &.selection\r\n    @extend .ui.theme-color.dark\r\n    @extend .ui.border\r\n    @extend .ui.noselect\r\n\r\n    width: 14em\r\n    height: 18em\r\n    list-style: none\r\n    overflow-y: scroll\r\n    display: inline-block\r\n\r\n    li\r\n      @extend .ui.hover-darken\r\n      display: block\r\n      padding: 0.5em\r\n\r\n      &:hover\r\n        border-bottom: none\r\n\r\n      &.active\r\n        $active-color = rgb(39, 174, 96)\r\n        background-color: rgba($active-color, 0.3)\r\n        color: lighten($active-color, 20%)\r\n\r\n  &.pull.right\r\n    float: right\r\n\r\n  &.scroll\r\n    overflow-y: auto\r\n\r\n  &.link\r\n    @extend .ui.transition\r\n    text-decoration: none\r\n    border-bottom: 1px solid rgba($text-color, 0.3)\r\n    position: relative\r\n\r\n    &:hover\r\n      border-bottom-color: rgba($text-color, 0.8)\r\n\r\n  &.divider\r\n    border-bottom: 1px solid rgba($text-color, 0.2)\r\n",".ui.transition,\n.ui.hover-darken,\n.ui.focus-darken,\n.ui.focus-lighten,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection li,\n.ui.link {\n  transition: 0.2s ease all;\n}\n.ui.noselect,\n.ui.selection {\n  user-select: none;\n}\n.ui.no-border {\n  border: none;\n}\n.ui.small {\n  font-size: 85%;\n}\n.ui.subtle {\n  opacity: 0.5;\n}\n.ui.shadow,\n.ui.panel,\n.ui.side-panel {\n  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);\n}\n.ui.theme-color.main,\n.ui.panel,\n.ui.side-panel {\n  background-color: #264c73;\n}\n.ui.theme-color.dark,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  background-color: #1d3a58;\n}\n.ui.theme-color.light,\n.ui.focus-lighten:focus {\n  background-color: #2f5e8e;\n}\n.ui.theme-color.darker,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  background-color: #172e46;\n}\n.ui.theme-color.lighter {\n  background-color: #376ea6;\n}\n.ui.border,\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable],\n.ui.button,\n.ui.selection {\n  border-bottom: 3px solid #2f5e8e;\n}\n.ui.border.bright,\n.ui.section.bright,\n.ui.text-input input.bright,\n.ui.text-input [contenteditable].bright,\n.ui.button.bright,\n.ui.selection.bright,\n.ui.hover-darken:hover,\n.ui.focus-darken:focus,\n.ui.focus-lighten:focus,\n.ui.section:focus,\n.ui.text-input input:focus,\n.ui.text-input [contenteditable]:focus,\n.ui.button:hover,\n.ui.button:focus,\n.ui.selection li:hover {\n  border-bottom-color: #568ec7;\n}\n.ui.highlight.green {\n  background-color: rgba(39,174,96,0.25);\n  color: #3dd37c;\n}\n.ui.highlight.blue {\n  background-color: rgba(52,152,219,0.25);\n  color: #5dade2;\n}\n.ui.highlight.red {\n  background-color: rgba(231,76,60,0.25);\n  color: #ec7063;\n}\n.ui.highlight.section {\n  border: none;\n}\n.ui.hover-darken,\n.ui.button,\n.ui.selection li {\n  cursor: pointer;\n}\n.ui.fullscreen,\n.ui.overlay {\n  position: fixed;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\n.ui.overlay {\n  background-color: rgba(0,0,0,0.3);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.ui.panel,\n.ui.side-panel {\n  width: min-content;\n  padding: 0em 1.5em;\n  text-align: center;\n}\n.ui.side-panel {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 12em;\n  padding: 0;\n  text-align: left;\n  overflow-y: auto;\n}\n.ui.side-panel.left {\n  left: 0;\n}\n.ui.side-panel.right {\n  right: 0;\n}\n.ui.section,\n.ui.text-input input,\n.ui.text-input [contenteditable] {\n  width: 10rem;\n  padding: 0.4em 0.6em;\n  display: block;\n}\n.ui.section.icon,\n.ui.text-input.icon {\n  position: relative;\n}\n.ui.section.icon .fa,\n.ui.text-input.icon .fa {\n  opacity: 0.5;\n  position: absolute;\n  top: 0.6em;\n  pointer-events: none;\n}\n.ui.section.icon.left .fa,\n.ui.text-input.icon.left .fa {\n  left: 0.6em;\n}\n.ui.section.icon.right .fa,\n.ui.text-input.icon.right .fa {\n  right: 0.6em;\n}\n.ui.text-input {\n  display: inline-block;\n  width: max-content;\n}\n.ui.text-input.icon.left input,\n.ui.text-input.icon.left [contenteditable] {\n  padding-left: 1.8em;\n}\n.ui.text-input.icon.right input,\n.ui.text-input.icon.right [contenteditable] {\n  padding-right: 1.8em;\n}\n.ui.button {\n  padding: 0.4em 1.5em;\n  user-select: none;\n}\n.ui.form .ui.field {\n  margin-bottom: 1em;\n}\n.ui.selection {\n  width: 14em;\n  height: 18em;\n  list-style: none;\n  overflow-y: scroll;\n  display: inline-block;\n}\n.ui.selection li {\n  display: block;\n  padding: 0.5em;\n}\n.ui.selection li:hover {\n  border-bottom: none;\n}\n.ui.selection li.active {\n  background-color: rgba(39,174,96,0.3);\n  color: #3dd37c;\n}\n.ui.pull.right {\n  float: right;\n}\n.ui.scroll {\n  overflow-y: auto;\n}\n.ui.link {\n  text-decoration: none;\n  border-bottom: 1px solid rgba(222,231,237,0.3);\n  position: relative;\n}\n.ui.link:hover {\n  border-bottom-color: rgba(222,231,237,0.8);\n}\n.ui.divider {\n  border-bottom: 1px solid rgba(222,231,237,0.2);\n}\na {\n  width: 8em;\n  display: inline-block;\n  height: 2em;\n  border-bottom: 3px solid transparent;\n  user-select: none;\n  padding: 0.3em 0.5em;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  position: relative;\n}\n.fa {\n  position: absolute;\n  right: 0.5em;\n  top: 0.7em;\n  opacity: 0;\n}\na:hover {\n  padding-right: 1.3em;\n}\na:hover .fa {\n  opacity: 0.5;\n}\n","\r\n@import '../../styles/ui.styl'\r\n\r\na\r\n  width: 8em\r\n  display: inline-block\r\n  height: 2em\r\n  border-bottom: 3px solid transparent\r\n  user-select: none\r\n  padding: 0.3em 0.5em\r\n  overflow: hidden\r\n  text-overflow: ellipsis\r\n  white-space: nowrap\r\n  position: relative\r\n\r\n.fa\r\n  position: absolute\r\n  right: 0.5em\r\n  top: 0.7em\r\n  opacity: 0\r\n\r\na:hover\r\n  padding-right: 1.3em\r\n\r\n  .fa\r\n    opacity: 0.5\r\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -13334,7 +13304,7 @@
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <a class=\"ui hover-darken\" :class=\"{ 'theme-color main border': active }\" transition=\"fade\" @click.self=\"$emit('selected')\" _v-27416b26=\"\">\n    <span @click.self=\"$emit('selected')\" _v-27416b26=\"\"><slot _v-27416b26=\"\"></slot></span>\n    <i class=\"fa fa-times ui transition small\" @click.prevent.stop=\"$emit('closed')\" _v-27416b26=\"\"></i>\n  </a>\n";
+	module.exports = "\n  <a class=\"ui hover-darken\" :class=\"{ 'theme-color main border': active }\" transition=\"fade\" @click.self=\"$emit('selected')\" _v-e845f336=\"\">\n    <span @click.self=\"$emit('selected')\" _v-e845f336=\"\"><slot _v-e845f336=\"\"></slot></span>\n    <i class=\"fa fa-times ui transition small\" @click.prevent.stop=\"$emit('closed')\" _v-e845f336=\"\"></i>\n  </a>\n";
 
 /***/ },
 /* 62 */
@@ -13347,17 +13317,7 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\chat-views\\ChannelView.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 63 */
@@ -13375,8 +13335,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-0c853d9a&file=ChannelView.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChannelView.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-0c853d9a&file=ChannelView.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChannelView.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-72d7c0dc&file=ChannelView.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChannelView.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-72d7c0dc&file=ChannelView.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChannelView.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -13394,7 +13354,7 @@
 	
 	
 	// module
-	exports.push([module.id, "ul[_v-0c853d9a] {\n  list-style: none;\n}\n.description[_v-0c853d9a] {\n  position: relative;\n  height: 5em;\n  padding: 0.3em 0.5em;\n  line-height: 1.4;\n}\n.description span[_v-0c853d9a] {\n  white-space: pre-wrap;\n}\n.chatbox[_v-0c853d9a] {\n  height: 5em;\n}\n.character-list[_v-0c853d9a] {\n  width: 12em;\n}\n.character-list-item[_v-0c853d9a] {\n  display: block;\n  padding: 0.2em 0.6em;\n}\n.message-list[_v-0c853d9a] {\n  padding: 0.3em 0em;\n}\n.channel-prefs a[_v-0c853d9a] {\n  font-size: 0.9em;\n  display: block;\n  padding: 0.3em 1em;\n  cursor: pointer;\n}\n", "", {"version":3,"sources":["/./view/components/chat-views/ChannelView.vue.style","/./view/components/chat-views/ChannelView.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;CCAD;ADED;EACE,mBAAA;EACA,YAAA;EACA,qBAAA;EACA,iBAAA;CCAD;ADEC;EACE,sBAAA;CCAH;ADED;EACE,YAAA;CCAD;ADED;EACE,YAAA;CCAD;ADED;EACE,eAAA;EACA,qBAAA;CCAD;ADED;EACE,mBAAA;CCAD;ADED;EACE,iBAAA;EACA,eAAA;EACA,mBAAA;EACA,gBAAA;CCAD","file":"ChannelView.vue","sourcesContent":["\r\nul\r\n  list-style: none\r\n\r\n.description\r\n  position: relative\r\n  height: 5em\r\n  padding: 0.3em 0.5em\r\n  line-height: 1.4\r\n\r\n  span\r\n    white-space: pre-wrap\r\n\r\n.chatbox\r\n  height: 5em\r\n\r\n.character-list\r\n  width: 12em\r\n\r\n.character-list-item\r\n  display: block\r\n  padding: 0.2em 0.6em\r\n\r\n.message-list\r\n  padding: 0.3em 0em\r\n\r\n.channel-prefs a\r\n  font-size: 0.9em\r\n  display: block\r\n  padding: 0.3em 1em\r\n  cursor: pointer\r\n","ul {\n  list-style: none;\n}\n.description {\n  position: relative;\n  height: 5em;\n  padding: 0.3em 0.5em;\n  line-height: 1.4;\n}\n.description span {\n  white-space: pre-wrap;\n}\n.chatbox {\n  height: 5em;\n}\n.character-list {\n  width: 12em;\n}\n.character-list-item {\n  display: block;\n  padding: 0.2em 0.6em;\n}\n.message-list {\n  padding: 0.3em 0em;\n}\n.channel-prefs a {\n  font-size: 0.9em;\n  display: block;\n  padding: 0.3em 1em;\n  cursor: pointer;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "ul[_v-72d7c0dc] {\n  list-style: none;\n}\n.description[_v-72d7c0dc] {\n  position: relative;\n  height: 5em;\n  padding: 0.3em 0.5em;\n  line-height: 1.4;\n}\n.description span[_v-72d7c0dc] {\n  white-space: pre-wrap;\n}\n.chatbox[_v-72d7c0dc] {\n  height: 5em;\n}\n.character-list[_v-72d7c0dc] {\n  width: 12em;\n}\n.character-list-item[_v-72d7c0dc] {\n  display: block;\n  padding: 0.2em 0.6em;\n}\n.message-list[_v-72d7c0dc] {\n  padding: 0.3em 0em;\n}\n.channel-prefs a[_v-72d7c0dc] {\n  font-size: 0.9em;\n  display: block;\n  padding: 0.3em 1em;\n  cursor: pointer;\n}\n", "", {"version":3,"sources":["/./src/view/components/chat-views/ChannelView.vue.style","/./src/view/components/chat-views/ChannelView.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;CCAD;ADED;EACE,mBAAA;EACA,YAAA;EACA,qBAAA;EACA,iBAAA;CCAD;ADEC;EACE,sBAAA;CCAH;ADED;EACE,YAAA;CCAD;ADED;EACE,YAAA;CCAD;ADED;EACE,eAAA;EACA,qBAAA;CCAD;ADED;EACE,mBAAA;CCAD;ADED;EACE,iBAAA;EACA,eAAA;EACA,mBAAA;EACA,gBAAA;CCAD","file":"ChannelView.vue","sourcesContent":["\r\nul\r\n  list-style: none\r\n\r\n.description\r\n  position: relative\r\n  height: 5em\r\n  padding: 0.3em 0.5em\r\n  line-height: 1.4\r\n\r\n  span\r\n    white-space: pre-wrap\r\n\r\n.chatbox\r\n  height: 5em\r\n\r\n.character-list\r\n  width: 12em\r\n\r\n.character-list-item\r\n  display: block\r\n  padding: 0.2em 0.6em\r\n\r\n.message-list\r\n  padding: 0.3em 0em\r\n\r\n.channel-prefs a\r\n  font-size: 0.9em\r\n  display: block\r\n  padding: 0.3em 1em\r\n  cursor: pointer\r\n","ul {\n  list-style: none;\n}\n.description {\n  position: relative;\n  height: 5em;\n  padding: 0.3em 0.5em;\n  line-height: 1.4;\n}\n.description span {\n  white-space: pre-wrap;\n}\n.chatbox {\n  height: 5em;\n}\n.character-list {\n  width: 12em;\n}\n.character-list-item {\n  display: block;\n  padding: 0.2em 0.6em;\n}\n.message-list {\n  padding: 0.3em 0em;\n}\n.channel-prefs a {\n  font-size: 0.9em;\n  display: block;\n  padding: 0.3em 1em;\n  cursor: pointer;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -13630,17 +13590,7 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\Chatbox.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 67 */
@@ -13658,8 +13608,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-2bdf347a&file=Chatbox.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Chatbox.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-2bdf347a&file=Chatbox.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Chatbox.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-ece3bc8a&file=Chatbox.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Chatbox.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-ece3bc8a&file=Chatbox.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Chatbox.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -13677,7 +13627,7 @@
 	
 	
 	// module
-	exports.push([module.id, "div[_v-2bdf347a] {\n  height: 5em;\n  padding: 0.4em 0.6em;\n}\n", "", {"version":3,"sources":["/./view/components/elements/Chatbox.vue.style","/./view/components/elements/Chatbox.vue"],"names":[],"mappings":"AACA;EACE,YAAA;EACA,qBAAA;CCAD","file":"Chatbox.vue","sourcesContent":["\r\ndiv\r\n  height: 5em\r\n  padding: 0.4em 0.6em\r\n","div {\n  height: 5em;\n  padding: 0.4em 0.6em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "div[_v-ece3bc8a] {\n  height: 5em;\n  padding: 0.4em 0.6em;\n}\n", "", {"version":3,"sources":["/./src/view/components/elements/Chatbox.vue.style","/./src/view/components/elements/Chatbox.vue"],"names":[],"mappings":"AACA;EACE,YAAA;EACA,qBAAA;CCAD","file":"Chatbox.vue","sourcesContent":["\r\ndiv\r\n  height: 5em\r\n  padding: 0.4em 0.6em\r\n","div {\n  height: 5em;\n  padding: 0.4em 0.6em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -15636,7 +15586,7 @@
 /* 112 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui theme-color main focus-lighten\" contenteditable=\"\" :maxlength=\"maxLength\" :placeholder=\"placeholder\" @keydown=\"fixContent($event)\" @keydown.enter=\"submit($event)\" v-el:textarea=\"\" _v-2bdf347a=\"\"></div>\n";
+	module.exports = "\n  <div class=\"ui theme-color main focus-lighten\" contenteditable=\"\" :maxlength=\"maxLength\" :placeholder=\"placeholder\" @keydown=\"fixContent($event)\" @keydown.enter=\"submit($event)\" v-el:textarea=\"\" _v-ece3bc8a=\"\"></div>\n";
 
 /***/ },
 /* 113 */
@@ -15649,17 +15599,7 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\Character.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 114 */
@@ -15677,8 +15617,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-53dc470e&file=Character.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Character.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-53dc470e&file=Character.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Character.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-e5df0b1e&file=Character.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Character.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-e5df0b1e&file=Character.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Character.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -15696,7 +15636,7 @@
 	
 	
 	// module
-	exports.push([module.id, "span[_v-53dc470e] {\n  font-weight: 700;\n  text-shadow: 0px 1px 2px rgba(0,0,0,0.5);\n  cursor: pointer;\n}\n.status[_v-53dc470e] {\n  font-size: 40%;\n  position: relative;\n  top: -0.4em;\n}\n.status.online[_v-53dc470e] {\n  color: #3e3e3e;\n}\n.status.looking[_v-53dc470e] {\n  color: #20df6d;\n}\n.status.busy[_v-53dc470e] {\n  color: rgba(255,255,255,0.5);\n}\n.status.away[_v-53dc470e] {\n  color: #3a6ff6;\n}\n.status.idle[_v-53dc470e] {\n  color: #ebed81;\n}\n.status.dnd[_v-53dc470e] {\n  color: #bf4d40;\n}\n.status.offline[_v-53dc470e] {\n  color: rgba(62,62,62,0.5);\n}\n.gender.male[_v-53dc470e] {\n  color: #69c;\n}\n.gender.female[_v-53dc470e] {\n  color: #f99d94;\n}\n.gender.transgender[_v-53dc470e] {\n  color: #dba457;\n}\n.gender.herm[_v-53dc470e] {\n  color: #b07cf3;\n}\n.gender.shemale[_v-53dc470e] {\n  color: #e58bda;\n}\n.gender.cunt-boy[_v-53dc470e] {\n  color: #60d27b;\n}\n.gender.male-herm[_v-53dc470e] {\n  color: #527dff;\n}\n.gender.none[_v-53dc470e] {\n  color: #dcd6a8;\n}\n", "", {"version":3,"sources":["/./view/components/elements/Character.vue.style","/./view/components/elements/Character.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;EACA,yCAAA;EACA,gBAAA;CCAD;ADED;EACE,eAAA;EACA,mBAAA;EACA,YAAA;CCAD;ADEC;EAAW,eAAA;CCCZ;ADAC;EAAY,eAAA;CCGb;ADFC;EAAS,6BAAA;CCKV;ADJC;EAAS,eAAA;CCOV;ADNC;EAAS,eAAA;CCSV;ADRC;EAAQ,eAAA;CCWT;ADVC;EAAY,0BAAA;CCab;ADVC;EAAS,YAAA;CCaV;ADZC;EAAW,eAAA;CCeZ;ADdC;EAAgB,eAAA;CCiBjB;ADhBC;EAAS,eAAA;CCmBV;ADlBC;EAAY,eAAA;CCqBb;ADpBC;EAAa,eAAA;CCuBd;ADtBC;EAAc,eAAA;CCyBf;ADxBC;EAAS,eAAA;CC2BV","file":"Character.vue","sourcesContent":["\r\nspan\r\n  font-weight: 700\r\n  text-shadow: 0px 1px 2px rgba(black, 0.5)\r\n  cursor: pointer\r\n\r\n.status\r\n  font-size: 40%\r\n  position: relative\r\n  top: -0.4em\r\n\r\n  &.online { color: rgb(62, 62, 62) }\r\n  &.looking { color: rgb(32, 223, 109) }\r\n  &.busy { color: rgba(white, 0.5) }\r\n  &.away { color: rgb(58, 111, 246) }\r\n  &.idle { color: rgb(235, 237, 129) }\r\n  &.dnd { color: rgb(191, 77, 64) }\r\n  &.offline { color: rgba(62, 62, 62, 0.5) }\r\n\r\n.gender\r\n  &.male { color: hsl(210, 50%, 60%) }\r\n  &.female { color: hsl(5, 90%, 78%) }\r\n  &.transgender { color: hsl(35, 65%, 60%) }\r\n  &.herm { color: hsl(266, 83%, 72%) }\r\n  &.shemale { color: hsl(307, 63%, 72%) }\r\n  &.cunt-boy { color: hsl(134, 56%, 60%) }\r\n  &.male-herm { color: hsl(225, 100%, 66%) }\r\n  &.none { color: hsl(54, 42%, 76%) }\r\n","span {\n  font-weight: 700;\n  text-shadow: 0px 1px 2px rgba(0,0,0,0.5);\n  cursor: pointer;\n}\n.status {\n  font-size: 40%;\n  position: relative;\n  top: -0.4em;\n}\n.status.online {\n  color: #3e3e3e;\n}\n.status.looking {\n  color: #20df6d;\n}\n.status.busy {\n  color: rgba(255,255,255,0.5);\n}\n.status.away {\n  color: #3a6ff6;\n}\n.status.idle {\n  color: #ebed81;\n}\n.status.dnd {\n  color: #bf4d40;\n}\n.status.offline {\n  color: rgba(62,62,62,0.5);\n}\n.gender.male {\n  color: #69c;\n}\n.gender.female {\n  color: #f99d94;\n}\n.gender.transgender {\n  color: #dba457;\n}\n.gender.herm {\n  color: #b07cf3;\n}\n.gender.shemale {\n  color: #e58bda;\n}\n.gender.cunt-boy {\n  color: #60d27b;\n}\n.gender.male-herm {\n  color: #527dff;\n}\n.gender.none {\n  color: #dcd6a8;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "span[_v-e5df0b1e] {\n  font-weight: 700;\n  text-shadow: 0px 1px 2px rgba(0,0,0,0.5);\n  cursor: pointer;\n}\n.status[_v-e5df0b1e] {\n  font-size: 40%;\n  position: relative;\n  top: -0.4em;\n}\n.status.online[_v-e5df0b1e] {\n  color: #3e3e3e;\n}\n.status.looking[_v-e5df0b1e] {\n  color: #20df6d;\n}\n.status.busy[_v-e5df0b1e] {\n  color: rgba(255,255,255,0.5);\n}\n.status.away[_v-e5df0b1e] {\n  color: #3a6ff6;\n}\n.status.idle[_v-e5df0b1e] {\n  color: #ebed81;\n}\n.status.dnd[_v-e5df0b1e] {\n  color: #bf4d40;\n}\n.status.offline[_v-e5df0b1e] {\n  color: rgba(62,62,62,0.5);\n}\n.gender.male[_v-e5df0b1e] {\n  color: #69c;\n}\n.gender.female[_v-e5df0b1e] {\n  color: #f99d94;\n}\n.gender.transgender[_v-e5df0b1e] {\n  color: #dba457;\n}\n.gender.herm[_v-e5df0b1e] {\n  color: #b07cf3;\n}\n.gender.shemale[_v-e5df0b1e] {\n  color: #e58bda;\n}\n.gender.cunt-boy[_v-e5df0b1e] {\n  color: #60d27b;\n}\n.gender.male-herm[_v-e5df0b1e] {\n  color: #527dff;\n}\n.gender.none[_v-e5df0b1e] {\n  color: #dcd6a8;\n}\n", "", {"version":3,"sources":["/./src/view/components/elements/Character.vue.style","/./src/view/components/elements/Character.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;EACA,yCAAA;EACA,gBAAA;CCAD;ADED;EACE,eAAA;EACA,mBAAA;EACA,YAAA;CCAD;ADEC;EAAW,eAAA;CCCZ;ADAC;EAAY,eAAA;CCGb;ADFC;EAAS,6BAAA;CCKV;ADJC;EAAS,eAAA;CCOV;ADNC;EAAS,eAAA;CCSV;ADRC;EAAQ,eAAA;CCWT;ADVC;EAAY,0BAAA;CCab;ADVC;EAAS,YAAA;CCaV;ADZC;EAAW,eAAA;CCeZ;ADdC;EAAgB,eAAA;CCiBjB;ADhBC;EAAS,eAAA;CCmBV;ADlBC;EAAY,eAAA;CCqBb;ADpBC;EAAa,eAAA;CCuBd;ADtBC;EAAc,eAAA;CCyBf;ADxBC;EAAS,eAAA;CC2BV","file":"Character.vue","sourcesContent":["\r\nspan\r\n  font-weight: 700\r\n  text-shadow: 0px 1px 2px rgba(black, 0.5)\r\n  cursor: pointer\r\n\r\n.status\r\n  font-size: 40%\r\n  position: relative\r\n  top: -0.4em\r\n\r\n  &.online { color: rgb(62, 62, 62) }\r\n  &.looking { color: rgb(32, 223, 109) }\r\n  &.busy { color: rgba(white, 0.5) }\r\n  &.away { color: rgb(58, 111, 246) }\r\n  &.idle { color: rgb(235, 237, 129) }\r\n  &.dnd { color: rgb(191, 77, 64) }\r\n  &.offline { color: rgba(62, 62, 62, 0.5) }\r\n\r\n.gender\r\n  &.male { color: hsl(210, 50%, 60%) }\r\n  &.female { color: hsl(5, 90%, 78%) }\r\n  &.transgender { color: hsl(35, 65%, 60%) }\r\n  &.herm { color: hsl(266, 83%, 72%) }\r\n  &.shemale { color: hsl(307, 63%, 72%) }\r\n  &.cunt-boy { color: hsl(134, 56%, 60%) }\r\n  &.male-herm { color: hsl(225, 100%, 66%) }\r\n  &.none { color: hsl(54, 42%, 76%) }\r\n","span {\n  font-weight: 700;\n  text-shadow: 0px 1px 2px rgba(0,0,0,0.5);\n  cursor: pointer;\n}\n.status {\n  font-size: 40%;\n  position: relative;\n  top: -0.4em;\n}\n.status.online {\n  color: #3e3e3e;\n}\n.status.looking {\n  color: #20df6d;\n}\n.status.busy {\n  color: rgba(255,255,255,0.5);\n}\n.status.away {\n  color: #3a6ff6;\n}\n.status.idle {\n  color: #ebed81;\n}\n.status.dnd {\n  color: #bf4d40;\n}\n.status.offline {\n  color: rgba(62,62,62,0.5);\n}\n.gender.male {\n  color: #69c;\n}\n.gender.female {\n  color: #f99d94;\n}\n.gender.transgender {\n  color: #dba457;\n}\n.gender.herm {\n  color: #b07cf3;\n}\n.gender.shemale {\n  color: #e58bda;\n}\n.gender.cunt-boy {\n  color: #60d27b;\n}\n.gender.male-herm {\n  color: #527dff;\n}\n.gender.none {\n  color: #dcd6a8;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -15775,7 +15715,7 @@
 /* 117 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <span class=\"gender {{gender}}\" :data-activate-character=\"character.name\" _v-53dc470e=\"\">\n    <i class=\"fa fa-circle status {{status}}\" _v-53dc470e=\"\"></i> {{character.name}}\n  </span>\n";
+	module.exports = "\n  <span class=\"gender {{gender}}\" :data-activate-character=\"character.name\" _v-e5df0b1e=\"\">\n    <i class=\"fa fa-circle status {{status}}\" _v-e5df0b1e=\"\"></i> {{character.name}}\n  </span>\n";
 
 /***/ },
 /* 118 */
@@ -15788,17 +15728,7 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\ChatMessage.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 119 */
@@ -15816,8 +15746,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-33c8bc42&file=ChatMessage.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessage.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-33c8bc42&file=ChatMessage.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessage.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-502abc52&file=ChatMessage.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessage.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-502abc52&file=ChatMessage.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessage.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -15835,7 +15765,7 @@
 	
 	
 	// module
-	exports.push([module.id, "div[_v-33c8bc42] {\n  padding: 0.2em 0.5em;\n}\n.message-text[_v-33c8bc42] {\n  margin-left: 0.3em;\n  white-space: pre-wrap;\n}\n", "", {"version":3,"sources":["/./view/components/elements/ChatMessage.vue.style","/./view/components/elements/ChatMessage.vue"],"names":[],"mappings":"AACA;EACE,qBAAA;CCAD;ADED;EACE,mBAAA;EACA,sBAAA;CCAD","file":"ChatMessage.vue","sourcesContent":["\r\ndiv\r\n  padding: 0.2em 0.5em\r\n\r\n.message-text\r\n  margin-left: 0.3em\r\n  white-space: pre-wrap\r\n","div {\n  padding: 0.2em 0.5em;\n}\n.message-text {\n  margin-left: 0.3em;\n  white-space: pre-wrap;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "div[_v-502abc52] {\n  padding: 0.2em 0.5em;\n}\n.message-text[_v-502abc52] {\n  margin-left: 0.3em;\n  white-space: pre-wrap;\n}\n", "", {"version":3,"sources":["/./src/view/components/elements/ChatMessage.vue.style","/./src/view/components/elements/ChatMessage.vue"],"names":[],"mappings":"AACA;EACE,qBAAA;CCAD;ADED;EACE,mBAAA;EACA,sBAAA;CCAD","file":"ChatMessage.vue","sourcesContent":["\r\ndiv\r\n  padding: 0.2em 0.5em\r\n\r\n.message-text\r\n  margin-left: 0.3em\r\n  white-space: pre-wrap\r\n","div {\n  padding: 0.2em 0.5em;\n}\n.message-text {\n  margin-left: 0.3em;\n  white-space: pre-wrap;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -15907,7 +15837,7 @@
 /* 122 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui hover-darken\" :class=\"{'highlight green': kind === 'lfrp'}\" :style=\"{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }\" _v-33c8bc42=\"\">\n    <character :character=\"sender\" _v-33c8bc42=\"\"></character>\n    <span class=\"message-text\" v-html=\"parsedMessage | bbcode\" _v-33c8bc42=\"\"></span>\n  </div>\n";
+	module.exports = "\n  <div class=\"ui hover-darken\" :class=\"{'highlight green': kind === 'lfrp'}\" :style=\"{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }\" _v-502abc52=\"\">\n    <character :character=\"sender\" _v-502abc52=\"\"></character>\n    <span class=\"message-text\" v-html=\"parsedMessage | bbcode\" _v-502abc52=\"\"></span>\n  </div>\n";
 
 /***/ },
 /* 123 */
@@ -15920,17 +15850,7 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\ChatMessageList.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 124 */
@@ -15948,8 +15868,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-784787c6&file=ChatMessageList.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessageList.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-784787c6&file=ChatMessageList.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessageList.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-35ba8015&file=ChatMessageList.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessageList.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-35ba8015&file=ChatMessageList.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChatMessageList.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -15967,7 +15887,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".scroll[_v-784787c6] {\n  padding: 0.3em 0em;\n}\n", "", {"version":3,"sources":["/./view/components/elements/ChatMessageList.vue.style","/./view/components/elements/ChatMessageList.vue"],"names":[],"mappings":"AACA;EACE,mBAAA;CCAD","file":"ChatMessageList.vue","sourcesContent":["\r\n.scroll\r\n  padding: 0.3em 0em\r\n",".scroll {\n  padding: 0.3em 0em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".scroll[_v-35ba8015] {\n  padding: 0.3em 0em;\n}\n", "", {"version":3,"sources":["/./src/view/components/elements/ChatMessageList.vue.style","/./src/view/components/elements/ChatMessageList.vue"],"names":[],"mappings":"AACA;EACE,mBAAA;CCAD","file":"ChatMessageList.vue","sourcesContent":["\r\n.scroll\r\n  padding: 0.3em 0em\r\n",".scroll {\n  padding: 0.3em 0em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -16073,13 +15993,13 @@
 /* 127 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui scroll\" v-el:container=\"\" @scroll=\"onScroll\" _v-784787c6=\"\">\n    <chat-message v-for=\"msg in filteredMessages\" :message=\"msg\" _v-784787c6=\"\"></chat-message>\n  </div>\n";
+	module.exports = "\n  <div class=\"ui scroll\" v-el:container=\"\" @scroll=\"onScroll\" _v-35ba8015=\"\">\n    <chat-message v-for=\"msg in filteredMessages\" :message=\"msg\" _v-35ba8015=\"\"></chat-message>\n  </div>\n";
 
 /***/ },
 /* 128 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"flex stretch col\" _v-0c853d9a=\"\">\n    <section class=\"flex fixed row channel-head\" _v-0c853d9a=\"\">\n      <!-- channel prefs -->\n      <section class=\"flex fixed col channel-prefs\" style=\"justify-content: space-between\" _v-0c853d9a=\"\">\n        <template v-if=\"viewState.mode === 'both'\" _v-0c853d9a=\"\">\n          <a class=\"ui theme-color {{viewState.preference === 'both' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'both'\" _v-0c853d9a=\"\">Both</a>\n          <a class=\"ui theme-color {{viewState.preference === 'chat' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'chat'\" _v-0c853d9a=\"\">Chat</a>\n          <a class=\"ui theme-color {{viewState.preference === 'ads' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'ads'\" _v-0c853d9a=\"\">LFRP</a>\n        </template>\n        <template v-if=\"viewState.mode === 'chat'\" _v-0c853d9a=\"\">\n          <a class=\"ui theme-color darker subtle\" _v-0c853d9a=\"\">Both</a>\n          <a class=\"ui theme-color light\" _v-0c853d9a=\"\">Chat</a>\n          <a class=\"ui theme-color darker subtle\" _v-0c853d9a=\"\">LFRP</a>\n        </template>\n        <template v-if=\"viewState.mode === 'ads'\" _v-0c853d9a=\"\">\n          <a class=\"ui theme-color darker subtle\" _v-0c853d9a=\"\">Both</a>\n          <a class=\"ui theme-color darker subtle\" _v-0c853d9a=\"\">Chat</a>\n          <a class=\"ui theme-color light\" _v-0c853d9a=\"\">LFRP</a>\n        </template>\n      </section>\n\n      <div class=\"flex divider\" _v-0c853d9a=\"\"></div>\n\n      <!-- description -->\n      <section class=\"flex stretch col ui scroll theme-color main description\" _v-0c853d9a=\"\">\n        <span v-html=\"viewState.description | bbcode\" _v-0c853d9a=\"\"></span>\n      </section>\n    </section>\n\n    <div class=\"flex divider\" _v-0c853d9a=\"\"></div>\n\n    <section class=\"flex row stretch\" _v-0c853d9a=\"\">\n      <!-- message -->\n      <chat-message-list class=\"flex stretch\" :messages=\"viewState.messages\" :preference=\"viewState.preference\" _v-0c853d9a=\"\">\n      </chat-message-list>\n\n      <div class=\"flex divider\" _v-0c853d9a=\"\"></div>\n\n      <!-- users -->\n      <ul class=\"flex fixed ui theme-color main scroll character-list\" _v-0c853d9a=\"\">\n        <li class=\"ui hover-darken highlight green\" v-for=\"char in characterGroups.friends\" _v-0c853d9a=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken highlight blue\" v-for=\"char in characterGroups.bookmarks\" _v-0c853d9a=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken highlight red\" v-for=\"char in characterGroups.admins\" _v-0c853d9a=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken\" v-for=\"char in characterGroups.looking\" _v-0c853d9a=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken\" v-for=\"char in characterGroups.rest\" _v-0c853d9a=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-0c853d9a=\"\"></character>\n        </li>\n      </ul>\n    </section>\n\n    <div class=\"flex divider\" _v-0c853d9a=\"\"></div>\n\n    <!-- chatbox -->\n    <section class=\"flex fixed ui theme-color main\" _v-0c853d9a=\"\">\n      <chatbox class=\"chatbox\" _v-0c853d9a=\"\"></chatbox>\n    </section>\n  </div>\n";
+	module.exports = "\n  <div class=\"flex stretch col\" _v-72d7c0dc=\"\">\n    <section class=\"flex fixed row channel-head\" _v-72d7c0dc=\"\">\n      <!-- channel prefs -->\n      <section class=\"flex fixed col channel-prefs\" style=\"justify-content: space-between\" _v-72d7c0dc=\"\">\n        <template v-if=\"viewState.mode === 'both'\" _v-72d7c0dc=\"\">\n          <a class=\"ui theme-color {{viewState.preference === 'both' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'both'\" _v-72d7c0dc=\"\">Both</a>\n          <a class=\"ui theme-color {{viewState.preference === 'chat' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'chat'\" _v-72d7c0dc=\"\">Chat</a>\n          <a class=\"ui theme-color {{viewState.preference === 'ads' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'ads'\" _v-72d7c0dc=\"\">LFRP</a>\n        </template>\n        <template v-if=\"viewState.mode === 'chat'\" _v-72d7c0dc=\"\">\n          <a class=\"ui theme-color darker subtle\" _v-72d7c0dc=\"\">Both</a>\n          <a class=\"ui theme-color light\" _v-72d7c0dc=\"\">Chat</a>\n          <a class=\"ui theme-color darker subtle\" _v-72d7c0dc=\"\">LFRP</a>\n        </template>\n        <template v-if=\"viewState.mode === 'ads'\" _v-72d7c0dc=\"\">\n          <a class=\"ui theme-color darker subtle\" _v-72d7c0dc=\"\">Both</a>\n          <a class=\"ui theme-color darker subtle\" _v-72d7c0dc=\"\">Chat</a>\n          <a class=\"ui theme-color light\" _v-72d7c0dc=\"\">LFRP</a>\n        </template>\n      </section>\n\n      <div class=\"flex divider\" _v-72d7c0dc=\"\"></div>\n\n      <!-- description -->\n      <section class=\"flex stretch col ui scroll theme-color main description\" _v-72d7c0dc=\"\">\n        <span v-html=\"viewState.description | bbcode\" _v-72d7c0dc=\"\"></span>\n      </section>\n    </section>\n\n    <div class=\"flex divider\" _v-72d7c0dc=\"\"></div>\n\n    <section class=\"flex row stretch\" _v-72d7c0dc=\"\">\n      <!-- message -->\n      <chat-message-list class=\"flex stretch\" :messages=\"viewState.messages\" :preference=\"viewState.preference\" _v-72d7c0dc=\"\">\n      </chat-message-list>\n\n      <div class=\"flex divider\" _v-72d7c0dc=\"\"></div>\n\n      <!-- users -->\n      <ul class=\"flex fixed ui theme-color main scroll character-list\" _v-72d7c0dc=\"\">\n        <li class=\"ui hover-darken highlight green\" v-for=\"char in characterGroups.friends\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken highlight blue\" v-for=\"char in characterGroups.bookmarks\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken highlight red\" v-for=\"char in characterGroups.admins\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken\" v-for=\"char in characterGroups.looking\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken\" v-for=\"char in characterGroups.rest\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n      </ul>\n    </section>\n\n    <div class=\"flex divider\" _v-72d7c0dc=\"\"></div>\n\n    <!-- chatbox -->\n    <section class=\"flex fixed ui theme-color main\" _v-72d7c0dc=\"\">\n      <chatbox class=\"chatbox\" _v-72d7c0dc=\"\"></chatbox>\n    </section>\n  </div>\n";
 
 /***/ },
 /* 129 */
@@ -16092,17 +16012,7 @@
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\chat-views\\PrivateChatView.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 130 */
@@ -16120,8 +16030,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-39d38f12&file=PrivateChatView.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./PrivateChatView.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-39d38f12&file=PrivateChatView.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./PrivateChatView.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-a59e95ec&file=PrivateChatView.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./PrivateChatView.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-a59e95ec&file=PrivateChatView.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./PrivateChatView.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -16139,7 +16049,7 @@
 	
 	
 	// module
-	exports.push([module.id, "header[_v-39d38f12] {\n  padding: 0.5em;\n}\n", "", {"version":3,"sources":["/./view/components/chat-views/PrivateChatView.vue.style","/./view/components/chat-views/PrivateChatView.vue"],"names":[],"mappings":"AACA;EACE,eAAA;CCAD","file":"PrivateChatView.vue","sourcesContent":["\r\nheader\r\n  padding: 0.5em\r\n","header {\n  padding: 0.5em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "header[_v-a59e95ec] {\n  padding: 0.5em;\n}\n", "", {"version":3,"sources":["/./src/view/components/chat-views/PrivateChatView.vue.style","/./src/view/components/chat-views/PrivateChatView.vue"],"names":[],"mappings":"AACA;EACE,eAAA;CCAD","file":"PrivateChatView.vue","sourcesContent":["\r\nheader\r\n  padding: 0.5em\r\n","header {\n  padding: 0.5em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -16226,13 +16136,13 @@
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"flex col stretch\" _v-39d38f12=\"\">\n    <header class=\"flex fixed ui theme-color main\" _v-39d38f12=\"\">\n      <character :character=\"viewState.character\" _v-39d38f12=\"\"></character>\n      <em _v-39d38f12=\"\">\n        <span _v-39d38f12=\"\">- {{viewState.character.status}}</span>\n        <span v-if=\"viewState.character.statusMessage\" v-html=\"&quot;, &quot; + viewState.character.statusMessage | bbcode\" _v-39d38f12=\"\"></span>\n      </em>\n    </header>\n\n    <div class=\"flex divider\" _v-39d38f12=\"\"></div>\n\n    <chat-message-list class=\"flex stretch\" :messages=\"viewState.messages\" _v-39d38f12=\"\"></chat-message-list>\n\n    <div class=\"flex divider\" _v-39d38f12=\"\"></div>\n\n    <section class=\"flex fixed ui theme-color main\" _v-39d38f12=\"\">\n      <chatbox @message-sent=\"messageSent\" _v-39d38f12=\"\"></chatbox>\n    </section>\n  </div>\n";
+	module.exports = "\n  <div class=\"flex col stretch\" _v-a59e95ec=\"\">\n    <header class=\"flex fixed ui theme-color main\" _v-a59e95ec=\"\">\n      <character :character=\"viewState.character\" _v-a59e95ec=\"\"></character>\n      <em _v-a59e95ec=\"\">\n        <span _v-a59e95ec=\"\">- {{viewState.character.status}}</span>\n        <span v-if=\"viewState.character.statusMessage\" v-html=\"&quot;, &quot; + viewState.character.statusMessage | bbcode\" _v-a59e95ec=\"\"></span>\n      </em>\n    </header>\n\n    <div class=\"flex divider\" _v-a59e95ec=\"\"></div>\n\n    <chat-message-list class=\"flex stretch\" :messages=\"viewState.messages\" _v-a59e95ec=\"\"></chat-message-list>\n\n    <div class=\"flex divider\" _v-a59e95ec=\"\"></div>\n\n    <section class=\"flex fixed ui theme-color main\" _v-a59e95ec=\"\">\n      <chatbox @message-sent=\"messageSent\" _v-a59e95ec=\"\"></chatbox>\n    </section>\n  </div>\n";
 
 /***/ },
 /* 134 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"flex col ui theme-color dark fullscreen\" _v-56ad2e4d=\"\">\n    <div class=\"flex row fixed\" style=\"flex-wrap: wrap\" _v-56ad2e4d=\"\">\n      <shortcut title=\"Actions\" icon=\"bars\" overlay=\"app-menu\" _v-56ad2e4d=\"\"></shortcut>\n      <shortcut title=\"Channels\" icon=\"globe\" overlay=\"channel-list\" _v-56ad2e4d=\"\"></shortcut>\n      <shortcut title=\"Users\" icon=\"heart\" overlay=\"online-users\" _v-56ad2e4d=\"\"></shortcut>\n\n      <chat-tab v-for=\"tab in tabs\" :active=\"activeTabIndex === $index\" :title=\"tab.title\" @closed=\"closeTab(tab)\" @selected=\"activeTabIndex = $index\" _v-56ad2e4d=\"\">\n        {{ tab.title }}\n      </chat-tab>\n    </div>\n\n    <component :is=\"currentTab.view\" :view-state=\"currentTab.state\" _v-56ad2e4d=\"\">\n    </component>\n  </div>\n";
+	module.exports = "\n  <div class=\"flex col ui theme-color dark fullscreen\" _v-27ab1e45=\"\">\n    <div class=\"flex row fixed\" style=\"flex-wrap: wrap\" _v-27ab1e45=\"\">\n      <shortcut title=\"Actions\" icon=\"bars\" overlay=\"app-menu\" _v-27ab1e45=\"\"></shortcut>\n      <shortcut title=\"Channels\" icon=\"globe\" overlay=\"channel-list\" _v-27ab1e45=\"\"></shortcut>\n      <shortcut title=\"Users\" icon=\"heart\" overlay=\"online-users\" _v-27ab1e45=\"\"></shortcut>\n\n      <chat-tab v-for=\"tab in tabs\" :active=\"activeTabIndex === $index\" :title=\"tab.title\" @closed=\"closeTab(tab)\" @selected=\"activeTabIndex = $index\" _v-27ab1e45=\"\">\n        {{ tab.title }}\n      </chat-tab>\n    </div>\n\n    <component :is=\"currentTab.view\" :view-state=\"currentTab.state\" _v-27ab1e45=\"\">\n    </component>\n  </div>\n";
 
 /***/ },
 /* 135 */
@@ -16241,21 +16151,11 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(136)
 	__vue_script__ = __webpack_require__(138)
-	__vue_template__ = __webpack_require__(140)
+	__vue_template__ = __webpack_require__(143)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\overlays\\Login.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
 /* 136 */
@@ -16273,8 +16173,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-6c636a36&file=Login.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Login.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-6c636a36&file=Login.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Login.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-02faa4dd&file=Login.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Login.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-02faa4dd&file=Login.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Login.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -16292,7 +16192,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".panel[_v-6c636a36] {\n  width: 12em;\n}\nfooter[_v-6c636a36] {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./view/components/overlays/Login.vue.style","/./view/components/overlays/Login.vue"],"names":[],"mappings":"AACA;EACE,YAAA;CCAD;ADED;EACE,aAAA;EACA,mBAAA;EACA,aAAA;CCAD","file":"Login.vue","sourcesContent":["\r\n.panel\r\n  width: 12em\r\n\r\nfooter\r\n  width: 100vw\r\n  position: absolute\r\n  padding: 1em\r\n",".panel {\n  width: 12em;\n}\nfooter {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".panel[_v-02faa4dd] {\n  width: 12em;\n}\nfooter[_v-02faa4dd] {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/Login.vue.style","/./src/view/components/overlays/Login.vue"],"names":[],"mappings":"AACA;EACE,YAAA;CCAD;ADED;EACE,aAAA;EACA,mBAAA;EACA,aAAA;CCAD","file":"Login.vue","sourcesContent":["\r\n.panel\r\n  width: 12em\r\n\r\nfooter\r\n  width: 100vw\r\n  position: absolute\r\n  padding: 1em\r\n",".panel {\n  width: 12em;\n}\nfooter {\n  width: 100vw;\n  position: absolute;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -16307,7 +16207,7 @@
 	  value: true
 	});
 	
-	var _DevInfo = __webpack_require__(199);
+	var _DevInfo = __webpack_require__(139);
 	
 	var _DevInfo2 = _interopRequireDefault(_DevInfo);
 	
@@ -16315,11 +16215,9 @@
 	
 	var _events = __webpack_require__(111);
 	
-	var _package = __webpack_require__(139);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// <template>
+	var errorMessage = '\nCould not connect to F-List website.\nThey\'re either doing maintenance,\nor someone spilled coke on the servers again.\n'; // <template>
 	//   <div class='ui overlay flex col' transition='fade'>
 	//     <section class='ui panel'>
 	//       <h1>Hi there!</h1>
@@ -16365,16 +16263,13 @@
 	// <script>
 	
 	
-	var errorMessage = '\nCould not connect to F-List website.\nThey\'re either doing maintenance,\nor someone spilled coke on the servers again.\n';
-	
 	exports.default = {
 	  data: function data() {
 	    return {
 	      username: '',
 	      password: '',
 	      status: '',
-	      disabled: false,
-	      version: _package.version
+	      disabled: false
 	    };
 	  },
 	
@@ -16422,6 +16317,58 @@
 
 /***/ },
 /* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(140)
+	__vue_template__ = __webpack_require__(142)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _package = __webpack_require__(141);
+	
+	// jesus christ
+	
+	exports.default = {
+	  data: function data() {
+	    return { version: _package.version };
+	  }
+	};
+	// </script>
+	//
+	/* generated by vue-loader */
+	// <template>
+	//   <p>
+	//     <h2>fchat-next alpha v{{version}}</h2>
+	//     <p>
+	//       <i class='fa fa-code'></i> with
+	//       <i class='fa fa-heart'></i> by
+	//       <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>
+	//     </p>
+	//     <p>Note me for questions, concerns, suggestions, and comments.</p>
+	//     <h3><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></h3>
+	//     <p><small><strong>Warning:</strong> buggy and incomplete. Many things do not work.</small></p>
+	//   </p>
+	// </template>
+	//
+	// <style lang="stylus" scoped></style>
+	//
+	// <script>
+
+/***/ },
+/* 141 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -16431,7 +16378,7 @@
 		"repository": "https://github.com/Kingdaro/fchat",
 		"author": "Kingdaro",
 		"license": "MIT",
-		"main": "app/main.js",
+		"main": "src/app/main.js",
 		"devDependencies": {
 			"autoprefixer": "^6.3.6",
 			"babel-core": "^6.9.1",
@@ -16467,35 +16414,31 @@
 	};
 
 /***/ },
-/* 140 */
+/* 142 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui overlay flex col\" transition=\"fade\" _v-6c636a36=\"\">\n    <section class=\"ui panel\" _v-6c636a36=\"\">\n      <h1 _v-6c636a36=\"\">Hi there!</h1>\n      <form class=\"ui form\" @submit.prevent=\"submit\" _v-6c636a36=\"\">\n        <div class=\"ui field text-input icon left\" _v-6c636a36=\"\">\n          <i class=\"fa fa-user\" _v-6c636a36=\"\"></i>\n          <input type=\"text\" placeholder=\"Username\" v-model=\"username\" :disabled=\"disabled\" _v-6c636a36=\"\">\n        </div>\n        <div class=\"ui field text-input icon left\" _v-6c636a36=\"\">\n          <i class=\"fa fa-lock\" _v-6c636a36=\"\"></i>\n          <input type=\"password\" placeholder=\"Password\" v-model=\"password\" :disabled=\"disabled\" _v-6c636a36=\"\">\n        </div>\n        <div class=\"ui field\" _v-6c636a36=\"\">\n          <label _v-6c636a36=\"\">\n            <input type=\"checkbox\" tabindex=\"0\" _v-6c636a36=\"\"> Remember me\n          </label>\n        </div>\n        <div class=\"ui field\" _v-6c636a36=\"\">\n          <button class=\"ui button\" action=\"submit\" :disabled=\"disabled\" _v-6c636a36=\"\">Go</button>\n        </div>\n      </form>\n      <span _v-6c636a36=\"\">{{status}}</span>\n    </section>\n    <footer _v-6c636a36=\"\">\n      <center class=\"ui small subtle\" _v-6c636a36=\"\">\n        <dev-info _v-6c636a36=\"\"></dev-info>\n        <em _v-6c636a36=\"\">Including the \"remember me\" option there.<br _v-6c636a36=\"\">It will remember you whether you like it or not.<br _v-6c636a36=\"\"><small _v-6c636a36=\"\">Deal with it.</small></em>\n      </center>\n    </footer>\n  </div>\n";
+	module.exports = "\r\n  <p>\r\n    <h2>fchat-next alpha v{{version}}</h2>\r\n    <p>\r\n      <i class='fa fa-code'></i> with\r\n      <i class='fa fa-heart'></i> by\r\n      <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>\r\n    </p>\r\n    <p>Note me for questions, concerns, suggestions, and comments.</p>\r\n    <h3><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></h3>\r\n    <p><small><strong>Warning:</strong> buggy and incomplete. Many things do not work.</small></p>\r\n  </p>\r\n";
 
 /***/ },
-/* 141 */
+/* 143 */
+/***/ function(module, exports) {
+
+	module.exports = "\n  <div class=\"ui overlay flex col\" transition=\"fade\" _v-02faa4dd=\"\">\n    <section class=\"ui panel\" _v-02faa4dd=\"\">\n      <h1 _v-02faa4dd=\"\">Hi there!</h1>\n      <form class=\"ui form\" @submit.prevent=\"submit\" _v-02faa4dd=\"\">\n        <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n          <i class=\"fa fa-user\" _v-02faa4dd=\"\"></i>\n          <input type=\"text\" placeholder=\"Username\" v-model=\"username\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n        </div>\n        <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n          <i class=\"fa fa-lock\" _v-02faa4dd=\"\"></i>\n          <input type=\"password\" placeholder=\"Password\" v-model=\"password\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n        </div>\n        <div class=\"ui field\" _v-02faa4dd=\"\">\n          <label _v-02faa4dd=\"\">\n            <input type=\"checkbox\" tabindex=\"0\" _v-02faa4dd=\"\"> Remember me\n          </label>\n        </div>\n        <div class=\"ui field\" _v-02faa4dd=\"\">\n          <button class=\"ui button\" action=\"submit\" :disabled=\"disabled\" _v-02faa4dd=\"\">Go</button>\n        </div>\n      </form>\n      <span _v-02faa4dd=\"\">{{status}}</span>\n    </section>\n    <footer _v-02faa4dd=\"\">\n      <center class=\"ui small subtle\" _v-02faa4dd=\"\">\n        <dev-info _v-02faa4dd=\"\"></dev-info>\n        <em _v-02faa4dd=\"\">Including the \"remember me\" option there.<br _v-02faa4dd=\"\">It will remember you whether you like it or not.<br _v-02faa4dd=\"\"><small _v-02faa4dd=\"\">Deal with it.</small></em>\n      </center>\n    </footer>\n  </div>\n";
+
+/***/ },
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(142)
-	__vue_template__ = __webpack_require__(143)
+	__vue_script__ = __webpack_require__(145)
+	__vue_template__ = __webpack_require__(146)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\overlays\\CharacterList.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 142 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16566,42 +16509,32 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 143 */
+/* 146 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div class=\"ui overlay\" transition=\"fade\">\r\n    <div class=\"ui panel\">\r\n      <h2>Who do we feel like playing today?</h2>\r\n      <form class='ui form' @submit.prevent='submit'>\r\n        <div class='ui field'>\r\n          <ul class='ui selection'>\r\n            <li v-for='name in characters'\r\n            :class='{ \"active\": name === activeCharacter }'\r\n            @click='setSelectedCharacter(name)'>\r\n              {{name}}\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class='ui field'>\r\n          <button class='ui button'>Go</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n";
 
 /***/ },
-/* 144 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(145)
-	__vue_script__ = __webpack_require__(147)
-	__vue_template__ = __webpack_require__(157)
+	__webpack_require__(148)
+	__vue_script__ = __webpack_require__(150)
+	__vue_template__ = __webpack_require__(160)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\overlays\\ChannelList.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 145 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(146);
+	var content = __webpack_require__(149);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -16610,8 +16543,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-7c5afcbd&file=ChannelList.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChannelList.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-7c5afcbd&file=ChannelList.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChannelList.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-6e29fcb5&file=ChannelList.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChannelList.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-6e29fcb5&file=ChannelList.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./ChannelList.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -16621,7 +16554,7 @@
 	}
 
 /***/ },
-/* 146 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16629,13 +16562,13 @@
 	
 	
 	// module
-	exports.push([module.id, ".selection[_v-7c5afcbd] {\n  min-width: 14em;\n  min-height: 20em;\n  text-align: left;\n  width: calc(100vh - 35em);\n  height: calc(100vh - 25em);\n}\n.selection li[_v-7c5afcbd] {\n  padding-left: 0.8em;\n  padding-right: 0.8em;\n}\n.selection li span[_v-7c5afcbd] {\n  pointer-events: none;\n}\n", "", {"version":3,"sources":["/./view/components/overlays/ChannelList.vue.style","/./view/components/overlays/ChannelList.vue"],"names":[],"mappings":"AACA;EACE,gBAAA;EACA,iBAAA;EACA,iBAAA;EAEA,0BAAA;EACA,2BAAA;CCDD;ADGC;EACE,oBAAA;EACA,qBAAA;CCDH;ADGG;EACE,qBAAA;CCDL","file":"ChannelList.vue","sourcesContent":["\r\n.selection\r\n  min-width: 14em\r\n  min-height: 20em\r\n  text-align: left\r\n\r\n  width: calc(100vh - 35em)\r\n  height: calc(100vh - 25em)\r\n\r\n  li\r\n    padding-left: 0.8em\r\n    padding-right: 0.8em\r\n\r\n    span\r\n      pointer-events: none\r\n",".selection {\n  min-width: 14em;\n  min-height: 20em;\n  text-align: left;\n  width: calc(100vh - 35em);\n  height: calc(100vh - 25em);\n}\n.selection li {\n  padding-left: 0.8em;\n  padding-right: 0.8em;\n}\n.selection li span {\n  pointer-events: none;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".selection[_v-6e29fcb5] {\n  min-width: 14em;\n  min-height: 20em;\n  text-align: left;\n  width: calc(100vh - 35em);\n  height: calc(100vh - 25em);\n}\n.selection li[_v-6e29fcb5] {\n  padding-left: 0.8em;\n  padding-right: 0.8em;\n}\n.selection li span[_v-6e29fcb5] {\n  pointer-events: none;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/ChannelList.vue.style","/./src/view/components/overlays/ChannelList.vue"],"names":[],"mappings":"AACA;EACE,gBAAA;EACA,iBAAA;EACA,iBAAA;EAEA,0BAAA;EACA,2BAAA;CCDD;ADGC;EACE,oBAAA;EACA,qBAAA;CCDH;ADGG;EACE,qBAAA;CCDL","file":"ChannelList.vue","sourcesContent":["\r\n.selection\r\n  min-width: 14em\r\n  min-height: 20em\r\n  text-align: left\r\n\r\n  width: calc(100vh - 35em)\r\n  height: calc(100vh - 25em)\r\n\r\n  li\r\n    padding-left: 0.8em\r\n    padding-right: 0.8em\r\n\r\n    span\r\n      pointer-events: none\r\n",".selection {\n  min-width: 14em;\n  min-height: 20em;\n  text-align: left;\n  width: calc(100vh - 35em);\n  height: calc(100vh - 25em);\n}\n.selection li {\n  padding-left: 0.8em;\n  padding-right: 0.8em;\n}\n.selection li span {\n  pointer-events: none;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 147 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16644,7 +16577,7 @@
 	  value: true
 	});
 	
-	var _typeof2 = __webpack_require__(148);
+	var _typeof2 = __webpack_require__(151);
 	
 	var _typeof3 = _interopRequireDefault(_typeof2);
 	
@@ -16652,7 +16585,7 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _fuzzysearch = __webpack_require__(156);
+	var _fuzzysearch = __webpack_require__(159);
 	
 	var _fuzzysearch2 = _interopRequireDefault(_fuzzysearch);
 	
@@ -16770,12 +16703,12 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 148 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _Symbol = __webpack_require__(149)["default"];
+	var _Symbol = __webpack_require__(152)["default"];
 	
 	exports["default"] = function (obj) {
 	  return obj && obj.constructor === _Symbol ? "symbol" : typeof obj;
@@ -16784,21 +16717,21 @@
 	exports.__esModule = true;
 
 /***/ },
-/* 149 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(150), __esModule: true };
+	module.exports = { "default": __webpack_require__(153), __esModule: true };
 
 /***/ },
-/* 150 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(151);
+	__webpack_require__(154);
 	__webpack_require__(86);
 	module.exports = __webpack_require__(29).Symbol;
 
 /***/ },
-/* 151 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16814,10 +16747,10 @@
 	  , setToStringTag = __webpack_require__(39)
 	  , uid            = __webpack_require__(42)
 	  , wks            = __webpack_require__(40)
-	  , keyOf          = __webpack_require__(152)
-	  , $names         = __webpack_require__(153)
-	  , enumKeys       = __webpack_require__(154)
-	  , isArray        = __webpack_require__(155)
+	  , keyOf          = __webpack_require__(155)
+	  , $names         = __webpack_require__(156)
+	  , enumKeys       = __webpack_require__(157)
+	  , isArray        = __webpack_require__(158)
 	  , anObject       = __webpack_require__(47)
 	  , toIObject      = __webpack_require__(21)
 	  , createDesc     = __webpack_require__(34)
@@ -17030,7 +16963,7 @@
 	setToStringTag(global.JSON, 'JSON', true);
 
 /***/ },
-/* 152 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $         = __webpack_require__(13)
@@ -17045,7 +16978,7 @@
 	};
 
 /***/ },
-/* 153 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -17070,7 +17003,7 @@
 	};
 
 /***/ },
-/* 154 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// all enumerable object keys, includes symbols
@@ -17089,7 +17022,7 @@
 	};
 
 /***/ },
-/* 155 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.2.2 IsArray(argument)
@@ -17099,7 +17032,7 @@
 	};
 
 /***/ },
-/* 156 */
+/* 159 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -17129,42 +17062,32 @@
 
 
 /***/ },
-/* 157 */
+/* 160 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"closeOverlay\" _v-7c5afcbd=\"\">\n    <div class=\"ui panel\" _v-7c5afcbd=\"\">\n      <h2 _v-7c5afcbd=\"\">Chill and chat? Sounds good.</h2>\n      <form class=\"ui form\" @submit.prevent=\"closeOverlay\" _v-7c5afcbd=\"\">\n        <div class=\"ui field\" _v-7c5afcbd=\"\">\n          <ul class=\"ui selection\" _v-7c5afcbd=\"\">\n            <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.id\" _v-7c5afcbd=\"\">\n              <span class=\"ui pull right\" _v-7c5afcbd=\"\">{{channel.userCount}}</span>\n              <span v-html=\"channel.name\" _v-7c5afcbd=\"\"></span>\n            </li>\n          </ul>\n        </div>\n\n        <div class=\"ui field text-input icon left\" _v-7c5afcbd=\"\">\n          <i class=\"fa fa-search\" _v-7c5afcbd=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"searchQuery\" _v-7c5afcbd=\"\">\n        </div>\n\n        <div class=\"ui field\" _v-7c5afcbd=\"\">\n          <button class=\"ui button\" _v-7c5afcbd=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
+	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"closeOverlay\" _v-6e29fcb5=\"\">\n    <div class=\"ui panel\" _v-6e29fcb5=\"\">\n      <h2 _v-6e29fcb5=\"\">Chill and chat? Sounds good.</h2>\n      <form class=\"ui form\" @submit.prevent=\"closeOverlay\" _v-6e29fcb5=\"\">\n        <div class=\"ui field\" _v-6e29fcb5=\"\">\n          <ul class=\"ui selection\" _v-6e29fcb5=\"\">\n            <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.id\" _v-6e29fcb5=\"\">\n              <span class=\"ui pull right\" _v-6e29fcb5=\"\">{{channel.userCount}}</span>\n              <span v-html=\"channel.name\" _v-6e29fcb5=\"\"></span>\n            </li>\n          </ul>\n        </div>\n\n        <div class=\"ui field text-input icon left\" _v-6e29fcb5=\"\">\n          <i class=\"fa fa-search\" _v-6e29fcb5=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"searchQuery\" _v-6e29fcb5=\"\">\n        </div>\n\n        <div class=\"ui field\" _v-6e29fcb5=\"\">\n          <button class=\"ui button\" _v-6e29fcb5=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
 
 /***/ },
-/* 158 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(159)
-	__vue_script__ = __webpack_require__(161)
-	__vue_template__ = __webpack_require__(180)
+	__webpack_require__(162)
+	__vue_script__ = __webpack_require__(164)
+	__vue_template__ = __webpack_require__(183)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\overlays\\AppMenu.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 159 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(160);
+	var content = __webpack_require__(163);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17173,8 +17096,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-eed82bc8&file=AppMenu.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./AppMenu.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-eed82bc8&file=AppMenu.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./AppMenu.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-2811a614&file=AppMenu.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./AppMenu.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-2811a614&file=AppMenu.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./AppMenu.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -17184,7 +17107,7 @@
 	}
 
 /***/ },
-/* 160 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17192,13 +17115,13 @@
 	
 	
 	// module
-	exports.push([module.id, ".form[_v-eed82bc8] {\n  padding: 0em 1em;\n}\n.avatar[_v-eed82bc8] {\n  display: inline-block;\n}\nimg[_v-eed82bc8] {\n  display: block;\n}\n", "", {"version":3,"sources":["/./view/components/overlays/AppMenu.vue.style","/./view/components/overlays/AppMenu.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;CCAD;ADED;EACE,sBAAA;CCAD;ADED;EACE,eAAA;CCAD","file":"AppMenu.vue","sourcesContent":["\r\n.form\r\n  padding: 0em 1em\r\n\r\n.avatar\r\n  display: inline-block\r\n\r\nimg\r\n  display: block\r\n",".form {\n  padding: 0em 1em;\n}\n.avatar {\n  display: inline-block;\n}\nimg {\n  display: block;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".form[_v-2811a614] {\n  padding: 0em 1em;\n}\n.avatar[_v-2811a614] {\n  display: inline-block;\n}\nimg[_v-2811a614] {\n  display: block;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/AppMenu.vue.style","/./src/view/components/overlays/AppMenu.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;CCAD;ADED;EACE,sBAAA;CCAD;ADED;EACE,eAAA;CCAD","file":"AppMenu.vue","sourcesContent":["\r\n.form\r\n  padding: 0em 1em\r\n\r\n.avatar\r\n  display: inline-block\r\n\r\nimg\r\n  display: block\r\n",".form {\n  padding: 0em 1em;\n}\n.avatar {\n  display: inline-block;\n}\nimg {\n  display: block;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 161 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17207,19 +17130,19 @@
 	  value: true
 	});
 	
-	var _ActionPanel = __webpack_require__(162);
+	var _ActionPanel = __webpack_require__(165);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _CharacterAvatarLink = __webpack_require__(165);
+	var _CharacterAvatarLink = __webpack_require__(168);
 	
 	var _CharacterAvatarLink2 = _interopRequireDefault(_CharacterAvatarLink);
 	
-	var _MenuOption = __webpack_require__(170);
+	var _MenuOption = __webpack_require__(173);
 	
 	var _MenuOption2 = _interopRequireDefault(_MenuOption);
 	
-	var _Dropdown = __webpack_require__(175);
+	var _Dropdown = __webpack_require__(178);
 	
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 	
@@ -17321,29 +17244,19 @@
 	// <script>
 
 /***/ },
-/* 162 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(163)
-	__vue_template__ = __webpack_require__(164)
+	__vue_script__ = __webpack_require__(166)
+	__vue_template__ = __webpack_require__(167)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\ActionPanel.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 163 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17394,42 +17307,32 @@
 	// <script>
 
 /***/ },
-/* 164 */
+/* 167 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div class=\"ui overlay\" :transition=\"transition\" @click.self=\"close\">\r\n    <div class=\"ui side-panel {{side}} flex col\">\r\n      <div class=\"flex fixed\">\r\n        <slot name=\"content\"></slot>\r\n      </div>\r\n      <div class=\"flex stretch ui theme-color dark\">\r\n        <slot name=\"options\"></slot>\r\n      </div>\r\n    </div>\r\n  </div>\r\n";
 
 /***/ },
-/* 165 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(166)
-	__vue_script__ = __webpack_require__(168)
-	__vue_template__ = __webpack_require__(169)
+	__webpack_require__(169)
+	__vue_script__ = __webpack_require__(171)
+	__vue_template__ = __webpack_require__(172)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\CharacterAvatarLink.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 166 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(167);
+	var content = __webpack_require__(170);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17438,8 +17341,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-3a713a68&file=CharacterAvatarLink.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./CharacterAvatarLink.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-3a713a68&file=CharacterAvatarLink.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./CharacterAvatarLink.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-191a2a78&file=CharacterAvatarLink.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./CharacterAvatarLink.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-191a2a78&file=CharacterAvatarLink.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./CharacterAvatarLink.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -17449,7 +17352,7 @@
 	}
 
 /***/ },
-/* 167 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17457,13 +17360,13 @@
 	
 	
 	// module
-	exports.push([module.id, "a[_v-3a713a68] {\n  width: 100px;\n  height: 100px;\n  border: none;\n  text-decoration: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\ni[_v-3a713a68] {\n  opacity: 0.5;\n}\nimg[_v-3a713a68]:hover {\n  -webkit-filter: brightness(1.2);\n          filter: brightness(1.2);\n  opacity: 0.8;\n}\n", "", {"version":3,"sources":["/./view/components/elements/CharacterAvatarLink.vue.style","/./view/components/elements/CharacterAvatarLink.vue"],"names":[],"mappings":"AACA;EACE,aAAA;EACA,cAAA;EACA,aAAA;EACA,sBAAA;EACA,qBAAA;EAAA,qBAAA;EAAA,cAAA;EACA,yBAAA;MAAA,sBAAA;UAAA,wBAAA;EACA,0BAAA;MAAA,uBAAA;UAAA,oBAAA;CCAD;ADED;EACE,aAAA;CCAD;ADED;EACE,gCAAA;UAAA,wBAAA;EACA,aAAA;CCAD","file":"CharacterAvatarLink.vue","sourcesContent":["\r\na\r\n  width: 100px\r\n  height: 100px\r\n  border: none\r\n  text-decoration: none\r\n  display: flex\r\n  justify-content: center\r\n  align-items: center\r\n\r\ni\r\n  opacity: 0.5\r\n\r\nimg:hover\r\n  filter: brightness(1.2)\r\n  opacity: 0.8\r\n","a {\n  width: 100px;\n  height: 100px;\n  border: none;\n  text-decoration: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\ni {\n  opacity: 0.5;\n}\nimg:hover {\n  filter: brightness(1.2);\n  opacity: 0.8;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "a[_v-191a2a78] {\n  width: 100px;\n  height: 100px;\n  border: none;\n  text-decoration: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\ni[_v-191a2a78] {\n  opacity: 0.5;\n}\nimg[_v-191a2a78]:hover {\n  -webkit-filter: brightness(1.2);\n          filter: brightness(1.2);\n  opacity: 0.8;\n}\n", "", {"version":3,"sources":["/./src/view/components/elements/CharacterAvatarLink.vue.style","/./src/view/components/elements/CharacterAvatarLink.vue"],"names":[],"mappings":"AACA;EACE,aAAA;EACA,cAAA;EACA,aAAA;EACA,sBAAA;EACA,qBAAA;EAAA,qBAAA;EAAA,cAAA;EACA,yBAAA;MAAA,sBAAA;UAAA,wBAAA;EACA,0BAAA;MAAA,uBAAA;UAAA,oBAAA;CCAD;ADED;EACE,aAAA;CCAD;ADED;EACE,gCAAA;UAAA,wBAAA;EACA,aAAA;CCAD","file":"CharacterAvatarLink.vue","sourcesContent":["\r\na\r\n  width: 100px\r\n  height: 100px\r\n  border: none\r\n  text-decoration: none\r\n  display: flex\r\n  justify-content: center\r\n  align-items: center\r\n\r\ni\r\n  opacity: 0.5\r\n\r\nimg:hover\r\n  filter: brightness(1.2)\r\n  opacity: 0.8\r\n","a {\n  width: 100px;\n  height: 100px;\n  border: none;\n  text-decoration: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\ni {\n  opacity: 0.5;\n}\nimg:hover {\n  filter: brightness(1.2);\n  opacity: 0.8;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 168 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17524,42 +17427,32 @@
 	// <script>
 
 /***/ },
-/* 169 */
+/* 172 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <a target=\"_blank\" :href=\"profileURL\" _v-3a713a68=\"\">\n    <img class=\"ui transition\" v-show=\"imageLoaded\" transition=\"fade\" :src=\"avatarURL\" @load=\"imageLoaded = true\" _v-3a713a68=\"\">\n    <i v-show=\"!imageLoaded\" class=\"fa fa-circle-o-notch fa-spin fa-2x\" _v-3a713a68=\"\"></i>\n  </a>\n";
+	module.exports = "\n  <a target=\"_blank\" :href=\"profileURL\" _v-191a2a78=\"\">\n    <img class=\"ui transition\" v-show=\"imageLoaded\" transition=\"fade\" :src=\"avatarURL\" @load=\"imageLoaded = true\" _v-191a2a78=\"\">\n    <i v-show=\"!imageLoaded\" class=\"fa fa-circle-o-notch fa-spin fa-2x\" _v-191a2a78=\"\"></i>\n  </a>\n";
 
 /***/ },
-/* 170 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(171)
-	__vue_script__ = __webpack_require__(173)
-	__vue_template__ = __webpack_require__(174)
+	__webpack_require__(174)
+	__vue_script__ = __webpack_require__(176)
+	__vue_template__ = __webpack_require__(177)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\MenuOption.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 171 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(172);
+	var content = __webpack_require__(175);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17568,8 +17461,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-422d3b14&file=MenuOption.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./MenuOption.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-422d3b14&file=MenuOption.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./MenuOption.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-6b025c1c&file=MenuOption.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./MenuOption.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-6b025c1c&file=MenuOption.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./MenuOption.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -17579,7 +17472,7 @@
 	}
 
 /***/ },
-/* 172 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17587,13 +17480,13 @@
 	
 	
 	// module
-	exports.push([module.id, "a[_v-422d3b14] {\n  display: block;\n  padding: 0.6em 0.6em;\n}\n", "", {"version":3,"sources":["/./view/components/elements/MenuOption.vue.style","/./view/components/elements/MenuOption.vue"],"names":[],"mappings":"AACA;EACE,eAAA;EACA,qBAAA;CCAD","file":"MenuOption.vue","sourcesContent":["\r\na\r\n  display: block\r\n  padding: 0.6em 0.6em\r\n","a {\n  display: block;\n  padding: 0.6em 0.6em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "a[_v-6b025c1c] {\n  display: block;\n  padding: 0.6em 0.6em;\n}\n", "", {"version":3,"sources":["/./src/view/components/elements/MenuOption.vue.style","/./src/view/components/elements/MenuOption.vue"],"names":[],"mappings":"AACA;EACE,eAAA;EACA,qBAAA;CCAD","file":"MenuOption.vue","sourcesContent":["\r\na\r\n  display: block\r\n  padding: 0.6em 0.6em\r\n","a {\n  display: block;\n  padding: 0.6em 0.6em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 173 */
+/* 176 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -17624,42 +17517,32 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 174 */
+/* 177 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <a class=\"ui hover-darken noselect\" target=\"_blank\" _v-422d3b14=\"\">\n    <i class=\"fa fa-{{icon}} fa-fw\" _v-422d3b14=\"\"></i> <slot _v-422d3b14=\"\"></slot>\n  </a>\n";
+	module.exports = "\n  <a class=\"ui hover-darken noselect\" target=\"_blank\" _v-6b025c1c=\"\">\n    <i class=\"fa fa-{{icon}} fa-fw\" _v-6b025c1c=\"\"></i> <slot _v-6b025c1c=\"\"></slot>\n  </a>\n";
 
 /***/ },
-/* 175 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(176)
-	__vue_script__ = __webpack_require__(178)
-	__vue_template__ = __webpack_require__(179)
+	__webpack_require__(179)
+	__vue_script__ = __webpack_require__(181)
+	__vue_template__ = __webpack_require__(182)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\Dropdown.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 176 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(177);
+	var content = __webpack_require__(180);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17668,8 +17551,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-0d0213f1&file=Dropdown.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Dropdown.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-0d0213f1&file=Dropdown.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Dropdown.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-5d3bd6f9&file=Dropdown.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Dropdown.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-5d3bd6f9&file=Dropdown.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./Dropdown.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -17679,7 +17562,7 @@
 	}
 
 /***/ },
-/* 177 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17687,13 +17570,13 @@
 	
 	
 	// module
-	exports.push([module.id, "div[_v-0d0213f1] {\n  display: inline-block;\n  text-align: left;\n  position: relative;\n  width: 10em;\n}\n.head[_v-0d0213f1] {\n  width: 100%;\n  z-index: 10000;\n}\nol[_v-0d0213f1] {\n  width: 100%;\n  position: absolute;\n  z-index: 9999;\n}\n", "", {"version":3,"sources":["/./view/components/elements/Dropdown.vue.style","/./view/components/elements/Dropdown.vue"],"names":[],"mappings":"AACA;EACE,sBAAA;EACA,iBAAA;EACA,mBAAA;EACA,YAAA;CCAD;ADED;EACE,YAAA;EACA,eAAA;CCAD;ADED;EACE,YAAA;EACA,mBAAA;EACA,cAAA;CCAD","file":"Dropdown.vue","sourcesContent":["\r\ndiv\r\n  display: inline-block\r\n  text-align: left\r\n  position: relative\r\n  width: 10em\r\n\r\n.head\r\n  width: 100%\r\n  z-index: 10000\r\n\r\nol\r\n  width: 100%\r\n  position: absolute\r\n  z-index: 9999\r\n","div {\n  display: inline-block;\n  text-align: left;\n  position: relative;\n  width: 10em;\n}\n.head {\n  width: 100%;\n  z-index: 10000;\n}\nol {\n  width: 100%;\n  position: absolute;\n  z-index: 9999;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "div[_v-5d3bd6f9] {\n  display: inline-block;\n  text-align: left;\n  position: relative;\n  width: 10em;\n}\n.head[_v-5d3bd6f9] {\n  width: 100%;\n  z-index: 10000;\n}\nol[_v-5d3bd6f9] {\n  width: 100%;\n  position: absolute;\n  z-index: 9999;\n}\n", "", {"version":3,"sources":["/./src/view/components/elements/Dropdown.vue.style","/./src/view/components/elements/Dropdown.vue"],"names":[],"mappings":"AACA;EACE,sBAAA;EACA,iBAAA;EACA,mBAAA;EACA,YAAA;CCAD;ADED;EACE,YAAA;EACA,eAAA;CCAD;ADED;EACE,YAAA;EACA,mBAAA;EACA,cAAA;CCAD","file":"Dropdown.vue","sourcesContent":["\r\ndiv\r\n  display: inline-block\r\n  text-align: left\r\n  position: relative\r\n  width: 10em\r\n\r\n.head\r\n  width: 100%\r\n  z-index: 10000\r\n\r\nol\r\n  width: 100%\r\n  position: absolute\r\n  z-index: 9999\r\n","div {\n  display: inline-block;\n  text-align: left;\n  position: relative;\n  width: 10em;\n}\n.head {\n  width: 100%;\n  z-index: 10000;\n}\nol {\n  width: 100%;\n  position: absolute;\n  z-index: 9999;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 178 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17805,48 +17688,38 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 179 */
+/* 182 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div _v-0d0213f1=\"\">\n    <span class=\"ui section icon right hover-darken noselect head\" @click=\"toggle\" _v-0d0213f1=\"\">\n      <i class=\"fa fa-caret-down\" _v-0d0213f1=\"\"></i> {{ valueLabel }}\n    </span>\n    <ol class=\"ui theme-color dark border shadow\" v-show=\"open\" transition=\"collapse\" v-el:list-items=\"\" @click=\"selectItem($event)\" _v-0d0213f1=\"\">\n      <slot _v-0d0213f1=\"\"></slot>\n    </ol>\n  </div>\n";
+	module.exports = "\n  <div _v-5d3bd6f9=\"\">\n    <span class=\"ui section icon right hover-darken noselect head\" @click=\"toggle\" _v-5d3bd6f9=\"\">\n      <i class=\"fa fa-caret-down\" _v-5d3bd6f9=\"\"></i> {{ valueLabel }}\n    </span>\n    <ol class=\"ui theme-color dark border shadow\" v-show=\"open\" transition=\"collapse\" v-el:list-items=\"\" @click=\"selectItem($event)\" _v-5d3bd6f9=\"\">\n      <slot _v-5d3bd6f9=\"\"></slot>\n    </ol>\n  </div>\n";
 
 /***/ },
-/* 180 */
+/* 183 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <action-panel side=\"left\" _v-eed82bc8=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-eed82bc8=\"\">\n      <h2 _v-eed82bc8=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-eed82bc8=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-eed82bc8=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-eed82bc8=\"\">\n        <dropdown _v-eed82bc8=\"\">\n          <li value=\"online\" _v-eed82bc8=\"\">Online</li>\n          <li value=\"looking\" _v-eed82bc8=\"\">Looking</li>\n          <li value=\"busy\" _v-eed82bc8=\"\">Busy</li>\n          <li value=\"away\" _v-eed82bc8=\"\">Away</li>\n          <li value=\"dnd\" _v-eed82bc8=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-eed82bc8=\"\">\n        <i class=\"fa fa-pencil\" _v-eed82bc8=\"\"></i>\n        <div contenteditable=\"\" placeholder=\"What's up?\" _v-eed82bc8=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-eed82bc8=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"pushOverlay('channel-list')\" _v-eed82bc8=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"pushOverlay('online-users')\" _v-eed82bc8=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-eed82bc8=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" _v-eed82bc8=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" _v-eed82bc8=\"\">Log Out</menu-option>\n      <menu-option icon=\"info\" @mousedown=\"pushOverlay('about')\" _v-eed82bc8=\"\">About</menu-option>\n    </div>\n  </action-panel>\n";
+	module.exports = "\n  <action-panel side=\"left\" _v-2811a614=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-2811a614=\"\">\n      <h2 _v-2811a614=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-2811a614=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <dropdown _v-2811a614=\"\">\n          <li value=\"online\" _v-2811a614=\"\">Online</li>\n          <li value=\"looking\" _v-2811a614=\"\">Looking</li>\n          <li value=\"busy\" _v-2811a614=\"\">Busy</li>\n          <li value=\"away\" _v-2811a614=\"\">Away</li>\n          <li value=\"dnd\" _v-2811a614=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-2811a614=\"\">\n        <i class=\"fa fa-pencil\" _v-2811a614=\"\"></i>\n        <div contenteditable=\"\" placeholder=\"What's up?\" _v-2811a614=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-2811a614=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"pushOverlay('channel-list')\" _v-2811a614=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"pushOverlay('online-users')\" _v-2811a614=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-2811a614=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" _v-2811a614=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" _v-2811a614=\"\">Log Out</menu-option>\n      <menu-option icon=\"info\" @mousedown=\"pushOverlay('about')\" _v-2811a614=\"\">About</menu-option>\n    </div>\n  </action-panel>\n";
 
 /***/ },
-/* 181 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(182)
-	__vue_script__ = __webpack_require__(184)
-	__vue_template__ = __webpack_require__(185)
+	__webpack_require__(185)
+	__vue_script__ = __webpack_require__(187)
+	__vue_template__ = __webpack_require__(188)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\overlays\\CharacterMenu.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 182 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(183);
+	var content = __webpack_require__(186);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17855,8 +17728,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-645a6fb8&file=CharacterMenu.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./CharacterMenu.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-645a6fb8&file=CharacterMenu.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./CharacterMenu.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-f03cabc8&file=CharacterMenu.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./CharacterMenu.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-f03cabc8&file=CharacterMenu.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./CharacterMenu.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -17866,7 +17739,7 @@
 	}
 
 /***/ },
-/* 183 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17874,13 +17747,13 @@
 	
 	
 	// module
-	exports.push([module.id, ".form[_v-645a6fb8] {\n  padding: 0em 1em;\n}\n.wrap-break-word[_v-645a6fb8] {\n  word-wrap: break-word;\n}\nimg[_v-645a6fb8] {\n  display: block;\n}\n", "", {"version":3,"sources":["/./view/components/overlays/CharacterMenu.vue.style","/./view/components/overlays/CharacterMenu.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;CCAD;ADED;EACE,sBAAA;CCAD;ADED;EACE,eAAA;CCAD","file":"CharacterMenu.vue","sourcesContent":["\r\n.form\r\n  padding: 0em 1em\r\n\r\n.wrap-break-word\r\n  word-wrap: break-word\r\n\r\nimg\r\n  display: block\r\n",".form {\n  padding: 0em 1em;\n}\n.wrap-break-word {\n  word-wrap: break-word;\n}\nimg {\n  display: block;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".form[_v-f03cabc8] {\n  padding: 0em 1em;\n}\n.wrap-break-word[_v-f03cabc8] {\n  word-wrap: break-word;\n}\nimg[_v-f03cabc8] {\n  display: block;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/CharacterMenu.vue.style","/./src/view/components/overlays/CharacterMenu.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;CCAD;ADED;EACE,sBAAA;CCAD;ADED;EACE,eAAA;CCAD","file":"CharacterMenu.vue","sourcesContent":["\r\n.form\r\n  padding: 0em 1em\r\n\r\n.wrap-break-word\r\n  word-wrap: break-word\r\n\r\nimg\r\n  display: block\r\n",".form {\n  padding: 0em 1em;\n}\n.wrap-break-word {\n  word-wrap: break-word;\n}\nimg {\n  display: block;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 184 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17889,15 +17762,15 @@
 	  value: true
 	});
 	
-	var _MenuOption = __webpack_require__(170);
+	var _MenuOption = __webpack_require__(173);
 	
 	var _MenuOption2 = _interopRequireDefault(_MenuOption);
 	
-	var _ActionPanel = __webpack_require__(162);
+	var _ActionPanel = __webpack_require__(165);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _CharacterAvatarLink = __webpack_require__(165);
+	var _CharacterAvatarLink = __webpack_require__(168);
 	
 	var _CharacterAvatarLink2 = _interopRequireDefault(_CharacterAvatarLink);
 	
@@ -18006,42 +17879,32 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 185 */
+/* 188 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <action-panel side=\"right\" _v-645a6fb8=\"\">\n    <section slot=\"content\" _v-645a6fb8=\"\">\n      <form slot=\"content\" class=\"ui form\" _v-645a6fb8=\"\">\n        <h2 class=\"wrap-break-word\" _v-645a6fb8=\"\">{{char.name}}</h2>\n        <div class=\"ui field\" _v-645a6fb8=\"\">\n          <character-avatar-link :character=\"activeCharacter\" _v-645a6fb8=\"\"></character-avatar-link>\n        </div>\n        <small class=\"ui field wrap-break-word section\" _v-645a6fb8=\"\">\n          <em _v-645a6fb8=\"\">\n            {{char.gender}}, {{char.status}}\n            <span v-if=\"char.statusMessage !== ''\" v-html=\"'- ' + char.statusMessage | bbcode\" _v-645a6fb8=\"\"></span>\n          </em>\n        </small>\n        <small class=\"ui field section highlight green\" v-for=\"friend in friendships\" _v-645a6fb8=\"\">\n          <em _v-645a6fb8=\"\"><i class=\"fa fa-heart\" _v-645a6fb8=\"\"></i> {{friend}}</em>\n        </small>\n      </form>\n    </section>\n    <section slot=\"options\" _v-645a6fb8=\"\">\n      <menu-option icon=\"comment\" @click=\"openPrivateChat\" _v-645a6fb8=\"\">Send Message</menu-option>\n\n      <menu-option icon=\"star-o\" v-if=\"!bookmarked\" @click=\"state.addBookmark(char.name)\" _v-645a6fb8=\"\">Bookmark</menu-option>\n      <menu-option icon=\"star\" v-else=\"\" @click=\"state.removeBookmark(char.name)\" _v-645a6fb8=\"\">Unbookmark</menu-option>\n\n      <menu-option icon=\"minus-square-o\" v-if=\"!ignored\" _v-645a6fb8=\"\">Ignore</menu-option>\n      <menu-option icon=\"minus-square\" v-else=\"\" _v-645a6fb8=\"\">Unignore</menu-option>\n\n      <menu-option icon=\"link\" :href=\"getProfileURL(char.name)\" _v-645a6fb8=\"\">View Profile</menu-option>\n    </section>\n  </action-panel>\n";
+	module.exports = "\n  <action-panel side=\"right\" _v-f03cabc8=\"\">\n    <section slot=\"content\" _v-f03cabc8=\"\">\n      <form slot=\"content\" class=\"ui form\" _v-f03cabc8=\"\">\n        <h2 class=\"wrap-break-word\" _v-f03cabc8=\"\">{{char.name}}</h2>\n        <div class=\"ui field\" _v-f03cabc8=\"\">\n          <character-avatar-link :character=\"activeCharacter\" _v-f03cabc8=\"\"></character-avatar-link>\n        </div>\n        <small class=\"ui field wrap-break-word section\" _v-f03cabc8=\"\">\n          <em _v-f03cabc8=\"\">\n            {{char.gender}}, {{char.status}}\n            <span v-if=\"char.statusMessage !== ''\" v-html=\"'- ' + char.statusMessage | bbcode\" _v-f03cabc8=\"\"></span>\n          </em>\n        </small>\n        <small class=\"ui field section highlight green\" v-for=\"friend in friendships\" _v-f03cabc8=\"\">\n          <em _v-f03cabc8=\"\"><i class=\"fa fa-heart\" _v-f03cabc8=\"\"></i> {{friend}}</em>\n        </small>\n      </form>\n    </section>\n    <section slot=\"options\" _v-f03cabc8=\"\">\n      <menu-option icon=\"comment\" @click=\"openPrivateChat\" _v-f03cabc8=\"\">Send Message</menu-option>\n\n      <menu-option icon=\"star-o\" v-if=\"!bookmarked\" @click=\"state.addBookmark(char.name)\" _v-f03cabc8=\"\">Bookmark</menu-option>\n      <menu-option icon=\"star\" v-else=\"\" @click=\"state.removeBookmark(char.name)\" _v-f03cabc8=\"\">Unbookmark</menu-option>\n\n      <menu-option icon=\"minus-square-o\" v-if=\"!ignored\" _v-f03cabc8=\"\">Ignore</menu-option>\n      <menu-option icon=\"minus-square\" v-else=\"\" _v-f03cabc8=\"\">Unignore</menu-option>\n\n      <menu-option icon=\"link\" :href=\"getProfileURL(char.name)\" _v-f03cabc8=\"\">View Profile</menu-option>\n    </section>\n  </action-panel>\n";
 
 /***/ },
-/* 186 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(187)
-	__vue_script__ = __webpack_require__(189)
-	__vue_template__ = __webpack_require__(192)
+	__webpack_require__(190)
+	__vue_script__ = __webpack_require__(192)
+	__vue_template__ = __webpack_require__(195)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\overlays\\OnlineUsers.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 187 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(188);
+	var content = __webpack_require__(191);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -18050,8 +17913,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-7a68841e&file=OnlineUsers.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./OnlineUsers.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-7a68841e&file=OnlineUsers.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./OnlineUsers.vue");
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-96ca842e&file=OnlineUsers.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./OnlineUsers.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-96ca842e&file=OnlineUsers.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./OnlineUsers.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -18061,7 +17924,7 @@
 	}
 
 /***/ },
-/* 188 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -18069,13 +17932,13 @@
 	
 	
 	// module
-	exports.push([module.id, ".selection[_v-7a68841e] {\n  text-align: left;\n  width: calc(100vh - 38em);\n  height: calc(100vh - 30em);\n  min-width: 14em;\n  min-height: 18em;\n}\n", "", {"version":3,"sources":["/./view/components/overlays/OnlineUsers.vue.style","/./view/components/overlays/OnlineUsers.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;EACA,0BAAA;EACA,2BAAA;EACA,gBAAA;EACA,iBAAA;CCAD","file":"OnlineUsers.vue","sourcesContent":["\r\n.selection\r\n  text-align: left\r\n  width: calc(100vh - 38em)\r\n  height: calc(100vh - 30em)\r\n  min-width: 14em\r\n  min-height: 18em\r\n",".selection {\n  text-align: left;\n  width: calc(100vh - 38em);\n  height: calc(100vh - 30em);\n  min-width: 14em;\n  min-height: 18em;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".selection[_v-96ca842e] {\n  text-align: left;\n  width: calc(100vh - 38em);\n  height: calc(100vh - 30em);\n  min-width: 14em;\n  min-height: 18em;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/OnlineUsers.vue.style","/./src/view/components/overlays/OnlineUsers.vue"],"names":[],"mappings":"AACA;EACE,iBAAA;EACA,0BAAA;EACA,2BAAA;EACA,gBAAA;EACA,iBAAA;CCAD","file":"OnlineUsers.vue","sourcesContent":["\r\n.selection\r\n  text-align: left\r\n  width: calc(100vh - 38em)\r\n  height: calc(100vh - 30em)\r\n  min-width: 14em\r\n  min-height: 18em\r\n",".selection {\n  text-align: left;\n  width: calc(100vh - 38em);\n  height: calc(100vh - 30em);\n  min-width: 14em;\n  min-height: 18em;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 189 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18092,7 +17955,7 @@
 	
 	var _Character2 = _interopRequireDefault(_Character);
 	
-	var _Dropdown = __webpack_require__(175);
+	var _Dropdown = __webpack_require__(178);
 	
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 	
@@ -18100,11 +17963,11 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _util = __webpack_require__(190);
+	var _util = __webpack_require__(193);
 	
 	var _events = __webpack_require__(111);
 	
-	var _fuse = __webpack_require__(191);
+	var _fuse = __webpack_require__(194);
 	
 	var _fuse2 = _interopRequireDefault(_fuse);
 	
@@ -18277,7 +18140,7 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 190 */
+/* 193 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -18291,7 +18154,7 @@
 	}
 
 /***/ },
-/* 191 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19077,13 +18940,123 @@
 
 
 /***/ },
-/* 192 */
+/* 195 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"close\" _v-7a68841e=\"\">\n    <div class=\"ui panel\" _v-7a68841e=\"\">\n      <h2 _v-7a68841e=\"\">Let's find some friends!</h2>\n      <form class=\"ui form\" @submit.prevent=\"\" _v-7a68841e=\"\">\n        <div class=\"ui field\" _v-7a68841e=\"\">\n          <dropdown style=\"width: 8em\" v-ref:filter=\"\" _v-7a68841e=\"\">\n            <li value=\"all\" _v-7a68841e=\"\">All</li>\n            <li value=\"friend\" _v-7a68841e=\"\">Friends</li>\n            <li value=\"bookmark\" _v-7a68841e=\"\">Bookmarks</li>\n            <li value=\"looking\" _v-7a68841e=\"\">Looking</li>\n          </dropdown>\n        </div>\n        <div class=\"ui field\" _v-7a68841e=\"\">\n          <ul class=\"ui selection\" style=\"\" _v-7a68841e=\"\">\n            <li v-for=\"char in slicedCharacters\" :class=\"getListClass(char)\" :data-activate-character=\"char.name\" _v-7a68841e=\"\">\n              <i class=\"fa fa-heart ui pull-right\" v-if=\"characterIs(char, 'friend')\" _v-7a68841e=\"\"></i>\n              <i class=\"fa fa-star ui pull-right\" v-if=\"characterIs(char, 'bookmark')\" _v-7a68841e=\"\"></i>\n              <i class=\"fa fa-paw ui pull-right\" v-if=\"characterIs(char, 'looking')\" _v-7a68841e=\"\"></i>\n              <character :character=\"char\" _v-7a68841e=\"\"></character>\n            </li>\n            <center class=\"ui small subtle\" style=\"padding: 0.5em\" v-if=\"slicedCharacters.length === 200\" _v-7a68841e=\"\">\n              <em _v-7a68841e=\"\">List truncated for performance. Search for more results.</em>\n            </center>\n          </ul>\n        </div>\n        <div class=\"ui field text-input icon right\" _v-7a68841e=\"\">\n          <i class=\"fa fa-search\" _v-7a68841e=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" debounce=\"500\" _v-7a68841e=\"\">\n        </div>\n        <div class=\"ui field\" _v-7a68841e=\"\">\n          <button class=\"ui button\" @click=\"close\" _v-7a68841e=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
+	module.exports = "\n  <div class=\"ui overlay\" transition=\"fade\" @click.self=\"close\" _v-96ca842e=\"\">\n    <div class=\"ui panel\" _v-96ca842e=\"\">\n      <h2 _v-96ca842e=\"\">Let's find some friends!</h2>\n      <form class=\"ui form\" @submit.prevent=\"\" _v-96ca842e=\"\">\n        <div class=\"ui field\" _v-96ca842e=\"\">\n          <dropdown style=\"width: 8em\" v-ref:filter=\"\" _v-96ca842e=\"\">\n            <li value=\"all\" _v-96ca842e=\"\">All</li>\n            <li value=\"friend\" _v-96ca842e=\"\">Friends</li>\n            <li value=\"bookmark\" _v-96ca842e=\"\">Bookmarks</li>\n            <li value=\"looking\" _v-96ca842e=\"\">Looking</li>\n          </dropdown>\n        </div>\n        <div class=\"ui field\" _v-96ca842e=\"\">\n          <ul class=\"ui selection\" style=\"\" _v-96ca842e=\"\">\n            <li v-for=\"char in slicedCharacters\" :class=\"getListClass(char)\" :data-activate-character=\"char.name\" _v-96ca842e=\"\">\n              <i class=\"fa fa-heart ui pull-right\" v-if=\"characterIs(char, 'friend')\" _v-96ca842e=\"\"></i>\n              <i class=\"fa fa-star ui pull-right\" v-if=\"characterIs(char, 'bookmark')\" _v-96ca842e=\"\"></i>\n              <i class=\"fa fa-paw ui pull-right\" v-if=\"characterIs(char, 'looking')\" _v-96ca842e=\"\"></i>\n              <character :character=\"char\" _v-96ca842e=\"\"></character>\n            </li>\n            <center class=\"ui small subtle\" style=\"padding: 0.5em\" v-if=\"slicedCharacters.length === 200\" _v-96ca842e=\"\">\n              <em _v-96ca842e=\"\">List truncated for performance. Search for more results.</em>\n            </center>\n          </ul>\n        </div>\n        <div class=\"ui field text-input icon right\" _v-96ca842e=\"\">\n          <i class=\"fa fa-search\" _v-96ca842e=\"\"></i>\n          <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" debounce=\"500\" _v-96ca842e=\"\">\n        </div>\n        <div class=\"ui field\" _v-96ca842e=\"\">\n          <button class=\"ui button\" @click=\"close\" _v-96ca842e=\"\">Done</button>\n        </div>\n      </form>\n    </div>\n  </div>\n";
 
 /***/ },
-/* 193 */
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(197)
+	__vue_script__ = __webpack_require__(199)
+	__vue_template__ = __webpack_require__(200)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+
+
+/***/ },
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(198);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-199b2701&file=About.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./About.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?sourceMap!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-199b2701&file=About.vue&scoped=true!./../../../../node_modules/stylus-loader/index.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./About.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".panel[_v-199b2701] {\n  width: 18em;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./src/view/components/overlays/About.vue.style","/./src/view/components/overlays/About.vue"],"names":[],"mappings":"AACA;EACE,YAAA;EACA,aAAA;CCAD","file":"About.vue","sourcesContent":["\r\n.panel\r\n  width: 18em\r\n  padding: 1em\r\n",".panel {\n  width: 18em;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
+	
+	// exports
+
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _DevInfo = __webpack_require__(139);
+	
+	var _DevInfo2 = _interopRequireDefault(_DevInfo);
+	
+	var _events = __webpack_require__(111);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// <template>
+	//   <div class='ui overlay' @click.self='close'>
+	//     <section class='ui panel'>
+	//       <p><a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/'>
+	//         <img src="https://static.f-list.net/images/avatar/alexander%20grapevine.png" />
+	//       </a></p>
+	//       <p><dev-info></dev-info></p>
+	//     </section>
+	//   </div>
+	// </template>
+	//
+	// <style lang="stylus" scoped>
+	// .panel
+	//   width: 18em
+	//   padding: 1em
+	// </style>
+	//
+	// <script>
+	exports.default = {
+	  components: {
+	    DevInfo: _DevInfo2.default
+	  },
+	
+	  methods: {
+	    close: function close() {
+	      this.$dispatch(_events.PopOverlay);
+	    }
+	  }
+	};
+	// </script>
+	//
+	/* generated by vue-loader */
+
+/***/ },
+/* 200 */
+/***/ function(module, exports) {
+
+	module.exports = "\n  <div class=\"ui overlay\" @click.self=\"close\" _v-199b2701=\"\">\n    <section class=\"ui panel\" _v-199b2701=\"\">\n      <p _v-199b2701=\"\"><a class=\"ui link\" href=\"https://www.f-list.net/c/alexander%20grapevine/\" _v-199b2701=\"\">\n        <img src=\"https://static.f-list.net/images/avatar/alexander%20grapevine.png\" _v-199b2701=\"\">\n      </a></p>\n      <p _v-199b2701=\"\"><dev-info _v-199b2701=\"\"></dev-info></p>\n    </section>\n  </div>\n";
+
+/***/ },
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19106,7 +19079,7 @@
 	
 	var _types = __webpack_require__(110);
 	
-	var _util = __webpack_require__(194);
+	var _util = __webpack_require__(202);
 	
 	var _events = __webpack_require__(111);
 	
@@ -19419,7 +19392,7 @@
 	exports.default = new Socket();
 
 /***/ },
-/* 194 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -19947,7 +19920,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 	
-	exports.isBuffer = __webpack_require__(195);
+	exports.isBuffer = __webpack_require__(203);
 	
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -19991,7 +19964,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(196);
+	exports.inherits = __webpack_require__(204);
 	
 	exports._extend = function(origin, add) {
 	  // Don't do anything if add isn't an object
@@ -20012,7 +19985,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(2)))
 
 /***/ },
-/* 195 */
+/* 203 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -20023,7 +19996,7 @@
 	}
 
 /***/ },
-/* 196 */
+/* 204 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -20052,13 +20025,13 @@
 
 
 /***/ },
-/* 197 */
+/* 205 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div @click='checkDataAttribute($event)'>\r\n    <chat v-ref:chat></chat>\r\n    <component v-for=\"overlay in overlays\" :is='overlay' :active-character='activeCharacter'></component>\r\n  </div>\r\n";
 
 /***/ },
-/* 198 */
+/* 206 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20111,195 +20084,6 @@
 	    }
 	  });
 	}
-
-/***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(200)
-	__vue_template__ = __webpack_require__(201)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\elements\\DevInfo.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _package = __webpack_require__(139);
-	
-	exports.default = {
-	  data: function data() {
-	    return { version: _package.version };
-	  }
-	};
-	// </script>
-	//
-	/* generated by vue-loader */
-	// <template>
-	//   <p>
-	//     <h2>fchat-next alpha v{{version}}</h2>
-	//     <p>
-	//       <i class='fa fa-code'></i> with
-	//       <i class='fa fa-heart'></i> by
-	//       <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>
-	//     </p>
-	//     <p>Note me for questions, concerns, suggestions, and comments.</p>
-	//     <h3><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></h3>
-	//     <p><small><strong>Warning:</strong> buggy and incomplete. Many things do not work.</small></p>
-	//   </p>
-	// </template>
-	//
-	// <style lang="stylus" scoped></style>
-	//
-	// <script>
-
-/***/ },
-/* 201 */
-/***/ function(module, exports) {
-
-	module.exports = "\r\n  <p>\r\n    <h2>fchat-next alpha v{{version}}</h2>\r\n    <p>\r\n      <i class='fa fa-code'></i> with\r\n      <i class='fa fa-heart'></i> by\r\n      <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>\r\n    </p>\r\n    <p>Note me for questions, concerns, suggestions, and comments.</p>\r\n    <h3><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></h3>\r\n    <p><small><strong>Warning:</strong> buggy and incomplete. Many things do not work.</small></p>\r\n  </p>\r\n";
-
-/***/ },
-/* 202 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(207)
-	__vue_script__ = __webpack_require__(203)
-	__vue_template__ = __webpack_require__(209)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "E:\\Kingdaro\\Projects\\web\\fchat\\view\\components\\overlays\\About.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 203 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _DevInfo = __webpack_require__(199);
-	
-	var _DevInfo2 = _interopRequireDefault(_DevInfo);
-	
-	var _events = __webpack_require__(111);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// <template>
-	//   <div class='ui overlay' @click.self='close'>
-	//     <section class='ui panel'>
-	//       <p><a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/'>
-	//         <img src="https://static.f-list.net/images/avatar/alexander%20grapevine.png" />
-	//       </a></p>
-	//       <p><dev-info></dev-info></p>
-	//     </section>
-	//   </div>
-	// </template>
-	//
-	// <style lang="stylus" scoped>
-	// .panel
-	//   width: 18em
-	//   padding: 1em
-	// </style>
-	//
-	// <script>
-	exports.default = {
-	  components: {
-	    DevInfo: _DevInfo2.default
-	  },
-	
-	  methods: {
-	    close: function close() {
-	      this.$dispatch(_events.PopOverlay);
-	    }
-	  }
-	};
-	// </script>
-	//
-	/* generated by vue-loader */
-
-/***/ },
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(208);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-3f2265ee&file=About.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./About.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-3f2265ee&file=About.vue&scoped=true!./../../../node_modules/stylus-loader/index.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./About.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 208 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".panel[_v-3f2265ee] {\n  width: 18em;\n  padding: 1em;\n}\n", "", {"version":3,"sources":["/./view/components/overlays/About.vue.style","/./view/components/overlays/About.vue"],"names":[],"mappings":"AACA;EACE,YAAA;EACA,aAAA;CCAD","file":"About.vue","sourcesContent":["\r\n.panel\r\n  width: 18em\r\n  padding: 1em\r\n",".panel {\n  width: 18em;\n  padding: 1em;\n}\n"],"sourceRoot":"webpack://"}]);
-	
-	// exports
-
-
-/***/ },
-/* 209 */
-/***/ function(module, exports) {
-
-	module.exports = "\n  <div class=\"ui overlay\" @click.self=\"close\" _v-3f2265ee=\"\">\n    <section class=\"ui panel\" _v-3f2265ee=\"\">\n      <p _v-3f2265ee=\"\"><a class=\"ui link\" href=\"https://www.f-list.net/c/alexander%20grapevine/\" _v-3f2265ee=\"\">\n        <img src=\"https://static.f-list.net/images/avatar/alexander%20grapevine.png\" _v-3f2265ee=\"\">\n      </a></p>\n      <p _v-3f2265ee=\"\"><dev-info _v-3f2265ee=\"\"></dev-info></p>\n    </section>\n  </div>\n";
 
 /***/ }
 /******/ ]);
