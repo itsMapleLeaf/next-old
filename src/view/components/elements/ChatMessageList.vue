@@ -4,10 +4,7 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-.scroll
-  padding: 0.3em 0em
-</style>
+<style lang="stylus" scoped></style>
 
 <script>
 import ChatMessage from './ChatMessage.vue'
