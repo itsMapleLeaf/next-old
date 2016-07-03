@@ -7,8 +7,8 @@
       <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>
     </p>
     <p>Note me for questions, concerns, suggestions, and comments.</p>
-    <h3><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></h3>
-    <p><small><strong>Warning:</strong> buggy and incomplete. Many things do not work.</small></p>
+    <p><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></p>
+    <p><strong>Warning:</strong> buggy and incomplete. Many things do not work.</p>
   </p>
 </template>
 

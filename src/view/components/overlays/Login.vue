@@ -24,7 +24,7 @@
     </section>
     <footer>
       <center class='ui small subtle'>
-        <dev-info></dev-info>
+        <em><dev-info></dev-info></em>
         <em>Including the "remember me" option there.<br />It will remember you whether you like it or not.<br /><small>Deal with it.</small></em>
       </center>
     </footer>
@@ -32,9 +32,6 @@
 </template>
 
 <style lang="stylus" scoped>
-.panel
-  width: 12em
-
 footer
   width: 100vw
   position: absolute
