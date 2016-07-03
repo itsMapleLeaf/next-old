@@ -11,9 +11,7 @@
         <input type="password" placeholder="Password" v-model="password" :disabled='disabled'>
       </div>
       <div class='ui field'>
-        <label>
-          <input type='checkbox' tabindex='0' /> Remember me
-        </label>
+        <toggle :enabled='remember' @click='remember = !remember'>Remember me</toggle>
       </div>
       <div class='ui field'>
         <button class='ui button' action="submit" :disabled='disabled'>Go</button>
@@ -39,6 +37,7 @@ footer
 <script>
 import DevInfo from '../elements/DevInfo.vue'
 import Overlay from '../elements/Overlay.vue'
+import Toggle from '../elements/Toggle.vue'
 
 import {sendLoginRequest} from '../../lib/flist'
 import {LoginRequest, LoginSuccess} from '../../lib/events'
@@ -55,13 +54,15 @@ export default {
       username: '',
       password: '',
       status: '',
-      disabled: false
+      disabled: false,
+      remember: false
     }
   },
 
   components: {
     DevInfo,
-    Overlay
+    Overlay,
+    Toggle
   },
 
   methods: {
