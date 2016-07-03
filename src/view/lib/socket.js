@@ -247,6 +247,10 @@ class Socket {
     this.vm.state.addPrivateMessage(recipient, this.vm.state.getUserCharacterName(), message)
   }
 
+  setStatus (status, statusmsg) {
+    this.send('STA', { status, statusmsg })
+  }
+
   disconnect () {
     this.ws.onclose = () => {}
     this.ws.close()

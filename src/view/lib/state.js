@@ -15,18 +15,23 @@ class State {
     this.data = {
       account: '',          // string
       ticket: '',           // string
+
       character: '',        // string
       characterList: [],    // string[]
+      status: 'online',
+      statusMessage: '',
+
+      friends: {},          // userCharacter (string) => friendName (string)
       bookmarks: [],        // string[]
       ignored: [],          // string[]
-      friends: {},          // userCharacter (string) => friendName (string)
+      admins: [],           // string[]
+
+      channels: {},         // channelID (string) => ChannelState
       publicChannels: [],   // ChannelInfo[]
       privateChannels: [],  // ChannelInfo[]
-      channels: {},         // channelID (string) => ChannelState
       privateChats: {},     // characterName (string) => PrivateChatState
       serverVariables: {},  // variableName (string) => number
-      onlineCharacters: {}, // characterName (string) => Character
-      admins: []            // string[]
+      onlineCharacters: {}  // characterName (string) => Character
     }
   }
 
@@ -66,6 +71,11 @@ class State {
 
   getUserCharacterName () {
     return this.data.character
+  }
+
+  getUserStatus () {
+    const {status, statusMessage} = this.data
+    return {status, statusMessage}
   }
 
   getChannelStatus (id) {
@@ -154,6 +164,11 @@ class State {
 
   setUserCharacterList (list) {
     this.data.characterList = list
+  }
+
+  setUserStatus (status, message) {
+    this.data.status = status
+    this.data.statusMessage = message
   }
 
   setFriendsList (friends) {

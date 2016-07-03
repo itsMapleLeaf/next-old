@@ -176,6 +176,11 @@ export default {
 
     [events.OpenPrivateChatRequest] (name) {
       this.$broadcast(events.OpenPrivateChatRequest, name)
+    },
+
+    [events.StatusChange] (status, message) {
+      this.socket.setStatus(status, message)
+      this.state.setUserStatus(status, message)
     }
   },
 

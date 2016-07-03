@@ -6,7 +6,7 @@
         <character-avatar-link :character="state.getUserCharacter()"></character-avatar-link>
       </div>
       <div class="ui field">
-        <dropdown>
+        <dropdown :init-value="status" @changed='setStatus'>
           <li value="online">Online</li>
           <li value="looking">Looking</li>
           <li value="busy">Busy</li>
@@ -16,7 +16,9 @@
       </div>
       <div class="ui field text-input icon right">
         <i class='fa fa-pencil'></i>
-        <div contenteditable placeholder="What's up?"></div>
+        <div v-el:status-message contenteditable placeholder="What's up?"
+          @blur='setStatusMessage($event.target.innerText)'
+          @keydown.enter.prevent='$event.target.blur()'></div>
       </div>
     </form>
 
@@ -49,9 +51,15 @@ import MenuOption from '../elements/MenuOption.vue'
 import Dropdown from '../elements/Dropdown.vue'
 
 import state from '../../lib/state'
-import socket from '../../lib/socket'
 import {getProfileURL, getAvatarURL} from '../../lib/flist'
-import {PushOverlay, PopOverlay, LogoutRequest, SwitchCharacterRequest} from '../../lib/events'
+
+import {
+  PushOverlay,
+  PopOverlay,
+  LogoutRequest,
+  SwitchCharacterRequest,
+  StatusChange
+} from '../../lib/events'
 
 export default {
   components: {
@@ -62,7 +70,16 @@ export default {
   },
 
   data () {
-    return { state, socket }
+    const {status, statusMessage} = state.getUserStatus()
+    return {
+      status,
+      statusMessage,
+      state
+    }
+  },
+
+  ready () {
+    this.$els.statusMessage.innerText = this.statusMessage
   },
 
   computed: {
@@ -84,8 +101,14 @@ export default {
   },
 
   methods: {
-    statusChanged () {
-      // set character status
+    setStatus (status) {
+      this.status = status
+      this.$dispatch(StatusChange, this.status, this.statusMessage)
+    },
+
+    setStatusMessage (message) {
+      this.statusMessage = message
+      this.$dispatch(StatusChange, this.status, this.statusMessage)
     },
 
     pushOverlay (overlay) {

@@ -12275,6 +12275,9 @@
 	    this.$broadcast(events.PrivateMessageReceived, name, message);
 	  }), (0, _defineProperty3.default)(_events, events.OpenPrivateChatRequest, function (name) {
 	    this.$broadcast(events.OpenPrivateChatRequest, name);
+	  }), (0, _defineProperty3.default)(_events, events.StatusChange, function (status, message) {
+	    this.socket.setStatus(status, message);
+	    this.state.setUserStatus(status, message);
 	  }), _events),
 	
 	  methods: {
@@ -14533,18 +14536,23 @@
 	    this.data = {
 	      account: '', // string
 	      ticket: '', // string
+	
 	      character: '', // string
 	      characterList: [], // string[]
+	      status: 'online',
+	      statusMessage: '',
+	
+	      friends: {}, // userCharacter (string) => friendName (string)
 	      bookmarks: [], // string[]
 	      ignored: [], // string[]
-	      friends: {}, // userCharacter (string) => friendName (string)
+	      admins: [], // string[]
+	
+	      channels: {}, // channelID (string) => ChannelState
 	      publicChannels: [], // ChannelInfo[]
 	      privateChannels: [], // ChannelInfo[]
-	      channels: {}, // channelID (string) => ChannelState
 	      privateChats: {}, // characterName (string) => PrivateChatState
 	      serverVariables: {}, // variableName (string) => number
-	      onlineCharacters: {}, // characterName (string) => Character
-	      admins: [] // string[]
+	      onlineCharacters: {} // characterName (string) => Character
 	    };
 	  }
 	
@@ -14595,6 +14603,15 @@
 	    key: 'getUserCharacterName',
 	    value: function getUserCharacterName() {
 	      return this.data.character;
+	    }
+	  }, {
+	    key: 'getUserStatus',
+	    value: function getUserStatus() {
+	      var _data = this.data;
+	      var status = _data.status;
+	      var statusMessage = _data.statusMessage;
+	
+	      return { status: status, statusMessage: statusMessage };
 	    }
 	  }, {
 	    key: 'getChannelStatus',
@@ -14712,6 +14729,12 @@
 	      this.data.characterList = list;
 	    }
 	  }, {
+	    key: 'setUserStatus',
+	    value: function setUserStatus(status, message) {
+	      this.data.status = status;
+	      this.data.statusMessage = message;
+	    }
+	  }, {
 	    key: 'setFriendsList',
 	    value: function setFriendsList(friends) {
 	      var _iteratorNormalCompletion = true;
@@ -14806,9 +14829,9 @@
 	  }, {
 	    key: 'removeCharacter',
 	    value: function removeCharacter(name) {
-	      var _data = this.data;
-	      var onlineCharacters = _data.onlineCharacters;
-	      var channels = _data.channels;
+	      var _data2 = this.data;
+	      var onlineCharacters = _data2.onlineCharacters;
+	      var channels = _data2.channels;
 	
 	      delete onlineCharacters[name];
 	      for (var id in channels) {
@@ -14943,10 +14966,10 @@
 	  }, {
 	    key: 'addBookmark',
 	    value: function addBookmark(name) {
-	      var _data2 = this.data;
-	      var account = _data2.account;
-	      var ticket = _data2.ticket;
-	      var bookmarks = _data2.bookmarks;
+	      var _data3 = this.data;
+	      var account = _data3.account;
+	      var ticket = _data3.ticket;
+	      var bookmarks = _data3.bookmarks;
 	
 	      flist.addBookmark(account, ticket, name).then(function () {
 	        bookmarks.push(name);
@@ -14957,10 +14980,10 @@
 	  }, {
 	    key: 'removeBookmark',
 	    value: function removeBookmark(name) {
-	      var _data3 = this.data;
-	      var account = _data3.account;
-	      var ticket = _data3.ticket;
-	      var bookmarks = _data3.bookmarks;
+	      var _data4 = this.data;
+	      var account = _data4.account;
+	      var ticket = _data4.ticket;
+	      var bookmarks = _data4.bookmarks;
 	
 	      flist.removeBookmark(account, ticket, name).then(function () {
 	        bookmarks.$remove(name);
@@ -15659,6 +15682,8 @@
 	var ChatStateReset = exports.ChatStateReset = 'ChatStateReset'; // ()
 	
 	var ChatboxSubmit = exports.ChatboxSubmit = 'ChatboxSubmit'; // (message: string)
+	
+	var StatusChange = exports.StatusChange = 'StatusChange'; // (status: UserStatus, message: string)
 
 /***/ },
 /* 112 */
@@ -17526,16 +17551,76 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _socket = __webpack_require__(191);
-	
-	var _socket2 = _interopRequireDefault(_socket);
-	
 	var _flist = __webpack_require__(109);
 	
 	var _events = __webpack_require__(111);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	exports.default = {
+	  components: {
+	    MenuOption: _MenuOption2.default,
+	    Dropdown: _Dropdown2.default,
+	    ActionPanel: _ActionPanel2.default,
+	    CharacterAvatarLink: _CharacterAvatarLink2.default
+	  },
+	
+	  data: function data() {
+	    var _state$getUserStatus = _state2.default.getUserStatus();
+	
+	    var status = _state$getUserStatus.status;
+	    var statusMessage = _state$getUserStatus.statusMessage;
+	
+	    return {
+	      status: status,
+	      statusMessage: statusMessage,
+	      state: _state2.default
+	    };
+	  },
+	  ready: function ready() {
+	    this.$els.statusMessage.innerText = this.statusMessage;
+	  },
+	
+	
+	  computed: {
+	    character: function character() {
+	      return this.state.getUserCharacterName();
+	    },
+	    greeting: function greeting() {
+	      return 'Hi, ' + this.character.split(' ')[0] + '!';
+	    },
+	    profileURL: function profileURL() {
+	      return (0, _flist.getProfileURL)(this.character);
+	    },
+	    avatarURL: function avatarURL() {
+	      return (0, _flist.getAvatarURL)(this.character);
+	    }
+	  },
+	
+	  methods: {
+	    setStatus: function setStatus(status) {
+	      this.status = status;
+	      this.$dispatch(_events.StatusChange, this.status, this.statusMessage);
+	    },
+	    setStatusMessage: function setStatusMessage(message) {
+	      this.statusMessage = message;
+	      this.$dispatch(_events.StatusChange, this.status, this.statusMessage);
+	    },
+	    pushOverlay: function pushOverlay(overlay) {
+	      this.$dispatch(_events.PopOverlay);
+	      this.$dispatch(_events.PushOverlay, overlay);
+	    },
+	    switchCharacter: function switchCharacter() {
+	      this.$dispatch(_events.SwitchCharacterRequest);
+	    },
+	    logOut: function logOut() {
+	      this.$dispatch(_events.LogoutRequest);
+	    }
+	  }
+	};
+	// </script>
+	//
+	/* generated by vue-loader */
 	// <template>
 	//   <action-panel side="left">
 	//     <form slot="content" class="ui form">
@@ -17544,7 +17629,7 @@
 	//         <character-avatar-link :character="state.getUserCharacter()"></character-avatar-link>
 	//       </div>
 	//       <div class="ui field">
-	//         <dropdown>
+	//         <dropdown :init-value="status" @changed='setStatus'>
 	//           <li value="online">Online</li>
 	//           <li value="looking">Looking</li>
 	//           <li value="busy">Busy</li>
@@ -17554,7 +17639,9 @@
 	//       </div>
 	//       <div class="ui field text-input icon right">
 	//         <i class='fa fa-pencil'></i>
-	//         <div contenteditable placeholder="What's up?"></div>
+	//         <div v-el:status-message contenteditable placeholder="What's up?"
+	//           @blur='setStatusMessage($event.target.innerText)'
+	//           @keydown.enter.prevent='$event.target.blur()'></div>
 	//       </div>
 	//     </form>
 	//
@@ -17581,53 +17668,6 @@
 	// </style>
 	//
 	// <script>
-	exports.default = {
-	  components: {
-	    MenuOption: _MenuOption2.default,
-	    Dropdown: _Dropdown2.default,
-	    ActionPanel: _ActionPanel2.default,
-	    CharacterAvatarLink: _CharacterAvatarLink2.default
-	  },
-	
-	  data: function data() {
-	    return { state: _state2.default, socket: _socket2.default };
-	  },
-	
-	
-	  computed: {
-	    character: function character() {
-	      return this.state.getUserCharacterName();
-	    },
-	    greeting: function greeting() {
-	      return 'Hi, ' + this.character.split(' ')[0] + '!';
-	    },
-	    profileURL: function profileURL() {
-	      return (0, _flist.getProfileURL)(this.character);
-	    },
-	    avatarURL: function avatarURL() {
-	      return (0, _flist.getAvatarURL)(this.character);
-	    }
-	  },
-	
-	  methods: {
-	    statusChanged: function statusChanged() {
-	      // set character status
-	    },
-	    pushOverlay: function pushOverlay(overlay) {
-	      this.$dispatch(_events.PopOverlay);
-	      this.$dispatch(_events.PushOverlay, overlay);
-	    },
-	    switchCharacter: function switchCharacter() {
-	      this.$dispatch(_events.SwitchCharacterRequest);
-	    },
-	    logOut: function logOut() {
-	      this.$dispatch(_events.LogoutRequest);
-	    }
-	  }
-	};
-	// </script>
-	//
-	/* generated by vue-loader */
 
 /***/ },
 /* 173 */
@@ -18047,6 +18087,10 @@
 	//
 	// <script>
 	exports.default = {
+	  props: {
+	    initValue: ''
+	  },
+	
 	  data: function data() {
 	    return {
 	      open: false,
@@ -18065,6 +18109,9 @@
 	
 	        item.style.padding = '0.5em';
 	        item.classList.add('ui', 'theme-color', 'dark', 'hover-darken');
+	        if ((item.getAttribute('value') || item.innerText) === this.initValue) {
+	          this.selected = item;
+	        }
 	      }
 	    } catch (err) {
 	      _didIteratorError = true;
@@ -18081,7 +18128,7 @@
 	      }
 	    }
 	
-	    this.selected = children[0];
+	    this.selected = this.selected || children[0];
 	  },
 	
 	
@@ -18092,6 +18139,7 @@
 	    selectItem: function selectItem(event) {
 	      this.selected = event.target;
 	      this.open = false;
+	      this.$emit('changed', this.value);
 	    }
 	  },
 	
@@ -18435,6 +18483,11 @@
 	    value: function sendPrivateMessage(recipient, message) {
 	      this.send('PRI', { recipient: recipient, message: message });
 	      this.vm.state.addPrivateMessage(recipient, this.vm.state.getUserCharacterName(), message);
+	    }
+	  }, {
+	    key: 'setStatus',
+	    value: function setStatus(status, statusmsg) {
+	      this.send('STA', { status: status, statusmsg: statusmsg });
 	    }
 	  }, {
 	    key: 'disconnect',
@@ -19091,7 +19144,7 @@
 /* 195 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <action-panel side=\"left\" _v-2811a614=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-2811a614=\"\">\n      <h2 _v-2811a614=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-2811a614=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <dropdown _v-2811a614=\"\">\n          <li value=\"online\" _v-2811a614=\"\">Online</li>\n          <li value=\"looking\" _v-2811a614=\"\">Looking</li>\n          <li value=\"busy\" _v-2811a614=\"\">Busy</li>\n          <li value=\"away\" _v-2811a614=\"\">Away</li>\n          <li value=\"dnd\" _v-2811a614=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-2811a614=\"\">\n        <i class=\"fa fa-pencil\" _v-2811a614=\"\"></i>\n        <div contenteditable=\"\" placeholder=\"What's up?\" _v-2811a614=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-2811a614=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"pushOverlay('channel-list')\" _v-2811a614=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"pushOverlay('online-users')\" _v-2811a614=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-2811a614=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" @mousedown=\"switchCharacter\" _v-2811a614=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" @mousedown=\"logOut\" _v-2811a614=\"\">Log Out</menu-option>\n      <menu-option icon=\"info\" @mousedown=\"pushOverlay('about')\" _v-2811a614=\"\">About</menu-option>\n    </div>\n  </action-panel>\n";
+	module.exports = "\n  <action-panel side=\"left\" _v-2811a614=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-2811a614=\"\">\n      <h2 _v-2811a614=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-2811a614=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <dropdown :init-value=\"status\" @changed=\"setStatus\" _v-2811a614=\"\">\n          <li value=\"online\" _v-2811a614=\"\">Online</li>\n          <li value=\"looking\" _v-2811a614=\"\">Looking</li>\n          <li value=\"busy\" _v-2811a614=\"\">Busy</li>\n          <li value=\"away\" _v-2811a614=\"\">Away</li>\n          <li value=\"dnd\" _v-2811a614=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-2811a614=\"\">\n        <i class=\"fa fa-pencil\" _v-2811a614=\"\"></i>\n        <div v-el:status-message=\"\" contenteditable=\"\" placeholder=\"What's up?\" @blur=\"setStatusMessage($event.target.innerText)\" @keydown.enter.prevent=\"$event.target.blur()\" _v-2811a614=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-2811a614=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"pushOverlay('channel-list')\" _v-2811a614=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"pushOverlay('online-users')\" _v-2811a614=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-2811a614=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" @mousedown=\"switchCharacter\" _v-2811a614=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" @mousedown=\"logOut\" _v-2811a614=\"\">Log Out</menu-option>\n      <menu-option icon=\"info\" @mousedown=\"pushOverlay('about')\" _v-2811a614=\"\">About</menu-option>\n    </div>\n  </action-panel>\n";
 
 /***/ },
 /* 196 */

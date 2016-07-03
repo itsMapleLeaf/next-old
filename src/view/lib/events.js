@@ -27,3 +27,5 @@ export const OpenPrivateChatRequest = 'OpenPrivateChatRequest' // (partner: stri
 export const ChatStateReset = 'ChatStateReset' // ()
 
 export const ChatboxSubmit = 'ChatboxSubmit' // (message: string)
+
+export const StatusChange = 'StatusChange' // (status: UserStatus, message: string)

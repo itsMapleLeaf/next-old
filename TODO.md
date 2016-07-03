@@ -15,12 +15,12 @@
   - [ ] show an icon for the link type (image, webpage, etc.)
   - [ ] possibly embed some media?
 - [ ] use tickboxes for the user list filter instead of a dropdown
-- [ ] make the status form work
 - [ ] add character memos
 - [ ] timestamps
 - [ ] eventually figure a performant way to allow people to browse all characters/channels
 - [ ] some kind of notifications system???
 - [ ] probably a console
+- [x] make the status form work
 - [x] make the "remember me" function actually work
 - [x] functional character switching
 - [x] functional logging out

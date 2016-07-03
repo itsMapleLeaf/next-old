@@ -28,6 +28,10 @@ ol
 
 <script>
 export default {
+  props: {
+    initValue: ''
+  },
+
   data () {
     return {
       open: false,
@@ -40,8 +44,11 @@ export default {
     for (let item of children) {
       item.style.padding = '0.5em'
       item.classList.add('ui', 'theme-color', 'dark', 'hover-darken')
+      if ((item.getAttribute('value') || item.innerText) === this.initValue) {
+        this.selected = item
+      }
     }
-    this.selected = children[0]
+    this.selected = this.selected || children[0]
   },
 
   methods: {
@@ -52,6 +59,7 @@ export default {
     selectItem (event) {
       this.selected = event.target
       this.open = false
+      this.$emit('changed', this.value)
     }
   },
 
