@@ -25,7 +25,7 @@ import About from './overlays/About.vue'
 import state from '../lib/state'
 import socket from '../lib/socket'
 import storage from '../lib/storage'
-import {ChannelStatus, ChannelType} from '../lib/types'
+import {ChannelStatus} from '../lib/types'
 import {getUserData} from '../lib/flist'
 import * as events from '../lib/events'
 
@@ -45,10 +45,6 @@ export default {
     return {
       overlays: [],
       activeCharacter: {},
-      receivedChannels: {
-        [ChannelType.private]: false,
-        [ChannelType.public]: false
-      },
       socket,
       state,
       storage

@@ -12053,13 +12053,13 @@
 	
 	var _promise2 = _interopRequireDefault(_promise);
 	
-	var _getIterator2 = __webpack_require__(68);
-	
-	var _getIterator3 = _interopRequireDefault(_getIterator2);
-	
 	var _defineProperty2 = __webpack_require__(65);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+	
+	var _getIterator2 = __webpack_require__(68);
+	
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
 	
 	var _events; // <template>
 	//   <div @click='checkDataAttribute($event)'>
@@ -12147,12 +12147,9 @@
 	  },
 	
 	  data: function data() {
-	    var _receivedChannels;
-	
 	    return {
 	      overlays: [],
 	      activeCharacter: {},
-	      receivedChannels: (_receivedChannels = {}, (0, _defineProperty3.default)(_receivedChannels, _types.ChannelType.private, false), (0, _defineProperty3.default)(_receivedChannels, _types.ChannelType.public, false), _receivedChannels),
 	      socket: _socket2.default,
 	      state: _state2.default,
 	      storage: _storage2.default
@@ -17574,11 +17571,26 @@
 	    return {
 	      status: status,
 	      statusMessage: statusMessage,
-	      state: _state2.default
+	      state: _state2.default,
+	      interval: null,
+	      dirty: false
 	    };
 	  },
 	  ready: function ready() {
+	    var _this = this;
+	
 	    this.$els.statusMessage.innerText = this.statusMessage;
+	
+	    // the server errors if we send too many status changes at once
+	    this.interval = window.setInterval(function () {
+	      if (_this.dirty) {
+	        _this.sendStatusChangeRequest();
+	        _this.dirty = false;
+	      }
+	    }, 2000);
+	  },
+	  destroyed: function destroyed() {
+	    window.clearInterval(this.interval);
 	  },
 	
 	
@@ -17600,10 +17612,13 @@
 	  methods: {
 	    setStatus: function setStatus(status) {
 	      this.status = status;
-	      this.$dispatch(_events.StatusChange, this.status, this.statusMessage);
+	      this.dirty = true;
 	    },
 	    setStatusMessage: function setStatusMessage(message) {
 	      this.statusMessage = message;
+	      this.dirty = true;
+	    },
+	    sendStatusChangeRequest: function sendStatusChangeRequest() {
 	      this.$dispatch(_events.StatusChange, this.status, this.statusMessage);
 	    },
 	    pushOverlay: function pushOverlay(overlay) {

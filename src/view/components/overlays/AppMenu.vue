@@ -74,12 +74,26 @@ export default {
     return {
       status,
       statusMessage,
-      state
+      state,
+      interval: null,
+      dirty: false
     }
   },
 
   ready () {
     this.$els.statusMessage.innerText = this.statusMessage
+
+    // the server errors if we send too many status changes at once
+    this.interval = window.setInterval(() => {
+      if (this.dirty) {
+        this.sendStatusChangeRequest()
+        this.dirty = false
+      }
+    }, 2000)
+  },
+
+  destroyed () {
+    window.clearInterval(this.interval)
   },
 
   computed: {
@@ -103,11 +117,15 @@ export default {
   methods: {
     setStatus (status) {
       this.status = status
-      this.$dispatch(StatusChange, this.status, this.statusMessage)
+      this.dirty = true
     },
 
     setStatusMessage (message) {
       this.statusMessage = message
+      this.dirty = true
+    },
+
+    sendStatusChangeRequest () {
       this.$dispatch(StatusChange, this.status, this.statusMessage)
     },
 
