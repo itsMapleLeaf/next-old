@@ -233,16 +233,11 @@ class State {
     this.data.privateChannels = channels
   }
 
-  createChannelState (id, name, type) {
-    // lazy hacks are lazy
-    // const {publicChannels, privateChannels} = this.data
-    // const info = publicChannels.concat(privateChannels).find(ch => ch.id === id) || {}
-    // if (info) {
-    //   return Vue.set(this.data.channels, id, ChannelState(info.type, info.id, info.name))
-    // } else {
-    //   return Vue.set(this.data.channels, id, ChannelState(undefined, id))
-    // }
+  clearChannels () {
+    this.data.channels = {}
+  }
 
+  createChannelState (id, name, type) {
     return Vue.set(this.data.channels, id, ChannelState(id, name, type))
   }
 

@@ -88,15 +88,17 @@ export default {
     },
 
     [events.LogoutRequest] () {
-      this.socket.disconnect()
-      this.overlays = ['login']
       this.$broadcast(events.ChatStateReset)
+      this.socket.disconnect()
+      this.state.clearChannels()
+      this.overlays = ['login']
     },
 
     [events.SwitchCharacterRequest] () {
-      this.socket.disconnect()
-      this.overlays = ['character-list']
       this.$broadcast(events.ChatStateReset)
+      this.socket.disconnect()
+      this.state.clearChannels()
+      this.overlays = ['character-list']
     },
 
     [events.CharacterSelected] (name) {
