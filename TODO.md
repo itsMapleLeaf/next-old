@@ -21,7 +21,7 @@
 - [ ] functional logging out
 - [ ] timestamps
 - [ ] eventually figure a performant way to allow people to browse all characters/channels
-- [ ] add a BBCode toolbar for the chatbox
+- [x] ~~add a BBCode toolbar for the chatbox~~ adds too much UI clutter, on mobile especially
 - [x] add an "about" screen
 - [x] add a messages display mode bar for channels (chat, ads, both)
 - [x] render LFRP ads
