@@ -17,10 +17,12 @@
 - [ ] use tickboxes for the user list filter instead of a dropdown
 - [ ] make the status form work
 - [ ] add character memos
-- [ ] functional character switching
-- [ ] functional logging out
 - [ ] timestamps
 - [ ] eventually figure a performant way to allow people to browse all characters/channels
+- [ ] some kind of notifications system???
+- [ ] probably a console
+- [x] functional character switching
+- [x] functional logging out
 - [x] ~~add a BBCode toolbar for the chatbox~~ adds too much UI clutter, on mobile especially
 - [x] add an "about" screen
 - [x] add a messages display mode bar for channels (chat, ads, both)

@@ -110,6 +110,10 @@ export default {
 
     [events.OpenPrivateChatRequest] (name) {
       this.activeTabIndex = this.addPrivateChat(name)
+    },
+
+    [events.ChatStateReset] () {
+      this.tabs = []
     }
   },
 

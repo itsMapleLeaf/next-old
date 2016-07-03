@@ -24,8 +24,8 @@
       <menu-option icon='globe' @mousedown="pushOverlay('channel-list')">Channels</menu-option>
       <menu-option icon='heart' @mousedown="pushOverlay('online-users')">Online Users</menu-option>
       <menu-option icon='gear'>Settings</menu-option>
-      <menu-option icon='user'>Switch Character</menu-option>
-      <menu-option icon='sign-out'>Log Out</menu-option>
+      <menu-option icon='user' @mousedown="switchCharacter">Switch Character</menu-option>
+      <menu-option icon='sign-out' @mousedown="logOut">Log Out</menu-option>
       <menu-option icon='info' @mousedown="pushOverlay('about')">About</menu-option>
     </div>
   </action-panel>
@@ -49,8 +49,9 @@ import MenuOption from '../elements/MenuOption.vue'
 import Dropdown from '../elements/Dropdown.vue'
 
 import state from '../../lib/state'
+import socket from '../../lib/socket'
 import {getProfileURL, getAvatarURL} from '../../lib/flist'
-import {PushOverlay, PopOverlay} from '../../lib/events'
+import {PushOverlay, PopOverlay, LogoutRequest, SwitchCharacterRequest} from '../../lib/events'
 
 export default {
   components: {
@@ -61,7 +62,7 @@ export default {
   },
 
   data () {
-    return { state }
+    return { state, socket }
   },
 
   computed: {
@@ -90,6 +91,14 @@ export default {
     pushOverlay (overlay) {
       this.$dispatch(PopOverlay)
       this.$dispatch(PushOverlay, overlay)
+    },
+
+    switchCharacter () {
+      this.$dispatch(SwitchCharacterRequest)
+    },
+
+    logOut () {
+      this.$dispatch(LogoutRequest)
     }
   }
 }

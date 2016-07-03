@@ -1,5 +1,7 @@
 export const LoginRequest = 'LoginRequest' // (account: string)
 export const LoginSuccess = 'LoginSuccess' // (userData: object)
+export const LogoutRequest = 'LogoutRequest' // ()
+export const SwitchCharacterRequest = 'SwitchCharacterRequest' // ()
 
 export const OverlayChangeRequest = 'OverlayChangeRequest' // (overlay: string)
 export const PushOverlay = 'PushOverlay' // (overlay: string)
@@ -23,5 +25,6 @@ export const ChannelMessageReceived = 'ChannelMessageReceived' // (channelID: st
 export const PrivateMessageSent = 'PrivateMessageSent'         // (character: Character, message: string)
 export const PrivateMessageReceived = 'PrivateMessageReceived' // (characterName: string, message: string)
 export const OpenPrivateChatRequest = 'OpenPrivateChatRequest' // (partner: string)
+export const ChatStateReset = 'ChatStateReset' // ()
 
 export const ChatboxSubmit = 'ChatboxSubmit' // (message: string)

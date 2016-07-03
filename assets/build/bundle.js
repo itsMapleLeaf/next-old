@@ -12060,7 +12060,7 @@
 	
 	var _events; // <template>
 	//   <div @click='checkDataAttribute($event)'>
-	//     <chat v-ref:chat></chat>
+	//     <chat></chat>
 	//     <component v-for="overlay in overlays" :is='overlay' :active-character='activeCharacter'></component>
 	//   </div>
 	// </template>
@@ -12151,35 +12151,8 @@
 	    };
 	  },
 	  ready: function ready() {
-	    var _this = this;
-	
 	    this.socket.setRootVM(this);
-	
-	    if (!this.socket.isConnected()) {
-	      this.state.loadStorageData().then(function () {
-	        var _state$getAuthData = _this.state.getAuthData();
-	
-	        var account = _state$getAuthData.account;
-	        var ticket = _state$getAuthData.ticket;
-	
-	        if (ticket !== '') {
-	          (0, _flist.getUserData)(account, ticket).then(function (data) {
-	            _this.state.setUserCharacterList(data.characters);
-	            _this.state.setFriendsList(data.friends);
-	            _this.state.setBookmarkList(data.bookmarks);
-	            _this.$emit(events.PushOverlay, 'character-list');
-	          }).catch(function (msg) {
-	            _this.$emit(events.PushOverlay, 'login');
-	            console.warn(msg);
-	          });
-	        } else {
-	          _this.$emit(events.PushOverlay, 'login');
-	        }
-	      }).catch(function (msg) {
-	        console.log(msg);
-	        _this.$emit(events.PushOverlay, 'login');
-	      });
-	    }
+	    this.authenticate();
 	  },
 	
 	
@@ -12196,6 +12169,14 @@
 	    this.state.setTicket(data.ticket);
 	    this.$emit(events.PopOverlay);
 	    this.$emit(events.PushOverlay, 'character-list');
+	  }), (0, _defineProperty3.default)(_events, events.LogoutRequest, function () {
+	    this.socket.disconnect();
+	    this.overlays = ['login'];
+	    this.$broadcast(events.ChatStateReset);
+	  }), (0, _defineProperty3.default)(_events, events.SwitchCharacterRequest, function () {
+	    this.socket.disconnect();
+	    this.overlays = ['character-list'];
+	    this.$broadcast(events.ChatStateReset);
 	  }), (0, _defineProperty3.default)(_events, events.CharacterSelected, function (name) {
 	    this.state.setUserCharacter(name);
 	    this.socket.connect('main');
@@ -12216,7 +12197,7 @@
 	    this.socket.fetchChannelList();
 	    this.$emit(events.PushOverlay, 'app-menu');
 	  }), (0, _defineProperty3.default)(_events, events.SocketChannelListReceived, function (type) {
-	    var _this2 = this;
+	    var _this = this;
 	
 	    var account = this.state.getAccount();
 	    var character = this.state.getUserCharacterName();
@@ -12230,7 +12211,7 @@
 	        for (var _iterator = (0, _getIterator3.default)(channels[type]), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	          var id = _step.value;
 	
-	          _this2.socket.joinChannel(id);
+	          _this.socket.joinChannel(id);
 	        }
 	      } catch (err) {
 	        _didIteratorError = true;
@@ -12266,6 +12247,30 @@
 	  }), _events),
 	
 	  methods: {
+	    authenticate: function authenticate() {
+	      var _this2 = this;
+	
+	      if (!this.socket.isConnected()) {
+	        this.state.loadStorageData().then(function () {
+	          var _state$getAuthData = _this2.state.getAuthData();
+	
+	          var account = _state$getAuthData.account;
+	          var ticket = _state$getAuthData.ticket;
+	
+	          if (ticket !== '') {
+	            return (0, _flist.getUserData)(account, ticket);
+	          }
+	        }).then(function (data) {
+	          _this2.state.setUserCharacterList(data.characters);
+	          _this2.state.setFriendsList(data.friends);
+	          _this2.state.setBookmarkList(data.bookmarks);
+	          _this2.$emit(events.PushOverlay, 'character-list');
+	        }).catch(function (msg) {
+	          console.log(msg);
+	          _this2.$emit(events.PushOverlay, 'login');
+	        });
+	      }
+	    },
 	    checkDataAttribute: function checkDataAttribute(event) {
 	      var name = event.target.getAttribute('data-activate-character');
 	      if (name) {
@@ -13135,6 +13140,8 @@
 	    this.addPrivateChat(name);
 	  }), (0, _defineProperty3.default)(_events, events.OpenPrivateChatRequest, function (name) {
 	    this.activeTabIndex = this.addPrivateChat(name);
+	  }), (0, _defineProperty3.default)(_events, events.ChatStateReset, function () {
+	    this.tabs = [];
 	  }), _events),
 	
 	  methods: {
@@ -15611,6 +15618,8 @@
 	});
 	var LoginRequest = exports.LoginRequest = 'LoginRequest'; // (account: string)
 	var LoginSuccess = exports.LoginSuccess = 'LoginSuccess'; // (userData: object)
+	var LogoutRequest = exports.LogoutRequest = 'LogoutRequest'; // ()
+	var SwitchCharacterRequest = exports.SwitchCharacterRequest = 'SwitchCharacterRequest'; // ()
 	
 	var OverlayChangeRequest = exports.OverlayChangeRequest = 'OverlayChangeRequest'; // (overlay: string)
 	var PushOverlay = exports.PushOverlay = 'PushOverlay'; // (overlay: string)
@@ -15634,6 +15643,7 @@
 	var PrivateMessageSent = exports.PrivateMessageSent = 'PrivateMessageSent'; // (character: Character, message: string)
 	var PrivateMessageReceived = exports.PrivateMessageReceived = 'PrivateMessageReceived'; // (characterName: string, message: string)
 	var OpenPrivateChatRequest = exports.OpenPrivateChatRequest = 'OpenPrivateChatRequest'; // (partner: string)
+	var ChatStateReset = exports.ChatStateReset = 'ChatStateReset'; // ()
 	
 	var ChatboxSubmit = exports.ChatboxSubmit = 'ChatboxSubmit'; // (message: string)
 
@@ -17301,53 +17311,16 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
+	var _socket = __webpack_require__(204);
+	
+	var _socket2 = _interopRequireDefault(_socket);
+	
 	var _flist = __webpack_require__(109);
 	
 	var _events = __webpack_require__(111);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = {
-	  components: {
-	    MenuOption: _MenuOption2.default,
-	    Dropdown: _Dropdown2.default,
-	    ActionPanel: _ActionPanel2.default,
-	    CharacterAvatarLink: _CharacterAvatarLink2.default
-	  },
-	
-	  data: function data() {
-	    return { state: _state2.default };
-	  },
-	
-	
-	  computed: {
-	    character: function character() {
-	      return this.state.getUserCharacterName();
-	    },
-	    greeting: function greeting() {
-	      return 'Hi, ' + this.character.split(' ')[0] + '!';
-	    },
-	    profileURL: function profileURL() {
-	      return (0, _flist.getProfileURL)(this.character);
-	    },
-	    avatarURL: function avatarURL() {
-	      return (0, _flist.getAvatarURL)(this.character);
-	    }
-	  },
-	
-	  methods: {
-	    statusChanged: function statusChanged() {
-	      // set character status
-	    },
-	    pushOverlay: function pushOverlay(overlay) {
-	      this.$dispatch(_events.PopOverlay);
-	      this.$dispatch(_events.PushOverlay, overlay);
-	    }
-	  }
-	};
-	// </script>
-	//
-	/* generated by vue-loader */
 	// <template>
 	//   <action-panel side="left">
 	//     <form slot="content" class="ui form">
@@ -17374,8 +17347,8 @@
 	//       <menu-option icon='globe' @mousedown="pushOverlay('channel-list')">Channels</menu-option>
 	//       <menu-option icon='heart' @mousedown="pushOverlay('online-users')">Online Users</menu-option>
 	//       <menu-option icon='gear'>Settings</menu-option>
-	//       <menu-option icon='user'>Switch Character</menu-option>
-	//       <menu-option icon='sign-out'>Log Out</menu-option>
+	//       <menu-option icon='user' @mousedown="switchCharacter">Switch Character</menu-option>
+	//       <menu-option icon='sign-out' @mousedown="logOut">Log Out</menu-option>
 	//       <menu-option icon='info' @mousedown="pushOverlay('about')">About</menu-option>
 	//     </div>
 	//   </action-panel>
@@ -17393,6 +17366,53 @@
 	// </style>
 	//
 	// <script>
+	exports.default = {
+	  components: {
+	    MenuOption: _MenuOption2.default,
+	    Dropdown: _Dropdown2.default,
+	    ActionPanel: _ActionPanel2.default,
+	    CharacterAvatarLink: _CharacterAvatarLink2.default
+	  },
+	
+	  data: function data() {
+	    return { state: _state2.default, socket: _socket2.default };
+	  },
+	
+	
+	  computed: {
+	    character: function character() {
+	      return this.state.getUserCharacterName();
+	    },
+	    greeting: function greeting() {
+	      return 'Hi, ' + this.character.split(' ')[0] + '!';
+	    },
+	    profileURL: function profileURL() {
+	      return (0, _flist.getProfileURL)(this.character);
+	    },
+	    avatarURL: function avatarURL() {
+	      return (0, _flist.getAvatarURL)(this.character);
+	    }
+	  },
+	
+	  methods: {
+	    statusChanged: function statusChanged() {
+	      // set character status
+	    },
+	    pushOverlay: function pushOverlay(overlay) {
+	      this.$dispatch(_events.PopOverlay);
+	      this.$dispatch(_events.PushOverlay, overlay);
+	    },
+	    switchCharacter: function switchCharacter() {
+	      this.$dispatch(_events.SwitchCharacterRequest);
+	    },
+	    logOut: function logOut() {
+	      this.$dispatch(_events.LogoutRequest);
+	    }
+	  }
+	};
+	// </script>
+	//
+	/* generated by vue-loader */
 
 /***/ },
 /* 165 */
@@ -17888,7 +17908,7 @@
 /* 183 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <action-panel side=\"left\" _v-2811a614=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-2811a614=\"\">\n      <h2 _v-2811a614=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-2811a614=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <dropdown _v-2811a614=\"\">\n          <li value=\"online\" _v-2811a614=\"\">Online</li>\n          <li value=\"looking\" _v-2811a614=\"\">Looking</li>\n          <li value=\"busy\" _v-2811a614=\"\">Busy</li>\n          <li value=\"away\" _v-2811a614=\"\">Away</li>\n          <li value=\"dnd\" _v-2811a614=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-2811a614=\"\">\n        <i class=\"fa fa-pencil\" _v-2811a614=\"\"></i>\n        <div contenteditable=\"\" placeholder=\"What's up?\" _v-2811a614=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-2811a614=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"pushOverlay('channel-list')\" _v-2811a614=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"pushOverlay('online-users')\" _v-2811a614=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-2811a614=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" _v-2811a614=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" _v-2811a614=\"\">Log Out</menu-option>\n      <menu-option icon=\"info\" @mousedown=\"pushOverlay('about')\" _v-2811a614=\"\">About</menu-option>\n    </div>\n  </action-panel>\n";
+	module.exports = "\n  <action-panel side=\"left\" _v-2811a614=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-2811a614=\"\">\n      <h2 _v-2811a614=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-2811a614=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <dropdown _v-2811a614=\"\">\n          <li value=\"online\" _v-2811a614=\"\">Online</li>\n          <li value=\"looking\" _v-2811a614=\"\">Looking</li>\n          <li value=\"busy\" _v-2811a614=\"\">Busy</li>\n          <li value=\"away\" _v-2811a614=\"\">Away</li>\n          <li value=\"dnd\" _v-2811a614=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-2811a614=\"\">\n        <i class=\"fa fa-pencil\" _v-2811a614=\"\"></i>\n        <div contenteditable=\"\" placeholder=\"What's up?\" _v-2811a614=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-2811a614=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"pushOverlay('channel-list')\" _v-2811a614=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"pushOverlay('online-users')\" _v-2811a614=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-2811a614=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" @mousedown=\"switchCharacter\" _v-2811a614=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" @mousedown=\"logOut\" _v-2811a614=\"\">Log Out</menu-option>\n      <menu-option icon=\"info\" @mousedown=\"pushOverlay('about')\" _v-2811a614=\"\">About</menu-option>\n    </div>\n  </action-panel>\n";
 
 /***/ },
 /* 184 */
@@ -20321,7 +20341,7 @@
 /* 208 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n  <div @click='checkDataAttribute($event)'>\r\n    <chat v-ref:chat></chat>\r\n    <component v-for=\"overlay in overlays\" :is='overlay' :active-character='activeCharacter'></component>\r\n  </div>\r\n";
+	module.exports = "\r\n  <div @click='checkDataAttribute($event)'>\r\n    <chat></chat>\r\n    <component v-for=\"overlay in overlays\" :is='overlay' :active-character='activeCharacter'></component>\r\n  </div>\r\n";
 
 /***/ },
 /* 209 */

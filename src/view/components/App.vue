@@ -1,6 +1,6 @@
 <template>
   <div @click='checkDataAttribute($event)'>
-    <chat v-ref:chat></chat>
+    <chat></chat>
     <component v-for="overlay in overlays" :is='overlay' :active-character='activeCharacter'></component>
   </div>
 </template>
@@ -51,31 +51,7 @@ export default {
 
   ready () {
     this.socket.setRootVM(this)
-
-    if (!this.socket.isConnected()) {
-      this.state.loadStorageData().then(() => {
-        const { account, ticket } = this.state.getAuthData()
-        if (ticket !== '') {
-          getUserData(account, ticket)
-          .then(data => {
-            this.state.setUserCharacterList(data.characters)
-            this.state.setFriendsList(data.friends)
-            this.state.setBookmarkList(data.bookmarks)
-            this.$emit(events.PushOverlay, 'character-list')
-          })
-          .catch(msg => {
-            this.$emit(events.PushOverlay, 'login')
-            console.warn(msg)
-          })
-        } else {
-          this.$emit(events.PushOverlay, 'login')
-        }
-      })
-      .catch(msg => {
-        console.log(msg)
-        this.$emit(events.PushOverlay, 'login')
-      })
-    }
+    this.authenticate()
   },
 
   events: {
@@ -98,6 +74,18 @@ export default {
       this.state.setTicket(data.ticket)
       this.$emit(events.PopOverlay)
       this.$emit(events.PushOverlay, 'character-list')
+    },
+
+    [events.LogoutRequest] () {
+      this.socket.disconnect()
+      this.overlays = ['login']
+      this.$broadcast(events.ChatStateReset)
+    },
+
+    [events.SwitchCharacterRequest] () {
+      this.socket.disconnect()
+      this.overlays = ['character-list']
+      this.$broadcast(events.ChatStateReset)
     },
 
     [events.CharacterSelected] (name) {
@@ -173,6 +161,27 @@ export default {
   },
 
   methods: {
+    authenticate () {
+      if (!this.socket.isConnected()) {
+        this.state.loadStorageData().then(() => {
+          const { account, ticket } = this.state.getAuthData()
+          if (ticket !== '') {
+            return getUserData(account, ticket)
+          }
+        })
+        .then(data => {
+          this.state.setUserCharacterList(data.characters)
+          this.state.setFriendsList(data.friends)
+          this.state.setBookmarkList(data.bookmarks)
+          this.$emit(events.PushOverlay, 'character-list')
+        })
+        .catch(msg => {
+          console.log(msg)
+          this.$emit(events.PushOverlay, 'login')
+        })
+      }
+    },
+
     checkDataAttribute (event) {
       const name = event.target.getAttribute('data-activate-character')
       if (name) {
