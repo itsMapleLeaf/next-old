@@ -12053,13 +12053,13 @@
 	
 	var _promise2 = _interopRequireDefault(_promise);
 	
-	var _defineProperty2 = __webpack_require__(65);
-	
-	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-	
 	var _getIterator2 = __webpack_require__(68);
 	
 	var _getIterator3 = _interopRequireDefault(_getIterator2);
+	
+	var _defineProperty2 = __webpack_require__(65);
+	
+	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
 	var _events; // <template>
 	//   <div @click='checkDataAttribute($event)'>
@@ -12147,9 +12147,12 @@
 	  },
 	
 	  data: function data() {
+	    var _receivedChannels;
+	
 	    return {
 	      overlays: [],
 	      activeCharacter: {},
+	      receivedChannels: (_receivedChannels = {}, (0, _defineProperty3.default)(_receivedChannels, _types.ChannelType.private, false), (0, _defineProperty3.default)(_receivedChannels, _types.ChannelType.public, false), _receivedChannels),
 	      socket: _socket2.default,
 	      state: _state2.default,
 	      storage: _storage2.default
@@ -12157,7 +12160,9 @@
 	  },
 	  ready: function ready() {
 	    this.socket.setRootVM(this);
-	    this.authenticate();
+	    if (!this.socket.isConnected()) {
+	      this.authenticate();
+	    }
 	  },
 	
 	
@@ -12165,12 +12170,26 @@
 	    this.overlays.push(overlay);
 	  }), (0, _defineProperty3.default)(_events, events.PopOverlay, function () {
 	    this.overlays.pop();
-	  }), (0, _defineProperty3.default)(_events, events.LoginSuccess, function (data) {
-	    this.state.setAccount(data.account);
-	    this.state.setUserCharacterList(data.characters);
-	    this.state.setFriendsList(data.friends);
-	    this.state.setBookmarkList(data.bookmarks);
-	    this.state.setTicket(data.ticket);
+	  }), (0, _defineProperty3.default)(_events, events.LoginSuccess, function (data, remember) {
+	    var account = data.account;
+	    var ticket = data.ticket;
+	    var characters = data.characters;
+	    var friends = data.friends;
+	    var bookmarks = data.bookmarks;
+	
+	    this.state.setAccount(account);
+	    this.state.setTicket(ticket);
+	    this.state.setUserCharacterList(characters);
+	    this.state.setFriendsList(friends);
+	    this.state.setBookmarkList(bookmarks);
+	
+	    if (remember) {
+	      this.storage.setAccount(account);
+	      this.storage.setTicket(account, ticket);
+	    } else {
+	      this.storage.setAccount(undefined);
+	      this.storage.setTicket(account, undefined);
+	    }
 	
 	    this.$emit(events.PopOverlay);
 	    this.$emit(events.PushOverlay, 'character-list');
@@ -12184,6 +12203,7 @@
 	    this.$broadcast(events.ChatStateReset);
 	  }), (0, _defineProperty3.default)(_events, events.CharacterSelected, function (name) {
 	    this.state.setUserCharacter(name);
+	    this.storage.setCharacter(this.state.getAccount(), name);
 	    this.socket.connect('main');
 	    this.$emit(events.PopOverlay);
 	  }), (0, _defineProperty3.default)(_events, events.CharacterActivated, function (character) {
@@ -12199,24 +12219,25 @@
 	  }), (0, _defineProperty3.default)(_events, events.LeaveChannelRequest, function (id) {
 	    this.socket.leaveChannel(id);
 	  }), (0, _defineProperty3.default)(_events, events.SocketIdentifySuccess, function () {
+	    var _this = this;
+	
 	    this.socket.fetchChannelList();
 	    this.$emit(events.PushOverlay, 'app-menu');
-	  }), (0, _defineProperty3.default)(_events, events.SocketChannelListReceived, function (type) {
-	    var _this = this;
 	
 	    var account = this.state.getAccount();
 	    var character = this.state.getUserCharacterName();
 	
-	    _storage2.default.getActiveChannels(account, character).then(function (channels) {
+	    this.storage.getActiveChannels(account, character).then(function (channels) {
 	      var _iteratorNormalCompletion = true;
 	      var _didIteratorError = false;
 	      var _iteratorError = undefined;
 	
 	      try {
-	        for (var _iterator = (0, _getIterator3.default)(channels[type]), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	          var id = _step.value;
+	        for (var _iterator = (0, _getIterator3.default)(channels), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	          var info = _step.value;
 	
-	          _this.socket.joinChannel(id);
+	          _this.socket.joinChannel(info.id);
+	          _this.state.createChannelState(info.id, info.name, info.type);
 	        }
 	      } catch (err) {
 	        _didIteratorError = true;
@@ -12232,15 +12253,20 @@
 	          }
 	        }
 	      }
+	
+	      _this.storage.clearActiveChannels(account, character);
 	    }).catch(function (msg) {
-	      console.log(msg);
+	      console.warn('Error joining active channels: ' + msg);
 	    });
 	  }), (0, _defineProperty3.default)(_events, events.SocketError, function () {
 	    this.$emit(events.PushOverlay, 'login');
 	  }), (0, _defineProperty3.default)(_events, events.SocketChannelJoined, function (id) {
-	    this.$broadcast(events.SocketChannelJoined, this.state.getChannel(id));
+	    var channel = this.state.getChannel(id);
+	    this.$broadcast(events.SocketChannelJoined, channel);
+	    this.storage.addActiveChannel(this.state.getAccount(), this.state.getUserCharacterName(), id, channel.name, channel.type);
 	  }), (0, _defineProperty3.default)(_events, events.SocketChannelLeft, function (id) {
 	    this.$broadcast(events.SocketChannelLeft, this.state.getChannel(id));
+	    this.storage.removeActiveChannel(this.state.getAccount(), this.state.getUserCharacterName(), id);
 	  }), (0, _defineProperty3.default)(_events, events.ChannelMessageSent, function (id, message) {
 	    this.socket.sendChannelMessage(id, message);
 	  }), (0, _defineProperty3.default)(_events, events.PrivateMessageSent, function (character, message) {
@@ -12255,22 +12281,20 @@
 	    authenticate: function authenticate() {
 	      var _this2 = this;
 	
-	      if (!this.socket.isConnected()) {
-	        this.loadStorageData().then(function (data) {
-	          _this2.state.setAccount(data.account);
-	          _this2.state.setTicket(data.ticket);
-	          _this2.state.setUserCharacter(data.character);
-	          return (0, _flist.getUserData)(data.account, data.ticket);
-	        }).then(function (data) {
-	          _this2.state.setUserCharacterList(data.characters);
-	          _this2.state.setFriendsList(data.friends);
-	          _this2.state.setBookmarkList(data.bookmarks);
-	          _this2.$emit(events.PushOverlay, 'character-list');
-	        }).catch(function (msg) {
-	          console.log(msg);
-	          _this2.$emit(events.PushOverlay, 'login');
-	        });
-	      }
+	      this.loadStorageData().then(function (data) {
+	        _this2.state.setAccount(data.account);
+	        _this2.state.setTicket(data.ticket);
+	        _this2.state.setUserCharacter(data.character);
+	        return (0, _flist.getUserData)(data.account, data.ticket);
+	      }).then(function (data) {
+	        _this2.state.setUserCharacterList(data.characters);
+	        _this2.state.setFriendsList(data.friends);
+	        _this2.state.setBookmarkList(data.bookmarks);
+	        _this2.$emit(events.PushOverlay, 'character-list');
+	      }).catch(function (msg) {
+	        console.log(msg);
+	        _this2.$emit(events.PushOverlay, 'login');
+	      });
 	    },
 	    loadStorageData: function loadStorageData() {
 	      var _this3 = this;
@@ -13767,15 +13791,9 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _storage = __webpack_require__(106);
-	
-	var _storage2 = _interopRequireDefault(_storage);
-	
 	var _events2 = __webpack_require__(111);
 	
 	var events = _interopRequireWildcard(_events2);
-	
-	var _types = __webpack_require__(110);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -13892,28 +13910,6 @@
 	      }
 	      this.tabs.$remove(tab);
 	      this.activeTabIndex--;
-	    }
-	  },
-	
-	  watch: {
-	    tabs: function tabs(_, tablist) {
-	      var channels = tablist.filter(function (tab) {
-	        return tab.view === 'channel-view';
-	      });
-	
-	      var pubChannels = channels.filter(function (tab) {
-	        return tab.state.type === _types.ChannelType.public;
-	      }).map(function (tab) {
-	        return tab.state.id;
-	      });
-	
-	      var privChannels = channels.filter(function (tab) {
-	        return tab.state.type === _types.ChannelType.private;
-	      }).map(function (tab) {
-	        return tab.state.id;
-	      });
-	
-	      _storage2.default.setActiveChannels(this.state.getAccount(), this.state.getUserCharacterName(), { public: pubChannels, private: privChannels });
 	    }
 	  }
 	};
@@ -14520,10 +14516,6 @@
 	
 	var _vue2 = _interopRequireDefault(_vue);
 	
-	var _storage = __webpack_require__(106);
-	
-	var _storage2 = _interopRequireDefault(_storage);
-	
 	var _flist = __webpack_require__(109);
 	
 	var flist = _interopRequireWildcard(_flist);
@@ -14582,7 +14574,7 @@
 	  }, {
 	    key: 'getChannel',
 	    value: function getChannel(id) {
-	      return this.data.channels[id] || this.createChannelState(id);
+	      return this.data.channels[id] || this.createChannelState(id, id, undefined);
 	    }
 	  }, {
 	    key: 'getPrivateChat',
@@ -14703,19 +14695,16 @@
 	    key: 'setAccount',
 	    value: function setAccount(account) {
 	      this.data.account = account;
-	      _storage2.default.setAccount(account);
 	    }
 	  }, {
 	    key: 'setTicket',
 	    value: function setTicket(ticket) {
 	      this.data.ticket = ticket;
-	      _storage2.default.setTicket(this.data.account, ticket);
 	    }
 	  }, {
 	    key: 'setUserCharacter',
 	    value: function setUserCharacter(charname) {
 	      this.data.character = charname;
-	      _storage2.default.setCharacter(this.data.account, charname);
 	    }
 	  }, {
 	    key: 'setUserCharacterList',
@@ -14850,18 +14839,17 @@
 	    }
 	  }, {
 	    key: 'createChannelState',
-	    value: function createChannelState(id) {
+	    value: function createChannelState(id, name, type) {
 	      // lazy hacks are lazy
-	      var _data2 = this.data;
-	      var publicChannels = _data2.publicChannels;
-	      var privateChannels = _data2.privateChannels;
+	      // const {publicChannels, privateChannels} = this.data
+	      // const info = publicChannels.concat(privateChannels).find(ch => ch.id === id) || {}
+	      // if (info) {
+	      //   return Vue.set(this.data.channels, id, ChannelState(info.type, info.id, info.name))
+	      // } else {
+	      //   return Vue.set(this.data.channels, id, ChannelState(undefined, id))
+	      // }
 	
-	      var info = publicChannels.concat(privateChannels).find(function (ch) {
-	        return ch.id === id;
-	      });
-	      if (info) {
-	        return _vue2.default.set(this.data.channels, id, (0, _types.ChannelState)(info.type, info.id, info.name));
-	      }
+	      return _vue2.default.set(this.data.channels, id, (0, _types.ChannelState)(id, name, type));
 	    }
 	  }, {
 	    key: 'setChannelName',
@@ -14955,10 +14943,10 @@
 	  }, {
 	    key: 'addBookmark',
 	    value: function addBookmark(name) {
-	      var _data3 = this.data;
-	      var account = _data3.account;
-	      var ticket = _data3.ticket;
-	      var bookmarks = _data3.bookmarks;
+	      var _data2 = this.data;
+	      var account = _data2.account;
+	      var ticket = _data2.ticket;
+	      var bookmarks = _data2.bookmarks;
 	
 	      flist.addBookmark(account, ticket, name).then(function () {
 	        bookmarks.push(name);
@@ -14969,10 +14957,10 @@
 	  }, {
 	    key: 'removeBookmark',
 	    value: function removeBookmark(name) {
-	      var _data4 = this.data;
-	      var account = _data4.account;
-	      var ticket = _data4.ticket;
-	      var bookmarks = _data4.bookmarks;
+	      var _data3 = this.data;
+	      var account = _data3.account;
+	      var ticket = _data3.ticket;
+	      var bookmarks = _data3.bookmarks;
 	
 	      flist.removeBookmark(account, ticket, name).then(function () {
 	        bookmarks.$remove(name);
@@ -15304,12 +15292,21 @@
 	  }, {
 	    key: 'save',
 	    value: function save() {
-	      try {
-	        ls.setItem(storageKey, (0, _stringify2.default)(this.data));
-	        return _promise2.default.resolve();
-	      } catch (err) {
-	        return _promise2.default.reject(err);
-	      }
+	      var _this = this;
+	
+	      return new _promise2.default(function (resolve, reject) {
+	        try {
+	          ls.setItem(storageKey, (0, _stringify2.default)(_this.data));
+	          resolve();
+	        } catch (err) {
+	          reject(err);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'clear',
+	    value: function clear() {
+	      ls.clear();
 	    }
 	
 	    // getters
@@ -15332,7 +15329,7 @@
 	  }, {
 	    key: 'getActiveChannels',
 	    value: function getActiveChannels(account, character) {
-	      return this.get(dataKeys.channels(account, character));
+	      return this.get(dataKeys.channels(account, character), []);
 	    }
 	
 	    // setters
@@ -15353,9 +15350,32 @@
 	      return this.set(dataKeys.character(account), character);
 	    }
 	  }, {
-	    key: 'setActiveChannels',
-	    value: function setActiveChannels(account, character, channels) {
-	      return this.set(dataKeys.channels(account, character), channels);
+	    key: 'addActiveChannel',
+	    value: function addActiveChannel(account, character, id, name, type) {
+	      var _this2 = this;
+	
+	      return this.getActiveChannels(account, character).then(function (channels) {
+	        channels.push({ id: id, name: name, type: type });
+	        _this2.save();
+	      });
+	    }
+	  }, {
+	    key: 'removeActiveChannel',
+	    value: function removeActiveChannel(account, character, id) {
+	      var _this3 = this;
+	
+	      return this.getActiveChannels(account, character).then(function (channels) {
+	        var index = channels.findIndex(function (entry) {
+	          return entry.id === id;
+	        });
+	        channels.splice(index, 1);
+	        _this3.save();
+	      });
+	    }
+	  }, {
+	    key: 'clearActiveChannels',
+	    value: function clearActiveChannels(account, character) {
+	      return this.set(dataKeys.channels(account, character), []);
 	    }
 	  }]);
 	  return Storage;
@@ -15559,9 +15579,7 @@
 	  };
 	}
 	
-	function ChannelState(type, id) {
-	  var name = arguments.length <= 2 || arguments[2] === undefined ? id : arguments[2];
-	
+	function ChannelState(id, name, type) {
 	  return {
 	    type: type, // ChannelType
 	    id: id, // string: the channel id (either 'channel' or 'name' from the server)
@@ -15612,7 +15630,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var LoginSuccess = exports.LoginSuccess = 'LoginSuccess'; // (userData: object)
+	var LoginSuccess = exports.LoginSuccess = 'LoginSuccess'; // (userData: object, remember: boolean)
 	var LogoutRequest = exports.LogoutRequest = 'LogoutRequest'; // ()
 	var SwitchCharacterRequest = exports.SwitchCharacterRequest = 'SwitchCharacterRequest'; // ()
 	
@@ -16333,9 +16351,13 @@
 	
 	var _events = __webpack_require__(111);
 	
+	var _storage = __webpack_require__(106);
+	
+	var _storage2 = _interopRequireDefault(_storage);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var errorMessage = '\nCould not connect to F-List website.\nThey\'re either doing maintenance,\nor someone spilled coke on the servers again.\n'; // <template>
+	// <template>
 	//   <overlay :close-on-shade-clicked='false'>
 	//     <h1>Hi there!</h1>
 	//     <form class='ui form' @submit.prevent='submit'>
@@ -16374,6 +16396,8 @@
 	// <script>
 	
 	
+	var errorMessage = '\nCould not connect to F-List website.\nThey\'re either doing maintenance,\nor someone spilled coke on the servers again.\n';
+	
 	exports.default = {
 	  data: function data() {
 	    return {
@@ -16392,15 +16416,27 @@
 	    Toggle: _Toggle2.default
 	  },
 	
+	  ready: function ready() {
+	    var _this = this;
+	
+	    _storage2.default.getAccount().then(function (account) {
+	      _this.username = account;
+	      _this.remember = true;
+	    }).catch(function () {
+	      _this.remember = false;
+	    });
+	  },
+	
+	
 	  methods: {
 	    submit: function submit() {
-	      var _this = this;
+	      var _this2 = this;
 	
 	      this.disabled = true;
 	
 	      (0, _flist.sendLoginRequest)(this.username, this.password).then(function (data) {
 	        var loginData = {
-	          account: _this.username,
+	          account: _this2.username,
 	          ticket: data.ticket,
 	          characters: data.characters,
 	          bookmarks: data.bookmarks.map(function (_ref) {
@@ -16414,12 +16450,12 @@
 	            return { source: dest_name, dest: source_name }; // ????????
 	          })
 	        };
-	        _this.$dispatch(_events.LoginSuccess, loginData);
+	        _this2.$dispatch(_events.LoginSuccess, loginData, _this2.remember);
 	      }).catch(function (err) {
-	        _this.status = err || errorMessage;
+	        _this2.status = err || errorMessage;
 	      }).then(function () {
-	        _this.disabled = false;
-	        _this.password = '';
+	        _this2.disabled = false;
+	        _this2.password = '';
 	      });
 	    }
 	  }
@@ -18381,7 +18417,6 @@
 	    key: 'joinChannel',
 	    value: function joinChannel(id) {
 	      this.send('JCH', { channel: id });
-	      this.vm.state.setChannelStatus(id, _types.ChannelStatus.joining);
 	    }
 	  }, {
 	    key: 'leaveChannel',

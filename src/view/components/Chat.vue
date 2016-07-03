@@ -31,9 +31,7 @@ import ChannelView from './chat-views/ChannelView.vue'
 import PrivateChatView from './chat-views/PrivateChatView.vue'
 
 import state from '../lib/state'
-import storage from '../lib/storage'
 import * as events from '../lib/events'
-import {ChannelType} from '../lib/types'
 
 const nullTab = { text: 'null tab', view: '' }
 
@@ -165,25 +163,6 @@ export default {
       }
       this.tabs.$remove(tab)
       this.activeTabIndex--
-    }
-  },
-
-  watch: {
-    tabs (_, tablist) {
-      const channels = tablist.filter(tab => tab.view === 'channel-view')
-
-      const pubChannels = channels
-        .filter(tab => tab.state.type === ChannelType.public)
-        .map(tab => tab.state.id)
-
-      const privChannels = channels
-        .filter(tab => tab.state.type === ChannelType.private)
-        .map(tab => tab.state.id)
-
-      storage.setActiveChannels(
-        this.state.getAccount(),
-        this.state.getUserCharacterName(),
-        { public: pubChannels, private: privChannels })
     }
   }
 }

@@ -21,6 +21,7 @@
 - [ ] eventually figure a performant way to allow people to browse all characters/channels
 - [ ] some kind of notifications system???
 - [ ] probably a console
+- [x] make the "remember me" function actually work
 - [x] functional character switching
 - [x] functional logging out
 - [x] ~~add a BBCode toolbar for the chatbox~~ adds too much UI clutter, on mobile especially
@@ -48,7 +49,6 @@
 - [ ] look into optionally darklighting OOC? complicated and unreliable, but an interesting thought...
 - [ ] on application start, scroll the character list down so the selected character is within view
 - [ ] (offline app) remove window border, add custom window buttons
-- [ ] create a checkbox component to use instead of the default HTML checkbox, for styling, more functionality and such
 - [ ] make the tabs reorderable... _ugh_
 - [ ] add a view to read the channel description on a larger panel instead of needing to scroll through that tiny div
 - [ ] add icons to tabs to indicate tab type (public channel, private channel, PM, etc.)
@@ -58,6 +58,8 @@
 - [ ] hide the "bookmark" and "ignore" options (and other irrelevant options) on self characters
 - [ ] only show app menu if there are no active channels loaded from storage
 - [ ] highlight messages in channels sent by friends and bookmarks
+- [ ] add an X button to overlay panels instead of a 'done' button
+- [x] create a checkbox component to use instead of the default HTML checkbox, for styling, more functionality and such
 - [x] add dividers to split up the interface a bit
 - [x] ~~translate statuses into human readable text in CharacterMenu~~ unnecessary
 - [x] friendly titles!
@@ -77,6 +79,7 @@
 - [ ] return a null character from the store to handle offline users
 - [ ] limit the size of the message list to prevent hardcore memory leaks
 - [ ] (offline app) move socket logic to application side out of the view
+- [ ] move to a global event bus instead of passing them through component tree
 - [x] ~~add a global getter for the application version~~ the about panel is good enough
 - [x] stop using so many goddamn transitions (but keep overlay transitions)
 - [x] make an overlay vue component

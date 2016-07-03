@@ -41,6 +41,7 @@ import Toggle from '../elements/Toggle.vue'
 
 import {sendLoginRequest} from '../../lib/flist'
 import {LoginSuccess} from '../../lib/events'
+import storage from '../../lib/storage'
 
 const errorMessage = `
 Could not connect to F-List website.
@@ -65,6 +66,16 @@ export default {
     Toggle
   },
 
+  ready () {
+    storage.getAccount().then(account => {
+      this.username = account
+      this.remember = true
+    })
+    .catch(() => {
+      this.remember = false
+    })
+  },
+
   methods: {
     submit () {
       this.disabled = true
@@ -79,7 +90,7 @@ export default {
             return { source: dest_name, dest: source_name } // ????????
           })
         }
-        this.$dispatch(LoginSuccess, loginData)
+        this.$dispatch(LoginSuccess, loginData, this.remember)
       })
       .catch(err => {
         this.status = err || errorMessage

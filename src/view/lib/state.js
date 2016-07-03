@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import storage from './storage'
 import * as flist from '../lib/flist'
 // import {compareNames} from '../lib/util'
 
@@ -49,7 +48,7 @@ class State {
   }
 
   getChannel (id) {
-    return this.data.channels[id] || this.createChannelState(id)
+    return this.data.channels[id] || this.createChannelState(id, id, undefined)
   }
 
   getPrivateChat (partner) {
@@ -143,17 +142,14 @@ class State {
   // setters
   setAccount (account) {
     this.data.account = account
-    storage.setAccount(account)
   }
 
   setTicket (ticket) {
     this.data.ticket = ticket
-    storage.setTicket(this.data.account, ticket)
   }
 
   setUserCharacter (charname) {
     this.data.character = charname
-    storage.setCharacter(this.data.account, charname)
   }
 
   setUserCharacterList (list) {
@@ -222,13 +218,17 @@ class State {
     this.data.privateChannels = channels
   }
 
-  createChannelState (id) {
+  createChannelState (id, name, type) {
     // lazy hacks are lazy
-    const {publicChannels, privateChannels} = this.data
-    const info = publicChannels.concat(privateChannels).find(ch => ch.id === id)
-    if (info) {
-      return Vue.set(this.data.channels, id, ChannelState(info.type, info.id, info.name))
-    }
+    // const {publicChannels, privateChannels} = this.data
+    // const info = publicChannels.concat(privateChannels).find(ch => ch.id === id) || {}
+    // if (info) {
+    //   return Vue.set(this.data.channels, id, ChannelState(info.type, info.id, info.name))
+    // } else {
+    //   return Vue.set(this.data.channels, id, ChannelState(undefined, id))
+    // }
+
+    return Vue.set(this.data.channels, id, ChannelState(id, name, type))
   }
 
   setChannelName (id, name) {

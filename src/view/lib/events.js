@@ -1,4 +1,4 @@
-export const LoginSuccess = 'LoginSuccess' // (userData: object)
+export const LoginSuccess = 'LoginSuccess' // (userData: object, remember: boolean)
 export const LogoutRequest = 'LogoutRequest' // ()
 export const SwitchCharacterRequest = 'SwitchCharacterRequest' // ()
 

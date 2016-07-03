@@ -25,7 +25,7 @@ import About from './overlays/About.vue'
 import state from '../lib/state'
 import socket from '../lib/socket'
 import storage from '../lib/storage'
-import {ChannelStatus} from '../lib/types'
+import {ChannelStatus, ChannelType} from '../lib/types'
 import {getUserData} from '../lib/flist'
 import * as events from '../lib/events'
 
@@ -45,6 +45,10 @@ export default {
     return {
       overlays: [],
       activeCharacter: {},
+      receivedChannels: {
+        [ChannelType.private]: false,
+        [ChannelType.public]: false
+      },
       socket,
       state,
       storage
@@ -53,7 +57,9 @@ export default {
 
   ready () {
     this.socket.setRootVM(this)
-    this.authenticate()
+    if (!this.socket.isConnected()) {
+      this.authenticate()
+    }
   },
 
   events: {
@@ -65,12 +71,21 @@ export default {
       this.overlays.pop()
     },
 
-    [events.LoginSuccess] (data) {
-      this.state.setAccount(data.account)
-      this.state.setUserCharacterList(data.characters)
-      this.state.setFriendsList(data.friends)
-      this.state.setBookmarkList(data.bookmarks)
-      this.state.setTicket(data.ticket)
+    [events.LoginSuccess] (data, remember) {
+      const {account, ticket, characters, friends, bookmarks} = data
+      this.state.setAccount(account)
+      this.state.setTicket(ticket)
+      this.state.setUserCharacterList(characters)
+      this.state.setFriendsList(friends)
+      this.state.setBookmarkList(bookmarks)
+
+      if (remember) {
+        this.storage.setAccount(account)
+        this.storage.setTicket(account, ticket)
+      } else {
+        this.storage.setAccount(undefined)
+        this.storage.setTicket(account, undefined)
+      }
 
       this.$emit(events.PopOverlay)
       this.$emit(events.PushOverlay, 'character-list')
@@ -90,6 +105,7 @@ export default {
 
     [events.CharacterSelected] (name) {
       this.state.setUserCharacter(name)
+      this.storage.setCharacter(this.state.getAccount(), name)
       this.socket.connect('main')
       this.$emit(events.PopOverlay)
     },
@@ -115,19 +131,19 @@ export default {
     [events.SocketIdentifySuccess] () {
       this.socket.fetchChannelList()
       this.$emit(events.PushOverlay, 'app-menu')
-    },
 
-    [events.SocketChannelListReceived] (type) {
       const account = this.state.getAccount()
       const character = this.state.getUserCharacterName()
 
-      storage.getActiveChannels(account, character).then(channels => {
-        for (let id of channels[type]) {
-          this.socket.joinChannel(id)
+      this.storage.getActiveChannels(account, character).then(channels => {
+        for (let info of channels) {
+          this.socket.joinChannel(info.id)
+          this.state.createChannelState(info.id, info.name, info.type)
         }
+        this.storage.clearActiveChannels(account, character)
       })
       .catch(msg => {
-        console.log(msg)
+        console.warn(`Error joining active channels: ${msg}`)
       })
     },
 
@@ -136,11 +152,14 @@ export default {
     },
 
     [events.SocketChannelJoined] (id) {
-      this.$broadcast(events.SocketChannelJoined, this.state.getChannel(id))
+      const channel = this.state.getChannel(id)
+      this.$broadcast(events.SocketChannelJoined, channel)
+      this.storage.addActiveChannel(this.state.getAccount(), this.state.getUserCharacterName(), id, channel.name, channel.type)
     },
 
     [events.SocketChannelLeft] (id) {
       this.$broadcast(events.SocketChannelLeft, this.state.getChannel(id))
+      this.storage.removeActiveChannel(this.state.getAccount(), this.state.getUserCharacterName(), id)
     },
 
     [events.ChannelMessageSent] (id, message) {
@@ -162,24 +181,22 @@ export default {
 
   methods: {
     authenticate () {
-      if (!this.socket.isConnected()) {
-        this.loadStorageData().then(data => {
-          this.state.setAccount(data.account)
-          this.state.setTicket(data.ticket)
-          this.state.setUserCharacter(data.character)
-          return getUserData(data.account, data.ticket)
-        })
-        .then(data => {
-          this.state.setUserCharacterList(data.characters)
-          this.state.setFriendsList(data.friends)
-          this.state.setBookmarkList(data.bookmarks)
-          this.$emit(events.PushOverlay, 'character-list')
-        })
-        .catch(msg => {
-          console.log(msg)
-          this.$emit(events.PushOverlay, 'login')
-        })
-      }
+      this.loadStorageData().then(data => {
+        this.state.setAccount(data.account)
+        this.state.setTicket(data.ticket)
+        this.state.setUserCharacter(data.character)
+        return getUserData(data.account, data.ticket)
+      })
+      .then(data => {
+        this.state.setUserCharacterList(data.characters)
+        this.state.setFriendsList(data.friends)
+        this.state.setBookmarkList(data.bookmarks)
+        this.$emit(events.PushOverlay, 'character-list')
+      })
+      .catch(msg => {
+        console.log(msg)
+        this.$emit(events.PushOverlay, 'login')
+      })
     },
 
     loadStorageData () {

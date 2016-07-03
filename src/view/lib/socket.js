@@ -230,7 +230,6 @@ class Socket {
 
   joinChannel (id) {
     this.send('JCH', { channel: id })
-    this.vm.state.setChannelStatus(id, ChannelStatus.joining)
   }
 
   leaveChannel (id) {

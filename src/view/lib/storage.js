@@ -30,12 +30,18 @@ class Storage {
   }
 
   save () {
-    try {
-      ls.setItem(storageKey, JSON.stringify(this.data))
-      return Promise.resolve()
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    return new Promise((resolve, reject) => {
+      try {
+        ls.setItem(storageKey, JSON.stringify(this.data))
+        resolve()
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  clear () {
+    ls.clear()
   }
 
   // getters
@@ -52,7 +58,7 @@ class Storage {
   }
 
   getActiveChannels (account, character) {
-    return this.get(dataKeys.channels(account, character))
+    return this.get(dataKeys.channels(account, character), [])
   }
 
   // setters
@@ -68,8 +74,23 @@ class Storage {
     return this.set(dataKeys.character(account), character)
   }
 
-  setActiveChannels (account, character, channels) {
-    return this.set(dataKeys.channels(account, character), channels)
+  addActiveChannel (account, character, id, name, type) {
+    return this.getActiveChannels(account, character).then(channels => {
+      channels.push({ id, name, type })
+      this.save()
+    })
+  }
+
+  removeActiveChannel (account, character, id) {
+    return this.getActiveChannels(account, character).then(channels => {
+      const index = channels.findIndex(entry => entry.id === id)
+      channels.splice(index, 1)
+      this.save()
+    })
+  }
+
+  clearActiveChannels (account, character) {
+    return this.set(dataKeys.channels(account, character), [])
   }
 }
 
