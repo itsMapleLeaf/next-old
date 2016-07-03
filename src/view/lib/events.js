@@ -2,7 +2,6 @@ export const LoginSuccess = 'LoginSuccess' // (userData: object, remember: boole
 export const LogoutRequest = 'LogoutRequest' // ()
 export const SwitchCharacterRequest = 'SwitchCharacterRequest' // ()
 
-export const OverlayChangeRequest = 'OverlayChangeRequest' // (overlay: string)
 export const PushOverlay = 'PushOverlay' // (overlay: string)
 export const PopOverlay = 'PopOverlay'   // ()
 
