@@ -5,6 +5,8 @@
 - Added an 'about' panel to the menu, to always have access to developer info.
 - Removed a lot of CSS transitions for performance, especially on mobile.
 - Removed info footer in favor of a link with application information
+- Log out option works
+- Switch character option works
 
 # 0.2.1
 - Fixed a nasty bug where the login menu didn't show up.
