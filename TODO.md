@@ -75,9 +75,9 @@
 - [ ] return a null character from the store to handle offline users
 - [ ] limit the size of the message list to prevent hardcore memory leaks
 - [ ] (offline app) move socket logic to application side out of the view
-- [ ] add a global getter for the application version
-- [ ] stop using so many goddamn transitions (but keep overlay transitions)
-- [ ] make an overlay vue component
+- [x] ~~add a global getter for the application version~~ the about panel is good enough
+- [x] stop using so many goddamn transitions (but keep overlay transitions)
+- [x] make an overlay vue component
 - [x] ~~allow requiring absolute paths from root folder to resolve the absolute path madness~~ we'll just stick with relative paths for now
 - [x] create an interface for session storage to support multiple platforms later on
 - [x] ~~rewrite style classes to account a little better for collisions~~ not necessary
