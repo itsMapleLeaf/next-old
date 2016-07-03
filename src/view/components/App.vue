@@ -63,9 +63,9 @@ export default {
             this.state.setBookmarkList(data.bookmarks)
             this.$emit(events.PushOverlay, 'character-list')
           })
-          .catch(err => {
+          .catch(msg => {
             this.$emit(events.PushOverlay, 'login')
-            console.warn(err)
+            console.warn(msg)
           })
         } else {
           this.$emit(events.PushOverlay, 'login')

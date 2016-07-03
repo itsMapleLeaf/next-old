@@ -1,5 +1,7 @@
-animate($property = all)
-  transition: $property 0.3s ease
+@import 'easing'
+
+animate($property, $easing = ease)
+  transition: $property 0.3s $easing
 
 .fade
   &-transition
@@ -9,10 +11,21 @@ animate($property = all)
   &-enter, &-leave
     opacity: 0
 
+.ui.overlay.fade
+  &-transition
+    .ui.panel
+      animate: transform, $ease-out-quad
+      transform: translateY(0em)
+
+  &-enter, &-leave
+    .ui.panel
+      animate: transform, $ease-in-quad
+      transform: translateY(-4em)
+
 slide($side)
   .slide-{$side}
     &-transition
-      animate: all
+      animate: all, $ease-out-quad
       opacity: 1
       .ui.side-panel
         animate: all
@@ -21,7 +34,7 @@ slide($side)
     &-enter, &-leave
       opacity: 0
       .ui.side-panel
-        animate: all
+        animate: all, $ease-in-quad
         {$side}: -14em
 
 slide('left')
