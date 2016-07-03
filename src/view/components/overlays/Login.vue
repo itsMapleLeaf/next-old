@@ -40,7 +40,7 @@ import Overlay from '../elements/Overlay.vue'
 import Toggle from '../elements/Toggle.vue'
 
 import {sendLoginRequest} from '../../lib/flist'
-import {LoginRequest, LoginSuccess} from '../../lib/events'
+import {LoginSuccess} from '../../lib/events'
 
 const errorMessage = `
 Could not connect to F-List website.
@@ -67,18 +67,19 @@ export default {
 
   methods: {
     submit () {
-      sendLoginRequest(this.username, this.password)
-      .then(data => {
-        const correctedDataBecauseTheAPIIsReallyInconsistentAndStupid = {
-          characters: data.characters,
-          bookmarks: data.bookmarks.map(({name}) => name),
-          friends: data.friends.map(({ source_name, dest_name }) => {
-            return { source: dest_name, dest: source_name } // ??????
-          }),
-          ticket: data.ticket
-        }
+      this.disabled = true
 
-        this.$dispatch(LoginSuccess, correctedDataBecauseTheAPIIsReallyInconsistentAndStupid)
+      sendLoginRequest(this.username, this.password).then(data => {
+        const loginData = {
+          account: this.username,
+          ticket: data.ticket,
+          characters: data.characters,
+          bookmarks: data.bookmarks.map(({name}) => name), // ???
+          friends: data.friends.map(({ source_name, dest_name }) => {
+            return { source: dest_name, dest: source_name } // ????????
+          })
+        }
+        this.$dispatch(LoginSuccess, loginData)
       })
       .catch(err => {
         this.status = err || errorMessage
@@ -87,9 +88,6 @@ export default {
         this.disabled = false
         this.password = ''
       })
-
-      this.$dispatch(LoginRequest, this.username)
-      this.disabled = true
     }
   }
 }

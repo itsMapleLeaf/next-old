@@ -1,4 +1,3 @@
-export const LoginRequest = 'LoginRequest' // (account: string)
 export const LoginSuccess = 'LoginSuccess' // (userData: object)
 export const LogoutRequest = 'LogoutRequest' // ()
 export const SwitchCharacterRequest = 'SwitchCharacterRequest' // ()

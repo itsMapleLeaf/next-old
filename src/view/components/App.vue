@@ -45,7 +45,9 @@ export default {
     return {
       overlays: [],
       activeCharacter: {},
-      socket, state
+      socket,
+      state,
+      storage
     }
   },
 
@@ -63,11 +65,8 @@ export default {
       this.overlays.pop()
     },
 
-    [events.LoginRequest] (account) {
-      this.state.setAccount(account)
-    },
-
     [events.LoginSuccess] (data) {
+      this.state.setAccount(data.account)
       this.state.setUserCharacterList(data.characters)
       this.state.setFriendsList(data.friends)
       this.state.setBookmarkList(data.bookmarks)
@@ -165,13 +164,10 @@ export default {
     authenticate () {
       if (!this.socket.isConnected()) {
         this.loadStorageData().then(data => {
-          if (data.ticket !== '') {
-            this.state.setAccount(data.account)
-            this.state.setTicket(data.ticket)
-            return getUserData(data.account, data.ticket)
-          } else {
-            return Promise.reject('no ticket found')
-          }
+          this.state.setAccount(data.account)
+          this.state.setTicket(data.ticket)
+          this.state.setUserCharacter(data.character)
+          return getUserData(data.account, data.ticket)
         })
         .then(data => {
           this.state.setUserCharacterList(data.characters)
