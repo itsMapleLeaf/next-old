@@ -1,5 +1,5 @@
 <template>
-  <overlay :close-on-shade-clicked='false'>
+  <overlay no-close>
     <h2>Who do we feel like playing today?</h2>
     <form class='ui form' @submit.prevent='submit'>
       <div class='ui field'>

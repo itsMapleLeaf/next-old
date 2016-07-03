@@ -1,5 +1,5 @@
 <template>
-  <overlay :close-on-shade-clicked='false'>
+  <overlay no-close>
     <h1>Hi there!</h1>
     <form class='ui form' @submit.prevent='submit'>
       <div class='ui field text-input icon left'>

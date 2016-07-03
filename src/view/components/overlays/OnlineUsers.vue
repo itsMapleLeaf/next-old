@@ -27,9 +27,6 @@
         <i class="fa fa-search"></i>
         <input type="text" placeholder="Search..." v-model="search" debounce="500" />
       </div>
-      <div class="ui field">
-        <button class="ui button">Done</button>
-      </div>
     </form>
   </overlay>
 </template>

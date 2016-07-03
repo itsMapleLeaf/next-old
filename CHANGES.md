@@ -9,6 +9,8 @@
 - Switch character option works
 - The "Remember me" checkbox works (rather, stops working when you leave it unchecked)
 - Status form works
+- Added a close button to closeable overlays
+- Removed the 'Done' button from closeable overlays
 
 # 0.2.1
 - Fixed a nasty bug where the login menu didn't show up.
