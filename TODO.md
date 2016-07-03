@@ -80,6 +80,7 @@
 - [ ] limit the size of the message list to prevent hardcore memory leaks
 - [ ] (offline app) move socket logic to application side out of the view
 - [ ] move to a global event bus instead of passing them through component tree
+- [ ] look into getting a better websocket API
 - [x] ~~add a global getter for the application version~~ the about panel is good enough
 - [x] stop using so many goddamn transitions (but keep overlay transitions)
 - [x] make an overlay vue component
@@ -104,4 +105,4 @@
 - [x] closing a tab activates it awkwardly before actually closing it
 - [x] does not load last active character
 - [x] PrivateChatView does not use the MessageList component (for some reason???)
-- [ ] sometimes the user session storage clears itself when it shouldn't
+- [x] sometimes the user session storage clears itself when it shouldn't
