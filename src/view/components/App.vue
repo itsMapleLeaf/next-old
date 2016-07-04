@@ -27,7 +27,6 @@ import Loading from 'view/components/overlays/Loading.vue'
 import {store, state} from 'modules/store'
 import socket from 'modules/socket'
 // import * as flist from 'modules/flist'
-import {inspect} from 'util'
 
 export default {
   components: {
@@ -52,19 +51,29 @@ export default {
   },
 
   ready () {
-    // this.overlays = ['login']
-    this.overlays = ['loading']
+    this.overlays = ['login']
   },
 
   methods: {
-    LoginSuccess (event) {
-      this.overlays = ['character-list']
+    LoginRequest () {
+      this.overlays.push('loading')
+    },
 
+    LoginSuccess (event) {
       const data = event.loginData
       store.setAuthData(data.account, data.ticket)
       store.setFriendsList(data.friends)
       store.setUserCharacterList(data.characters)
       store.setBookmarkList(data.bookmarks)
+
+      this.overlays = []
+      window.setTimeout(() => {
+        this.overlays = ['character-list']
+      }, 500)
+    },
+
+    LoginFailure () {
+      this.overlays.pop()
     },
 
     UserCharacterSelected (event) {
@@ -79,7 +88,7 @@ export default {
       if (method) {
         method(event)
       } else {
-        console.log(`Unknown event: ${inspect(event)}`)
+        console.log('Unknown event:', event)
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
-  <span class="ui hover-darken small noselect" :class="{ 'subtle': !enabled }">
-    <i class="fa fa-fw" :class="{ 'fa-square': enabled, 'fa-square-o': !enabled }"></i>
+  <span class="ui hover-darken small noselect" :class="{ 'subtle': !value }">
+    <i class="fa fa-fw" :class="{ 'fa-square': value, 'fa-square-o': !value }"></i>
     <slot></slot>
   </span>
 </template>
@@ -14,7 +14,7 @@ span
 <script>
 export default {
   props: {
-    enabled: Boolean
+    value: Boolean
   }
 }
 </script>

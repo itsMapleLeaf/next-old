@@ -152,6 +152,10 @@ highlight($color)
   &.form &.field
     margin-bottom: 0.8em
 
+  &.form[disabled]
+    @extend .ui.subtle
+    pointer-events: none
+
   &.selection
     @extend .ui.theme-color.dark
     @extend .ui.border

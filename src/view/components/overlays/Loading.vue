@@ -1,5 +1,5 @@
 <template>
-  <div class='ui overlay flex col center-content'>
+  <div class='ui overlay flex col center-content' transition="fade">
     <i class='fa fa-paw'></i>
     <h3><em>Working on it...</em></h3>
   </div>

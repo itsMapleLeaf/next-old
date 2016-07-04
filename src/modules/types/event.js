@@ -3,7 +3,10 @@ import type {Character, CharacterStatus, CharacterName} from 'types/character'
 import type {ChannelID} from 'types/chat'
 
 export type Event = {}
+  | { type: 'LoginRequest' }
   | { type: 'LoginSuccess', loginData: LoginData, remember: boolean }
+  | { type: 'LoginFailure' }
+
   | { type: 'LogoutRequest' }
 
   | { type: 'PushOverlay', overlay: string }

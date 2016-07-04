@@ -1,37 +1,36 @@
 <template>
   <overlay no-close>
     <h2>Hello, beautiful.</h2>
-    <form class='ui form' @submit.prevent='submit'>
+    <form class='ui form' @submit.prevent='submit' :disabled='disabled'>
       <div class='ui field text-input icon left'>
         <i class='fa fa-user'></i>
-        <input type="text" placeholder="Username" v-model="username" :disabled='disabled'>
+        <input type="text" placeholder="Username" v-model="username">
       </div>
       <div class='ui field text-input icon left'>
         <i class='fa fa-lock'></i>
-        <input type="password" placeholder="Password" v-model="password" :disabled='disabled'>
+        <input type="password" placeholder="Password" v-model="password">
       </div>
       <div class='ui field'>
-        <toggle :enabled='remember' @click='remember = !remember'>Remember me</toggle>
+        <toggle :value='remember' @click='remember = !remember'>Remember me</toggle>
       </div>
       <div class='ui field'>
-        <button class='ui padded-button' action="submit" :disabled='disabled'>Go</button>
+        <button class='ui padded-button' action="submit" >Go</button>
       </div>
       <div class='ui field'>
         <span>{{status}}</span>
       </div>
-      <div class='ui field small subtle'>
-        <em><a class='ui link' href='#' data-push-overlay='about'>About</a></em>
-      </div>
+      <a class='ui link subtle about-link' href='#' data-push-overlay='about'>
+        <i class='fa fa-question-circle'></i>
+      </a>
     </form>
   </overlay>
 </template>
 
 <style lang="stylus" scoped>
-footer
-  width: 100vw
+.about-link
   position: absolute
-  bottom: 2em
-  padding: 1em
+  right: 0.5em
+  bottom: 0.5em
 </style>
 
 <script>
@@ -62,8 +61,7 @@ export default {
       password: '',
       status: '',
       disabled: false,
-      remember: false,
-      store
+      remember: false
     }
   },
 
@@ -79,41 +77,32 @@ export default {
 
   methods: {
     async submit () {
+      this.status = ''
       this.disabled = true
+      store.dispatch('LoginRequest')
 
-      const res = await authenticate(this.username, this.password)
+      try {
+        const res = await authenticate(this.username, this.password)
 
-      const loginData: LoginData = {
-        account: this.username,
-        ticket: res.ticket,
-        characters: res.characters,
-        bookmarks: res.bookmarks.map(char => char.name),
-        friends: res.friends.map(entry => {
-          return { you: entry.dest_name, them: entry.source_name }
-        })
+        if (res.error) {
+          store.dispatch('LoginFailure')
+          this.status = res.error
+          this.disabled = false
+        } else {
+          const loginData: LoginData = {
+            account: this.username,
+            ticket: res.ticket,
+            characters: res.characters,
+            bookmarks: res.bookmarks.map(char => char.name),
+            friends: res.friends.map(entry => {
+              return { you: entry.dest_name, them: entry.source_name }
+            })
+          }
+          store.dispatch('LoginSuccess', { loginData, remember: this.remember })
+        }
+      } catch (err) {
+        console.error(err)
       }
-
-      this.store.dispatchEvent('LoginSuccess', { loginData, remember: this.remember })
-
-      // sendLoginRequest(this.username, this.password).then(data => {
-      //   const loginData = {
-      //     account: this.username,
-      //     ticket: data.ticket,
-      //     characters: data.characters,
-      //     bookmarks: data.bookmarks.map(({name}) => name), // ???
-      //     friends: data.friends.map(({ source_name, dest_name }) => {
-      //       return { source: dest_name, dest: source_name } // ????????
-      //     })
-      //   }
-      //   this.$dispatch(LoginSuccess, loginData, this.remember)
-      // })
-      // .catch(err => {
-      //   this.status = err || errorMessage
-      // })
-      // .then(() => {
-      //   this.disabled = false
-      //   this.password = ''
-      // })
     }
   }
 }

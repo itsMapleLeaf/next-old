@@ -34,7 +34,7 @@ class Store {
   }
 
   // convenience event dispatcher
-  dispatchEvent (type: string, params: Object) {
+  dispatch (type: string, params?: Object = {}) {
     const event: Event = Object.assign({ type }, params)
     this.state.event = event
   }
