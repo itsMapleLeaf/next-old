@@ -4,8 +4,6 @@ import App from 'view/components/App.vue'
 import {parseBBC} from 'view/filters'
 import {collapse} from 'view/transitions'
 
-Vue.config.debug = true
-
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true
 

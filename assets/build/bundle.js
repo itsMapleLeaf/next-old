@@ -64,8 +64,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_vue2.default.config.debug = true;
-	
 	_vue2.default.use(_vueResource2.default);
 	_vue2.default.http.options.emulateJSON = true;
 	
