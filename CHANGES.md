@@ -1,6 +1,7 @@
 # 0.3.1
 - Minor improvements to performance
 - Major improvements to app structure
+- Added a loading overlay
 
 # 0.3.0
 - Showing LFRP ads
