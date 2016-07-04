@@ -1,7 +1,7 @@
 import type {LoginData, Character, CharacterStatus, ChannelID} from './types.new'
 
-export type Event
-  = { type: 'LoginSuccess', userData: LoginData, remember: boolean }
+export type Event = {}
+  | { type: 'LoginSuccess', userData: LoginData, remember: boolean }
   | { type: 'LogoutRequest' }
 
   | { type: 'PushOverlay', overlay: string }
@@ -26,4 +26,3 @@ export type Event
   | { type: 'PrivateMessageReceived', sender: Character, message: string }
 
   | { type: 'UserStatusChanged', status: CharacterStatus, statusText: string }
-  | {}
