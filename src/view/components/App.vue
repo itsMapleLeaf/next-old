@@ -22,6 +22,7 @@
 
 import Login from 'view/components/overlays/Login.vue'
 import CharacterList from 'view/components/overlays/CharacterList.vue'
+import Loading from 'view/components/overlays/Loading.vue'
 
 import {store, state} from 'modules/store'
 import socket from 'modules/socket'
@@ -31,7 +32,8 @@ import {inspect} from 'util'
 export default {
   components: {
     Login,
-    CharacterList
+    CharacterList,
+    Loading
 
     // Chat,
     // ChannelList,
@@ -50,7 +52,8 @@ export default {
   },
 
   ready () {
-    this.overlays = ['login']
+    // this.overlays = ['login']
+    this.overlays = ['loading']
   },
 
   methods: {
@@ -66,7 +69,7 @@ export default {
 
     UserCharacterSelected (event) {
       store.setUserCharacter(event.name)
-      this.overlays = []
+      this.overlays = ['loading']
     }
   },
 
