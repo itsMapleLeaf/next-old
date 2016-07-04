@@ -20,6 +20,7 @@
 - [ ] eventually figure a performant way to allow people to browse all characters/channels
 - [ ] some kind of notifications system???
 - [ ] probably a console
+- [ ] developer documentation
 - [x] make the status form work
 - [x] make the "remember me" function actually work
 - [x] functional character switching

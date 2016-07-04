@@ -1,3 +1,7 @@
+# 0.3.1
+- Minor improvements to performance
+- Major improvements to app structure
+
 # 0.3.0
 - Showing LFRP ads
 - Added some thin subtle dividers to the layout to separate things a little better.
