@@ -1,4 +1,29 @@
 // struct types
+export type AppState = {
+  auth: {
+    account: string,
+    ticket: string
+  },
+
+  user: {
+    character: CharacterName,
+    characterList: CharacterName[],
+    status: CharacterStatus
+  },
+
+  chat: {
+    characters: Character[],
+    friends: FriendInfo[],
+    bookmarks: Character[],
+    ignored: Character[],
+    admins: Character[],
+    publicChannels: ChannelInfo[],
+    privateChannels: ChannelInfo[],
+    activeChats: (ChannelState | PrivateChatState)[],
+    serverVariables: { [key: string]: number }
+  }
+}
+
 export type Character = {
   name: CharacterName,
   gender: Gender,
