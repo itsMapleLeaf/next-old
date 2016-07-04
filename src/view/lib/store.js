@@ -1,4 +1,5 @@
 import type {AppState, Character, CharacterName} from './types.new'
+import type {Event} from './events.new'
 
 class Store {
   state: AppState
@@ -23,8 +24,14 @@ class Store {
         privateChannels: [],
         activeChats: [],
         serverVariables: {}
-      }
+      },
+
+      event: {}
     }
+  }
+
+  dispatchEvent (event: Event) {
+    this.state.event = event
   }
 
   setAuthData (account: string, ticket: string) {

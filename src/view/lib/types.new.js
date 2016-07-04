@@ -1,3 +1,5 @@
+import type {Event} from './events.new'
+
 // struct types
 export type AppState = {
   auth: {
@@ -21,7 +23,9 @@ export type AppState = {
     privateChannels: ChannelInfo[],
     activeChats: (ChannelState | PrivateChatState)[],
     serverVariables: { [key: string]: number }
-  }
+  },
+
+  event: Event
 }
 
 export type Character = {
