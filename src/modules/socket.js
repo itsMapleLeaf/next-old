@@ -1,13 +1,5 @@
-import {
-  ChannelInfo,
-  ChannelMode,
-  ChannelStatus,
-  ChannelType,
-  ChatMessageType
-} from './types'
-
+import type {ChannelInfo, ChannelMode, ChannelStatus, ChannelType, ChatMessageType} from 'types/chat'
 import {inspect} from 'util'
-import * as events from './events'
 
 const urls = {
   mainInsecure: 'ws://chat.f-list.net:9722',
@@ -22,11 +14,6 @@ class Socket {
   }
 
   connect (urlID) {
-    if (this.ws) {
-      this.ws.onClose = () => {}
-      this.ws.close()
-    }
-
     this.ws = new window.WebSocket(urls[urlID])
 
     this.ws.onopen = () => {
@@ -46,6 +33,16 @@ class Socket {
       const {command, params} = this.parseServerCommand(data)
       this.handleChatCommand(command, params)
     }
+  }
+
+  disconnect () {
+    this.ws.onclose = () => {}
+    this.ws.close()
+    this.ws = undefined
+  }
+
+  isConnected () {
+    return this.ws != null
   }
 
   sendIdentifyRequest () {
@@ -249,16 +246,6 @@ class Socket {
 
   setStatus (status, statusmsg) {
     this.send('STA', { status, statusmsg })
-  }
-
-  disconnect () {
-    this.ws.onclose = () => {}
-    this.ws.close()
-    this.ws = undefined
-  }
-
-  isConnected () {
-    return this.ws != null
   }
 }
 

@@ -21,16 +21,13 @@
 <style lang="stylus" scoped></style>
 
 <script>
-import Overlay from '../elements/Overlay.vue'
-
-import state from '../../lib/state'
-import {CharacterSelected} from '../../lib/events'
+import Overlay from 'view/components/elements/Overlay.vue'
+import {store} from 'modules/store'
 
 export default {
   data () {
     return {
-      state,
-      activeCharacter: state.getUserCharacterName()
+      activeCharacter: ''
     }
   },
 
@@ -40,7 +37,7 @@ export default {
 
   computed: {
     characters () {
-      return this.state.getUserCharacterList().sort()
+      return store.getUserCharacters().sort()
     }
   },
 
@@ -50,7 +47,7 @@ export default {
     },
 
     submit () {
-      this.$dispatch(CharacterSelected, this.activeCharacter)
+      store.dispatchEvent('UserCharacterSelected', { name: this.activeCharacter })
     }
   }
 }

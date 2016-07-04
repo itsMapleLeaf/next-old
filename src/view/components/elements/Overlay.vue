@@ -25,9 +25,13 @@
 </style>
 
 <script>
-import {PopOverlay} from '../../lib/events'
+import {store} from 'modules/store'
 
 export default {
+  data () {
+    return { store }
+  },
+
   props: {
     noClose: {
       type: Boolean,
@@ -48,7 +52,7 @@ export default {
   methods: {
     close () {
       if (!this.noClose) {
-        this.$dispatch(PopOverlay)
+        this.store.dispatchEvent('PopOverlay')
       }
     }
   }

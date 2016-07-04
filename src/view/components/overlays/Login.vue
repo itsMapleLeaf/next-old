@@ -1,6 +1,6 @@
 <template>
   <overlay no-close>
-    <h1>Hi there!</h1>
+    <h2>Hello, beautiful.</h2>
     <form class='ui form' @submit.prevent='submit'>
       <div class='ui field text-input icon left'>
         <i class='fa fa-user'></i>
@@ -35,70 +35,85 @@ footer
 </style>
 
 <script>
-import DevInfo from '../elements/DevInfo.vue'
-import Overlay from '../elements/Overlay.vue'
-import Toggle from '../elements/Toggle.vue'
+import DevInfo from 'view/components/elements/DevInfo.vue'
+import Overlay from 'view/components/elements/Overlay.vue'
+import Toggle from 'view/components/elements/Toggle.vue'
 
-import {sendLoginRequest} from '../../lib/flist'
-import {LoginSuccess} from '../../lib/events'
-import storage from '../../lib/storage'
+import {LoginData} from 'types/app'
+import {authenticate} from 'modules/flist'
+import {store} from 'modules/store'
 
-const errorMessage = `
-Could not connect to F-List website.
-They're either doing maintenance,
-or someone spilled coke on the servers again.
-`
+// const errorMessage = `
+// Could not connect to F-List website.
+// They're either doing maintenance,
+// or someone spilled coke on the servers again.
+// `
 
 export default {
-  data () {
-    return {
-      username: '',
-      password: '',
-      status: '',
-      disabled: false,
-      remember: false
-    }
-  },
-
   components: {
     DevInfo,
     Overlay,
     Toggle
   },
 
+  data () {
+    return {
+      username: '',
+      password: '',
+      status: '',
+      disabled: false,
+      remember: false,
+      store
+    }
+  },
+
   ready () {
-    storage.getAccount().then(account => {
-      this.username = account
-      this.remember = true
-    })
-    .catch(() => {
-      this.remember = false
-    })
+    // storage.getAccount().then(account => {
+    //   this.username = account
+    //   this.remember = true
+    // })
+    // .catch(() => {
+    //   this.remember = false
+    // })
   },
 
   methods: {
-    submit () {
+    async submit () {
       this.disabled = true
 
-      sendLoginRequest(this.username, this.password).then(data => {
-        const loginData = {
-          account: this.username,
-          ticket: data.ticket,
-          characters: data.characters,
-          bookmarks: data.bookmarks.map(({name}) => name), // ???
-          friends: data.friends.map(({ source_name, dest_name }) => {
-            return { source: dest_name, dest: source_name } // ????????
-          })
-        }
-        this.$dispatch(LoginSuccess, loginData, this.remember)
-      })
-      .catch(err => {
-        this.status = err || errorMessage
-      })
-      .then(() => {
-        this.disabled = false
-        this.password = ''
-      })
+      const res = await authenticate(this.username, this.password)
+
+      const loginData: LoginData = {
+        account: this.username,
+        ticket: res.ticket,
+        characters: res.characters,
+        bookmarks: res.bookmarks.map(char => char.name),
+        friends: res.friends.map(entry => {
+          return { you: entry.dest_name, them: entry.source_name }
+        })
+      }
+
+      this.store.dispatchEvent('LoginSuccess', { loginData, remember: this.remember })
+
+      // sendLoginRequest(this.username, this.password).then(data => {
+      //   const loginData = {
+      //     account: this.username,
+      //     ticket: data.ticket,
+      //     characters: data.characters,
+      //     bookmarks: data.bookmarks.map(({name}) => name), // ???
+      //     friends: data.friends.map(({ source_name, dest_name }) => {
+      //       return { source: dest_name, dest: source_name } // ????????
+      //     })
+      //   }
+      //   this.$dispatch(LoginSuccess, loginData, this.remember)
+      // })
+      // .catch(err => {
+      //   this.status = err || errorMessage
+      // })
+      // .then(() => {
+      //   this.disabled = false
+      //   this.password = ''
+      // })
     }
   }
 }

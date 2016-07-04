@@ -1,7 +1,9 @@
-import type {LoginData, Character, CharacterStatus, ChannelID} from './types.new'
+import type {LoginData} from 'types/app'
+import type {Character, CharacterStatus, CharacterName} from 'types/character'
+import type {ChannelID} from 'types/chat'
 
 export type Event = {}
-  | { type: 'LoginSuccess', userData: LoginData, remember: boolean }
+  | { type: 'LoginSuccess', loginData: LoginData, remember: boolean }
   | { type: 'LogoutRequest' }
 
   | { type: 'PushOverlay', overlay: string }
@@ -10,7 +12,7 @@ export type Event = {}
   | { type: 'IdentifySuccess'}
   | { type: 'SocketError', error: string }
 
-  | { type: 'UserCharacterSelected', name: Character }
+  | { type: 'UserCharacterSelected', name: CharacterName }
   | { type: 'CharacterActivated', name: Character }
 
   | { type: 'JoinChannelRequest', id: ChannelID }

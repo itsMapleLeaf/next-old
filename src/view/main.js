@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from 'view/components/App.vue'
-import parseBBC from 'modules/bbcode'
+import {parseBBC} from 'view/filters'
 import {collapse} from 'view/transitions'
 
 Vue.config.debug = true

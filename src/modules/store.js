@@ -1,6 +1,8 @@
 import Vue from 'vue'
-import type {AppState, Character, CharacterName, FriendInfo, ChannelInfo, ActiveChatState} from './types.new'
-import type {Event} from './events.new'
+import type {AppState} from 'types/app'
+import type {Character, CharacterName} from 'types/character'
+import type {FriendInfo, ChannelInfo, ActiveChatState} from 'types/chat'
+import type {Event} from 'types/event'
 
 class Store {
   state: AppState
@@ -31,10 +33,13 @@ class Store {
     }
   }
 
-  dispatchEvent (event: Event) {
+  // convenience event dispatcher
+  dispatchEvent (type: string, params: Object) {
+    const event: Event = Object.assign({ type }, params)
     this.state.event = event
   }
 
+  // setters
   setAuthData (account: string, ticket: string) {
     this.state.auth.account = account
     this.state.auth.ticket = ticket
@@ -83,6 +88,12 @@ class Store {
   setServerVariable (key: string, value: number) {
     Vue.set(this.state.chat.serverVariables, key, value)
   }
+
+  // getters
+  getUserCharacters () {
+    return this.state.user.characterList.slice()
+  }
 }
 
-export default new Store()
+export const store = new Store()
+export const state = store.state

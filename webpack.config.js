@@ -27,7 +27,7 @@ module.exports = {
   resolve: {
     alias: {
       modules: path.join(__dirname, 'src/modules'),
-      types: path.join(__dirname, 'src/types'),
+      types: path.join(__dirname, 'src/modules/types'),
       styles: path.join(__dirname, 'src/styles'),
       view: path.join(__dirname, 'src/view')
     }
