@@ -21,7 +21,7 @@ export type AppState = {
     admins: Character[],
     publicChannels: ChannelInfo[],
     privateChannels: ChannelInfo[],
-    activeChats: (ChannelState | PrivateChatState)[],
+    activeChats: ActiveChatState[],
     serverVariables: { [key: string]: number }
   },
 
@@ -58,6 +58,8 @@ export type ChannelInfo = {
   name: string,
   userCount: number
 }
+
+export type ActiveChatState = ChannelState | PrivateChatState
 
 export type ChannelState = {
   id: ChannelID,

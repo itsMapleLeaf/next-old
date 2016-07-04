@@ -1,4 +1,5 @@
-import type {AppState, Character, CharacterName} from './types.new'
+import Vue from 'vue'
+import type {AppState, Character, CharacterName, FriendInfo, ChannelInfo, ActiveChatState} from './types.new'
 import type {Event} from './events.new'
 
 class Store {
@@ -47,8 +48,40 @@ class Store {
     this.state.user.characterList = list
   }
 
-  setCharacterList (list: Character[]) {
+  setOnlineCharacterList (list: Character[]) {
     this.state.chat.characters = list
+  }
+
+  setFriendsList (friends: FriendInfo[]) {
+    this.state.chat.friends = friends
+  }
+
+  setBookmarkList (bookmarks: CharacterName[]) {
+    this.state.chat.bookmarks = bookmarks
+  }
+
+  setIgnoreList (ignored: CharacterName[]) {
+    this.state.chat.ignored = ignored
+  }
+
+  setAdminList (admins: CharacterName[]) {
+    this.state.chat.admins = admins
+  }
+
+  setPublicChannelList (channels: ChannelInfo[]) {
+    this.state.chat.publicChannels = channels
+  }
+
+  setPrivateChannelList (channels: ChannelInfo[]) {
+    this.state.chat.publicChannels = channels
+  }
+
+  setActiveChats (chats: ActiveChatState[]) {
+    this.state.chat.activeChats = chats
+  }
+
+  setServerVariable (key: string, value: number) {
+    Vue.set(this.state.chat.serverVariables, key, value)
   }
 }
 
