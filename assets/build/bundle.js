@@ -58,7 +58,7 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _bbcode = __webpack_require__(219);
+	var _bbcode = __webpack_require__(215);
 	
 	var _bbcode2 = _interopRequireDefault(_bbcode);
 	
@@ -101,7 +101,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {/*!
-	 * Vue.js v1.0.25
+	 * Vue.js v1.0.26
 	 * (c) 2016 Evan You
 	 * Released under the MIT License.
 	 */
@@ -3511,7 +3511,7 @@
 	  }
 	  var isA = isArray(val);
 	  var isO = isObject(val);
-	  if (isA || isO) {
+	  if ((isA || isO) && Object.isExtensible(val)) {
 	    if (val.__ob__) {
 	      var depId = val.__ob__.dep.id;
 	      if (seen.has(depId)) {
@@ -4997,13 +4997,13 @@
 	    this.vm.$on('hook:attached', function () {
 	      nextTick(_this.forceUpdate);
 	    });
+	    if (!inDoc(el)) {
+	      nextTick(this.forceUpdate);
+	    }
 	  },
 	
 	  update: function update(value) {
 	    var el = this.el;
-	    if (!inDoc(el)) {
-	      return nextTick(this.forceUpdate);
-	    }
 	    el.selectedIndex = -1;
 	    var multi = this.multiple && isArray(value);
 	    var options = el.options;
@@ -9951,7 +9951,13 @@
 	
 	  pluralize: function pluralize(value) {
 	    var args = toArray(arguments, 1);
-	    return args.length > 1 ? args[value % 10 - 1] || args[args.length - 1] : args[0] + (value === 1 ? '' : 's');
+	    var length = args.length;
+	    if (length > 1) {
+	      var index = value % 10 - 1;
+	      return index in args ? args[index] : args[length - 1];
+	    } else {
+	      return args[0] + (value === 1 ? '' : 's');
+	    }
 	  },
 	
 	  /**
@@ -10153,7 +10159,7 @@
 	
 	installGlobalAPI(Vue);
 	
-	Vue.version = '1.0.25';
+	Vue.version = '1.0.26';
 	
 	// devtools global hook
 	/* istanbul ignore next */
@@ -11675,7 +11681,7 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(5)
 	__vue_script__ = __webpack_require__(9)
-	__vue_template__ = __webpack_require__(218)
+	__vue_template__ = __webpack_require__(214)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -12088,31 +12094,31 @@
 	
 	var _Chat2 = _interopRequireDefault(_Chat);
 	
-	var _Login = __webpack_require__(145);
+	var _Login = __webpack_require__(142);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _CharacterList = __webpack_require__(165);
+	var _CharacterList = __webpack_require__(162);
 	
 	var _CharacterList2 = _interopRequireDefault(_CharacterList);
 	
-	var _ChannelList = __webpack_require__(168);
+	var _ChannelList = __webpack_require__(165);
 	
 	var _ChannelList2 = _interopRequireDefault(_ChannelList);
 	
-	var _AppMenu = __webpack_require__(174);
+	var _AppMenu = __webpack_require__(170);
 	
 	var _AppMenu2 = _interopRequireDefault(_AppMenu);
 	
-	var _CharacterMenu = __webpack_require__(197);
+	var _CharacterMenu = __webpack_require__(193);
 	
 	var _CharacterMenu2 = _interopRequireDefault(_CharacterMenu);
 	
-	var _OnlineUsers = __webpack_require__(202);
+	var _OnlineUsers = __webpack_require__(198);
 	
 	var _OnlineUsers2 = _interopRequireDefault(_OnlineUsers);
 	
-	var _About = __webpack_require__(209);
+	var _About = __webpack_require__(205);
 	
 	var _About2 = _interopRequireDefault(_About);
 	
@@ -12120,11 +12126,11 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _socket = __webpack_require__(214);
+	var _socket = __webpack_require__(210);
 	
 	var _socket2 = _interopRequireDefault(_socket);
 	
-	var _storage = __webpack_require__(163);
+	var _storage = __webpack_require__(160);
 	
 	var _storage2 = _interopRequireDefault(_storage);
 	
@@ -14129,7 +14135,7 @@
 	__webpack_require__(89)
 	__webpack_require__(91)
 	__vue_script__ = __webpack_require__(93)
-	__vue_template__ = __webpack_require__(144)
+	__vue_template__ = __webpack_require__(141)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -14267,7 +14273,7 @@
 	
 	var _ChannelView2 = _interopRequireDefault(_ChannelView);
 	
-	var _PrivateChatView = __webpack_require__(139);
+	var _PrivateChatView = __webpack_require__(136);
 	
 	var _PrivateChatView2 = _interopRequireDefault(_PrivateChatView);
 	
@@ -14529,7 +14535,7 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(100)
 	__vue_script__ = __webpack_require__(102)
-	__vue_template__ = __webpack_require__(138)
+	__vue_template__ = __webpack_require__(135)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -14589,15 +14595,15 @@
 	
 	var _Chatbox2 = _interopRequireDefault(_Chatbox);
 	
-	var _Character = __webpack_require__(125);
+	var _Character = __webpack_require__(122);
 	
 	var _Character2 = _interopRequireDefault(_Character);
 	
-	var _ChatMessage = __webpack_require__(130);
+	var _ChatMessage = __webpack_require__(127);
 	
 	var _ChatMessage2 = _interopRequireDefault(_ChatMessage);
 	
-	var _ChatMessageList = __webpack_require__(135);
+	var _ChatMessageList = __webpack_require__(132);
 	
 	var _ChatMessageList2 = _interopRequireDefault(_ChatMessageList);
 	
@@ -14802,7 +14808,7 @@
 	var __vue_script__, __vue_template__
 	__webpack_require__(104)
 	__vue_script__ = __webpack_require__(106)
-	__vue_template__ = __webpack_require__(124)
+	__vue_template__ = __webpack_require__(121)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -15959,604 +15965,71 @@
 
 /***/ },
 /* 120 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.UserStatusChanged = exports.PrivateChatOpened = exports.PrivateMessageReceived = exports.PrivateMessageSent = exports.ChannelMessageReceived = exports.ChannelMessageSent = exports.LeaveChannelRequest = exports.JoinChannelRequest = exports.SocketChannelLeft = exports.SocketChannelJoined = exports.SocketError = exports.SocketIdentifySuccess = exports.CharacterActivated = exports.UserCharacterSelected = exports.PopOverlay = exports.PushOverlay = exports.LogoutRequest = exports.LoginSuccess = undefined;
+	var LoginSuccess = exports.LoginSuccess = 'LoginSuccess'; // (userData: object, remember: boolean)
+	var LogoutRequest = exports.LogoutRequest = 'LogoutRequest'; // ()
+	var SwitchCharacterRequest = exports.SwitchCharacterRequest = 'SwitchCharacterRequest'; // ()
 	
-	var _typeof2 = __webpack_require__(24);
+	var PushOverlay = exports.PushOverlay = 'PushOverlay'; // (overlay: string)
+	var PopOverlay = exports.PopOverlay = 'PopOverlay'; // ()
 	
-	var _typeof3 = _interopRequireDefault(_typeof2);
+	var CharacterSelected = exports.CharacterSelected = 'CharacterSelected'; // (characterName: string)
+	var CharacterActivated = exports.CharacterActivated = 'CharacterActivated'; // (character: string)
 	
-	var _hasInstance = __webpack_require__(121);
+	var SocketIdentifySuccess = exports.SocketIdentifySuccess = 'IdentifySuccess'; // ()
+	var SocketError = exports.SocketError = 'SocketError'; // (error: string)
+	var SocketChannelJoined = exports.SocketChannelJoined = 'SocketChannelJoined'; // (channelID: string)
+	var SocketChannelLeft = exports.SocketChannelLeft = 'SocketChannelLeft'; // (channelID: string)
+	var SocketChannelListReceived = exports.SocketChannelListReceived = 'SocketChannelListReceived'; // (type: ChannelType)
 	
-	var _hasInstance2 = _interopRequireDefault(_hasInstance);
+	var ToggleChannelRequest = exports.ToggleChannelRequest = 'ToggleChannelRequest'; // (channelID: string)
+	var LeaveChannelRequest = exports.LeaveChannelRequest = 'LeaveChannelRequest'; // (channelID: string)
 	
-	var _defineProperty = __webpack_require__(81);
+	var ChannelMessageSent = exports.ChannelMessageSent = 'ChannelMessageSent'; // (channelID: string, message: string)
+	var ChannelMessageReceived = exports.ChannelMessageReceived = 'ChannelMessageReceived'; // (channelID: string, characterName: string, message: string)
 	
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+	var PrivateMessageSent = exports.PrivateMessageSent = 'PrivateMessageSent'; // (character: Character, message: string)
+	var PrivateMessageReceived = exports.PrivateMessageReceived = 'PrivateMessageReceived'; // (characterName: string, message: string)
+	var OpenPrivateChatRequest = exports.OpenPrivateChatRequest = 'OpenPrivateChatRequest'; // (partner: string)
+	var ChatStateReset = exports.ChatStateReset = 'ChatStateReset'; // ()
 	
-	var _vue = __webpack_require__(1);
+	var ChatboxSubmit = exports.ChatboxSubmit = 'ChatboxSubmit'; // (message: string)
 	
-	var _vue2 = _interopRequireDefault(_vue);
-	
-	var _types = __webpack_require__(123);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var LoginData = _types.LoginData,
-	    Character = _types.Character,
-	    CharacterStatus = _types.CharacterStatus,
-	    ChannelID = _types.ChannelID;
-	
-	var LoginSuccess = exports.LoginSuccess = function () {
-	  function LoginSuccess(input) {
-	    return input != null && LoginData(input.userData) && typeof input.remember === 'boolean';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(LoginSuccess, _hasInstance2.default, {
-	    value: function value(input) {
-	      return LoginSuccess(input);
-	    }
-	  });
-	  return LoginSuccess;
-	}();
-	
-	var LogoutRequest = exports.LogoutRequest = function () {
-	  function LogoutRequest(input) {
-	    return input != null && (typeof input === 'undefined' ? 'undefined' : (0, _typeof3.default)(input)) === 'object';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(LogoutRequest, _hasInstance2.default, {
-	    value: function value(input) {
-	      return LogoutRequest(input);
-	    }
-	  });
-	  return LogoutRequest;
-	}();
-	
-	var PushOverlay = exports.PushOverlay = function () {
-	  function PushOverlay(input) {
-	    return input != null && typeof input.overlay === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(PushOverlay, _hasInstance2.default, {
-	    value: function value(input) {
-	      return PushOverlay(input);
-	    }
-	  });
-	  return PushOverlay;
-	}();
-	
-	var PopOverlay = exports.PopOverlay = function () {
-	  function PopOverlay(input) {
-	    return input != null && (typeof input === 'undefined' ? 'undefined' : (0, _typeof3.default)(input)) === 'object';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(PopOverlay, _hasInstance2.default, {
-	    value: function value(input) {
-	      return PopOverlay(input);
-	    }
-	  });
-	  return PopOverlay;
-	}();
-	
-	var UserCharacterSelected = exports.UserCharacterSelected = function () {
-	  function UserCharacterSelected(input) {
-	    return input != null && Character(input.name);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(UserCharacterSelected, _hasInstance2.default, {
-	    value: function value(input) {
-	      return UserCharacterSelected(input);
-	    }
-	  });
-	  return UserCharacterSelected;
-	}();
-	
-	var CharacterActivated = exports.CharacterActivated = function () {
-	  function CharacterActivated(input) {
-	    return input != null && Character(input.name);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(CharacterActivated, _hasInstance2.default, {
-	    value: function value(input) {
-	      return CharacterActivated(input);
-	    }
-	  });
-	  return CharacterActivated;
-	}();
-	
-	var SocketIdentifySuccess = exports.SocketIdentifySuccess = function () {
-	  function SocketIdentifySuccess(input) {
-	    return input != null && (typeof input === 'undefined' ? 'undefined' : (0, _typeof3.default)(input)) === 'object';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(SocketIdentifySuccess, _hasInstance2.default, {
-	    value: function value(input) {
-	      return SocketIdentifySuccess(input);
-	    }
-	  });
-	  return SocketIdentifySuccess;
-	}();
-	
-	var SocketError = exports.SocketError = function () {
-	  function SocketError(input) {
-	    return input != null && typeof input.error === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(SocketError, _hasInstance2.default, {
-	    value: function value(input) {
-	      return SocketError(input);
-	    }
-	  });
-	  return SocketError;
-	}();
-	
-	var SocketChannelJoined = exports.SocketChannelJoined = function () {
-	  function SocketChannelJoined(input) {
-	    return input != null && ChannelID(input.id);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(SocketChannelJoined, _hasInstance2.default, {
-	    value: function value(input) {
-	      return SocketChannelJoined(input);
-	    }
-	  });
-	  return SocketChannelJoined;
-	}();
-	
-	var SocketChannelLeft = exports.SocketChannelLeft = function () {
-	  function SocketChannelLeft(input) {
-	    return input != null && ChannelID(input.id);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(SocketChannelLeft, _hasInstance2.default, {
-	    value: function value(input) {
-	      return SocketChannelLeft(input);
-	    }
-	  });
-	  return SocketChannelLeft;
-	}();
-	
-	var JoinChannelRequest = exports.JoinChannelRequest = function () {
-	  function JoinChannelRequest(input) {
-	    return input != null && ChannelID(input.id);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(JoinChannelRequest, _hasInstance2.default, {
-	    value: function value(input) {
-	      return JoinChannelRequest(input);
-	    }
-	  });
-	  return JoinChannelRequest;
-	}();
-	
-	var LeaveChannelRequest = exports.LeaveChannelRequest = function () {
-	  function LeaveChannelRequest(input) {
-	    return input != null && ChannelID(input.id);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(LeaveChannelRequest, _hasInstance2.default, {
-	    value: function value(input) {
-	      return LeaveChannelRequest(input);
-	    }
-	  });
-	  return LeaveChannelRequest;
-	}();
-	
-	var ChannelMessageSent = exports.ChannelMessageSent = function () {
-	  function ChannelMessageSent(input) {
-	    return input != null && ChannelID(input.channel) && typeof input.message === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChannelMessageSent, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChannelMessageSent(input);
-	    }
-	  });
-	  return ChannelMessageSent;
-	}();
-	
-	var ChannelMessageReceived = exports.ChannelMessageReceived = function () {
-	  function ChannelMessageReceived(input) {
-	    return input != null && ChannelID(input.channel) && Character(input.sender) && typeof input.message === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChannelMessageReceived, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChannelMessageReceived(input);
-	    }
-	  });
-	  return ChannelMessageReceived;
-	}();
-	
-	var PrivateMessageSent = exports.PrivateMessageSent = function () {
-	  function PrivateMessageSent(input) {
-	    return input != null && Character(input.recipient) && typeof input.message === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(PrivateMessageSent, _hasInstance2.default, {
-	    value: function value(input) {
-	      return PrivateMessageSent(input);
-	    }
-	  });
-	  return PrivateMessageSent;
-	}();
-	
-	var PrivateMessageReceived = exports.PrivateMessageReceived = function () {
-	  function PrivateMessageReceived(input) {
-	    return input != null && Character(input.sender) && typeof input.message === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(PrivateMessageReceived, _hasInstance2.default, {
-	    value: function value(input) {
-	      return PrivateMessageReceived(input);
-	    }
-	  });
-	  return PrivateMessageReceived;
-	}();
-	
-	var PrivateChatOpened = exports.PrivateChatOpened = function () {
-	  function PrivateChatOpened(input) {
-	    return input != null && Character(input.who);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(PrivateChatOpened, _hasInstance2.default, {
-	    value: function value(input) {
-	      return PrivateChatOpened(input);
-	    }
-	  });
-	  return PrivateChatOpened;
-	}();
-	
-	var UserStatusChanged = exports.UserStatusChanged = function () {
-	  function UserStatusChanged(input) {
-	    return input != null && CharacterStatus(input.status) && typeof input.statusText === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(UserStatusChanged, _hasInstance2.default, {
-	    value: function value(input) {
-	      return UserStatusChanged(input);
-	    }
-	  });
-	  return UserStatusChanged;
-	}();
-	
-	// global dispatcher
-	// use $on to subscribe, and $emit to trigger
-	
-	
-	exports.default = new _vue2.default();
+	var StatusChange = exports.StatusChange = 'StatusChange'; // (status: UserStatus, message: string)
 
 /***/ },
 /* 121 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(122), __esModule: true };
-
-/***/ },
-/* 122 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(36)('hasInstance');
-
-/***/ },
-/* 123 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.ChannelID = exports.CharacterName = exports.ChatMessageKind = exports.ChannelMode = exports.ChannelStatus = exports.CharacterType = exports.CharacterStatusState = exports.Gender = exports.PrivateChatState = exports.ChatMessage = exports.ChannelState = exports.ChannelInfo = exports.CharacterStatus = exports.FriendInfo = exports.LoginData = exports.Character = undefined;
-	
-	var _hasInstance = __webpack_require__(121);
-	
-	var _hasInstance2 = _interopRequireDefault(_hasInstance);
-	
-	var _defineProperty = __webpack_require__(81);
-	
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// struct types
-	
-	var Character = exports.Character = function () {
-	  function Character(input) {
-	    return input != null && CharacterName(input.name) && Gender(input.gender) && CharacterStatus(input.status) && Array.isArray(input.type) && input.type.every(function (item) {
-	      return CharacterType(item);
-	    });
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(Character, _hasInstance2.default, {
-	    value: function value(input) {
-	      return Character(input);
-	    }
-	  });
-	  return Character;
-	}();
-	
-	var LoginData = exports.LoginData = function () {
-	  function LoginData(input) {
-	    return input != null && typeof input.account === 'string' && typeof input.ticket === 'string' && Array.isArray(input.friends) && input.friends.every(function (item) {
-	      return FriendInfo(item);
-	    }) && Array.isArray(input.characters) && input.characters.every(function (item) {
-	      return CharacterName(item);
-	    }) && Array.isArray(input.bookmarks) && input.bookmarks.every(function (item) {
-	      return CharacterName(item);
-	    });
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(LoginData, _hasInstance2.default, {
-	    value: function value(input) {
-	      return LoginData(input);
-	    }
-	  });
-	  return LoginData;
-	}();
-	
-	var FriendInfo = exports.FriendInfo = function () {
-	  function FriendInfo(input) {
-	    return input != null && typeof input.you === 'string' && typeof input.them === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(FriendInfo, _hasInstance2.default, {
-	    value: function value(input) {
-	      return FriendInfo(input);
-	    }
-	  });
-	  return FriendInfo;
-	}();
-	
-	var CharacterStatus = exports.CharacterStatus = function () {
-	  function CharacterStatus(input) {
-	    return input != null && CharacterStatusState(input.state) && typeof input.message === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(CharacterStatus, _hasInstance2.default, {
-	    value: function value(input) {
-	      return CharacterStatus(input);
-	    }
-	  });
-	  return CharacterStatus;
-	}();
-	
-	var ChannelInfo = exports.ChannelInfo = function () {
-	  function ChannelInfo(input) {
-	    return input != null && ChannelID(input.id) && typeof input.name === 'string' && typeof input.userCount === 'number';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChannelInfo, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChannelInfo(input);
-	    }
-	  });
-	  return ChannelInfo;
-	}();
-	
-	var ChannelState = exports.ChannelState = function () {
-	  function ChannelState(input) {
-	    return input != null && ChannelID(input.id) && typeof input.name === 'string' && ChannelMode(input.mode) && ChannelMode(input.preference) && typeof input.description === 'string' && Array.isArray(input.characters) && input.characters.every(function (item) {
-	      return Character(item);
-	    }) && Array.isArray(input.messages) && input.messages.every(function (item) {
-	      return ChatMessage(item);
-	    }) && ChannelStatus(input.status);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChannelState, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChannelState(input);
-	    }
-	  });
-	  return ChannelState;
-	}();
-	
-	var ChatMessage = exports.ChatMessage = function () {
-	  function ChatMessage(input) {
-	    return input != null && Character(input.sender) && typeof input.message === 'string' && ChatMessageKind(input.kind);
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChatMessage, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChatMessage(input);
-	    }
-	  });
-	  return ChatMessage;
-	}();
-	
-	var PrivateChatState = exports.PrivateChatState = function () {
-	  function PrivateChatState(input) {
-	    return input != null && Character(input.partner) && Array.isArray(input.messages) && input.messages.every(function (item) {
-	      return ChatMessage(item);
-	    });
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(PrivateChatState, _hasInstance2.default, {
-	    value: function value(input) {
-	      return PrivateChatState(input);
-	    }
-	  });
-	  return PrivateChatState;
-	}();
-	
-	// enum types
-	
-	
-	var Gender = exports.Gender = function () {
-	  function Gender(input) {
-	    return input === 'Male' || input === 'Female' || input === 'Transgender' || input === 'Herm' || input === 'Shemale' || input === 'Male-herm' || input === 'Cunt-boy' || input === 'None';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(Gender, _hasInstance2.default, {
-	    value: function value(input) {
-	      return Gender(input);
-	    }
-	  });
-	  return Gender;
-	}();
-	
-	var CharacterStatusState = exports.CharacterStatusState = function () {
-	  function CharacterStatusState(input) {
-	    return input === 'online' || input === 'looking' || input === 'busy' || input === 'away' || input === 'dnd' || input === 'idle' || input === 'offline' || input === 'crown';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(CharacterStatusState, _hasInstance2.default, {
-	    value: function value(input) {
-	      return CharacterStatusState(input);
-	    }
-	  });
-	  return CharacterStatusState;
-	}();
-	
-	var CharacterType = exports.CharacterType = function () {
-	  function CharacterType(input) {
-	    return input === 'friend' || input === 'bookmark' || input === 'admin' || input === 'looking' || input === 'ignored';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(CharacterType, _hasInstance2.default, {
-	    value: function value(input) {
-	      return CharacterType(input);
-	    }
-	  });
-	  return CharacterType;
-	}();
-	
-	var ChannelStatus = exports.ChannelStatus = function () {
-	  function ChannelStatus(input) {
-	    return input === 'left' || input === 'joining' || input === 'joined' || input === 'leaving';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChannelStatus, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChannelStatus(input);
-	    }
-	  });
-	  return ChannelStatus;
-	}();
-	
-	var ChannelMode = exports.ChannelMode = function () {
-	  function ChannelMode(input) {
-	    return input === 'both' || input === 'chat' || input === 'ads';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChannelMode, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChannelMode(input);
-	    }
-	  });
-	  return ChannelMode;
-	}();
-	
-	var ChatMessageKind = exports.ChatMessageKind = function () {
-	  function ChatMessageKind(input) {
-	    return input === 'chat' || input === 'lfrp' || input === 'admin' || input === 'system';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChatMessageKind, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChatMessageKind(input);
-	    }
-	  });
-	  return ChatMessageKind;
-	}();
-	
-	// aliases, preferably for generic values that have a special meaning to them
-	
-	
-	var CharacterName = exports.CharacterName = function () {
-	  function CharacterName(input) {
-	    return typeof input === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(CharacterName, _hasInstance2.default, {
-	    value: function value(input) {
-	      return CharacterName(input);
-	    }
-	  });
-	  return CharacterName;
-	}();
-	
-	var ChannelID = exports.ChannelID = function () {
-	  function ChannelID(input) {
-	    return typeof input === 'string';
-	  }
-	
-	  ;
-	  (0, _defineProperty2.default)(ChannelID, _hasInstance2.default, {
-	    value: function value(input) {
-	      return ChannelID(input);
-	    }
-	  });
-	  return ChannelID;
-	}();
-
-/***/ },
-/* 124 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"ui theme-color main focus-lighten\" contenteditable=\"\" :maxlength=\"maxLength\" :placeholder=\"placeholder\" @keydown=\"fixContent($event)\" @keydown.enter=\"submit($event)\" v-el:textarea=\"\" _v-ece3bc8a=\"\"></div>\n";
 
 /***/ },
-/* 125 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(126)
-	__vue_script__ = __webpack_require__(128)
-	__vue_template__ = __webpack_require__(129)
+	__webpack_require__(123)
+	__vue_script__ = __webpack_require__(125)
+	__vue_template__ = __webpack_require__(126)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 126 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(127);
+	var content = __webpack_require__(124);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -16576,7 +16049,7 @@
 	}
 
 /***/ },
-/* 127 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16590,7 +16063,7 @@
 
 
 /***/ },
-/* 128 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16660,32 +16133,32 @@
 	// <script>
 
 /***/ },
-/* 129 */
+/* 126 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <span class=\"gender\" :class=\"gender\" :data-activate-character=\"character.name\" _v-e5df0b1e=\"\">\n    <i class=\"fa fa-circle status\" :class=\"status\" _v-e5df0b1e=\"\"></i> {{character.name}}\n  </span>\n";
 
 /***/ },
-/* 130 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(131)
-	__vue_script__ = __webpack_require__(133)
-	__vue_template__ = __webpack_require__(134)
+	__webpack_require__(128)
+	__vue_script__ = __webpack_require__(130)
+	__vue_template__ = __webpack_require__(131)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 131 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(132);
+	var content = __webpack_require__(129);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -16705,7 +16178,7 @@
 	}
 
 /***/ },
-/* 132 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16719,7 +16192,7 @@
 
 
 /***/ },
-/* 133 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16728,7 +16201,7 @@
 	  value: true
 	});
 	
-	var _Character = __webpack_require__(125);
+	var _Character = __webpack_require__(122);
 	
 	var _Character2 = _interopRequireDefault(_Character);
 	
@@ -16782,25 +16255,25 @@
 	// <script>
 
 /***/ },
-/* 134 */
+/* 131 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"ui hover-darken\" :class=\"{'highlight green': kind === 'lfrp'}\" :style=\"{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }\" _v-502abc52=\"\">\n    <character :character=\"sender\" _v-502abc52=\"\"></character>\n    <span class=\"message-text\" v-html=\"parsedMessage | bbcode\" _v-502abc52=\"\"></span>\n  </div>\n";
 
 /***/ },
-/* 135 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(136)
-	__vue_template__ = __webpack_require__(137)
+	__vue_script__ = __webpack_require__(133)
+	__vue_template__ = __webpack_require__(134)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 136 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16809,7 +16282,7 @@
 	  value: true
 	});
 	
-	var _ChatMessage = __webpack_require__(130);
+	var _ChatMessage = __webpack_require__(127);
 	
 	var _ChatMessage2 = _interopRequireDefault(_ChatMessage);
 	
@@ -16894,38 +16367,38 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 137 */
+/* 134 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div class=\"ui scroll\" v-el:container @scroll='onScroll'>\r\n    <chat-message v-for='msg in filteredMessages' :message='msg'></chat-message>\r\n  </div>\r\n";
 
 /***/ },
-/* 138 */
+/* 135 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"flex stretch col\" _v-72d7c0dc=\"\">\n    <section class=\"flex fixed row channel-head\" _v-72d7c0dc=\"\">\n      <!-- channel prefs -->\n      <section class=\"flex fixed col channel-prefs\" style=\"justify-content: space-between\" _v-72d7c0dc=\"\">\n        <template v-if=\"viewState.mode === 'both'\" _v-72d7c0dc=\"\">\n          <a class=\"ui theme-color {{viewState.preference === 'both' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'both'\" _v-72d7c0dc=\"\">Both</a>\n          <a class=\"ui theme-color {{viewState.preference === 'chat' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'chat'\" _v-72d7c0dc=\"\">Chat</a>\n          <a class=\"ui theme-color {{viewState.preference === 'ads' ? 'light' : 'darker'}}\" @click=\"viewState.preference = 'ads'\" _v-72d7c0dc=\"\">LFRP</a>\n        </template>\n        <template v-if=\"viewState.mode === 'chat'\" _v-72d7c0dc=\"\">\n          <a class=\"ui theme-color darker subtle\" _v-72d7c0dc=\"\">Both</a>\n          <a class=\"ui theme-color light\" _v-72d7c0dc=\"\">Chat</a>\n          <a class=\"ui theme-color darker subtle\" _v-72d7c0dc=\"\">LFRP</a>\n        </template>\n        <template v-if=\"viewState.mode === 'ads'\" _v-72d7c0dc=\"\">\n          <a class=\"ui theme-color darker subtle\" _v-72d7c0dc=\"\">Both</a>\n          <a class=\"ui theme-color darker subtle\" _v-72d7c0dc=\"\">Chat</a>\n          <a class=\"ui theme-color light\" _v-72d7c0dc=\"\">LFRP</a>\n        </template>\n      </section>\n\n      <div class=\"flex divider\" _v-72d7c0dc=\"\"></div>\n\n      <!-- description -->\n      <section class=\"flex stretch col ui scroll theme-color main description\" _v-72d7c0dc=\"\">\n        <span v-html=\"viewState.description | bbcode\" _v-72d7c0dc=\"\"></span>\n      </section>\n    </section>\n\n    <div class=\"flex divider\" _v-72d7c0dc=\"\"></div>\n\n    <section class=\"flex row stretch\" _v-72d7c0dc=\"\">\n      <!-- message -->\n      <chat-message-list class=\"flex stretch\" :messages=\"viewState.messages\" :preference=\"viewState.preference\" _v-72d7c0dc=\"\">\n      </chat-message-list>\n\n      <div class=\"flex divider\" _v-72d7c0dc=\"\"></div>\n\n      <!-- users -->\n      <ul class=\"flex fixed ui theme-color main scroll character-list\" _v-72d7c0dc=\"\">\n        <li class=\"ui hover-darken highlight green\" v-for=\"char in characterGroups.friends\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken highlight blue\" v-for=\"char in characterGroups.bookmarks\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken highlight red\" v-for=\"char in characterGroups.admins\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken\" v-for=\"char in characterGroups.looking\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n        <li class=\"ui hover-darken\" v-for=\"char in characterGroups.rest\" _v-72d7c0dc=\"\">\n          <character class=\"character-list-item\" :character=\"char\" _v-72d7c0dc=\"\"></character>\n        </li>\n      </ul>\n    </section>\n\n    <div class=\"flex divider\" _v-72d7c0dc=\"\"></div>\n\n    <!-- chatbox -->\n    <section class=\"flex fixed ui theme-color main\" _v-72d7c0dc=\"\">\n      <chatbox class=\"chatbox\" _v-72d7c0dc=\"\"></chatbox>\n    </section>\n  </div>\n";
 
 /***/ },
-/* 139 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(140)
-	__vue_script__ = __webpack_require__(142)
-	__vue_template__ = __webpack_require__(143)
+	__webpack_require__(137)
+	__vue_script__ = __webpack_require__(139)
+	__vue_template__ = __webpack_require__(140)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 140 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(141);
+	var content = __webpack_require__(138);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -16945,7 +16418,7 @@
 	}
 
 /***/ },
-/* 141 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16959,7 +16432,7 @@
 
 
 /***/ },
-/* 142 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16972,15 +16445,15 @@
 	
 	var _Chatbox2 = _interopRequireDefault(_Chatbox);
 	
-	var _Character = __webpack_require__(125);
+	var _Character = __webpack_require__(122);
 	
 	var _Character2 = _interopRequireDefault(_Character);
 	
-	var _ChatMessage = __webpack_require__(130);
+	var _ChatMessage = __webpack_require__(127);
 	
 	var _ChatMessage2 = _interopRequireDefault(_ChatMessage);
 	
-	var _ChatMessageList = __webpack_require__(135);
+	var _ChatMessageList = __webpack_require__(132);
 	
 	var _ChatMessageList2 = _interopRequireDefault(_ChatMessageList);
 	
@@ -17037,38 +16510,38 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 143 */
+/* 140 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"flex col stretch\" _v-a59e95ec=\"\">\n    <header class=\"flex fixed ui theme-color main\" _v-a59e95ec=\"\">\n      <character :character=\"viewState.character\" _v-a59e95ec=\"\"></character>\n      <em _v-a59e95ec=\"\">\n        <span _v-a59e95ec=\"\">- {{viewState.character.status}}</span>\n        <span v-if=\"viewState.character.statusMessage\" v-html=\"&quot;, &quot; + viewState.character.statusMessage | bbcode\" _v-a59e95ec=\"\"></span>\n      </em>\n    </header>\n\n    <div class=\"flex divider\" _v-a59e95ec=\"\"></div>\n\n    <chat-message-list class=\"flex stretch\" :messages=\"viewState.messages\" _v-a59e95ec=\"\"></chat-message-list>\n\n    <div class=\"flex divider\" _v-a59e95ec=\"\"></div>\n\n    <section class=\"flex fixed ui theme-color main\" _v-a59e95ec=\"\">\n      <chatbox @message-sent=\"messageSent\" _v-a59e95ec=\"\"></chatbox>\n    </section>\n  </div>\n";
 
 /***/ },
-/* 144 */
+/* 141 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div class=\"flex col ui theme-color dark fullscreen\" _v-27ab1e45=\"\">\n    <div class=\"flex row fixed\" style=\"flex-wrap: wrap\" _v-27ab1e45=\"\">\n      <shortcut title=\"Actions\" icon=\"bars\" overlay=\"app-menu\" _v-27ab1e45=\"\"></shortcut>\n      <shortcut title=\"Channels\" icon=\"globe\" overlay=\"channel-list\" _v-27ab1e45=\"\"></shortcut>\n      <shortcut title=\"Users\" icon=\"heart\" overlay=\"online-users\" _v-27ab1e45=\"\"></shortcut>\n\n      <chat-tab v-for=\"tab in tabs\" :active=\"activeTabIndex === $index\" :title=\"tab.title\" @closed=\"closeTab(tab)\" @selected=\"activeTabIndex = $index\" _v-27ab1e45=\"\">\n        {{ tab.title }}\n      </chat-tab>\n    </div>\n\n    <component :is=\"currentTab.view\" :view-state=\"currentTab.state\" _v-27ab1e45=\"\">\n    </component>\n  </div>\n";
 
 /***/ },
-/* 145 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(146)
-	__vue_script__ = __webpack_require__(148)
-	__vue_template__ = __webpack_require__(164)
+	__webpack_require__(143)
+	__vue_script__ = __webpack_require__(145)
+	__vue_template__ = __webpack_require__(161)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 146 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(147);
+	var content = __webpack_require__(144);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17088,7 +16561,7 @@
 	}
 
 /***/ },
-/* 147 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17102,7 +16575,7 @@
 
 
 /***/ },
-/* 148 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17111,15 +16584,15 @@
 	  value: true
 	});
 	
-	var _DevInfo = __webpack_require__(149);
+	var _DevInfo = __webpack_require__(146);
 	
 	var _DevInfo2 = _interopRequireDefault(_DevInfo);
 	
-	var _Overlay = __webpack_require__(153);
+	var _Overlay = __webpack_require__(150);
 	
 	var _Overlay2 = _interopRequireDefault(_Overlay);
 	
-	var _Toggle = __webpack_require__(158);
+	var _Toggle = __webpack_require__(155);
 	
 	var _Toggle2 = _interopRequireDefault(_Toggle);
 	
@@ -17127,7 +16600,7 @@
 	
 	var _events = __webpack_require__(120);
 	
-	var _storage = __webpack_require__(163);
+	var _storage = __webpack_require__(160);
 	
 	var _storage2 = _interopRequireDefault(_storage);
 	
@@ -17241,19 +16714,19 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 149 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(150)
-	__vue_template__ = __webpack_require__(152)
+	__vue_script__ = __webpack_require__(147)
+	__vue_template__ = __webpack_require__(149)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 150 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17262,7 +16735,7 @@
 	  value: true
 	});
 	
-	var _package = __webpack_require__(151);
+	var _package = __webpack_require__(148);
 	
 	// jesus christ
 	
@@ -17293,20 +16766,21 @@
 	// <script>
 
 /***/ },
-/* 151 */
+/* 148 */
 /***/ function(module, exports) {
 
 	module.exports = {
 		"name": "fchat-next",
-		"version": "0.3.0",
+		"version": "0.3.1",
 		"description": "A modernized responsive client for F-Chat",
 		"repository": "https://github.com/Kingdaro/fchat",
 		"author": "Kingdaro",
 		"license": "MIT",
 		"main": "src/app/main.js",
 		"devDependencies": {
-			"autoprefixer": "^6.3.6",
-			"babel-core": "^6.9.1",
+			"autoprefixer": "^6.3.7",
+			"babel-core": "^6.10.4",
+			"babel-eslint": "^6.1.0",
 			"babel-loader": "^6.2.4",
 			"babel-plugin-syntax-flow": "^6.8.0",
 			"babel-plugin-transform-flow-strip-types": "^6.8.0",
@@ -17323,52 +16797,51 @@
 			"eslint-plugin-promise": "^1.3.2",
 			"eslint-plugin-standard": "^1.3.2",
 			"fuse.js": "^2.2.0",
-			"fuzzysearch": "^1.0.3",
 			"json-loader": "^0.5.4",
 			"postcss-loader": "^0.9.1",
 			"style-loader": "^0.13.1",
 			"stylus": "^0.54.5",
 			"stylus-loader": "^2.1.1",
-			"vue-hot-reload-api": "^1.3.2",
-			"vue-html-loader": "^1.2.2",
+			"vue-hot-reload-api": "^1.3.3",
+			"vue-html-loader": "^1.2.3",
 			"vue-loader": "^7.5.3",
 			"vue-style-loader": "^1.0.0",
 			"webpack": "^1.13.1",
 			"webpack-dev-server": "^1.14.1"
 		},
 		"dependencies": {
-			"vue": "^1.0.25",
+			"vue": "^1.0.26",
 			"vue-resource": "^0.8.0"
 		}
 	};
 
 /***/ },
-/* 152 */
+/* 149 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <p>\r\n    <h2>fchat-next alpha v{{version}}</h2>\r\n    <p>\r\n      <i class='fa fa-code'></i> with\r\n      <i class='fa fa-heart'></i> by\r\n      <a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>\r\n    </p>\r\n    <p>Note me for questions, concerns, suggestions, and comments.</p>\r\n    <p><a class='ui link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></p>\r\n    <p><strong>Warning:</strong> buggy and incomplete. Many things do not work.</p>\r\n  </p>\r\n";
 
 /***/ },
-/* 153 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(154)
-	__vue_script__ = __webpack_require__(156)
-	__vue_template__ = __webpack_require__(157)
+	__webpack_require__(151)
+	__vue_script__ = __webpack_require__(153)
+	__vue_template__ = __webpack_require__(154)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 154 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(155);
+	var content = __webpack_require__(152);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17388,7 +16861,7 @@
 	}
 
 /***/ },
-/* 155 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17402,7 +16875,7 @@
 
 
 /***/ },
-/* 156 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17471,32 +16944,32 @@
 	// <script>
 
 /***/ },
-/* 157 */
+/* 154 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <section class=\"ui overlay\" transition=\"fade\" @click.self=\"close\" _v-5ac2a418=\"\">\n    <section class=\"ui panel\" :style=\"{ width: panelWidth, height: panelHeight }\" _v-5ac2a418=\"\">\n      <slot _v-5ac2a418=\"\"></slot>\n      <button v-if=\"!noClose\" class=\"ui subtle hover-darken close-button\" @click=\"close\" _v-5ac2a418=\"\">\n        <i class=\"fa fa-times\" _v-5ac2a418=\"\"></i>\n      </button>\n    </section>\n  </section>\n";
 
 /***/ },
-/* 158 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(159)
-	__vue_script__ = __webpack_require__(161)
-	__vue_template__ = __webpack_require__(162)
+	__webpack_require__(156)
+	__vue_script__ = __webpack_require__(158)
+	__vue_template__ = __webpack_require__(159)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 159 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(160);
+	var content = __webpack_require__(157);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17516,7 +16989,7 @@
 	}
 
 /***/ },
-/* 160 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17530,7 +17003,7 @@
 
 
 /***/ },
-/* 161 */
+/* 158 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -17562,13 +17035,13 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 162 */
+/* 159 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <span class=\"ui hover-darken small noselect\" :class=\"{ 'subtle': !enabled }\" _v-5e542e88=\"\">\n    <i class=\"fa fa-fw\" :class=\"{ 'fa-square': enabled, 'fa-square-o': !enabled }\" _v-5e542e88=\"\"></i>\n    <slot _v-5e542e88=\"\"></slot>\n  </span>\n";
 
 /***/ },
-/* 163 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17626,7 +17099,7 @@
 	  (0, _createClass3.default)(Storage, [{
 	    key: 'get',
 	    value: function get(key, defaultValue) {
-	      if (this.data[key] == null) {
+	      if (this.data[key] == null && defaultValue != null) {
 	        this.set(key, defaultValue);
 	      }
 	      var value = this.data[key];
@@ -17735,25 +17208,25 @@
 	exports.default = new Storage();
 
 /***/ },
-/* 164 */
+/* 161 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <overlay no-close=\"\" _v-02faa4dd=\"\">\n    <h1 _v-02faa4dd=\"\">Hi there!</h1>\n    <form class=\"ui form\" @submit.prevent=\"submit\" _v-02faa4dd=\"\">\n      <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n        <i class=\"fa fa-user\" _v-02faa4dd=\"\"></i>\n        <input type=\"text\" placeholder=\"Username\" v-model=\"username\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n      </div>\n      <div class=\"ui field text-input icon left\" _v-02faa4dd=\"\">\n        <i class=\"fa fa-lock\" _v-02faa4dd=\"\"></i>\n        <input type=\"password\" placeholder=\"Password\" v-model=\"password\" :disabled=\"disabled\" _v-02faa4dd=\"\">\n      </div>\n      <div class=\"ui field\" _v-02faa4dd=\"\">\n        <toggle :enabled=\"remember\" @click=\"remember = !remember\" _v-02faa4dd=\"\">Remember me</toggle>\n      </div>\n      <div class=\"ui field\" _v-02faa4dd=\"\">\n        <button class=\"ui padded-button\" action=\"submit\" :disabled=\"disabled\" _v-02faa4dd=\"\">Go</button>\n      </div>\n      <div class=\"ui field\" _v-02faa4dd=\"\">\n        <span _v-02faa4dd=\"\">{{status}}</span>\n      </div>\n      <div class=\"ui field small subtle\" _v-02faa4dd=\"\">\n        <em _v-02faa4dd=\"\"><a class=\"ui link\" href=\"#\" data-push-overlay=\"about\" _v-02faa4dd=\"\">About</a></em>\n      </div>\n    </form>\n  </overlay>\n";
 
 /***/ },
-/* 165 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(166)
-	__vue_template__ = __webpack_require__(167)
+	__vue_script__ = __webpack_require__(163)
+	__vue_template__ = __webpack_require__(164)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 166 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17762,7 +17235,7 @@
 	  value: true
 	});
 	
-	var _Overlay = __webpack_require__(153);
+	var _Overlay = __webpack_require__(150);
 	
 	var _Overlay2 = _interopRequireDefault(_Overlay);
 	
@@ -17830,32 +17303,32 @@
 	// <script>
 
 /***/ },
-/* 167 */
+/* 164 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <overlay no-close>\r\n    <h2>Who do we feel like playing today?</h2>\r\n    <form class='ui form' @submit.prevent='submit'>\r\n      <div class='ui field'>\r\n        <ul class='ui selection'>\r\n          <li v-for='name in characters'\r\n          :class='{ \"active\": name === activeCharacter }'\r\n          @click='setSelectedCharacter(name)'>\r\n            {{name}}\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class='ui field'>\r\n        <button class='ui padded-button'>Go</button>\r\n      </div>\r\n    </form>\r\n  </overlay>\r\n";
 
 /***/ },
-/* 168 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(169)
-	__vue_script__ = __webpack_require__(171)
-	__vue_template__ = __webpack_require__(173)
+	__webpack_require__(166)
+	__vue_script__ = __webpack_require__(168)
+	__vue_template__ = __webpack_require__(169)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 169 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(170);
+	var content = __webpack_require__(167);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17875,7 +17348,7 @@
 	}
 
 /***/ },
-/* 170 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17889,7 +17362,7 @@
 
 
 /***/ },
-/* 171 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17902,7 +17375,7 @@
 	
 	var _typeof3 = _interopRequireDefault(_typeof2);
 	
-	var _Overlay = __webpack_require__(153);
+	var _Overlay = __webpack_require__(150);
 	
 	var _Overlay2 = _interopRequireDefault(_Overlay);
 	
@@ -17912,13 +17385,11 @@
 	
 	var _types = __webpack_require__(119);
 	
-	var _fuzzysearch = __webpack_require__(172);
-	
-	var _fuzzysearch2 = _interopRequireDefault(_fuzzysearch);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// <template>
+	function compareChannelInfo(a, b) {
+	  return a.name.localeCompare(b.name);
+	} // <template>
 	//   <overlay>
 	//     <h2>Chill and chat? Sounds good.</h2>
 	//     <form class='ui form'>
@@ -17936,8 +17407,7 @@
 	//
 	//       <section class='ui field text-input icon left'>
 	//         <i class='fa fa-search'></i>
-	//         <input type="text" placeholder="Search..."
-	//         v-model='searchQuery'>
+	//         <input type="text" placeholder="Search..." v-model='search'>
 	//       </section>
 	//     </form>
 	//   </overlay>
@@ -17959,10 +17429,6 @@
 	//
 	// <script>
 	
-	
-	function compareChannelInfo(a, b) {
-	  return a.name.localeCompare(b.name);
-	}
 	
 	exports.default = {
 	  data: function data() {
@@ -17992,7 +17458,7 @@
 	        var _ret = function () {
 	          var query = _this.searchQuery.toLocaleLowerCase();
 	          var filter = function filter(ch) {
-	            return (0, _fuzzysearch2.default)(query, ch.name.toLocaleLowerCase());
+	            return ch.name.toLocaleLowerCase().includes(query);
 	          };
 	          return {
 	            v: _this.channelList.filter(filter)
@@ -18018,62 +17484,32 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 172 */
+/* 169 */
 /***/ function(module, exports) {
 
-	'use strict';
-	
-	function fuzzysearch (needle, haystack) {
-	  var tlen = haystack.length;
-	  var qlen = needle.length;
-	  if (qlen > tlen) {
-	    return false;
-	  }
-	  if (qlen === tlen) {
-	    return needle === haystack;
-	  }
-	  outer: for (var i = 0, j = 0; i < qlen; i++) {
-	    var nch = needle.charCodeAt(i);
-	    while (j < tlen) {
-	      if (haystack.charCodeAt(j++) === nch) {
-	        continue outer;
-	      }
-	    }
-	    return false;
-	  }
-	  return true;
-	}
-	
-	module.exports = fuzzysearch;
-
+	module.exports = "\n  <overlay _v-6e29fcb5=\"\">\n    <h2 _v-6e29fcb5=\"\">Chill and chat? Sounds good.</h2>\n    <form class=\"ui form\" _v-6e29fcb5=\"\">\n      <section class=\"ui field\" _v-6e29fcb5=\"\">\n        <ul class=\"ui selection\" _v-6e29fcb5=\"\">\n          <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.id\" _v-6e29fcb5=\"\">\n            <span class=\"ui pull right\" _v-6e29fcb5=\"\">{{channel.userCount}}</span>\n            <span v-html=\"channel.name\" _v-6e29fcb5=\"\"></span>\n          </li>\n        </ul>\n      </section>\n\n      <section class=\"ui field text-input icon left\" _v-6e29fcb5=\"\">\n        <i class=\"fa fa-search\" _v-6e29fcb5=\"\"></i>\n        <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" _v-6e29fcb5=\"\">\n      </section>\n    </form>\n  </overlay>\n";
 
 /***/ },
-/* 173 */
-/***/ function(module, exports) {
-
-	module.exports = "\n  <overlay _v-6e29fcb5=\"\">\n    <h2 _v-6e29fcb5=\"\">Chill and chat? Sounds good.</h2>\n    <form class=\"ui form\" _v-6e29fcb5=\"\">\n      <section class=\"ui field\" _v-6e29fcb5=\"\">\n        <ul class=\"ui selection\" _v-6e29fcb5=\"\">\n          <li v-for=\"channel in slicedChannelList\" v-if=\"channel.name.trim() !== ''\" class=\"ui noselect {{isJoined(channel.id) ? 'active' : ''}}\" :data-toggle-channel=\"channel.id\" _v-6e29fcb5=\"\">\n            <span class=\"ui pull right\" _v-6e29fcb5=\"\">{{channel.userCount}}</span>\n            <span v-html=\"channel.name\" _v-6e29fcb5=\"\"></span>\n          </li>\n        </ul>\n      </section>\n\n      <section class=\"ui field text-input icon left\" _v-6e29fcb5=\"\">\n        <i class=\"fa fa-search\" _v-6e29fcb5=\"\"></i>\n        <input type=\"text\" placeholder=\"Search...\" v-model=\"searchQuery\" _v-6e29fcb5=\"\">\n      </section>\n    </form>\n  </overlay>\n";
-
-/***/ },
-/* 174 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(175)
-	__vue_script__ = __webpack_require__(177)
-	__vue_template__ = __webpack_require__(196)
+	__webpack_require__(171)
+	__vue_script__ = __webpack_require__(173)
+	__vue_template__ = __webpack_require__(192)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 175 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(176);
+	var content = __webpack_require__(172);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -18093,7 +17529,7 @@
 	}
 
 /***/ },
-/* 176 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -18107,7 +17543,7 @@
 
 
 /***/ },
-/* 177 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18116,19 +17552,19 @@
 	  value: true
 	});
 	
-	var _ActionPanel = __webpack_require__(178);
+	var _ActionPanel = __webpack_require__(174);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _CharacterAvatarLink = __webpack_require__(181);
+	var _CharacterAvatarLink = __webpack_require__(177);
 	
 	var _CharacterAvatarLink2 = _interopRequireDefault(_CharacterAvatarLink);
 	
-	var _MenuOption = __webpack_require__(186);
+	var _MenuOption = __webpack_require__(182);
 	
 	var _MenuOption2 = _interopRequireDefault(_MenuOption);
 	
-	var _Dropdown = __webpack_require__(191);
+	var _Dropdown = __webpack_require__(187);
 	
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 	
@@ -18273,19 +17709,19 @@
 	// <script>
 
 /***/ },
-/* 178 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(179)
-	__vue_template__ = __webpack_require__(180)
+	__vue_script__ = __webpack_require__(175)
+	__vue_template__ = __webpack_require__(176)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 179 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18336,32 +17772,32 @@
 	// <script>
 
 /***/ },
-/* 180 */
+/* 176 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div class=\"ui overlay\" :transition=\"transition\" @click.self=\"close\">\r\n    <div class=\"ui side-panel {{side}} flex col\">\r\n      <div class=\"flex fixed\">\r\n        <slot name=\"content\"></slot>\r\n      </div>\r\n      <div class=\"flex stretch ui theme-color dark\">\r\n        <slot name=\"options\"></slot>\r\n      </div>\r\n    </div>\r\n  </div>\r\n";
 
 /***/ },
-/* 181 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(182)
-	__vue_script__ = __webpack_require__(184)
-	__vue_template__ = __webpack_require__(185)
+	__webpack_require__(178)
+	__vue_script__ = __webpack_require__(180)
+	__vue_template__ = __webpack_require__(181)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 182 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(183);
+	var content = __webpack_require__(179);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -18381,7 +17817,7 @@
 	}
 
 /***/ },
-/* 183 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -18395,7 +17831,7 @@
 
 
 /***/ },
-/* 184 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18456,32 +17892,32 @@
 	// <script>
 
 /***/ },
-/* 185 */
+/* 181 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <a target=\"_blank\" :href=\"profileURL\" _v-191a2a78=\"\">\n    <img class=\"ui transition\" v-show=\"imageLoaded\" transition=\"fade\" :src=\"avatarURL\" @load=\"imageLoaded = true\" _v-191a2a78=\"\">\n    <i v-show=\"!imageLoaded\" class=\"fa fa-circle-o-notch fa-spin fa-2x\" _v-191a2a78=\"\"></i>\n  </a>\n";
 
 /***/ },
-/* 186 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(187)
-	__vue_script__ = __webpack_require__(189)
-	__vue_template__ = __webpack_require__(190)
+	__webpack_require__(183)
+	__vue_script__ = __webpack_require__(185)
+	__vue_template__ = __webpack_require__(186)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 187 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(188);
+	var content = __webpack_require__(184);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -18501,7 +17937,7 @@
 	}
 
 /***/ },
-/* 188 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -18515,7 +17951,7 @@
 
 
 /***/ },
-/* 189 */
+/* 185 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -18546,32 +17982,32 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 190 */
+/* 186 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <a class=\"ui hover-darken noselect\" target=\"_blank\" _v-6b025c1c=\"\">\n    <i class=\"fa fa-{{icon}} fa-fw\" _v-6b025c1c=\"\"></i> <slot _v-6b025c1c=\"\"></slot>\n  </a>\n";
 
 /***/ },
-/* 191 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(192)
-	__vue_script__ = __webpack_require__(194)
-	__vue_template__ = __webpack_require__(195)
+	__webpack_require__(188)
+	__vue_script__ = __webpack_require__(190)
+	__vue_template__ = __webpack_require__(191)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 192 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(193);
+	var content = __webpack_require__(189);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -18591,7 +18027,7 @@
 	}
 
 /***/ },
-/* 193 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -18605,7 +18041,7 @@
 
 
 /***/ },
-/* 194 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18819,38 +18255,38 @@
 	}
 
 /***/ },
-/* 195 */
+/* 191 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <div _v-5d3bd6f9=\"\">\n    <span class=\"ui section icon right hover-darken noselect head\" @click=\"toggle\" _v-5d3bd6f9=\"\">\n      <i class=\"fa fa-caret-down\" _v-5d3bd6f9=\"\"></i> {{ valueLabel }}\n    </span>\n    <ol class=\"ui theme-color dark border shadow\" v-show=\"open\" transition=\"collapse\" v-el:list-items=\"\" @click=\"selectItem($event)\" _v-5d3bd6f9=\"\">\n      <slot _v-5d3bd6f9=\"\"></slot>\n    </ol>\n  </div>\n";
 
 /***/ },
-/* 196 */
+/* 192 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <action-panel side=\"left\" _v-2811a614=\"\">\n    <form slot=\"content\" class=\"ui form\" _v-2811a614=\"\">\n      <h2 _v-2811a614=\"\">{{greeting}}</h2>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <character-avatar-link :character=\"state.getUserCharacter()\" _v-2811a614=\"\"></character-avatar-link>\n      </div>\n      <div class=\"ui field\" _v-2811a614=\"\">\n        <dropdown :init-value=\"status\" @changed=\"setStatus\" _v-2811a614=\"\">\n          <li value=\"online\" _v-2811a614=\"\">Online</li>\n          <li value=\"looking\" _v-2811a614=\"\">Looking</li>\n          <li value=\"busy\" _v-2811a614=\"\">Busy</li>\n          <li value=\"away\" _v-2811a614=\"\">Away</li>\n          <li value=\"dnd\" _v-2811a614=\"\">DND</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-2811a614=\"\">\n        <i class=\"fa fa-pencil\" _v-2811a614=\"\"></i>\n        <div v-el:status-message=\"\" contenteditable=\"\" placeholder=\"What's up?\" @blur=\"setStatusMessage($event.target.innerText)\" @keydown.enter.prevent=\"$event.target.blur()\" _v-2811a614=\"\"></div>\n      </div>\n    </form>\n\n    <div slot=\"options\" _v-2811a614=\"\">\n      <menu-option icon=\"globe\" @mousedown=\"pushOverlay('channel-list')\" _v-2811a614=\"\">Channels</menu-option>\n      <menu-option icon=\"heart\" @mousedown=\"pushOverlay('online-users')\" _v-2811a614=\"\">Online Users</menu-option>\n      <menu-option icon=\"gear\" _v-2811a614=\"\">Settings</menu-option>\n      <menu-option icon=\"user\" @mousedown=\"switchCharacter\" _v-2811a614=\"\">Switch Character</menu-option>\n      <menu-option icon=\"sign-out\" @mousedown=\"logOut\" _v-2811a614=\"\">Log Out</menu-option>\n      <menu-option icon=\"info\" @mousedown=\"pushOverlay('about')\" _v-2811a614=\"\">About</menu-option>\n    </div>\n  </action-panel>\n";
 
 /***/ },
-/* 197 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(198)
-	__vue_script__ = __webpack_require__(200)
-	__vue_template__ = __webpack_require__(201)
+	__webpack_require__(194)
+	__vue_script__ = __webpack_require__(196)
+	__vue_template__ = __webpack_require__(197)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 198 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(199);
+	var content = __webpack_require__(195);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -18870,7 +18306,7 @@
 	}
 
 /***/ },
-/* 199 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -18884,7 +18320,7 @@
 
 
 /***/ },
-/* 200 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18893,15 +18329,15 @@
 	  value: true
 	});
 	
-	var _MenuOption = __webpack_require__(186);
+	var _MenuOption = __webpack_require__(182);
 	
 	var _MenuOption2 = _interopRequireDefault(_MenuOption);
 	
-	var _ActionPanel = __webpack_require__(178);
+	var _ActionPanel = __webpack_require__(174);
 	
 	var _ActionPanel2 = _interopRequireDefault(_ActionPanel);
 	
-	var _CharacterAvatarLink = __webpack_require__(181);
+	var _CharacterAvatarLink = __webpack_require__(177);
 	
 	var _CharacterAvatarLink2 = _interopRequireDefault(_CharacterAvatarLink);
 	
@@ -19010,32 +18446,32 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 201 */
+/* 197 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <action-panel side=\"right\" _v-f03cabc8=\"\">\n    <section slot=\"content\" _v-f03cabc8=\"\">\n      <form slot=\"content\" class=\"ui form\" _v-f03cabc8=\"\">\n        <h2 class=\"wrap-break-word\" _v-f03cabc8=\"\">{{char.name}}</h2>\n        <div class=\"ui field\" _v-f03cabc8=\"\">\n          <character-avatar-link :character=\"activeCharacter\" _v-f03cabc8=\"\"></character-avatar-link>\n        </div>\n        <small class=\"ui field wrap-break-word section\" _v-f03cabc8=\"\">\n          <em _v-f03cabc8=\"\">\n            {{char.gender}}, {{char.status}}\n            <span v-if=\"char.statusMessage !== ''\" v-html=\"'- ' + char.statusMessage | bbcode\" _v-f03cabc8=\"\"></span>\n          </em>\n        </small>\n        <small class=\"ui field section highlight green\" v-for=\"friend in friendships\" _v-f03cabc8=\"\">\n          <em _v-f03cabc8=\"\"><i class=\"fa fa-heart\" _v-f03cabc8=\"\"></i> {{friend}}</em>\n        </small>\n      </form>\n    </section>\n    <section slot=\"options\" _v-f03cabc8=\"\">\n      <menu-option icon=\"comment\" @click=\"openPrivateChat\" _v-f03cabc8=\"\">Send Message</menu-option>\n\n      <menu-option icon=\"star-o\" v-if=\"!bookmarked\" @click=\"state.addBookmark(char.name)\" _v-f03cabc8=\"\">Bookmark</menu-option>\n      <menu-option icon=\"star\" v-else=\"\" @click=\"state.removeBookmark(char.name)\" _v-f03cabc8=\"\">Unbookmark</menu-option>\n\n      <menu-option icon=\"minus-square-o\" v-if=\"!ignored\" _v-f03cabc8=\"\">Ignore</menu-option>\n      <menu-option icon=\"minus-square\" v-else=\"\" _v-f03cabc8=\"\">Unignore</menu-option>\n\n      <menu-option icon=\"link\" :href=\"getProfileURL(char.name)\" _v-f03cabc8=\"\">View Profile</menu-option>\n    </section>\n  </action-panel>\n";
 
 /***/ },
-/* 202 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(203)
-	__vue_script__ = __webpack_require__(205)
-	__vue_template__ = __webpack_require__(208)
+	__webpack_require__(199)
+	__vue_script__ = __webpack_require__(201)
+	__vue_template__ = __webpack_require__(204)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 203 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(204);
+	var content = __webpack_require__(200);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -19055,7 +18491,7 @@
 	}
 
 /***/ },
-/* 204 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -19069,7 +18505,7 @@
 
 
 /***/ },
-/* 205 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19098,15 +18534,15 @@
 	
 	var _iterator3 = _interopRequireDefault(_iterator2);
 	
-	var _Character = __webpack_require__(125);
+	var _Character = __webpack_require__(122);
 	
 	var _Character2 = _interopRequireDefault(_Character);
 	
-	var _Dropdown = __webpack_require__(191);
+	var _Dropdown = __webpack_require__(187);
 	
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 	
-	var _Overlay = __webpack_require__(153);
+	var _Overlay = __webpack_require__(150);
 	
 	var _Overlay2 = _interopRequireDefault(_Overlay);
 	
@@ -19114,9 +18550,9 @@
 	
 	var _state2 = _interopRequireDefault(_state);
 	
-	var _util = __webpack_require__(206);
+	var _util = __webpack_require__(202);
 	
-	var _fuse = __webpack_require__(207);
+	var _fuse = __webpack_require__(203);
 	
 	var _fuse2 = _interopRequireDefault(_fuse);
 	
@@ -19359,7 +18795,7 @@
 	}
 
 /***/ },
-/* 206 */
+/* 202 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -19373,7 +18809,7 @@
 	}
 
 /***/ },
-/* 207 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20159,32 +19595,32 @@
 
 
 /***/ },
-/* 208 */
+/* 204 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <overlay _v-96ca842e=\"\">\n    <h2 _v-96ca842e=\"\">Let's find some friends!</h2>\n    <form class=\"ui form\" @submit.prevent=\"\" _v-96ca842e=\"\">\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <dropdown style=\"width: 8em\" v-ref:filter=\"\" _v-96ca842e=\"\">\n          <li value=\"all\" _v-96ca842e=\"\">All</li>\n          <li value=\"friend\" _v-96ca842e=\"\">Friends</li>\n          <li value=\"bookmark\" _v-96ca842e=\"\">Bookmarks</li>\n          <li value=\"looking\" _v-96ca842e=\"\">Looking</li>\n        </dropdown>\n      </div>\n      <div class=\"ui field\" _v-96ca842e=\"\">\n        <ul class=\"ui selection\" style=\"\" _v-96ca842e=\"\">\n          <li v-for=\"char in slicedCharacters\" :class=\"getListClass(char)\" :data-activate-character=\"char.name\" _v-96ca842e=\"\">\n            <i class=\"fa fa-heart ui pull-right\" v-if=\"characterIs(char, 'friend')\" _v-96ca842e=\"\"></i>\n            <i class=\"fa fa-star ui pull-right\" v-if=\"characterIs(char, 'bookmark')\" _v-96ca842e=\"\"></i>\n            <i class=\"fa fa-paw ui pull-right\" v-if=\"characterIs(char, 'looking')\" _v-96ca842e=\"\"></i>\n            <character :character=\"char\" _v-96ca842e=\"\"></character>\n          </li>\n          <center class=\"ui small subtle\" style=\"padding: 0.5em\" v-if=\"slicedCharacters.length === 200\" _v-96ca842e=\"\">\n            <em _v-96ca842e=\"\">List truncated for performance. Search for more results.</em>\n          </center>\n        </ul>\n      </div>\n      <div class=\"ui field text-input icon right\" _v-96ca842e=\"\">\n        <i class=\"fa fa-search\" _v-96ca842e=\"\"></i>\n        <input type=\"text\" placeholder=\"Search...\" v-model=\"search\" debounce=\"500\" _v-96ca842e=\"\">\n      </div>\n    </form>\n  </overlay>\n";
 
 /***/ },
-/* 209 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(210)
-	__vue_script__ = __webpack_require__(212)
-	__vue_template__ = __webpack_require__(213)
+	__webpack_require__(206)
+	__vue_script__ = __webpack_require__(208)
+	__vue_template__ = __webpack_require__(209)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
 
 
 /***/ },
-/* 210 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(211);
+	var content = __webpack_require__(207);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -20204,7 +19640,7 @@
 	}
 
 /***/ },
-/* 211 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -20218,7 +19654,7 @@
 
 
 /***/ },
-/* 212 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20227,11 +19663,11 @@
 	  value: true
 	});
 	
-	var _Overlay = __webpack_require__(153);
+	var _Overlay = __webpack_require__(150);
 	
 	var _Overlay2 = _interopRequireDefault(_Overlay);
 	
-	var _DevInfo = __webpack_require__(149);
+	var _DevInfo = __webpack_require__(146);
 	
 	var _DevInfo2 = _interopRequireDefault(_DevInfo);
 	
@@ -20261,13 +19697,13 @@
 	/* generated by vue-loader */
 
 /***/ },
-/* 213 */
+/* 209 */
 /***/ function(module, exports) {
 
 	module.exports = "\n  <overlay panel-width=\"18em\" _v-199b2701=\"\">\n    <p _v-199b2701=\"\"><a class=\"ui link\" href=\"https://www.f-list.net/c/alexander%20grapevine/\" _v-199b2701=\"\">\n      <img src=\"https://static.f-list.net/images/avatar/alexander%20grapevine.png\" _v-199b2701=\"\">\n    </a></p>\n    <p _v-199b2701=\"\"><dev-info _v-199b2701=\"\"></dev-info></p>\n  </overlay>\n";
 
 /***/ },
-/* 214 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20290,7 +19726,7 @@
 	
 	var _types = __webpack_require__(119);
 	
-	var _util = __webpack_require__(215);
+	var _util = __webpack_require__(211);
 	
 	var _events = __webpack_require__(120);
 	
@@ -20607,7 +20043,7 @@
 	exports.default = new Socket();
 
 /***/ },
-/* 215 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -21135,7 +20571,7 @@
 	}
 	exports.isPrimitive = isPrimitive;
 	
-	exports.isBuffer = __webpack_require__(216);
+	exports.isBuffer = __webpack_require__(212);
 	
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -21179,7 +20615,7 @@
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(217);
+	exports.inherits = __webpack_require__(213);
 	
 	exports._extend = function(origin, add) {
 	  // Don't do anything if add isn't an object
@@ -21200,7 +20636,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(2)))
 
 /***/ },
-/* 216 */
+/* 212 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -21211,7 +20647,7 @@
 	}
 
 /***/ },
-/* 217 */
+/* 213 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -21240,13 +20676,13 @@
 
 
 /***/ },
-/* 218 */
+/* 214 */
 /***/ function(module, exports) {
 
 	module.exports = "\r\n  <div @click='checkDataAttribute($event)'>\r\n    <chat></chat>\r\n    <component v-for=\"overlay in overlays\" :is='overlay' :active-character='activeCharacter'></component>\r\n  </div>\r\n";
 
 /***/ },
-/* 219 */
+/* 215 */
 /***/ function(module, exports) {
 
 	'use strict';

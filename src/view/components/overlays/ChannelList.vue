@@ -16,8 +16,7 @@
 
       <section class='ui field text-input icon left'>
         <i class='fa fa-search'></i>
-        <input type="text" placeholder="Search..."
-        v-model='searchQuery'>
+        <input type="text" placeholder="Search..." v-model='search'>
       </section>
     </form>
   </overlay>
@@ -42,7 +41,6 @@ import Overlay from '../elements/Overlay.vue'
 
 import state from '../../lib/state'
 import {ChannelStatus} from '../../lib/types'
-import fuzzysearch from 'fuzzysearch'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)
@@ -72,7 +70,7 @@ export default {
         return this.channelList
       } else {
         const query = this.searchQuery.toLocaleLowerCase()
-        const filter = ch => fuzzysearch(query, ch.name.toLocaleLowerCase())
+        const filter = ch => ch.name.toLocaleLowerCase().includes(query)
         return this.channelList.filter(filter)
       }
     },
