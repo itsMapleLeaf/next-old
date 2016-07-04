@@ -24,8 +24,16 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    alias: {
+      modules: path.join(__dirname, 'src/modules'),
+      types: path.join(__dirname, 'src/types'),
+      styles: path.join(__dirname, 'src/styles'),
+      view: path.join(__dirname, 'src/view')
+    }
+  },
   babel: {
-    presets: ['es2015'],
+    presets: ['es2015', 'stage-1'],
     plugins: [
       'typecheck',
       'syntax-flow',

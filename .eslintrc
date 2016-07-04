@@ -5,5 +5,8 @@
         "flowtype",
         "standard",
         "html"
-    ]
+    ],
+    "rules": {
+        "generator-star-spacing": 0
+    }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div @click='checkDataAttribute($event)'>
+  <div>
     <chat></chat>
     <component v-for="overlay in overlays" :is='overlay' :active-character='activeCharacter'></component>
   </div>
@@ -220,23 +220,6 @@ export default {
         window.localStorage.clear()
         return Promise.reject("Couldn't load user data from storage. Starting fresh.")
       })
-    },
-
-    checkDataAttribute (event) {
-      const name = event.target.getAttribute('data-activate-character')
-      if (name) {
-        this.$emit(events.CharacterActivated, name)
-      }
-
-      const channelToggle = event.target.getAttribute('data-toggle-channel')
-      if (channelToggle) {
-        this.$emit(events.ToggleChannelRequest, channelToggle)
-      }
-
-      const overlay = event.target.getAttribute('data-push-overlay')
-      if (overlay) {
-        this.$emit(events.PushOverlay, overlay)
-      }
     }
   }
 }
