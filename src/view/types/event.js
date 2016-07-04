@@ -7,16 +7,16 @@ export type Event = {}
   | { type: 'PushOverlay', overlay: string }
   | { type: 'PopOverlay' }
 
+  | { type: 'IdentifySuccess'}
+  | { type: 'SocketError', error: string }
+
   | { type: 'UserCharacterSelected', name: Character }
   | { type: 'CharacterActivated', name: Character }
 
-  | { type: 'SocketIdentifySuccess'}
-  | { type: 'SocketError', error: string }
-  | { type: 'SocketChannelJoined', id: ChannelID }
-  | { type: 'SocketChannelLeft', id: ChannelID }
-
   | { type: 'JoinChannelRequest', id: ChannelID }
+  | { type: 'JoinChannelSuccess', id: ChannelID }
   | { type: 'LeaveChannelRequest', id: ChannelID }
+  | { type: 'LeaveChannelSuccess', id: ChannelID }
 
   | { type: 'ChannelMessageSent', channel: ChannelID, message: string }
   | { type: 'ChannelMessageReceived', channel: ChannelID, sender: Character, message: string }
