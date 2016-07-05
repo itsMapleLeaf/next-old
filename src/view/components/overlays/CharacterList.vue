@@ -27,7 +27,8 @@ import {store} from 'modules/store'
 export default {
   data () {
     return {
-      activeCharacter: ''
+      activeCharacter: '',
+      store
     }
   },
 
@@ -37,7 +38,7 @@ export default {
 
   computed: {
     characters () {
-      return store.getUserCharacters().sort()
+      return this.store.getUserCharacters().sort()
     }
   },
 
@@ -47,7 +48,7 @@ export default {
     },
 
     submit () {
-      store.dispatch('UserCharacterSelected', { name: this.activeCharacter })
+      this.store.dispatch('UserCharacterSelected', { name: this.activeCharacter })
     }
   }
 }

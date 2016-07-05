@@ -16,7 +16,7 @@ export type Gender
   | 'Transgender'
   | 'Herm'
   | 'Shemale'
-  | 'Male-herm'
+  | 'Male-Herm'
   | 'Cunt-boy'
   | 'None'
 
@@ -38,3 +38,15 @@ export type CharacterRelation
   | 'ignored'
 
 export type CharacterName = string
+
+export function createCharacter (name: CharacterName, gender: Gender): Character {
+  return {
+    name,
+    gender,
+    status: {
+      state: 'online',
+      message: ''
+    },
+    relation: []
+  }
+}

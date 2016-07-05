@@ -12,17 +12,18 @@ export type ChannelInfo = {
 }
 
 export type ChannelState = {
+  type: 'channel',
   id: ChannelID,
   name: string,
   mode: ChannelMode,
   preference: ChannelMode,
   description: string,
   characters: Character[],
-  messages: ChatMessage[],
-  status: ChannelStatus
+  messages: ChatMessage[]
 }
 
 export type PrivateChatState = {
+  type: 'privateChat',
   partner: Character,
   messages: ChatMessage[]
 }
@@ -33,12 +34,6 @@ export type ChatMessage = {
   kind: ChatMessageKind,
   time: Date
 }
-
-export type ChannelStatus
-  = 'left'
-  | 'joining'
-  | 'joined'
-  | 'leaving'
 
 export type ChannelMode
   = 'both'
@@ -53,3 +48,25 @@ export type ChatMessageKind
 
 export type ChannelID = string
 export type ActiveChatState = ChannelState | PrivateChatState
+
+export function createChannelState (id, name): ChannelState {
+  return {
+    type: 'channel',
+    id,
+    name,
+    mode: 'both',
+    preference: 'both',
+    description: '',
+    characters: [],
+    messages: []
+  }
+}
+
+export function createChatMessage (sender, message, kind): ChatMessage {
+  return {
+    sender,
+    message,
+    kind,
+    date: new Date()
+  }
+}

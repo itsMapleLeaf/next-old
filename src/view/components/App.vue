@@ -24,7 +24,7 @@ import Login from 'view/components/overlays/Login.vue'
 import CharacterList from 'view/components/overlays/CharacterList.vue'
 import Loading from 'view/components/overlays/Loading.vue'
 
-import {store, state} from 'modules/store'
+import {store} from 'modules/store'
 import {socket, servers} from 'modules/socket'
 // import * as flist from 'modules/flist'
 
@@ -44,7 +44,7 @@ export default {
   },
 
   data () {
-    return { overlays: [], state }
+    return { overlays: [], store, socket }
   },
 
   ready () {
@@ -58,10 +58,10 @@ export default {
 
     LoginSuccess (event) {
       const data = event.loginData
-      store.setAuthData(data.account, data.ticket)
-      store.setFriendsList(data.friends)
-      store.setUserCharacterList(data.characters)
-      store.setBookmarkList(data.bookmarks)
+      this.store.setAuthData(data.account, data.ticket)
+      this.store.setFriendsList(data.friends)
+      this.store.setUserCharacterList(data.characters)
+      this.store.setBookmarkList(data.bookmarks)
 
       this.overlays = []
       window.setTimeout(() => {
@@ -74,15 +74,15 @@ export default {
     },
 
     UserCharacterSelected (event) {
-      store.setUserCharacter(event.name)
+      this.store.setUserCharacter(event.name)
       this.overlays = ['loading']
-      socket.connect(servers.main)
+      this.socket.connect(servers.main)
     },
 
     SocketConnectionSuccess () {
-      const {account, ticket} = store.getAuthData()
-      const character = store.getUserCharacterName()
-      socket.identify(account, ticket, character)
+      const {account, ticket} = this.store.getAuthData()
+      const character = this.store.getUserCharacterName()
+      this.socket.identify(account, ticket, character)
     },
 
     SocketIdentifySuccess () {
@@ -92,7 +92,7 @@ export default {
   },
 
   watch: {
-    'state.event' (event) {
+    'store.getEvent()' (event) {
       const method = this[event.type]
       if (method) {
         method(event)

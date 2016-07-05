@@ -1,12 +1,16 @@
 import EventEmitter from 'events'
 import {inspect} from 'util'
-import {dispatch} from 'modules/store'
+import {createChatMessage} from 'types/chat'
+import type {ChannelInfo, ChatMessage} from 'types/chat'
+import type {CharacterName, Character} from 'types/character'
+import {Store} from 'modules/store'
 import meta from 'modules/meta'
 
 const {WebSocket} = window
 
-class Socket {
+export class Socket {
   ws: WebSocket | null
+  store: Store | null
   bus: EventEmitter
 
   constructor () {
@@ -14,6 +18,11 @@ class Socket {
     // like using .once() and such
     this.bus = new EventEmitter()
     this.ws = null
+    this.store = null
+  }
+
+  setStore (store) {
+    this.store = store
   }
 
   connect (address) {
@@ -29,8 +38,8 @@ class Socket {
       this.handleServerCommand(type, params)
     })
 
-    this.bus.once('open', () => dispatch('SocketConnectionSuccess'))
-    this.bus.once('error', err => dispatch('SocketError', err))
+    this.bus.once('open', () => this.store.dispatch('SocketConnectionSuccess'))
+    this.bus.once('error', err => this.store.dispatch('SocketError', err))
   }
 
   identify (account, ticket, character) {
@@ -57,13 +66,148 @@ class Socket {
   }
 
   handleServerCommand (type, params) {
+    const {store} = this
+
     switch (type) {
+      // successful identification w/ chat server
       case 'IDN':
-        dispatch('SocketIdentifySuccess')
+        store.dispatch('SocketIdentifySuccess')
         break
 
+      /* ping~! */
       case 'PIN':
+        /* pong~! */
         this.send('PIN')
+        break
+
+      // receiving server variables
+      case 'VAR':
+        store.setServerVariable(params.variable, params.value)
+        break
+
+      // hello :)
+      case 'HLO':
+        console.info(params.message)
+        break
+
+      // receive # of characters online
+      case 'CON':
+        console.info(`There are ${params.count} characters online.`)
+        break
+
+      // receiving list of friends
+      // we can ignore this, since we already got that from the login data
+      case 'FRL': break
+
+      // receiving ignore list action
+      case 'IGN':
+        switch (params.action) {
+          case 'init':
+            store.setIgnoreList(params.characters)
+            break
+
+          default:
+            console.warn(`Unknown ignore list action ${params.action}`)
+        }
+        break
+
+      // receiving list of admins
+      case 'ADL':
+        store.setAdminList(params.ops)
+        break
+
+      // receiving all characters online
+      // comes in multiple batches
+      case 'LIS':
+        store.addCharacterBatch(params.characters)
+        break
+
+      // character came online
+      case 'NLN':
+        store.addCharacter(params.identity, params.gender)
+        break
+
+      // character went offline
+      case 'FLN':
+        store.removeCharacter(params.character)
+        break
+
+      // character changed status
+      case 'STA':
+        const {character, status, statusmsg} = params
+        store.setCharacterStatus(character, status, statusmsg)
+        break
+
+      // received list of public channels
+      case 'CHA': {
+        const list: ChannelInfo[] = params.channels.map(ch => {
+          return { id: ch.name, name: ch.name, userCount: ch.characters }
+        })
+        store.setPublicChannelList(list)
+        break
+      }
+
+      // received list of private channels
+      case 'ORS': {
+        const list: ChannelInfo[] = params.channels.map(ch => {
+          return { id: ch.name, name: ch.name, userCount: ch.characters }
+        })
+        store.setPrivateChannelList(list)
+        break
+      }
+
+      // receiving initial channel information
+      case 'ICH':
+        const names: CharacterName[] = params.users.map(entry => entry.identity)
+        store.setChannelCharacters(params.channel, names)
+        store.setChannelMode(params.channel, params.mode)
+        break
+
+      // receiving a channel description
+      case 'CDS':
+        store.setChannelDescription(params.channel, params.description)
+        break
+
+      // user joined a channel (could be us)
+      // received before the above two
+      case 'JCH': {
+        const {identity} = params.character
+        if (identity === store.getUserCharacterName()) {
+          store.openChannelChat(params.channel, params.title)
+        }
+        store.addChannelCharacter(params.channel, identity)
+        break
+      }
+
+      // user left a channel (could be us)
+      case 'LCH':
+        if (params.character === store.getUserCharacterName()) {
+          store.closeChannelChat(params.channel)
+        } else {
+          store.removeChannelCharacter(params.channel, params.character)
+        }
+        break
+
+      // channel message
+      case 'MSG': {
+        const char: Character = store.getCharacter(params.character)
+        const message: ChatMessage = createChatMessage(char, params.message, 'chat')
+        store.addChannelMessage(params.channel, message)
+        break
+      }
+
+      // LFRP channel message
+      case 'LRP': {
+        const char: Character = store.getCharacter(params.character)
+        const message: ChatMessage = createChatMessage(char, params.message, 'lfrp')
+        store.addChannelMessage(params.channel, message)
+        break
+      }
+
+      // private message
+      case 'PRI':
+        // TODO: open a private chat if one doesn't exist
+        store.addPrivateMessage(params.character, params.character, params.message)
         break
 
       default:
