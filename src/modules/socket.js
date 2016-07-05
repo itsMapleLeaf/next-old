@@ -2,6 +2,7 @@ import EventEmitter from 'events'
 import {inspect} from 'util'
 import {createChatMessage} from 'modules/constructors'
 import {Store} from 'modules/store'
+import CharacterBatch from 'modules/character-batch'
 import meta from 'modules/meta'
 
 import type {
@@ -10,6 +11,8 @@ import type {
 } from 'modules/types'
 
 const {WebSocket} = window
+
+const batch = new CharacterBatch()
 
 export class Socket {
   ws: WebSocket | null
@@ -96,6 +99,7 @@ export class Socket {
       // receive # of characters online
       case 'CON':
         console.info(`There are ${params.count} characters online.`)
+        batch.setCount(params.count)
         break
 
       // receiving list of friends
@@ -122,7 +126,10 @@ export class Socket {
       // receiving all characters online
       // comes in multiple batches
       case 'LIS':
-        store.dispatch({ type: 'CharacterBatch', batch: params.characters })
+        if (batch.addBatch(params.characters)) {
+          store.dispatch({ type: 'CharacterBatch', batch: batch.items })
+          batch.items = []
+        }
         break
 
       // character came online

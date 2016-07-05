@@ -26,7 +26,7 @@ type Mutation = { type: 'Init' }
 
   | { type: 'ServerVariable', key: string, value: string | string[] | number }
 
-  | { type: 'CharacterBatch', batch: (string[])[] }
+  | { type: 'CharacterBatch', batch: Character[] }
   | { type: 'CharacterOnline', name: CharacterName, gender: Gender }
   | { type: 'CharacterOffline', name: CharacterName }
   | { type: 'CharacterStatus', name: CharacterName, status: CharacterStatus }
@@ -89,6 +89,7 @@ export class Store {
   }
 
   dispatch (mut) {
+    console.log('Mutation:', mut)
     try {
       this.handleMutation(mut)
       this.mutations.push({
@@ -151,12 +152,7 @@ export class Store {
         break
 
       case 'CharacterBatch': {
-        const characters: Character[] = mut.batch.map(entry => {
-          const [name, gender, state, message] = entry
-          const status = { state, message }
-          return createCharacter(name, gender, status)
-        })
-        chat.characters = chat.characters.concat(characters)
+        chat.characters = mut.batch
         break
       }
 
