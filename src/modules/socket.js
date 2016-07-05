@@ -1,6 +1,7 @@
 import EventEmitter from 'events'
 import {inspect} from 'util'
 import {dispatch} from 'modules/store'
+import meta from 'modules/meta'
 
 const {WebSocket} = window
 
@@ -36,8 +37,8 @@ class Socket {
     const params = {
       account, ticket, character,
       method: 'ticket',
-      cname: 'fchat-next',
-      cversion: '0.3.1'
+      cname: meta.name,
+      cversion: meta.version
     }
 
     this.send('IDN', params)
