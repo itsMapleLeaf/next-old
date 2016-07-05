@@ -3,10 +3,10 @@
     <form slot="content" class="ui form">
       <h2>{{greeting}}</h2>
       <div class="ui field">
-        <character-avatar-link :character="state.getUserCharacter()"></character-avatar-link>
+        <character-avatar-link :character="character"></character-avatar-link>
       </div>
       <div class="ui field">
-        <dropdown :init-value="status" @changed='setStatus'>
+        <dropdown :init-value="status.state" @changed='setStatus'>
           <li value="online">Online</li>
           <li value="looking">Looking</li>
           <li value="busy">Busy</li>
@@ -50,16 +50,8 @@ import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
 import MenuOption from '../elements/MenuOption.vue'
 import Dropdown from '../elements/Dropdown.vue'
 
-import state from '../../lib/state'
-import {getProfileURL, getAvatarURL} from '../../lib/flist'
-
-import {
-  PushOverlay,
-  PopOverlay,
-  LogoutRequest,
-  SwitchCharacterRequest,
-  StatusChange
-} from '../../lib/events'
+import {store} from 'modules/store'
+import {getProfileURL, getAvatarURL} from 'modules/flist'
 
 export default {
   components: {
@@ -70,18 +62,17 @@ export default {
   },
 
   data () {
-    const {status, statusMessage} = state.getUserStatus()
+    const status = store.getUserStatus()
     return {
       status,
-      statusMessage,
-      state,
+      store,
       interval: null,
       dirty: false
     }
   },
 
   ready () {
-    this.$els.statusMessage.innerText = this.statusMessage
+    this.$els.statusMessage.innerText = this.status.message
 
     // the server errors if we send too many status changes at once
     this.interval = window.setInterval(() => {
@@ -98,7 +89,7 @@ export default {
 
   computed: {
     character () {
-      return this.state.getUserCharacterName()
+      return this.store.getUserCharacterName()
     },
 
     greeting () {
@@ -116,30 +107,30 @@ export default {
 
   methods: {
     setStatus (status) {
-      this.status = status
+      this.status.state = status
       this.dirty = true
     },
 
     setStatusMessage (message) {
-      this.statusMessage = message
+      this.status.message = message
       this.dirty = true
     },
 
     sendStatusChangeRequest () {
-      this.$dispatch(StatusChange, this.status, this.statusMessage)
+      this.store.dispatchEvent('StatusChange', { status: this.status })
     },
 
     pushOverlay (overlay) {
-      this.$dispatch(PopOverlay)
-      this.$dispatch(PushOverlay, overlay)
+      this.store.dispatchEvent('PopOverlay')
+      this.store.dispatchEvent('PushOverlay', { overlay })
     },
 
     switchCharacter () {
-      this.$dispatch(SwitchCharacterRequest)
+      this.store.dispatchEvent('SwitchCharacterRequest')
     },
 
     logOut () {
-      this.$dispatch(LogoutRequest)
+      this.store.dispatchEvent('LogoutRequest')
     }
   }
 }

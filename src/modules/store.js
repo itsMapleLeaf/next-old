@@ -89,7 +89,7 @@ export class Store {
   }
 
   dispatch (mut) {
-    console.log('Mutation:', mut)
+    // console.log('Mutation:', mut)
     try {
       this.handleMutation(mut)
       this.mutations.push({
@@ -225,11 +225,20 @@ export class Store {
     return this.state.user.character
   }
 
+  getUserStatus (): CharacterStatus {
+    const char = this.getCharacter(this.getUserCharacterName())
+    if (char) {
+      return char.status
+    } else {
+      return { state: 'online', message: '' }
+    }
+  }
+
   getOnlineCharacters (): Character[] {
     return this.state.chat.characters
   }
 
-  getCharacter (name: CharacterName): Character {
+  getCharacter (name: CharacterName): ?Character {
     return this.state.chat.characters
       .find(char => char.name === name)
   }

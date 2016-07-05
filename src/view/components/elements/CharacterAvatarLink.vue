@@ -1,5 +1,5 @@
 <template>
-  <a target="_blank" :href="profileURL">
+  <a class="ui link flex center-items" :href="profileURL" target="_blank" :title="character">
     <img class="ui transition" v-show="imageLoaded" transition="fade" :src="avatarURL" @load="imageLoaded = true" />
     <i v-show="!imageLoaded" class="fa fa-circle-o-notch fa-spin fa-2x"></i>
   </a>
@@ -9,26 +9,20 @@
 a
   width: 100px
   height: 100px
-  border: none
-  text-decoration: none
-  display: flex
-  justify-content: center
-  align-items: center
 
 i
   opacity: 0.5
 
 img:hover
-  filter: brightness(1.2)
   opacity: 0.8
 </style>
 
 <script>
-import {getProfileURL, getAvatarURL} from '../../lib/flist'
+import {getProfileURL, getAvatarURL} from 'modules/flist'
 
 export default {
   props: {
-    character: Object
+    character: String
   },
 
   data () {
@@ -37,11 +31,11 @@ export default {
 
   computed: {
     profileURL () {
-      return getProfileURL(this.character.name)
+      return getProfileURL(this.character)
     },
 
     avatarURL () {
-      return getAvatarURL(this.character.name)
+      return getAvatarURL(this.character)
     }
   }
 }

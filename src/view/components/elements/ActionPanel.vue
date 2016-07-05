@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {PopOverlay} from '../../lib/events'
+import {store} from 'modules/store'
 
 export default {
   props: {
@@ -24,13 +24,14 @@ export default {
 
   data () {
     return {
-      transition: 'slide-' + this.side
+      transition: 'slide-' + this.side,
+      store
     }
   },
 
   methods: {
     close () {
-      this.$dispatch(PopOverlay)
+      this.store.dispatchEvent('PopOverlay')
     }
   }
 }

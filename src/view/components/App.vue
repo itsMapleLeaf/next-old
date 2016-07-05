@@ -14,15 +14,15 @@
 
 <script>
 // import ChannelList from './overlays/ChannelList.vue'
-// import AppMenu from './overlays/AppMenu.vue'
 // import CharacterMenu from './overlays/CharacterMenu.vue'
 // import OnlineUsers from './overlays/OnlineUsers.vue'
 // import About from './overlays/About.vue'
 
 import Chat from './Chat.vue'
-import Login from 'view/components/overlays/Login.vue'
-import CharacterList from 'view/components/overlays/CharacterList.vue'
-import Loading from 'view/components/overlays/Loading.vue'
+import Login from './overlays/Login.vue'
+import CharacterList from './overlays/CharacterList.vue'
+import Loading from './overlays/Loading.vue'
+import AppMenu from './overlays/AppMenu.vue'
 
 import {store} from 'modules/store'
 import {socket, servers} from 'modules/socket'
@@ -33,11 +33,11 @@ export default {
     Chat,
     Login,
     CharacterList,
+    AppMenu,
     Loading
 
     // Chat,
     // ChannelList,
-    // AppMenu,
     // CharacterMenu,
     // OnlineUsers,
     // About
@@ -89,8 +89,15 @@ export default {
     },
 
     SocketIdentifySuccess () {
-      this.overlays = []
-      console.log('You win!')
+      this.overlays = ['app-menu']
+    },
+
+    PushOverlay (overlay) {
+      this.overlays.push(overlay)
+    },
+
+    PopOverlay () {
+      this.overlays.pop()
     }
   },
 

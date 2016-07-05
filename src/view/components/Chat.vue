@@ -30,16 +30,20 @@
 // import ChannelView from './chat-views/ChannelView.vue'
 // import PrivateChatView from './chat-views/PrivateChatView.vue'
 
-import {store, state} from 'modules/store'
+import {store} from 'modules/store'
 
 const Shortcut = {
   template: `
     <a class='ui hover-darken flex fixed center-content header-shortcut'
       title="Actions"
-      @click="pushOverlay(overlay)">
+      @click="pushOverlay">
       <i class='fa fa-{{icon}}'></i>
     </a>
   `,
+
+  data () {
+    return { store }
+  },
 
   props: {
     icon: String,
@@ -47,7 +51,9 @@ const Shortcut = {
   },
 
   methods: {
-    pushOverlay (overlay) {}
+    pushOverlay () {
+      this.store.dispatchEvent('PushOverlay', { overlay: this.overlay })
+    }
   }
 }
 
@@ -57,14 +63,7 @@ export default {
     // ChannelView,
     // PrivateChatView,
     Shortcut
-  },
-
-  data () {
-    return { state }
-  },
-
-  computed: {},
-  methods: {}
+  }
 }
 </script>
 
