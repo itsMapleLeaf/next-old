@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
@@ -32,6 +33,13 @@ module.exports = {
       view: path.join(__dirname, 'src/view')
     }
   },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ],
   babel: {
     presets: ['es2015', 'stage-1'],
     plugins: [
