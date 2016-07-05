@@ -90,10 +90,19 @@ class Store {
   }
 
   // getters
-  getUserCharacters () {
+  getAuthData (): {account: string, ticket: string} {
+    return Object.assign({}, this.state.auth)
+  }
+
+  getUserCharacters (): CharacterName[] {
     return this.state.user.characterList.slice()
+  }
+
+  getUserCharacterName (): CharacterName {
+    return this.state.user.character
   }
 }
 
 export const store = new Store()
 export const state = store.state
+export const dispatch = store.dispatch.bind(store)

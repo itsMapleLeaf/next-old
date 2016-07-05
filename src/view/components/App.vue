@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <chat></chat> -->
+    <chat></chat>
     <component v-for="overlay in overlays" :is='overlay'></component>
   </div>
 </template>
@@ -13,23 +13,24 @@
 </style>
 
 <script>
-// import Chat from './Chat.vue'
 // import ChannelList from './overlays/ChannelList.vue'
 // import AppMenu from './overlays/AppMenu.vue'
 // import CharacterMenu from './overlays/CharacterMenu.vue'
 // import OnlineUsers from './overlays/OnlineUsers.vue'
 // import About from './overlays/About.vue'
 
+import Chat from './Chat.vue'
 import Login from 'view/components/overlays/Login.vue'
 import CharacterList from 'view/components/overlays/CharacterList.vue'
 import Loading from 'view/components/overlays/Loading.vue'
 
 import {store, state} from 'modules/store'
-import socket from 'modules/socket'
+import {socket, servers} from 'modules/socket'
 // import * as flist from 'modules/flist'
 
 export default {
   components: {
+    Chat,
     Login,
     CharacterList,
     Loading
@@ -43,11 +44,7 @@ export default {
   },
 
   data () {
-    return {
-      overlays: [],
-      socket,
-      state
-    }
+    return { overlays: [], state }
   },
 
   ready () {
@@ -79,6 +76,18 @@ export default {
     UserCharacterSelected (event) {
       store.setUserCharacter(event.name)
       this.overlays = ['loading']
+      socket.connect(servers.main)
+    },
+
+    SocketConnectionSuccess () {
+      const {account, ticket} = store.getAuthData()
+      const character = store.getUserCharacterName()
+      socket.identify(account, ticket, character)
+    },
+
+    SocketIdentifySuccess () {
+      this.overlays = []
+      console.log('You win!')
     }
   },
 
@@ -88,7 +97,7 @@ export default {
       if (method) {
         method(event)
       } else {
-        console.log('Unknown event:', event)
+        console.log('Unknown event:', event.type, event)
       }
     }
   }

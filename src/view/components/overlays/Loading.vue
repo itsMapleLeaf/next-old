@@ -24,7 +24,7 @@ i
   animation-timing-function: ease-out
 
 i, h3
-  color: rgba(white, 0.9)
+  color: rgba(white, 0.7)
 </style>
 
 <script>

@@ -12,7 +12,8 @@ export type Event = {}
   | { type: 'PushOverlay', overlay: string }
   | { type: 'PopOverlay' }
 
-  | { type: 'IdentifySuccess'}
+  | { type: 'SocketConnectionSuccess' }
+  | { type: 'SocketIdentifySuccess' }
   | { type: 'SocketError', error: string }
 
   | { type: 'UserCharacterSelected', name: CharacterName }
