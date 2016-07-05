@@ -38,7 +38,7 @@ import DevInfo from 'view/components/elements/DevInfo.vue'
 import Overlay from 'view/components/elements/Overlay.vue'
 import Toggle from 'view/components/elements/Toggle.vue'
 
-import {LoginData} from 'types/app'
+import {LoginData} from 'modules/types'
 import {authenticate} from 'modules/flist'
 import {store} from 'modules/store'
 
@@ -80,15 +80,15 @@ export default {
     async submit () {
       this.status = ''
       this.disabled = true
-      this.store.dispatch('LoginRequest')
+      this.store.dispatchEvent('LoginRequest')
 
       try {
         const res = await authenticate(this.username, this.password)
 
         if (res.error) {
-          this.store.dispatch('LoginFailure')
           this.status = res.error
           this.disabled = false
+          this.store.dispatchEvent('LoginFailure')
         } else {
           const loginData: LoginData = {
             account: this.username,
@@ -99,7 +99,7 @@ export default {
               return { you: entry.dest_name, them: entry.source_name }
             })
           }
-          this.store.dispatch('LoginSuccess', { loginData, remember: this.remember })
+          this.store.dispatchEvent('LoginSuccess', { loginData, remember: this.remember })
         }
       } catch (err) {
         console.error(err)

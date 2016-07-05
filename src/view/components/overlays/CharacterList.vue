@@ -48,7 +48,7 @@ export default {
     },
 
     submit () {
-      this.store.dispatch('UserCharacterSelected', { name: this.activeCharacter })
+      this.store.dispatchEvent('UserCharacterSelected', { name: this.activeCharacter })
     }
   }
 }

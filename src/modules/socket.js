@@ -1,10 +1,13 @@
 import EventEmitter from 'events'
 import {inspect} from 'util'
-import {createChatMessage} from 'types/chat'
-import type {ChannelInfo, ChatMessage} from 'types/chat'
-import type {CharacterName, Character} from 'types/character'
+import {createChatMessage} from 'modules/constructors'
 import {Store} from 'modules/store'
 import meta from 'modules/meta'
+
+import type {
+  ChannelInfo, ChatMessage, ChannelID, ChannelMode,
+  CharacterName, Character, CharacterStatus
+} from 'modules/types'
 
 const {WebSocket} = window
 
@@ -38,8 +41,8 @@ export class Socket {
       this.handleServerCommand(type, params)
     })
 
-    this.bus.once('open', () => this.store.dispatch('SocketConnectionSuccess'))
-    this.bus.once('error', err => this.store.dispatch('SocketError', err))
+    this.bus.once('open', () => this.store.dispatchEvent('SocketConnectionSuccess'))
+    this.bus.once('error', err => this.store.dispatchEvent('SocketError', err))
   }
 
   identify (account, ticket, character) {
@@ -71,7 +74,7 @@ export class Socket {
     switch (type) {
       // successful identification w/ chat server
       case 'IDN':
-        store.dispatch('SocketIdentifySuccess')
+        store.dispatchEvent('SocketIdentifySuccess')
         break
 
       /* ping~! */
@@ -82,7 +85,7 @@ export class Socket {
 
       // receiving server variables
       case 'VAR':
-        store.setServerVariable(params.variable, params.value)
+        store.dispatch({ type: 'ServerVariable', key: params.variable, value: params.value })
         break
 
       // hello :)
@@ -103,7 +106,7 @@ export class Socket {
       case 'IGN':
         switch (params.action) {
           case 'init':
-            store.setIgnoreList(params.characters)
+            store.dispatch({ type: 'IgnoreList', ignored: params.characters })
             break
 
           default:
@@ -111,103 +114,113 @@ export class Socket {
         }
         break
 
-      // receiving list of admins
+      // receiving list of global admins
       case 'ADL':
-        store.setAdminList(params.ops)
+        store.dispatch({ type: 'AdminList', admins: params.ops })
         break
 
       // receiving all characters online
       // comes in multiple batches
       case 'LIS':
-        store.addCharacterBatch(params.characters)
+        store.dispatch({ type: 'CharacterBatch', batch: params.characters })
         break
 
       // character came online
       case 'NLN':
-        store.addCharacter(params.identity, params.gender)
+        store.dispatch({ type: 'CharacterOnline', name: params.identity, gender: params.gender })
         break
 
       // character went offline
       case 'FLN':
-        store.removeCharacter(params.character)
+        store.dispatch({ type: 'CharacterOffline', name: params.character })
         break
 
       // character changed status
-      case 'STA':
-        const {character, status, statusmsg} = params
-        store.setCharacterStatus(character, status, statusmsg)
+      case 'STA': {
+        const name: CharacterName = params.character
+        const status: CharacterStatus = { state: params.status, message: params.statusmsg }
+        store.dispatch({ type: 'CharacterStatus', name, status })
         break
+      }
 
       // received list of public channels
       case 'CHA': {
-        const list: ChannelInfo[] = params.channels.map(ch => {
+        const channels: ChannelInfo[] = params.channels.map(ch => {
           return { id: ch.name, name: ch.name, userCount: ch.characters }
         })
-        store.setPublicChannelList(list)
+        store.dispatch({ type: 'PublicChannelList', channels })
         break
       }
 
       // received list of private channels
       case 'ORS': {
-        const list: ChannelInfo[] = params.channels.map(ch => {
+        const channels: ChannelInfo[] = params.channels.map(ch => {
           return { id: ch.name, name: ch.name, userCount: ch.characters }
         })
-        store.setPrivateChannelList(list)
+        store.dispatch({ type: 'PrivateChannelList', channels })
         break
       }
 
       // receiving initial channel information
-      case 'ICH':
+      case 'ICH': {
+        const id: ChannelID = params.channel
+        const mode: ChannelMode = params.mode
         const names: CharacterName[] = params.users.map(entry => entry.identity)
-        store.setChannelCharacters(params.channel, names)
-        store.setChannelMode(params.channel, params.mode)
+        store.dispatch({ type: 'ChannelCharacters', id, names })
+        store.dispatch({ type: 'ChannelMode', id, mode })
         break
+      }
 
       // receiving a channel description
-      case 'CDS':
-        store.setChannelDescription(params.channel, params.description)
+      case 'CDS': {
+        const { channel: id, description } = params
+        store.dispatch({ type: 'ChannelDescription', id, description })
         break
+      }
 
       // user joined a channel (could be us)
       // received before the above two
       case 'JCH': {
-        const {identity} = params.character
-        if (identity === store.getUserCharacterName()) {
-          store.openChannelChat(params.channel, params.title)
+        const {identity: name} = params.character
+        const {channel: id, title} = params
+        if (name === store.getUserCharacterName()) {
+          store.dispatch({ type: 'ChannelJoined', id, name: title })
         }
-        store.addChannelCharacter(params.channel, identity)
+        store.dispatch({ type: 'ChannelCharacterJoined', id, name })
         break
       }
 
       // user left a channel (could be us)
       case 'LCH':
         if (params.character === store.getUserCharacterName()) {
-          store.closeChannelChat(params.channel)
+          store.dispatch({ type: 'ChannelLeft', id: params.channel })
         } else {
-          store.removeChannelCharacter(params.channel, params.character)
+          store.dispatch({ type: 'ChannelCharacterLeft', id: params.channel, name: params.character })
         }
         break
 
       // channel message
       case 'MSG': {
+        const id: ChannelID = params.channel
         const char: Character = store.getCharacter(params.character)
         const message: ChatMessage = createChatMessage(char, params.message, 'chat')
-        store.addChannelMessage(params.channel, message)
+        store.dispatch({ type: 'ChannelMessage', id, message })
         break
       }
 
       // LFRP channel message
       case 'LRP': {
+        const id: ChannelID = params.channel
         const char: Character = store.getCharacter(params.character)
         const message: ChatMessage = createChatMessage(char, params.message, 'lfrp')
-        store.addChannelMessage(params.channel, message)
+        store.dispatch({ type: 'ChannelMessage', id, message })
         break
       }
 
       // private message
       case 'PRI':
         // TODO: open a private chat if one doesn't exist
-        store.addPrivateMessage(params.character, params.character, params.message)
+        store.dispatch({ type: 'PrivateChatMessage', partner: params.character, sender: params.character, message: params.message })
         break
 
       default:

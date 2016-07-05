@@ -57,12 +57,14 @@ export default {
     },
 
     LoginSuccess (event) {
-      const data = event.loginData
-      this.store.setAuthData(data.account, data.ticket)
-      this.store.setFriendsList(data.friends)
-      this.store.setUserCharacterList(data.characters)
-      this.store.setBookmarkList(data.bookmarks)
+      // unpack / dispatch store data
+      const {account, ticket, characters, friends, bookmarks} = event.loginData
+      this.store.dispatch({ type: 'Auth', account, ticket })
+      this.store.dispatch({ type: 'FriendsList', friends })
+      this.store.dispatch({ type: 'UserCharacterList', characters })
+      this.store.dispatch({ type: 'BookmarkList', bookmarks })
 
+      // delay the overlay change, so it's a little nicer on the eyes and not too quick
       this.overlays = []
       window.setTimeout(() => {
         this.overlays = ['character-list']
@@ -70,11 +72,12 @@ export default {
     },
 
     LoginFailure () {
-      this.overlays.pop()
+      // rip :(
+      this.overlays = ['login']
     },
 
-    UserCharacterSelected (event) {
-      this.store.setUserCharacter(event.name)
+    UserCharacterSelected ({ name }) {
+      this.store.dispatch({ type: 'UserCharacter', name })
       this.overlays = ['loading']
       this.socket.connect(servers.main)
     },
@@ -92,12 +95,12 @@ export default {
   },
 
   watch: {
-    'store.getEvent()' (event) {
+    'store.state.event' (event) {
       const method = this[event.type]
       if (method) {
         method(event)
       } else {
-        console.log('Unknown event:', event.type, event)
+        console.warn('Unknown event:', event.type, event)
       }
     }
   }

@@ -1,16 +1,20 @@
 import Vue from 'vue'
-import {createCharacter} from 'types/character'
-// import {createChannelState} from 'types/chat'
-import type {AppState} from 'types/app'
-import type {Character, CharacterName, Gender, CharacterStatus} from 'types/character'
-import type {FriendInfo, ChannelInfo, ChannelID, ChannelState, ChannelMode, ActiveChatState, ChatMessage} from 'types/chat'
-import type {Event} from 'types/event'
+import {createCharacter} from 'modules/constructors'
+import {
+  Character, CharacterName, Gender, CharacterStatus,
+  FriendInfo, ChannelInfo, ChannelID, ChannelState, ChannelMode,
+  Event
+} from 'modules/types'
 
-type StoreMutation
-  = { type: 'Auth', account: string, ticket: string }
+type State = { [item: string]: any }
+
+type Mutation = { type: 'Init' }
+  | { type: 'Event', event: Event }
+
+  | { type: 'Auth', account: string, ticket: string }
 
   | { type: 'UserCharacter', name: CharacterName }
-  | { type: 'UserCharacterList', list: CharacterName[] }
+  | { type: 'UserCharacterList', characters: CharacterName[] }
 
   | { type: 'FriendsList', friends: FriendInfo[] }
   | { type: 'BookmarkList', bookmarks: CharacterName[] }
@@ -27,7 +31,7 @@ type StoreMutation
   | { type: 'CharacterOffline', name: CharacterName }
   | { type: 'CharacterStatus', name: CharacterName, status: CharacterStatus }
 
-  | { type: 'ChannelJoined', id: ChannelID }
+  | { type: 'ChannelJoined', id: ChannelID, name: string }
   | { type: 'ChannelLeft', id: ChannelID }
   | { type: 'ChannelCharacterList', id: ChannelID, characters: CharacterName[] }
   | { type: 'ChannelMode', id: ChannelID, mode: ChannelMode }
@@ -40,8 +44,14 @@ type StoreMutation
   | { type: 'PrivateChatClosed', partner: CharacterName }
   | { type: 'PrivateChatMessage', partner: CharacterName, sender: CharacterName, message: string }
 
+type Snapshot = {
+  state: State,
+  mutation: Mutation
+}
+
 export class Store {
-  state: AppState
+  state: State
+  mutations: Snapshot[]
 
   constructor () {
     this.state = {
@@ -67,11 +77,38 @@ export class Store {
 
       event: {}
     }
+
+    this.mutations = [
+      { state: Object.assign({}, this.state), mutation: { type: 'Init' } }
+    ]
   }
 
-  dispatch (mut: StoreMutation) {
+  dispatchEvent (type: string, params?: Object = {}) {
+    const event: Event = Object.assign({ type }, params)
+    this.dispatch({ type: 'Event', event })
+  }
+
+  dispatch (mut) {
+    try {
+      this.handleMutation(mut)
+      this.mutations.push({
+        mutation: mut,
+        state: this.state
+      })
+    } catch (err) {
+      console.error(err)
+      console.log('State:', this.state)
+      console.log('Mutation:', mut)
+    }
+  }
+
+  handleMutation (mut: Mutation) {
     const {auth, user, chat} = this.state
     switch (mut.type) {
+      case 'Event':
+        this.state.event = mut.event
+        break
+
       case 'Auth':
         auth.account = mut.account
         auth.ticket = mut.ticket
@@ -82,7 +119,7 @@ export class Store {
         break
 
       case 'UserCharacterList':
-        user.characterList = mut.list
+        user.characterList = mut.characters
         break
 
       case 'FriendsList':
@@ -113,13 +150,15 @@ export class Store {
         Vue.set(chat.serverVariables, mut.key, mut.value)
         break
 
-      case 'CharacterBatch':
-        for (let [name, gender, state, message] in mut.batch) {
-          const status: CharacterStatus = { state, message }
-          const char: Character = createCharacter(name, gender, status)
-          chat.characters.push(char)
-        }
+      case 'CharacterBatch': {
+        const characters: Character[] = mut.batch.map(entry => {
+          const [name, gender, state, message] = entry
+          const status = { state, message }
+          return createCharacter(name, gender, status)
+        })
+        chat.characters = chat.characters.concat(characters)
         break
+      }
 
       case 'CharacterOnline': {
         const char: Character = createCharacter(mut.name, mut.gender)
