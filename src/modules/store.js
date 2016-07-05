@@ -1,10 +1,44 @@
 import Vue from 'vue'
 import {createCharacter} from 'types/character'
-import {createChannelState} from 'types/chat'
+// import {createChannelState} from 'types/chat'
 import type {AppState} from 'types/app'
-import type {Character, CharacterName, Gender, CharacterStatusState} from 'types/character'
+import type {Character, CharacterName, Gender, CharacterStatus} from 'types/character'
 import type {FriendInfo, ChannelInfo, ChannelID, ChannelState, ChannelMode, ActiveChatState, ChatMessage} from 'types/chat'
 import type {Event} from 'types/event'
+
+type StoreMutation
+  = { type: 'Auth', account: string, ticket: string }
+
+  | { type: 'UserCharacter', name: CharacterName }
+  | { type: 'UserCharacterList', list: CharacterName[] }
+
+  | { type: 'FriendsList', friends: FriendInfo[] }
+  | { type: 'BookmarkList', bookmarks: CharacterName[] }
+  | { type: 'IgnoreList', ignored: CharacterName[] }
+  | { type: 'AdminList', admins: CharacterName[] }
+
+  | { type: 'PublicChannelList', channels: ChannelInfo[] }
+  | { type: 'PrivateChannelList', channels: ChannelInfo[] }
+
+  | { type: 'ServerVariable', key: string, value: string | string[] | number }
+
+  | { type: 'CharacterBatch', batch: (string[])[] }
+  | { type: 'CharacterOnline', name: CharacterName, gender: Gender }
+  | { type: 'CharacterOffline', name: CharacterName }
+  | { type: 'CharacterStatus', name: CharacterName, status: CharacterStatus }
+
+  | { type: 'ChannelJoined', id: ChannelID }
+  | { type: 'ChannelLeft', id: ChannelID }
+  | { type: 'ChannelCharacterList', id: ChannelID, characters: CharacterName[] }
+  | { type: 'ChannelMode', id: ChannelID, mode: ChannelMode }
+  | { type: 'ChannelDescription', id: ChannelID, description: string }
+  | { type: 'ChannelCharacterJoined', id: ChannelID, name: CharacterName }
+  | { type: 'ChannelCharacterLeft', id: ChannelID, name: CharacterName }
+  | { type: 'ChannelMessage', id: ChannelID, sender: CharacterName, message: string }
+
+  | { type: 'PrivateChatOpened', partner: CharacterName }
+  | { type: 'PrivateChatClosed', partner: CharacterName }
+  | { type: 'PrivateChatMessage', partner: CharacterName, sender: CharacterName, message: string }
 
 export class Store {
   state: AppState
@@ -35,127 +69,109 @@ export class Store {
     }
   }
 
-  // convenience event dispatcher
-  dispatch (type: string, params?: Object = {}) {
-    const event: Event = Object.assign({ type }, params)
-    this.state.event = event
+  dispatch (mut: StoreMutation) {
+    const {auth, user, chat} = this.state
+    switch (mut.type) {
+      case 'Auth':
+        auth.account = mut.account
+        auth.ticket = mut.ticket
+        break
+
+      case 'UserCharacter':
+        user.character = mut.name
+        break
+
+      case 'UserCharacterList':
+        user.characterList = mut.list
+        break
+
+      case 'FriendsList':
+        chat.friends = mut.friends
+        break
+
+      case 'BookmarkList':
+        chat.bookmarks = mut.bookmarks
+        break
+
+      case 'IgnoreList':
+        chat.ignored = mut.ignored
+        break
+
+      case 'AdminList':
+        chat.admins = mut.admins
+        break
+
+      case 'PublicChannelList':
+        chat.publicChannels = mut.channels
+        break
+
+      case 'PrivateChannelList':
+        chat.privateChannels = mut.channels
+        break
+
+      case 'ServerVariable':
+        Vue.set(chat.serverVariables, mut.key, mut.value)
+        break
+
+      case 'CharacterBatch':
+        for (let [name, gender, state, message] in mut.batch) {
+          const status: CharacterStatus = { state, message }
+          const char: Character = createCharacter(name, gender, status)
+          chat.characters.push(char)
+        }
+        break
+
+      case 'CharacterOnline': {
+        const char: Character = createCharacter(mut.name, mut.gender)
+        chat.characters.push(char)
+        break
+      }
+
+      case 'CharacterOffline':
+        chat.characters = chat.characters.filter(char => char.name !== mut.name)
+        break
+
+      case 'CharacterStatus': {
+        const char: Character = this.getCharacter(mut.name)
+        char.status = mut.status
+        break
+      }
+
+      case 'ChannelJoined':
+        break
+
+      case 'ChannelLeft':
+        break
+
+      case 'ChannelCharacterList':
+        break
+
+      case 'ChannelMode':
+        break
+
+      case 'ChannelDescription':
+        break
+
+      case 'ChannelCharacterJoined':
+        break
+
+      case 'ChannelCharacterLeft':
+        break
+
+      case 'ChannelMessage':
+        break
+
+      case 'PrivateChatOpened':
+        break
+
+      case 'PrivateChatClosed':
+        break
+
+      case 'PrivateChatMessage':
+        break
+
+    }
   }
-
-  // setters
-  setAuthData (account: string, ticket: string) {
-    this.state.auth.account = account
-    this.state.auth.ticket = ticket
-  }
-
-  setUserCharacter (character: CharacterName) {
-    this.state.user.character = character
-  }
-
-  setUserCharacterList (list: CharacterName[]) {
-    this.state.user.characterList = list
-  }
-
-  setFriendsList (friends: FriendInfo[]) {
-    this.state.chat.friends = friends
-  }
-
-  setBookmarkList (bookmarks: CharacterName[]) {
-    this.state.chat.bookmarks = bookmarks
-  }
-
-  setIgnoreList (ignored: CharacterName[]) {
-    this.state.chat.ignored = ignored
-  }
-
-  setAdminList (admins: CharacterName[]) {
-    this.state.chat.admins = admins
-  }
-
-  setPublicChannelList (channels: ChannelInfo[]) {
-    this.state.chat.publicChannels = channels
-  }
-
-  setPrivateChannelList (channels: ChannelInfo[]) {
-    this.state.chat.publicChannels = channels
-  }
-
-  setServerVariable (key: string, value: string | string[] | number) {
-    Vue.set(this.state.chat.serverVariables, key, parseFloat(value))
-  }
-
-  // add characters in batch for performance
-  addCharacterBatch (batch: (string[])[]) {
-    const {characters} = this.state.chat
-    batch.forEach(entry => {
-      const [name, gender, status, statusMessage] = entry
-      const char: Character = createCharacter(name, gender)
-      char.status = { state: status, message: statusMessage }
-      characters.push(char)
-    })
-  }
-
-  addCharacter (name: CharacterName, gender: Gender) {
-    this.state.chat.characters.push(createCharacter(name, gender))
-  }
-
-  removeCharacter (name: CharacterName) {
-    const index: number = this.state.chat.characters.findIndex(char => char.name === name)
-    this.state.chat.characters.splice(index)
-  }
-
-  setCharacterStatus (name: CharacterName, state: CharacterStatusState, message: string) {
-    const char: Character = this.getCharacter(name)
-    char.status = { state, message }
-  }
-
-  setChannelCharacters (id: ChannelID, names: CharacterName[]) {
-    const channel: ChannelState = this.getChannelState(id)
-    channel.characters = this.state.chat.characters.filter(char => names.includes(char))
-  }
-
-  addChannelCharacter (id: ChannelID, name: CharacterName) {
-    const channel: ChannelState = this.getChannelState(id)
-    const char: Character = this.getCharacter(name)
-    channel.characters.push(char)
-  }
-
-  removeChannelCharacter (id: ChannelID, name: CharacterName) {
-    const channel: ChannelState = this.getChannelState(id)
-    const index: number = channel.characters.findIndex(char => char.name === name)
-    channel.characters.splice(index)
-  }
-
-  setChannelMode (id: ChannelID, mode: ChannelMode) {
-    const channel: ChannelState = this.getChannelState(id)
-    channel.mode = mode
-  }
-
-  setChannelDescription (id: ChannelID, description: string) {
-    const channel: ChannelState = this.getChannelState(id)
-    channel.description = description
-  }
-
-  openChannelChat (id: ChannelID, name: string) {
-    const state: ChannelState = createChannelState(id, name)
-    this.state.chat.activeChats.push(state)
-  }
-
-  closeChannelChat (id: ChannelID) {
-    const activeChats: ActiveChatState[] = this.state.chat.activeChats
-    const index: number = activeChats.findIndex(chat => chat.type === 'channel' && chat.id === id)
-    activeChats.splice(index)
-  }
-
-  addChannelMessage (id: ChannelID, message: ChatMessage) {
-    const channel: ChannelState = this.getChannelState(id)
-    channel.messages.push(message)
-  }
-
-  openPrivateChat () {}
-
-  closePrivateChat () {}
-
-  addPrivateMessage () {}
 
   // getters
   getEvent ():Event {
