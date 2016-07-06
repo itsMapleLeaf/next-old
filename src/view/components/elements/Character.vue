@@ -35,7 +35,7 @@ span
 </style>
 
 <script>
-import {getProfileURL} from '../../lib/flist'
+import {getProfileURL} from 'modules/flist'
 
 export default {
   props: {
@@ -44,7 +44,7 @@ export default {
 
   computed: {
     gender () { return this.character.gender.toLowerCase() },
-    status () { return this.character.status.toLowerCase() },
+    status () { return this.character.status.state.toLowerCase() },
     profileURL () { return getProfileURL(this.character.name) }
   }
 }

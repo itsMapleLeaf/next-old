@@ -1,26 +1,27 @@
 <template>
   <overlay>
-    <h2>Let's find some friends!</h2>
+    <h2>Let's find some friends.</h2>
     <form class="ui form" @submit.prevent>
       <div class="ui field">
-        <dropdown style="width: 8em" v-ref:filter>
-          <li value="all">All</li>
-          <li value="friend">Friends</li>
-          <li value="bookmark">Bookmarks</li>
-          <li value="looking">Looking</li>
-        </dropdown>
+        <!-- checkboxes for filters here -->
       </div>
       <div class="ui field">
         <ul class="ui selection" style="">
-          <li v-for="char in slicedCharacters" :class="getListClass(char)" :data-activate-character='char.name'>
-            <i class="fa fa-heart ui pull-right" v-if="characterIs(char, 'friend')"></i>
-            <i class="fa fa-star ui pull-right" v-if="characterIs(char, 'bookmark')"></i>
-            <i class="fa fa-paw ui pull-right" v-if="characterIs(char, 'looking')"></i>
+          <li v-for="char in filterRelation('friend')" class="ui highlight green">
+            <i class="fa fa-heart ui pull-right"></i>
             <character :character='char'></character>
           </li>
-          <center class="ui small subtle" style="padding: 0.5em" v-if="slicedCharacters.length === 200">
-            <em>List truncated for performance. Search for more results.</em>
-          </center>
+          <li v-for="char in filterRelation('bookmark')" class="ui highlight blue">
+            <i class="fa fa-star ui pull-right"></i>
+            <character :character='char'></character>
+          </li>
+          <li v-for="char in filterRelation('looking')">
+            <i class="fa fa-paw ui pull-right"></i>
+            <character :character='char'></character>
+          </li>
+          <li v-for="char in filterRelation()">
+            <character :character='char'></character>
+          </li>
         </ul>
       </div>
       <div class="ui field text-input icon right">
@@ -45,9 +46,12 @@ import Character from '../elements/Character.vue'
 import Dropdown from '../elements/Dropdown.vue'
 import Overlay from '../elements/Overlay.vue'
 
-import state from '../../lib/state'
-import {compareNames} from '../../lib/util'
-import Fuse from 'fuse.js'
+import {store} from 'modules/store'
+import {CharacterRelation} from 'modules/types'
+
+function compareNames (a, b) {
+  return a.name.localeCompare(b.name)
+}
 
 export default {
   components: {
@@ -60,84 +64,47 @@ export default {
     return {
       characters: [],
       search: '',
-      state
+      state: store.state
     }
   },
 
-  ready () {
-    const characters = this.state.getOnlineCharacters()
-    const friends = []
-    const bookmarks = []
-    const looking = []
-    const rest = []
-
-    for (let char of characters) {
-      const cat = this.state.getCharacterCategory(char)
-      if (cat[0] === 'friend') {
-        friends.push(char)
-      } else if (cat[0] === 'bookmark') {
-        bookmarks.push(char)
-      } else if (cat[0] === 'looking') {
-        looking.push(char)
-      } else {
-        rest.push(char)
-      }
-    }
-
-    friends.sort(compareNames)
-    bookmarks.sort(compareNames)
-    looking.sort(compareNames)
-    rest.sort(compareNames)
-
-    this.characters = friends.concat(bookmarks, looking, rest)
+  created () {
+    this.characters = store.getOnlineCharacters().sort(compareNames)
   },
 
   computed: {
-    filteredCharacters () {
-      if (!this.$refs.filter) {
-        return this.characters
-      }
-
-      const {value} = this.$refs.filter
-      if (value === 'all') {
-        return this.characters
-      }
-
-      return this.characters.filter(char => {
-        const cat = this.state.getCharacterCategory(char)
-        return cat.includes(value)
-      })
-    },
-
-    searchedCharacters () {
-      const filtered = this.filteredCharacters
-      if (this.search.trim() !== '') {
-        const fuse = new Fuse(filtered, { keys: ['name', 'gender'] })
-        return fuse.search(this.search)
-      }
-      return filtered
-    },
-
-    slicedCharacters () {
-      return this.searchedCharacters.slice(0, 200)
-    }
   },
 
   methods: {
-    characterIs (char, what) {
-      const cat = this.state.getCharacterCategory(char)
-      return cat.includes(what)
-    },
-
-    getListClass (char) {
-      const cat = this.state.getCharacterCategory(char)
-      if (cat[0] === 'friend') {
-        return 'ui highlight green'
-      } else if (cat[0] === 'bookmark') {
-        return 'ui highlight blue'
+    filterRelation (relation?: CharacterRelation) {
+      let filtered
+      if (relation) {
+        filtered = this.characters.filter(char => char.relation[0] === relation)
+      } else {
+        filtered = this.characters.filter(char => {
+          const {relation} = char
+          return !relation.includes('friend') &&
+            !relation.includes('bookmark') &&
+            !relation.includes('looking')
+        })
       }
-      return ''
+      return filtered.slice(0, 100)
     }
+
+    // characterIs (char, what) {
+    //   const cat = this.state.getCharacterCategory(char)
+    //   return cat.includes(what)
+    // },
+    //
+    // getListClass (char) {
+    //   const cat = this.state.getCharacterCategory(char)
+    //   if (cat[0] === 'friend') {
+    //     return 'ui highlight green'
+    //   } else if (cat[0] === 'bookmark') {
+    //     return 'ui highlight blue'
+    //   }
+    //   return ''
+    // }
   }
 }
 </script>

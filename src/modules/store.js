@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import {createCharacter} from 'modules/constructors'
 import {
-  Character, CharacterName, Gender, CharacterStatus,
+  Character, CharacterName, Gender, CharacterStatus, CharacterRelation,
   FriendInfo, ChannelInfo, ChannelID, ChannelState, ChannelMode,
   Event
 } from 'modules/types'
@@ -243,7 +243,7 @@ export class Store {
   }
 
   getOnlineCharacters (): Character[] {
-    return this.state.chat.characters
+    return this.state.chat.characters.slice()
   }
 
   getCharacter (name: CharacterName): ?Character {
@@ -258,6 +258,45 @@ export class Store {
 
   isChannelActive (id: ChannelID): boolean {
     return this.getChannelState(id) != null
+  }
+
+  getFriendship (name: CharacterName): ?CharacterName {
+    const entry = this.state.chat.friends.find(info => info.them === name)
+    if (entry) {
+      return entry.you
+    }
+  }
+
+  isBookmarked (name: CharacterName): boolean {
+    return this.state.chat.bookmarks.includes(name)
+  }
+
+  isAdmin (name: CharacterName): boolean {
+    return this.state.chat.admins.includes(name)
+  }
+
+  isIgnored (name: CharacterName): boolean {
+    return this.state.chat.ignored.includes(name)
+  }
+
+  getCharacterRelation (char: Character): CharacterRelation[] {
+    const relation = []
+    if (this.getFriendship(char.name) != null) {
+      relation.push('friend')
+    }
+    if (this.isBookmarked(char.name)) {
+      relation.push('bookmark')
+    }
+    if (this.isAdmin(char.name)) {
+      relation.push('admin')
+    }
+    if (this.isIgnored(char.name)) {
+      relation.push('ignored')
+    }
+    if (char.status.state === 'looking') {
+      relation.push('looking')
+    }
+    return relation
   }
 }
 

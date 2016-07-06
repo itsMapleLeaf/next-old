@@ -14,15 +14,15 @@
 
 <script>
 // import CharacterMenu from './overlays/CharacterMenu.vue'
-// import OnlineUsers from './overlays/OnlineUsers.vue'
 // import About from './overlays/About.vue'
 
 import Chat from './Chat.vue'
 import Login from './overlays/Login.vue'
+import AppMenu from './overlays/AppMenu.vue'
 import ChannelList from './overlays/ChannelList.vue'
 import CharacterList from './overlays/CharacterList.vue'
 import Loading from './overlays/Loading.vue'
-import AppMenu from './overlays/AppMenu.vue'
+import OnlineUsers from './overlays/OnlineUsers.vue'
 
 import {store} from 'modules/store'
 import {socket, servers} from 'modules/socket'
@@ -35,11 +35,11 @@ export default {
     CharacterList,
     AppMenu,
     ChannelList,
+    OnlineUsers,
     Loading
 
     // Chat,
     // CharacterMenu,
-    // OnlineUsers,
     // About
   },
 
