@@ -1,5 +1,5 @@
 <template>
-  <span class="gender" :class="gender" :data-activate-character='character.name'>
+  <span class="gender" :class="gender">
     <i class="fa fa-circle status" :class="status"></i> {{character.name}}
   </span>
 </template>
@@ -7,7 +7,7 @@
 <style lang="stylus" scoped>
 span
   font-weight: 700
-  text-shadow: 0px 1px 2px rgba(black, 0.5)
+  /*text-shadow: 0px 1px 2px rgba(black, 0.5)*/
   cursor: pointer
 
 .status
