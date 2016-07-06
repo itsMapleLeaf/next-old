@@ -26,7 +26,7 @@
       </div>
       <div class="ui field text-input icon right">
         <i class="fa fa-search"></i>
-        <input type="text" placeholder="Search..." v-model="search" debounce="500" />
+        <input type="text" placeholder="Search..." v-model="search" />
       </div>
     </form>
   </overlay>
@@ -88,23 +88,10 @@ export default {
             !relation.includes('looking')
         })
       }
-      return filtered.slice(0, 100)
+      return filtered
+        .filter(char => char.name.includes(this.search))
+        .slice(0, 100)
     }
-
-    // characterIs (char, what) {
-    //   const cat = this.state.getCharacterCategory(char)
-    //   return cat.includes(what)
-    // },
-    //
-    // getListClass (char) {
-    //   const cat = this.state.getCharacterCategory(char)
-    //   if (cat[0] === 'friend') {
-    //     return 'ui highlight green'
-    //   } else if (cat[0] === 'bookmark') {
-    //     return 'ui highlight blue'
-    //   }
-    //   return ''
-    // }
   }
 }
 </script>
