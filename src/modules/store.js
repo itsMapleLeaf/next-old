@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {createCharacter} from 'modules/constructors'
+import {createCharacter, createChannelState} from 'modules/constructors'
 import {
   Character, CharacterName, Gender, CharacterStatus, CharacterRelation,
   FriendInfo, ChannelInfo, ChannelID, ChannelState, ChannelMode,
@@ -177,18 +177,23 @@ export class Store {
       }
 
       case 'ChannelJoined':
+        chat.activeChats.push(createChannelState(mut.id, mut.name))
         break
 
       case 'ChannelLeft':
+        chat.activeChats = chat.activeChats.filter(chat => chat.id !== mut.id)
         break
 
       case 'ChannelCharacterList':
+        this.getActiveChannel(mut.id).characters = mut.characters.map(name => this.getCharacter(name))
         break
 
       case 'ChannelMode':
+        this.getActiveChannel(mut.id).mode = mut.mode
         break
 
       case 'ChannelDescription':
+        this.getActiveChannel(mut.id).description = mut.description
         break
 
       case 'ChannelCharacterJoined':
@@ -258,13 +263,13 @@ export class Store {
     return this.state.chat.characters[name]
   }
 
-  getChannelState (id: ChannelID): ?ChannelState {
+  getActiveChannel (id: ChannelID): ?ChannelState {
     return this.state.chat.activeChats
       .find(chat => chat.type === 'channel' && chat.id === id)
   }
 
   isChannelActive (id: ChannelID): boolean {
-    return this.getChannelState(id) != null
+    return this.getActiveChannel(id) != null
   }
 
   getFriendship (name: CharacterName): ?CharacterName {

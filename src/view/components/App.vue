@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <main @mouseup="checkDataAttribute($event)">
     <chat></chat>
     <component v-for="overlay in overlays" :is='overlay'></component>
-  </div>
+  </main>
 </template>
 
 <style lang="stylus">
@@ -64,6 +64,22 @@ export default {
   },
 
   methods: {
+    checkDataAttribute (event) {
+      this.checkToggleChannel(event.target)
+    },
+
+    checkToggleChannel (el) {
+      const id = el.getAttribute('data-toggle-channel')
+      if (id) {
+        if (!store.isChannelActive(id)) {
+          socket.joinChannel(id)
+        } else {
+          socket.leaveChannel(id)
+        }
+      }
+    },
+
+    // event callbacks
     LoginRequest () {
       this.overlays.push('loading')
     },

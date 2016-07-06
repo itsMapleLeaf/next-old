@@ -5,12 +5,14 @@
       <section class='ui field'>
         <ul class='ui selection'>
           <li v-for='channel in filter(publicChannels)'
-            class="ui noselect" :class="{ 'active': isJoined(channel.id) }">
+            class="ui noselect" :class="{ 'active': isJoined(channel.id) }"
+            :data-toggle-channel="channel.id">
             <span class='ui pull right'>{{channel.userCount}}</span>
             <span v-html="channel.name"></span>
           </li>
           <li v-for='channel in filter(privateChannels)'
-            class="ui noselect" :class="{ 'active': isJoined(channel.id) }">
+            class="ui noselect" :class="{ 'active': isJoined(channel.id) }"
+            :data-toggle-channel="channel.id">
             <span class='ui pull right'>{{channel.userCount}}</span>
             <span v-html="channel.name"></span><br />
             <em class="ui small subtle">{{channel.id}}</em>
@@ -42,7 +44,7 @@
 
 <script>
 import Overlay from '../elements/Overlay.vue'
-import {store} from 'modules/store'
+import {store, state} from 'modules/store'
 import {socket} from 'modules/socket'
 
 function compareChannelInfo (a, b) {
@@ -55,7 +57,7 @@ export default {
       search: '',
       publicChannels: [],
       privateChannels: [],
-      state: store.state
+      state
     }
   },
 

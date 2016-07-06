@@ -27,7 +27,7 @@ export class Socket {
     this.connected = false
   }
 
-  connect (address) {
+  connect (address: string) {
     // clear the event bus
     this.bus = new EventEmitter()
 
@@ -59,7 +59,7 @@ export class Socket {
     this.ws.close()
   }
 
-  identify (account, ticket, character) {
+  identify (account: string, ticket: string, character: CharacterName) {
     const params = {
       account, ticket, character,
       method: 'ticket',
@@ -70,7 +70,7 @@ export class Socket {
     this.send('IDN', params)
   }
 
-  parseServerCommand (command) {
+  parseServerCommand (command: string) {
     const type = command.substring(0, 3)
     const params = command.length > 3 ? JSON.parse(command.substring(4)) : {}
     return {type, params}
@@ -106,7 +106,15 @@ export class Socket {
     })
   }
 
-  handleServerCommand (type, params) {
+  joinChannel (channel: ChannelID) {
+    this.send('JCH', { channel })
+  }
+
+  leaveChannel (channel: ChannelID) {
+    this.send('LCH', { channel })
+  }
+
+  handleServerCommand (type: string, params: Object) {
     switch (type) {
       // successful identification w/ chat server
       case 'IDN':
@@ -205,8 +213,8 @@ export class Socket {
       case 'ICH': {
         const id: ChannelID = params.channel
         const mode: ChannelMode = params.mode
-        const names: CharacterName[] = params.users.map(entry => entry.identity)
-        store.dispatch({ type: 'ChannelCharacters', id, names })
+        const characters: CharacterName[] = params.users.map(entry => entry.identity)
+        store.dispatch({ type: 'ChannelCharacterList', id, characters })
         store.dispatch({ type: 'ChannelMode', id, mode })
         break
       }
