@@ -72,14 +72,22 @@ export default {
       const id = el.getAttribute('data-toggle-channel')
       if (id) {
         if (!store.isChannelActive(id)) {
-          socket.joinChannel(id)
+          store.notify('JoinChannelRequest', { id })
         } else {
-          socket.leaveChannel(id)
+          store.notify('LeaveChannelRequest', { id })
         }
       }
     },
 
     // event callbacks
+    PushOverlay ({ overlay }) {
+      this.overlays.push(overlay)
+    },
+
+    PopOverlay () {
+      this.overlays.pop()
+    },
+
     LoginRequest () {
       this.overlays.push('loading')
     },
@@ -120,12 +128,12 @@ export default {
       this.overlays = ['app-menu']
     },
 
-    PushOverlay ({ overlay }) {
-      this.overlays.push(overlay)
+    JoinChannelRequest ({ id }) {
+      socket.joinChannel(id)
     },
 
-    PopOverlay () {
-      this.overlays.pop()
+    LeaveChannelRequest ({ id }) {
+      socket.leaveChannel(id)
     },
 
     DisconnectRequest () {

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import {createCharacter, createChannelState} from 'modules/constructors'
 import {
   Character, CharacterName, Gender, CharacterStatus, CharacterRelation,
-  FriendInfo, ChannelInfo, ChannelID, ChannelState, ChannelMode,
+  FriendInfo, ChannelInfo, ChannelID, ChannelState, ChannelMode, ActiveChatState,
   Event
 } from 'modules/types'
 
@@ -184,9 +184,15 @@ export class Store {
         chat.activeChats = chat.activeChats.filter(chat => chat.id !== mut.id)
         break
 
-      case 'ChannelCharacterList':
-        this.getActiveChannel(mut.id).characters = mut.characters.map(name => this.getCharacter(name))
+      case 'ChannelCharacterList': {
+        const channel = this.getActiveChannel(mut.id)
+        if (channel) {
+          channel.characters = mut.characters
+            .map(name => this.getCharacter(name))
+            .filter(char => char != null)
+        }
         break
+      }
 
       case 'ChannelMode':
         this.getActiveChannel(mut.id).mode = mut.mode
@@ -261,6 +267,10 @@ export class Store {
 
   getCharacter (name: CharacterName): ?Character {
     return this.state.chat.characters[name]
+  }
+
+  getActiveChats (): ActiveChatState[] {
+    return this.state.chat.activeChats
   }
 
   getActiveChannel (id: ChannelID): ?ChannelState {

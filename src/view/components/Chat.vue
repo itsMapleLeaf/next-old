@@ -5,12 +5,11 @@
       <shortcut title="Channels" icon="globe" overlay="channel-list"></shortcut>
       <shortcut title="Users" icon="heart" overlay="online-users"></shortcut>
 
-      <chat-tab v-for='tab in tabs'
-        :active='activeTabIndex === $index'
-        :title='tab.title'
-        @closed='closeTab(tab)'
-        @selected='activeTabIndex = $index'>
-        {{ tab.title }}
+      <chat-tab v-for="chat in activeChats"
+        :active="$index === currentIndex"
+        @selected="currentIndex = $index"
+        @closed="closeChat(chat)">
+        {{chat.name}}
       </chat-tab>
     </div>
 
@@ -30,7 +29,13 @@ import ChatTab from './elements/ChatTab.vue'
 // import ChannelView from './chat-views/ChannelView.vue'
 // import PrivateChatView from './chat-views/PrivateChatView.vue'
 
-import {store} from 'modules/store'
+import {store, state} from 'modules/store'
+
+function clamp (num, min, max) {
+  return num < min ? min
+    : num > max ? max
+    : num
+}
 
 const Shortcut = {
   template: `
@@ -41,10 +46,6 @@ const Shortcut = {
     </a>
   `,
 
-  data () {
-    return { store }
-  },
-
   props: {
     icon: String,
     overlay: String
@@ -52,7 +53,7 @@ const Shortcut = {
 
   methods: {
     pushOverlay () {
-      this.store.notify('PushOverlay', { overlay: this.overlay })
+      store.notify('PushOverlay', { overlay: this.overlay })
     }
   }
 }
@@ -63,6 +64,38 @@ export default {
     // ChannelView,
     // PrivateChatView,
     Shortcut
+  },
+
+  data () {
+    return {
+      state,
+      currentIndex: 0
+    }
+  },
+
+  computed: {
+    activeChats () {
+      return store.getActiveChats()
+    },
+
+    currentChat () {
+      return this.activeChats[this.currentIndex]
+    }
+  },
+
+  methods: {
+    closeChat (chat) {
+      if (chat.type === 'channel') {
+        store.notify('LeaveChannelRequest', { id: chat.id })
+        this.currentIndex--
+      }
+    }
+  },
+
+  watch: {
+    activeChats () {
+      this.currentIndex = clamp(this.currentIndex, 0, this.activeChats.length - 1)
+    }
   }
 }
 </script>

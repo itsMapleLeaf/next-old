@@ -1,3 +1,4 @@
+// alias types
 export type CharacterName = string
 export type ChannelID = string
 export type ActiveChatState = ChannelState | PrivateChatState
@@ -12,6 +13,49 @@ export type Character = {
 export type CharacterStatus = {
   state: CharacterStatusState,
   message: string
+}
+
+export type FriendInfo = {
+  you: CharacterName,
+  them: CharacterName
+}
+
+export type ChannelInfo = {
+  id: ChannelID,
+  name: string,
+  userCount: number
+}
+
+export type ChannelState = {
+  type: 'channel',
+  id: ChannelID,
+  name: string,
+  mode: ChannelMode,
+  preference: ChannelMode,
+  description: string,
+  characters: Character[],
+  messages: ChatMessage[]
+}
+
+export type PrivateChatState = {
+  type: 'private-chat',
+  partner: Character,
+  messages: ChatMessage[]
+}
+
+export type ChatMessage = {
+  sender: Character,
+  message: string,
+  kind: ChatMessageKind,
+  time: Date
+}
+
+export type LoginData = {
+  account: string,
+  ticket: string,
+  friends: FriendInfo[],
+  characters: CharacterName[],
+  bookmarks: CharacterName[]
 }
 
 export type Gender
@@ -51,49 +95,6 @@ export type ChatMessageKind
   | 'lfrp'
   | 'admin'
   | 'system'
-
-export type FriendInfo = {
-  you: CharacterName,
-  them: CharacterName
-}
-
-export type ChannelInfo = {
-  id: ChannelID,
-  name: string,
-  userCount: number
-}
-
-export type ChannelState = {
-  type: 'channel',
-  id: ChannelID,
-  name: string,
-  mode: ChannelMode,
-  preference: ChannelMode,
-  description: string,
-  characters: Character[],
-  messages: ChatMessage[]
-}
-
-export type PrivateChatState = {
-  type: 'privateChat',
-  partner: Character,
-  messages: ChatMessage[]
-}
-
-export type ChatMessage = {
-  sender: Character,
-  message: string,
-  kind: ChatMessageKind,
-  time: Date
-}
-
-export type LoginData = {
-  account: string,
-  ticket: string,
-  friends: FriendInfo[],
-  characters: CharacterName[],
-  bookmarks: CharacterName[]
-}
 
 export type Event = {}
   | { type: 'LoginRequest' }
