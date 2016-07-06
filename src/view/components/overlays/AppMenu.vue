@@ -65,7 +65,7 @@ export default {
     const status = store.getUserStatus()
     return {
       status,
-      store,
+      state: store.state,
       interval: null,
       dirty: false
     }
@@ -89,7 +89,7 @@ export default {
 
   computed: {
     character () {
-      return this.store.getUserCharacterName()
+      return store.getUserCharacterName()
     },
 
     greeting () {
@@ -117,28 +117,24 @@ export default {
     },
 
     sendStatusChangeRequest () {
-      this.store.dispatchEvent('StatusChange', { status: this.status })
+      store.notify('StatusChange', { status: this.status })
     },
 
     pushOverlay (overlay) {
-      this.store.dispatchEvent('PopOverlay')
+      store.notify('PopOverlay')
+      store.notify('PushOverlay', { overlay })
       this.$nextTick(() => {
-        this.store.dispatchEvent('PushOverlay', { overlay })
       })
     },
 
     switchCharacter () {
-      this.store.dispatchEvent('DisconnectRequest')
-      this.$nextTick(() => {
-        this.pushOverlay('character-list')
-      })
+      store.notify('DisconnectRequest')
+      this.pushOverlay('character-list')
     },
 
     logOut () {
-      this.store.dispatchEvent('DisconnectRequest')
-      this.$nextTick(() => {
-        this.pushOverlay('login')
-      })
+      store.notify('DisconnectRequest')
+      this.pushOverlay('login')
     }
   }
 }

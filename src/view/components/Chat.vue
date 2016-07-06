@@ -52,7 +52,7 @@ const Shortcut = {
 
   methods: {
     pushOverlay () {
-      this.store.dispatchEvent('PushOverlay', { overlay: this.overlay })
+      this.store.notify('PushOverlay', { overlay: this.overlay })
     }
   }
 }

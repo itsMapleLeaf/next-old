@@ -38,10 +38,10 @@ export class Socket {
     })
 
     this.bus.once('open', () => {
-      store.dispatchEvent('SocketConnectionSuccess')
+      store.notify('SocketConnectionSuccess')
       this.connected = true
     })
-    this.bus.once('error', err => store.dispatchEvent('SocketError', err))
+    this.bus.once('error', err => store.notify('SocketError', err))
     this.bus.once('close', () => {
       this.connected = false
       console.info('Disconnected from server.')
@@ -110,7 +110,7 @@ export class Socket {
     switch (type) {
       // successful identification w/ chat server
       case 'IDN':
-        store.dispatchEvent('SocketIdentifySuccess')
+        store.notify('SocketIdentifySuccess')
         break
 
       /* ping~! */

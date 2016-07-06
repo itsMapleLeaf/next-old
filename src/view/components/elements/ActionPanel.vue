@@ -31,7 +31,7 @@ export default {
 
   methods: {
     close () {
-      this.store.dispatchEvent('PopOverlay')
+      this.store.notify('PopOverlay')
     }
   }
 }

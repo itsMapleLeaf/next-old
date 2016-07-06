@@ -73,19 +73,23 @@ export class Store {
         privateChannels: [],
         activeChats: [],
         serverVariables: {}
-      },
-
-      event: {}
+      }
     }
 
     this.mutations = [
       { state: Object.assign({}, this.state), mutation: { type: 'Init' } }
     ]
+
+    this.subscriptions = []
   }
 
-  dispatchEvent (type: string, params?: Object = {}) {
+  subscribe (callback: (event?: Event) => void) {
+    this.subscriptions.push(callback)
+  }
+
+  notify (type: string, params?: Object = {}) {
     const event: Event = Object.assign({ type }, params)
-    this.dispatch({ type: 'Event', event })
+    this.subscriptions.forEach(cb => cb(event))
   }
 
   dispatch (mut) {
@@ -251,7 +255,7 @@ export class Store {
       .find(char => char.name === name)
   }
 
-  getChannelState (id: ChannelID): ChannelState {
+  getChannelState (id: ChannelID): ?ChannelState {
     return this.state.chat.activeChats
       .find(chat => chat.type === 'channel' && chat.id === id)
   }

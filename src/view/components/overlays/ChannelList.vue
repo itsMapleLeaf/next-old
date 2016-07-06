@@ -60,9 +60,9 @@ export default {
   },
 
   async created () {
-    store.dispatchEvent('PushOverlay', { overlay: 'loading' })
+    store.notify('PushOverlay', { overlay: 'loading' })
     await socket.requestChannels()
-    store.dispatchEvent('PopOverlay')
+    store.notify('PopOverlay')
 
     this.publicChannels = store.getPublicChannelList().sort(compareChannelInfo)
     this.privateChannels = store.getPrivateChannelList().sort(compareChannelInfo)

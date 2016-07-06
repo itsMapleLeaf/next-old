@@ -38,8 +38,6 @@ export default {
     OnlineUsers,
     About,
     Loading
-
-    // Chat,
     // CharacterMenu,
   },
 
@@ -48,6 +46,17 @@ export default {
       overlays: [],
       state: store.state
     }
+  },
+
+  created () {
+    store.subscribe(event => {
+      const method = this[event.type]
+      if (method) {
+        method(event)
+      } else {
+        console.warn('Unknown event:', event.type, event)
+      }
+    })
   },
 
   ready () {
@@ -105,17 +114,6 @@ export default {
 
     DisconnectRequest () {
       socket.disconnect()
-    }
-  },
-
-  watch: {
-    'state.event' (event) {
-      const method = this[event.type]
-      if (method) {
-        method(event)
-      } else {
-        console.warn('Unknown event:', event.type, event)
-      }
     }
   }
 }

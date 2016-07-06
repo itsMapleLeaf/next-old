@@ -52,7 +52,7 @@ export default {
   methods: {
     close () {
       if (!this.noClose) {
-        this.store.dispatchEvent('PopOverlay')
+        this.store.notify('PopOverlay')
       }
     }
   }
