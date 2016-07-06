@@ -62,18 +62,17 @@ export default {
 
   data () {
     return {
+      characters: [],
       search: '',
       state: store.state
     }
   },
 
   created () {
+    this.characters = store.getOnlineCharacters().sort(compareNames)
   },
 
   computed: {
-    characters () {
-      return store.getOnlineCharacters().sort(compareNames)
-    }
   },
 
   methods: {
