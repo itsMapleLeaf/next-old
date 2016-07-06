@@ -14,7 +14,6 @@
 
 <script>
 // import CharacterMenu from './overlays/CharacterMenu.vue'
-// import About from './overlays/About.vue'
 
 import Chat from './Chat.vue'
 import Login from './overlays/Login.vue'
@@ -23,6 +22,7 @@ import ChannelList from './overlays/ChannelList.vue'
 import CharacterList from './overlays/CharacterList.vue'
 import Loading from './overlays/Loading.vue'
 import OnlineUsers from './overlays/OnlineUsers.vue'
+import About from './overlays/About.vue'
 
 import {store} from 'modules/store'
 import {socket, servers} from 'modules/socket'
@@ -36,11 +36,11 @@ export default {
     AppMenu,
     ChannelList,
     OnlineUsers,
+    About,
     Loading
 
     // Chat,
     // CharacterMenu,
-    // About
   },
 
   data () {
@@ -101,6 +101,10 @@ export default {
 
     PopOverlay () {
       this.overlays.pop()
+    },
+
+    DisconnectRequest () {
+      socket.disconnect()
     }
   },
 

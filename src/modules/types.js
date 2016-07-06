@@ -100,7 +100,7 @@ export type Event = {}
   | { type: 'LoginSuccess', loginData: LoginData, remember: boolean }
   | { type: 'LoginFailure' }
 
-  | { type: 'LogoutRequest' }
+  | { type: 'DisconnectRequest' }
 
   | { type: 'PushOverlay', overlay: string }
   | { type: 'PopOverlay' }

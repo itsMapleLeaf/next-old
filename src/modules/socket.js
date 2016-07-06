@@ -44,6 +44,7 @@ export class Socket {
     this.bus.once('error', err => store.dispatchEvent('SocketError', err))
     this.bus.once('close', () => {
       this.connected = false
+      console.info('Disconnected from server.')
     })
 
     // connect & hook up websocket events to the bus
@@ -52,6 +53,10 @@ export class Socket {
     this.ws.onclose = () => this.bus.emit('close')
     this.ws.onmessage = msg => this.bus.emit('message', msg)
     this.ws.onerror = err => this.bus.emit('error', err)
+  }
+
+  disconnect () {
+    this.ws.close()
   }
 
   identify (account, ticket, character) {

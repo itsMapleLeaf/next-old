@@ -122,15 +122,23 @@ export default {
 
     pushOverlay (overlay) {
       this.store.dispatchEvent('PopOverlay')
-      this.store.dispatchEvent('PushOverlay', { overlay })
+      this.$nextTick(() => {
+        this.store.dispatchEvent('PushOverlay', { overlay })
+      })
     },
 
     switchCharacter () {
-      this.store.dispatchEvent('SwitchCharacterRequest')
+      this.store.dispatchEvent('DisconnectRequest')
+      this.$nextTick(() => {
+        this.pushOverlay('character-list')
+      })
     },
 
     logOut () {
-      this.store.dispatchEvent('LogoutRequest')
+      this.store.dispatchEvent('DisconnectRequest')
+      this.$nextTick(() => {
+        this.pushOverlay('login')
+      })
     }
   }
 }
