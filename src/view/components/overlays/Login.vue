@@ -62,7 +62,7 @@ export default {
       status: '',
       disabled: false,
       remember: false,
-      store
+      state: store.state
     }
   },
 
@@ -80,7 +80,7 @@ export default {
     async submit () {
       this.status = ''
       this.disabled = true
-      this.store.dispatchEvent('LoginRequest')
+      store.dispatchEvent('LoginRequest')
 
       try {
         const res = await authenticate(this.username, this.password)
@@ -88,7 +88,7 @@ export default {
         if (res.error) {
           this.status = res.error
           this.disabled = false
-          this.store.dispatchEvent('LoginFailure')
+          store.dispatchEvent('LoginFailure')
         } else {
           const loginData: LoginData = {
             account: this.username,
@@ -99,7 +99,7 @@ export default {
               return { you: entry.dest_name, them: entry.source_name }
             })
           }
-          this.store.dispatchEvent('LoginSuccess', { loginData, remember: this.remember })
+          store.dispatchEvent('LoginSuccess', { loginData, remember: this.remember })
         }
       } catch (err) {
         console.error(err)

@@ -234,6 +234,14 @@ export class Store {
     }
   }
 
+  getPublicChannelList (): ChannelInfo[] {
+    return this.state.chat.publicChannels.slice()
+  }
+
+  getPrivateChannelList (): ChannelInfo[] {
+    return this.state.chat.privateChannels.slice()
+  }
+
   getOnlineCharacters (): Character[] {
     return this.state.chat.characters
   }
@@ -246,6 +254,10 @@ export class Store {
   getChannelState (id: ChannelID): ChannelState {
     return this.state.chat.activeChats
       .find(chat => chat.type === 'channel' && chat.id === id)
+  }
+
+  isChannelActive (id: ChannelID): boolean {
+    return this.getChannelState(id) != null
   }
 }
 

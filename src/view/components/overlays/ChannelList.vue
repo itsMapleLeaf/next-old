@@ -4,12 +4,16 @@
     <form class='ui form'>
       <section class='ui field'>
         <ul class='ui selection'>
-          <li v-for='channel in slicedChannelList'
-          v-if="channel.name.trim() !== ''"
-          class="ui noselect {{isJoined(channel.id) ? 'active' : ''}}"
-          :data-toggle-channel='channel.id'>
+          <li v-for='channel in filter(publicChannels)'
+            class="ui noselect" :class="{ 'active': isJoined(channel.id) }">
             <span class='ui pull right'>{{channel.userCount}}</span>
             <span v-html="channel.name"></span>
+          </li>
+          <li v-for='channel in filter(privateChannels)'
+            class="ui noselect" :class="{ 'active': isJoined(channel.id) }">
+            <span class='ui pull right'>{{channel.userCount}}</span>
+            <span v-html="channel.name"></span><br />
+            <em class="ui small subtle">{{channel.id}}</em>
           </li>
         </ul>
       </section>
@@ -38,9 +42,8 @@
 
 <script>
 import Overlay from '../elements/Overlay.vue'
-
-import state from '../../lib/state'
-import {ChannelStatus} from '../../lib/types'
+import {store} from 'modules/store'
+import {socket} from 'modules/socket'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)
@@ -49,40 +52,33 @@ function compareChannelInfo (a, b) {
 export default {
   data () {
     return {
-      searchQuery: '',
-      state
+      search: '',
+      publicChannels: [],
+      privateChannels: [],
+      state: store.state
     }
+  },
+
+  async created () {
+    store.dispatchEvent('PushOverlay', { overlay: 'loading' })
+    await socket.requestChannels()
+    store.dispatchEvent('PopOverlay')
+
+    this.publicChannels = store.getPublicChannelList().sort(compareChannelInfo)
+    this.privateChannels = store.getPrivateChannelList().sort(compareChannelInfo)
   },
 
   components: {
     Overlay
   },
 
-  computed: {
-    channelList () {
-      const publicChannels = this.state.getPublicChannelList().sort(compareChannelInfo)
-      const privateChannels = this.state.getPrivateChannelList().sort(compareChannelInfo)
-      return publicChannels.concat(privateChannels)
-    },
-
-    filteredChannelList () {
-      if (this.searchQuery.trim() === '') {
-        return this.channelList
-      } else {
-        const query = this.searchQuery.toLocaleLowerCase()
-        const filter = ch => ch.name.toLocaleLowerCase().includes(query)
-        return this.channelList.filter(filter)
-      }
-    },
-
-    slicedChannelList () {
-      return this.filteredChannelList.slice(0, 200)
-    }
-  },
-
   methods: {
+    filter (channels) {
+      return channels.filter(ch => ch.name.includes(this.search)).slice(0, 200)
+    },
+
     isJoined (id) {
-      return this.state.getChannelStatus(id) === ChannelStatus.joined
+      return store.isChannelActive(id)
     }
   }
 }

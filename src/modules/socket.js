@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 import {inspect} from 'util'
 import {createChatMessage} from 'modules/constructors'
-import {Store} from 'modules/store'
+import {store} from 'modules/store'
 import CharacterBatch from 'modules/character-batch'
 import meta from 'modules/meta'
 
@@ -16,7 +16,6 @@ const batch = new CharacterBatch()
 
 export class Socket {
   ws: WebSocket | null
-  store: Store | null
   bus: EventEmitter
 
   constructor () {
@@ -24,11 +23,6 @@ export class Socket {
     // like using .once() and such
     this.bus = new EventEmitter()
     this.ws = null
-    this.store = null
-  }
-
-  setStore (store) {
-    this.store = store
   }
 
   connect (address) {
@@ -42,10 +36,11 @@ export class Socket {
     this.bus.on('message', msg => {
       const {type, params} = this.parseServerCommand(msg.data)
       this.handleServerCommand(type, params)
+      this.bus.emit(type, params)
     })
 
-    this.bus.once('open', () => this.store.dispatchEvent('SocketConnectionSuccess'))
-    this.bus.once('error', err => this.store.dispatchEvent('SocketError', err))
+    this.bus.once('open', () => store.dispatchEvent('SocketConnectionSuccess'))
+    this.bus.once('error', err => store.dispatchEvent('SocketError', err))
   }
 
   identify (account, ticket, character) {
@@ -71,9 +66,31 @@ export class Socket {
     console.log('Sent socket message:', message)
   }
 
-  handleServerCommand (type, params) {
-    const {store} = this
+  requestChannels () {
+    return new Promise((resolve, reject) => {
+      this.send('CHA')
+      this.send('ORS')
 
+      let receivedPublic = false
+      let receivedPrivate = false
+
+      this.bus.once('CHA', () => {
+        receivedPublic = true
+        if (receivedPublic && receivedPrivate) {
+          resolve()
+        }
+      })
+
+      this.bus.once('ORS', () => {
+        receivedPrivate = true
+        if (receivedPublic && receivedPrivate) {
+          resolve()
+        }
+      })
+    })
+  }
+
+  handleServerCommand (type, params) {
     switch (type) {
       // successful identification w/ chat server
       case 'IDN':
@@ -162,7 +179,7 @@ export class Socket {
       // received list of private channels
       case 'ORS': {
         const channels: ChannelInfo[] = params.channels.map(ch => {
-          return { id: ch.name, name: ch.name, userCount: ch.characters }
+          return { id: ch.name, name: ch.title, userCount: ch.characters }
         })
         store.dispatch({ type: 'PrivateChannelList', channels })
         break

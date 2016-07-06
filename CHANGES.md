@@ -1,7 +1,7 @@
 # 0.3.1
-- Minor improvements to performance
-- Major improvements to app structure
-- Added a loading overlay
+- Performance improvements
+- Added a pretty loading screen
+- Shows the channel ID under private channels
 
 # 0.3.0
 - Showing LFRP ads

@@ -13,13 +13,13 @@
 </style>
 
 <script>
-// import ChannelList from './overlays/ChannelList.vue'
 // import CharacterMenu from './overlays/CharacterMenu.vue'
 // import OnlineUsers from './overlays/OnlineUsers.vue'
 // import About from './overlays/About.vue'
 
 import Chat from './Chat.vue'
 import Login from './overlays/Login.vue'
+import ChannelList from './overlays/ChannelList.vue'
 import CharacterList from './overlays/CharacterList.vue'
 import Loading from './overlays/Loading.vue'
 import AppMenu from './overlays/AppMenu.vue'
@@ -34,17 +34,20 @@ export default {
     Login,
     CharacterList,
     AppMenu,
+    ChannelList,
     Loading
 
     // Chat,
-    // ChannelList,
     // CharacterMenu,
     // OnlineUsers,
     // About
   },
 
   data () {
-    return { overlays: [], store, socket }
+    return {
+      overlays: [],
+      state: store.state
+    }
   },
 
   ready () {
@@ -59,10 +62,10 @@ export default {
     LoginSuccess (event) {
       // unpack / dispatch store data
       const {account, ticket, characters, friends, bookmarks} = event.loginData
-      this.store.dispatch({ type: 'Auth', account, ticket })
-      this.store.dispatch({ type: 'FriendsList', friends })
-      this.store.dispatch({ type: 'UserCharacterList', characters })
-      this.store.dispatch({ type: 'BookmarkList', bookmarks })
+      store.dispatch({ type: 'Auth', account, ticket })
+      store.dispatch({ type: 'FriendsList', friends })
+      store.dispatch({ type: 'UserCharacterList', characters })
+      store.dispatch({ type: 'BookmarkList', bookmarks })
 
       // delay the overlay change, so it's a little nicer on the eyes and not too quick
       this.overlays = []
@@ -77,22 +80,22 @@ export default {
     },
 
     UserCharacterSelected ({ name }) {
-      this.store.dispatch({ type: 'UserCharacter', name })
+      store.dispatch({ type: 'UserCharacter', name })
       this.overlays = ['loading']
-      this.socket.connect(servers.main)
+      socket.connect(servers.main)
     },
 
     SocketConnectionSuccess () {
-      const {account, ticket} = this.store.getAuthData()
-      const character = this.store.getUserCharacterName()
-      this.socket.identify(account, ticket, character)
+      const {account, ticket} = store.getAuthData()
+      const character = store.getUserCharacterName()
+      socket.identify(account, ticket, character)
     },
 
     SocketIdentifySuccess () {
       this.overlays = ['app-menu']
     },
 
-    PushOverlay (overlay) {
+    PushOverlay ({ overlay }) {
       this.overlays.push(overlay)
     },
 
@@ -102,7 +105,7 @@ export default {
   },
 
   watch: {
-    'store.state.event' (event) {
+    'state.event' (event) {
       const method = this[event.type]
       if (method) {
         method(event)

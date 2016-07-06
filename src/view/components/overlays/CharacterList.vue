@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       activeCharacter: '',
-      store
+      state: store.state
     }
   },
 
@@ -38,7 +38,7 @@ export default {
 
   computed: {
     characters () {
-      return this.store.getUserCharacters().sort()
+      return store.getUserCharacters().sort()
     }
   },
 
@@ -48,7 +48,7 @@ export default {
     },
 
     submit () {
-      this.store.dispatchEvent('UserCharacterSelected', { name: this.activeCharacter })
+      store.dispatchEvent('UserCharacterSelected', { name: this.activeCharacter })
     }
   }
 }
