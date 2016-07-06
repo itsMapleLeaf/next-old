@@ -46,7 +46,7 @@ import Character from '../elements/Character.vue'
 import Dropdown from '../elements/Dropdown.vue'
 import Overlay from '../elements/Overlay.vue'
 
-import {store} from 'modules/store'
+import {store, state} from 'modules/store'
 import {CharacterRelation} from 'modules/types'
 
 function compareNames (a, b) {
@@ -64,12 +64,12 @@ export default {
     return {
       characters: [],
       search: '',
-      state: store.state
+      state
     }
   },
 
   created () {
-    this.characters = store.getOnlineCharacters().sort(compareNames)
+    this.characters = store.getOnlineCharacterList().sort(compareNames)
   },
 
   computed: {

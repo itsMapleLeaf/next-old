@@ -5,13 +5,13 @@
       <shortcut title="Channels" icon="globe" overlay="channel-list"></shortcut>
       <shortcut title="Users" icon="heart" overlay="online-users"></shortcut>
 
-      <!-- <chat-tab v-for='tab in tabs'
-      :active='activeTabIndex === $index'
-      :title='tab.title'
-      @closed='closeTab(tab)'
-      @selected='activeTabIndex = $index'>
+      <chat-tab v-for='tab in tabs'
+        :active='activeTabIndex === $index'
+        :title='tab.title'
+        @closed='closeTab(tab)'
+        @selected='activeTabIndex = $index'>
         {{ tab.title }}
-      </chat-tab> -->
+      </chat-tab>
     </div>
 
     <!-- <component :is="currentTab.view" :view-state="currentTab.state">
@@ -26,7 +26,7 @@
 </style>
 
 <script>
-// import ChatTab from './elements/ChatTab.vue'
+import ChatTab from './elements/ChatTab.vue'
 // import ChannelView from './chat-views/ChannelView.vue'
 // import PrivateChatView from './chat-views/PrivateChatView.vue'
 
@@ -59,7 +59,7 @@ const Shortcut = {
 
 export default {
   components: {
-    // ChatTab,
+    ChatTab,
     // ChannelView,
     // PrivateChatView,
     Shortcut

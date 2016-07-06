@@ -15,7 +15,7 @@ span
   position: relative
   top: -0.4em
 
-  &.online { color: rgb(62, 62, 62) }
+  &.online { color: rgb(96, 94, 94) }
   &.looking { color: rgb(32, 223, 109) }
   &.busy { color: rgba(white, 0.5) }
   &.away { color: rgb(58, 111, 246) }

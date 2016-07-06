@@ -10,7 +10,7 @@ export default class CharacterBatch {
 
   constructor () {
     this.count = 0
-    this.items = []
+    this.hash = {}
   }
 
   setCount (count: number) {
@@ -18,13 +18,17 @@ export default class CharacterBatch {
   }
 
   addBatch (batch: BatchEntry[]): boolean {
-    this.items = this.items.concat(batch.map(entry => {
+    batch.forEach(entry => {
       const [name, gender, state, message] = entry
       const char: Character = createCharacter(name, gender)
       char.status = { state, message }
       char.relation = store.getCharacterRelation(char)
-      return char
-    }))
-    return this.count === this.items.length
+      this.hash[name] = char
+    })
+    return this.count === Object.keys(this.hash).length
+  }
+
+  clear () {
+    this.hash = {}
   }
 }

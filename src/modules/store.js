@@ -8,6 +8,8 @@ import {
 
 type State = { [item: string]: any }
 
+type CharacterHash = { [name: CharacterName]: Character }
+
 type Mutation = { type: 'Init' }
   | { type: 'Event', event: Event }
 
@@ -26,7 +28,7 @@ type Mutation = { type: 'Init' }
 
   | { type: 'ServerVariable', key: string, value: string | string[] | number }
 
-  | { type: 'CharacterBatch', batch: Character[] }
+  | { type: 'CharacterBatch', batch: CharacterHash }
   | { type: 'CharacterOnline', name: CharacterName, gender: Gender }
   | { type: 'CharacterOffline', name: CharacterName }
   | { type: 'CharacterStatus', name: CharacterName, status: CharacterStatus }
@@ -64,7 +66,7 @@ export class Store {
       },
 
       chat: {
-        characters: [],
+        characters: {},
         friends: [],
         bookmarks: [],
         ignored: [],
@@ -93,7 +95,6 @@ export class Store {
   }
 
   dispatch (mut) {
-    // console.log('Mutation:', mut)
     try {
       this.handleMutation(mut)
       this.mutations.push({
@@ -155,19 +156,18 @@ export class Store {
         Vue.set(chat.serverVariables, mut.key, mut.value)
         break
 
-      case 'CharacterBatch': {
+      case 'CharacterBatch':
         chat.characters = mut.batch
         break
-      }
 
       case 'CharacterOnline': {
         const char: Character = createCharacter(mut.name, mut.gender)
-        chat.characters.push(char)
+        chat.characters[mut.name] = char
         break
       }
 
       case 'CharacterOffline':
-        chat.characters = chat.characters.filter(char => char.name !== mut.name)
+        delete chat.characters[mut.name]
         break
 
       case 'CharacterStatus': {
@@ -246,13 +246,16 @@ export class Store {
     return this.state.chat.privateChannels.slice()
   }
 
-  getOnlineCharacters (): Character[] {
-    return this.state.chat.characters.slice()
+  getOnlineCharacters (): CharacterHash {
+    return Object.assign({}, this.state.chat.characters)
+  }
+
+  getOnlineCharacterList (): Object[] {
+    return Object.values(this.state.chat.characters)
   }
 
   getCharacter (name: CharacterName): ?Character {
-    return this.state.chat.characters
-      .find(char => char.name === name)
+    return this.state.chat.characters[name]
   }
 
   getChannelState (id: ChannelID): ?ChannelState {
@@ -305,3 +308,4 @@ export class Store {
 }
 
 export const store = new Store()
+export const state = store.state

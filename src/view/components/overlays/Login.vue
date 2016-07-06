@@ -19,7 +19,7 @@
       <div class='ui field'>
         <span>{{status}}</span>
       </div>
-      <a class='ui link subtle about-link' href='#' data-push-overlay='about'>
+      <a class='ui subtle about-link' href='#' data-push-overlay='about'>
         <i class='fa fa-question-circle'></i>
       </a>
     </form>

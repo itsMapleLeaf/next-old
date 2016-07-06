@@ -160,8 +160,8 @@ export class Socket {
       // comes in multiple batches
       case 'LIS':
         if (batch.addBatch(params.characters)) {
-          store.dispatch({ type: 'CharacterBatch', batch: batch.items })
-          batch.items = []
+          store.dispatch({ type: 'CharacterBatch', batch: batch.hash })
+          batch.clear()
         }
         break
 
