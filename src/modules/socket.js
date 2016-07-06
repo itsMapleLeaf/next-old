@@ -17,21 +17,19 @@ const batch = new CharacterBatch()
 export class Socket {
   ws: WebSocket | null
   bus: EventEmitter
+  connected: boolean
 
   constructor () {
     // use an event bus to handle WS commands for some convenience,
     // like using .once() and such
     this.bus = new EventEmitter()
     this.ws = null
+    this.connected = false
   }
 
   connect (address) {
-    this.ws = new WebSocket(address)
-
-    this.ws.onopen = () => this.bus.emit('open')
-    this.ws.onclose = () => this.bus.emit('close')
-    this.ws.onmessage = msg => this.bus.emit('message', msg)
-    this.ws.onerror = err => this.bus.emit('error', err)
+    // clear the event bus
+    this.bus = new EventEmitter()
 
     this.bus.on('message', msg => {
       const {type, params} = this.parseServerCommand(msg.data)
@@ -39,8 +37,21 @@ export class Socket {
       this.bus.emit(type, params)
     })
 
-    this.bus.once('open', () => store.dispatchEvent('SocketConnectionSuccess'))
+    this.bus.once('open', () => {
+      store.dispatchEvent('SocketConnectionSuccess')
+      this.connected = true
+    })
     this.bus.once('error', err => store.dispatchEvent('SocketError', err))
+    this.bus.once('close', () => {
+      this.connected = false
+    })
+
+    // connect & hook up websocket events to the bus
+    this.ws = new WebSocket(address)
+    this.ws.onopen = () => this.bus.emit('open')
+    this.ws.onclose = () => this.bus.emit('close')
+    this.ws.onmessage = msg => this.bus.emit('message', msg)
+    this.ws.onerror = err => this.bus.emit('error', err)
   }
 
   identify (account, ticket, character) {
