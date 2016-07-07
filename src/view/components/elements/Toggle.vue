@@ -1,8 +1,11 @@
 <template>
-  <span class="ui hover-darken small noselect" :class="{ 'subtle': !value }">
+  <a href='#' class="ui-small ui-link cursor-pointer"
+    :class="{ 'ui-subtle': !value }"
+    @click.prevent
+    @keydown.space="$emit('click')">
     <i class="fa fa-fw" :class="{ 'fa-square': value, 'fa-square-o': !value }"></i>
     <slot></slot>
-  </span>
+  </a>
 </template>
 
 <style lang="stylus" scoped>

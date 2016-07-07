@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import App from 'view/components/App.vue'
-import {parseBBC} from 'view/filters'
-import {collapse} from 'view/transitions'
+import App from './components/App.vue'
+import {parseBBC} from './filters'
+import {collapse} from './transitions'
 
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true

@@ -1,0 +1,25 @@
+@import 'App-ui'
+@import 'App-common'
+
+fieldset {
+  border: none
+  padding: 0
+  margin: 1em 0em
+}
+
+input, textarea {
+  @extend .ui-dark, .ui-border
+  width: 10em
+  padding: 0.3em 0.6em
+}
+
+button {
+  @extend .ui-dark
+  @extend .cursor-pointer
+  padding: 0.3em 1.5em
+  font-size: 0.95em
+
+  &:hover {
+    @extend .ui-darker
+  }
+}

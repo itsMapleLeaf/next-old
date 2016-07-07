@@ -21,7 +21,7 @@
 <style lang="stylus" scoped></style>
 
 <script>
-import Overlay from 'view/components/elements/Overlay.vue'
+import Overlay from '../elements/Overlay.vue'
 import {store} from 'modules/store'
 
 export default {

@@ -28,7 +28,7 @@ i, h3
 </style>
 
 <script>
-import Overlay from 'view/components/elements/Overlay.vue'
+import Overlay from '../elements/Overlay.vue'
 
 export default {
   components: { Overlay }

@@ -1,8 +1,8 @@
 <template>
-  <section class='ui overlay' transition='fade' @click.self='close'>
-    <section class='ui panel' :style="{ width: panelWidth, height: panelHeight }">
+  <section class='fullscreen ui-shade flex-center-children' transition='fade' @click.self='close'>
+    <section class='panel ui-main ui-shadow' :style="{ width: panelWidth, height: panelHeight }">
       <slot></slot>
-      <button v-if="!noClose" class='ui subtle hover-darken close-button' @click='close'>
+      <button v-if="!noClose" @click='close'>
         <i class='fa fa-times'></i>
       </button>
     </section>
@@ -12,6 +12,7 @@
 <style lang="stylus" scoped>
 .panel
   position: relative
+  text-align: center
 
 .close-button
   max-width: 100vw

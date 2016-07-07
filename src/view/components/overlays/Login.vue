@@ -1,25 +1,25 @@
 <template>
   <overlay no-close>
-    <h2>Hello, beautiful.</h2>
-    <form class='ui form' @submit.prevent='submit' :disabled='disabled'>
-      <div class='ui field text-input icon left'>
-        <i class='fa fa-user'></i>
+    <form @submit.prevent='submit' :disabled='disabled'>
+      <h2>Hello, beautiful.</h2>
+      <fieldset class='ui-icon-left'>
+        <i class='fa fa-user fa-fw'></i>
         <input type="text" placeholder="Username" v-model="username">
-      </div>
-      <div class='ui field text-input icon left'>
-        <i class='fa fa-lock'></i>
+      </fieldset>
+      <fieldset class='ui-icon-left'>
+        <i class='fa fa-lock fa-fw'></i>
         <input type="password" placeholder="Password" v-model="password">
-      </div>
-      <div class='ui field'>
+      </fieldset>
+      <fieldset>
         <toggle :value='remember' @click='remember = !remember'>Remember me</toggle>
-      </div>
-      <div class='ui field'>
+      </fieldset>
+      <fieldset>
         <button class='ui padded-button' action="submit" >Go</button>
-      </div>
-      <div class='ui field'>
+      </fieldset>
+      <fieldset>
         <span>{{status}}</span>
-      </div>
-      <a class='ui subtle about-link' href='#' data-push-overlay='about'>
+      </fieldset>
+      <a class='ui-subtle about-link' href='#' data-push-overlay='about'>
         <i class='fa fa-question-circle'></i>
       </a>
     </form>
@@ -27,16 +27,21 @@
 </template>
 
 <style lang="stylus" scoped>
-.about-link
+form {
+  padding: 0em 1.2em
+}
+
+.about-link {
   position: absolute
   right: 0.5em
   bottom: 0.5em
+}
 </style>
 
 <script>
-import DevInfo from 'view/components/elements/DevInfo.vue'
-import Overlay from 'view/components/elements/Overlay.vue'
-import Toggle from 'view/components/elements/Toggle.vue'
+import DevInfo from '../elements/DevInfo.vue'
+import Overlay from '../elements/Overlay.vue'
+import Toggle from '../elements/Toggle.vue'
 
 import {LoginData} from 'modules/types'
 import {authenticate} from 'modules/flist'

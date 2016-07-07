@@ -7,7 +7,7 @@
 </template>
 
 <style lang="stylus" scoped>
-@import '../../styles/ui.styl'
+/*@import '../../styles/ui.styl'
 
 a
   width: 8em
@@ -31,7 +31,7 @@ a:hover
   padding-right: 1.3em
 
   .fa
-    opacity: 0.5
+    opacity: 0.5*/
 </style>
 
 <script>

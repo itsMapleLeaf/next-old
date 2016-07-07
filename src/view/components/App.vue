@@ -5,12 +5,12 @@
   </main>
 </template>
 
-<style lang="stylus">
-@import '../styles/root'
-@import '../styles/ui'
-@import '../styles/flex'
-@import '../styles/transitions'
-</style>
+<style lang="stylus" src="./styles/App.styl"></style>
+<style lang="stylus" src="./styles/App-common.styl"></style>
+<style lang="stylus" src="./styles/App-ui.styl"></style>
+<style lang="stylus" src="./styles/App-flex.styl"></style>
+<style lang="stylus" src="./styles/App-form.styl"></style>
+<style lang="stylus" src="./styles/App-transitions.styl"></style>
 
 <script>
 // import CharacterMenu from './overlays/CharacterMenu.vue'

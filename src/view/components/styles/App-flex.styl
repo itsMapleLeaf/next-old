@@ -1,0 +1,27 @@
+.flex {
+  display: flex
+}
+
+.flex-column {
+  @extend .flex
+  flex-direction: column
+}
+
+.flex-row {
+  @extend .flex
+  flex-direction: row
+}
+
+.flex-stretch {
+  flex-grow: 1
+}
+
+.flex-fixed {
+  flex-shrink: 0
+}
+
+.flex-center-children {
+  @extend .flex
+  align-items: center
+  justify-content: center
+}

@@ -27,10 +27,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      modules: path.join(__dirname, 'src/modules'),
-      types: path.join(__dirname, 'src/modules/types'),
-      styles: path.join(__dirname, 'src/styles'),
-      view: path.join(__dirname, 'src/view')
+      modules: path.join(__dirname, 'src/view/modules'),
+      styles: path.join(__dirname, 'src/styles')
     }
   },
   plugins: [
