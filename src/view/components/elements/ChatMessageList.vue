@@ -9,12 +9,10 @@
 <script>
 import ChatMessage from './ChatMessage.vue'
 
-import {ChatMessageType} from '../../lib/types'
-
 export default {
   props: {
     messages: Array,
-    preference: String
+    modeFilter: String
   },
 
   components: {
@@ -54,11 +52,11 @@ export default {
 
   computed: {
     filteredMessages () {
-      if (this.preference === 'both') {
+      if (this.modeFilter === 'both') {
         return this.messages
-      } else if (this.preference === 'chat') {
+      } else if (this.modeFilter === 'chat') {
         return this.messages.filter(msg => msg.type === ChatMessageType.chat)
-      } else if (this.preference === 'ads') {
+      } else if (this.modeFilter === 'ads') {
         return this.messages.filter(msg => msg.type === ChatMessageType.lfrp)
       }
     }

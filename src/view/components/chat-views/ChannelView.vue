@@ -2,7 +2,7 @@
   <div class='flex stretch col'>
     <section class='flex fixed row channel-head'>
       <!-- channel prefs -->
-      <section class='flex fixed col channel-prefs' style='justify-content: space-between'>
+      <!-- <section class='flex fixed col channel-prefs' style='justify-content: space-between'>
         <template v-if="viewState.mode === 'both'">
           <a class="ui theme-color {{viewState.preference === 'both' ? 'light' : 'darker'}}" @click="viewState.preference = 'both'">Both</a>
           <a class="ui theme-color {{viewState.preference === 'chat' ? 'light' : 'darker'}}" @click="viewState.preference = 'chat'">Chat</a>
@@ -18,13 +18,13 @@
           <a class="ui theme-color darker subtle">Chat</a>
           <a class="ui theme-color light">LFRP</a>
         </template>
-      </section>
+      </section> -->
 
       <div class='flex divider'></div>
 
       <!-- description -->
       <section class='flex stretch col ui scroll theme-color main description'>
-        <span v-html="viewState.description | bbcode"></span>
+        <span v-html="description | bbcode"></span>
       </section>
     </section>
 
@@ -32,17 +32,16 @@
 
     <section class='flex row stretch'>
       <!-- message -->
-      <chat-message-list
-        class="flex stretch"
-        :messages='viewState.messages'
-        :preference='viewState.preference'>
-      </chat-message-list>
+      <chat-message-list class="flex stretch" :messages='messages'></chat-message-list>
 
       <div class='flex divider'></div>
 
       <!-- users -->
       <ul class='flex fixed ui theme-color main scroll character-list'>
-        <li class='ui hover-darken highlight green' v-for='char in characterGroups.friends'>
+        <li v-for='char in characters'>
+          <character :name='char.name' :gender='char.gender' :status='char.status.state'></character>
+        </li>
+        <!-- <li class='ui hover-darken highlight green' v-for='char in characterGroups.friends'>
           <character class='character-list-item' :character='char'></character>
         </li>
         <li class='ui hover-darken highlight blue' v-for='char in characterGroups.bookmarks'>
@@ -56,7 +55,7 @@
         </li>
         <li class='ui hover-darken' v-for='char in characterGroups.rest'>
           <character class='character-list-item' :character='char'></character>
-        </li>
+        </li> -->
       </ul>
     </section>
 
@@ -64,7 +63,7 @@
 
     <!-- chatbox -->
     <section class='flex fixed ui theme-color main'>
-      <chatbox class='chatbox'></chatbox>
+      <slot name='chatbox'></slot>
     </section>
   </div>
 </template>
@@ -108,9 +107,6 @@ import Character from '../elements/Character.vue'
 import ChatMessage from '../elements/ChatMessage.vue'
 import ChatMessageList from '../elements/ChatMessageList.vue'
 
-import state from '../../lib/state'
-import {CharacterActivated} from '../../lib/events'
-
 function compareNames (a, b) {
   return a.name.localeCompare(b.name)
 }
@@ -124,11 +120,9 @@ export default {
   },
 
   props: {
-    viewState: Object
-  },
-
-  data () {
-    return { state }
+    messages: Array,
+    characters: Array,
+    description: String
   },
 
   computed: {
@@ -181,6 +175,10 @@ export default {
           return 'darker subtle'
         }
       }
+    },
+
+    chatboxSubmit (message) {
+
     }
   }
 }

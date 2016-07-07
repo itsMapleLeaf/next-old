@@ -31,7 +31,7 @@ export type ChannelState = {
   id: ChannelID,
   name: string,
   mode: ChannelMode,
-  preference: ChannelMode,
+  modeFilter: ChannelMode,
   description: string,
   characters: Character[],
   messages: ChatMessage[]
@@ -46,7 +46,7 @@ export type PrivateChatState = {
 export type ChatMessage = {
   sender: Character,
   message: string,
-  kind: ChatMessageKind,
+  type: ChatMessageType,
   time: Date
 }
 
@@ -90,7 +90,7 @@ export type ChannelMode
   | 'chat'
   | 'ads'
 
-export type ChatMessageKind
+export type ChatMessageType
   = 'chat'
   | 'lfrp'
   | 'admin'

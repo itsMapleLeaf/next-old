@@ -249,10 +249,12 @@ export class Socket {
 
       // channel message
       case 'MSG': {
-        const id: ChannelID = params.channel
-        const char: Character = store.getCharacter(params.character)
-        const message: ChatMessage = createChatMessage(char, params.message, 'chat')
-        store.dispatch({ type: 'ChannelMessage', id, message })
+        store.dispatch({
+          type: 'ChannelMessage',
+          id: params.channel,
+          sender: params.character,
+          message: params.message
+        })
         break
       }
 

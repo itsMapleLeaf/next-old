@@ -3,7 +3,8 @@ import {
   Gender,
   Character,
   ChannelState,
-  ChatMessage
+  ChatMessage,
+  ChatMessageType
 } from 'modules/types'
 
 export function createCharacter (name: CharacterName, gender: Gender): Character {
@@ -24,18 +25,18 @@ export function createChannelState (id, name): ChannelState {
     id,
     name,
     mode: 'both',
-    preference: 'both',
+    modeFilter: 'both',
     description: '',
     characters: [],
     messages: []
   }
 }
 
-export function createChatMessage (sender, message, kind): ChatMessage {
+export function createChatMessage (sender: Character, message: string, type: ChatMessageType): ChatMessage {
   return {
     sender,
     message,
-    kind,
+    type,
     date: new Date()
   }
 }

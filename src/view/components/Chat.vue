@@ -1,6 +1,6 @@
 <template>
-  <div class='flex col ui theme-color dark fullscreen'>
-    <div class='flex row fixed' style='flex-wrap: wrap'>
+  <main class='flex col ui theme-color dark fullscreen'>
+    <nav class='flex row fixed' style='flex-wrap: wrap'>
       <shortcut title="Actions" icon="bars" overlay="app-menu"></shortcut>
       <shortcut title="Channels" icon="globe" overlay="channel-list"></shortcut>
       <shortcut title="Users" icon="heart" overlay="online-users"></shortcut>
@@ -11,11 +11,18 @@
         @closed="closeChat(chat)">
         {{chat.name}}
       </chat-tab>
-    </div>
+    </nav>
 
-    <!-- <component :is="currentTab.view" :view-state="currentTab.state">
-    </component> -->
-  </div>
+    <channel-view v-if="currentChat && currentChat.type === 'channel'"
+      :messages="currentChat.message"
+      :characters="currentChat.characters"
+      :description="currentChat.description">
+      <chatbox slot='chatbox'
+        :character="characterName"
+        @chatbox-submit="chatboxSubmit">
+      </chatbox>
+    </channel-view>
+  </main>
 </template>
 
 <style lang="stylus" scoped>
@@ -26,7 +33,8 @@
 
 <script>
 import ChatTab from './elements/ChatTab.vue'
-// import ChannelView from './chat-views/ChannelView.vue'
+import Chatbox from './elements/Chatbox.vue'
+import ChannelView from './chat-views/ChannelView.vue'
 // import PrivateChatView from './chat-views/PrivateChatView.vue'
 
 import {store, state} from 'modules/store'
@@ -61,7 +69,8 @@ const Shortcut = {
 export default {
   components: {
     ChatTab,
-    // ChannelView,
+    ChannelView,
+    Chatbox,
     // PrivateChatView,
     Shortcut
   },
@@ -80,6 +89,10 @@ export default {
 
     currentChat () {
       return this.activeChats[this.currentIndex]
+    },
+
+    characterName () {
+      return store.getUserCharacterName()
     }
   },
 
@@ -89,6 +102,10 @@ export default {
         store.notify('LeaveChannelRequest', { id: chat.id })
         this.currentIndex--
       }
+    },
+
+    chatboxSubmit (message) {
+      console.info(message)
     }
   },
 

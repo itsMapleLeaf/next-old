@@ -1,6 +1,6 @@
 <template>
-  <span class="gender" :class="gender">
-    <i class="fa fa-circle status" :class="status"></i> {{character.name}}
+  <span class="gender" :class="gender.toLowerCase()">
+    <i class="fa fa-circle status" :class="status.toLowerCase()"></i> {{name}}
   </span>
 </template>
 
@@ -8,7 +8,6 @@
 span
   font-weight: 700
   /*text-shadow: 0px 1px 2px rgba(black, 0.5)*/
-  cursor: pointer
 
 .status
   font-size: 40%
@@ -35,17 +34,11 @@ span
 </style>
 
 <script>
-import {getProfileURL} from 'modules/flist'
-
 export default {
   props: {
-    character: Object
-  },
-
-  computed: {
-    gender () { return this.character.gender.toLowerCase() },
-    status () { return this.character.status.state.toLowerCase() },
-    profileURL () { return getProfileURL(this.character.name) }
+    name: String,
+    gender: String,
+    status: String
   }
 }
 </script>

@@ -15,27 +15,21 @@ div
 </style>
 
 <script>
-import state from '../../lib/state'
-import {ChatboxSubmit} from '../../lib/events'
-
 export default {
   props: {
+    character: String,
     maxLength: {
       type: Number,
       default: Infinity
     }
   },
 
-  data () {
-    return { state }
-  },
-
   computed: {
     placeholder () {
-      if (this.state.getUserCharacterName() === '') {
+      if (!this.character) {
         return 'Not chatting quite yet...'
       } else {
-        return `Chatting as ${this.state.getUserCharacterName()}...`
+        return `Chatting as ${this.character}...`
       }
     }
   },
@@ -51,7 +45,7 @@ export default {
 
     submit (event) {
       if (!event.shiftKey) {
-        this.$dispatch(ChatboxSubmit, this.getContent())
+        this.$emit('chatbox-submit', this.content)
         this.setContent('')
         event.preventDefault()
       }
