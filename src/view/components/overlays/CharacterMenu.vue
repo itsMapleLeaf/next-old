@@ -1,20 +1,20 @@
 <template>
   <action-panel side="right">
     <section slot="content">
-      <form slot="content" class="ui form">
+      <form slot="content">
         <h2 class="wrap-break-word">{{char.name}}</h2>
-        <div class="ui field">
+        <fieldset>
           <character-avatar-link :character="activeCharacter"></character-avatar-link>
-        </div>
-        <small class="ui field wrap-break-word section">
-          <em>
+        </fieldset>
+        <fieldset>
+          <em class="ui-dark ui-border ui-small">
             {{char.gender}}, {{char.status}}
             <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
           </em>
-        </small>
-        <small class="ui field section highlight green" v-for="friend in friendships">
+        </fieldset>
+        <fieldset class="ui-highlight-green" v-for="friend in friendships">
           <em><i class="fa fa-heart"></i> {{friend}}</em>
-        </small>
+        </fieldset>
       </form>
     </section>
     <section slot="options">
@@ -47,9 +47,8 @@ import MenuOption from '../elements/MenuOption.vue'
 import ActionPanel from '../elements/ActionPanel.vue'
 import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
 
-import {getProfileURL, getAvatarURL} from '../../lib/flist'
-import {OpenPrivateChatRequest, PopOverlay} from '../../lib/events'
-import state from '../../lib/state'
+import {getProfileURL, getAvatarURL} from 'modules/flist'
+import {store, state} from 'modules/store'
 
 export default {
   props: {
@@ -72,12 +71,12 @@ export default {
 
   methods: {
     openPrivateChat () {
-      this.$dispatch(OpenPrivateChatRequest, this.activeCharacter.name)
+      store.notify('PrivateChatOpened', this.activeCharacter.name)
       this.close()
     },
 
     close () {
-      this.$dispatch(PopOverlay)
+      store.notify('PopOverlay')
     }
   },
 
@@ -87,15 +86,15 @@ export default {
     },
 
     friendships () {
-      return this.state.getFriendship(this.char.name)
+      return store.getFriendship(this.char.name)
     },
 
     bookmarked () {
-      return this.state.isBookmarked(this.char.name)
+      return store.isBookmarked(this.char.name)
     },
 
     ignored () {
-      return this.state.isIgnored(this.char.name)
+      return store.isIgnored(this.char.name)
     }
   }
 }

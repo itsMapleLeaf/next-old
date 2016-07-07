@@ -1,6 +1,6 @@
 <template>
-  <div class='flex col stretch'>
-    <header class='flex fixed ui theme-color main'>
+  <main class='flex-column flex-stretch'>
+    <header class='flex-fixed ui-main'>
       <character :character='viewState.character'></character>
       <em>
         <span>- {{viewState.character.status}}</span>
@@ -8,16 +8,16 @@
       </em>
     </header>
 
-    <div class='flex divider'></div>
+    <div class='flex-divider'></div>
 
-    <chat-message-list class='flex stretch' :messages='viewState.messages'></chat-message-list>
+    <chat-message-list class='flex-stretch' :messages='viewState.messages'></chat-message-list>
 
-    <div class='flex divider'></div>
+    <div class='flex-divider'></div>
 
-    <section class='flex fixed ui theme-color main'>
+    <section class='flex-fixed ui-main'>
       <chatbox @message-sent='messageSent'></chatbox>
     </section>
-  </div>
+  </main>
 </template>
 
 <style lang="stylus" scoped>

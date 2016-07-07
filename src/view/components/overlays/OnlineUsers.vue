@@ -1,33 +1,30 @@
 <template>
   <overlay>
     <h2>Let's find some friends.</h2>
-    <form class="ui form" @submit.prevent>
-      <div class="ui field">
-        <!-- checkboxes for filters here -->
-      </div>
-      <div class="ui field">
-        <ul class="ui selection" style="">
-          <li v-for="char in filterRelation('friend')" class="ui highlight green">
-            <i class="fa fa-heart ui pull-right"></i>
+    <form>
+      <fieldset>
+        <ul class="ui-selection" style="">
+          <li v-for="char in filterRelation('friend')" class="ui-highlight-green">
+            <i class="fa fa-heart pull-right"></i>
             <character :character='char'></character>
           </li>
-          <li v-for="char in filterRelation('bookmark')" class="ui highlight blue">
-            <i class="fa fa-star ui pull-right"></i>
+          <li v-for="char in filterRelation('bookmark')" class="ui-highlight-blue">
+            <i class="fa fa-star pull-right"></i>
             <character :character='char'></character>
           </li>
           <li v-for="char in filterRelation('looking')">
-            <i class="fa fa-paw ui pull-right"></i>
+            <i class="fa fa-paw pull-right"></i>
             <character :character='char'></character>
           </li>
           <li v-for="char in filterRelation()">
             <character :character='char'></character>
           </li>
         </ul>
-      </div>
-      <div class="ui field text-input icon right">
+      </fieldset>
+      <fieldset class="ui-icon-right">
         <i class="fa fa-search"></i>
         <input type="text" placeholder="Search..." v-model="search" />
-      </div>
+      </fieldset>
     </form>
   </overlay>
 </template>

@@ -1,29 +1,28 @@
 <template>
   <overlay>
     <h2>Chill and chat? Sounds good.</h2>
-    <form class='ui form'>
-      <section class='ui field'>
-        <ul class='ui selection'>
-          <li v-for='channel in filter(publicChannels)'
-            class="ui noselect" :class="{ 'active': isJoined(channel.id) }"
+    <form>
+      <fieldset>
+        <ul class="ui-selection">
+          <li v-for="channel in filter(publicChannels)"
+            class="no-select" :class="{ 'active': isJoined(channel.id) }"
             :data-toggle-channel="channel.id">
-            <span class='ui pull right'>{{channel.userCount}}</span>
+            <span class='pull-right'>{{channel.userCount}}</span>
             <span v-html="channel.name"></span>
           </li>
-          <li v-for='channel in filter(privateChannels)'
-            class="ui noselect" :class="{ 'active': isJoined(channel.id) }"
+          <li v-for="channel in filter(privateChannels)"
+            class="no-select" :class="{ 'active': isJoined(channel.id) }"
             :data-toggle-channel="channel.id">
-            <span class='ui pull right'>{{channel.userCount}}</span>
+            <span class="pull-right">{{channel.userCount}}</span>
             <span v-html="channel.name"></span><br />
-            <em class="ui small subtle">{{channel.id}}</em>
+            <em class="ui-small ui-subtle">{{channel.id}}</em>
           </li>
         </ul>
-      </section>
-
-      <section class='ui field text-input icon left'>
-        <i class='fa fa-search'></i>
-        <input type="text" placeholder="Search..." v-model='search'>
-      </section>
+      </fieldset>
+      <fieldset class="ui-icon-left">
+        <i class="fa fa-search"></i>
+        <input type="text" placeholder="Search..." v-model="search">
+      </fieldset>
     </form>
   </overlay>
 </template>

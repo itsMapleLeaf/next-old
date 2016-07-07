@@ -1,9 +1,9 @@
 <template>
   <div>
-    <span class='ui section icon right hover-darken noselect head' @click='toggle'>
+    <span class='ui-dark ui-border ui-icon-right no-select head' @click='toggle'>
       <i class='fa fa-caret-down'></i> {{ valueLabel }}
     </span>
-    <ol class='ui theme-color dark border shadow' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
+    <ol class='ui-dark ui-border ui-shadow' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
       <slot></slot>
     </ol>
   </div>

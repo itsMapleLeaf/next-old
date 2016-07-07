@@ -1,6 +1,6 @@
 <template>
-  <main class='flex col ui theme-color dark fullscreen'>
-    <nav class='flex row fixed' style='flex-wrap: wrap'>
+  <main class='flex-column ui-dark fullscreen'>
+    <nav class='flex-row flex-fixed' style='flex-wrap: wrap'>
       <shortcut title="Actions" icon="bars" overlay="app-menu"></shortcut>
       <shortcut title="Channels" icon="globe" overlay="channel-list"></shortcut>
       <shortcut title="Users" icon="heart" overlay="online-users"></shortcut>
@@ -47,7 +47,7 @@ function clamp (num, min, max) {
 
 const Shortcut = {
   template: `
-    <a class='ui hover-darken flex fixed center-content header-shortcut'
+    <a class='flex-fixed flex-center-children header-shortcut'
       title="Actions"
       @click="pushOverlay">
       <i class='fa fa-{{icon}}'></i>

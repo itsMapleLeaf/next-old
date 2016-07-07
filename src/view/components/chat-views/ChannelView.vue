@@ -1,6 +1,6 @@
 <template>
-  <div class='flex stretch col'>
-    <section class='flex fixed row channel-head'>
+  <main class='flex-column flex-stretch'>
+    <section class='flex-row flex-fixed channel-head'>
       <!-- channel prefs -->
       <!-- <section class='flex fixed col channel-prefs' style='justify-content: space-between'>
         <template v-if="viewState.mode === 'both'">
@@ -20,24 +20,24 @@
         </template>
       </section> -->
 
-      <div class='flex divider'></div>
+      <div class='flex-divider'></div>
 
       <!-- description -->
-      <section class='flex stretch col ui scroll theme-color main description'>
+      <section class='flex-stretch flex-column ui-main scroll-y description'>
         <span v-html="description | bbcode"></span>
       </section>
     </section>
 
-    <div class='flex divider'></div>
+    <div class='flex-divider'></div>
 
-    <section class='flex row stretch'>
+    <section class='flex-row flex-stretch'>
       <!-- message -->
-      <chat-message-list class="flex stretch" :messages='messages'></chat-message-list>
+      <chat-message-list class="flex-stretch" :messages='messages'></chat-message-list>
 
-      <div class='flex divider'></div>
+      <div class='flex-divider'></div>
 
       <!-- users -->
-      <ul class='flex fixed ui theme-color main scroll character-list'>
+      <ul class='flex-fixed ui-main scroll-y character-list'>
         <li v-for='char in characters'>
           <character :name='char.name' :gender='char.gender' :status='char.status.state'></character>
         </li>
@@ -59,13 +59,13 @@
       </ul>
     </section>
 
-    <div class='flex divider'></div>
+    <div class='flex-divider'></div>
 
     <!-- chatbox -->
-    <section class='flex fixed ui theme-color main'>
+    <section class='flex-fixed ui-main'>
       <slot name='chatbox'></slot>
     </section>
-  </div>
+  </main>
 </template>
 
 <style lang="stylus" scoped>

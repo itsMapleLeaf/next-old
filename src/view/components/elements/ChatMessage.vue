@@ -1,6 +1,5 @@
 <template>
-  <div class="ui hover-darken"
-    :class="{'highlight green': kind === 'lfrp'}"
+  <div :class="{'ui-highlight-green': kind === 'lfrp'}"
     :style="{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }">
     <character :character='sender'></character>
     <span class='message-text' v-html="parsedMessage | bbcode"></span>

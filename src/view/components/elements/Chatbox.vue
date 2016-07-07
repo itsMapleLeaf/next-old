@@ -1,5 +1,5 @@
 <template>
-  <div class="ui theme-color main focus-lighten"
+  <div class="ui-main"
   contenteditable
   :maxlength="maxLength"
   :placeholder="placeholder"

@@ -1,19 +1,19 @@
 <template>
   <overlay no-close>
     <h2>Who do we feel like playing today?</h2>
-    <form class='ui form' @submit.prevent='submit'>
-      <div class='ui field'>
-        <ul class='ui selection'>
+    <form @submit.prevent='submit'>
+      <fieldset>
+        <ul class='ui-selection'>
           <li v-for='name in characters'
           :class='{ "active": name === activeCharacter }'
           @click='setSelectedCharacter(name)'>
             {{name}}
           </li>
         </ul>
-      </div>
-      <div class='ui field'>
+      </fieldset>
+      <fieldset>
         <button class='ui padded-button'>Go</button>
-      </div>
+      </fieldset>
     </form>
   </overlay>
 </template>

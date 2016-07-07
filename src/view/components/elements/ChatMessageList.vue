@@ -1,5 +1,5 @@
 <template>
-  <div class="ui scroll" v-el:container @scroll='onScroll'>
+  <div class="scroll-y" v-el:container @scroll='onScroll'>
     <chat-message v-for='msg in filteredMessages' :message='msg'></chat-message>
   </div>
 </template>

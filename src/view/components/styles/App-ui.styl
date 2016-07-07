@@ -1,8 +1,28 @@
 @import 'App-colors'
+@import 'App-common'
 
-highlight($color)
+highlight($color) {
   background-color: rgba($color, 0.25)
   color: lighten($color, 20%)
+}
+
+ui-icon($side) {
+  .ui-icon-{$side} {
+    position: relative
+
+    .fa-fw {
+      position: absolute
+      top: 50%
+      transform: translateY(-50%)
+      opacity: 0.5
+      {$side}: 0.3em
+    }
+
+    input {
+      padding-{$side}: 1.8em
+    }
+  }
+}
 
 .ui-small { font-size: 85% }
 .ui-subtle { opacity: 0.5 }
@@ -22,11 +42,14 @@ highlight($color)
 .ui-highlight-blue  { highlight: rgb(52, 152, 219) }
 .ui-highlight-red   { highlight: rgb(231, 76, 60) }
 
-.ui-shade { background-color: rgba(black, 0.5) }
+.ui-shade {
+  @extend .fullscreen
+  background-color: rgba(black, 0.5)
+}
 
 .ui-link {
   border-bottom: 1px solid rgba($text-color, 0.3)
-  
+
   &:hover {
     border-bottom-color: rgba($text-color, 0.8)
   }
@@ -38,18 +61,5 @@ highlight($color)
   }
 }
 
-.ui-icon-left {
-  position: relative
-
-  .fa-fw {
-    position: absolute
-    left: 0.3em
-    top: 50%
-    transform: translateY(-50%)
-    opacity: 0.5
-  }
-
-  input {
-    padding-left: 1.8em
-  }
-}
+ui-icon(left)
+ui-icon(right)

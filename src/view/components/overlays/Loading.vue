@@ -1,6 +1,6 @@
 <template>
-  <div class='ui overlay flex col center-content' transition="fade">
-    <i class='fa fa-paw'></i>
+  <div class="ui-shade flex-column flex-center-children" transition="fade">
+    <i class="fa fa-paw"></i>
     <h3><em>Working on it...</em></h3>
   </div>
 </template>
@@ -27,10 +27,4 @@ i, h3
   color: rgba(white, 0.7)
 </style>
 
-<script>
-import Overlay from '../elements/Overlay.vue'
-
-export default {
-  components: { Overlay }
-}
-</script>
+<script></script>

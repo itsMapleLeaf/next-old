@@ -1,15 +1,27 @@
 <template>
-  <div class="ui overlay" :transition="transition" @click.self="close">
-    <div class="ui side-panel {{side}} flex col">
-      <div class="flex fixed">
+  <main class="ui-shade" :transition="'slide-' + side" @click.self="close">
+    <aside :class="'flex-column ui-main ui-shadow panel-' + side">
+      <section class="flex-fixed">
         <slot name="content"></slot>
-      </div>
-      <div class="flex stretch ui theme-color dark">
+      </section>
+      <nav class="flex-stretch ui-dark">
         <slot name="options"></slot>
-      </div>
-    </div>
-  </div>
+      </nav>
+    </aside>
+  </main>
 </template>
+
+<style scoped>
+.panel-left, .panel-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12em;
+}
+
+.panel-left { left: 0 }
+.panel-right { right: 0 }
+</style>
 
 <script>
 import {store} from 'modules/store'
@@ -22,16 +34,9 @@ export default {
     }
   },
 
-  data () {
-    return {
-      transition: 'slide-' + this.side,
-      store
-    }
-  },
-
   methods: {
     close () {
-      this.store.notify('PopOverlay')
+      store.notify('PopOverlay')
     }
   }
 }

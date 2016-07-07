@@ -1,6 +1,6 @@
 <template>
   <overlay panel-width='18em'>
-    <p><a class='ui link' href='https://www.f-list.net/c/alexander%20grapevine/'>
+    <p><a class='ui-link' href='https://www.f-list.net/c/alexander%20grapevine/'>
       <img src="https://static.f-list.net/images/avatar/alexander%20grapevine.png" />
     </a></p>
     <p><dev-info></dev-info></p>

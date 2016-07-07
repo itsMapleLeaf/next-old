@@ -2,10 +2,10 @@
   <action-panel side="left">
     <form slot="content" class="ui form">
       <h2>{{greeting}}</h2>
-      <div class="ui field">
+      <fieldset>
         <character-avatar-link :character="character"></character-avatar-link>
-      </div>
-      <div class="ui field">
+      </fieldset>
+      <fieldset>
         <dropdown :init-value="status.state" @changed='setStatus'>
           <li value="online">Online</li>
           <li value="looking">Looking</li>
@@ -13,13 +13,13 @@
           <li value="away">Away</li>
           <li value="dnd">DND</li>
         </dropdown>
-      </div>
-      <div class="ui field text-input icon right">
+      <fieldset>
+      <fieldset class="ui-icon-right">
         <i class='fa fa-pencil'></i>
         <div v-el:status-message contenteditable placeholder="What's up?"
           @blur='setStatusMessage($event.target.innerText)'
           @keydown.enter.prevent='$event.target.blur()'></div>
-      </div>
+      </fieldset>
     </form>
 
     <div slot="options">

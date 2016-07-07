@@ -6,3 +6,4 @@ targets:
   dev:
     cmd: 'webpack-dev-server'
     args: ['--inline', '--hot', '--progress', '--colors']
+    sh: false
