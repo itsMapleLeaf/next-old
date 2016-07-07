@@ -3,13 +3,11 @@
     <h2>Who do we feel like playing today?</h2>
     <form @submit.prevent='submit'>
       <fieldset>
-        <ul class='ui-selection'>
-          <li v-for='name in characters'
-          :class='{ "active": name === activeCharacter }'
-          @click='setSelectedCharacter(name)'>
+        <selection-list>
+          <li v-for='name in characters' :active="name === activeCharacter" @click='setSelectedCharacter(name)'>
             {{name}}
           </li>
-        </ul>
+        </selection-list>
       </fieldset>
       <fieldset>
         <button class='ui padded-button'>Go</button>
@@ -22,6 +20,7 @@
 
 <script>
 import Overlay from '../elements/Overlay.vue'
+import SelectionList from '../elements/SelectionList.vue'
 import {store} from 'modules/store'
 
 export default {
@@ -32,9 +31,7 @@ export default {
     }
   },
 
-  components: {
-    Overlay
-  },
+  components: { Overlay, SelectionList },
 
   computed: {
     characters () {

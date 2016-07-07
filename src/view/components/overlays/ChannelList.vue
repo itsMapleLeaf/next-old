@@ -3,24 +3,24 @@
     <h2>Chill and chat? Sounds good.</h2>
     <form>
       <fieldset>
-        <ul class="ui-selection">
+        <selection-list class="channels">
           <li v-for="channel in filter(publicChannels)"
-            class="no-select" :class="{ 'active': isJoined(channel.id) }"
+            class="no-select" :active="isJoined(channel.id)"
             :data-toggle-channel="channel.id">
             <span class='pull-right'>{{channel.userCount}}</span>
             <span v-html="channel.name"></span>
           </li>
           <li v-for="channel in filter(privateChannels)"
-            class="no-select" :class="{ 'active': isJoined(channel.id) }"
+            class="no-select" :active="isJoined(channel.id)"
             :data-toggle-channel="channel.id">
             <span class="pull-right">{{channel.userCount}}</span>
             <span v-html="channel.name"></span><br />
             <em class="ui-small ui-subtle">{{channel.id}}</em>
           </li>
-        </ul>
+        </selection-list>
       </fieldset>
-      <fieldset class="ui-icon-left">
-        <i class="fa fa-search"></i>
+      <fieldset class="ui-icon-left" style="width: min-content">
+        <i class="fa fa-fw fa-search"></i>
         <input type="text" placeholder="Search..." v-model="search">
       </fieldset>
     </form>
@@ -28,7 +28,7 @@
 </template>
 
 <style lang="stylus" scoped>
-.selection
+.channels
   text-align: left
   width: 18em
   height: 28em
@@ -43,6 +43,7 @@
 
 <script>
 import Overlay from '../elements/Overlay.vue'
+import SelectionList from '../elements/SelectionList.vue'
 import {store, state} from 'modules/store'
 import {socket} from 'modules/socket'
 
@@ -51,6 +52,8 @@ function compareChannelInfo (a, b) {
 }
 
 export default {
+  components: { Overlay, SelectionList },
+
   data () {
     return {
       search: '',
@@ -67,10 +70,6 @@ export default {
 
     this.publicChannels = store.getPublicChannelList().sort(compareChannelInfo)
     this.privateChannels = store.getPrivateChannelList().sort(compareChannelInfo)
-  },
-
-  components: {
-    Overlay
   },
 
   methods: {

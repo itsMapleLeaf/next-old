@@ -34,9 +34,6 @@
 </template>
 
 <style lang="stylus" scoped>
-.form
-  padding: 0em 1em
-
 .avatar
   display: inline-block
 

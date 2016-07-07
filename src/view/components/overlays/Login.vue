@@ -27,10 +27,6 @@
 </template>
 
 <style lang="stylus" scoped>
-form {
-  padding: 0em 1.2em
-}
-
 .about-link {
   position: absolute
   right: 0.5em
