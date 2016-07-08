@@ -1,7 +1,7 @@
 <template>
   <div>
-    <span class='ui-dark ui-border ui-icon-right no-select head' @click='toggle'>
-      <i class='fa fa-caret-down'></i> {{ valueLabel }}
+    <span class='ui-dark ui-border ui-icon-right no-select cursor-pointer field-padding head' @click='toggle'>
+      <i class='fa fa-fw fa-caret-down'></i> {{ valueLabel }}
     </span>
     <ol class='ui-dark ui-border ui-shadow' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
       <slot></slot>

@@ -1,12 +1,13 @@
 <template>
-  <main class='fullscreen ui-shade flex-center-children' transition='fade' @click.self='close'>
-    <section class='panel ui-main ui-shadow' :style="{ width: panelWidth, height: panelHeight }">
+  <div class='ui-shade' transition='fade' @click.self='close'></div>
+  <div class='fullscreen flex-center-children no-click' transition='fade-fluid'>
+    <section class='panel ui-main ui-shadow center-self' :style="{ width: panelWidth, height: panelHeight }">
       <slot></slot>
       <a class='close-button flex-center-children' href='#' v-if="!noClose" @click='close'>
         <i class='fa fa-times'></i>
       </a>
     </section>
-  </main>
+  </div>
 </template>
 
 <style lang="stylus" scoped>

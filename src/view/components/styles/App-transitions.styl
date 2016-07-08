@@ -2,7 +2,7 @@ $ease-in-quad = cubic-bezier(0.550,  0.085, 0.680, 0.530)
 $ease-out-quad = cubic-bezier(0.250,  0.460, 0.450, 0.940)
 
 animate($property, $easing = ease)
-  transition: $property 0.4s $easing
+  transition: $property 0.35s $easing
 
 .fade
   &-transition
@@ -12,31 +12,23 @@ animate($property, $easing = ease)
   &-enter, &-leave
     opacity: 0
 
-.ui.overlay.fade
+.fade-fluid
   &-transition
-    .ui.panel
-      animate: transform, $ease-out-quad
-      transform: translateY(0em)
+    animate: all, $ease-out-quad
+    opacity: 1
+    transform: translateY(0em)
 
   &-enter, &-leave
-    .ui.panel
-      animate: transform, $ease-in-quad
-      transform: translateY(-4em)
+    animate: all, $ease-in-quad
+    opacity: 0
+    transform: translateY(-4em)
 
-slide($side)
+for $side in 'left' 'right'
   .slide-{$side}
     &-transition
-      animate: all, $ease-out-quad
-      opacity: 1
-      .ui.side-panel
-        animate: all
-        {$side}: 0em
+      animate: transform, $ease-out-quad
+      transform: translateX(0%)
 
     &-enter, &-leave
-      opacity: 0
-      .ui.side-panel
-        animate: all, $ease-in-quad
-        {$side}: -14em
-
-slide('left')
-slide('right')
+      animate: transform, $ease-in-quad
+      transform: translateX(-100%)

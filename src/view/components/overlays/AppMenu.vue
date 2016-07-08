@@ -1,6 +1,6 @@
 <template>
   <action-panel side="left">
-    <form slot="content" class="ui form">
+    <form slot="content">
       <h2>{{greeting}}</h2>
       <fieldset>
         <character-avatar-link :character="character"></character-avatar-link>
@@ -13,23 +13,23 @@
           <li value="away">Away</li>
           <li value="dnd">DND</li>
         </dropdown>
-      <fieldset>
+      </fieldset>
       <fieldset class="ui-icon-right">
-        <i class='fa fa-pencil'></i>
-        <div v-el:status-message contenteditable placeholder="What's up?"
+        <i class='fa fa-fw fa-pencil'></i>
+        <div contenteditable placeholder="What's up?" v-el:status-message
           @blur='setStatusMessage($event.target.innerText)'
           @keydown.enter.prevent='$event.target.blur()'></div>
       </fieldset>
     </form>
 
-    <div slot="options">
+    <nav slot="options">
       <menu-option icon='globe' @mousedown="pushOverlay('channel-list')">Channels</menu-option>
       <menu-option icon='heart' @mousedown="pushOverlay('online-users')">Online Users</menu-option>
       <menu-option icon='gear'>Settings</menu-option>
       <menu-option icon='user' @mousedown="switchCharacter">Switch Character</menu-option>
       <menu-option icon='sign-out' @mousedown="logOut">Log Out</menu-option>
       <menu-option icon='info' @mousedown="pushOverlay('about')">About</menu-option>
-    </div>
+    </nav>
   </action-panel>
 </template>
 

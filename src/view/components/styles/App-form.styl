@@ -1,16 +1,19 @@
 @import 'App-ui'
 @import 'App-common'
 
+.field-padding {
+  padding: 0.3em 0.6em
+}
+
 fieldset {
   border: none
   padding: 0
-  margin-bottom: 1em
+  margin: 0em 0em 1em
 }
 
-input, textarea {
-  @extend .ui-dark, .ui-border
+input, textarea, [contenteditable] {
+  @extend .ui-dark, .ui-border, .field-padding
   width: 10em
-  padding: 0.3em 0.6em
 }
 
 button {
