@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <span class='ui-dark ui-border ui-icon-right no-select cursor-pointer field-padding head' @click='toggle'>
+  <div class='ui-input'>
+    <span class='head' @click='toggle'>
       <i class='fa fa-fw fa-caret-down'></i> {{ valueLabel }}
     </span>
-    <ol class='ui-dark ui-border ui-shadow' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
+    <ol class='ui-color-dark ui-border' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
       <slot></slot>
     </ol>
   </div>
@@ -18,12 +18,12 @@ div
 
 .head
   width: 100%
-  z-index: 10000
+  z-index: 420
 
 ol
   width: 100%
   position: absolute
-  z-index: 9999
+  z-index: 69
 </style>
 
 <script>

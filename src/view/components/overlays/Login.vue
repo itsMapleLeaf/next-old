@@ -2,36 +2,39 @@
   <overlay no-close>
     <form @submit.prevent='submit' :disabled='disabled'>
       <h2>Hello, beautiful.</h2>
-      <fieldset class='ui-icon-left'>
-        <i class='fa fa-user fa-fw'></i>
-        <input type="text" placeholder="Username" v-model="username">
-      </fieldset>
-      <fieldset class='ui-icon-left'>
-        <i class='fa fa-lock fa-fw'></i>
-        <input type="password" placeholder="Password" v-model="password">
-      </fieldset>
-      <fieldset>
+      <div class='ui-field ui-input-icon'>
+        <i class='ui-icon fa fa-user fa-fw'></i>
+        <input class='ui-input' type="text" placeholder="Username" v-model="username">
+      </div>
+      <div class='ui-field ui-input-icon'>
+        <i class='ui-icon fa fa-lock fa-fw'></i>
+        <input class='ui-input' type="password" placeholder="Password" v-model="password">
+      </div>
+      <div class='ui-field'>
         <toggle :value='remember' @click='remember = !remember'>Remember me</toggle>
-      </fieldset>
-      <fieldset>
-        <button class='ui padded-button' action="submit" >Go</button>
-      </fieldset>
-      <fieldset>
+      </div>
+      <div class='ui-field'>
+        <button class='ui-button' class='ui padded-button' action="submit" >Go</button>
+      </div>
+      <div class='ui-field'>
         <span>{{status}}</span>
-      </fieldset>
-      <a class='ui-subtle about-link' href='#' data-push-overlay='about'>
-        <i class='fa fa-question-circle'></i>
-      </a>
+      </div>
     </form>
+    <a class='ui-text about-link' href='#' data-push-overlay='about'>
+      <i class='fa fa-question-circle'></i>
+    </a>
   </overlay>
 </template>
 
 <style lang="stylus" scoped>
-.about-link {
+form
+  text-align: center
+
+.about-link
+  opacity: 0.5
   position: absolute
   right: 0.5em
   bottom: 0.5em
-}
 </style>
 
 <script>

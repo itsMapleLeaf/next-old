@@ -1,20 +1,20 @@
 <template>
-  <div class='ui-shade' transition='fade' @click.self='close'></div>
-  <div class='fullscreen flex-center-children no-click' transition='fade-fluid'>
-    <section class='panel ui-main ui-shadow center-self' :style="{ width: panelWidth, height: panelHeight }">
+  <div class='ui-overlay'>
+    <div class='ui-overlay-shade' @click.self='close'></div>
+    <div class='ui-overlay-panel'>
       <slot></slot>
-      <a class='close-button flex-center-children' href='#' v-if="!noClose" @click='close'>
+      <a class='flex-center-children close-button' href='#' v-if="!noClose" @click='close'>
         <i class='fa fa-times'></i>
       </a>
-    </section>
+    </div>
   </div>
 </template>
 
 <style lang="stylus" scoped>
-.panel
+.ui-overlay-panel
   position: relative
   text-align: center
-  padding: 0em 1.2em
+  padding: 1em 1.2em
 
 .close-button
   max-width: 100vw
@@ -35,16 +35,6 @@ export default {
     noClose: {
       type: Boolean,
       default: false
-    },
-
-    panelWidth: {
-      type: String,
-      default: 'min-content'
-    },
-
-    panelHeight: {
-      type: String,
-      default: 'max-content'
     }
   },
 

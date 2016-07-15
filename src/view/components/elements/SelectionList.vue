@@ -1,5 +1,5 @@
 <template>
-  <ol class="ui-dark ui-border scroll-y">
+  <ol class="ui-color-dark ui-border ui-scroll">
     <slot></slot>
   </ol>
 </template>

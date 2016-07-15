@@ -1,33 +1,23 @@
-.flex {
+.flex-column
   display: flex
-}
-
-.flex-column {
-  @extend .flex
   flex-direction: column
-}
 
-.flex-row {
-  @extend .flex
+.flex-row
+  display: flex
   flex-direction: row
-}
 
-.flex-stretch {
+.flex-stretch
   flex-grow: 1
-}
 
-.flex-fixed {
+.flex-fixed
   flex-shrink: 0
-}
 
-.flex-center-children {
-  @extend .flex
+.flex-center-children
+  display: flex
   align-items: center
   justify-content: center
-}
 
-.flex-divider {
+.flex-divider
   @extend .flex-fixed
   width: 2px
   height: 2px
-}

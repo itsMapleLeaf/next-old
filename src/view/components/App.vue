@@ -1,16 +1,19 @@
 <template>
-  <main @mouseup="checkDataAttribute($event)">
+  <div @mouseup="checkDataAttribute($event)">
     <chat></chat>
     <component v-for="overlay in overlays" :is='overlay'></component>
-  </main>
+  </div>
 </template>
 
-<style lang="stylus" src="./styles/App.styl"></style>
+<style lang="stylus" src="../styles/ui.styl"></style>
+<!-- <style lang="stylus" src="../styles/flex.styl"></style> -->
+
+<!-- <style lang="stylus" src="./styles/App.styl"></style>
 <style lang="stylus" src="./styles/App-common.styl"></style>
 <style lang="stylus" src="./styles/App-ui.styl"></style>
 <style lang="stylus" src="./styles/App-flex.styl"></style>
 <style lang="stylus" src="./styles/App-form.styl"></style>
-<style lang="stylus" src="./styles/App-transitions.styl"></style>
+<style lang="stylus" src="./styles/App-transitions.styl"></style> -->
 
 <script>
 // import CharacterMenu from './overlays/CharacterMenu.vue'

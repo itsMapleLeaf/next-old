@@ -1,8 +1,8 @@
 <template>
-  <main class='flex-column flex-stretch'>
-    <section class='flex-row flex-fixed channel-head'>
+  <div class='flex-column flex-stretch'>
+    <div class='flex-row flex-fixed channel-head'>
       <!-- channel prefs -->
-      <!-- <section class='flex fixed col channel-prefs' style='justify-content: space-between'>
+      <!-- <div class='flex fixed col channel-prefs' style='justify-content: space-between'>
         <template v-if="viewState.mode === 'both'">
           <a class="ui theme-color {{viewState.preference === 'both' ? 'light' : 'darker'}}" @click="viewState.preference = 'both'">Both</a>
           <a class="ui theme-color {{viewState.preference === 'chat' ? 'light' : 'darker'}}" @click="viewState.preference = 'chat'">Chat</a>
@@ -18,26 +18,26 @@
           <a class="ui theme-color darker subtle">Chat</a>
           <a class="ui theme-color light">LFRP</a>
         </template>
-      </section> -->
+      </div> -->
 
       <div class='flex-divider'></div>
 
       <!-- description -->
-      <section class='flex-stretch flex-column ui-main scroll-y description'>
+      <div class='flex-stretch flex-column ui-color-main ui-scroll description'>
         <span v-html="description | bbcode"></span>
-      </section>
-    </section>
+      </div>
+    </div>
 
     <div class='flex-divider'></div>
 
-    <section class='flex-row flex-stretch'>
+    <div class='flex-row flex-stretch'>
       <!-- message -->
       <chat-message-list class="flex-stretch" :messages='messages'></chat-message-list>
 
       <div class='flex-divider'></div>
 
       <!-- users -->
-      <ul class='flex-fixed ui-main scroll-y character-list'>
+      <ul class='flex-fixed ui-color-main ui-scroll character-list'>
         <li v-for='char in characters'>
           <character :name='char.name' :gender='char.gender' :status='char.status.state'></character>
         </li>
@@ -57,15 +57,15 @@
           <character class='character-list-item' :character='char'></character>
         </li> -->
       </ul>
-    </section>
+    </div>
 
     <div class='flex-divider'></div>
 
     <!-- chatbox -->
-    <section class='flex-fixed ui-main'>
+    <div class='flex-fixed ui-color-main'>
       <slot name='chatbox'></slot>
-    </section>
-  </main>
+    </div>
+  </div>
 </template>
 
 <style lang="stylus" scoped>

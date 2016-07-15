@@ -1,13 +1,13 @@
 <template>
   <action-panel side="right">
-    <section slot="content">
+    <div slot="content">
       <form slot="content">
         <h2 class="wrap-break-word">{{char.name}}</h2>
         <fieldset>
           <character-avatar-link :character="activeCharacter"></character-avatar-link>
         </fieldset>
         <fieldset>
-          <em class="ui-dark ui-border ui-small">
+          <em class="ui-color-dark ui-border ui-small">
             {{char.gender}}, {{char.status}}
             <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode"></span>
           </em>
@@ -16,8 +16,8 @@
           <em><i class="fa fa-heart"></i> {{friend}}</em>
         </fieldset>
       </form>
-    </section>
-    <section slot="options">
+    </div>
+    <div slot="options">
       <menu-option icon='comment' @click='openPrivateChat'>Send Message</menu-option>
 
       <menu-option icon='star-o' v-if='!bookmarked' @click='state.addBookmark(char.name)'>Bookmark</menu-option>
@@ -27,7 +27,7 @@
       <menu-option icon='minus-square' v-else>Unignore</menu-option>
 
       <menu-option icon='link' :href="getProfileURL(char.name)">View Profile</menu-option>
-    </section>
+    </div>
   </action-panel>
 </template>
 

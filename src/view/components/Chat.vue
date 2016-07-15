@@ -1,5 +1,5 @@
 <template>
-  <section class='flex-column ui-dark fullscreen'>
+  <div class='flex-column ui-color-dark fullscreen'>
     <nav class='flex-row flex-fixed' style='flex-wrap: wrap'>
       <shortcut title="Actions" icon="bars" overlay="app-menu"></shortcut>
       <shortcut title="Channels" icon="globe" overlay="channel-list"></shortcut>
@@ -21,7 +21,7 @@
         @chatbox-submit="chatboxSubmit">
       </chatbox>
     </channel-view>
-  </section>
+  </div>
 </template>
 
 <style lang="stylus" scoped>

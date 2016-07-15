@@ -1,0 +1,130 @@
+@import 'flex'
+
+// color definitions
+$colors = {
+  text: hsl(205, 30%, 90%)
+
+  main: hsl(210, 50%, 30%)
+  dark: hsl(211, 50%, 23%)
+  light: lighten(hsl(210, 50%, 30%), 20%)
+
+  red: rgb(231, 76, 60)
+  blue: rgb(52, 152, 219)
+  green: rgb(39, 174, 96)
+}
+
+// helpers
+.ui-fullscreen
+  position: absolute
+  left: 0
+  top: 0
+  right: 0
+  bottom: 0
+
+.ui-scroll
+  overflow-y: auto
+
+.ui-no-select
+  user-select: none
+
+// color and highlight styles
+.ui-text
+  font: 14pt 'Roboto', sans-serif
+  color: $colors.text
+
+.ui-header
+  font-family: 'Roboto Condensed', sans-serif
+  opacity: 0.9
+  font-weight: 300
+  padding: 0
+  margin: 0 0 1rem
+
+.ui-color-main { background-color: $colors.main }
+.ui-color-dark { background-color: $colors.dark }
+.ui-color-darker { background-color: darken($colors.dark, 10%) }
+.ui-color-light { background-color: $colors.light }
+.ui-color-lighter { background-color: lighten($colors.light, 10%) }
+
+for $color-name in ('red' 'green' 'blue')
+  $color = $colors[$color-name]
+  .ui-highlight-{$color-name}
+    background-color: rgba($color, 0.5)
+    color: lighten($color, 40%)
+
+// complimentary / additive composition styling
+.ui-border
+  border: none
+  border-bottom: 2px solid $colors.light
+
+// elements / components
+.ui-link
+  color: inherit
+  text-decoration: none
+
+.ui-field
+  margin-bottom: 1em
+
+.ui-input, .ui-button
+  @extend .ui-color-dark
+  color: inherit
+  font-family: inherit
+  font-size: 0.9em
+  padding: 0.4em 0.75em
+
+.ui-input
+  @extend .ui-border
+  width: 100%
+
+.ui-button
+  border: none
+  padding-left: 1.5em
+  padding-right: 1.5em
+
+.ui-overlay
+  @extend .ui-fullscreen, .flex-center-children
+
+.ui-overlay-shade
+  @extend .ui-fullscreen
+  background-color: rgba(black, 0.3)
+
+.ui-overlay-panel
+  @extend .ui-color-main
+  box-shadow: 0px 4px 12px rgba(black, 0.5)
+  width: max-content
+  max-width: 12em
+  z-index: 1
+
+for $side in ('left' 'right')
+  .ui-overlay-panel-{$side}
+    @extend .ui-overlay-panel
+    position: fixed
+    top: 0
+    bottom: 0
+    {$side}: 0
+
+.ui-input-icon
+  position: relative
+
+  .ui-icon
+    position: absolute
+    left: 0.5em
+    top: 0.5em
+    font-size: 0.9em
+    opacity: 0.5
+
+  .ui-input
+    padding-left: 2.2em
+
+// root element styles
+*
+  box-sizing: border-box
+
+div
+  padding: 0
+  margin: 0
+
+:root
+  @extend .ui-text
+
+h1, h2, h3, h4, h5, h6
+  @extend .ui-header

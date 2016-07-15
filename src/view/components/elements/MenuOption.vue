@@ -1,6 +1,6 @@
 <template>
-  <a class='ui-dark no-select cursor-pointer' target="_blank">
-    <i class='fa fa-{{icon}} fa-fw'></i> <slot></slot>
+  <a class='ui-color-dark ui-no-select' target="_blank">
+    <i :class="'fa fa-' + icon + ' fa-fw'"></i> <slot></slot>
   </a>
 </template>
 
