@@ -43,7 +43,6 @@ import Character from '../elements/Character.vue'
 import Dropdown from '../elements/Dropdown.vue'
 import Overlay from '../elements/Overlay.vue'
 
-import {store, state} from 'modules/store'
 import {CharacterRelation} from 'modules/types'
 
 function compareNames (a, b) {
@@ -60,8 +59,13 @@ export default {
   data () {
     return {
       characters: [],
-      search: '',
-      state
+      search: ''
+    }
+  },
+
+  vuex: {
+    getters: {
+      characters: state => Object.values(state.chat.characters)
     }
   },
 

@@ -43,12 +43,12 @@ img
 </style>
 
 <script>
+// TODO: fix this shit
 import MenuOption from '../elements/MenuOption.vue'
 import ActionPanel from '../elements/ActionPanel.vue'
 import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
 
 import {getProfileURL, getAvatarURL} from 'modules/flist'
-import {store, state} from 'modules/store'
 
 export default {
   props: {
@@ -64,19 +64,18 @@ export default {
   data () {
     return {
       getProfileURL,
-      getAvatarURL,
-      state
+      getAvatarURL
     }
   },
 
   methods: {
     openPrivateChat () {
-      store.notify('PrivateChatOpened', this.activeCharacter.name)
+      // store.notify('PrivateChatOpened', this.activeCharacter.name)
       this.close()
     },
 
     close () {
-      store.notify('PopOverlay')
+      // store.notify('PopOverlay')
     }
   },
 

@@ -21,21 +21,22 @@
 <script>
 import Overlay from '../elements/Overlay.vue'
 import SelectionList from '../elements/SelectionList.vue'
-import {store} from 'modules/store'
 
 export default {
   data () {
     return {
-      activeCharacter: '',
-      state: store.state
+      activeCharacter: ''
     }
   },
 
-  components: { Overlay, SelectionList },
+  components: {Overlay, SelectionList},
 
-  computed: {
-    characters () {
-      return store.getUserCharacters().sort()
+  vuex: {
+    getters: {
+      characters: state => state.user.characterList
+    },
+    actions: {
+      setUserCharacter (store, name) { store.dispatch('SetUserCharacter', name) }
     }
   },
 
@@ -45,7 +46,8 @@ export default {
     },
 
     submit () {
-      store.notify('UserCharacterSelected', { name: this.activeCharacter })
+      this.setUserCharacter(this.activeCharacter)
+      // TODO: pop overlay, connect to server, etc.
     }
   }
 }

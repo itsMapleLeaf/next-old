@@ -1,11 +1,12 @@
 <template>
   <div class="ui-main"
-  contenteditable
-  :maxlength="maxLength"
-  :placeholder="placeholder"
-  @keydown="fixContent($event)"
-  @keydown.enter="submit($event)"
-  v-el:textarea></div>
+    contenteditable
+    :maxlength="maxLength"
+    :placeholder="placeholder"
+    @keydown="fixContent($event)"
+    @keydown.enter="submit($event)"
+    v-el:textarea>
+  </div>
 </template>
 
 <style lang="stylus" scoped>
@@ -17,10 +18,15 @@ div
 <script>
 export default {
   props: {
-    character: String,
     maxLength: {
       type: Number,
       default: Infinity
+    }
+  },
+
+  vuex: {
+    getters: {
+      character: state => state.user.character
     }
   },
 

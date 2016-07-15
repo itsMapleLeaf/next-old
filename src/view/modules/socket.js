@@ -27,28 +27,27 @@ export class Socket {
     // clear the event bus
     this.bus = new EventEmitter()
 
+    // handle server commands on websocket message
     this.bus.on('message', msg => {
       const {type, params} = this.parseServerCommand(msg.data)
       this.handleServerCommand(type, params)
       this.bus.emit(type, params)
     })
 
-    this.bus.once('open', () => {
-      store.notify('SocketConnectionSuccess')
-      this.connected = true
-    })
-    this.bus.once('error', err => store.notify('SocketError', err))
-    this.bus.once('close', () => {
-      this.connected = false
-      console.info('Disconnected from server.')
-    })
+    // TODO: add connection state handlers
 
     // connect & hook up websocket events to the bus
-    this.ws = new WebSocket(address)
-    this.ws.onopen = () => this.bus.emit('open')
-    this.ws.onclose = () => this.bus.emit('close')
-    this.ws.onmessage = msg => this.bus.emit('message', msg)
-    this.ws.onerror = err => this.bus.emit('error', err)
+    // but try/catch because fuck WebSocket
+    try {
+      this.ws = new WebSocket(address)
+    } catch (e) {
+      this.bus.emit('error', e)
+    } finally {
+      this.ws.onopen = () => this.bus.emit('open')
+      this.ws.onclose = () => this.bus.emit('close')
+      this.ws.onmessage = msg => this.bus.emit('message', msg)
+      this.ws.onerror = err => this.bus.emit('error', err)
+    }
   }
 
   disconnect () {
@@ -220,7 +219,7 @@ export class Socket {
       // received before the above two
       case 'JCH': {
         const name: CharacterName = params.character.identity
-        if (name === store.getUserCharacterName()) {
+        if (name === store.state.user.character) {
           store.dispatch('AddActiveChannel', params.channel, params.title)
         }
         store.dispatch('AddChannelCharacter', params.channel, name)
@@ -229,7 +228,7 @@ export class Socket {
 
       // user left a channel (could be us)
       case 'LCH':
-        if (params.character === store.getUserCharacterName()) {
+        if (params.character === store.state.user.character) {
           store.dispatch('RemoveActiveChannel', params.channel)
         } else {
           store.dispatch('RemoveChannelCharacter', params.channel, params.character)

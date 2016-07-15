@@ -5,6 +5,8 @@ import store from './vuex/store'
 import {parseBBC} from './filters'
 import {collapse} from './transitions'
 
+Vue.config.debug = true
+
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true
 

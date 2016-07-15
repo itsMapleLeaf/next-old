@@ -28,13 +28,9 @@
 </style>
 
 <script>
-import {store} from 'modules/store'
+import {popOverlay} from '../../vuex/actions'
 
 export default {
-  data () {
-    return { store }
-  },
-
   props: {
     noClose: {
       type: Boolean,
@@ -54,10 +50,12 @@ export default {
 
   methods: {
     close () {
-      if (!this.noClose) {
-        this.store.notify('PopOverlay')
-      }
+      if (!this.noClose) this.popOverlay()
     }
+  },
+
+  vuex: {
+    actions: {popOverlay}
   }
 }
 </script>

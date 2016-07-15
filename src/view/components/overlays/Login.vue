@@ -39,9 +39,8 @@ import DevInfo from '../elements/DevInfo.vue'
 import Overlay from '../elements/Overlay.vue'
 import Toggle from '../elements/Toggle.vue'
 
-import {LoginData} from 'modules/types'
 import {authenticate} from 'modules/flist'
-import {store} from 'modules/store'
+import {pushOverlay, popOverlay} from '../../vuex/actions'
 
 // const errorMessage = `
 // Could not connect to F-List website.
@@ -62,48 +61,49 @@ export default {
       password: '',
       status: '',
       disabled: false,
-      remember: false,
-      state: store.state
+      remember: false
     }
   },
 
-  ready () {
-    // storage.getAccount().then(account => {
-    //   this.username = account
-    //   this.remember = true
-    // })
-    // .catch(() => {
-    //   this.remember = false
-    // })
-  },
-
   methods: {
-    async submit () {
+    submit (store) {
       this.status = ''
       this.disabled = true
-      store.notify('LoginRequest')
+      this.pushOverlay('loading')
 
-      try {
-        const res = await authenticate(this.username, this.password)
-
+      authenticate(this.username, this.password)
+      .then(res => {
         if (res.error) {
-          this.status = res.error
-          this.disabled = false
-          store.notify('LoginFailure')
+          throw res.error
         } else {
-          const loginData: LoginData = {
-            account: this.username,
-            ticket: res.ticket,
-            characters: res.characters,
-            bookmarks: res.bookmarks.map(char => char.name),
-            friends: res.friends.map(entry => {
-              return { you: entry.dest_name, them: entry.source_name }
-            })
-          }
-          store.notify('LoginSuccess', { loginData, remember: this.remember })
+          const friends = res.friends.map(entry => {
+            return { you: entry.dest_name, them: entry.source_name }
+          })
+          const bookmarks = res.bookmarks.map(char => char.name)
+          this.setLoginData(this.username, res.ticket, res.characters, friends, bookmarks)
         }
-      } catch (err) {
-        console.error(err)
+      })
+      .catch(error => {
+        this.status = error
+      })
+      .then(() => {
+        this.popOverlay()
+        this.username = this.password = ''
+        this.disabled = false
+      })
+    }
+  },
+
+  vuex: {
+    actions: {
+      pushOverlay,
+      popOverlay,
+
+      setLoginData: (store, account, ticket, characters, friends, bookmarks) => {
+        store.dispatch('SetAuth', account, ticket)
+        store.dispatch('SetUserCharacterList', characters)
+        store.dispatch('SetFriendsList', friends)
+        store.dispatch('SetBookmarkList', bookmarks)
       }
     }
   }

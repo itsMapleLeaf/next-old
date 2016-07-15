@@ -23,12 +23,12 @@
     </form>
 
     <nav slot="options">
-      <menu-option icon='globe' @mousedown="pushOverlay('channel-list')">Channels</menu-option>
-      <menu-option icon='heart' @mousedown="pushOverlay('online-users')">Online Users</menu-option>
+      <menu-option icon='globe' @mousedown="openOverlay('channel-list')">Channels</menu-option>
+      <menu-option icon='heart' @mousedown="openOverlay('online-users')">Online Users</menu-option>
       <menu-option icon='gear'>Settings</menu-option>
       <menu-option icon='user' @mousedown="switchCharacter">Switch Character</menu-option>
       <menu-option icon='sign-out' @mousedown="logOut">Log Out</menu-option>
-      <menu-option icon='info' @mousedown="pushOverlay('about')">About</menu-option>
+      <menu-option icon='info' @mousedown="openOverlay('about')">About</menu-option>
     </nav>
   </action-panel>
 </template>
@@ -47,8 +47,8 @@ import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
 import MenuOption from '../elements/MenuOption.vue'
 import Dropdown from '../elements/Dropdown.vue'
 
-import {store} from 'modules/store'
 import {getProfileURL, getAvatarURL} from 'modules/flist'
+import {openOverlay} from '../../vuex/actions'
 
 export default {
   components: {
@@ -59,79 +59,39 @@ export default {
   },
 
   data () {
-    const status = store.getUserStatus()
     return {
-      status,
-      state: store.state,
-      interval: null,
-      dirty: false
+      status: this.userStatus
     }
   },
 
   ready () {
     this.$els.statusMessage.innerText = this.status.message
-
-    // the server errors if we send too many status changes at once
-    this.interval = window.setInterval(() => {
-      if (this.dirty) {
-        this.sendStatusChangeRequest()
-        this.dirty = false
-      }
-    }, 2000)
   },
 
-  destroyed () {
-    window.clearInterval(this.interval)
+  vuex: {
+    getters: {
+      userStatus: state => state.user.status,
+      character: state => state.user.character
+    },
+    actions: {openOverlay}
   },
 
   computed: {
-    character () {
-      return store.getUserCharacterName()
-    },
-
     greeting () {
       return `Hi, ${this.character.split(' ')[0]}!`
     },
 
-    profileURL () {
-      return getProfileURL(this.character)
-    },
-
-    avatarURL () {
-      return getAvatarURL(this.character)
-    }
+    profileURL () { return getProfileURL(this.character) },
+    avatarURL () { return getAvatarURL(this.character) }
   },
 
   methods: {
     setStatus (status) {
       this.status.state = status
-      this.dirty = true
     },
 
     setStatusMessage (message) {
       this.status.message = message
-      this.dirty = true
-    },
-
-    sendStatusChangeRequest () {
-      store.notify('StatusChange', { status: this.status })
-    },
-
-    pushOverlay (overlay) {
-      store.notify('PopOverlay')
-      store.notify('PushOverlay', { overlay })
-      this.$nextTick(() => {
-      })
-    },
-
-    switchCharacter () {
-      store.notify('DisconnectRequest')
-      this.pushOverlay('character-list')
-    },
-
-    logOut () {
-      store.notify('DisconnectRequest')
-      this.pushOverlay('login')
     }
   }
 }

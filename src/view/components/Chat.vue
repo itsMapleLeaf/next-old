@@ -1,5 +1,5 @@
 <template>
-  <main class='flex-column ui-dark fullscreen'>
+  <section class='flex-column ui-dark fullscreen'>
     <nav class='flex-row flex-fixed' style='flex-wrap: wrap'>
       <shortcut title="Actions" icon="bars" overlay="app-menu"></shortcut>
       <shortcut title="Channels" icon="globe" overlay="channel-list"></shortcut>
@@ -18,11 +18,10 @@
       :characters="currentChat.characters"
       :description="currentChat.description">
       <chatbox slot='chatbox'
-        :character="characterName"
         @chatbox-submit="chatboxSubmit">
       </chatbox>
     </channel-view>
-  </main>
+  </section>
 </template>
 
 <style lang="stylus" scoped>
@@ -36,8 +35,7 @@ import ChatTab from './elements/ChatTab.vue'
 import Chatbox from './elements/Chatbox.vue'
 import ChannelView from './chat-views/ChannelView.vue'
 // import PrivateChatView from './chat-views/PrivateChatView.vue'
-
-import {store, state} from 'modules/store'
+import {pushOverlay} from '../vuex/actions'
 
 function clamp (num, min, max) {
   return num < min ? min
@@ -48,8 +46,7 @@ function clamp (num, min, max) {
 const Shortcut = {
   template: `
     <a class='flex-fixed flex-center-children header-shortcut'
-      title="Actions"
-      @click="pushOverlay">
+      title="Actions" @click="pushOverlay(overlay)">
       <i class='fa fa-{{icon}}'></i>
     </a>
   `,
@@ -59,10 +56,11 @@ const Shortcut = {
     overlay: String
   },
 
-  methods: {
-    pushOverlay () {
-      store.notify('PushOverlay', { overlay: this.overlay })
-    }
+  vuex: {
+    getters: {
+      activeChannels: state => state.chat.activeChannels
+    },
+    actions: {pushOverlay}
   }
 }
 
@@ -77,31 +75,16 @@ export default {
 
   data () {
     return {
-      state,
       currentIndex: 0
-    }
-  },
-
-  computed: {
-    activeChats () {
-      return store.getActiveChats()
-    },
-
-    currentChat () {
-      return this.activeChats[this.currentIndex]
-    },
-
-    characterName () {
-      return store.getUserCharacterName()
     }
   },
 
   methods: {
     closeChat (chat) {
-      if (chat.type === 'channel') {
-        store.notify('LeaveChannelRequest', { id: chat.id })
-        this.currentIndex--
-      }
+      // if (chat.type === 'channel') {
+      //   store.notify('LeaveChannelRequest', { id: chat.id })
+      //   this.currentIndex--
+      // }
     },
 
     chatboxSubmit (message) {
@@ -110,9 +93,9 @@ export default {
   },
 
   watch: {
-    activeChats () {
-      this.currentIndex = clamp(this.currentIndex, 0, this.activeChats.length - 1)
-    }
+    // activeChats () {
+    //   this.currentIndex = clamp(this.currentIndex, 0, this.activeChats.length - 1)
+    // }
   }
 }
 </script>

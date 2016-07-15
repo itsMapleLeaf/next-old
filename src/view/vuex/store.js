@@ -32,6 +32,7 @@ type State = {
   },
 
   chat: {
+    // TODO: add a connection state field to let the app react off of
     characters: CharacterMap,
     friends: FriendMap,
     bookmarks: CharacterBoolMap,
@@ -45,6 +46,10 @@ type State = {
     activeChannels: ChannelStateMap,
     activePrivateChats: PrivateChatStateMap,
     serverVariables: { [key: string]: ServerVariableValue }
+  },
+
+  ui: {
+    overlays: string[]
   }
 }
 
@@ -68,6 +73,10 @@ const state: State = {
     activeChannels: {},
     activePrivateChats: {},
     serverVariables: {}
+  },
+
+  ui: {
+    overlays: []
   }
 }
 
@@ -203,9 +212,17 @@ const mutations = {
     const char: Character = state.chat.characters[sender]
     const message: ChatMessage = createChatMessage(char, text, 'chat')
     channel.messages.push(message)
+  },
+
+  PushOverlay (state: State, overlay: string) {
+    state.ui.overlays.push(overlay)
+  },
+
+  PopOverlay (state: State) {
+    state.ui.overlays.pop()
   }
 }
 
 Vue.use(Vuex)
 
-export default Vuex.Store({ state, mutations })
+export default new Vuex.Store({ state, mutations })

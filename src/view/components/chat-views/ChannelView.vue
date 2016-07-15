@@ -159,26 +159,9 @@ export default {
 
   methods: {
     characterListClicked (event) {
+      // TODO: implement data attribute checker in App.vue
       const character = event.target.getAttribute('data-character')
       this.$dispatch(CharacterActivated, character)
-    },
-
-    getChannelPrefClass (which) {
-      if (which === 'both') {
-        if (this.viewState.mode === 'both') {
-          if (this.viewState.preference === 'both') {
-            return 'light'
-          } else {
-            return 'darker'
-          }
-        } else {
-          return 'darker subtle'
-        }
-      }
-    },
-
-    chatboxSubmit (message) {
-
     }
   }
 }

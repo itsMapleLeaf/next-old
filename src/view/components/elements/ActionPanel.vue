@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-shade" transition="fade" @click='close'></div>
+  <div class="ui-shade" transition="fade" @click='popOverlay'></div>
   <aside :class="'flex-column ui-main ui-shadow panel-' + side" :transition="'slide-' + side">
     <section class="flex-fixed">
       <slot name="content"></slot>
@@ -27,7 +27,7 @@ for $side in 'left' 'right' {
 </style>
 
 <script>
-import {store} from 'modules/store'
+import {popOverlay} from '../../vuex/actions'
 
 export default {
   props: {
@@ -37,9 +37,9 @@ export default {
     }
   },
 
-  methods: {
-    close () {
-      store.notify('PopOverlay')
+  vuex: {
+    actions: {
+      popOverlay
     }
   }
 }

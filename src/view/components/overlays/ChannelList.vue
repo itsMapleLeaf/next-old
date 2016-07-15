@@ -44,8 +44,8 @@
 <script>
 import Overlay from '../elements/Overlay.vue'
 import SelectionList from '../elements/SelectionList.vue'
-import {store, state} from 'modules/store'
 import {socket} from 'modules/socket'
+import {pushOverlay, popOverlay} from '../../vuex/actions'
 
 function compareChannelInfo (a, b) {
   return a.name.localeCompare(b.name)
@@ -56,20 +56,21 @@ export default {
 
   data () {
     return {
-      search: '',
-      publicChannels: [],
-      privateChannels: [],
-      state
+      search: ''
     }
   },
 
-  async created () {
-    store.notify('PushOverlay', { overlay: 'loading' })
-    await socket.requestChannels()
-    store.notify('PopOverlay')
+  vuex: {
+    getters: {
+      publicChannels: state => state.chat.publicChannels,
+      privateChannels: state => state.chat.privateChannels
+    },
+    setters: {pushOverlay, popOverlay}
+  },
 
-    this.publicChannels = store.getPublicChannelList().sort(compareChannelInfo)
-    this.privateChannels = store.getPrivateChannelList().sort(compareChannelInfo)
+  created () {
+    this.pushOverlay('loading')
+    socket.requestChannels().then(this.popOverlay)
   },
 
   methods: {

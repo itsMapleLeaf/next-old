@@ -6,6 +6,9 @@
   "author": "Kingdaro",
   "license": "MIT",
   "main": "src/application/main.js",
+  "scripts": {
+    "dev": "webpack-dev-server --inline --hot --progress"
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.10.4",
