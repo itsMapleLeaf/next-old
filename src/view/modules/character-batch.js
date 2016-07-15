@@ -1,4 +1,4 @@
-import {Character, CharacterName, Gender, CharacterStatusState} from 'modules/types'
+import type {Character, CharacterName, Gender, CharacterStatusState} from 'modules/types'
 import {createCharacter} from 'modules/constructors'
 import {store} from 'modules/store'
 

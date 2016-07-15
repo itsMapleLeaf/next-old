@@ -2,26 +2,26 @@ import {
   CharacterName,
   Gender,
   Character,
+  CharacterStatus,
   ChannelState,
   ChatMessage,
-  ChatMessageType
+  ChatMessageType,
+  PrivateChatState,
+  ChannelID
 } from 'modules/types'
 
-export function createCharacter (name: CharacterName, gender: Gender): Character {
+export function createCharacter (
+  name: CharacterName,
+  gender: Gender,
+  status?: CharacterStatus = { state: 'online', message: '' }
+): Character {
   return {
-    name,
-    gender,
-    status: {
-      state: 'online',
-      message: ''
-    },
-    relation: []
+    name, gender, status, relation: []
   }
 }
 
-export function createChannelState (id, name): ChannelState {
+export function createChannelState (id: ChannelID, name: string): ChannelState {
   return {
-    type: 'channel',
     id,
     name,
     mode: 'both',
@@ -30,6 +30,10 @@ export function createChannelState (id, name): ChannelState {
     characters: [],
     messages: []
   }
+}
+
+export function createPrivateChatState (partner: Character): PrivateChatState {
+  return { partner, messages: [] }
 }
 
 export function createChatMessage (sender: Character, message: string, type: ChatMessageType): ChatMessage {

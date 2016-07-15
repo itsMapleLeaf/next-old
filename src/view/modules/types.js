@@ -1,7 +1,6 @@
 // alias types
 export type CharacterName = string
 export type ChannelID = string
-export type ActiveChatState = ChannelState | PrivateChatState
 
 export type Character = {
   name: CharacterName,
@@ -27,7 +26,6 @@ export type ChannelInfo = {
 }
 
 export type ChannelState = {
-  type: 'channel',
   id: ChannelID,
   name: string,
   mode: ChannelMode,
@@ -38,7 +36,6 @@ export type ChannelState = {
 }
 
 export type PrivateChatState = {
-  type: 'private-chat',
   partner: Character,
   messages: ChatMessage[]
 }
