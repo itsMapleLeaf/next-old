@@ -2,16 +2,18 @@
   <overlay no-close>
     <h2>Who do we feel like playing today?</h2>
     <form @submit.prevent='submit'>
-      <fieldset>
-        <selection-list>
-          <li v-for='name in characters' :active="name === activeCharacter" @click='setSelectedCharacter(name)'>
+      <div class='ui-field'>
+        <div class='ui-select'>
+          <a href='#' v-for='name in characters'
+            :class="name === activeCharacter ? 'ui-select-active' : ''"
+            @click.prevent='setSelectedCharacter(name)'>
             {{name}}
-          </li>
-        </selection-list>
-      </fieldset>
-      <fieldset>
-        <button class='ui padded-button'>Go</button>
-      </fieldset>
+          </a>
+        </div>
+      </div>
+      <div class='ui-field'>
+        <button class='ui-button'>Go</button>
+      </div>
     </form>
   </overlay>
 </template>
@@ -20,7 +22,6 @@
 
 <script>
 import Overlay from '../elements/Overlay.vue'
-import SelectionList from '../elements/SelectionList.vue'
 
 export default {
   data () {
@@ -29,7 +30,7 @@ export default {
     }
   },
 
-  components: {Overlay, SelectionList},
+  components: {Overlay},
 
   vuex: {
     getters: {

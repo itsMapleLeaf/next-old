@@ -1,12 +1,12 @@
 <template>
-  <div @mouseup="checkDataAttribute($event)">
+  <div class='ui-fullscreen' @mouseup="checkDataAttribute($event)">
     <chat></chat>
     <component v-for="overlay in overlays" :is='overlay'></component>
   </div>
 </template>
 
 <style lang="stylus" src="../styles/ui.styl"></style>
-<!-- <style lang="stylus" src="../styles/flex.styl"></style> -->
+<style lang="stylus" src="../styles/flex.styl"></style>
 
 <!-- <style lang="stylus" src="./styles/App.styl"></style>
 <style lang="stylus" src="./styles/App-common.styl"></style>

@@ -7,8 +7,3 @@ export function pushOverlay (store: Store, overlay: string) {
 export function popOverlay (store: Store) {
   store.dispatch('PopOverlay')
 }
-
-export function setOverlay (store: Store, overlay: string) {
-  popOverlay(store)
-  pushOverlay(store, overlay)
-}

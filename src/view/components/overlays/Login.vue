@@ -90,7 +90,9 @@ export default {
         this.status = error
       })
       .then(() => {
-        this.popOverlay()
+        this.popOverlay() // pop loading
+        this.popOverlay() // pop login
+        this.pushOverlay('character-list')
         this.username = this.password = ''
         this.disabled = false
       })

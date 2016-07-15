@@ -1,8 +1,7 @@
 <template>
-  <a href='#' class="ui-small ui-link cursor-pointer"
-    :class="{ 'ui-subtle': !value }"
-    @click.prevent
-    @keydown.space="$emit('click')">
+  <a href='#' class="ui-link"
+    :style="{ opacity: value ? 1 : 0.5 }"
+    @click.prevent @keydown.space="$emit('click')">
     <i class="fa fa-fw" :class="{ 'fa-square': value, 'fa-square-o': !value }"></i>
     <slot></slot>
   </a>

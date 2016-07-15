@@ -1,26 +1,22 @@
 <template>
-  <ol class="ui-color-dark ui-border ui-scroll">
+  <div class="ui-color-dark ui-border ui-scroll selection">
     <slot></slot>
-  </ol>
+  </div>
 </template>
 
 <style lang="stylus">
-@import '../styles/App-ui.styl'
-@import '../styles/App-common.styl'
+@import '../../styles/ui.styl'
 
-ol {
+.selection
   width: 14em
   height: 18em
-}
 
-li {
+.selection *
+  display: block
   padding: 0.5em
-  cursor: pointer
-}
 
-li[active] {
+.selection .active
   @extend .ui-highlight-green
-}
 </style>
 
 <script>
