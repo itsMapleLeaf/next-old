@@ -22,6 +22,8 @@
 
 <script>
 import Overlay from '../elements/Overlay.vue'
+import socket from 'modules/socket'
+import {pushOverlay, popOverlay} from '../../vuex/actions'
 
 export default {
   data () {
@@ -37,6 +39,8 @@ export default {
       characters: state => state.user.characterList
     },
     actions: {
+      pushOverlay,
+      popOverlay,
       setUserCharacter (store, name) { store.dispatch('SetUserCharacter', name) }
     }
   },
@@ -48,7 +52,8 @@ export default {
 
     submit () {
       this.setUserCharacter(this.activeCharacter)
-      // TODO: pop overlay, connect to server, etc.
+      this.popOverlay()
+      socket.connect()
     }
   }
 }

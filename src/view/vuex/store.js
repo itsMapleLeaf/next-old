@@ -9,8 +9,20 @@ import {
 } from 'modules/constructors'
 
 import type {
-  Character, CharacterName, Gender, CharacterStatus, PrivateChatState, CharacterStatusState, // CharacterRelation,
-  FriendInfo, ChannelInfo, ChannelID, ChannelState, ChannelMode, ChatMessage, ChatMessageType
+  Character,
+  CharacterName,
+  Gender,
+  CharacterStatus,
+  PrivateChatState,
+  CharacterStatusState,
+  FriendInfo,
+  ChannelInfo,
+  ChannelID,
+  ChannelState,
+  ChannelMode,
+  ChatMessage,
+  ChatMessageType,
+  ConnectionState
 } from 'modules/types'
 
 type CharacterMap = { [name: CharacterName]: Character }
@@ -32,7 +44,9 @@ type State = {
   },
 
   chat: {
-    // TODO: add a connection state field to let the app react off of
+    connectionState: ConnectionState,
+    connectionError: string,
+
     characters: CharacterMap,
     friends: FriendMap,
     bookmarks: CharacterBoolMap,
@@ -63,6 +77,8 @@ const state: State = {
   },
 
   chat: {
+    connectionState: 'offline',
+    connectionError: '',
     characters: {},
     friends: {},
     bookmarks: {},
@@ -125,13 +141,18 @@ const mutations = {
     Vue.set(state.chat.serverVariables, key, value)
   },
 
-  AddCharacterBatch (state: State, batch: CharacterBatchEntry[]) {
+  SetConnectionState (state: State, conn: ConnectionState) {
+    state.chat.connectionState = conn
+  },
+
+  AddCharacterBatch (state: State, batch) {
     const map: CharacterMap = {}
-    for (let [name, gender, state, message] of batch) {
+    for (let entry: CharacterBatchEntry of batch) {
+      const [name, gender, state, message] = entry
       const char: Character = createCharacter(name, gender, { state, message })
       map[name] = char
     }
-    state.chat.characters = map
+    state.chat.characters = Object.assign(state.chat.characters, map)
   },
 
   AddCharacter (state: State, name: CharacterName, gender: Gender) {

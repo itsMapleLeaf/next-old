@@ -26,8 +26,8 @@
       <menu-option icon='globe' @mousedown="openOverlay('channel-list')">Channels</menu-option>
       <menu-option icon='heart' @mousedown="openOverlay('online-users')">Online Users</menu-option>
       <menu-option icon='gear'>Settings</menu-option>
-      <menu-option icon='user' @mousedown="switchCharacter">Switch Character</menu-option>
-      <menu-option icon='sign-out' @mousedown="logOut">Log Out</menu-option>
+      <menu-option icon='user'>Switch Character</menu-option>
+      <menu-option icon='sign-out'>Log Out</menu-option>
       <menu-option icon='info' @mousedown="openOverlay('about')">About</menu-option>
     </nav>
   </action-panel>
@@ -48,7 +48,7 @@ import MenuOption from '../elements/MenuOption.vue'
 import Dropdown from '../elements/Dropdown.vue'
 
 import {getProfileURL, getAvatarURL} from 'modules/flist'
-import {openOverlay} from '../../vuex/actions'
+import socket from 'modules/socket'
 
 export default {
   components: {
@@ -73,7 +73,12 @@ export default {
       userStatus: state => state.user.status,
       character: state => state.user.character
     },
-    actions: {openOverlay}
+    actions: {
+      openOverlay (state, overlay) {
+        state.dispatch('PopOverlay')
+        state.dispatch('PushOverlay', overlay)
+      }
+    }
   },
 
   computed: {

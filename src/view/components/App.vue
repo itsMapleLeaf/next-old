@@ -27,7 +27,8 @@ import Loading from './overlays/Loading.vue'
 import OnlineUsers from './overlays/OnlineUsers.vue'
 import About from './overlays/About.vue'
 
-import {socket, servers} from 'modules/socket'
+import socket, {servers} from 'modules/socket'
+import {pushOverlay, popOverlay} from '../vuex/actions'
 // import * as flist from 'modules/flist'
 
 export default {
@@ -45,11 +46,13 @@ export default {
 
   vuex: {
     getters: {
-      overlays: state => state.ui.overlays
+      overlays: state => state.ui.overlays,
+      connectionState: state => state.chat.connectionState,
+      account: state => state.auth.account,
+      ticket: state => state.auth.ticket,
+      character: state => state.user.character
     },
-    actions: {
-      pushOverlay (store, overlay) { store.dispatch('PushOverlay', overlay) }
-    }
+    actions: {pushOverlay, popOverlay}
   },
 
   ready () {
@@ -71,67 +74,27 @@ export default {
         }
       }
     }
+  },
 
-    // event callbacks
-    // PushOverlay ({ overlay }) {
-    //   this.overlays.push(overlay)
-    // },
-    //
-    // PopOverlay () {
-    //   this.overlays.pop()
-    // },
-    //
-    // LoginRequest () {
-    //   this.overlays.push('loading')
-    // },
-    //
-    // LoginSuccess (event) {
-    //   // unpack / dispatch store data
-    //   const {account, ticket, characters, friends, bookmarks} = event.loginData
-    //   store.dispatch({ type: 'Auth', account, ticket })
-    //   store.dispatch({ type: 'FriendsList', friends })
-    //   store.dispatch({ type: 'UserCharacterList', characters })
-    //   store.dispatch({ type: 'BookmarkList', bookmarks })
-    //
-    //   // delay the overlay change, so it's a little nicer on the eyes and not too quick
-    //   this.overlays = []
-    //   window.setTimeout(() => {
-    //     this.overlays = ['character-list']
-    //   }, 500)
-    // },
-    //
-    // LoginFailure () {
-    //   // rip :(
-    //   this.overlays = ['login']
-    // },
-    //
-    // UserCharacterSelected ({ name }) {
-    //   store.dispatch({ type: 'UserCharacter', name })
-    //   this.overlays = ['loading']
-    //   socket.connect(servers.main)
-    // },
-    //
-    // SocketConnectionSuccess () {
-    //   const {account, ticket} = store.getAuthData()
-    //   const character = store.getUserCharacterName()
-    //   socket.identify(account, ticket, character)
-    // },
-    //
-    // SocketIdentifySuccess () {
-    //   this.overlays = ['app-menu']
-    // },
-    //
-    // JoinChannelRequest ({ id }) {
-    //   socket.joinChannel(id)
-    // },
-    //
-    // LeaveChannelRequest ({ id }) {
-    //   socket.leaveChannel(id)
-    // },
-    //
-    // DisconnectRequest () {
-    //   socket.disconnect()
-    // }
+  watch: {
+    connectionState (state) {
+      switch (state) {
+        case 'connecting':
+          this.pushOverlay('loading')
+          break
+
+        case 'online':
+          this.popOverlay()
+          this.pushOverlay('loading')
+          socket.identify(this.account, this.ticket, this.character)
+          break
+
+        case 'identified':
+          this.popOverlay()
+          this.pushOverlay('app-menu')
+          break
+      }
+    }
   }
 }
 </script>

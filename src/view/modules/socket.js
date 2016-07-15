@@ -10,6 +10,13 @@ import type {
 
 const {WebSocket} = window
 
+export const servers = {
+  mainInsecure: 'ws://chat.f-list.net:9722',
+  main: 'wss://chat.f-list.net:9799',
+  testInsecure: 'ws://chat.f-list.net:8722',
+  test: 'ws://chat.f-list.net:8799'
+}
+
 export class Socket {
   ws: WebSocket | null
   bus: EventEmitter
@@ -23,9 +30,28 @@ export class Socket {
     this.connected = false
   }
 
-  connect (address: string) {
+  connect (address?: string = servers.main) {
     // clear the event bus
     this.bus = new EventEmitter()
+
+    // manage connection state
+    this.bus.once('open', () => {
+      store.dispatch('SetConnectionState', 'online')
+    })
+
+    this.bus.once('IDN', () => {
+      store.dispatch('SetConnectionState', 'identified')
+      store.dispatch('PopOverlay')
+    })
+
+    this.bus.once('close', () => {
+      store.dispatch('SetConnectionState', 'offline')
+      store.dispatch('PushOverlay', 'login')
+    })
+
+    this.bus.on('error', err => {
+      console.error(err)
+    })
 
     // handle server commands on websocket message
     this.bus.on('message', msg => {
@@ -34,20 +60,14 @@ export class Socket {
       this.bus.emit(type, params)
     })
 
-    // TODO: add connection state handlers
+    store.dispatch('SetConnectionState', 'connecting')
 
     // connect & hook up websocket events to the bus
-    // but try/catch because fuck WebSocket
-    try {
-      this.ws = new WebSocket(address)
-    } catch (e) {
-      this.bus.emit('error', e)
-    } finally {
-      this.ws.onopen = () => this.bus.emit('open')
-      this.ws.onclose = () => this.bus.emit('close')
-      this.ws.onmessage = msg => this.bus.emit('message', msg)
-      this.ws.onerror = err => this.bus.emit('error', err)
-    }
+    this.ws = new WebSocket(address)
+    this.ws.onopen = () => this.bus.emit('open')
+    this.ws.onclose = () => this.bus.emit('close')
+    this.ws.onmessage = msg => this.bus.emit('message', msg)
+    this.ws.onerror = err => this.bus.emit('error', err)
   }
 
   disconnect () {
@@ -266,11 +286,4 @@ export class Socket {
   }
 }
 
-export const servers = {
-  mainInsecure: 'ws://chat.f-list.net:9722',
-  main: 'wss://chat.f-list.net:9799',
-  testInsecure: 'ws://chat.f-list.net:8722',
-  test: 'ws://chat.f-list.net:8799'
-}
-
-export const socket = new Socket()
+export default new Socket()
