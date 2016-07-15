@@ -30,8 +30,11 @@
 form
   text-align: center
 
+input
+  width: 10rem
+
 .about-link
-  opacity: 0.5
+  opacity: 0.3
   position: absolute
   right: 0.5em
   bottom: 0.5em

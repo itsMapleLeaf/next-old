@@ -1,30 +1,13 @@
 <template>
-  <div class='ui-input'>
-    <span class='head' @click='toggle'>
-      <i class='fa fa-fw fa-caret-down'></i> {{ valueLabel }}
-    </span>
-    <ol class='ui-color-dark ui-border' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
+  <div class='ui-dropdown'>
+    <a class='ui-dropdown-head' href='#' @click='toggle'>
+      {{ valueLabel }} <i class='fa fa-fw fa-caret-down' style='float: right; opacity: 0.5'></i>
+    </a>
+    <div class='ui-dropdown-items' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
       <slot></slot>
-    </ol>
+    </div>
   </div>
 </template>
-
-<style lang="stylus" scoped>
-div
-  display: inline-block
-  text-align: left
-  position: relative
-  width: 10em
-
-.head
-  width: 100%
-  z-index: 420
-
-ol
-  width: 100%
-  position: absolute
-  z-index: 69
-</style>
 
 <script>
 export default {
@@ -42,8 +25,6 @@ export default {
   ready () {
     const {children} = this.$els.listItems
     for (let item of children) {
-      item.style.padding = '0.5em'
-      item.classList.add('ui', 'theme-color', 'dark', 'hover-darken')
       if ((item.getAttribute('value') || item.innerText) === this.initValue) {
         this.selected = item
       }

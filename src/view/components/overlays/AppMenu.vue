@@ -2,24 +2,25 @@
   <action-panel side="left">
     <form slot="content">
       <h2>{{greeting}}</h2>
-      <fieldset>
+      <div class='ui-field'>
         <character-avatar-link :character="character"></character-avatar-link>
-      </fieldset>
-      <fieldset>
+      </div>
+      <div class='ui-field'>
         <dropdown :init-value="status.state" @changed='setStatus'>
-          <li value="online">Online</li>
-          <li value="looking">Looking</li>
-          <li value="busy">Busy</li>
-          <li value="away">Away</li>
-          <li value="dnd">DND</li>
+          <a href='#' value="online">Online</a>
+          <a href='#' value="looking">Looking</a>
+          <a href='#' value="busy">Busy</a>
+          <a href='#' value="away">Away</a>
+          <a href='#' value="dnd">DND</a>
         </dropdown>
-      </fieldset>
-      <fieldset class="ui-icon-right">
-        <i class='fa fa-fw fa-pencil'></i>
-        <div contenteditable placeholder="What's up?" v-el:status-message
+      </div>
+      <div class="ui-field ui-input-icon">
+        <i class='ui-icon fa fa-fw fa-pencil'></i>
+        <div contenteditable class='ui-input' style='word-wrap: break-word'
+          placeholder="What's up?"
           @blur='setStatusMessage($event.target.innerText)'
-          @keydown.enter.prevent='$event.target.blur()'></div>
-      </fieldset>
+          @keydown.enter.prevent='$event.target.blur()'>{{* status.message}}</div>
+      </div>
     </form>
 
     <nav slot="options">
@@ -34,6 +35,10 @@
 </template>
 
 <style lang="stylus" scoped>
+form
+  width: 11rem
+  padding: 1em 1em 0em
+
 .avatar
   display: inline-block
 
@@ -62,10 +67,6 @@ export default {
     return {
       status: this.userStatus
     }
-  },
-
-  ready () {
-    this.$els.statusMessage.innerText = this.status.message
   },
 
   vuex: {
