@@ -1,18 +1,14 @@
 import EventEmitter from 'events'
 import {inspect} from 'util'
-import {createChatMessage} from 'modules/constructors'
-import {store} from 'modules/store'
-import CharacterBatch from 'modules/character-batch'
+import store from '../vuex/store'
 import meta from 'modules/meta'
 
 import type {
-  ChannelInfo, ChatMessage, ChannelID, ChannelMode,
-  CharacterName, Character, CharacterStatus
+  ChannelInfo, ChannelID, ChannelMode,
+  CharacterName, CharacterStatus
 } from 'modules/types'
 
 const {WebSocket} = window
-
-const batch = new CharacterBatch()
 
 export class Socket {
   ws: WebSocket | null
@@ -117,9 +113,7 @@ export class Socket {
   handleServerCommand (type: string, params: Object) {
     switch (type) {
       // successful identification w/ chat server
-      case 'IDN':
-        store.notify('SocketIdentifySuccess')
-        break
+      case 'IDN': break
 
       /* ping~! */
       case 'PIN':
@@ -129,7 +123,7 @@ export class Socket {
 
       // receiving server variables
       case 'VAR':
-        store.dispatch({ type: 'ServerVariable', key: params.variable, value: params.value })
+        store.dispatch('SetServerVariable', params.variable, params.value)
         break
 
       // hello :)
@@ -140,7 +134,6 @@ export class Socket {
       // receive # of characters online
       case 'CON':
         console.info(`There are ${params.count} characters online.`)
-        batch.setCount(params.count)
         break
 
       // receiving list of friends
@@ -151,7 +144,7 @@ export class Socket {
       case 'IGN':
         switch (params.action) {
           case 'init':
-            store.dispatch({ type: 'IgnoreList', ignored: params.characters })
+            store.dispatch('SetIgnoreList', params.characters)
             break
 
           default:
@@ -161,33 +154,30 @@ export class Socket {
 
       // receiving list of global admins
       case 'ADL':
-        store.dispatch({ type: 'AdminList', admins: params.ops })
+        store.dispatch('SetAdminList', params.ops)
         break
 
       // receiving all characters online
       // comes in multiple batches
       case 'LIS':
-        if (batch.addBatch(params.characters)) {
-          store.dispatch({ type: 'CharacterBatch', batch: batch.hash })
-          batch.clear()
-        }
+        store.dispatch('AddCharacterBatch', params.characters)
         break
 
       // character came online
       case 'NLN':
-        store.dispatch({ type: 'CharacterOnline', name: params.identity, gender: params.gender })
+        store.dispatch('AddCharacter', params.identity, params.gender)
         break
 
       // character went offline
       case 'FLN':
-        store.dispatch({ type: 'CharacterOffline', name: params.character })
+        store.dispatch('RemoveCharacter', params.character)
         break
 
       // character changed status
       case 'STA': {
         const name: CharacterName = params.character
         const status: CharacterStatus = { state: params.status, message: params.statusmsg }
-        store.dispatch({ type: 'CharacterStatus', name, status })
+        store.dispatch('SetCharacterStatus', name, status)
         break
       }
 
@@ -196,7 +186,7 @@ export class Socket {
         const channels: ChannelInfo[] = params.channels.map(ch => {
           return { id: ch.name, name: ch.name, userCount: ch.characters }
         })
-        store.dispatch({ type: 'PublicChannelList', channels })
+        store.dispatch('SetPublicChannelList', channels)
         break
       }
 
@@ -205,7 +195,7 @@ export class Socket {
         const channels: ChannelInfo[] = params.channels.map(ch => {
           return { id: ch.name, name: ch.title, userCount: ch.characters }
         })
-        store.dispatch({ type: 'PrivateChannelList', channels })
+        store.dispatch('SetPrivateChannelList', channels)
         break
       }
 
@@ -214,63 +204,61 @@ export class Socket {
         const id: ChannelID = params.channel
         const mode: ChannelMode = params.mode
         const characters: CharacterName[] = params.users.map(entry => entry.identity)
-        store.dispatch({ type: 'ChannelCharacterList', id, characters })
-        store.dispatch({ type: 'ChannelMode', id, mode })
+        store.dispatch('SetChannelCharacterList', id, characters)
+        store.dispatch('SetCharacterMode', id, mode)
         break
       }
 
       // receiving a channel description
       case 'CDS': {
         const { channel: id, description } = params
-        store.dispatch({ type: 'ChannelDescription', id, description })
+        store.dispatch('SetChannelDescription', id, description)
         break
       }
 
       // user joined a channel (could be us)
       // received before the above two
       case 'JCH': {
-        const {identity: name} = params.character
-        const {channel: id, title} = params
+        const name: CharacterName = params.character.identity
         if (name === store.getUserCharacterName()) {
-          store.dispatch({ type: 'ChannelJoined', id, name: title })
+          store.dispatch('AddActiveChannel', params.channel, params.title)
         }
-        store.dispatch({ type: 'ChannelCharacterJoined', id, name })
+        store.dispatch('AddChannelCharacter', params.channel, name)
         break
       }
 
       // user left a channel (could be us)
       case 'LCH':
         if (params.character === store.getUserCharacterName()) {
-          store.dispatch({ type: 'ChannelLeft', id: params.channel })
+          store.dispatch('RemoveActiveChannel', params.channel)
         } else {
-          store.dispatch({ type: 'ChannelCharacterLeft', id: params.channel, name: params.character })
+          store.dispatch('RemoveChannelCharacter', params.channel, params.character)
         }
         break
 
       // channel message
       case 'MSG': {
-        store.dispatch({
-          type: 'ChannelMessage',
-          id: params.channel,
-          sender: params.character,
-          message: params.message
-        })
+        store.dispatch('AddChannelMessage',
+          params.channel,
+          params.character,
+          params.message,
+          'chat')
         break
       }
 
       // LFRP channel message
       case 'LRP': {
-        const id: ChannelID = params.channel
-        const char: Character = store.getCharacter(params.character)
-        const message: ChatMessage = createChatMessage(char, params.message, 'lfrp')
-        store.dispatch({ type: 'ChannelMessage', id, message })
+        store.dispatch('AddChannelMessage',
+          params.channel,
+          params.character,
+          params.message,
+          'lfrp')
         break
       }
 
       // private message
       case 'PRI':
-        // TODO: open a private chat if one doesn't exist
-        store.dispatch({ type: 'PrivateChatMessage', partner: params.character, sender: params.character, message: params.message })
+        store.dispatch('AddPrivateChatMessage', params.character, params.message)
         break
 
       default:
