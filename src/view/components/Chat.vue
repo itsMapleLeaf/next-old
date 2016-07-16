@@ -1,8 +1,8 @@
 <template>
   <div class='flex-column ui-color-dark ui-fullscreen'>
     <nav class='flex-row flex-fixed' style='flex-wrap: wrap'>
-      <shortcut title="Actions" icon="bars" overlay="app-menu"></shortcut>
-      <shortcut title="Channels" icon="globe" overlay="channel-list"></shortcut>
+      <shortcut title="Actions" icon="menu" overlay="app-menu"></shortcut>
+      <shortcut title="Channels" icon="earth" overlay="channel-list"></shortcut>
       <shortcut title="Users" icon="heart" overlay="online-users"></shortcut>
 
       <chat-tab v-for="chat in activeChats"
@@ -47,7 +47,7 @@ const Shortcut = {
   template: `
     <a class='flex-fixed flex-center-children header-shortcut'
       title="Actions" @click="pushOverlay(overlay)">
-      <i class='fa fa-{{icon}}'></i>
+      <i :class="'mdi mdi-' + icon"></i>
     </a>
   `,
 

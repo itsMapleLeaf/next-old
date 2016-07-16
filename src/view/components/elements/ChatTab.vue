@@ -1,7 +1,7 @@
 <template>
   <a :class="{ 'ui-color-main ui-border': active }" @click.self="$emit('selected')">
     <span :style="{ pointerEvents: 'none' }"><slot></slot></span>
-    <i class="fa fa-times ui-small" @click.prevent.stop="$emit('closed')"></i>
+    <i class="mdi mdi-times ui-small" @click.prevent.stop="$emit('closed')"></i>
   </a>
 </template>
 

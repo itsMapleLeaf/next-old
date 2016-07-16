@@ -20,7 +20,7 @@
         </selection-list>
       </fieldset>
       <fieldset class="ui-icon-left" style="width: min-content">
-        <i class="fa fa-fw fa-search"></i>
+        <i class="mdi mdi-search"></i>
         <input type="text" placeholder="Search..." v-model="search">
       </fieldset>
     </form>

@@ -2,8 +2,8 @@
   <p>
     <h2>fchat-next alpha v{{version}}</h2>
     <p>
-      <i class='fa fa-code'></i> with
-      <i class='fa fa-heart'></i> by
+      <i class='mdi mdi-code'></i> with
+      <i class='mdi mdi-heart'></i> by
       <a class='ui-link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>
     </p>
     <p>Note me for questions, concerns, suggestions, and comments.</p>

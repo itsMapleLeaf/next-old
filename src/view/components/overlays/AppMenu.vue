@@ -15,7 +15,7 @@
         </dropdown>
       </div>
       <div class="ui-field ui-input-icon">
-        <i class='ui-icon fa fa-fw fa-pencil'></i>
+        <i class='ui-icon mdi mdi-pencil'></i>
         <div contenteditable class='ui-input' style='word-wrap: break-word'
           placeholder="What's up?"
           @blur='setStatusMessage($event.target.innerText)'
@@ -24,12 +24,12 @@
     </form>
 
     <nav slot="options">
-      <menu-option icon='globe' @mousedown="openOverlay('channel-list')">Channels</menu-option>
+      <menu-option icon='forum' @mousedown="openOverlay('channel-list')">Channels</menu-option>
       <menu-option icon='heart' @mousedown="openOverlay('online-users')">Online Users</menu-option>
-      <menu-option icon='gear'>Settings</menu-option>
-      <menu-option icon='user'>Switch Character</menu-option>
-      <menu-option icon='sign-out'>Log Out</menu-option>
-      <menu-option icon='info' @mousedown="openOverlay('about')">About</menu-option>
+      <menu-option icon='settings'>Settings</menu-option>
+      <menu-option icon='account-switch'>Switch Character</menu-option>
+      <menu-option icon='logout'>Log Out</menu-option>
+      <menu-option icon='information' @mousedown="openOverlay('about')">About</menu-option>
     </nav>
   </action-panel>
 </template>

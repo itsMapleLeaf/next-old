@@ -29,7 +29,7 @@ $colors = {
 
 // color and highlight styles
 .ui-text
-  font: 14pt 'Roboto', sans-serif
+  font: 20px 'Roboto', sans-serif
   color: $colors.text
 
 .ui-header
@@ -101,18 +101,23 @@ for $side in ('left' 'right')
     bottom: 0
     {$side}: 0
 
+// fixed size on icons
+.ui-icon
+  height: 1.1em
+  width: 1.1em
+
 .ui-input-icon
   position: relative
 
   .ui-icon
     position: absolute
-    left: 0.5em
-    top: 0.5em
-    font-size: 0.9em
+    left: 0.4em
+    top: 0.4em
     opacity: 0.5
+    pointer-events: none
 
   .ui-input
-    padding-left: 2.2em
+    padding-left: 2.1em
 
 .ui-select
   @extend .ui-input, .ui-scroll
@@ -132,13 +137,23 @@ for $side in ('left' 'right')
   padding: 0 !important
   position: relative
 
+  .ui-icon
+    float: right
+    position: relative
+    top: 0.2em
+    opacity: 0.5
+
+  .ui-dropdown-head
+    display: block
+    padding: 0.5em 0.6em
+
   .ui-dropdown-items
     @extend .ui-color-darker
     z-index: 420
 
-  .ui-dropdown-head, .ui-dropdown-items a
-    display: block
-    padding: 0.5em 0.8em
+    a
+      display: block
+      padding: 0.5em 0.6em
 
 // root element styles
 *

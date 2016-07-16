@@ -13,7 +13,7 @@
           </em>
         </fieldset>
         <fieldset class="ui-highlight-green" v-for="friend in friendships">
-          <em><i class="fa fa-heart"></i> {{friend}}</em>
+          <em><i class="mdi mdi-heart"></i> {{friend}}</em>
         </fieldset>
       </form>
     </div>

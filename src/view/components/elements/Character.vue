@@ -1,6 +1,6 @@
 <template>
   <span class="gender" :class="gender.toLowerCase()">
-    <i class="fa fa-circle status" :class="status.toLowerCase()"></i> {{name}}
+    <i class="mdi mdi-circle status" :class="status.toLowerCase()"></i> {{name}}
   </span>
 </template>
 

@@ -3,11 +3,11 @@
     <form @submit.prevent='submit' :disabled='disabled'>
       <h2>Hello, beautiful.</h2>
       <div class='ui-field ui-input-icon'>
-        <i class='ui-icon fa fa-user fa-fw'></i>
+        <i class='ui-icon mdi mdi-account'></i>
         <input class='ui-input' type="text" placeholder="Username" v-model="username">
       </div>
       <div class='ui-field ui-input-icon'>
-        <i class='ui-icon fa fa-lock fa-fw'></i>
+        <i class='ui-icon mdi mdi-key'></i>
         <input class='ui-input' type="password" placeholder="Password" v-model="password">
       </div>
       <div class='ui-field'>
@@ -21,7 +21,7 @@
       </div>
     </form>
     <a class='ui-text about-link' href='#' data-push-overlay='about'>
-      <i class='fa fa-question-circle'></i>
+      <i class='mdi mdi-question-circle'></i>
     </a>
   </overlay>
 </template>

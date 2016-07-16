@@ -1,7 +1,7 @@
 <template>
   <div class='ui-dropdown'>
     <a class='ui-dropdown-head' href='#' @click='toggle'>
-      {{ valueLabel }} <i class='fa fa-fw fa-caret-down' style='float: right; opacity: 0.5'></i>
+      <i class='ui-icon mdi mdi-menu-down'></i> {{ valueLabel }} 
     </a>
     <div class='ui-dropdown-items' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
       <slot></slot>

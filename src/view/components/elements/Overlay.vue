@@ -4,7 +4,7 @@
     <div class='ui-overlay-panel'>
       <slot></slot>
       <a class='flex-center-children close-button' href='#' v-if="!noClose" @click='close'>
-        <i class='fa fa-times'></i>
+        <i class='mdi mdi-times'></i>
       </a>
     </div>
   </div>

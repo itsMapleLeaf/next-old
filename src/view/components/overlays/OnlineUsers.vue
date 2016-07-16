@@ -5,15 +5,15 @@
       <fieldset>
         <ul class="ui-selection" style="">
           <li v-for="char in filterRelation('friend')" class="ui-highlight-green">
-            <i class="fa fa-heart pull-right"></i>
+            <i class="mdi mdi-heart pull-right"></i>
             <character :character='char'></character>
           </li>
           <li v-for="char in filterRelation('bookmark')" class="ui-highlight-blue">
-            <i class="fa fa-star pull-right"></i>
+            <i class="mdi mdi-star pull-right"></i>
             <character :character='char'></character>
           </li>
           <li v-for="char in filterRelation('looking')">
-            <i class="fa fa-paw pull-right"></i>
+            <i class="mdi mdi-paw pull-right"></i>
             <character :character='char'></character>
           </li>
           <li v-for="char in filterRelation()">
@@ -22,7 +22,7 @@
         </ul>
       </fieldset>
       <fieldset class="ui-icon-right">
-        <i class="fa fa-search"></i>
+        <i class="mdi mdi-search"></i>
         <input type="text" placeholder="Search..." v-model="search" />
       </fieldset>
     </form>
