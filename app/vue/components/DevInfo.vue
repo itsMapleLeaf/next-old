@@ -12,8 +12,6 @@
   </p>
 </template>
 
-<style lang="stylus" scoped></style>
-
 <script>
 import meta from '../modules/meta' // jesus christ
 

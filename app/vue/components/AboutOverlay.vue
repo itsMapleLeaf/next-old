@@ -10,7 +10,7 @@
 </template>
 
 <style scoped>
-section { width: 18em }
+section { width: 16em }
 </style>
 
 <script>
