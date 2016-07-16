@@ -39,11 +39,11 @@
 </style>
 
 <script>
-import Character from '../elements/Character.vue'
-import Dropdown from '../elements/Dropdown.vue'
-import Overlay from '../elements/Overlay.vue'
+import Character from './Character.vue'
+import Dropdown from './Dropdown.vue'
+import Overlay from './Overlay.vue'
 
-import {CharacterRelation} from 'modules/types'
+import {CharacterRelation} from '../modules/types'
 
 function compareNames (a, b) {
   return a.name.localeCompare(b.name)

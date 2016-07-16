@@ -102,10 +102,10 @@ ul
 </style>
 
 <script>
-import Chatbox from '../elements/Chatbox.vue'
-import Character from '../elements/Character.vue'
-import ChatMessage from '../elements/ChatMessage.vue'
-import ChatMessageList from '../elements/ChatMessageList.vue'
+import Chatbox from './Chatbox.vue'
+import Character from './Character.vue'
+import ChatMessage from './ChatMessage.vue'
+import ChatMessageList from './ChatMessageList.vue'
 
 function compareNames (a, b) {
   return a.name.localeCompare(b.name)

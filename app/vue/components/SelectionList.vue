@@ -5,7 +5,7 @@
 </template>
 
 <style lang="stylus">
-@import '../../styles/ui.styl'
+@import '../styles/ui.styl'
 
 .selection
   width: 14em
@@ -18,7 +18,3 @@
 .selection .active
   @extend .ui-highlight-green
 </style>
-
-<script>
-export default {}
-</script>

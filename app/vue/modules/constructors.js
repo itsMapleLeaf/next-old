@@ -1,4 +1,4 @@
-import {
+import type {
   CharacterName,
   Gender,
   Character,
@@ -8,7 +8,7 @@ import {
   ChatMessageType,
   PrivateChatState,
   ChannelID
-} from 'modules/types'
+} from './types'
 
 export function createCharacter (
   name: CharacterName,

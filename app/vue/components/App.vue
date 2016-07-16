@@ -16,32 +16,32 @@
 <style lang="stylus" src="./styles/App-transitions.styl"></style> -->
 
 <script>
-// import CharacterMenu from './overlays/CharacterMenu.vue'
+// import CharacterMenu from './CharacterMenu.vue'
 
 import Chat from './Chat.vue'
-import Login from './overlays/Login.vue'
-import AppMenu from './overlays/AppMenu.vue'
-import ChannelList from './overlays/ChannelList.vue'
-import CharacterList from './overlays/CharacterList.vue'
-import Loading from './overlays/Loading.vue'
-import OnlineUsers from './overlays/OnlineUsers.vue'
-import About from './overlays/About.vue'
+import LoginOverlay from './LoginOverlay.vue'
+import MenuOverlay from './MenuOverlay.vue'
+import ChannelSelectOverlay from './ChannelSelectOverlay.vue'
+import CharacterSelectOverlay from './CharacterSelectOverlay.vue'
+import LoadingOverlay from './LoadingOverlay.vue'
+import OnlineUsersOverlay from './OnlineUsersOverlay.vue'
+import AboutOverlay from './AboutOverlay.vue'
 
-import socket, {servers} from 'modules/socket'
-import {pushOverlay, popOverlay, setUserData} from '../vuex/actions'
-import {getStorage} from 'modules/storage'
-import * as flist from 'modules/flist'
+import socket from '../modules/socket'
+import {pushOverlay, popOverlay} from '../modules/vuex/actions'
+import {getStorage} from '../modules/storage'
+import * as flist from '../modules/flist'
 
 export default {
   components: {
     Chat,
-    Login,
-    CharacterList,
-    AppMenu,
-    ChannelList,
-    OnlineUsers,
-    About,
-    Loading
+    LoginOverlay,
+    MenuOverlay,
+    ChannelSelectOverlay,
+    CharacterSelectOverlay,
+    LoadingOverlay,
+    OnlineUsersOverlay,
+    AboutOverlay
     // CharacterMenu,
   },
 
@@ -56,41 +56,55 @@ export default {
     actions: {
       pushOverlay,
       popOverlay,
-      setUserData
+      setAuth (store, account, ticket) {
+        store.dispatch('SetAuth', account, ticket)
+      },
+
+      setUserData (store, characters, friends, bookmarks) {
+        store.dispatch('SetUserCharacterList', characters)
+        store.dispatch('SetFriendsList', friends)
+        store.dispatch('SetBookmarkList', bookmarks)
+      }
     }
   },
 
   ready () {
-    const data = getStorage()
-    if (data) {
-      Promise.all([
-        flist.getUserCharacters(data.account, data.ticket),
-        flist.getFriendsList(data.account, data.ticket),
-        flist.getBookmarkList(data.account, data.ticket)
-      ]).then(([res1, res2, res3]) => {
-        if (res1.error) {
-          throw "Error getting characters: " + res1.error
-        }
-        if (res2.error) {
-          throw "Error getting friends: " + res2.error
-        }
-        if (res3.error) {
-          throw "Error getting bookmarks: " + res2.error
-        }
+    new Promise((resolve, reject) => {
+      const data = getStorage()
+      if (!data) reject('No storage data found')
 
-        const {characters} = res1
-        const friends = res2.friends.map(entry => {
-          return { you: entry.source, them: entry.dest }
-        })
-        const bookmarks = res3.characters
+      const {account, ticket} = data
+      if (!account || !ticket) reject('Invalid storage data')
 
-        this.setUserData(data.account, data.ticket, characters, friends, bookmarks)
-        this.pushOverlay('character-list')
-      }).catch(e => {
-        console.info(e)
-        this.pushOverlay('login')
+      this.setAuth(account, ticket)
+      resolve(Promise.all([
+        flist.getUserCharacters(account, ticket),
+        flist.getFriendsList(account, ticket),
+        flist.getBookmarkList(account, ticket)
+      ]))
+    }).then(([res1, res2, res3]) => {
+      if (res1.error) {
+        throw new Error('Error getting characters: ' + res1.error)
+      }
+      if (res2.error) {
+        throw new Error('Error getting friends: ' + res2.error)
+      }
+      if (res3.error) {
+        throw new Error('Error getting bookmarks: ' + res2.error)
+      }
+
+      const {characters} = res1
+      const friends = res2.friends.map(entry => {
+        return { you: entry.source, them: entry.dest }
       })
-    }
+      const bookmarks = res3.characters
+
+      this.setUserData(characters, friends, bookmarks)
+      this.pushOverlay('character-select-overlay')
+    }).catch(e => {
+      console.info(e)
+      this.pushOverlay('login-overlay')
+    })
   },
 
   methods: {
@@ -99,14 +113,14 @@ export default {
     },
 
     checkToggleChannel (el) {
-      const id = el.getAttribute('data-toggle-channel')
-      if (id) {
-        if (!store.isChannelActive(id)) {
-          store.notify('JoinChannelRequest', { id })
-        } else {
-          store.notify('LeaveChannelRequest', { id })
-        }
-      }
+      // const id = el.getAttribute('data-toggle-channel')
+      // if (id) {
+      //   if (!store.isChannelActive(id)) {
+      //     store.notify('JoinChannelRequest', { id })
+      //   } else {
+      //     store.notify('LeaveChannelRequest', { id })
+      //   }
+      // }
     }
   },
 
@@ -114,18 +128,18 @@ export default {
     connectionState (state) {
       switch (state) {
         case 'connecting':
-          this.pushOverlay('loading')
+          this.pushOverlay('loading-overlay')
           break
 
         case 'online':
           this.popOverlay()
-          this.pushOverlay('loading')
+          this.pushOverlay('loading-overlay')
           socket.identify(this.account, this.ticket, this.character)
           break
 
         case 'identified':
           this.popOverlay()
-          this.pushOverlay('app-menu')
+          this.pushOverlay('menu-overlay')
           break
       }
     }

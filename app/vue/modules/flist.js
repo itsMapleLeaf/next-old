@@ -1,5 +1,5 @@
 import {http} from 'vue'
-import type {CharacterName} from 'modules/types'
+import type {CharacterName} from './types'
 
 type ErrorResponse = { error: string }
 type SuccessResponse = { error: '' }

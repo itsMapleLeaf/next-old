@@ -26,5 +26,3 @@ i
 i, h3
   color: rgba(white, 0.7)
 </style>
-
-<script></script>

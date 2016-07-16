@@ -1,5 +1,5 @@
 <template>
-  <action-panel side="left">
+  <side-panel side="left">
     <form slot="content">
       <h2>{{greeting}}</h2>
       <div class='ui-field'>
@@ -24,14 +24,14 @@
     </form>
 
     <nav slot="options">
-      <menu-option icon='forum' @mousedown="openOverlay('channel-list')">Channels</menu-option>
-      <menu-option icon='heart' @mousedown="openOverlay('online-users')">Online Users</menu-option>
+      <menu-option icon='forum' @mousedown="openOverlay('channel-select-overlay')">Channels</menu-option>
+      <menu-option icon='heart' @mousedown="openOverlay('online-users-overlay')">Online Users</menu-option>
       <menu-option icon='settings'>Settings</menu-option>
       <menu-option icon='account-switch'>Switch Character</menu-option>
       <menu-option icon='logout'>Log Out</menu-option>
-      <menu-option icon='information' @mousedown="openOverlay('about')">About</menu-option>
+      <menu-option icon='information' @mousedown="openOverlay('about-overlay')">About</menu-option>
     </nav>
-  </action-panel>
+  </side-panel>
 </template>
 
 <style lang="stylus" scoped>
@@ -47,20 +47,20 @@ img
 </style>
 
 <script>
-import ActionPanel from '../elements/ActionPanel.vue'
-import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
-import MenuOption from '../elements/MenuOption.vue'
-import Dropdown from '../elements/Dropdown.vue'
+import SidePanel from './SidePanelOverlay.vue'
+import CharacterAvatarLink from './CharacterAvatarLink.vue'
+import MenuOption from './MenuOption.vue'
+import Dropdown from './Dropdown.vue'
 
-import {getProfileURL, getAvatarURL} from 'modules/flist'
-import {pushOverlay, popOverlay} from '../../vuex/actions'
-import socket from 'modules/socket'
+import {getProfileURL, getAvatarURL} from '../modules/flist'
+import {pushOverlay, popOverlay} from '../modules/vuex/actions'
+// import socket from '../modules/socket'
 
 export default {
   components: {
     MenuOption,
     Dropdown,
-    ActionPanel,
+    SidePanel,
     CharacterAvatarLink
   },
 
@@ -75,7 +75,15 @@ export default {
       userStatus: state => state.user.status,
       character: state => state.user.character
     },
-    actions: {pushOverlay, popOverlay}
+    actions: {
+      pushOverlay,
+      popOverlay,
+
+      openOverlay (store, overlay) {
+        store.dispatch('PopOverlay')
+        store.dispatch('PushOverlay', overlay)
+      }
+    }
   },
 
   computed: {
@@ -88,10 +96,6 @@ export default {
   },
 
   methods: {
-    openOverlay (store, overlay) {
-      store.dispatch('PopOverlay')
-      store.dispatch('PushOverlay', overlay)
-    },
 
     setStatus (status) {
       this.status.state = status

@@ -15,11 +15,11 @@
 <style lang="stylus" scoped></style>
 
 <script>
-import {version} from '../../../../package.json' // jesus christ
+import meta from '../modules/meta' // jesus christ
 
 export default {
   data () {
-    return { version }
+    return { version: meta.version }
   }
 }
 </script>

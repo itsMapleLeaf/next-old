@@ -21,10 +21,10 @@
 <style lang="stylus" scoped></style>
 
 <script>
-import Overlay from '../elements/Overlay.vue'
-import socket from 'modules/socket'
-import {saveStorageKeys, getStorage} from 'modules/storage'
-import {pushOverlay, popOverlay} from '../../vuex/actions'
+import Overlay from './Overlay.vue'
+import socket from '../modules/socket'
+import {saveStorageKeys, getStorage} from '../modules/storage'
+import {pushOverlay, popOverlay} from '../modules/vuex/actions'
 
 export default {
   components: {Overlay},

@@ -1,12 +1,12 @@
 import EventEmitter from 'events'
 import {inspect} from 'util'
-import store from '../vuex/store'
-import meta from 'modules/meta'
+import store from './vuex/store'
+import meta from './meta'
 
 import type {
   ChannelInfo, ChannelID, ChannelMode,
   CharacterName, CharacterStatus
-} from 'modules/types'
+} from './types'
 
 const {WebSocket} = window
 

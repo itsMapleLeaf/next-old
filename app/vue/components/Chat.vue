@@ -1,9 +1,9 @@
 <template>
   <div class='flex-column ui-color-dark ui-fullscreen'>
     <nav class='flex-row flex-fixed' style='flex-wrap: wrap'>
-      <shortcut title="Actions" icon="menu" overlay="app-menu"></shortcut>
-      <shortcut title="Channels" icon="earth" overlay="channel-list"></shortcut>
-      <shortcut title="Users" icon="heart" overlay="online-users"></shortcut>
+      <shortcut title="Actions" icon="menu" overlay="menu-overlay"></shortcut>
+      <shortcut title="Channels" icon="earth" overlay="channel-select-overlay"></shortcut>
+      <shortcut title="Users" icon="heart" overlay="online-users-overlay"></shortcut>
 
       <chat-tab v-for="chat in activeChats"
         :active="$index === currentIndex"
@@ -31,17 +31,17 @@
 </style>
 
 <script>
-import ChatTab from './elements/ChatTab.vue'
-import Chatbox from './elements/Chatbox.vue'
-import ChannelView from './chat-views/ChannelView.vue'
-// import PrivateChatView from './chat-views/PrivateChatView.vue'
-import {pushOverlay} from '../vuex/actions'
+import ChatTab from './ChatTab.vue'
+import Chatbox from './Chatbox.vue'
+import ChannelView from './ChannelView.vue'
+// import PrivateChatView from './PrivateChatView.vue'
+import {pushOverlay} from '../modules/vuex/actions'
 
-function clamp (num, min, max) {
-  return num < min ? min
-    : num > max ? max
-    : num
-}
+// function clamp (num, min, max) {
+//   return num < min ? min
+//     : num > max ? max
+//     : num
+// }
 
 const Shortcut = {
   template: `

@@ -14,8 +14,8 @@ section { width: 18em }
 </style>
 
 <script>
-import Overlay from '../elements/Overlay.vue'
-import DevInfo from '../elements/DevInfo.vue'
+import Overlay from './Overlay.vue'
+import DevInfo from './DevInfo.vue'
 
 export default {
   components: {

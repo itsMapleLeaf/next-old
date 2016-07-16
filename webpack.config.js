@@ -5,7 +5,7 @@ module.exports = {
   context: path.join(__dirname, 'app'),
   entry: './vue/main.js',
   output: {
-    publicPath: '/build/',
+    publicPath: '/app/build/',
     path: path.join(__dirname, 'app/build'),
     filename: 'bundle.js'
   },
@@ -26,12 +26,6 @@ module.exports = {
       }
     ]
   },
-  resolve: {
-    alias: {
-      modules: path.join(__dirname, 'src/view/modules'),
-      styles: path.join(__dirname, 'src/styles')
-    }
-  },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -39,5 +33,5 @@ module.exports = {
       }
     })
   ],
-  devtool: 'source-map'
+  devtool: '#eval-source-map'
 }

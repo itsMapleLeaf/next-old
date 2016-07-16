@@ -19,7 +19,7 @@ section {
 </style>
 
 <script>
-import {popOverlay} from '../../vuex/actions'
+import {popOverlay} from '../modules/vuex/actions'
 
 export default {
   props: {

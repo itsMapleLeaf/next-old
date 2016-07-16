@@ -12,7 +12,7 @@ let win
 function createWindow () {
   win = new BrowserWindow({ title: 'F-Chat Next' })
 
-  const index = path.resolve(__dirname, '../../index.html')
+  const index = path.resolve(__dirname, '../index.html')
 
   if (process.argv.includes('--dev')) {
     BrowserWindow.addDevToolsExtension(path.join(extensionFolder, vuejsExtensionID, vuejsExtensionVersion))

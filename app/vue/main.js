@@ -1,17 +1,12 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './components/App.vue'
-import store from './vuex/store'
-import {parseBBC} from './filters'
-import {collapse} from './transitions'
+import store from './modules/vuex/store'
 
 Vue.config.debug = true
 
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true
-
-Vue.filter('bbcode', parseBBC)
-Vue.transition('collapse', collapse)
 
 /* eslint no-new: 0 */
 new Vue({

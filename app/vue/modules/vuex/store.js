@@ -6,7 +6,7 @@ import {
   createChannelState,
   createChatMessage,
   createPrivateChatState
-} from 'modules/constructors'
+} from '../constructors'
 
 import type {
   Character,
@@ -23,7 +23,7 @@ import type {
   ChatMessage,
   ChatMessageType,
   ConnectionState
-} from 'modules/types'
+} from '../types'
 
 type CharacterMap = { [name: CharacterName]: Character }
 type CharacterBoolMap = { [name: CharacterName]: boolean }

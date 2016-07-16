@@ -42,14 +42,10 @@
 </style>
 
 <script>
-import Overlay from '../elements/Overlay.vue'
-import SelectionList from '../elements/SelectionList.vue'
-import {socket} from 'modules/socket'
-import {pushOverlay, popOverlay} from '../../vuex/actions'
-
-function compareChannelInfo (a, b) {
-  return a.name.localeCompare(b.name)
-}
+import Overlay from './Overlay.vue'
+import SelectionList from './SelectionList.vue'
+import {socket} from '../modules/socket'
+import {pushOverlay, popOverlay} from '../modules/vuex/actions'
 
 export default {
   components: { Overlay, SelectionList },
@@ -69,17 +65,13 @@ export default {
   },
 
   created () {
-    this.pushOverlay('loading')
+    this.pushOverlay('loading-overlay')
     socket.requestChannels().then(this.popOverlay)
   },
 
   methods: {
     filter (channels) {
       return channels.filter(ch => ch.name.includes(this.search)).slice(0, 200)
-    },
-
-    isJoined (id) {
-      return store.isChannelActive(id)
     }
   }
 }

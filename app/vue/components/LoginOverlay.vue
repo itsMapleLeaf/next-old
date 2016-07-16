@@ -41,13 +41,13 @@ input
 </style>
 
 <script>
-import DevInfo from '../elements/DevInfo.vue'
-import Overlay from '../elements/Overlay.vue'
-import Toggle from '../elements/Toggle.vue'
+import DevInfo from './DevInfo.vue'
+import Overlay from './Overlay.vue'
+import Toggle from './Toggle.vue'
 
-import {authenticate} from 'modules/flist'
-import {initStorage, saveStorageKeys, clearStorage, getStorage} from 'modules/storage'
-import {pushOverlay, popOverlay, setUserData} from '../../vuex/actions'
+import {authenticate} from '../modules/flist'
+import {initStorage, saveStorageKeys, clearStorage, getStorage} from '../modules/storage'
+import {pushOverlay, popOverlay, setUserData} from '../modules/vuex/actions'
 
 const connectionError = `
 Couldn't connect to the F-List website.
@@ -84,7 +84,7 @@ export default {
     submit (store) {
       this.status = ''
       this.disabled = true
-      this.pushOverlay('loading')
+      this.pushOverlay('loading-overlay')
 
       authenticate(this.username, this.password)
       .then(res => {
@@ -110,7 +110,7 @@ export default {
 
         this.popOverlay() // pop loading
         this.popOverlay() // pop login
-        this.pushOverlay('character-list')
+        this.pushOverlay('character-select-overlay')
         this.username = this.password = ''
       })
       .catch(error => {

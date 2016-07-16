@@ -1,5 +1,5 @@
 <template>
-  <action-panel side="right">
+  <side-panel side="right">
     <div slot="content">
       <form slot="content">
         <h2 class="wrap-break-word">{{char.name}}</h2>
@@ -28,7 +28,7 @@
 
       <menu-option icon='link' :href="getProfileURL(char.name)">View Profile</menu-option>
     </div>
-  </action-panel>
+  </side-panel>
 </template>
 
 <style lang="stylus" scoped>
@@ -44,11 +44,11 @@ img
 
 <script>
 // TODO: fix this shit
-import MenuOption from '../elements/MenuOption.vue'
-import ActionPanel from '../elements/ActionPanel.vue'
-import CharacterAvatarLink from '../elements/CharacterAvatarLink.vue'
+import MenuOption from './MenuOption.vue'
+import SidePanel from './SidePanelOverlay.vue'
+import CharacterAvatarLink from './CharacterAvatarLink.vue'
 
-import {getProfileURL, getAvatarURL} from 'modules/flist'
+import {getProfileURL, getAvatarURL} from '../modules/flist'
 
 export default {
   props: {
@@ -57,7 +57,7 @@ export default {
 
   components: {
     MenuOption,
-    ActionPanel,
+    SidePanel,
     CharacterAvatarLink
   },
 
