@@ -71,6 +71,8 @@ export default {
   ready () {
     if (this.connectionState === 'identified' || this.connectionState === 'online') return
 
+    this.pushOverlay('loading-overlay')
+
     new Promise((resolve, reject) => {
       const data = getStorage()
       if (!data) reject('No storage data found')
@@ -102,9 +104,11 @@ export default {
       const bookmarks = res3.characters
 
       this.setUserData(characters, friends, bookmarks)
+      this.popOverlay()
       this.pushOverlay('character-select-overlay')
     }).catch(e => {
-      console.info(e)
+      console.warn(e)
+      this.popOverlay()
       this.pushOverlay('login-overlay')
     })
   },
@@ -112,7 +116,6 @@ export default {
   methods: {
     checkDataAttribute (event) {
       for (let {name, value} of event.target.attributes) {
-        console.log(name, value)
         switch (name) {
           case 'data-push-overlay':
             this.pushOverlay(value)
@@ -148,11 +151,10 @@ export default {
 
         case 'identified':
           this.popOverlay()
-          this.pushOverlay('menu-overlay')
+          this.pushOverlay('channel-select-overlay')
           break
 
         case 'offline':
-          this.pushOverlay('login-overlay')
           break
       }
     }

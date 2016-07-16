@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class="ui-link"
+  <a href='#' class="ui-color-dark"
     :style="{ opacity: value ? 1 : 0.5 }"
     @click.prevent @keydown.space="$emit('click')">
     <i :class="'mdi mdi-' + iconClass"></i>
@@ -9,8 +9,8 @@
 
 <style lang="stylus" scoped>
 a
-  font-size: 0.9em
-  border-width: 1px
+  font-size: 0.8em
+  padding: 0.2em 0.4em
 
 span
   display: inline-block

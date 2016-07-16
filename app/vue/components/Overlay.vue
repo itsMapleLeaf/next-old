@@ -4,7 +4,7 @@
     <div class='ui-overlay-panel'>
       <slot></slot>
       <a class='flex-center-children close-button' href='#' v-if="!noClose" @click='close'>
-        <i class='mdi mdi-times'></i>
+        <i class='mdi mdi-close'></i>
       </a>
     </div>
   </div>
@@ -14,13 +14,10 @@
 .ui-overlay-panel
   position: relative
   text-align: center
-  padding: 1em 1.2em
+  padding: 1em 1em 0em
 
 .close-button
-  max-width: 100vw
-  max-height: 100vh
-  width: 2em
-  height: @width
+  padding: 0.4em 0.2em
   background: none
   position: absolute
   top: 0

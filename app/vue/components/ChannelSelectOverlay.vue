@@ -2,38 +2,37 @@
   <overlay>
     <h2>Chill and chat? Sounds good.</h2>
     <form>
-      <fieldset>
-        <selection-list class="channels">
-          <li v-for="channel in filter(publicChannels)"
-            class="no-select" :active="isJoined(channel.id)"
-            :data-toggle-channel="channel.id">
-            <span class='pull-right'>{{channel.userCount}}</span>
-            <span v-html="channel.name"></span>
-          </li>
-          <li v-for="channel in filter(privateChannels)"
-            class="no-select" :active="isJoined(channel.id)"
-            :data-toggle-channel="channel.id">
-            <span class="pull-right">{{channel.userCount}}</span>
-            <span v-html="channel.name"></span><br />
-            <em class="ui-small ui-subtle">{{channel.id}}</em>
-          </li>
-        </selection-list>
-      </fieldset>
-      <fieldset class="ui-icon-left" style="width: min-content">
-        <i class="mdi mdi-search"></i>
-        <input type="text" placeholder="Search..." v-model="search">
-      </fieldset>
+      <div class='ui-field'>
+        <div class='ui-select'>
+          <a href='#' v-for='channel in publicChannels'>
+            <span v-html='channel.name'></span>
+            <span style='float: right'>{{channel.userCount}}</span>
+          </a>
+          <a href='#' v-for='channel in privateChannels'>
+            <span style='float: right'>{{channel.userCount}}</span>
+            <span v-html='channel.name'></span><br />
+            <small style='opacity: 0.5; font-style: italic'>{{channel.id}}</small>
+          </a>
+        </div>
+      </div>
+      <div class='ui-field ui-input-icon'>
+        <i class='ui-icon mdi mdi-magnify'></i>
+        <input class='ui-input' type='text' placeholder='Search...' v-model='searchText'>
+      </div>
+      <div class='ui-field'>
+        <toggle :value='showAll' @click='showAll = !showAll'>Show all channels (lag warning)</toggle>
+      </div>
     </form>
   </overlay>
 </template>
 
 <style lang="stylus" scoped>
-.channels
+.ui-select
   text-align: left
-  width: 18em
-  height: 28em
+  width: 17em
+  height: 24em
 
-  li
+  a
     padding-left: 0.8em
     padding-right: 0.8em
 
@@ -43,25 +42,22 @@
 
 <script>
 import Overlay from './Overlay.vue'
-import SelectionList from './SelectionList.vue'
-import {socket} from '../modules/socket'
+import Toggle from './Toggle.vue'
+import socket from '../modules/socket'
 import {pushOverlay, popOverlay} from '../modules/vuex/actions'
 
+function compareNames (a, b) {
+  return a.name.localeCompare(b.name)
+}
+
 export default {
-  components: { Overlay, SelectionList },
+  components: {Overlay, Toggle},
 
   data () {
     return {
-      search: ''
+      searchText: '',
+      showAll: false
     }
-  },
-
-  vuex: {
-    getters: {
-      publicChannels: state => state.chat.publicChannels,
-      privateChannels: state => state.chat.privateChannels
-    },
-    setters: {pushOverlay, popOverlay}
   },
 
   created () {
@@ -69,10 +65,35 @@ export default {
     socket.requestChannels().then(this.popOverlay)
   },
 
-  methods: {
-    filter (channels) {
-      return channels.filter(ch => ch.name.includes(this.search)).slice(0, 200)
+  computed: {
+    publicChannels () {
+      return this.filterChannels(this.publicChannelMap)
+    },
+    privateChannels () {
+      return this.filterChannels(this.privateChannelMap)
     }
+  },
+
+  methods: {
+    filterChannels (map) {
+      let list = Object.values(map).sort(compareNames)
+      if (this.searchText.trim()) {
+        list = list.filter(ch => ch.name.toLocaleLowerCase()
+          .includes(this.searchText.toLocaleLowerCase()))
+      }
+      if (!this.showAll) {
+        list = list.slice(0, 300)
+      }
+      return list
+    }
+  },
+
+  vuex: {
+    getters: {
+      publicChannelMap: state => state.chat.publicChannels,
+      privateChannelMap: state => state.chat.privateChannels
+    },
+    actions: {pushOverlay, popOverlay}
   }
 }
 </script>

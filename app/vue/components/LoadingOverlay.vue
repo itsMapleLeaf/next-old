@@ -1,7 +1,10 @@
 <template>
-  <div class="ui-overlay-shade flex-column flex-center-children" transition="fade">
-    <i class="mdi mdi-paw"></i>
-    <h3><em>Working on it...</em></h3>
+  <div class="ui-overlay">
+    <div class="ui-overlay-shade"></div>
+    <div>
+      <i class="mdi mdi-paw"></i>
+      <h3><em>Working on it...</em></h3>
+    </div>
   </div>
 </template>
 
@@ -17,7 +20,7 @@ turning($x, $y, $z)
   100% { turning: 1 1 0 }
 
 i
-  font-size: 5em
+  font-size: 5rem
   animation-name: rotate
   animation-duration: 3.5s
   animation-iteration-count: infinite
