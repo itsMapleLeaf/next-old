@@ -2,6 +2,7 @@
 - Performance improvements
 - Added a pretty loading screen
 - Shows the channel ID under private channels
+- A few other style changes
 
 # 0.3.0
 - Showing LFRP ads

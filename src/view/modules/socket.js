@@ -18,10 +18,6 @@ export const servers = {
 }
 
 export class Socket {
-  ws: WebSocket | null
-  bus: EventEmitter
-  connected: boolean
-
   constructor () {
     // use an event bus to handle WS commands for some convenience,
     // like using .once() and such

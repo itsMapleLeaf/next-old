@@ -28,34 +28,40 @@ const endpoints = {
   bookmarkRemove: 'https://www.f-list.net/json/api/bookmark-remove.php'
 }
 
-export async function authenticate (account: string, password: string): Promise {
-  const {data} = await http.post(endpoints.login, { account, password })
-  return (data: AuthResponse | ErrorResponse)
+export function authenticate (account: string, password: string) {
+  return http.post(endpoints.login, { account, password }).then(res => {
+    return (res.data: AuthResponse | ErrorResponse)
+  })
 }
 
-export async function getUserCharacters (account: string, ticket: string): Promise {
-  const {data} = await http.post(endpoints.characterList, { account, ticket })
-  return (data: CharacterListResponse | ErrorResponse)
+export function getUserCharacters (account: string, ticket: string) {
+  return http.post(endpoints.characterList, { account, ticket }).then(res => {
+    return (res.data: CharacterListResponse | ErrorResponse)
+  })
 }
 
-export async function getFriendsList (account: string, ticket: string): Promise {
-  const {data} = await http.post(endpoints.friendsList, { account, ticket })
-  return (data: FriendsListResponse | ErrorResponse)
+export function getFriendsList (account: string, ticket: string) {
+  return http.post(endpoints.friendsList, { account, ticket }).then(res => {
+    return (res.data: FriendsListResponse | ErrorResponse)
+  })
 }
 
-export async function getBookmarkList (account: string, ticket: string): Promise {
-  const {data} = await http.post(endpoints.bookmarkList, { account, ticket })
-  return (data: BookmarksListResponse | ErrorResponse)
+export function getBookmarkList (account: string, ticket: string) {
+  return http.post(endpoints.bookmarkList, { account, ticket }).then(res => {
+    return (res.data: BookmarksListResponse | ErrorResponse)
+  })
 }
 
-export async function addBookmark (account: string, ticket: string, name: CharacterName): Promise {
-  const {data} = await http.post(endpoints.bookmarkAdd, { account, ticket, name })
-  return (data: BookmarkAddResponse | ErrorResponse)
+export function addBookmark (account: string, ticket: string, name: CharacterName) {
+  return http.post(endpoints.bookmarkAdd, { account, ticket, name }).then(res => {
+    return (res.data: BookmarkAddResponse | ErrorResponse)
+  })
 }
 
-export async function removeBookmark (account: string, ticket: string, name: CharacterName): Promise {
-  const {data} = await http.post(endpoints.bookmarkAdd, { account, ticket, name })
-  return (data: BookmarkRemoveResponse | ErrorResponse)
+export function removeBookmark (account: string, ticket: string, name: CharacterName) {
+  return http.post(endpoints.bookmarkAdd, { account, ticket, name }).then(res => {
+    return (res.data: BookmarkRemoveResponse | ErrorResponse)
+  })
 }
 
 export function getProfileURL (name: string) {

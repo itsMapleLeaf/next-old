@@ -38,14 +38,5 @@ module.exports = {
       }
     })
   ],
-  babel: {
-    presets: ['es2015', 'stage-1'],
-    plugins: [
-      'typecheck',
-      'syntax-flow',
-      'transform-flow-strip-types',
-      'transform-runtime'
-    ]
-  },
   devtool: 'source-map'
 }
