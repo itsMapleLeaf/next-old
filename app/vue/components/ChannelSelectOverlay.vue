@@ -4,11 +4,11 @@
     <form>
       <div class='ui-field'>
         <div class='ui-select'>
-          <a href='#' v-for='channel in publicChannels'>
+          <a href='#' v-for='channel in publicChannels' :data-toggle-channel='channel.id'>
             <span v-html='channel.name'></span>
             <span style='float: right'>{{channel.userCount}}</span>
           </a>
-          <a href='#' v-for='channel in privateChannels'>
+          <a href='#' v-for='channel in privateChannels' :data-toggle-channel='channel.id'>
             <span style='float: right'>{{channel.userCount}}</span>
             <span v-html='channel.name'></span><br />
             <small style='opacity: 0.5; font-style: italic'>{{channel.id}}</small>

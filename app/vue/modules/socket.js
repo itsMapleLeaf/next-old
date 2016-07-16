@@ -219,7 +219,7 @@ export class Socket {
         const mode: ChannelMode = params.mode
         const characters: CharacterName[] = params.users.map(entry => entry.identity)
         store.dispatch('SetChannelCharacterList', id, characters)
-        store.dispatch('SetCharacterMode', id, mode)
+        store.dispatch('SetChannelMode', id, mode)
         break
       }
 

@@ -8,13 +8,6 @@
 <style lang="stylus" src="../styles/ui.styl"></style>
 <style lang="stylus" src="../styles/flex.styl"></style>
 
-<!-- <style lang="stylus" src="./styles/App.styl"></style>
-<style lang="stylus" src="./styles/App-common.styl"></style>
-<style lang="stylus" src="./styles/App-ui.styl"></style>
-<style lang="stylus" src="./styles/App-flex.styl"></style>
-<style lang="stylus" src="./styles/App-form.styl"></style>
-<style lang="stylus" src="./styles/App-transitions.styl"></style> -->
-
 <script>
 // import CharacterMenu from './CharacterMenu.vue'
 
@@ -120,19 +113,12 @@ export default {
           case 'data-push-overlay':
             this.pushOverlay(value)
             break
+
+          case 'data-toggle-channel':
+            socket.joinChannel(value)
+            break
         }
       }
-    },
-
-    dataToggleChannel (el) {
-      // const id = el.getAttribute('data-toggle-channel')
-      // if (id) {
-      //   if (!store.isChannelActive(id)) {
-      //     store.notify('JoinChannelRequest', { id })
-      //   } else {
-      //     store.notify('LeaveChannelRequest', { id })
-      //   }
-      // }
     }
   },
 
