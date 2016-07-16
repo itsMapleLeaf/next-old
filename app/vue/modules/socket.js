@@ -37,12 +37,10 @@ export class Socket {
 
     this.bus.once('IDN', () => {
       store.dispatch('SetConnectionState', 'identified')
-      store.dispatch('PopOverlay')
     })
 
     this.bus.once('close', () => {
       store.dispatch('SetConnectionState', 'offline')
-      store.dispatch('PushOverlay', 'login')
     })
 
     this.bus.on('error', err => {

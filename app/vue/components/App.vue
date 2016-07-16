@@ -69,6 +69,8 @@ export default {
   },
 
   ready () {
+    if (this.connectionState === 'identified' || this.connectionState === 'online') return
+
     new Promise((resolve, reject) => {
       const data = getStorage()
       if (!data) reject('No storage data found')
@@ -109,10 +111,17 @@ export default {
 
   methods: {
     checkDataAttribute (event) {
-      this.checkToggleChannel(event.target)
+      for (let {name, value} of event.target.attributes) {
+        console.log(name, value)
+        switch (name) {
+          case 'data-push-overlay':
+            this.pushOverlay(value)
+            break
+        }
+      }
     },
 
-    checkToggleChannel (el) {
+    dataToggleChannel (el) {
       // const id = el.getAttribute('data-toggle-channel')
       // if (id) {
       //   if (!store.isChannelActive(id)) {
@@ -140,6 +149,10 @@ export default {
         case 'identified':
           this.popOverlay()
           this.pushOverlay('menu-overlay')
+          break
+
+        case 'offline':
+          this.pushOverlay('login-overlay')
           break
       }
     }

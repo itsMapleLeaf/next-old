@@ -1,9 +1,9 @@
 <template>
   <div class='flex-column ui-color-dark ui-fullscreen'>
     <nav class='flex-row flex-fixed' style='flex-wrap: wrap'>
-      <shortcut title="Actions" icon="menu" overlay="menu-overlay"></shortcut>
-      <shortcut title="Channels" icon="earth" overlay="channel-select-overlay"></shortcut>
-      <shortcut title="Users" icon="heart" overlay="online-users-overlay"></shortcut>
+      <shortcut title="Actions" icon="menu" data-push-overlay="menu-overlay"></shortcut>
+      <shortcut title="Channels" icon="earth" data-push-overlay="channel-select-overlay"></shortcut>
+      <shortcut title="Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>
 
       <chat-tab v-for="chat in activeChats"
         :active="$index === currentIndex"
@@ -35,7 +35,7 @@ import ChatTab from './ChatTab.vue'
 import Chatbox from './Chatbox.vue'
 import ChannelView from './ChannelView.vue'
 // import PrivateChatView from './PrivateChatView.vue'
-import {pushOverlay} from '../modules/vuex/actions'
+// import {pushOverlay} from '../modules/vuex/actions'
 
 // function clamp (num, min, max) {
 //   return num < min ? min
@@ -45,22 +45,15 @@ import {pushOverlay} from '../modules/vuex/actions'
 
 const Shortcut = {
   template: `
-    <a class='flex-fixed flex-center-children header-shortcut'
-      title="Actions" @click="pushOverlay(overlay)">
-      <i :class="'mdi mdi-' + icon"></i>
+    <a href='#' class='flex-fixed flex-center-children header-shortcut'
+      title="Actions">
+      <i :class="'mdi mdi-' + icon" style="pointer-events: none"></i>
     </a>
   `,
 
   props: {
     icon: String,
     overlay: String
-  },
-
-  vuex: {
-    getters: {
-      activeChannels: state => state.chat.activeChannels
-    },
-    actions: {pushOverlay}
   }
 }
 
