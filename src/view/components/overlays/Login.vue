@@ -46,13 +46,14 @@ import Overlay from '../elements/Overlay.vue'
 import Toggle from '../elements/Toggle.vue'
 
 import {authenticate} from 'modules/flist'
-import {pushOverlay, popOverlay} from '../../vuex/actions'
+import {initStorage, saveStorageKeys, clearStorage, getStorage} from 'modules/storage'
+import {pushOverlay, popOverlay, setUserData} from '../../vuex/actions'
 
-// const errorMessage = `
-// Could not connect to F-List website.
-// They're either doing maintenance,
-// or someone spilled coke on the servers again.
-// `
+const connectionError = `
+Couldn't connect to the F-List website.
+They're either doing maintenance,
+or someone spilled coke on the servers again.
+`
 
 export default {
   components: {
@@ -71,6 +72,13 @@ export default {
     }
   },
 
+  created () {
+    const data = getStorage()
+    if (data) {
+      this.username = data.account
+    }
+  },
+
   methods: {
     submit (store) {
       this.status = ''
@@ -86,17 +94,28 @@ export default {
             return { you: entry.dest_name, them: entry.source_name }
           })
           const bookmarks = res.bookmarks.map(char => char.name)
-          this.setLoginData(this.username, res.ticket, res.characters, friends, bookmarks)
+          this.setUserData(this.username, res.ticket, res.characters, friends, bookmarks)
+
+          if (this.remember) {
+            initStorage()
+            saveStorageKeys({
+              account: this.username,
+              ticket: res.ticket
+            })
+          } else {
+            clearStorage()
+          }
         }
-      })
-      .catch(error => {
-        this.status = error
-      })
-      .then(() => {
+
         this.popOverlay() // pop loading
         this.popOverlay() // pop login
         this.pushOverlay('character-list')
         this.username = this.password = ''
+      })
+      .catch(error => {
+        this.status = error || connectionError
+      })
+      .then(() => {
         this.disabled = false
       })
     }
@@ -106,13 +125,7 @@ export default {
     actions: {
       pushOverlay,
       popOverlay,
-
-      setLoginData: (store, account, ticket, characters, friends, bookmarks) => {
-        store.dispatch('SetAuth', account, ticket)
-        store.dispatch('SetUserCharacterList', characters)
-        store.dispatch('SetFriendsList', friends)
-        store.dispatch('SetBookmarkList', bookmarks)
-      }
+      setUserData
     }
   }
 }

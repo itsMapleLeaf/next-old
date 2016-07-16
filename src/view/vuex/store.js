@@ -145,9 +145,9 @@ const mutations = {
     state.chat.connectionState = conn
   },
 
-  AddCharacterBatch (state: State, batch) {
+  AddCharacterBatch (state: State, batch: CharacterBatchEntry[]) {
     const map: CharacterMap = {}
-    for (let entry: CharacterBatchEntry of batch) {
+    for (let entry of batch) {
       const [name, gender, state, message] = entry
       const char: Character = createCharacter(name, gender, { state, message })
       map[name] = char

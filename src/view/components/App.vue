@@ -28,8 +28,9 @@ import OnlineUsers from './overlays/OnlineUsers.vue'
 import About from './overlays/About.vue'
 
 import socket, {servers} from 'modules/socket'
-import {pushOverlay, popOverlay} from '../vuex/actions'
-// import * as flist from 'modules/flist'
+import {pushOverlay, popOverlay, setUserData} from '../vuex/actions'
+import {getStorage} from 'modules/storage'
+import * as flist from 'modules/flist'
 
 export default {
   components: {
@@ -52,11 +53,44 @@ export default {
       ticket: state => state.auth.ticket,
       character: state => state.user.character
     },
-    actions: {pushOverlay, popOverlay}
+    actions: {
+      pushOverlay,
+      popOverlay,
+      setUserData
+    }
   },
 
   ready () {
-    this.pushOverlay('login')
+    const data = getStorage()
+    if (data) {
+      Promise.all([
+        flist.getUserCharacters(data.account, data.ticket),
+        flist.getFriendsList(data.account, data.ticket),
+        flist.getBookmarkList(data.account, data.ticket)
+      ]).then(([res1, res2, res3]) => {
+        if (res1.error) {
+          throw "Error getting characters: " + res1.error
+        }
+        if (res2.error) {
+          throw "Error getting friends: " + res2.error
+        }
+        if (res3.error) {
+          throw "Error getting bookmarks: " + res2.error
+        }
+
+        const {characters} = res1
+        const friends = res2.friends.map(entry => {
+          return { you: entry.source, them: entry.dest }
+        })
+        const bookmarks = res3.characters
+
+        this.setUserData(data.account, data.ticket, characters, friends, bookmarks)
+        this.pushOverlay('character-list')
+      }).catch(e => {
+        console.info(e)
+        this.pushOverlay('login')
+      })
+    }
   },
 
   methods: {

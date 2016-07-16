@@ -1,13 +1,16 @@
 <template>
-  <overlay panel-width='18em'>
-    <p><a class='ui-link' href='https://www.f-list.net/c/alexander%20grapevine/'>
-      <img src="https://static.f-list.net/images/avatar/alexander%20grapevine.png" />
-    </a></p>
-    <p><dev-info></dev-info></p>
+  <overlay>
+    <section>
+      <p><a class='ui-link' href='https://www.f-list.net/c/alexander%20grapevine/'>
+        <img src="https://static.f-list.net/images/avatar/alexander%20grapevine.png" />
+      </a></p>
+      <p><dev-info></dev-info></p>
+    </section>
   </overlay>
 </template>
 
-<style lang="stylus" scoped>
+<style scoped>
+section { width: 18em }
 </style>
 
 <script>

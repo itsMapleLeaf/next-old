@@ -53,6 +53,7 @@ import MenuOption from '../elements/MenuOption.vue'
 import Dropdown from '../elements/Dropdown.vue'
 
 import {getProfileURL, getAvatarURL} from 'modules/flist'
+import {pushOverlay, popOverlay} from '../../vuex/actions'
 import socket from 'modules/socket'
 
 export default {
@@ -74,12 +75,7 @@ export default {
       userStatus: state => state.user.status,
       character: state => state.user.character
     },
-    actions: {
-      openOverlay (state, overlay) {
-        state.dispatch('PopOverlay')
-        state.dispatch('PushOverlay', overlay)
-      }
-    }
+    actions: {pushOverlay, popOverlay}
   },
 
   computed: {
@@ -92,6 +88,11 @@ export default {
   },
 
   methods: {
+    openOverlay (store, overlay) {
+      store.dispatch('PopOverlay')
+      store.dispatch('PushOverlay', overlay)
+    },
+
     setStatus (status) {
       this.status.state = status
     },

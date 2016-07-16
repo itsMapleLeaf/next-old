@@ -23,6 +23,7 @@
 <script>
 import Overlay from '../elements/Overlay.vue'
 import socket from 'modules/socket'
+import {saveStorageKeys} from 'modules/storage'
 import {pushOverlay, popOverlay} from '../../vuex/actions'
 
 export default {
@@ -52,6 +53,7 @@ export default {
 
     submit () {
       this.setUserCharacter(this.activeCharacter)
+      saveStorageKeys({ character: this.activeCharacter })
       this.popOverlay()
       socket.connect()
     }
