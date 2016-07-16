@@ -23,17 +23,24 @@
 <script>
 import Overlay from '../elements/Overlay.vue'
 import socket from 'modules/socket'
-import {saveStorageKeys} from 'modules/storage'
+import {saveStorageKeys, getStorage} from 'modules/storage'
 import {pushOverlay, popOverlay} from '../../vuex/actions'
 
 export default {
+  components: {Overlay},
+
   data () {
     return {
       activeCharacter: ''
     }
   },
 
-  components: {Overlay},
+  ready () {
+    const data = getStorage()
+    if (data) {
+      this.activeCharacter = data.character || ''
+    }
+  },
 
   vuex: {
     getters: {
