@@ -76,6 +76,7 @@ export default {
     const data = getStorage()
     if (data) {
       this.username = data.account
+      this.remember = true
     }
   },
 
