@@ -2,7 +2,7 @@
   <p>
     <h2>fchat-next alpha v{{version}}</h2>
     <p>
-      <i class='mdi mdi-code'></i> with
+      <i class='mdi mdi-code-tags'></i> with
       <i class='mdi mdi-heart'></i> by
       <a class='ui-link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>
     </p>
