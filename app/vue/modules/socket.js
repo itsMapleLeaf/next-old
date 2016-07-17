@@ -132,6 +132,11 @@ export class Socket {
     this.send('IGN', { action: 'delete', character })
   }
 
+  sendMessage (channel: ChannelID, message: string) {
+    this.send('MSG', { channel, message })
+    store.dispatch('AddChannelMessage', channel, store.state.user.character, message, 'normal')
+  }
+
   handleServerCommand (type: string, params: Object) {
     switch (type) {
       // successful identification w/ chat server

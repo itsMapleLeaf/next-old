@@ -43,7 +43,7 @@
 
     <!-- chatbox -->
     <div class='flex-fixed ui-color-main'>
-      <slot name='chatbox'></slot>
+      <chatbox @submit='chatboxSubmit'></chatbox>
     </div>
   </div>
 </template>
@@ -85,6 +85,7 @@ import ChatMessage from './ChatMessage.vue'
 import ChatMessageList from './ChatMessageList.vue'
 import ChannelState from '../types/ChannelState'
 import {bbcode} from '../modules/filters'
+import socket from '../modules/socket'
 
 function compareNames (a, b) {
   return a.name.localeCompare(b.name)
@@ -107,10 +108,8 @@ export default {
   },
 
   methods: {
-    characterListClicked (event) {
-      // TODO: implement data attribute checker in App.vue
-      // const character = event.target.getAttribute('data-character')
-      // this.$dispatch(CharacterActivated, character)
+    chatboxSubmit (message) {
+      socket.sendMessage(this.state.id, message)
     }
   },
 

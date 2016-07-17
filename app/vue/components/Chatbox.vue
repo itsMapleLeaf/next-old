@@ -1,5 +1,8 @@
 <template>
-  <textarea class='ui-color-main ui-text' :placeholder='placeholder' v-model='input'></textarea>
+  <textarea class='ui-color-main ui-text'
+    v-model='message'
+    :placeholder='placeholder'
+    @keydown='keydown($event)'></textarea>
 </template>
 
 <style scoped>
@@ -17,7 +20,7 @@ textarea {
 <script>
 export default {
   data () {
-    return { input: '' }
+    return { message: '' }
   },
 
   vuex: {
@@ -37,8 +40,16 @@ export default {
   },
 
   methods: {
-    fixContent (event) {
-      event.target.innerHTML = event.target.textContent.trim()
+    keydown (event) {
+      if (event.key === 'Enter') {
+        if (!event.ctrlKey) {
+          event.preventDefault()
+          this.$emit('submit', this.message)
+          this.message = ''
+        } else {
+          this.message += '\n'
+        }
+      }
     }
   }
 }

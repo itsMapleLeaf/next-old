@@ -14,7 +14,7 @@ a
   position: relative
   top: -0.3em
 
-  &.online { color: rgb(47, 47, 47) }
+  &.online { color: rgba(#333, 0.8) }
   &.looking { color: rgb(32, 223, 109) }
   &.busy { color: rgba(white, 0.5) }
   &.away { color: rgb(58, 111, 246) }
