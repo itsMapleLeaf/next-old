@@ -114,6 +114,7 @@ export default {
         this.username = this.password = ''
       })
       .catch(error => {
+        this.popOverlay() // pop loading
         this.status = error || connectionError
       })
       .then(() => {

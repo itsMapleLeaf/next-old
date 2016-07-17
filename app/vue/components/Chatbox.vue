@@ -1,28 +1,24 @@
 <template>
-  <div
-    class='ui-color-main ui-text ui-scroll ui-editor'
-    v-editor.partial :placeholder='placeholder'
-    @blur='fixContent($event)'></div>
+  <textarea class='ui-color-main ui-text' :placeholder='placeholder' v-model='input'></textarea>
 </template>
 
 <style scoped>
-div {
+textarea {
+  display: block;
   width: 100%;
-  min-height: 4rem;
-  max-height: 10rem;
+  height: 4rem;
   padding: 0.4em 0.6em;
+  font-size: 0.9em;
   border: none;
   resize: none;
-  display: block;
-  font-size: 0.9em;
 }
 </style>
 
 <script>
-import {editor} from '../modules/directives'
-
 export default {
-  props: {},
+  data () {
+    return { input: '' }
+  },
 
   vuex: {
     getters: {
@@ -44,8 +40,6 @@ export default {
     fixContent (event) {
       event.target.innerHTML = event.target.textContent.trim()
     }
-  },
-
-  directives: {editor}
+  }
 }
 </script>
