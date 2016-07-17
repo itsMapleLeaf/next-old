@@ -1,7 +1,5 @@
 <template>
-  <a href='#'
-    :style="{ opacity: value ? 1 : 0.5 }"
-    @click.prevent @keydown.space="$emit('click')">
+  <a href='#' :style="{ opacity: value ? 1 : 0.5 }" @keydown.space="$emit('click')">
     <i :class="'mdi mdi-' + iconClass"></i>
     <slot></slot>
   </a>
@@ -11,6 +9,7 @@
 a
   font-size: 0.8em
   padding: 0.2em 0.4em
+  user-select: none
 
 span
   display: inline-block
