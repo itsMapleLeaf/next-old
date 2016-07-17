@@ -1,38 +1,29 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {
-  createCharacter,
-  createChannelState,
-  createChatMessage,
-  createPrivateChatState
-} from '../constructors'
+import Character, {Gender, Status} from '../../types/Character'
+import ChannelState from '../../types/ChannelState'
+import ChatMessage, {MessageType} from '../../types/ChatMessage'
+import PrivateChatState from '../../types/PrivateChatState'
+import ChannelInfo from '../../types/ChannelInfo'
 
-import type {
-  Character,
-  CharacterName,
-  Gender,
-  CharacterStatus,
-  PrivateChatState,
-  CharacterStatusState,
-  FriendInfo,
-  ChannelInfo,
-  ChannelID,
-  ChannelState,
-  ChannelMode,
-  ChatMessage,
-  ChatMessageType,
-  ConnectionState
-} from '../types'
-
+type CharacterName = string
+type ChannelID = string
 type CharacterMap = { [name: CharacterName]: Character }
 type CharacterBoolMap = { [name: CharacterName]: boolean }
 type FriendMap = { [you: CharacterName]: CharacterBoolMap }
 type ChannelInfoMap = { [id: ChannelID]: ChannelInfo }
-type CharacterBatchEntry = [CharacterName, Gender, CharacterStatusState, string]
+type CharacterBatchEntry = [CharacterName, Gender, Status, string]
 type ChannelStateMap = { [id: ChannelID]: ChannelState }
 type PrivateChatStateMap = { [partner: CharacterName]: PrivateChatState }
 type ServerVariableValue = number | string | string[]
+type FriendInfo = { you: CharacterName, them: CharacterName }
+
+type ConnectionState
+  = 'offline'
+  | 'connecting'
+  | 'online'
+  | 'identified'
 
 type State = {
   auth: { account: string, ticket: string },
@@ -40,7 +31,8 @@ type State = {
   user: {
     character: CharacterName,
     characterList: CharacterName[],
-    status: CharacterStatus
+    status: Status,
+    statusMessage: string
   },
 
   chat: {
@@ -73,7 +65,8 @@ const state: State = {
   user: {
     character: '',
     characterList: [],
-    status: { state: 'online', message: '' }
+    status: 'online',
+    statusMessage: ''
   },
 
   chat: {
@@ -148,23 +141,23 @@ const mutations = {
   AddCharacterBatch (state: State, batch: CharacterBatchEntry[]) {
     const map: CharacterMap = {}
     for (let entry of batch) {
-      const [name, gender, state, message] = entry
-      const char: Character = createCharacter(name, gender, { state, message })
+      const [name, gender, status, statusmsg] = entry
+      const char: Character = new Character(name, gender, status, statusmsg)
       map[name] = char
     }
     state.chat.characters = Object.assign(state.chat.characters, map)
   },
 
   AddCharacter (state: State, name: CharacterName, gender: Gender) {
-    Vue.set(state.chat.characters, name, createCharacter(name, gender))
+    Vue.set(state.chat.characters, name, new Character(name, gender))
   },
 
   RemoveCharacter (state: State, name: CharacterName) {
     delete state.chat.characters[name]
   },
 
-  SetCharacterStatus (state: State, name: CharacterName, status: CharacterStatus) {
-    state.chat.characters[name].status = status
+  SetCharacterStatus (state: State, name: CharacterName, status: Status, message: string) {
+    state.chat.characters[name].setStatus(status, message)
   },
 
   SetPublicChannelList (state: State, channels: ChannelInfo[]) {
@@ -180,7 +173,7 @@ const mutations = {
   },
 
   AddActiveChannel (state: State, id: ChannelID, name: string) {
-    Vue.set(state.chat.activeChannels, id, createChannelState(id, name))
+    Vue.set(state.chat.activeChannels, id, new ChannelState(id, name))
   },
 
   RemoveActiveChannel (state: State, id: ChannelID) {
@@ -195,9 +188,9 @@ const mutations = {
     state.chat.activeChannels[id].characters = list
   },
 
-  SetChannelMode (state: State, id: ChannelID, mode: ChannelMode) {
-    state.chat.activeChannels[id].mode = mode
-  },
+  // SetChannelMode (state: State, id: ChannelID, mode: ChannelMode) {
+  //   state.chat.activeChannels[id].mode = mode
+  // },
 
   SetChannelDescription (state: State, id: ChannelID, description: string) {
     state.chat.activeChannels[id].description = description
@@ -213,16 +206,16 @@ const mutations = {
     channel.characters = channel.characters.filter(char => char.name !== name)
   },
 
-  AddChannelMessage (state: State, id: ChannelID, sender: CharacterName, text: string, type: ChatMessageType) {
+  AddChannelMessage (state: State, id: ChannelID, sender: CharacterName, text: string, type: MessageType) {
     const channel: ChannelState = state.chat.activeChannels[id]
     const char: Character = state.chat.characters[sender]
-    const message: ChatMessage = createChatMessage(char, text, type)
+    const message: ChatMessage = new ChatMessage(char, text, type)
     channel.messages.push(message)
   },
 
   AddActivePrivateChat (state: State, partner: CharacterName) {
     const char: Character = state.chat.characters[partner]
-    const chat: PrivateChatState = createPrivateChatState(char)
+    const chat: PrivateChatState = new PrivateChatState(char)
     Vue.set(state.chat.activePrivateChats, partner, chat)
   },
 
@@ -234,7 +227,7 @@ const mutations = {
     // TODO: open a private chat if one doesn't exist
     const channel: PrivateChatState = state.chat.activePrivateChats[partner]
     const char: Character = state.chat.characters[sender]
-    const message: ChatMessage = createChatMessage(char, text, 'chat')
+    const message: ChatMessage = new ChatMessage(char, text, 'chat')
     channel.messages.push(message)
   },
 

@@ -5,11 +5,11 @@
       <div class='ui-field'>
         <div class='ui-select'>
           <a href='#' v-for='channel in publicChannels' :data-toggle-channel='channel.id'>
+            <span style='float: right'>{{channel.users}}</span>
             <span v-html='channel.name'></span>
-            <span style='float: right'>{{channel.userCount}}</span>
           </a>
           <a href='#' v-for='channel in privateChannels' :data-toggle-channel='channel.id'>
-            <span style='float: right'>{{channel.userCount}}</span>
+            <span style='float: right'>{{channel.users}}</span>
             <span v-html='channel.name'></span><br />
             <small style='opacity: 0.5; font-style: italic'>{{channel.id}}</small>
           </a>

@@ -3,10 +3,10 @@ import {inspect} from 'util'
 import store from './vuex/store'
 import meta from './meta'
 
-import type {
-  ChannelInfo, ChannelID, ChannelMode,
-  CharacterName, CharacterStatus
-} from './types'
+import ChannelInfo from '../types/ChannelInfo'
+
+type ChannelID = string
+type CharacterName = string
 
 const {WebSocket} = window
 
@@ -188,17 +188,14 @@ export class Socket {
         break
 
       // character changed status
-      case 'STA': {
-        const name: CharacterName = params.character
-        const status: CharacterStatus = { state: params.status, message: params.statusmsg }
-        store.dispatch('SetCharacterStatus', name, status)
+      case 'STA':
+        store.dispatch('SetCharacterStatus', params.character, params.status, params.statusmsg)
         break
-      }
 
       // received list of public channels
       case 'CHA': {
         const channels: ChannelInfo[] = params.channels.map(ch => {
-          return { id: ch.name, name: ch.name, userCount: ch.characters }
+          return new ChannelInfo(ch.name, ch.name, ch.characters)
         })
         store.dispatch('SetPublicChannelList', channels)
         break
@@ -207,7 +204,7 @@ export class Socket {
       // received list of private channels
       case 'ORS': {
         const channels: ChannelInfo[] = params.channels.map(ch => {
-          return { id: ch.name, name: ch.title, userCount: ch.characters }
+          return new ChannelInfo(ch.name, ch.title, ch.characters)
         })
         store.dispatch('SetPrivateChannelList', channels)
         break
@@ -216,10 +213,8 @@ export class Socket {
       // receiving initial channel information
       case 'ICH': {
         const id: ChannelID = params.channel
-        const mode: ChannelMode = params.mode
         const characters: CharacterName[] = params.users.map(entry => entry.identity)
         store.dispatch('SetChannelCharacterList', id, characters)
-        store.dispatch('SetChannelMode', id, mode)
         break
       }
 

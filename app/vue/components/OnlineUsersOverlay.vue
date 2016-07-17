@@ -43,11 +43,9 @@ import Character from './Character.vue'
 import Dropdown from './Dropdown.vue'
 import Overlay from './Overlay.vue'
 
-import {CharacterRelation} from '../modules/types'
-
-function compareNames (a, b) {
-  return a.name.localeCompare(b.name)
-}
+// function compareNames (a, b) {
+//   return a.name.localeCompare(b.name)
+// }
 
 export default {
   components: {
@@ -70,29 +68,29 @@ export default {
   },
 
   created () {
-    this.characters = store.getOnlineCharacterList().sort(compareNames)
+    // this.characters = store.getOnlineCharacterList().sort(compareNames)
   },
 
   computed: {
   },
 
   methods: {
-    filterRelation (relation?: CharacterRelation) {
-      let filtered
-      if (relation) {
-        filtered = this.characters.filter(char => char.relation[0] === relation)
-      } else {
-        filtered = this.characters.filter(char => {
-          const {relation} = char
-          return !relation.includes('friend') &&
-            !relation.includes('bookmark') &&
-            !relation.includes('looking')
-        })
-      }
-      return filtered
-        .filter(char => char.name.includes(this.search))
-        .slice(0, 100)
-    }
+    // filterRelation (relation?: CharacterRelation) {
+    //   let filtered
+    //   if (relation) {
+    //     filtered = this.characters.filter(char => char.relation[0] === relation)
+    //   } else {
+    //     filtered = this.characters.filter(char => {
+    //       const {relation} = char
+    //       return !relation.includes('friend') &&
+    //         !relation.includes('bookmark') &&
+    //         !relation.includes('looking')
+    //     })
+    //   }
+    //   return filtered
+    //     .filter(char => char.name.includes(this.search))
+    //     .slice(0, 100)
+    // }
   }
 }
 </script>
