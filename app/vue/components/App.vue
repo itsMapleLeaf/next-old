@@ -44,7 +44,8 @@ export default {
       connectionState: state => state.chat.connectionState,
       account: state => state.auth.account,
       ticket: state => state.auth.ticket,
-      character: state => state.user.character
+      character: state => state.user.character,
+      activeChannels: state => state.chat.activeChannels
     },
     actions: {
       pushOverlay,
@@ -115,7 +116,11 @@ export default {
             break
 
           case 'data-toggle-channel':
-            socket.joinChannel(value)
+            if (!this.activeChannels[value]) {
+              socket.joinChannel(value)
+            } else {
+              socket.leaveChannel(value)
+            }
             break
         }
       }

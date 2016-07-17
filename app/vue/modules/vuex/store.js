@@ -180,6 +180,7 @@ const mutations = {
   },
 
   RemoveActiveChannel (state: State, id: ChannelID) {
+    Vue.set(state.chat.activeChannels, id, undefined)
     delete state.chat.activeChannels[id]
   },
 
