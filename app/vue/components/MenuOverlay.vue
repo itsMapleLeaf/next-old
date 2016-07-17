@@ -6,7 +6,7 @@
         <character-avatar-link :character="character"></character-avatar-link>
       </div>
       <div class='ui-field'>
-        <dropdown :init-value="status.state" @changed='setStatus'>
+        <dropdown :value="status" @input='statusChanged'>
           <a href='#' value="online">Online</a>
           <a href='#' value="looking">Looking</a>
           <a href='#' value="busy">Busy</a>
@@ -18,8 +18,12 @@
         <i class='ui-icon mdi mdi-pencil'></i>
         <div contenteditable class='ui-input' style='word-wrap: break-word'
           placeholder="What's up?"
-          @blur='setStatusMessage($event.target.innerText)'
-          @keydown.enter.prevent='$event.target.blur()'>{{* status.message}}</div>
+          @blur='statusMessage = $event.target.innerText'
+          @keydown.enter.prevent='$event.target.blur()'
+          :v-html.once='statusMessage'></div>
+      </div>
+      <div class='ui-field'>
+        <button class='ui-button' style='font-size: 0.8em; padding: 0.3em 0.8em'>Update</button>
       </div>
     </form>
 
@@ -66,13 +70,15 @@ export default {
 
   data () {
     return {
-      status: this.userStatus
+      status: this.userStatus,
+      statusMessage: this.userStatusMessage
     }
   },
 
   vuex: {
     getters: {
       userStatus: state => state.user.status,
+      userStatusMessage: state => state.user.statusMessage,
       character: state => state.user.character
     },
     actions: {
@@ -96,13 +102,8 @@ export default {
   },
 
   methods: {
-
-    setStatus (status) {
-      this.status.state = status
-    },
-
-    setStatusMessage (message) {
-      this.status.message = message
+    statusChanged (status) {
+      this.status = status
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <div class='ui-dropdown'>
     <a class='ui-dropdown-head' href='#' @click='toggle'>
-      <i class='ui-icon mdi mdi-menu-down'></i> {{ valueLabel }} 
+      <i class='ui-icon mdi mdi-menu-down'></i> {{ label }}
     </a>
-    <div class='ui-dropdown-items' v-show='open' transition="collapse" v-el:list-items @click='selectItem($event)'>
+    <div class='ui-dropdown-items' v-show='open' v-el:list-items transition="collapse" @click='selectItem($event)'>
       <slot></slot>
     </div>
   </div>
@@ -12,24 +12,13 @@
 <script>
 export default {
   props: {
-    initValue: ''
+    value: ''
   },
 
   data () {
     return {
-      open: false,
-      selected: undefined
+      open: false
     }
-  },
-
-  ready () {
-    const {children} = this.$els.listItems
-    for (let item of children) {
-      if ((item.getAttribute('value') || item.innerText) === this.initValue) {
-        this.selected = item
-      }
-    }
-    this.selected = this.selected || children[0]
   },
 
   methods: {
@@ -38,24 +27,17 @@ export default {
     },
 
     selectItem (event) {
-      this.selected = event.target
       this.open = false
-      this.$emit('changed', this.value)
+      this.$emit('input', event.target.getAttribute('value') || event.target.innerHTML)
     }
   },
 
   computed: {
-    value () {
-      if (this.selected) {
-        const value = this.selected.getAttribute('value')
-        return value !== null ? value : this.selected.innerText
-      } else {
-        return ''
-      }
-    },
-
-    valueLabel () {
-      return this.selected ? this.selected.innerText : ''
+    label () {
+      const el = Array.from(this.$els.listItems.children).find(el => {
+        return el.getAttribute('value') === this.value || el.innerHTML === this.value
+      })
+      return el ? el.innerHTML : ''
     }
   }
 }
