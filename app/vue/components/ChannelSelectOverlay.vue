@@ -4,11 +4,11 @@
     <form>
       <div class='ui-field'>
         <div class='ui-select'>
-          <a href='#' v-for='channel in publicChannels' :data-toggle-channel='channel.id'>
+          <a href='#' v-for='channel in publicChannels' :data-toggle-channel='channel.id' :class="{ 'ui-highlight-green': activeChannels[channel.id] }">
             <span style='float: right'>{{channel.users}}</span>
             <span v-html='channel.name'></span>
           </a>
-          <a href='#' v-for='channel in privateChannels' :data-toggle-channel='channel.id'>
+          <a href='#' v-for='channel in privateChannels' :data-toggle-channel='channel.id' :class="{ 'ui-highlight-green': activeChannels[channel.id] }">
             <span style='float: right'>{{channel.users}}</span>
             <span v-html='channel.name'></span><br />
             <small style='opacity: 0.5; font-style: italic'>{{channel.id}}</small>
@@ -91,7 +91,8 @@ export default {
   vuex: {
     getters: {
       publicChannelMap: state => state.chat.publicChannels,
-      privateChannelMap: state => state.chat.privateChannels
+      privateChannelMap: state => state.chat.privateChannels,
+      activeChannels: state => state.chat.activeChannels
     },
     actions: {pushOverlay, popOverlay}
   }
