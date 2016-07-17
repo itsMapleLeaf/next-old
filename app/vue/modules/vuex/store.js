@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import Character, {Gender, Status} from '../../types/Character'
+import Character from '../../types/Character'
 import ChannelState from '../../types/ChannelState'
-import ChatMessage, {MessageType} from '../../types/ChatMessage'
+import ChatMessage from '../../types/ChatMessage'
 import PrivateChatState from '../../types/PrivateChatState'
 import ChannelInfo from '../../types/ChannelInfo'
+
+import type {Gender, Status} from '../../types/Character'
+import type {MessageType} from '../../types/ChatMessage'
 
 type CharacterName = string
 type ChannelID = string
