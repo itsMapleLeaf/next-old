@@ -135,7 +135,7 @@ export default {
         } else if (this.admins[char.name]) {
           admins.push(char)
           rest.$remove(char)
-        } else if (this.status === 'looking') {
+        } else if (char.status === 'looking') {
           looking.push(char)
           rest.$remove(char)
         }
