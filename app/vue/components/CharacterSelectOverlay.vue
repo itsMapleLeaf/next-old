@@ -1,6 +1,5 @@
 <template>
   <overlay no-close>
-    <h2>Who do we feel like playing today?</h2>
     <form @submit.prevent='submit'>
       <div class='ui-field' v-if='activeCharacter'>
         <avatar :character='activeCharacter'></avatar>
