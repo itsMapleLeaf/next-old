@@ -2,7 +2,7 @@
 
 // color definitions
 $colors = {
-  text: hsl(205, 30%, 90%)
+  text: hsl(205, 30%, 85%)
 
   main: hsl(210, 50%, 30%)
   dark: hsl(211, 50%, 23%)
@@ -48,7 +48,7 @@ $colors = {
 for $color-name in ('red' 'green' 'blue')
   $color = $colors[$color-name]
   .ui-highlight-{$color-name}
-    background-color: rgba($color, 0.2)
+    background-color: rgba($color, 0.25)
     color: lighten($color, 20%)
 
 // complimentary / additive composition styling

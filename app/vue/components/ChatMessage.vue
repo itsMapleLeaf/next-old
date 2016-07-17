@@ -1,8 +1,8 @@
 <template>
-  <div :class="{'ui-highlight-green': kind === 'lfrp'}"
+  <div :class="{'ui-highlight-green': type === 'lfrp'}"
     :style="{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }">
     <character :character='sender'></character>
-    <span class='message-text' v-html="parsedMessage | bbcode"></span>
+    <span class='message-text ui-text' v-html="parsedMessage | bbcode"></span>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
   computed: {
     text () { return this.message.message },
     sender () { return this.message.sender },
-    kind () { return this.message.type },
+    type () { return this.message.type },
 
     parsedMessage () {
       return this.text.replace(/^\/me\s*/i, '')
