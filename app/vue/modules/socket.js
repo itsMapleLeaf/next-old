@@ -251,7 +251,7 @@ export class Socket {
           params.channel,
           params.character,
           params.message,
-          'chat')
+          'normal')
         break
       }
 

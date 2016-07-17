@@ -1,42 +1,47 @@
 <template>
-  <a :class="{ 'ui-color-main ui-border': active }" @click.self="$emit('selected')">
+  <a href='#' class='flex-center-children' :class="activeClasses" @click.self="$emit('selected')">
     <span :style="{ pointerEvents: 'none' }"><slot></slot></span>
-    <i class="mdi mdi-times ui-small" @click.prevent.stop="$emit('closed')"></i>
+    <i class="mdi mdi-close" @click.prevent.stop="$emit('closed')"></i>
   </a>
 </template>
 
-<style lang="stylus" scoped>
-/*@import '../../styles/ui.styl'
+<style scoped>
+a {
+  width: 10em;
+  justify-content: space-between;
+  margin-right: 0.2em;
+}
 
-a
-  width: 8em
-  display: inline-block
-  height: 2em
-  border-bottom: 3px solid transparent
-  user-select: none
-  padding: 0.3em 0.5em
-  overflow: hidden
-  text-overflow: ellipsis
-  white-space: nowrap
-  position: relative
+a.ui-color-darker {
+  opacity: 0.5;
+}
 
-.fa
-  position: absolute
-  right: 0.5em
-  top: 0.7em
-  opacity: 0
+span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0em 0.5em;
+}
 
-a:hover
-  padding-right: 1.3em
-
-  .fa
-    opacity: 0.5*/
+i {
+  padding: 0em 0.3em;
+  font-size: 0.7em;
+  width: min-content;
+  height: min-content;
+  opacity: 0.3;
+}
 </style>
 
 <script>
 export default {
   props: {
     active: Boolean
+  },
+
+  computed: {
+    activeClasses () {
+      return this.active ? 'ui-color-main' : 'ui-color-darker'
+    }
   }
 }
 </script>

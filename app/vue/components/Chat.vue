@@ -5,22 +5,22 @@
       <shortcut title="Channels" icon="earth" data-push-overlay="channel-select-overlay"></shortcut>
       <shortcut title="Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>
 
-      <chat-tab v-for="chat in activeChats"
-        :active="$index === currentIndex"
-        @selected="currentIndex = $index"
-        @closed="closeChat(chat)">
+      <chat-tab v-for="(index, chat) in activeChannels"
+        :active="index === tabIndex"
+        @selected="tabIndex = index"
+        @closed="closeChat(chat.id)">
         {{chat.name}}
       </chat-tab>
     </nav>
 
-    <channel-view v-if="currentChat && currentChat.type === 'channel'"
+    <!-- <channel-view v-if="currentChat && currentChat.type === 'channel'"
       :messages="currentChat.message"
       :characters="currentChat.characters"
       :description="currentChat.description">
       <chatbox slot='chatbox'
         @chatbox-submit="chatboxSubmit">
       </chatbox>
-    </channel-view>
+    </channel-view> -->
   </div>
 </template>
 
@@ -68,27 +68,17 @@ export default {
 
   data () {
     return {
-      currentIndex: 0
+      tabIndex: 0
     }
   },
 
-  methods: {
-    closeChat (chat) {
-      // if (chat.type === 'channel') {
-      //   store.notify('LeaveChannelRequest', { id: chat.id })
-      //   this.currentIndex--
-      // }
+  vuex: {
+    actions: {
+      closeChat (store) {}
     },
-
-    chatboxSubmit (message) {
-      console.info(message)
+    getters: {
+      activeChannels: state => Object.values(state.chat.activeChannels)
     }
-  },
-
-  watch: {
-    // activeChats () {
-    //   this.currentIndex = clamp(this.currentIndex, 0, this.activeChats.length - 1)
-    // }
   }
 }
 </script>
