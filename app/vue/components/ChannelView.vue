@@ -58,9 +58,6 @@
   span
     white-space: pre-wrap
 
-.chatbox
-  height: 5em
-
 .character-list
   width: 12em
 

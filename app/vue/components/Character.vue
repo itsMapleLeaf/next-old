@@ -1,6 +1,6 @@
 <template>
   <a href='#' class="gender" :class="classes" :data-character-action="character.name">
-    <i class="mdi mdi-hexagon status" :class="character.status.toLowerCase()"></i>
+    <i class="mdi mdi-checkbox-blank-circle status" :class="character.status.toLowerCase()"></i>
     {{character.name}}
   </a>
 </template>
@@ -10,11 +10,11 @@ a
   font-weight: 700
 
 .status
-  font-size: 40%
+  font-size: 0.5em
   position: relative
-  top: -0.4em
+  top: -0.3em
 
-  &.online { color: rgb(96, 94, 94) }
+  &.online { color: rgb(47, 47, 47) }
   &.looking { color: rgb(32, 223, 109) }
   &.busy { color: rgba(white, 0.5) }
   &.away { color: rgb(58, 111, 246) }

@@ -2,7 +2,7 @@
   <div :class="{'ui-highlight-green': type === 'lfrp'}"
     :style="{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }">
     <character :character='sender'></character>
-    <span class='message-text ui-text' v-html="parsedMessage | bbcode"></span>
+    <span class='ui-text-color message-text' v-html="parsedMessage | bbcode"></span>
   </div>
 </template>
 

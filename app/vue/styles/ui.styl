@@ -28,9 +28,14 @@ $colors = {
   user-select: none
 
 // color and highlight styles
-.ui-text
-  font: 20px 'Roboto', sans-serif
+.ui-text-color
   color: $colors.text
+
+.ui-font
+  font: 20px 'Roboto', sans-serif
+
+.ui-text
+  @extend .ui-text-color, .ui-font
 
 .ui-header
   font-family: 'Roboto Condensed', sans-serif
@@ -147,6 +152,9 @@ for $side in ('left' 'right')
     @extend .ui-color-darker
     z-index: 420
 
+.ui-editor p
+  margin-bottom: 0.1em !important
+
 // root element styles
 *
   box-sizing: border-box
@@ -154,6 +162,9 @@ for $side in ('left' 'right')
 div
   padding: 0
   margin: 0
+
+p
+  margin: 0em 0em 0.8em
 
 :root
   @extend .ui-text

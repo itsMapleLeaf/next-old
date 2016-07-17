@@ -1,28 +1,28 @@
 <template>
-  <div class="ui-color-main"
-    contenteditable
-    :maxlength="maxLength"
-    :placeholder="placeholder"
-    @keydown="fixContent($event)"
-    @keydown.enter="submit($event)"
-    v-el:textarea>
-  </div>
+  <div
+    class='ui-color-main ui-text ui-scroll ui-editor'
+    v-editor.partial :placeholder='placeholder'
+    @blur='fixContent($event)'></div>
 </template>
 
-<style lang="stylus" scoped>
-div
-  height: 5em
-  padding: 0.4em 0.6em
+<style scoped>
+div {
+  width: 100%;
+  min-height: 4rem;
+  max-height: 10rem;
+  padding: 0.4em 0.6em;
+  border: none;
+  resize: none;
+  display: block;
+  font-size: 0.9em;
+}
 </style>
 
 <script>
+import {editor} from '../modules/directives'
+
 export default {
-  props: {
-    maxLength: {
-      type: Number,
-      default: Infinity
-    }
-  },
+  props: {},
 
   vuex: {
     getters: {
@@ -41,28 +41,11 @@ export default {
   },
 
   methods: {
-    getContent () {
-      return this.$els.textarea.innerText.trim()
-    },
-
-    setContent (text) {
-      this.$els.textarea.innerText = text
-    },
-
-    submit (event) {
-      if (!event.shiftKey) {
-        this.$emit('chatbox-submit', this.content)
-        this.setContent('')
-        event.preventDefault()
-      }
-    },
-
     fixContent (event) {
-      const content = this.getContent()
-      if (content.length >= this.maxLength && (event.code !== 'Backspace' && event.code !== 'Enter')) {
-        event.preventDefault()
-      }
+      event.target.innerHTML = event.target.textContent.trim()
     }
-  }
+  },
+
+  directives: {editor}
 }
 </script>
