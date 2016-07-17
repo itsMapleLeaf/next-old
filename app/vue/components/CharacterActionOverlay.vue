@@ -24,13 +24,13 @@
     <div slot="options">
       <menu-option icon='comment' @click='openPrivateChat'>Send Message</menu-option>
 
-      <!-- <menu-option icon='star-o' v-if='!bookmarked' @click='state.addBookmark(char.name)'>Bookmark</menu-option>
-      <menu-option icon='star' v-else @click='state.removeBookmark(char.name)'>Unbookmark</menu-option>
+      <menu-option icon='star-outline' v-if='!bookmarks[char.name]' @click.prevent='toggleBookmark(char.name)'>Bookmark</menu-option>
+      <menu-option icon='star' v-else @click.prevent='toggleBookmark(char.name)'>Unbookmark</menu-option>
 
-      <menu-option icon='minus-square-o' v-if='!ignored'>Ignore</menu-option>
-      <menu-option icon='minus-square' v-else>Unignore</menu-option> -->
+      <menu-option icon='minus-circle-outline' v-if='!ignored[char.name]'>Ignore</menu-option>
+      <menu-option icon='minus-circle' v-else>Unignore</menu-option>
 
-      <menu-option icon='link' :href="getProfileURL(char.name)">View Profile</menu-option>
+      <menu-option icon='link-variant' :href="getProfileURL(char.name)" target="_blank">View Profile</menu-option>
     </div>
   </side-panel>
 </template>
@@ -71,8 +71,9 @@ import MenuOption from './MenuOption.vue'
 import SidePanel from './SidePanelOverlay.vue'
 import CharacterAvatarLink from './CharacterAvatarLink.vue'
 
-import {getProfileURL, getAvatarURL} from '../modules/flist'
+import {getProfileURL, getAvatarURL, addBookmark, removeBookmark} from '../modules/flist'
 import {bbcode} from '../modules/filters'
+import socket from '../modules/socket'
 
 export default {
   components: {
@@ -92,6 +93,23 @@ export default {
     openPrivateChat () {
       // store.notify('PrivateChatOpened', this.activeCharacter.name)
       this.close()
+    },
+
+    toggleBookmark (name) {
+      const {account, ticket} = this.auth
+      if (!this.bookmarks[name]) {
+        addBookmark(account, ticket, name).then(() => {
+          this.$store.dispatch('AddBookmark', name)
+        }).catch(err => {
+          console.warn('error adding bookmark: ', err)
+        })
+      } else {
+        removeBookmark(account, ticket, name).then(() => {
+          this.$store.dispatch('RemoveBookmark', name)
+        }).catch(err => {
+          console.warn('error removing bookmark: ', err)
+        })
+      }
     }
   },
 
@@ -99,7 +117,9 @@ export default {
     getters: {
       char: state => state.ui.focusedCharacter,
       bookmarks: state => state.chat.bookmarks,
-      friends: state => state.chat.friends
+      friends: state => state.chat.friends,
+      ignored: state => state.chat.ignored,
+      auth: state => state.auth
     }
   },
 

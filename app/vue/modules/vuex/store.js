@@ -124,6 +124,15 @@ const mutations = {
     state.chat.bookmarks = map
   },
 
+  AddBookmark (state: State, char: CharacterName) {
+    Vue.set(state.chat.bookmarks, char, true)
+  },
+
+  RemoveBookmark (state: State, char: CharacterName) {
+    Vue.set(state.chat.bookmarks, char, undefined)
+    delete state.chat.bookmarks[char]
+  },
+
   SetIgnoreList (state: State, ignored: CharacterName[]) {
     const map: CharacterBoolMap = {}
     for (let name of ignored) { map[name] = true }
