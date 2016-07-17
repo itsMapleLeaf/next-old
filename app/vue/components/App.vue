@@ -22,7 +22,7 @@ import AboutOverlay from './AboutOverlay.vue'
 
 import socket from '../modules/socket'
 import {pushOverlay, popOverlay} from '../modules/vuex/actions'
-import {getStorage} from '../modules/storage'
+import {getStorage, saveStorageKeys} from '../modules/storage'
 import * as flist from '../modules/flist'
 
 export default {
@@ -45,7 +45,8 @@ export default {
       account: state => state.auth.account,
       ticket: state => state.auth.ticket,
       character: state => state.user.character,
-      activeChannels: state => state.chat.activeChannels
+      activeChannels: state => state.chat.activeChannels,
+      lastActiveChannel: state => state.chat.lastActiveChannel
     },
     actions: {
       pushOverlay,
@@ -140,13 +141,38 @@ export default {
           socket.identify(this.account, this.ticket, this.character)
           break
 
-        case 'identified':
+        case 'identified': {
+          const data = getStorage()
           this.popOverlay()
-          this.pushOverlay('channel-select-overlay')
+          if (data) {
+            if (Array.isArray(data[`activeChannels:${this.character}`]) && data[`activeChannels:${this.character}`].length > 0) {
+              // TODO: uncomment this when we've found a proper way to watch for removed active channels
+              // at the moment, the client's sending a bunch of join requests for duplicate channels,
+              // and we might get kicked as a result
+              // for (let id of data[`activeChannels:${this.character}`]) {
+              //   socket.joinChannel(id)
+              // }
+            } else {
+              saveStorageKeys({ [`activeChannels:${this.character}`]: [] })
+              this.pushOverlay('menu-overlay')
+            }
+          }
           break
+        }
 
         case 'offline':
           break
+      }
+    },
+
+    lastActiveChannel (channel) {
+      const data = getStorage()
+      if (data) {
+        if (Array.isArray(data[`activeChannels:${this.character}`])) {
+          saveStorageKeys({ [`activeChannels:${this.character}`]: data[`activeChannels:${this.character}`].concat([ channel.id ]) })
+        } else {
+          saveStorageKeys({ [`activeChannels:${this.character}`]: [ channel.id ] })
+        }
       }
     }
   }

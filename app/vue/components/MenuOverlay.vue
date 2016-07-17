@@ -39,6 +39,9 @@
 </template>
 
 <style lang="stylus" scoped>
+.ui-field
+  margin-bottom: 0.6em
+
 form
   width: 11rem
   padding: 1em 1em 0em

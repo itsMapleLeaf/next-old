@@ -7,13 +7,17 @@
 
 <style scoped>
 a {
+  font-family: 'Roboto Condensed';
   width: 10em;
   justify-content: space-between;
-  margin-left: 0.2em;
 }
 
 a.ui-color-darker {
-  opacity: 0.5;
+  opacity: 0.7;
+}
+
+a:not(:last-child) {
+  margin-right: 0.2em;
 }
 
 span {
@@ -24,7 +28,7 @@ span {
 }
 
 i {
-  padding: 0em 0.3em;
+  padding: 0em 0.5em;
   font-size: 0.7em;
   width: min-content;
   height: min-content;

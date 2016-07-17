@@ -1,6 +1,6 @@
 <template>
   <div class='flex-column ui-color-dark ui-fullscreen'>
-    <nav class='flex-fixed flex-row' style='overflow-y: scroll'>
+    <nav class='flex-fixed flex-row' style='overflow-x: auto'>
       <shortcut title="Actions" icon="menu" data-push-overlay="menu-overlay"></shortcut>
       <shortcut title="Channels" icon="earth" data-push-overlay="channel-select-overlay"></shortcut>
       <shortcut title="Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>

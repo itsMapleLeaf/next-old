@@ -41,7 +41,7 @@ $colors = {
 
 .ui-color-main { background-color: $colors.main }
 .ui-color-dark { background-color: $colors.dark }
-.ui-color-darker { background-color: darken($colors.dark, 20%) }
+.ui-color-darker { background-color: darken($colors.dark, 25%) }
 .ui-color-light { background-color: $colors.light }
 .ui-color-lighter { background-color: lighten($colors.light, 20%) }
 
@@ -139,17 +139,13 @@ for $side in ('left' 'right')
     top: 0.2em
     opacity: 0.5
 
-  .ui-dropdown-head
+  .ui-dropdown-head, .ui-dropdown-items > a
     display: block
-    padding: 0.5em 0.6em
+    padding: 0.3rem 0.6rem
 
   .ui-dropdown-items
     @extend .ui-color-darker
     z-index: 420
-
-    a
-      display: block
-      padding: 0.5em 0.6em
 
 // root element styles
 *

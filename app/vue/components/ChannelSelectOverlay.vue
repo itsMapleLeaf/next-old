@@ -62,9 +62,8 @@ export default {
     }
   },
 
-  created () {
-    this.pushOverlay('loading-overlay')
-    socket.requestChannels().then(this.popOverlay)
+  ready () {
+    socket.requestChannels()
   },
 
   computed: {

@@ -53,6 +53,7 @@ type State = {
     privateChannels: ChannelInfoMap,
 
     activeChannels: ChannelStateMap,
+    lastActiveChannel: ChannelState | null,
     activePrivateChats: PrivateChatStateMap,
     serverVariables: { [key: string]: ServerVariableValue }
   },
@@ -84,7 +85,9 @@ const state: State = {
     privateChannels: {},
     activeChannels: {},
     activePrivateChats: {},
-    serverVariables: {}
+    serverVariables: {},
+
+    lastActiveChannel: null
   },
 
   ui: {
@@ -176,7 +179,9 @@ const mutations = {
   },
 
   AddActiveChannel (state: State, id: ChannelID, name: string) {
-    Vue.set(state.chat.activeChannels, id, new ChannelState(id, name))
+    const channel = new ChannelState(id, name)
+    Vue.set(state.chat.activeChannels, id, channel)
+    state.chat.lastActiveChannel = channel
   },
 
   RemoveActiveChannel (state: State, id: ChannelID) {
