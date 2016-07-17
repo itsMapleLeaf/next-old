@@ -8,11 +8,11 @@
 
 <script>
 import ChatMessage from './ChatMessage.vue'
+import ChannelState from '../types/ChannelState'
 
 export default {
   props: {
-    messages: Array,
-    modeFilter: String
+    state: ChannelState
   },
 
   components: {
@@ -26,8 +26,22 @@ export default {
     }
   },
 
-  ready () {
-    this.$watch('messages', () => {
+  methods: {
+    onScroll () {
+      const {container} = this.$els
+      this.scroll = container.scrollTop
+      this.scrollMax = container.scrollHeight - container.clientHeight
+    }
+  },
+
+  computed: {
+    filteredMessages () {
+      return this.state.messages
+    }
+  },
+
+  watch: {
+    'state.messages' () {
       const {container} = this.$els
       const {scrollTop, scrollHeight, clientHeight} = container
       const scroll = scrollTop
@@ -39,26 +53,6 @@ export default {
 
       this.scroll = scroll
       this.scrollMax = scrollMax
-    })
-  },
-
-  methods: {
-    onScroll () {
-      const {container} = this.$els
-      this.scroll = container.scrollTop
-      this.scrollMax = container.scrollHeight - container.clientHeight
-    }
-  },
-
-  computed: {
-    filteredMessages () {
-      if (this.modeFilter === 'both') {
-        return this.messages
-      } else if (this.modeFilter === 'chat') {
-        return this.messages.filter(msg => msg.type === ChatMessageType.chat)
-      } else if (this.modeFilter === 'ads') {
-        return this.messages.filter(msg => msg.type === ChatMessageType.lfrp)
-      }
     }
   }
 }

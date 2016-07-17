@@ -1,6 +1,6 @@
 const regexp = /\[(\w+?)=?([^\]]*)\]([\s\S]+?)\[\/\1\]|(https?:\/\/[^\[\]\(\)\s]+)/gi // lol
 
-export function parseBBC (input: string): string {
+export function bbcode (input: string): string {
   return input.replace(regexp, (match, tag, param, content, url) => {
     if (url) {
       param = content = url
@@ -8,7 +8,7 @@ export function parseBBC (input: string): string {
     } else if (tag === 'noparse') {
       return content
     } else if (tag !== 'url' && regexp.test(content)) {
-      content = parseBBC(content)
+      content = bbcode(content)
     }
 
     switch (tag) {

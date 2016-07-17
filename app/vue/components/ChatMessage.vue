@@ -17,6 +17,8 @@ div
 
 <script>
 import Character from './Character.vue'
+import ChatMessage from '../types/ChatMessage'
+import {bbcode} from '../modules/filters'
 
 export default {
   components: {
@@ -24,17 +26,19 @@ export default {
   },
 
   props: {
-    message: Object
+    message: ChatMessage
   },
 
   computed: {
     text () { return this.message.message },
-    sender () { return this.message.character },
+    sender () { return this.message.sender },
     kind () { return this.message.type },
 
     parsedMessage () {
-      return this.message.message.replace(/^\/me\s*/i, '')
+      return this.text.replace(/^\/me\s*/i, '')
     }
-  }
+  },
+
+  filters: {bbcode}
 }
 </script>

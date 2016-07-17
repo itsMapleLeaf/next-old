@@ -9,7 +9,7 @@
 a {
   width: 10em;
   justify-content: space-between;
-  margin-right: 0.2em;
+  margin-left: 0.2em;
 }
 
 a.ui-color-darker {

@@ -1,30 +1,11 @@
 <template>
   <div class='flex-column flex-stretch'>
     <div class='flex-row flex-fixed channel-head'>
-      <!-- channel prefs -->
-      <!-- <div class='flex fixed col channel-prefs' style='justify-content: space-between'>
-        <template v-if="viewState.mode === 'both'">
-          <a class="ui theme-color {{viewState.preference === 'both' ? 'light' : 'darker'}}" @click="viewState.preference = 'both'">Both</a>
-          <a class="ui theme-color {{viewState.preference === 'chat' ? 'light' : 'darker'}}" @click="viewState.preference = 'chat'">Chat</a>
-          <a class="ui theme-color {{viewState.preference === 'ads' ? 'light' : 'darker'}}" @click="viewState.preference = 'ads'">LFRP</a>
-        </template>
-        <template v-if="viewState.mode === 'chat'">
-          <a class="ui theme-color darker subtle">Both</a>
-          <a class="ui theme-color light">Chat</a>
-          <a class="ui theme-color darker subtle">LFRP</a>
-        </template>
-        <template v-if="viewState.mode === 'ads'">
-          <a class="ui theme-color darker subtle">Both</a>
-          <a class="ui theme-color darker subtle">Chat</a>
-          <a class="ui theme-color light">LFRP</a>
-        </template>
-      </div> -->
-
       <div class='flex-divider'></div>
 
       <!-- description -->
       <div class='flex-stretch flex-column ui-color-main ui-scroll description'>
-        <span v-html="description | bbcode"></span>
+        <span v-html="state.description | bbcode"></span>
       </div>
     </div>
 
@@ -32,31 +13,30 @@
 
     <div class='flex-row flex-stretch'>
       <!-- message -->
-      <chat-message-list class="flex-stretch" :messages='messages'></chat-message-list>
+      <chat-message-list class="flex-stretch" :state='state'></chat-message-list>
 
       <div class='flex-divider'></div>
 
       <!-- users -->
-      <ul class='flex-fixed ui-color-main ui-scroll character-list'>
-        <li v-for='char in characters'>
-          <character :name='char.name' :gender='char.gender' :status='char.status.state'></character>
-        </li>
-        <!-- <li class='ui hover-darken highlight green' v-for='char in characterGroups.friends'>
-          <character class='character-list-item' :character='char'></character>
-        </li>
-        <li class='ui hover-darken highlight blue' v-for='char in characterGroups.bookmarks'>
-          <character class='character-list-item' :character='char'></character>
-        </li>
-        <li class='ui hover-darken highlight red' v-for='char in characterGroups.admins'>
-          <character class='character-list-item' :character='char'></character>
-        </li>
-        <li class='ui hover-darken' v-for='char in characterGroups.looking'>
-          <character class='character-list-item' :character='char'></character>
-        </li>
-        <li class='ui hover-darken' v-for='char in characterGroups.rest'>
-          <character class='character-list-item' :character='char'></character>
-        </li> -->
-      </ul>
+      <div class='flex-fixed ui-color-main ui-scroll character-list'>
+        <div v-for='char in groups.friends' class='ui-highlight-green'>
+          <character :character='char'></character>
+          <i class='mdi mdi-heart' style='opacity: 0.8; float: right'></i>
+        </div>
+        <div v-for='char in groups.bookmarks' class='ui-highlight-blue'>
+          <character :character='char'></character>
+          <i class='mdi mdi-star' style='opacity: 0.8; float: right'></i>
+        </div>
+        <div v-for='char in groups.admins' class='ui-highlight-red'>
+          <character :character='char'></character>
+        </div>
+        <div v-for='char in groups.looking'>
+          <character :character='char'></character>
+        </div>
+        <div v-for='char in groups.rest'>
+          <character :character='char'></character>
+        </div>
+      </div>
     </div>
 
     <div class='flex-divider'></div>
@@ -69,9 +49,6 @@
 </template>
 
 <style lang="stylus" scoped>
-ul
-  list-style: none
-
 .description
   position: relative
   height: 5em
@@ -86,6 +63,9 @@ ul
 
 .character-list
   width: 12em
+
+  & > div
+    padding: 0.2em 0.4em
 
 .character-list-item
   display: block
@@ -106,6 +86,8 @@ import Chatbox from './Chatbox.vue'
 import Character from './Character.vue'
 import ChatMessage from './ChatMessage.vue'
 import ChatMessageList from './ChatMessageList.vue'
+import ChannelState from '../types/ChannelState'
+import {bbcode} from '../modules/filters'
 
 function compareNames (a, b) {
   return a.name.localeCompare(b.name)
@@ -120,48 +102,61 @@ export default {
   },
 
   props: {
-    messages: Array,
-    characters: Array,
-    description: String
+    state: ChannelState
   },
 
-  computed: {
-    characterGroups () {
-      const groups = {
-        friends: [],
-        bookmarks: [],
-        admins: [],
-        looking: [],
-        rest: []
-      }
-
-      this.viewState.characters.forEach(char => {
-        if (this.state.getFriendship(char.name).length > 0) {
-          groups.friends.push(char)
-        } else if (this.state.isBookmarked(char.name)) {
-          groups.bookmarks.push(char)
-        } else if (this.state.isAdmin(char.name)) {
-          groups.admins.push(char)
-        } else if (char.status === 'looking') {
-          groups.looking.push(char)
-        } else {
-          groups.rest.push(char)
-        }
-      })
-
-      for (let group in groups) {
-        groups[group].sort(compareNames)
-      }
-
-      return groups
-    }
+  data () {
+    return {}
   },
 
   methods: {
     characterListClicked (event) {
       // TODO: implement data attribute checker in App.vue
-      const character = event.target.getAttribute('data-character')
-      this.$dispatch(CharacterActivated, character)
+      // const character = event.target.getAttribute('data-character')
+      // this.$dispatch(CharacterActivated, character)
+    }
+  },
+
+  computed: {
+    groups () {
+      const rest = this.state.characters.slice()
+      const friends = []
+      const bookmarks = []
+      const admins = []
+      const looking = []
+
+      for (let char of rest) {
+        if (this.friends[char.name]) {
+          friends.push(char)
+          rest.$remove(char)
+        } else if (this.bookmarks[char.name]) {
+          bookmarks.push(char)
+          rest.$remove(char)
+        } else if (this.admins[char.name]) {
+          admins.push(char)
+          rest.$remove(char)
+        } else if (this.status === 'looking') {
+          looking.push(char)
+          rest.$remove(char)
+        }
+      }
+
+      friends.sort(compareNames)
+      bookmarks.sort(compareNames)
+      admins.sort(compareNames)
+      looking.sort(compareNames)
+      rest.sort(compareNames)
+      return { friends, bookmarks, admins, looking, rest }
+    }
+  },
+
+  filters: {bbcode},
+
+  vuex: {
+    getters: {
+      friends: state => state.chat.friends,
+      bookmarks: state => state.chat.bookmarks,
+      admins: state => state.chat.admins
     }
   }
 }

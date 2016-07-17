@@ -1,26 +1,23 @@
 <template>
   <div class='flex-column ui-color-dark ui-fullscreen'>
-    <nav class='flex-row flex-fixed' style='flex-wrap: wrap'>
+    <nav class='flex-fixed flex-row' style='overflow-y: scroll'>
       <shortcut title="Actions" icon="menu" data-push-overlay="menu-overlay"></shortcut>
       <shortcut title="Channels" icon="earth" data-push-overlay="channel-select-overlay"></shortcut>
       <shortcut title="Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>
 
-      <chat-tab v-for="(index, chat) in activeChannels"
+      <chat-tab v-for="(index, tab) in tabs"
         :active="index === tabIndex"
         @selected="tabIndex = index"
         @closed="closeChat(chat.id)">
-        {{chat.name}}
+        {{tab.text}}
       </chat-tab>
     </nav>
 
-    <!-- <channel-view v-if="currentChat && currentChat.type === 'channel'"
-      :messages="currentChat.message"
-      :characters="currentChat.characters"
-      :description="currentChat.description">
-      <chatbox slot='chatbox'
-        @chatbox-submit="chatboxSubmit">
-      </chatbox>
-    </channel-view> -->
+    <template v-if='activeTab'>
+      <channel-view v-if="activeTab.type === 'channel'" :state='activeTab.state'>
+        <chatbox slot='chatbox'></chatbox>
+      </channel-view>
+    </template>
   </div>
 </template>
 
@@ -68,7 +65,29 @@ export default {
 
   data () {
     return {
-      tabIndex: 0
+      tabIndex: 0,
+      viewType: '',
+      viewState: {}
+    }
+  },
+
+  computed: {
+    tabs () {
+      return this.activeChannels.map(ch => {
+        return { text: ch.name, type: 'channel', state: ch }
+      })
+    },
+
+    activeTab () {
+      return this.tabs[this.tabIndex]
+    }
+  },
+
+  methods: {
+    selectChannelTab (channel, tabIndex) {
+      this.tabIndex = tabIndex
+      this.viewType = 'channel'
+      this.viewState = channel
     }
   },
 

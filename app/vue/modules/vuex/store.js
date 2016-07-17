@@ -14,7 +14,7 @@ type CharacterName = string
 type ChannelID = string
 type CharacterMap = { [name: CharacterName]: Character }
 type CharacterBoolMap = { [name: CharacterName]: boolean }
-type FriendMap = { [you: CharacterName]: CharacterBoolMap }
+type FriendMap = { [them: CharacterName]: CharacterName[] }
 type ChannelInfoMap = { [id: ChannelID]: ChannelInfo }
 type CharacterBatchEntry = [CharacterName, Gender, Status, string]
 type ChannelStateMap = { [id: ChannelID]: ChannelState }
@@ -109,8 +109,8 @@ const mutations = {
   SetFriendsList (state: State, friends: FriendInfo[]) {
     const map: FriendMap = {}
     for (let {you, them} of friends) {
-      map[you] = map[you] || {}
-      map[you][them] = true
+      map[them] = map[them] || []
+      map[them].push(you)
     }
     state.chat.friends = map
   },

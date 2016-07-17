@@ -1,13 +1,13 @@
 <template>
-  <span class="gender" :class="gender.toLowerCase()">
-    <i class="mdi mdi-circle status" :class="status.toLowerCase()"></i> {{name}}
-  </span>
+  <a href='#' class="gender" :class="character.gender.toLowerCase()">
+    <i class="mdi mdi-hexagon status" :class="character.status.toLowerCase()"></i>
+    {{character.name}}
+  </a>
 </template>
 
 <style lang="stylus" scoped>
-span
+a
   font-weight: 700
-  /*text-shadow: 0px 1px 2px rgba(black, 0.5)*/
 
 .status
   font-size: 40%
@@ -34,11 +34,11 @@ span
 </style>
 
 <script>
+import Character from '../types/Character'
+
 export default {
   props: {
-    name: String,
-    gender: String,
-    status: String
+    character: Character
   }
 }
 </script>
