@@ -111,7 +111,7 @@ export default {
       if (tab.type === 'channel') {
         socket.leaveChannel(tab.state.id)
       } else {
-        this.$store.dispatch('RemoveActivePrivateChat', tab.state.partner.name)
+        this.closePrivateChat(tab.state.partner.name)
       }
     }
   },
@@ -120,6 +120,11 @@ export default {
     getters: {
       activeChannels: state => Object.values(state.chat.activeChannels).sort(compareNames),
       activePrivateChats: state => Object.values(state.chat.activePrivateChats).sort(compareNames)
+    },
+    actions: {
+      closePrivateChat ({dispatch}, partner) {
+        dispatch('RemoveActivePrivateChat', partner)
+      }
     }
   }
 }
