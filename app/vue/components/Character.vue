@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class="gender" :class="character.gender.toLowerCase()">
+  <a href='#' class="gender" :class="character.gender.toLowerCase()" :data-character-action="character.name">
     <i class="mdi mdi-hexagon status" :class="character.status.toLowerCase()"></i>
     {{character.name}}
   </a>

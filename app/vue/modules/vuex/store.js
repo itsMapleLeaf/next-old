@@ -48,18 +48,17 @@ type State = {
     ignored: CharacterBoolMap,
     admins: CharacterBoolMap,
 
-    // TODO: combine these
     publicChannels: ChannelInfoMap,
     privateChannels: ChannelInfoMap,
 
     activeChannels: ChannelStateMap,
-    lastActiveChannel: ChannelState | null,
     activePrivateChats: PrivateChatStateMap,
     serverVariables: { [key: string]: ServerVariableValue }
   },
 
   ui: {
-    overlays: string[]
+    overlays: string[],
+    focusedCharacter: Character | null
   }
 }
 
@@ -91,7 +90,8 @@ const state: State = {
   },
 
   ui: {
-    overlays: []
+    overlays: [],
+    focusedCharacter: null
   }
 }
 
@@ -164,6 +164,10 @@ const mutations = {
 
   SetCharacterStatus (state: State, name: CharacterName, status: Status, message: string) {
     state.chat.characters[name].setStatus(status, message)
+  },
+
+  SetFocusedCharacter (state: State, name: CharacterName) {
+    state.ui.focusedCharacter = state.chat.characters[name] || Character(name, 'None', 'offline')
   },
 
   SetPublicChannelList (state: State, channels: ChannelInfo[]) {

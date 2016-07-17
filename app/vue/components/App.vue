@@ -9,8 +9,6 @@
 <style lang="stylus" src="../styles/flex.styl"></style>
 
 <script>
-// import CharacterMenu from './CharacterMenu.vue'
-
 import Chat from './Chat.vue'
 import LoginOverlay from './LoginOverlay.vue'
 import MenuOverlay from './MenuOverlay.vue'
@@ -19,10 +17,11 @@ import CharacterSelectOverlay from './CharacterSelectOverlay.vue'
 import LoadingOverlay from './LoadingOverlay.vue'
 import OnlineUsersOverlay from './OnlineUsersOverlay.vue'
 import AboutOverlay from './AboutOverlay.vue'
+import CharacterActionOverlay from './CharacterActionOverlay.vue'
 
 import socket from '../modules/socket'
 import {pushOverlay, popOverlay} from '../modules/vuex/actions'
-import {getStorage, saveStorageKeys} from '../modules/storage'
+import {getStorage} from '../modules/storage'
 import * as flist from '../modules/flist'
 
 export default {
@@ -34,8 +33,8 @@ export default {
     CharacterSelectOverlay,
     LoadingOverlay,
     OnlineUsersOverlay,
-    AboutOverlay
-    // CharacterMenu,
+    AboutOverlay,
+    CharacterActionOverlay
   },
 
   vuex: {
@@ -45,20 +44,25 @@ export default {
       account: state => state.auth.account,
       ticket: state => state.auth.ticket,
       character: state => state.user.character,
-      activeChannels: state => state.chat.activeChannels,
-      lastActiveChannel: state => state.chat.lastActiveChannel
+      activeChannels: state => state.chat.activeChannels
+      // lastActiveChannel: state => state.chat.lastActiveChannel
     },
     actions: {
       pushOverlay,
       popOverlay,
-      setAuth (store, account, ticket) {
-        store.dispatch('SetAuth', account, ticket)
+
+      setAuth ({dispatch}, account, ticket) {
+        dispatch('SetAuth', account, ticket)
       },
 
-      setUserData (store, characters, friends, bookmarks) {
-        store.dispatch('SetUserCharacterList', characters)
-        store.dispatch('SetFriendsList', friends)
-        store.dispatch('SetBookmarkList', bookmarks)
+      setUserData ({dispatch}, characters, friends, bookmarks) {
+        dispatch('SetUserCharacterList', characters)
+        dispatch('SetFriendsList', friends)
+        dispatch('SetBookmarkList', bookmarks)
+      },
+
+      setCharacterFocus ({dispatch}, name) {
+        dispatch('SetFocusedCharacter', name)
       }
     }
   },
@@ -123,6 +127,11 @@ export default {
               socket.leaveChannel(value)
             }
             break
+
+          case 'data-character-action':
+            this.setCharacterFocus(value)
+            this.pushOverlay('character-action-overlay')
+            break
         }
       }
     }
@@ -142,39 +151,39 @@ export default {
           break
 
         case 'identified': {
-          const data = getStorage()
+          // const data = getStorage()
+          // if (data) {
+          //   if (Array.isArray(data[`activeChannels:${this.character}`]) && data[`activeChannels:${this.character}`].length > 0) {
+          //     // TODO: uncomment this when we've found a proper way to watch for removed active channels
+          //     // at the moment, the client's sending a bunch of join requests for duplicate channels,
+          //     // and we might get kicked as a result
+          //     // for (let id of data[`activeChannels:${this.character}`]) {
+          //     //   socket.joinChannel(id)
+          //     // }
+          //   } else {
+          //     saveStorageKeys({ [`activeChannels:${this.character}`]: [] })
+          //   }
+
           this.popOverlay()
-          if (data) {
-            if (Array.isArray(data[`activeChannels:${this.character}`]) && data[`activeChannels:${this.character}`].length > 0) {
-              // TODO: uncomment this when we've found a proper way to watch for removed active channels
-              // at the moment, the client's sending a bunch of join requests for duplicate channels,
-              // and we might get kicked as a result
-              // for (let id of data[`activeChannels:${this.character}`]) {
-              //   socket.joinChannel(id)
-              // }
-            } else {
-              saveStorageKeys({ [`activeChannels:${this.character}`]: [] })
-              this.pushOverlay('menu-overlay')
-            }
-          }
+          this.pushOverlay('menu-overlay')
           break
         }
 
         case 'offline':
           break
       }
-    },
-
-    lastActiveChannel (channel) {
-      const data = getStorage()
-      if (data) {
-        if (Array.isArray(data[`activeChannels:${this.character}`])) {
-          saveStorageKeys({ [`activeChannels:${this.character}`]: data[`activeChannels:${this.character}`].concat([ channel.id ]) })
-        } else {
-          saveStorageKeys({ [`activeChannels:${this.character}`]: [ channel.id ] })
-        }
-      }
     }
+
+    // lastActiveChannel (channel) {
+    //   const data = getStorage()
+    //   if (data) {
+    //     if (Array.isArray(data[`activeChannels:${this.character}`])) {
+    //       saveStorageKeys({ [`activeChannels:${this.character}`]: data[`activeChannels:${this.character}`].concat([ channel.id ]) })
+    //     } else {
+    //       saveStorageKeys({ [`activeChannels:${this.character}`]: [ channel.id ] })
+    //     }
+    //   }
+    // }
   }
 }
 </script>
