@@ -2,6 +2,9 @@
   <overlay no-close>
     <h2>Who do we feel like playing today?</h2>
     <form @submit.prevent='submit'>
+      <div class='ui-field' v-if='activeCharacter'>
+        <avatar :character='activeCharacter'></avatar>
+      </div>
       <div class='ui-field'>
         <div class='ui-select'>
           <a href='#' v-for='name in characters'
@@ -22,12 +25,14 @@
 
 <script>
 import Overlay from './Overlay.vue'
+import Avatar from './CharacterAvatarLink.vue'
+
 import socket from '../modules/socket'
 import {saveStorageKeys, getStorage} from '../modules/storage'
 import {pushOverlay, popOverlay} from '../modules/vuex/actions'
 
 export default {
-  components: {Overlay},
+  components: {Overlay, Avatar},
 
   data () {
     return {

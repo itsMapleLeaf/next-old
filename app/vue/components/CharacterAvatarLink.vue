@@ -1,7 +1,6 @@
 <template>
-  <a class="ui-link flex-center-children" :href="profileURL" target="_blank" :title="character">
+  <a class="ui-link" :href="profileURL" target="_blank" :title="character">
     <img v-show="imageLoaded" transition="fade" :src="avatarURL" @load="imageLoaded = true" />
-    <i v-show="!imageLoaded" class="mdi mdi-circle-o-notch fa-spin fa-2x"></i>
   </a>
 </template>
 
