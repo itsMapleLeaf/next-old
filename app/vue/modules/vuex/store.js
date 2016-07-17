@@ -251,6 +251,7 @@ const mutations = {
   },
 
   RemoveActivePrivateChat (state: State, partner: CharacterName) {
+    Vue.set(state.chat.activePrivateChats, partner, undefined)
     delete state.chat.activePrivateChats[partner]
   },
 
@@ -258,7 +259,7 @@ const mutations = {
     // TODO: open a private chat if one doesn't exist
     const channel: PrivateChatState = state.chat.activePrivateChats[partner]
     const char: Character = state.chat.characters[sender]
-    const message: ChatMessage = new ChatMessage(char, text, 'chat')
+    const message: ChatMessage = new ChatMessage(char, text, 'normal')
     channel.messages.push(message)
   },
 

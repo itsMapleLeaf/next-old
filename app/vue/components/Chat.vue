@@ -14,9 +14,15 @@
     </nav>
 
     <template v-if='activeTab'>
-      <channel-view v-if="activeTab.type === 'channel'" :state='activeTab.state'>
-        <chatbox slot='chatbox'></chatbox>
+      <channel-view
+        v-if="activeTab.type === 'channel'"
+        :state='activeTab.state'>
       </channel-view>
+
+      <private-chat-view
+        v-if="activeTab.type === 'private-chat'"
+        :state='activeTab.state'>
+      </private-chat-view>
     </template>
   </div>
 </template>
@@ -31,7 +37,7 @@
 import ChatTab from './ChatTab.vue'
 import Chatbox from './Chatbox.vue'
 import ChannelView from './ChannelView.vue'
-// import PrivateChatView from './PrivateChatView.vue'
+import PrivateChatView from './PrivateChatView.vue'
 // import {pushOverlay} from '../modules/vuex/actions'
 
 // function clamp (num, min, max) {
@@ -39,6 +45,10 @@ import ChannelView from './ChannelView.vue'
 //     : num > max ? max
 //     : num
 // }
+
+function compareNames (a, b) {
+  return a.name.localeCompare(b.name)
+}
 
 const Shortcut = {
   template: `
@@ -59,7 +69,7 @@ export default {
     ChatTab,
     ChannelView,
     Chatbox,
-    // PrivateChatView,
+    PrivateChatView,
     Shortcut
   },
 
@@ -73,9 +83,15 @@ export default {
 
   computed: {
     tabs () {
-      return this.activeChannels.map(ch => {
+      const channels = this.activeChannels.map(ch => {
         return { text: ch.name, type: 'channel', state: ch }
       })
+
+      const privateChats = this.activePrivateChats.map(ch => {
+        return { text: ch.partner.name, type: 'private-chat', state: ch }
+      })
+
+      return channels.concat(privateChats)
     },
 
     activeTab () {
@@ -96,7 +112,8 @@ export default {
       closeChat (store) {}
     },
     getters: {
-      activeChannels: state => Object.values(state.chat.activeChannels)
+      activeChannels: state => Object.values(state.chat.activeChannels).sort(compareNames),
+      activePrivateChats: state => Object.values(state.chat.activePrivateChats).sort(compareNames)
     }
   }
 }

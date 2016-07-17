@@ -22,7 +22,7 @@
     </div>
 
     <div slot="options">
-      <menu-option icon='comment' @click='openPrivateChat'>Send Message</menu-option>
+      <menu-option icon='message' @click='openPrivateChat'>Send Message</menu-option>
 
       <menu-option icon='star-outline' v-if='!bookmarks[char.name]' @click.prevent='toggleBookmark(char.name)'>Bookmark</menu-option>
       <menu-option icon='star' v-else @click.prevent='toggleBookmark(char.name)'>Unbookmark</menu-option>
@@ -73,6 +73,7 @@ import CharacterAvatarLink from './CharacterAvatarLink.vue'
 
 import {getProfileURL, getAvatarURL, addBookmark, removeBookmark} from '../modules/flist'
 import {bbcode} from '../modules/filters'
+import {popOverlay} from '../modules/vuex/actions'
 import socket from '../modules/socket'
 
 export default {
@@ -91,8 +92,8 @@ export default {
 
   methods: {
     openPrivateChat () {
-      // store.notify('PrivateChatOpened', this.activeCharacter.name)
-      this.close()
+      this.addPrivateChat(this.char.name)
+      this.popOverlay()
     },
 
     toggleBookmark (name) {
@@ -128,6 +129,11 @@ export default {
       friends: state => state.chat.friends,
       ignored: state => state.chat.ignored,
       auth: state => state.auth
+    },
+
+    actions: {
+      popOverlay,
+      addPrivateChat ({dispatch}, name) { dispatch('AddActivePrivateChat', name) }
     }
   },
 

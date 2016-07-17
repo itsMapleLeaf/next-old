@@ -137,6 +137,10 @@ export class Socket {
     store.dispatch('AddChannelMessage', channel, store.state.user.character, message, 'normal')
   }
 
+  sendPrivateMessage (recipient: CharacterName, message: string) {
+    this.send('PRI', { recipient, message })
+  }
+
   handleServerCommand (type: string, params: Object) {
     switch (type) {
       // successful identification w/ chat server
@@ -288,7 +292,7 @@ export class Socket {
 
       // private message
       case 'PRI':
-        store.dispatch('AddPrivateChatMessage', params.character, params.message)
+        store.dispatch('AddPrivateChatMessage', params.character, params.character, params.message)
         break
 
       default:

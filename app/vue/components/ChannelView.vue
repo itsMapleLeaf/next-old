@@ -13,7 +13,7 @@
 
     <div class='flex-row flex-stretch'>
       <!-- message -->
-      <chat-message-list class="flex-stretch" :state='state'></chat-message-list>
+      <chat-message-list class="flex-stretch" :messages='state.messages'></chat-message-list>
 
       <div class='flex-divider'></div>
 

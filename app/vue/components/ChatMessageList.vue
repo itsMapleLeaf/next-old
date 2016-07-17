@@ -1,6 +1,6 @@
 <template>
   <div class="ui-scroll" v-el:container @scroll='onScroll'>
-    <chat-message v-for='msg in filteredMessages' :message='msg'></chat-message>
+    <chat-message v-for='msg in messages' :message='msg'></chat-message>
   </div>
 </template>
 
@@ -8,11 +8,10 @@
 
 <script>
 import ChatMessage from './ChatMessage.vue'
-import ChannelState from '../types/ChannelState'
 
 export default {
   props: {
-    state: ChannelState
+    messages: Array
   },
 
   components: {
@@ -36,12 +35,12 @@ export default {
 
   computed: {
     filteredMessages () {
-      return this.state.messages
+      return this.messages
     }
   },
 
   watch: {
-    'state.messages' () {
+    'messages' () {
       const {container} = this.$els
       const {scrollTop, scrollHeight, clientHeight} = container
       const scroll = scrollTop
