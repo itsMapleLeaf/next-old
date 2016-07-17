@@ -59,7 +59,8 @@ for $color-name in ('red' 'green' 'blue')
 // elements / components
 .ui-link
   @extend .ui-border
-  color: inherit
+  border-width: 2px
+  color: lighten($colors.light, 60%)
   text-decoration: none
 
 .ui-field
@@ -112,7 +113,7 @@ for $side in ('left' 'right')
     pointer-events: none
 
   .ui-input
-    padding-left: 1.8em
+    padding-left: 1.8rem
 
 .ui-select
   @extend .ui-input, .ui-scroll

@@ -3,11 +3,11 @@
     <form @submit.prevent='submit' :disabled='disabled'>
       <h2>Hello, beautiful.</h2>
       <div class='ui-field ui-input-icon'>
-        <i class='ui-icon mdi mdi-account'></i>
+        <i class='ui-icon mdi mdi-account-circle'></i>
         <input class='ui-input' type="text" placeholder="Username" v-model="username">
       </div>
       <div class='ui-field ui-input-icon'>
-        <i class='ui-icon mdi mdi-key'></i>
+        <i class='ui-icon mdi mdi-key-variant'></i>
         <input class='ui-input' type="password" placeholder="Password" v-model="password">
       </div>
       <div class='ui-field'>

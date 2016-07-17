@@ -1,6 +1,6 @@
 <template>
   <overlay>
-    <h2>Chill and chat? Sounds good.</h2>
+    <h3>Chill and chat? Sounds good.</h3>
     <form>
       <div class='ui-field'>
         <div class='ui-select'>
