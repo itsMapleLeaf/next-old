@@ -1,8 +1,10 @@
-# 0.3.1
-- Performance improvements
+# 0.4.0
 - Added a pretty loading screen
+- Shows your character's image on the character select screen
+- Added a checkbox for showing all channels on channel select
+- Added BBC parsing for [channel], [session], [icon] and [user]
 - Shows the channel ID under private channels
-- A few other style changes
+- Some style changes
 
 # 0.3.0
 - Showing LFRP ads
