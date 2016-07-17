@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class="gender" :class="character.gender.toLowerCase()" :data-character-action="character.name">
+  <a href='#' class="gender" :class="classes" :data-character-action="character.name">
     <i class="mdi mdi-hexagon status" :class="character.status.toLowerCase()"></i>
     {{character.name}}
   </a>
@@ -31,6 +31,9 @@ a
   &.cunt-boy { color: hsl(134, 56%, 60%) }
   &.male-herm { color: hsl(225, 100%, 66%) }
   &.none { color: hsl(54, 42%, 76%) }
+
+.ignored
+  opacity: 0.5
 </style>
 
 <script>
@@ -39,6 +42,21 @@ import Character from '../types/Character'
 export default {
   props: {
     character: Character
+  },
+
+  computed: {
+    classes () {
+      return {
+        [this.character.gender.toLowerCase()]: true,
+        'ignored': this.ignored[this.character.name] != null
+      }
+    }
+  },
+
+  vuex: {
+    getters: {
+      ignored: state => state.chat.ignored
+    }
   }
 }
 </script>

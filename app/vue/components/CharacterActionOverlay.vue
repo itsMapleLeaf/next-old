@@ -27,8 +27,8 @@
       <menu-option icon='star-outline' v-if='!bookmarks[char.name]' @click.prevent='toggleBookmark(char.name)'>Bookmark</menu-option>
       <menu-option icon='star' v-else @click.prevent='toggleBookmark(char.name)'>Unbookmark</menu-option>
 
-      <menu-option icon='minus-circle-outline' v-if='!ignored[char.name]'>Ignore</menu-option>
-      <menu-option icon='minus-circle' v-else>Unignore</menu-option>
+      <menu-option icon='minus-circle-outline' v-if='!ignored[char.name]' @click.prevent='toggleIgnored(char.name)'>Ignore</menu-option>
+      <menu-option icon='minus-circle' v-else @click.prevent='toggleIgnored(char.name)'>Unignore</menu-option>
 
       <menu-option icon='link-variant' :href="getProfileURL(char.name)" target="_blank">View Profile</menu-option>
     </div>
@@ -109,6 +109,14 @@ export default {
         }).catch(err => {
           console.warn('error removing bookmark: ', err)
         })
+      }
+    },
+
+    toggleIgnored (name) {
+      if (!this.ignored[name]) {
+        socket.ignore(name)
+      } else {
+        socket.unignore(name)
       }
     }
   },

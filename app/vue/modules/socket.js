@@ -124,6 +124,14 @@ export class Socket {
     this.send('LCH', { channel })
   }
 
+  ignore (character: CharacterName) {
+    this.send('IGN', { action: 'add', character })
+  }
+
+  unignore (character: CharacterName) {
+    this.send('IGN', { action: 'delete', character })
+  }
+
   handleServerCommand (type: string, params: Object) {
     switch (type) {
       // successful identification w/ chat server
@@ -161,8 +169,16 @@ export class Socket {
             store.dispatch('SetIgnoreList', params.characters)
             break
 
+          case 'add':
+            store.dispatch('AddIgnoredCharacter', params.character)
+            break
+
+          case 'delete':
+            store.dispatch('RemoveIgnoredCharacter', params.character)
+            break
+
           default:
-            console.warn(`Unknown ignore list action ${params.action}`)
+            console.error(`Unknown ignore list action ${params.action}`)
         }
         break
 

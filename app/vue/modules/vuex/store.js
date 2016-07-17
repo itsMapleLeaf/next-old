@@ -139,6 +139,15 @@ const mutations = {
     state.chat.ignored = map
   },
 
+  AddIgnoredCharacter (state: State, char: CharacterName) {
+    Vue.set(state.chat.ignored, char, true)
+  },
+
+  RemoveIgnoredCharacter (state: State, char: CharacterName) {
+    Vue.set(state.chat.ignored, char, undefined)
+    delete state.chat.ignored[char]
+  },
+
   SetAdminList (state: State, admins: CharacterName[]) {
     const map: CharacterBoolMap = {}
     for (let name of admins) { map[name] = true }
@@ -176,7 +185,7 @@ const mutations = {
   },
 
   SetFocusedCharacter (state: State, name: CharacterName) {
-    state.ui.focusedCharacter = state.chat.characters[name] || Character(name, 'None', 'offline')
+    state.ui.focusedCharacter = state.chat.characters[name] || new Character(name, 'None', 'offline')
   },
 
   SetPublicChannelList (state: State, channels: ChannelInfo[]) {
