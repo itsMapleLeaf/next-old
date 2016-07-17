@@ -2,9 +2,12 @@
   <overlay>
     <h2>Let's find some friends.</h2>
     <form>
-      <fieldset>
-        <ul class="ui-selection" style="">
-          <li v-for="char in filterRelation('friend')" class="ui-highlight-green">
+      <div class='ui-field'>
+        <div class="ui-select">
+          <a href='#' v-for='char in sortedCharacters'>
+            <character :character='char'></character>
+          </a>
+          <!-- <li v-for="char in filterRelation('friend')" class="ui-highlight-green">
             <i class="mdi mdi-heart pull-right"></i>
             <character :character='char'></character>
           </li>
@@ -18,24 +21,23 @@
           </li>
           <li v-for="char in filterRelation()">
             <character :character='char'></character>
-          </li>
-        </ul>
-      </fieldset>
-      <fieldset class="ui-icon-right">
-        <i class="mdi mdi-search"></i>
-        <input type="text" placeholder="Search..." v-model="search" />
-      </fieldset>
+          </li> -->
+        </div>
+      </div>
+      <div class="ui-field ui-input-icon">
+        <i class="ui-icon mdi mdi-magnify"></i>
+        <input class="ui-input" type="text" placeholder="Search..." v-model="searchText" debounce="500" />
+      </div>
     </form>
   </overlay>
 </template>
 
-<style lang="stylus" scoped>
-.selection
-  text-align: left
-  width: calc(100vh - 38em)
-  height: calc(100vh - 30em)
-  min-width: 14em
-  min-height: 18em
+<style scoped>
+.ui-select {
+  text-align: left;
+  width: 16em;
+  height: 20em;
+}
 </style>
 
 <script>
@@ -43,9 +45,9 @@ import Character from './Character.vue'
 import Dropdown from './Dropdown.vue'
 import Overlay from './Overlay.vue'
 
-// function compareNames (a, b) {
-//   return a.name.localeCompare(b.name)
-// }
+function compareNames (a, b) {
+  return a.name.localeCompare(b.name)
+}
 
 export default {
   components: {
@@ -56,14 +58,13 @@ export default {
 
   data () {
     return {
-      characters: [],
-      search: ''
+      searchText: ''
     }
   },
 
   vuex: {
     getters: {
-      characters: state => Object.values(state.chat.characters)
+      characters: state => Object.values(state.chat.characters).slice()
     }
   },
 
@@ -72,6 +73,13 @@ export default {
   },
 
   computed: {
+    sortedCharacters () {
+      return this.characters
+        .sort(compareNames)
+        .filter(char => char.name.toLocaleLowerCase()
+          .includes(this.searchText.toLocaleLowerCase()))
+        .slice(0, 300)
+    }
   },
 
   methods: {
