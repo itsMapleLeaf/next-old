@@ -8,7 +8,7 @@
       <chat-tab v-for="(index, tab) in tabs"
         :active="index === tabIndex"
         @selected="tabIndex = index"
-        @closed="closeChat(chat.id)">
+        @closed="closeTab(tab)">
         {{tab.text}}
       </chat-tab>
     </nav>
@@ -38,6 +38,7 @@ import ChatTab from './ChatTab.vue'
 import Chatbox from './Chatbox.vue'
 import ChannelView from './ChannelView.vue'
 import PrivateChatView from './PrivateChatView.vue'
+import socket from '../modules/socket'
 // import {pushOverlay} from '../modules/vuex/actions'
 
 // function clamp (num, min, max) {
@@ -104,13 +105,18 @@ export default {
       this.tabIndex = tabIndex
       this.viewType = 'channel'
       this.viewState = channel
+    },
+
+    closeTab (tab) {
+      if (tab.type === 'channel') {
+        socket.leaveChannel(tab.state.id)
+      } else {
+        this.$store.dispatch('RemoveActivePrivateChat', tab.state.partner.name)
+      }
     }
   },
 
   vuex: {
-    actions: {
-      closeChat (store) {}
-    },
     getters: {
       activeChannels: state => Object.values(state.chat.activeChannels).sort(compareNames),
       activePrivateChats: state => Object.values(state.chat.activePrivateChats).sort(compareNames)
