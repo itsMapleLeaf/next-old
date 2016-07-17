@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class="ui-color-dark"
+  <a href='#'
     :style="{ opacity: value ? 1 : 0.5 }"
     @click.prevent @keydown.space="$emit('click')">
     <i :class="'mdi mdi-' + iconClass"></i>
