@@ -1,5 +1,5 @@
 ## For 0.4.0
-- [ ] timestamps
+- [x] timestamps
 - [ ] some kind of notifications system???
 - [ ] t r a n s i t i o n s
 - [ ] remembering last active channels

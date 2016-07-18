@@ -4,18 +4,18 @@
     <form>
       <div class='ui-field'>
         <div class="ui-color-dark ui-border ui-scroll characters">
-          <div class="ui-highlight-green" v-for='char in getGroup("friends")'>
+          <div class="ui-highlight-green" v-for='char in groups.friends || []'>
             <character class='character' :character='char'></character>
             <i class='mdi mdi-heart'></i>
           </div>
-          <div class="ui-highlight-blue" v-for='char in getGroup("bookmarks")'>
+          <div class="ui-highlight-blue" v-for='char in groups.bookmarks || []'>
             <character class='character' :character='char'></character>
             <i class='mdi mdi-star'></i>
           </div>
-          <div v-for='char in getGroup("looking").slice(0, 200)'>
+          <div v-for='char in groups.looking || []'>
             <character class='character' :character='char'></character>
           </div>
-          <div v-for='char in getGroup("rest").slice(0, 200)'>
+          <div v-for='char in groups.rest || []'>
             <character class='character' :character='char'></character>
           </div>
         </div>
@@ -80,17 +80,6 @@ export default {
     }
   },
 
-  methods: {
-    getGroup (which) {
-      let group = this.groups[which] || []
-      if (this.searchText.trim()) {
-        group = group.filter(char => char.name.toLocaleLowerCase()
-          .includes(this.searchText.toLocaleLowerCase()))
-      }
-      return group
-    }
-  },
-
   watch: {
     characters (list) {
       const groups = groupSort(list, char => {
@@ -107,7 +96,11 @@ export default {
       })
 
       for (let group in groups) {
-        groups[group].sort(compareOnlineTime)
+        groups[group] = groups[group]
+          .filter(char => char.name.toLocaleLowerCase()
+            .includes(this.searchText.toLocaleLowerCase()))
+          .slice(0, 200)
+          .sort(compareOnlineTime)
       }
 
       this.groups = groups
