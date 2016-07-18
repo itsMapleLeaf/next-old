@@ -1,7 +1,7 @@
 # Functionality
 - [ ] add a functional character menu
-  - [ ] ignore
   - [ ] report (low priority)
+  - [x] ignore
   - [x] open private chat tabs
   - [x] link to character's profile
   - [x] bookmark
@@ -11,16 +11,17 @@
 - [ ] default left click to open profile, right click to open character menu
 - [ ] settings menu
 - [ ] better link handling
-  - [ ] open links in a modal
-  - [ ] show an icon for the link type (image, webpage, etc.)
+  - [x] show an icon for the link type (image, webpage, etc.)
   - [ ] possibly embed some media?
+  - [ ] ~~open links in a modal~~
 - [ ] use tickboxes for the user list filter instead of a dropdown
 - [ ] add character memos
 - [ ] timestamps
-- [ ] eventually figure a performant way to allow people to browse all characters/channels
 - [ ] some kind of notifications system???
 - [ ] probably a console
 - [ ] developer documentation
+- [ ] add sorting preferences in lists
+- [x] ~~eventually figure a performant way to allow people to browse all characters/channels~~ a "show all" checkbox works
 - [x] make the status form work
 - [x] make the "remember me" function actually work
 - [x] functional character switching

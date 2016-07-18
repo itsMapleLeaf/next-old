@@ -3,25 +3,21 @@
     <h2>Let's find some friends.</h2>
     <form>
       <div class='ui-field'>
-        <div class="ui-select">
-          <a href='#' v-for='char in sortedCharacters'>
+        <div class="ui-color-dark ui-border ui-scroll characters">
+          <div class="ui-highlight-green" v-for='char in getGroup("friends")'>
+            <i class='mdi mdi-heart' style='float: right'></i>
             <character :character='char'></character>
-          </a>
-          <!-- <li v-for="char in filterRelation('friend')" class="ui-highlight-green">
-            <i class="mdi mdi-heart pull-right"></i>
+          </div>
+          <div class="ui-highlight-blue" v-for='char in getGroup("bookmarks")'>
+            <i class='mdi mdi-star' style='float: right'></i>
             <character :character='char'></character>
-          </li>
-          <li v-for="char in filterRelation('bookmark')" class="ui-highlight-blue">
-            <i class="mdi mdi-star pull-right"></i>
+          </div>
+          <div v-for='char in getGroup("looking").slice(0, 200)'>
             <character :character='char'></character>
-          </li>
-          <li v-for="char in filterRelation('looking')">
-            <i class="mdi mdi-paw pull-right"></i>
+          </div>
+          <div v-for='char in getGroup("rest").slice(0, 200)'>
             <character :character='char'></character>
-          </li>
-          <li v-for="char in filterRelation()">
-            <character :character='char'></character>
-          </li> -->
+          </div>
         </div>
       </div>
       <div class="ui-field ui-input-icon">
@@ -33,10 +29,14 @@
 </template>
 
 <style scoped>
-.ui-select {
+.characters {
   text-align: left;
-  width: 16em;
+  width: 14em;
   height: 20em;
+}
+
+.characters > div {
+  padding: 0.4em 0.6em;
 }
 </style>
 
@@ -44,17 +44,10 @@
 import Character from './Character.vue'
 import Dropdown from './Dropdown.vue'
 import Overlay from './Overlay.vue'
-
-function compareNames (a, b) {
-  return a.name.localeCompare(b.name)
-}
+import {groupSort} from '../modules/common'
 
 export default {
-  components: {
-    Character,
-    Dropdown,
-    Overlay
-  },
+  components: {Character, Dropdown, Overlay},
 
   data () {
     return {
@@ -65,29 +58,37 @@ export default {
 
   vuex: {
     getters: {
+      friends: state => state.chat.friends,
+      bookmarks: state => state.chat.bookmarks,
       characterMap: state => state.chat.characters
     }
   },
 
-  created () {
-    // this.characters = store.getOnlineCharacterList().sort(compareNames)
-  },
-
-  computed: {
-    sortedCharacters () {
-      // return this.characters
-      //   .sort(compareNames)
-      //   .filter(char => char.name.toLocaleLowerCase()
-      //     .includes(this.searchText.toLocaleLowerCase()))
-      //   .slice(0, 300)
+  methods: {
+    getGroup (which) {
+      let group = this.groups[which] || []
+      if (this.searchText.trim()) {
+        group = group.filter(char => char.name.toLocaleLowerCase()
+          .includes(this.searchText.toLocaleLowerCase()))
+      }
+      return group
     }
   },
 
-  methods: {},
-
   watch: {
-    characterMap () {
-
+    characterMap (map) {
+      this.groups = groupSort(Object.values(map), char => {
+        switch (true) {
+          case this.friends[char.name] != null:
+            return 'friends'
+          case this.bookmarks[char.name]:
+            return 'bookmarks'
+          case char.status === 'looking':
+            return 'looking'
+          default:
+            return 'rest'
+        }
+      })
     }
   }
 }

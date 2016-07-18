@@ -88,6 +88,8 @@ import {bbcode} from '../modules/filters'
 import socket from '../modules/socket'
 import {groupSort, compareByField} from '../modules/common'
 
+const compareNames = compareByField('name')
+
 export default {
   components: {
     Chatbox,
@@ -138,7 +140,7 @@ export default {
       })
 
       for (let group in groups) {
-        groups[group].sort(compareByField('name'))
+        groups[group].sort(compareNames)
       }
 
       this.groups = groups
