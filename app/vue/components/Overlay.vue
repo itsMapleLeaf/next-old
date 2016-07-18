@@ -1,5 +1,5 @@
 <template>
-  <div class='ui-overlay'>
+  <div class='ui-overlay' transition="overlay">
     <div class='ui-overlay-shade' @click.self='close'></div>
     <div class='ui-overlay-panel'>
       <slot></slot>
@@ -34,13 +34,11 @@ export default {
       default: false
     }
   },
-
   methods: {
     close () {
       if (!this.noClose) this.popOverlay()
     }
   },
-
   vuex: {
     actions: {popOverlay}
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class='ui-overlay'>
+  <div class='ui-overlay' transition='overlay'>
     <div class='ui-overlay-shade' @click="popOverlay"></div>
     <div class='flex-column ui-scroll' :class='"ui-overlay-panel-" + side'>
       <div class='flex-fixed'>

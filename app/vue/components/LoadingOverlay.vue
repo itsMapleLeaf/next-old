@@ -1,7 +1,12 @@
+<!--
+  TODO: convert this from an overlay into a simple icon in the background
+  which shows on a simple "loading: boolean" property from the store
+-->
+
 <template>
-  <div class="ui-overlay">
+  <div class="ui-overlay" transition="overlay">
     <div class="ui-overlay-shade"></div>
-    <div>
+    <div class="flex-column flex-center-children">
       <i class="mdi mdi-paw"></i>
       <h3><em>Working on it...</em></h3>
     </div>

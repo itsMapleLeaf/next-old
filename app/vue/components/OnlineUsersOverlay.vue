@@ -81,6 +81,7 @@ export default {
   },
 
   watch: {
+    // TODO: only generate character groups once, and add a refresh button
     characters (list) {
       const groups = groupSort(list, char => {
         switch (true) {

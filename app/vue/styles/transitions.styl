@@ -1,0 +1,66 @@
+$duration = 0.3s
+
+.fade-
+  &transition
+    transition: $duration opacity
+    opacity: 1
+
+  &enter, &leave
+    opacity: 0
+
+.slide-
+  &v-
+    &transition
+      transition: $duration transform
+      transform: translateY(0)
+
+    &enter, &leave
+      transform: translateY(-3em)
+
+  &left-
+    &transition
+      transition: $duration transform
+      transform: translateX(0)
+
+    &enter, &leave
+      transform: translateX(-100%)
+
+  &right-
+    &transition
+      transition: $duration transform
+      transform: translateX(0)
+
+    &enter, &leave
+      transform: translateX(100%)
+
+
+.overlay-
+  &transition
+    @extend .fade-transition
+
+    .ui-overlay-panel
+      @extend .slide-v-transition
+
+    .ui-overlay-panel-left
+      @extend .slide-left-transition
+
+    .ui-overlay-panel-right
+      @extend .slide-right-transition
+
+  &enter, &leave
+    @extend .fade-enter
+
+    .ui-overlay-panel
+      @extend .slide-v-enter
+
+    .ui-overlay-panel-left
+      @extend .slide-left-enter
+
+    .ui-overlay-panel-right
+      @extend .slide-right-enter
+
+  &enter .ui-overlay-panel
+    transition-timing-function: ease-out
+
+  &leave .ui-overlay-panel
+    transition-timing-function: ease-in

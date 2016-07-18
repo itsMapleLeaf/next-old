@@ -7,6 +7,7 @@
 
 <style lang="stylus" src="../styles/ui.styl"></style>
 <style lang="stylus" src="../styles/flex.styl"></style>
+<style lang="stylus" src="../styles/transitions.styl"></style>
 
 <script>
 import Chat from './Chat.vue'

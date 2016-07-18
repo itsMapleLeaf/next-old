@@ -2,8 +2,8 @@
   <div class='flex-column ui-color-dark ui-fullscreen'>
     <nav class='flex-fixed flex-row' style='overflow-x: auto'>
       <shortcut title="Actions" icon="menu" data-push-overlay="menu-overlay"></shortcut>
-      <shortcut title="Channels" icon="earth" data-push-overlay="channel-select-overlay"></shortcut>
-      <shortcut title="Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>
+      <shortcut title="Channels" icon="forum" data-push-overlay="channel-select-overlay"></shortcut>
+      <shortcut title="Online Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>
 
       <chat-tab v-for="(index, tab) in tabs"
         :active="index === tabIndex"
@@ -53,8 +53,7 @@ function compareNames (a, b) {
 
 const Shortcut = {
   template: `
-    <a href='#' class='flex-fixed flex-center-children header-shortcut'
-      title="Actions">
+    <a href='#' class='flex-fixed flex-center-children header-shortcut'>
       <i :class="'mdi mdi-' + icon" style="pointer-events: none"></i>
     </a>
   `,
