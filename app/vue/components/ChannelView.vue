@@ -19,21 +19,21 @@
 
       <!-- users -->
       <div class='flex-fixed ui-color-main ui-scroll character-list'>
-        <div v-for='char in groups.friends' class='ui-highlight-green'>
+        <div v-for='char in groups.friends || []' class='ui-highlight-green'>
           <character :character='char'></character>
           <i class='mdi mdi-heart' style='opacity: 0.8; float: right'></i>
         </div>
-        <div v-for='char in groups.bookmarks' class='ui-highlight-blue'>
+        <div v-for='char in groups.bookmarks || []' class='ui-highlight-blue'>
           <character :character='char'></character>
           <i class='mdi mdi-star' style='opacity: 0.8; float: right'></i>
         </div>
-        <div v-for='char in groups.admins' class='ui-highlight-red'>
+        <div v-for='char in groups.admins || []' class='ui-highlight-red'>
           <character :character='char'></character>
         </div>
-        <div v-for='char in groups.looking'>
+        <div v-for='char in groups.looking || []'>
           <character :character='char'></character>
         </div>
-        <div v-for='char in groups.rest'>
+        <div v-for='char in groups.rest || []'>
           <character :character='char'></character>
         </div>
       </div>
@@ -59,7 +59,7 @@
     white-space: pre-wrap
 
 .character-list
-  width: 12em
+  width: 10em
 
   & > div
     padding: 0.2em 0.4em
@@ -86,10 +86,7 @@ import ChatMessageList from './ChatMessageList.vue'
 import ChannelState from '../types/ChannelState'
 import {bbcode} from '../modules/filters'
 import socket from '../modules/socket'
-
-function compareNames (a, b) {
-  return a.name.localeCompare(b.name)
-}
+import {groupSort, compareByField} from '../modules/common'
 
 export default {
   components: {
@@ -104,7 +101,17 @@ export default {
   },
 
   data () {
-    return {}
+    return {
+      groups: {}
+    }
+  },
+
+  vuex: {
+    getters: {
+      friends: state => state.chat.friends,
+      bookmarks: state => state.chat.bookmarks,
+      admins: state => state.chat.admins
+    }
   },
 
   methods: {
@@ -113,47 +120,31 @@ export default {
     }
   },
 
-  computed: {
-    groups () {
-      const rest = this.state.characters.slice()
-      const friends = []
-      const bookmarks = []
-      const admins = []
-      const looking = []
-
-      for (let char of rest) {
-        if (this.friends[char.name]) {
-          friends.push(char)
-          rest.$remove(char)
-        } else if (this.bookmarks[char.name]) {
-          bookmarks.push(char)
-          rest.$remove(char)
-        } else if (this.admins[char.name]) {
-          admins.push(char)
-          rest.$remove(char)
-        } else if (char.status === 'looking') {
-          looking.push(char)
-          rest.$remove(char)
+  watch: {
+    'state.characters' (value) {
+      const groups = groupSort(value, char => {
+        switch (true) {
+          case this.friends[char.name] != null:
+            return 'friends'
+          case this.bookmarks[char.name]:
+            return 'bookmarks'
+          case this.admins[char.name]:
+            return 'admins'
+          case char.status === 'looking':
+            return 'looking'
+          default:
+            return 'rest'
         }
+      })
+
+      for (let group in groups) {
+        groups[group].sort(compareByField('name'))
       }
 
-      friends.sort(compareNames)
-      bookmarks.sort(compareNames)
-      admins.sort(compareNames)
-      looking.sort(compareNames)
-      rest.sort(compareNames)
-      return { friends, bookmarks, admins, looking, rest }
+      this.groups = groups
     }
   },
 
-  filters: {bbcode},
-
-  vuex: {
-    getters: {
-      friends: state => state.chat.friends,
-      bookmarks: state => state.chat.bookmarks,
-      admins: state => state.chat.admins
-    }
-  }
+  filters: {bbcode}
 }
 </script>

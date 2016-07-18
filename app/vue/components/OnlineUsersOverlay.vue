@@ -58,13 +58,14 @@ export default {
 
   data () {
     return {
-      searchText: ''
+      searchText: '',
+      groups: {}
     }
   },
 
   vuex: {
     getters: {
-      characters: state => Object.values(state.chat.characters).slice()
+      characterMap: state => state.chat.characters
     }
   },
 
@@ -74,31 +75,20 @@ export default {
 
   computed: {
     sortedCharacters () {
-      return this.characters
-        .sort(compareNames)
-        .filter(char => char.name.toLocaleLowerCase()
-          .includes(this.searchText.toLocaleLowerCase()))
-        .slice(0, 300)
+      // return this.characters
+      //   .sort(compareNames)
+      //   .filter(char => char.name.toLocaleLowerCase()
+      //     .includes(this.searchText.toLocaleLowerCase()))
+      //   .slice(0, 300)
     }
   },
 
-  methods: {
-    // filterRelation (relation?: CharacterRelation) {
-    //   let filtered
-    //   if (relation) {
-    //     filtered = this.characters.filter(char => char.relation[0] === relation)
-    //   } else {
-    //     filtered = this.characters.filter(char => {
-    //       const {relation} = char
-    //       return !relation.includes('friend') &&
-    //         !relation.includes('bookmark') &&
-    //         !relation.includes('looking')
-    //     })
-    //   }
-    //   return filtered
-    //     .filter(char => char.name.includes(this.search))
-    //     .slice(0, 100)
-    // }
+  methods: {},
+
+  watch: {
+    characterMap () {
+
+    }
   }
 }
 </script>
