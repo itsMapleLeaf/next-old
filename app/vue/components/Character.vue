@@ -1,6 +1,6 @@
 <template>
-  <a href='#' class="gender" :class="classes" :data-character-action="character.name">
-    <i class="mdi mdi-checkbox-blank-circle status" :class="character.status.toLowerCase()"></i>
+  <a href='#' class="gender-color" :class="classes" :data-character-action="character.name">
+    <i class="mdi mdi-checkbox-blank-circle status-color" :class="character.status.toLowerCase()"></i>
     {{character.name}}
   </a>
 </template>
@@ -9,7 +9,10 @@
 a
   font-weight: 700
 
-.status
+i
+  pointer-events: none
+
+.status-color
   font-size: 0.5em
   position: relative
   top: -0.3em
@@ -22,7 +25,7 @@ a
   &.dnd { color: rgb(191, 77, 64) }
   &.offline { color: rgba(62, 62, 62, 0.5) }
 
-.gender
+.gender-color
   &.male { color: hsl(210, 50%, 60%) }
   &.female { color: hsl(5, 90%, 78%) }
   &.transgender { color: hsl(35, 65%, 60%) }
@@ -46,10 +49,9 @@ export default {
 
   computed: {
     classes () {
-      return {
-        [this.character.gender.toLowerCase()]: true,
-        'ignored': this.ignored[this.character.name] != null
-      }
+      const gender = this.character.gender.toLowerCase()
+      const ignored = this.ignored[this.character.name] != null
+      return `${gender} ${ignored ? 'ignored' : ''}`
     }
   },
 

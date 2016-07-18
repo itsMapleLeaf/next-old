@@ -23,6 +23,7 @@ export default class Character {
   gender: Gender
   status: Status
   statusMessage: string
+  onlineSince: ?number
 
   constructor (name, gender, status = 'online', statusMessage = '') {
     this.name = name
@@ -30,7 +31,7 @@ export default class Character {
     this.setStatus(status, statusMessage)
   }
 
-  setStatus (status: Status, message: string) {
+  setStatus (status, message) {
     this.status = status
     this.statusMessage = message
   }

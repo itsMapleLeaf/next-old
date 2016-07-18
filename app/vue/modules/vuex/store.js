@@ -167,13 +167,16 @@ const mutations = {
     for (let entry of batch) {
       const [name, gender, status, statusmsg] = entry
       const char: Character = new Character(name, gender, status, statusmsg)
+      char.onlineSince = Date.now() // not 100% accurate, but works well enough
       map[name] = char
     }
     state.chat.characters = Object.assign(state.chat.characters, map)
   },
 
   AddCharacter (state: State, name: CharacterName, gender: Gender) {
-    Vue.set(state.chat.characters, name, new Character(name, gender))
+    const char = new Character(name, gender)
+    Vue.set(state.chat.characters, name, char)
+    char.onlineSince = Date.now()
   },
 
   RemoveCharacter (state: State, name: CharacterName) {

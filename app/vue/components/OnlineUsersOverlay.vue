@@ -5,18 +5,18 @@
       <div class='ui-field'>
         <div class="ui-color-dark ui-border ui-scroll characters">
           <div class="ui-highlight-green" v-for='char in getGroup("friends")'>
-            <i class='mdi mdi-heart' style='float: right'></i>
-            <character :character='char'></character>
+            <character class='character' :character='char'></character>
+            <i class='mdi mdi-heart'></i>
           </div>
           <div class="ui-highlight-blue" v-for='char in getGroup("bookmarks")'>
-            <i class='mdi mdi-star' style='float: right'></i>
-            <character :character='char'></character>
+            <character class='character' :character='char'></character>
+            <i class='mdi mdi-star'></i>
           </div>
           <div v-for='char in getGroup("looking").slice(0, 200)'>
-            <character :character='char'></character>
+            <character class='character' :character='char'></character>
           </div>
           <div v-for='char in getGroup("rest").slice(0, 200)'>
-            <character :character='char'></character>
+            <character class='character' :character='char'></character>
           </div>
         </div>
       </div>
@@ -36,6 +36,18 @@
 }
 
 .characters > div {
+  position: relative;
+}
+
+.characters > div > i {
+  position: absolute;
+  top: 0.4em;
+  right: 0.6em;
+  pointer-events: none;
+}
+
+.character {
+  display: block;
   padding: 0.4em 0.6em;
 }
 </style>
@@ -45,6 +57,10 @@ import Character from './Character.vue'
 import Dropdown from './Dropdown.vue'
 import Overlay from './Overlay.vue'
 import {groupSort} from '../modules/common'
+
+function compareOnlineTime (a, b) {
+  return b.onlineSince - a.onlineSince
+}
 
 export default {
   components: {Character, Dropdown, Overlay},
@@ -60,7 +76,7 @@ export default {
     getters: {
       friends: state => state.chat.friends,
       bookmarks: state => state.chat.bookmarks,
-      characterMap: state => state.chat.characters
+      characters: state => Object.values(state.chat.characters)
     }
   },
 
@@ -76,8 +92,8 @@ export default {
   },
 
   watch: {
-    characterMap (map) {
-      this.groups = groupSort(Object.values(map), char => {
+    characters (list) {
+      const groups = groupSort(list, char => {
         switch (true) {
           case this.friends[char.name] != null:
             return 'friends'
@@ -89,6 +105,12 @@ export default {
             return 'rest'
         }
       })
+
+      for (let group in groups) {
+        groups[group].sort(compareOnlineTime)
+      }
+
+      this.groups = groups
     }
   }
 }

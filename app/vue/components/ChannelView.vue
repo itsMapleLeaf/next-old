@@ -19,21 +19,21 @@
 
       <!-- users -->
       <div class='flex-fixed ui-color-main ui-scroll character-list'>
-        <div v-for='char in groups.friends || []' class='ui-highlight-green'>
+        <div v-for='char in groups.friends || []' class='flex-center-children ui-highlight-green'>
           <character :character='char'></character>
-          <i class='mdi mdi-heart' style='opacity: 0.8; float: right'></i>
+          <i class='mdi mdi-heart'></i>
         </div>
-        <div v-for='char in groups.bookmarks || []' class='ui-highlight-blue'>
+        <div v-for='char in groups.bookmarks || []' class='flex-center-children ui-highlight-blue'>
           <character :character='char'></character>
-          <i class='mdi mdi-star' style='opacity: 0.8; float: right'></i>
+          <i class='mdi mdi-star'></i>
         </div>
-        <div v-for='char in groups.admins || []' class='ui-highlight-red'>
-          <character :character='char'></character>
-        </div>
-        <div v-for='char in groups.looking || []'>
+        <div v-for='char in groups.admins || []' class='flex-center-children ui-highlight-red'>
           <character :character='char'></character>
         </div>
-        <div v-for='char in groups.rest || []'>
+        <div v-for='char in groups.looking || []' class='flex-center-children'>
+          <character :character='char'></character>
+        </div>
+        <div v-for='char in groups.rest || []' class='flex-center-children'>
           <character :character='char'></character>
         </div>
       </div>
@@ -59,10 +59,11 @@
     white-space: pre-wrap
 
 .character-list
-  width: 10em
+  width: 11em
 
   & > div
     padding: 0.2em 0.4em
+    justify-content: space-between
 
 .character-list-item
   display: block
