@@ -6,12 +6,12 @@ export default class ChatMessage {
   sender: Character
   message: string
   type: MessageType
-  date: Date
+  time: Date
 
   constructor (sender, message, type) {
     this.sender = sender
     this.message = message
     this.type = type
-    this.date = new Date()
+    this.time = new Date()
   }
 }

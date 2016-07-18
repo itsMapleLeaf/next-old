@@ -1,6 +1,7 @@
 <template>
   <div :class="{'ui-highlight-green': type === 'lfrp'}"
     :style="{ fontStyle: text.startsWith('/me') ? 'italic' : 'none' }">
+    <small class='ui-text-color' style='font-style: italic'>[{{time}}]</small>
     <character :character='sender'></character>
     <span class='ui-text-color message-text' v-html="parsedMessage | bbcode"></span>
   </div>
@@ -33,6 +34,11 @@ export default {
     text () { return this.message.message },
     sender () { return this.message.sender },
     type () { return this.message.type },
+
+    time () {
+      const options = { hour12: false }
+      return this.message.time.toLocaleTimeString(undefined, options)
+    },
 
     parsedMessage () {
       return this.text.replace(/^\/me\s*/i, '')
