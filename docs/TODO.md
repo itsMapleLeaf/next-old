@@ -2,6 +2,10 @@
 - [ ] timestamps
 - [ ] some kind of notifications system???
 - [ ] t r a n s i t i o n s
+- [ ] remembering last active channels
+
+## For 0.5.0
+- [ ] responsive styling
 
 ## Onward
 - [ ] add a functional character menu
