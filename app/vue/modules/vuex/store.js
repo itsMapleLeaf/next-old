@@ -177,7 +177,11 @@ const mutations = {
   },
 
   RemoveCharacter (state: State, name: CharacterName) {
-    delete state.chat.characters[name]
+    Vue.delete(state.chat.characters, name)
+    for (let id in this.state.activeChannels) {
+      const channel = this.state.activeChannels[id]
+      channel.characters = channel.characters.filter(char => char.name !== name)
+    }
   },
 
   SetCharacterStatus (state: State, name: CharacterName, status: Status, message: string) {
@@ -207,8 +211,7 @@ const mutations = {
   },
 
   RemoveActiveChannel (state: State, id: ChannelID) {
-    Vue.set(state.chat.activeChannels, id, undefined)
-    delete state.chat.activeChannels[id]
+    Vue.delete(state.chat.activeChannels, id)
   },
 
   SetChannelCharacterList (state: State, id: ChannelID, characters: CharacterName[]) {
@@ -251,8 +254,7 @@ const mutations = {
   },
 
   RemoveActivePrivateChat (state: State, partner: CharacterName) {
-    Vue.set(state.chat.activePrivateChats, partner, undefined)
-    delete state.chat.activePrivateChats[partner]
+    Vue.set(state.chat.activePrivateChats, partner)
   },
 
   AddPrivateChatMessage (state: State, partner: CharacterName, sender: CharacterName, text: string) {
