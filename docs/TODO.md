@@ -1,4 +1,9 @@
-# Functionality
+## For 0.4.0
+- [ ] timestamps
+- [ ] some kind of notifications system???
+- [ ] t r a n s i t i o n s
+
+## Onward
 - [ ] add a functional character menu
   - [ ] report (low priority)
   - [x] ignore
@@ -16,11 +21,8 @@
   - [ ] ~~open links in a modal~~
 - [ ] use tickboxes for the user list filter instead of a dropdown
 - [ ] add character memos
-- [ ] timestamps
-- [ ] some kind of notifications system???
 - [ ] probably a console
 - [ ] developer documentation
-- [ ] add sorting preferences in lists
 - [x] ~~eventually figure a performant way to allow people to browse all characters/channels~~ a "show all" checkbox works
 - [x] make the status form work
 - [x] make the "remember me" function actually work
