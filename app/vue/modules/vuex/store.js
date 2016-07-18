@@ -178,8 +178,8 @@ const mutations = {
 
   RemoveCharacter (state: State, name: CharacterName) {
     Vue.delete(state.chat.characters, name)
-    for (let id in this.state.activeChannels) {
-      const channel = this.state.activeChannels[id]
+    for (let id in state.activeChannels) {
+      const channel = state.activeChannels[id]
       channel.characters = channel.characters.filter(char => char.name !== name)
     }
   },
