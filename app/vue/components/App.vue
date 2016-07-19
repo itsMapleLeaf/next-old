@@ -2,12 +2,30 @@
   <div class='ui-fullscreen' @mouseup="checkDataAttribute($event)">
     <chat></chat>
     <component v-for="overlay in overlays" :is='overlay'></component>
+    <div class='notice-list'>
+      <notice v-for='note in notes' @click='notes.$remove(note)' transition='fade'>
+        {{note.text}}
+      </notice>
+    </div>
   </div>
 </template>
 
 <style lang="stylus" src="../styles/ui.styl"></style>
 <style lang="stylus" src="../styles/flex.styl"></style>
 <style lang="stylus" src="../styles/transitions.styl"></style>
+
+<style lang="stylus" scoped>
+$spacing = 0.8em
+
+.notice-list
+  position: fixed
+  right: 0
+  bottom: 0
+  margin-right: $spacing
+
+.notice-list .notice
+  margin-bottom: $spacing
+</style>
 
 <script>
 import Chat from './Chat.vue'
@@ -19,6 +37,7 @@ import LoadingOverlay from './LoadingOverlay.vue'
 import OnlineUsersOverlay from './OnlineUsersOverlay.vue'
 import AboutOverlay from './AboutOverlay.vue'
 import CharacterActionOverlay from './CharacterActionOverlay.vue'
+import Notice from './Notice.vue'
 
 import socket from '../modules/socket'
 import {pushOverlay, popOverlay} from '../modules/vuex/actions'
@@ -35,7 +54,15 @@ export default {
     LoadingOverlay,
     OnlineUsersOverlay,
     AboutOverlay,
-    CharacterActionOverlay
+    CharacterActionOverlay,
+    Notice
+  },
+
+  data () {
+    return {
+      initialized: false,
+      notes: []
+    }
   },
 
   vuex: {
@@ -135,6 +162,14 @@ export default {
             break
         }
       }
+    },
+
+    addNotice (text) {
+      const note = { text }
+      this.notes.push(note)
+      window.setTimeout(() => {
+        this.notes.$remove(note)
+      }, 3000)
     }
   },
 
