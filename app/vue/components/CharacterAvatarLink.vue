@@ -1,16 +1,14 @@
 <template>
-  <a class="ui-link" :href="profileURL" target="_blank" :title="character">
-    <img v-show="imageLoaded" transition="fade" :src="avatarURL" @load="imageLoaded = true" />
+  <a :href="profileURL" target="_blank" :title="character">
+    <img class='ui-link' v-show="imageLoaded" transition="fade" :src="avatarURL" @load="imageLoaded = true" />
   </a>
 </template>
 
 <style lang="stylus" scoped>
 a
+  display: inline-block
   width: 100px
   height: 100px
-
-i
-  opacity: 0.5
 
 img:hover
   opacity: 0.8

@@ -1,6 +1,8 @@
 <!--
   TODO: convert this from an overlay into a simple icon in the background
   which shows on a simple "loading: boolean" property from the store
+
+  TODO: also let us give a message for the loading screen
 -->
 
 <template>

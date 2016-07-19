@@ -1,9 +1,13 @@
 const {localStorage} = window
 
-export function getStorage (): Object | null {
+export function getStorage (): ?Object {
   try {
-    const data: Object = JSON.parse(localStorage.getItem('flist-next') || '{}')
-    return data
+    const data: ?string = localStorage.getItem('flist-next')
+    if (data) {
+      const parsed: Object = JSON.parse(data)
+      return parsed
+    }
+    return null
   } catch (e) {
     console.info('Error retrieving storage: ', e)
     clearStorage()

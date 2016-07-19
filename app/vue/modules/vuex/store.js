@@ -212,7 +212,7 @@ const mutations = {
   AddActiveChannel (state: State, id: ChannelID, name: string) {
     const channel = new ChannelState(id, name)
     Vue.set(state.chat.activeChannels, id, channel)
-    state.chat.lastActiveChannel = channel
+    // state.chat.lastActiveChannel = channel
   },
 
   RemoveActiveChannel (state: State, id: ChannelID) {
