@@ -7,7 +7,7 @@
 
 <style scoped>
 .notice {
-  width: 14em;
+  width: 16em;
   cursor: default;
   user-select: none;
 }

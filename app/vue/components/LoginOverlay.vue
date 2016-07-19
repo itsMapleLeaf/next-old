@@ -16,9 +16,6 @@
       <div class='ui-field'>
         <button class='ui-button' class='ui padded-button' action="submit" >Go</button>
       </div>
-      <div class='ui-field'>
-        <span>{{status}}</span>
-      </div>
     </form>
     <a class='ui-text about-link' href='#' data-push-overlay='about'>
       <i class='mdi mdi-question-circle'></i>
@@ -66,13 +63,12 @@ export default {
     return {
       username: '',
       password: '',
-      status: '',
       disabled: false,
       remember: false
     }
   },
 
-  created () {
+  ready () {
     const data = getStorage()
     if (data) {
       this.username = data.account
@@ -115,7 +111,7 @@ export default {
       })
       .catch(error => {
         this.popOverlay() // pop loading
-        this.status = error || connectionError
+        this.addNotice('Login error: ' + (error || connectionError))
       })
       .then(() => {
         this.disabled = false
@@ -127,7 +123,11 @@ export default {
     actions: {
       pushOverlay,
       popOverlay,
-      setUserData
+      setUserData,
+
+      addNotice ({dispatch}, text) {
+        dispatch('SetNewNotice', text)
+      }
     }
   }
 }

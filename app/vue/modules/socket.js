@@ -295,8 +295,13 @@ export class Socket {
         store.dispatch('AddPrivateChatMessage', params.character, params.character, params.message)
         break
 
+      // errors
+      case 'ERR':
+        store.dispatch('SetNewNotice', params.message)
+        break
+
       default:
-        console.log(`Unknown socket message "${type}"\n${inspect(params)}`)
+        console.warn(`Unknown socket message "${type}"\n${inspect(params)}`)
     }
   }
 }

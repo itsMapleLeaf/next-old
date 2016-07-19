@@ -58,7 +58,8 @@ type State = {
 
   ui: {
     overlays: string[],
-    focusedCharacter: Character | null
+    focusedCharacter: Character | null,
+    newNotice: string
   }
 }
 
@@ -91,7 +92,8 @@ const state: State = {
 
   ui: {
     overlays: [],
-    focusedCharacter: null
+    focusedCharacter: null,
+    newNotice: ''
   }
 }
 
@@ -274,6 +276,10 @@ const mutations = {
 
   PopOverlay (state: State) {
     state.ui.overlays.pop()
+  },
+
+  SetNewNotice (state: State, text: string) {
+    state.ui.newNotice = text
   }
 }
 

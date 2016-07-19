@@ -72,7 +72,8 @@ export default {
       account: state => state.auth.account,
       ticket: state => state.auth.ticket,
       character: state => state.user.character,
-      activeChannels: state => state.chat.activeChannels
+      activeChannels: state => state.chat.activeChannels,
+      newNotice: state => state.ui.newNotice
       // lastActiveChannel: state => state.chat.lastActiveChannel
     },
     actions: {
@@ -172,7 +173,7 @@ export default {
       this.notes.push(note)
       window.setTimeout(() => {
         this.notes.$remove(note)
-      }, 3000)
+      }, 5000)
     }
   },
 
@@ -210,6 +211,12 @@ export default {
 
         case 'offline':
           break
+      }
+    },
+
+    newNotice (text) {
+      if (text) {
+        this.addNotice(text)
       }
     }
 
