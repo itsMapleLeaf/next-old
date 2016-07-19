@@ -14,18 +14,11 @@
       </chat-tab>
     </nav>
 
-    <template v-if='activeTab'>
-      <!-- TODO: merge these into a <component> -->
-      <channel-view
-        v-if="activeTab.type === 'channel'"
-        :state='activeTab.state'>
-      </channel-view>
-
-      <private-chat-view
-        v-if="activeTab.type === 'private-chat'"
-        :state='activeTab.state'>
-      </private-chat-view>
-    </template>
+    <component
+      v-if='activeTab'
+      :is="activeTab.type + '-view'"
+      :state='activeTab.state'>
+    </component>
   </div>
 </template>
 
