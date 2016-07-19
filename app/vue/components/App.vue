@@ -17,6 +17,7 @@
 <style lang="stylus" scoped>
 $spacing = 0.8em
 
+/*TODO: elevate the notice list above the chatbox*/
 .notice-list
   position: fixed
   right: 0
@@ -214,10 +215,8 @@ export default {
       }
     },
 
-    newNotice (text) {
-      if (text) {
-        this.addNotice(text)
-      }
+    newNotice ({text}) {
+      this.addNotice(text)
     }
 
     // lastActiveChannel (channel) {

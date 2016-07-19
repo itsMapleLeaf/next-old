@@ -93,7 +93,7 @@ const state: State = {
   ui: {
     overlays: [],
     focusedCharacter: null,
-    newNotice: ''
+    newNotice: null
   }
 }
 
@@ -250,6 +250,7 @@ const mutations = {
     const char: Character = state.chat.characters[sender]
     const message: ChatMessage = new ChatMessage(char, text, type)
     channel.messages.push(message)
+    // TODO: limit channel message lists to ~500 chats
   },
 
   AddActivePrivateChat (state: State, partner: CharacterName) {
@@ -277,8 +278,12 @@ const mutations = {
     state.ui.overlays.pop()
   },
 
+  SetNewPrivateMessage (state: State, sender: CharacterName, message: string) {
+    state.chat.newPrivateMessage = { sender: state.chat.characters[sender], message }
+  },
+
   SetNewNotice (state: State, text: string) {
-    state.ui.newNotice = text
+    state.ui.newNotice = { text }
   }
 }
 
