@@ -7,6 +7,10 @@
 
 ## For 0.5.0
 - [ ] responsive styling
+- [ ] browsible notification list, that and other ui panels will replace the console (probably only keep the last 50 or so)
+- [ ] notifications for friends/bookmarks coming online
+- [ ] brighter tabs on messages
+- [ ] cobble together some semblance of a settings menu
 
 ## Onward
 - [ ] add a functional character menu
@@ -26,8 +30,9 @@
   - [ ] ~~open links in a modal~~
 - [ ] use tickboxes for the user list filter instead of a dropdown
 - [ ] add character memos
-- [ ] probably a console
 - [ ] developer documentation
+- [ ] log private messages
+- [x] ~~probably a console~~
 - [x] ~~eventually figure a performant way to allow people to browse all characters/channels~~ a "show all" checkbox works
 - [x] make the status form work
 - [x] make the "remember me" function actually work

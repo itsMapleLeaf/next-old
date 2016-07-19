@@ -1,7 +1,8 @@
 # 0.4.0
 - Added a pretty loading screen
 - Shows your character's image on the character select screen
-- Added a checkbox for showing all channels on channel select
+- Added a "show all" checkbox on the channel list
+- Added a "show all" checkbox on the online user list
 - Added BBC parsing for [channel], [session], [icon] and [user]
 - Shows the channel ID under private channels
 - Some style changes
