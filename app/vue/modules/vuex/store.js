@@ -117,6 +117,11 @@ const mutations = {
     state.user.characterList = list.slice().sort()
   },
 
+  SetUserStatus (state: State, status: Status, message: string) {
+    state.user.status = status
+    state.user.statusMessage = message
+  },
+
   SetFriendsList (state: State, friends: FriendInfo[]) {
     const map: FriendMap = {}
     for (let {you, them} of friends) {

@@ -35,20 +35,29 @@ import socket from '../modules/socket'
 export default {
   components: {Dropdown},
 
-  vuex: {
-    getters: {
-      userStatus: state => state.user.status,
-      userStatusMessage: state => state.user.statusMessage
-    },
-    actions: {}
-  },
-
   data () {
     return {
-      status: this.userStatus,
-      statusMessage: this.userStatusMessage,
+      status: 'online',
+      statusMessage: '',
       disabled: false
     }
+  },
+
+  vuex: {
+    getters: {
+      initStatus: state => state.user.status,
+      initStatusMessage: state => state.user.statusMessage
+    },
+    actions: {
+      setUserStatus ({dispatch}, status, message) {
+        dispatch('SetUserStatus', status, message)
+      }
+    }
+  },
+
+  ready () {
+    this.status = this.initStatus
+    this.statusMessage = this.initStatusMessage
   },
 
   methods: {
@@ -58,6 +67,7 @@ export default {
     submit () {
       if (this.disabled) return
       socket.setStatus(this.status, this.statusMessage)
+      this.setUserStatus(this.status, this.statusMessage)
       this.disabled = true
       window.setTimeout(() => { this.disabled = false }, 1500)
     }
