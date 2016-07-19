@@ -1,7 +1,7 @@
 ## For 0.4.0
 - [x] timestamps
 - [ ] some kind of notifications system???
-- [ ] t r a n s i t i o n s
+- [x] t r a n s i t i o n s
 - [ ] remembering last active channels
 
 ## For 0.5.0
