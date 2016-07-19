@@ -4,6 +4,7 @@ import store from './vuex/store'
 import meta from './meta'
 
 import ChannelInfo from '../types/ChannelInfo'
+import type {Status} from '../types/Character'
 
 type ChannelID = string
 type CharacterName = string
@@ -141,6 +142,10 @@ export class Socket {
 
   sendPrivateMessage (recipient: CharacterName, message: string) {
     this.send('PRI', { recipient, message })
+  }
+
+  setStatus (status: Status, statusmsg: string) {
+    this.send('STA', { status, statusmsg })
   }
 
   handleServerCommand (type: string, params: Object) {

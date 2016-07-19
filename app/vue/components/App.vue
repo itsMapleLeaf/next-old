@@ -17,11 +17,10 @@
 <style lang="stylus" scoped>
 $spacing = 0.8em
 
-/*TODO: elevate the notice list above the chatbox*/
 .notice-list
   position: fixed
   right: 0
-  bottom: 0
+  bottom: 4em
   margin-right: $spacing
 
 .notice-list .notice
@@ -42,7 +41,7 @@ import Notice from './Notice.vue'
 
 import socket from '../modules/socket'
 import {pushOverlay, popOverlay} from '../modules/vuex/actions'
-import {getStorage} from '../modules/storage'
+import {getStorage, saveStorageKeys} from '../modules/storage'
 import * as flist from '../modules/flist'
 
 export default {
@@ -74,8 +73,9 @@ export default {
       ticket: state => state.auth.ticket,
       character: state => state.user.character,
       activeChannels: state => state.chat.activeChannels,
-      newNotice: state => state.ui.newNotice
-      // lastActiveChannel: state => state.chat.lastActiveChannel
+      newNotice: state => state.ui.newNotice,
+      joinedChannel: state => state.chat.joinedChannel,
+      leftChannel: state => state.chat.leftChannel
     },
     actions: {
       pushOverlay,
@@ -192,21 +192,16 @@ export default {
           break
 
         case 'identified': {
-          // const data = getStorage()
-          // if (data) {
-          //   if (Array.isArray(data[`activeChannels:${this.character}`]) && data[`activeChannels:${this.character}`].length > 0) {
-          //     // TODO: uncomment this when we've found a proper way to watch for removed active channels
-          //     // at the moment, the client's sending a bunch of join requests for duplicate channels,
-          //     // and we might get kicked as a result
-          //     // for (let id of data[`activeChannels:${this.character}`]) {
-          //     //   socket.joinChannel(id)
-          //     // }
-          //   } else {
-          //     saveStorageKeys({ [`activeChannels:${this.character}`]: [] })
-          //   }
-
           this.popOverlay()
-          this.pushOverlay('menu-overlay')
+          const data = getStorage()
+          const channels = data && data[`channels:${this.character}`]
+          if (channels) {
+            for (let id in channels) {
+              socket.joinChannel(id)
+            }
+          } else {
+            this.pushOverlay('menu-overlay')
+          }
           break
         }
 
@@ -217,18 +212,25 @@ export default {
 
     newNotice ({text}) {
       this.addNotice(text)
-    }
+    },
 
-    // lastActiveChannel (channel) {
-    //   const data = getStorage()
-    //   if (data) {
-    //     if (Array.isArray(data[`activeChannels:${this.character}`])) {
-    //       saveStorageKeys({ [`activeChannels:${this.character}`]: data[`activeChannels:${this.character}`].concat([ channel.id ]) })
-    //     } else {
-    //       saveStorageKeys({ [`activeChannels:${this.character}`]: [ channel.id ] })
-    //     }
-    //   }
-    // }
+    joinedChannel ({id}) {
+      const data = getStorage()
+      if (data) {
+        const channels = data[`channels:${this.character}`] || {}
+        channels[id] = true
+        saveStorageKeys({ [`channels:${this.character}`]: channels })
+      }
+    },
+
+    leftChannel ({id}) {
+      const data = getStorage()
+      if (data) {
+        const channels = data[`channels:${this.character}`]
+        delete channels[id]
+        saveStorageKeys({ [`channels:${this.character}`]: channels })
+      }
+    }
   }
 }
 </script>

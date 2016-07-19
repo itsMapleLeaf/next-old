@@ -55,6 +55,9 @@ type State = {
     activePrivateChats: PrivateChatStateMap,
     serverVariables: { [key: string]: ServerVariableValue },
 
+    joinedChannel: ?{ id: ChannelID },
+    leftChannel: ?{ id: ChannelID },
+
     newPrivateMessage: ?{ sender: Character, message: string }
   },
 
@@ -88,7 +91,9 @@ const state: State = {
     activeChannels: {},
     activePrivateChats: {},
     serverVariables: {},
-    newPrivateMessage: null
+    newPrivateMessage: null,
+    joinedChannel: null,
+    leftChannel: null
   },
 
   ui: {
@@ -213,11 +218,12 @@ const mutations = {
   AddActiveChannel (state: State, id: ChannelID, name: string) {
     const channel = new ChannelState(id, name)
     Vue.set(state.chat.activeChannels, id, channel)
-    // state.chat.lastActiveChannel = channel
+    state.chat.joinedChannel = { id }
   },
 
   RemoveActiveChannel (state: State, id: ChannelID) {
     Vue.delete(state.chat.activeChannels, id)
+    state.chat.leftChannel = { id }
   },
 
   SetChannelCharacterList (state: State, id: ChannelID, characters: CharacterName[]) {

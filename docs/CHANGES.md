@@ -5,14 +5,15 @@
 - Added BBC parsing for [channel], [session], [icon] and [user]
 - Shows the channel ID under private channels
 - Some style changes
-- Notification bubbles, with sounds on a PM
+- Added notification bubbles, with sounds on a PM
+- Removed the channel mode buttons (in favor of a better messaging filter system to be added later)
 
 # 0.3.0
 - Showing LFRP ads
 - Added some thin subtle dividers to the layout to separate things a little better.
 - Added the ability to change channel message display mode (chat, lfrp, both)
 - Added an 'about' panel to the menu, to always have access to developer info.
-- Removed a lot of CSS transitions for performance, especially on mobile.
+- Removed a lot of CSS transitions and shadows for performance, especially on mobile.
 - Removed info footer in favor of a link with application information
 - Log out option works
 - Switch character option works
