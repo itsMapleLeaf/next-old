@@ -26,4 +26,9 @@ export default class ChannelState {
     this.characters = []
     this.messages = []
   }
+
+  addMessage (msg: ChatMessage) {
+    this.messages.push(msg)
+    this.messages = this.messages.slice(-500)
+  }
 }

@@ -261,8 +261,7 @@ const mutations = {
     const channel: ChannelState = state.chat.activeChannels[id]
     const char: Character = state.chat.characters[sender]
     const message: ChatMessage = new ChatMessage(char, text, type)
-    channel.messages.push(message)
-    // TODO: limit channel message lists to ~500 chats
+    channel.addMessage(message)
   },
 
   AddActivePrivateChat (state: State, partner: CharacterName) {
