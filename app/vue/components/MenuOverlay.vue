@@ -12,8 +12,8 @@
       <menu-option icon='forum' @click="openOverlay('channel-select-overlay')">Channels</menu-option>
       <menu-option icon='heart' @click="openOverlay('online-users-overlay')">Online Users</menu-option>
       <menu-option icon='settings' @click="addNotice('This doesn\'t work yet.')">Settings</menu-option>
-      <menu-option icon='account-switch' @click="addNotice('This doesn\'t work yet. Just refresh the page for now.')">Switch Character</menu-option>
-      <menu-option icon='logout' @click="addNotice('This doesn\'t work yet. Just refresh the page for now.')">Log Out</menu-option>
+      <menu-option icon='account-switch' @click="switchCharacter">Switch Character</menu-option>
+      <menu-option icon='logout' @click="logOut">Log Out</menu-option>
       <menu-option icon='information' @click="openOverlay('about-overlay')">About</menu-option>
     </nav>
   </side-panel>
@@ -36,7 +36,7 @@ import Dropdown from './Dropdown.vue'
 import StatusForm from './StatusForm.vue'
 
 import {pushOverlay, popOverlay} from '../modules/vuex/actions'
-// import socket from '../modules/socket'
+import socket from '../modules/socket'
 
 export default {
   components: {
@@ -63,6 +63,18 @@ export default {
       addNotice ({dispatch}, text) {
         dispatch('SetNewNotice', text)
       }
+    }
+  },
+
+  methods: {
+    logOut () {
+      socket.disconnect()
+      this.openOverlay('login-overlay')
+    },
+
+    switchCharacter () {
+      socket.disconnect()
+      this.openOverlay('character-select-overlay')
     }
   },
 

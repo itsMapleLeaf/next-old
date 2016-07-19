@@ -69,7 +69,11 @@ export class Socket {
   }
 
   disconnect () {
+    // make sure the event listeners don't do anything stupid
+    // we'll trust that the one who called disconnect() handles everything smoothly afterward
+    this.bus.removeAllListeners()
     this.ws.close()
+    this.ws = null
   }
 
   identify (account: string, ticket: string, character: CharacterName) {
