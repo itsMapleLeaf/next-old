@@ -18,12 +18,14 @@ export const servers = {
 }
 
 export class Socket {
+  bus: EventEmitter
+  ws: ?WebSocket
+
   constructor () {
     // use an event bus to handle WS commands for some convenience,
     // like using .once() and such
     this.bus = new EventEmitter()
     this.ws = null
-    this.connected = false
   }
 
   connect (address?: string = servers.main) {
