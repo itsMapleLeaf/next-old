@@ -20,9 +20,18 @@
           </div>
         </div>
       </div>
-      <div class="ui-field ui-input-icon">
-        <i class="ui-icon mdi mdi-magnify"></i>
-        <input class="ui-input" type="text" placeholder="Search..." v-model="searchText" debounce="500" />
+      <div class="ui-field flex-row" style="justify-content: space-between">
+        <div class='ui-input-icon flex-stretch'>
+          <i class="ui-icon mdi mdi-magnify"></i>
+          <input class="ui-input" type="text" placeholder="Search..." v-model="searchText" debounce="500" />
+        </div>
+        <div class='flex-divider' style='width: 0.4em'></div>
+        <button class='ui-button flex-fixed' style='padding: 0.4em 0.75em' @click='generateGroups'>
+          <i class='mdi mdi-refresh'></i>
+        </button>
+      </div>
+      <div class="ui-field">
+        <toggle :value='showAll' @click='toggleShowAll'>Show all characters (MEGA LAG WARNING)</toggle>
       </div>
     </form>
   </overlay>
@@ -31,7 +40,7 @@
 <style scoped>
 .characters {
   text-align: left;
-  width: 14em;
+  width: 16em;
   height: 20em;
 }
 
@@ -56,6 +65,7 @@
 import Character from './Character.vue'
 import Dropdown from './Dropdown.vue'
 import Overlay from './Overlay.vue'
+import Toggle from './Toggle.vue'
 import {groupSort} from '../modules/common'
 
 function compareOnlineTime (a, b) {
@@ -63,12 +73,13 @@ function compareOnlineTime (a, b) {
 }
 
 export default {
-  components: {Character, Dropdown, Overlay},
+  components: {Character, Dropdown, Overlay, Toggle},
 
   data () {
     return {
       searchText: '',
-      groups: {}
+      groups: {},
+      showAll: false
     }
   },
 
@@ -76,14 +87,17 @@ export default {
     getters: {
       friends: state => state.chat.friends,
       bookmarks: state => state.chat.bookmarks,
-      characters: state => Object.values(state.chat.characters)
+      characterList: state => Object.values(state.chat.characters)
     }
   },
 
-  watch: {
-    // TODO: only generate character groups once, and add a refresh button
-    characters (list) {
-      const groups = groupSort(list, char => {
+  ready () {
+    this.generateGroups()
+  },
+
+  methods: {
+    generateGroups () {
+      const groups = groupSort(this.characterList, char => {
         switch (true) {
           case this.friends[char.name] != null:
             return 'friends'
@@ -100,11 +114,16 @@ export default {
         groups[group] = groups[group]
           .filter(char => char.name.toLocaleLowerCase()
             .includes(this.searchText.toLocaleLowerCase()))
-          .slice(0, 200)
+          .slice(0, this.showAll ? undefined : 150)
           .sort(compareOnlineTime)
       }
 
       this.groups = groups
+    },
+
+    toggleShowAll () {
+      this.showAll = !this.showAll
+      this.generateGroups()
     }
   }
 }

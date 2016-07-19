@@ -1,10 +1,10 @@
 <template>
   <div class='flex-column ui-color-dark ui-fullscreen'>
     <nav class='flex-fixed flex-row' style='overflow-x: auto'>
-      <shortcut title="Actions" icon="menu" data-push-overlay="menu-overlay"></shortcut>
+      <shortcut title="Menu" icon="menu" data-push-overlay="menu-overlay"></shortcut>
       <shortcut title="Channels" icon="forum" data-push-overlay="channel-select-overlay"></shortcut>
       <shortcut title="Online Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>
-      
+
       <!-- TODO: tab type icons -->
       <chat-tab v-for="(index, tab) in tabs"
         :active="index === tabIndex"
