@@ -117,15 +117,13 @@ export default {
     }
   },
 
-  methods: {
-    chatboxSubmit (message) {
-      socket.sendMessage(this.state.id, message)
-    }
+  ready () {
+    this.sortCharacters()
   },
 
-  watch: {
-    'state.characters' (value) {
-      const groups = groupSort(value, char => {
+  methods: {
+    sortCharacters () {
+      const groups = groupSort(this.state.characters, char => {
         switch (true) {
           case this.friends[char.name] != null:
             return 'friends'
@@ -139,12 +137,19 @@ export default {
             return 'rest'
         }
       })
-
       for (let group in groups) {
         groups[group].sort(compareNames)
       }
-
       this.groups = groups
+    },
+    chatboxSubmit (message) {
+      socket.sendMessage(this.state.id, message)
+    }
+  },
+
+  watch: {
+    'state.characters' () {
+      this.sortCharacters()
     }
   },
 
