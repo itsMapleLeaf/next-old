@@ -1,10 +1,8 @@
 <template>
   <div class="ui-scroll" v-el:container @scroll='onScroll'>
-    <chat-message v-for='msg in messages' :message='msg'></chat-message>
+    <chat-message class="ui-division-border" v-for='msg in messages' :message='msg'></chat-message>
   </div>
 </template>
-
-<style lang="stylus" scoped></style>
 
 <script>
 import ChatMessage from './ChatMessage.vue'

@@ -37,12 +37,18 @@ $colors = {
 .ui-text
   @extend .ui-text-color, .ui-font
 
+.ui-padding-regular
+  padding: 0.4em 0.75em
+
 .ui-header
   font-family: 'Roboto Condensed', sans-serif
   opacity: 0.9
   font-weight: 300
   padding: 0
   margin: 0 0 1rem
+
+.ui-raised
+  box-shadow: 0px 0px 6px rgba(black, 0.25), 0px 4px 12px rgba(black, 0.25)
 
 .ui-color-main { background-color: $colors.main }
 .ui-color-dark { background-color: $colors.dark }
@@ -72,11 +78,10 @@ for $color-name in ('red' 'green' 'blue')
   margin-bottom: 1em
 
 .ui-input, .ui-button
-  @extend .ui-color-dark
+  @extend .ui-color-dark, .ui-padding-regular
   color: inherit
   font-family: inherit
   font-size: 0.9em
-  padding: 0.4em 0.75em
 
 .ui-input
   @extend .ui-border
@@ -88,15 +93,19 @@ for $color-name in ('red' 'green' 'blue')
   padding-right: 1.5em
 
 .ui-overlay
-  @extend .ui-fullscreen, .flex-center-children
+  @extend .flex-center-children, .ui-scroll
+  position: absolute
+  left: 0
+  top: 0
+  width: 100vw
+  height: 100vh
 
 .ui-overlay-shade
   @extend .ui-fullscreen
   background-color: rgba(black, 0.3)
 
 .ui-overlay-panel
-  @extend .ui-color-main
-  box-shadow: 0px 4px 12px rgba(black, 0.5)
+  @extend .ui-color-main, .ui-raised
   width: min-content
 
 for $side in ('left' 'right')
@@ -154,6 +163,9 @@ for $side in ('left' 'right')
 
 .ui-editor p
   margin-bottom: 0.1em !important
+
+.ui-division-border
+  border-bottom: 1px solid darken($colors.dark, 10%)
 
 // root element styles
 *
