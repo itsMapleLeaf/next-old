@@ -2,9 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import Character from '../../types/Character'
-import ChannelState from '../../types/ChannelState'
 import ChatMessage from '../../types/ChatMessage'
-import PrivateChatState from '../../types/PrivateChatState'
 import ChannelInfo from '../../types/ChannelInfo'
 
 import type {Gender, Status} from '../../types/Character'
@@ -17,9 +15,9 @@ type CharacterBoolMap = { [name: CharacterName]: boolean }
 type FriendMap = { [them: CharacterName]: CharacterName[] }
 type ChannelInfoMap = { [id: ChannelID]: ChannelInfo }
 type CharacterBatchEntry = [CharacterName, Gender, Status, string]
-type ChannelStateMap = { [id: ChannelID]: ChannelState }
-type PrivateChatStateMap = { [partner: CharacterName]: PrivateChatState }
-type ServerVariableValue = number | string | string[]
+// type ChannelStateMap = { [id: ChannelID]: ChannelState }
+// type PrivateChatStateMap = { [partner: CharacterName]: PrivateChatState }
+// type ServerVariableValue = number | string | string[]
 type FriendInfo = { you: CharacterName, them: CharacterName }
 
 type ConnectionState
@@ -28,47 +26,7 @@ type ConnectionState
   | 'online'
   | 'identified'
 
-type State = {
-  auth: { account: string, ticket: string },
-
-  user: {
-    character: CharacterName,
-    characterList: CharacterName[],
-    status: Status,
-    statusMessage: string
-  },
-
-  chat: {
-    connectionState: ConnectionState,
-    connectionError: string,
-
-    characters: CharacterMap,
-    friends: FriendMap,
-    bookmarks: CharacterBoolMap,
-    ignored: CharacterBoolMap,
-    admins: CharacterBoolMap,
-
-    publicChannels: ChannelInfoMap,
-    privateChannels: ChannelInfoMap,
-
-    activeChannels: ChannelStateMap,
-    activePrivateChats: PrivateChatStateMap,
-    serverVariables: { [key: string]: ServerVariableValue },
-
-    joinedChannel: ?{ id: ChannelID },
-    leftChannel: ?{ id: ChannelID },
-
-    newPrivateMessage: ?{ sender: Character, message: string }
-  },
-
-  ui: {
-    overlays: string[],
-    focusedCharacter: Character | null,
-    newNotice: ?{ text: string }
-  }
-}
-
-const state: State = {
+const state = {
   auth: { account: '', ticket: '' },
 
   user: {
@@ -81,19 +39,24 @@ const state: State = {
   chat: {
     connectionState: 'offline',
     connectionError: '',
-    characters: {},
-    friends: {},
-    bookmarks: {},
-    ignored: {},
-    admins: {},
-    publicChannels: {},
-    privateChannels: {},
-    activeChannels: {},
-    activePrivateChats: {},
-    serverVariables: {},
-    newPrivateMessage: null,
-    joinedChannel: null,
-    leftChannel: null
+
+    characters: {}, // name => char: Character
+    friends: {},    // name => isFriend: boolean
+    bookmarks: {},  // name => isBookmarked: boolean
+    ignored: {},    // name => isIgnored: boolean
+    admins: {},     // name => isAdmin: boolean
+
+    publicChannels: {},  // id => ChannelInfo
+    privateChannels: {}, // id => ChannelInfo
+
+    activeChannels: [],      // ChannelID[]
+    channelCharacters: {},   // id => charlist: Character[]
+    channelMessages: {},     // id => messages: ChatMessage[]
+    channelDescriptions: {}, // id => description: string
+
+    privateMessages: [], // partner => messages: ChatMessage[]
+
+    serverVariables: {}
   },
 
   ui: {
@@ -104,196 +67,186 @@ const state: State = {
 }
 
 const mutations = {
-  SetAuth (state: State, account: string, ticket: string) {
+  SetAuth (state, account: string, ticket: string) {
     state.auth.account = account
     state.auth.ticket = ticket
   },
 
-  SetUserCharacter (state: State, name: CharacterName) {
+  SetUserCharacter (state, name: CharacterName) {
     state.user.character = name
   },
 
-  SetUserCharacterList (state: State, list: CharacterName[]) {
+  SetUserCharacterList (state, list: CharacterName[]) {
     state.user.characterList = list.slice().sort()
   },
 
-  SetUserStatus (state: State, status: Status, message: string) {
+  SetUserStatus (state, status: Status, message: string) {
     state.user.status = status
     state.user.statusMessage = message
   },
 
-  SetFriendsList (state: State, friends: FriendInfo[]) {
-    const map: FriendMap = {}
+  SetFriendsList (state, friends: FriendInfo[]) {
+    const map = {}
     for (let {you, them} of friends) {
       map[them] = map[them] || []
       map[them].push(you)
     }
-    state.chat.friends = map
+    state.chat.friends = (map: FriendMap)
   },
 
-  SetBookmarkList (state: State, bookmarks: CharacterName[]) {
-    const map: CharacterBoolMap = {}
+  SetBookmarkList (state, bookmarks: CharacterName[]) {
+    const map = {}
     for (let name of bookmarks) { map[name] = true }
-    state.chat.bookmarks = map
+    state.chat.bookmarks = (map: CharacterBoolMap)
   },
 
-  AddBookmark (state: State, char: CharacterName) {
+  AddBookmark (state, char: CharacterName) {
     Vue.set(state.chat.bookmarks, char, true)
   },
 
-  RemoveBookmark (state: State, char: CharacterName) {
-    Vue.set(state.chat.bookmarks, char, undefined)
-    delete state.chat.bookmarks[char]
+  RemoveBookmark (state, char: CharacterName) {
+    Vue.delete(state.chat.bookmarks, char)
   },
 
-  SetIgnoreList (state: State, ignored: CharacterName[]) {
-    const map: CharacterBoolMap = {}
+  SetIgnoreList (state, ignored: CharacterName[]) {
+    const map = {}
     for (let name of ignored) { map[name] = true }
-    state.chat.ignored = map
+    state.chat.ignored = (map: CharacterBoolMap)
   },
 
-  AddIgnoredCharacter (state: State, char: CharacterName) {
+  AddIgnoredCharacter (state, char: CharacterName) {
     Vue.set(state.chat.ignored, char, true)
   },
 
-  RemoveIgnoredCharacter (state: State, char: CharacterName) {
-    Vue.set(state.chat.ignored, char, undefined)
-    delete state.chat.ignored[char]
+  RemoveIgnoredCharacter (state, char: CharacterName) {
+    Vue.delete(state.chat.ignored, char)
   },
 
-  SetAdminList (state: State, admins: CharacterName[]) {
-    const map: CharacterBoolMap = {}
+  SetAdminList (state, admins: CharacterName[]) {
+    const map = {}
     for (let name of admins) { map[name] = true }
-    state.chat.admins = map
+    state.chat.admins = (map: CharacterBoolMap)
   },
 
-  SetServerVariable (state: State, key: string, value: number | string | string[]) {
+  SetServerVariable (state, key: string, value: number | string | string[]) {
     Vue.set(state.chat.serverVariables, key, value)
   },
 
-  SetConnectionState (state: State, conn: ConnectionState) {
+  SetConnectionState (state, conn: ConnectionState) {
     state.chat.connectionState = conn
   },
 
-  AddCharacterBatch (state: State, batch: CharacterBatchEntry[]) {
-    const map: CharacterMap = {}
+  AddCharacterBatch (state, batch: CharacterBatchEntry[]) {
+    const map = {}
     for (let entry of batch) {
       const [name, gender, status, statusmsg] = entry
-      const char: Character = new Character(name, gender, status, statusmsg)
+      const char = new Character(name, gender, status, statusmsg)
       char.onlineSince = Date.now() // not 100% accurate, but works well enough
       map[name] = char
     }
-    state.chat.characters = Object.assign(state.chat.characters, map)
+    state.chat.characters = Object.assign(state.chat.characters, (map: CharacterMap))
   },
 
-  AddCharacter (state: State, name: CharacterName, gender: Gender) {
+  AddCharacter (state, name: CharacterName, gender: Gender) {
     const char = new Character(name, gender)
     Vue.set(state.chat.characters, name, char)
     char.onlineSince = Date.now()
   },
 
-  RemoveCharacter (state: State, name: CharacterName) {
+  RemoveCharacter (state, name: CharacterName) {
+    const char = state.chat.characters[name]
     Vue.delete(state.chat.characters, name)
-    for (let id in state.activeChannels) {
-      const channel = state.activeChannels[id]
-      channel.characters = channel.characters.filter(char => char.name !== name)
+    for (let id in state.chat.channelCharacters) {
+      state.chat.channelCharacters[id].$remove(char)
     }
   },
 
-  SetCharacterStatus (state: State, name: CharacterName, status: Status, message: string) {
+  SetCharacterStatus (state, name: CharacterName, status: Status, message: string) {
     state.chat.characters[name].setStatus(status, message)
   },
 
-  SetFocusedCharacter (state: State, name: CharacterName) {
+  SetFocusedCharacter (state, name: CharacterName) {
     state.ui.focusedCharacter = state.chat.characters[name] || new Character(name, 'None', 'offline')
   },
 
-  SetPublicChannelList (state: State, channels: ChannelInfo[]) {
-    const map: ChannelInfoMap = {}
+  SetPublicChannelList (state, channels: ChannelInfo[]) {
+    const map = {}
     for (let info of channels) { map[info.id] = info }
-    state.chat.publicChannels = map
+    state.chat.publicChannels = (map: ChannelInfoMap)
   },
 
-  SetPrivateChannelList (state: State, channels: ChannelInfo[]) {
-    const map: ChannelInfoMap = {}
+  SetPrivateChannelList (state, channels: ChannelInfo[]) {
+    const map = {}
     for (let info of channels) { map[info.id] = info }
-    state.chat.privateChannels = map
+    state.chat.privateChannels = (map: ChannelInfoMap)
   },
 
-  AddActiveChannel (state: State, id: ChannelID, name: string) {
-    const channel = new ChannelState(id, name)
-    Vue.set(state.chat.activeChannels, id, channel)
-    state.chat.joinedChannel = { id }
+  AddActiveChannel (state, id: ChannelID) {
+    state.chat.activeChannels.push(id)
   },
 
-  RemoveActiveChannel (state: State, id: ChannelID) {
-    Vue.delete(state.chat.activeChannels, id)
-    state.chat.leftChannel = { id }
+  RemoveActiveChannel (state, id: ChannelID) {
+    state.chat.activeChannels.$remove(id)
   },
 
-  SetChannelCharacterList (state: State, id: ChannelID, characters: CharacterName[]) {
-    const list: Character[] = characters
+  SetChannelCharacterList (state, id: ChannelID, characters: CharacterName[]) {
+    const charlist = characters
       .map(name => state.chat.characters[name])
       .filter(char => char != null)
 
-    state.chat.activeChannels[id].characters = list
+    state.chat.channelCharacters[id] = (charlist: Character[])
   },
 
-  // SetChannelMode (state: State, id: ChannelID, mode: ChannelMode) {
+  // SetChannelMode (state, id: ChannelID, mode: ChannelMode) {
   //   state.chat.activeChannels[id].mode = mode
   // },
 
-  SetChannelDescription (state: State, id: ChannelID, description: string) {
-    state.chat.activeChannels[id].description = description
+  SetChannelDescription (state, id: ChannelID, description: string) {
+    state.chat.channelDescriptions[id] = description
   },
 
-  AddChannelCharacter (state: State, id: ChannelID, name: CharacterName) {
+  AddChannelCharacter (state, id: ChannelID, name: CharacterName) {
     const char: Character = state.chat.characters[name]
-    state.chat.activeChannels[id].characters.push(char)
+    state.chat.channelCharacters[id].push(char)
   },
 
-  RemoveChannelCharacter (state: State, id: ChannelID, name: CharacterName) {
-    const channel: ChannelState = state.chat.activeChannels[id]
-    channel.characters = channel.characters.filter(char => char.name !== name)
+  RemoveChannelCharacter (state, id: ChannelID, name: CharacterName) {
+    const char: Character = state.chat.characters[name]
+    state.chat.channelCharacters[id].$remove(char)
   },
 
-  AddChannelMessage (state: State, id: ChannelID, sender: CharacterName, text: string, type: MessageType) {
-    const channel: ChannelState = state.chat.activeChannels[id]
+  AddChannelMessage (state, id: ChannelID, sender: CharacterName, text: string, type: MessageType) {
     const char: Character = state.chat.characters[sender]
     const message: ChatMessage = new ChatMessage(char, text, type)
-    channel.addMessage(message)
+    state.chat.channelMessages[id].push(message)
   },
 
-  AddActivePrivateChat (state: State, partner: CharacterName) {
-    const char: Character = state.chat.characters[partner]
-    const chat: PrivateChatState = new PrivateChatState(char)
-    Vue.set(state.chat.activePrivateChats, partner, chat)
-  },
+  // AddActivePrivateChat (state, partner: CharacterName) {
+  //   Vue.set(state.chat.privateMessages, partner, [])
+  // },
+  //
+  // RemoveActivePrivateChat (state, partner: CharacterName) {
+  //   Vue.set(state.chat.privateMessages, partner)
+  // },
 
-  RemoveActivePrivateChat (state: State, partner: CharacterName) {
-    Vue.set(state.chat.activePrivateChats, partner)
-  },
-
-  AddPrivateChatMessage (state: State, partner: CharacterName, sender: CharacterName, text: string) {
-    const chat: PrivateChatState = state.chat.activePrivateChats[partner]
+  AddPrivateChatMessage (state, partner: CharacterName, sender: CharacterName, text: string) {
     const char: Character = state.chat.characters[sender]
-    const message: ChatMessage = new ChatMessage(char, text, 'normal')
-    chat.messages.push(message)
+    const message = new ChatMessage(char, text, 'normal')
+    if (!state.chat.privateMessages) {
+      state.chat.privateMessages[partner] = []
+    }
+    state.chat.privateMessages[partner].push(message)
   },
 
-  PushOverlay (state: State, overlay: string) {
+  PushOverlay (state, overlay: string) {
     state.ui.overlays.push(overlay)
   },
 
-  PopOverlay (state: State) {
+  PopOverlay (state) {
     state.ui.overlays.pop()
   },
 
-  SetNewPrivateMessage (state: State, sender: CharacterName, message: string) {
-    state.chat.newPrivateMessage = { sender: state.chat.characters[sender], message }
-  },
-
-  SetNewNotice (state: State, text: string) {
+  SetNewNotice (state, text: string) {
     state.ui.newNotice = { text }
   }
 }
