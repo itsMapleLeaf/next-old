@@ -53,13 +53,15 @@ type State = {
 
     activeChannels: ChannelStateMap,
     activePrivateChats: PrivateChatStateMap,
-    serverVariables: { [key: string]: ServerVariableValue }
+    serverVariables: { [key: string]: ServerVariableValue },
+
+    newPrivateMessage: ?{ sender: Character, message: string }
   },
 
   ui: {
     overlays: string[],
     focusedCharacter: Character | null,
-    newNotice: string
+    newNotice: ?{ text: string }
   }
 }
 
@@ -86,8 +88,7 @@ const state: State = {
     activeChannels: {},
     activePrivateChats: {},
     serverVariables: {},
-
-    lastActiveChannel: null
+    newPrivateMessage: null
   },
 
   ui: {
