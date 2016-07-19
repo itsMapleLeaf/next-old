@@ -114,7 +114,7 @@ const mutations = {
   },
 
   SetUserCharacterList (state: State, list: CharacterName[]) {
-    state.user.characterList = list
+    state.user.characterList = list.slice().sort()
   },
 
   SetFriendsList (state: State, friends: FriendInfo[]) {
