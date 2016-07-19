@@ -54,7 +54,11 @@
       "stage-1"
     ],
     "plugins": [
-      "typecheck",
+      ["typecheck", {
+        "disable": {
+          "production": true
+        }
+      }],
       "syntax-flow",
       "transform-flow-strip-types",
       "transform-runtime"
