@@ -95,48 +95,51 @@ export default {
     }
   },
 
-  ready () {
-    if (this.connectionState === 'identified' || this.connectionState === 'online') return
+  created () {
+    this.$nextTick(() => {
+      if (this.initialized) return
+      this.initialized = true
 
-    this.pushOverlay('loading-overlay')
+      this.pushOverlay('loading-overlay')
 
-    new Promise((resolve, reject) => {
-      const data = getStorage()
-      if (!data) reject('No storage data found')
+      new Promise((resolve, reject) => {
+        const data = getStorage()
+        if (!data) reject('No storage data found')
 
-      const {account, ticket} = data
-      if (!account || !ticket) reject('Invalid storage data')
+        const {account, ticket} = data
+        if (!account || !ticket) reject('Invalid storage data')
 
-      this.setAuth(account, ticket)
-      resolve(Promise.all([
-        flist.getUserCharacters(account, ticket),
-        flist.getFriendsList(account, ticket),
-        flist.getBookmarkList(account, ticket)
-      ]))
-    }).then(([res1, res2, res3]) => {
-      if (res1.error) {
-        throw new Error('Error getting characters: ' + res1.error)
-      }
-      if (res2.error) {
-        throw new Error('Error getting friends: ' + res2.error)
-      }
-      if (res3.error) {
-        throw new Error('Error getting bookmarks: ' + res2.error)
-      }
+        this.setAuth(account, ticket)
+        resolve(Promise.all([
+          flist.getUserCharacters(account, ticket),
+          flist.getFriendsList(account, ticket),
+          flist.getBookmarkList(account, ticket)
+        ]))
+      }).then(([res1, res2, res3]) => {
+        if (res1.error) {
+          throw new Error('Error getting characters: ' + res1.error)
+        }
+        if (res2.error) {
+          throw new Error('Error getting friends: ' + res2.error)
+        }
+        if (res3.error) {
+          throw new Error('Error getting bookmarks: ' + res2.error)
+        }
 
-      const {characters} = res1
-      const friends = res2.friends.map(entry => {
-        return { you: entry.source, them: entry.dest }
+        const {characters} = res1
+        const friends = res2.friends.map(entry => {
+          return { you: entry.source, them: entry.dest }
+        })
+        const bookmarks = res3.characters
+
+        this.setUserData(characters, friends, bookmarks)
+        this.popOverlay()
+        this.pushOverlay('character-select-overlay')
+      }).catch(e => {
+        console.warn(e)
+        this.popOverlay()
+        this.pushOverlay('login-overlay')
       })
-      const bookmarks = res3.characters
-
-      this.setUserData(characters, friends, bookmarks)
-      this.popOverlay()
-      this.pushOverlay('character-select-overlay')
-    }).catch(e => {
-      console.warn(e)
-      this.popOverlay()
-      this.pushOverlay('login-overlay')
     })
   },
 
