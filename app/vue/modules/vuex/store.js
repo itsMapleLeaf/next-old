@@ -263,11 +263,10 @@ const mutations = {
   },
 
   AddPrivateChatMessage (state: State, partner: CharacterName, sender: CharacterName, text: string) {
-    // TODO: open a private chat if one doesn't exist
-    const channel: PrivateChatState = state.chat.activePrivateChats[partner]
+    const chat: PrivateChatState = state.chat.activePrivateChats[partner]
     const char: Character = state.chat.characters[sender]
     const message: ChatMessage = new ChatMessage(char, text, 'normal')
-    channel.messages.push(message)
+    chat.messages.push(message)
   },
 
   PushOverlay (state: State, overlay: string) {

@@ -14,6 +14,7 @@
     </nav>
 
     <template v-if='activeTab'>
+      <!-- TODO: merge these into a <component> -->
       <channel-view
         v-if="activeTab.type === 'channel'"
         :state='activeTab.state'>
@@ -81,21 +82,47 @@ export default {
     }
   },
 
+  vuex: {
+    getters: {
+      newPrivateMessage: state => state.chat.newPrivateMessage,
+      activeChannels: state => Object.values(state.chat.activeChannels).sort(compareNames),
+      activePrivateChats: state => Object.values(state.chat.activePrivateChats).sort(compareNames)
+    },
+    actions: {
+      closePrivateChat ({dispatch}, partner) {
+        dispatch('RemoveActivePrivateChat', partner)
+      },
+
+      addNotice ({dispatch}, text) {
+        dispatch('SetNewNotice', text)
+      }
+    }
+  },
+
+  ready () {
+    // TODO: probably write up a simple sound API to make this less ugly
+    document.querySelector('#sound-notify').volume = 0.5
+  },
+
   computed: {
     tabs () {
       const channels = this.activeChannels.map(ch => {
         return { text: ch.name, type: 'channel', state: ch }
       })
-
       const privateChats = this.activePrivateChats.map(ch => {
         return { text: ch.partner.name, type: 'private-chat', state: ch }
       })
-
       return channels.concat(privateChats)
     },
 
     activeTab () {
       return this.tabs[this.tabIndex]
+    },
+
+    currentPrivateChatPartner () {
+      if (this.activeTab && this.activeTab.type === 'private-chat') {
+        return this.activeTab.state.partner.name
+      }
     }
   },
 
@@ -115,14 +142,12 @@ export default {
     }
   },
 
-  vuex: {
-    getters: {
-      activeChannels: state => Object.values(state.chat.activeChannels).sort(compareNames),
-      activePrivateChats: state => Object.values(state.chat.activePrivateChats).sort(compareNames)
-    },
-    actions: {
-      closePrivateChat ({dispatch}, partner) {
-        dispatch('RemoveActivePrivateChat', partner)
+  watch: {
+    newPrivateMessage (message) {
+      if (this.currentPrivateChatPartner !== message.sender.name) {
+        this.addNotice(`${message.sender.name}: ${message.message}`)
+        document.querySelector('#sound-notify').currentTime = 0
+        document.querySelector('#sound-notify').play()
       }
     }
   }

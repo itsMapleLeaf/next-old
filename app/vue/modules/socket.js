@@ -292,7 +292,11 @@ export class Socket {
 
       // private message
       case 'PRI':
+        if (!store.state.chat.activePrivateChats[params.character]) {
+          store.dispatch('AddActivePrivateChat', params.character)
+        }
         store.dispatch('AddPrivateChatMessage', params.character, params.character, params.message)
+        store.dispatch('SetNewPrivateMessage', params.character, params.message)
         break
 
       // errors

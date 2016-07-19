@@ -5,6 +5,7 @@
 - Added BBC parsing for [channel], [session], [icon] and [user]
 - Shows the channel ID under private channels
 - Some style changes
+- Notification bubbles, with sounds on a PM
 
 # 0.3.0
 - Showing LFRP ads
