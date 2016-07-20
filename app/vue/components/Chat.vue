@@ -154,7 +154,11 @@ export default {
 
   methods: {
     closeTab (tab) {
-      // FIXME
+      if (tab.type === 'channel') {
+        socket.leaveChannel(tab.state.id)
+      } else if (tab.type === 'private-chat') {
+        this.closePrivateChat(tab.partner.name)
+      }
     }
   },
 
