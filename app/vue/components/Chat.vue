@@ -108,7 +108,7 @@ export default {
 
   ready () {
     // TODO: probably write up a simple sound API to make this less ugly
-    document.querySelector('#sound-notify').volume = 0.5
+    document.querySelector('#sound-notify').volume = 0.3
   },
 
   computed: {
@@ -160,7 +160,7 @@ export default {
 
   watch: {
     newPrivateMessage ({ sender, message }) {
-      if (this.activePrivateChatPartner !== sender.name) {
+      if (!document.hasFocus() || this.activePrivateChatPartner !== sender.name) {
         this.addNotice(`${sender.name}: ${message}`)
         document.querySelector('#sound-notify').currentTime = 0
         document.querySelector('#sound-notify').play()
@@ -169,10 +169,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-/*@import '../styles/mixins'
-
-.app-menu-button
-  size: 2em*/
-</style>
