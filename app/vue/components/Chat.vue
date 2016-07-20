@@ -14,11 +14,13 @@
       </chat-tab>
     </nav>
 
-    <!-- <component
-      v-if='activeTab'
-      :is="activeTab.type + '-view'"
-      :state='activeTab.state'>
-    </component> -->
+    <template v-if="activeTab">
+      <channel-view v-if="activeTab.type === 'channel'"
+        :characters="activeTab.characters || []"
+        :messages="activeTab.messages || []"
+        :description="activeTab.description || ''">
+      </channel-view>
+    </template>
   </div>
 </template>
 
@@ -81,7 +83,10 @@ export default {
     getters: {
       activeChannels: state => state.chat.activeChannels,
       publicChannels: state => state.chat.publicChannels,
-      privateChannels: state => state.chat.privateChannels
+      privateChannels: state => state.chat.privateChannels,
+      channelCharacters: state => state.chat.channelCharacters,
+      channelMessages: state => state.chat.channelMessages,
+      channelDescriptions: state => state.chat.channelDescriptions
     },
     actions: {
       closePrivateChat ({dispatch}, partner) {
@@ -105,7 +110,11 @@ export default {
       for (let id of this.activeChannels) {
         const info = this.publicChannels[id] || this.privateChannels[id]
         channelTabs[id] = {
+          type: 'channel',
           title: info.name,
+          characters: this.channelCharacters[id],
+          messages: this.channelMessages[id],
+          description: this.channelDescriptions[id],
           close: () => socket.leaveChannel(id)
         }
       }
@@ -116,7 +125,7 @@ export default {
     },
 
     activeTab () {
-      return this.tabs[this.tabIndex]
+      return this.tabList[this.tabIndex]
     },
 
     currentPrivateChatPartner () {

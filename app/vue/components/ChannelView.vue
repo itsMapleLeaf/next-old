@@ -87,9 +87,9 @@ import ChatMessageList from './ChatMessageList.vue'
 // import ChannelState from '../types/ChannelState'
 import {bbcode} from '../modules/filters'
 import socket from '../modules/socket'
-import {groupSort, compareByField} from '../modules/common'
+import {groupSort} from '../modules/common'
 
-const compareNames = compareByField('name')
+// const compareNames = compareByField('name')
 
 export default {
   components: {
@@ -139,14 +139,14 @@ export default {
             return 'bookmarks'
           case this.admins[name]:
             return 'admins'
-          case char.status === 'looking':
+          case char && char.status === 'looking':
             return 'looking'
           default:
             return 'rest'
         }
       })
       for (let group in groups) {
-        groups[group].sort(compareNames)
+        groups[group].sort()
       }
       this.groups = groups
     },

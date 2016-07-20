@@ -185,6 +185,7 @@ const mutations = {
     state.chat.activeChannels.push(id)
     state.chat.channelCharacters[id] = []
     state.chat.channelMessages[id] = []
+    state.chat.channelDescriptions[id] = ''
   },
 
   RemoveActiveChannel (state, id: ChannelID) {
