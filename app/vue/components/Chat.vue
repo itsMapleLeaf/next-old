@@ -154,7 +154,7 @@ export default {
 
   methods: {
     closeTab (tab) {
-      // etc
+      // FIXME
     }
   },
 
