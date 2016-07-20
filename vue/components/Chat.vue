@@ -143,8 +143,8 @@ export default {
         }
       }
 
-      const tabs = Object.values(this.privateChatTabs = privateTabs)
-        .concat(Object.values(this.channelTabs = channelTabs))
+      const tabs = Object.values(this.channelTabs = channelTabs)
+        .concat(Object.values(this.privateChatTabs = privateTabs))
 
       this.tabIndex = Math.min(Math.max(this.tabIndex, 0), tabs.length - 1)
 
