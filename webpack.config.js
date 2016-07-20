@@ -2,11 +2,10 @@ const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
-  context: path.join(__dirname, 'app'),
   entry: './vue/main.js',
   output: {
-    publicPath: '/app/build/',
-    path: path.join(__dirname, 'app/build'),
+    publicPath: '/dist/build/',
+    path: path.join(__dirname, 'dist/build'),
     filename: 'bundle.js'
   },
   module: {

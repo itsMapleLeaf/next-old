@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import meta from '../modules/meta' // jesus christ
+import meta from '../modules/meta'
 
 export default {
   data () {
