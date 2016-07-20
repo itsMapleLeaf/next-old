@@ -10,7 +10,12 @@
         :active="index === tabIndex"
         @selected="tabIndex = index"
         @closed="closeTab(tab)">
-        {{tab.title}}
+        <template v-if="tab.type === 'channel'">
+          <i v-if="tab.state.id === tab.state.name" class='mdi mdi-earth'></i>
+          <i v-else class='mdi mdi-key-variant'></i>
+        </template>
+        <img v-if="tab.type === 'private-chat'" class='tab-avatar' :src="getAvatarURL(tab.partner.name)" />
+        <span v-html="tab.title"></span>
       </chat-tab>
     </nav>
 
@@ -32,6 +37,10 @@
 .header-shortcut
   width: 2em
   height: @width
+
+.tab-avatar
+  height: 1em
+  vertical-align: top
 </style>
 
 <script>
@@ -40,6 +49,7 @@ import Chatbox from './Chatbox.vue'
 import ChannelView from './ChannelView.vue'
 import PrivateChatView from './PrivateChatView.vue'
 import socket from '../modules/socket'
+import {getAvatarURL} from '../modules/flist'
 // import {pushOverlay} from '../modules/vuex/actions'
 
 // function clamp (num, min, max) {
@@ -80,7 +90,8 @@ export default {
       privateChatTabs: {},
       tabIndex: 0,
       viewType: '',
-      viewState: {}
+      viewState: {},
+      getAvatarURL
     }
   },
 

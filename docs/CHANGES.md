@@ -5,9 +5,10 @@
 - Added a "show all" checkbox on the online user list
 - Added BBC parsing for [channel], [session], [icon] and [user]
 - Shows the channel ID under private channels
-- Some style changes
 - Added notification bubbles, with sounds on a PM
 - Removed the channel mode buttons (in favor of a better messaging filter system to be added later)
+- Added tab icons
+- Some style changes
 
 # 0.3.0
 - Showing LFRP ads
