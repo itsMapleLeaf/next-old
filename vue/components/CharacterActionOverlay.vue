@@ -66,7 +66,6 @@ img {
 </style>
 
 <script>
-// TODO: fix this shit
 import MenuOption from './MenuOption.vue'
 import SidePanel from './SidePanelOverlay.vue'
 import CharacterAvatarLink from './CharacterAvatarLink.vue'

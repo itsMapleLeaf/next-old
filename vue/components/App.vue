@@ -2,6 +2,7 @@
   <div class='ui-fullscreen' @mouseup="checkDataAttribute($event)">
     <chat></chat>
     <component v-for="overlay in overlays" :is='overlay'></component>
+    <loading></loading>
     <div class='notice-list'>
       <notice v-for='note in notes' @click='notes.$remove(note)' transition='fade'>
         {{note.text}}
@@ -33,14 +34,14 @@ import LoginOverlay from './LoginOverlay.vue'
 import MenuOverlay from './MenuOverlay.vue'
 import ChannelSelectOverlay from './ChannelSelectOverlay.vue'
 import CharacterSelectOverlay from './CharacterSelectOverlay.vue'
-import LoadingOverlay from './LoadingOverlay.vue'
+import Loading from './LoadingOverlay.vue'
 import OnlineUsersOverlay from './OnlineUsersOverlay.vue'
 import AboutOverlay from './AboutOverlay.vue'
 import CharacterActionOverlay from './CharacterActionOverlay.vue'
 import Notice from './Notice.vue'
 
 import socket from '../modules/socket'
-import {pushOverlay, popOverlay} from '../modules/vuex/actions'
+import {pushOverlay, popOverlay, setLoadingMessage} from '../modules/vuex/actions'
 import {getStorage, saveStorageKeys} from '../modules/storage'
 import * as flist from '../modules/flist'
 
@@ -51,10 +52,10 @@ export default {
     MenuOverlay,
     ChannelSelectOverlay,
     CharacterSelectOverlay,
-    LoadingOverlay,
     OnlineUsersOverlay,
     AboutOverlay,
     CharacterActionOverlay,
+    Loading,
     Notice
   },
 
@@ -80,6 +81,7 @@ export default {
     actions: {
       pushOverlay,
       popOverlay,
+      setLoadingMessage,
 
       setAuth ({dispatch}, account, ticket) {
         dispatch('SetAuth', account, ticket)
@@ -100,9 +102,9 @@ export default {
   created () {
     this.$nextTick(() => {
       if (this.initialized) return
-      this.initialized = true
 
-      this.pushOverlay('loading-overlay')
+      this.initialized = true
+      this.setLoadingMessage('Setting things up...')
 
       new Promise((resolve, reject) => {
         const data = getStorage()
@@ -135,12 +137,12 @@ export default {
         const bookmarks = res3.characters
 
         this.setUserData(characters, friends, bookmarks)
-        this.popOverlay()
         this.pushOverlay('character-select-overlay')
       }).catch(e => {
         console.warn(e)
-        this.popOverlay()
         this.pushOverlay('login-overlay')
+      }).then(() => {
+        this.setLoadingMessage('')
       })
     })
   },
@@ -182,16 +184,16 @@ export default {
     connectionState (state) {
       switch (state) {
         case 'connecting':
-          this.pushOverlay('loading-overlay')
+          this.setLoadingMessage('Connecting to chat server...')
           break
 
         case 'online':
-          this.popOverlay()
-          this.pushOverlay('loading-overlay')
+          this.setLoadingMessage('Identifying...')
           socket.identify(this.account, this.ticket, this.character)
           break
 
         case 'identified': {
+          this.setLoadingMessage('')
           this.popOverlay()
           const data = getStorage()
           const channels = data && data[`channels:${this.character}`]
@@ -206,6 +208,7 @@ export default {
         }
 
         case 'offline':
+          this.setLoadingMessage('')
           break
       }
     },

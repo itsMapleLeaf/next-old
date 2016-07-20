@@ -5,7 +5,6 @@
       <shortcut title="Channels" icon="forum" data-push-overlay="channel-select-overlay"></shortcut>
       <shortcut title="Online Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>
 
-      <!-- TODO: tab type icons -->
       <chat-tab v-for="(index, tab) in tabList"
         :active="index === tabIndex"
         @selected="tabIndex = index"

@@ -1,16 +1,18 @@
-import {Store} from 'vuex'
-
-export function pushOverlay (store: Store, overlay: string) {
-  store.dispatch('PushOverlay', overlay)
+export function pushOverlay ({dispatch}, overlay: string) {
+  dispatch('PushOverlay', overlay)
 }
 
-export function popOverlay (store: Store) {
-  store.dispatch('PopOverlay')
+export function popOverlay ({dispatch}) {
+  dispatch('PopOverlay')
 }
 
-export function setUserData (store, account, ticket, characters, friends, bookmarks) {
-  store.dispatch('SetAuth', account, ticket)
-  store.dispatch('SetUserCharacterList', characters)
-  store.dispatch('SetFriendsList', friends)
-  store.dispatch('SetBookmarkList', bookmarks)
+export function setUserData ({dispatch}, account, ticket, characters, friends, bookmarks) {
+  dispatch('SetAuth', account, ticket)
+  dispatch('SetUserCharacterList', characters)
+  dispatch('SetFriendsList', friends)
+  dispatch('SetBookmarkList', bookmarks)
+}
+
+export function setLoadingMessage ({dispatch}, message) {
+  dispatch('SetLoadingMessage', message || '')
 }

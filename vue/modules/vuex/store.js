@@ -64,7 +64,8 @@ const state = {
   ui: {
     overlays: [],
     focusedCharacter: null,
-    newNotice: null
+    newNotice: null,
+    loadingMessage: ''
   }
 }
 
@@ -260,6 +261,10 @@ const mutations = {
   SetNewPrivateMessage (state, sender: CharacterName, message: string) {
     const char: Character = state.chat.characters[sender]
     state.chat.newPrivateMessage = { sender: char, message }
+  },
+
+  SetLoadingMessage (state, message: string) {
+    state.ui.loadingMessage = message
   }
 }
 

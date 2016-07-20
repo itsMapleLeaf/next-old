@@ -44,7 +44,7 @@ export class Socket {
 
     this.bus.once('close', () => {
       store.dispatch('SetConnectionState', 'offline')
-      this.pushOverlay('login-overlay')
+      store.dispatch('PushOverlay', 'login-overlay')
     })
 
     this.bus.on('error', err => {

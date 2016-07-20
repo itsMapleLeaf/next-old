@@ -44,7 +44,7 @@ import Toggle from './Toggle.vue'
 
 import {authenticate} from '../modules/flist'
 import {initStorage, saveStorageKeys, clearStorage, getStorage} from '../modules/storage'
-import {pushOverlay, popOverlay, setUserData} from '../modules/vuex/actions'
+import {pushOverlay, popOverlay, setUserData, setLoadingMessage} from '../modules/vuex/actions'
 
 const connectionError = `
 Couldn't connect to the F-List website.
@@ -80,7 +80,7 @@ export default {
     submit (store) {
       this.status = ''
       this.disabled = true
-      this.pushOverlay('loading-overlay')
+      this.setLoadingMessage('Logging in...')
 
       authenticate(this.username, this.password)
       .then(res => {
@@ -104,17 +104,16 @@ export default {
           }
         }
 
-        this.popOverlay() // pop loading
-        this.popOverlay() // pop login
+        this.popOverlay()
         this.pushOverlay('character-select-overlay')
         this.username = this.password = ''
       })
       .catch(error => {
-        this.popOverlay() // pop loading
         this.addNotice('Login error: ' + (error || connectionError))
       })
       .then(() => {
         this.disabled = false
+        this.setLoadingMessage('')
       })
     }
   },
@@ -124,6 +123,7 @@ export default {
       pushOverlay,
       popOverlay,
       setUserData,
+      setLoadingMessage,
 
       addNotice ({dispatch}, text) {
         dispatch('SetNewNotice', text)

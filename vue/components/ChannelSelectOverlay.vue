@@ -4,6 +4,7 @@
     <form>
       <div class='ui-field'>
         <div class='ui-select'>
+          <!-- TODO: make these click on focus, to make switching through them possible w/ tab -->
           <a href='#' v-for='channel in publicChannels' :data-toggle-channel='channel.id'
             :class="{ 'ui-highlight-green': activeChannels.includes(channel.id) }">
             <span style='float: right'>{{channel.users}}</span>

@@ -1,16 +1,9 @@
-<!--
-  TODO: convert this from an overlay into a simple icon in the background
-  which shows on a simple "loading: boolean" property from the store
-
-  TODO: also let us give a message for the loading screen
--->
-
 <template>
-  <div class="ui-overlay" transition="overlay">
+  <div class="ui-overlay" transition="overlay" v-if="message">
     <div class="ui-overlay-shade"></div>
-    <div class="flex-column flex-center-children">
+    <div class="ui-overlay-panel flex-column flex-center-children">
       <i class="mdi mdi-paw"></i>
-      <h3><em>Working on it...</em></h3>
+      <h3><em>{{message}}</em></h3>
     </div>
   </div>
 </template>
@@ -35,4 +28,20 @@ i
 
 i, h3
   color: rgba(white, 0.7)
+
+.ui-overlay-panel
+  background: none
+  box-shadow: none
+  width: max-content
+  max-width: 100vw
 </style>
+
+<script>
+export default {
+  vuex: {
+    getters: {
+      message: state => state.ui.loadingMessage
+    }
+  }
+}
+</script>
