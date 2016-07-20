@@ -23,7 +23,7 @@
       <div class="ui-field flex-row" style="justify-content: space-between">
         <div class='ui-input-icon flex-stretch'>
           <i class="ui-icon mdi mdi-magnify"></i>
-          <input class="ui-input" type="text" placeholder="Search..." v-model="searchText" debounce="500" />
+          <input type="text" placeholder="Search..." v-model="searchText" debounce="500" />
         </div>
         <div class='flex-divider' style='width: 0.4em'></div>
         <button class='ui-button flex-fixed' style='padding: 0.4em 0.75em' @click='generateGroups'>

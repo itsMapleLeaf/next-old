@@ -1,5 +1,5 @@
 <template>
-  <a href='#' :style="{ opacity: value ? 1 : 0.5 }" @keydown.space="$emit('click')">
+  <a href='#' class='ui-press-inline ui-hover' :style="{ opacity: value ? 1 : 0.5 }" @keydown.space="$emit('click')">
     <i :class="'mdi mdi-' + iconClass"></i>
     <slot></slot>
   </a>

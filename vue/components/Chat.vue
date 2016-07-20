@@ -9,11 +9,13 @@
         :active="index === tabIndex"
         @selected="tabIndex = index"
         @closed="closeTab(tab)">
-        <template v-if="tab.type === 'channel'">
-          <i v-if="tab.state.id === tab.state.name" class='mdi mdi-earth'></i>
-          <i v-else class='mdi mdi-key-variant'></i>
-        </template>
-        <img v-if="tab.type === 'private-chat'" class='tab-avatar' :src="getAvatarURL(tab.partner.name)" />
+        <div class='tab-icon'>
+          <template v-if="tab.type === 'channel'">
+            <i v-if="tab.state.id === tab.state.name" class='mdi mdi-earth'></i>
+            <i v-else class='mdi mdi-key-variant'></i>
+          </template>
+          <div v-if="tab.type === 'private-chat'" class='tab-avatar' :style="'background-image: url(' + getAvatarURL(tab.partner.name) + ')'"></div>
+        </div>
         <span v-html="tab.title"></span>
       </chat-tab>
     </nav>
@@ -32,14 +34,21 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-.header-shortcut
-  width: 2em
-  height: @width
+<style scoped>
+.header-shortcut {
+  width: 2em;
+  height: 2em;
+}
 
-.tab-avatar
-  height: 1em
-  vertical-align: top
+.tab-icon {
+  margin-right: 0.3em;
+}
+
+.tab-avatar {
+  width: 1em;
+  height: 1em;
+  background-size: contain;
+}
 </style>
 
 <script>
@@ -63,7 +72,7 @@ import {getAvatarURL} from '../modules/flist'
 
 const Shortcut = {
   template: `
-    <a href='#' class='flex-fixed flex-center-children header-shortcut'>
+    <a href='#' class='flex-fixed flex-center-children ui-press ui-hover header-shortcut'>
       <i :class="'mdi mdi-' + icon" style="pointer-events: none"></i>
     </a>
   `,

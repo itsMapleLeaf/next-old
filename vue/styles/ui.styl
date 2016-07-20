@@ -27,29 +27,17 @@ $colors = {
 .ui-no-select
   user-select: none
 
-// color and highlight styles
-.ui-text-color
-  color: $colors.text
-
+// typography
 .ui-font
   font: 14pt 'Roboto', sans-serif
+
+.ui-text-color
+  color: $colors.text
 
 .ui-text
   @extend .ui-text-color, .ui-font
 
-.ui-padding-regular
-  padding: 0.4em 0.75em
-
-.ui-header
-  font-family: 'Roboto Condensed', sans-serif
-  opacity: 0.9
-  font-weight: 300
-  padding: 0
-  margin: 0 0 1rem
-
-.ui-raised
-  box-shadow: 0px 0px 6px rgba(black, 0.25), 0px 4px 16px rgba(black, 0.25)
-
+// color and highlight styles
 .ui-color-main { background-color: $colors.main }
 .ui-color-dark { background-color: $colors.dark }
 .ui-color-darker { background-color: darken($colors.dark, 25%) }
@@ -67,9 +55,57 @@ for $color-name in ('red' 'green' 'blue')
   border: none
   border-bottom: 3px solid $colors.light
 
+.ui-padding-regular
+  padding: 0.4em 0.75em
+
+.ui-header
+  font-family: 'Roboto Condensed', sans-serif
+  opacity: 0.9
+  font-weight: 300
+  padding: 0
+  margin: 0 0 1rem
+
+.ui-press
+  &:not(:active)
+    transition: 0.2s ease-out
+
+  &:active
+    transform: translateY(3px)
+
+.ui-press-inline
+  @extend .ui-press
+  display: inline-block
+
+.ui-raised
+  box-shadow: 0px 0px 2px rgba(black, 0.2), 0px 4px 10px rgba(black, 0.4)
+
+  &.ui-press:active
+    box-shadow: 0px 0px 2px rgba(black, 0.2), 0px 1px 5px rgba(black, 0.4)
+
+.ui-rounded
+  border-radius: 0.2em
+
+.ui-hover
+  position: relative
+
+  &::after
+    @extend .ui-color-light
+    content: ''
+    display: block
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    height: 2px
+    transition: 0.2s transform
+    transform: scaleX(0)
+
+  &:hover::after
+    transform: scaleX(1)
+
 // elements / components
 .ui-link
-  @extend .ui-border
+  @extend .ui-border, .ui-press-inline
   border-width: 2px
   color: lighten($colors.light, 60%)
   text-decoration: none
@@ -77,8 +113,8 @@ for $color-name in ('red' 'green' 'blue')
 .ui-field
   margin-bottom: 1em
 
-.ui-input, .ui-button
-  @extend .ui-color-dark, .ui-padding-regular
+.ui-input-static
+  @extend .ui-padding-regular
   color: inherit
   font-family: inherit
   font-size: 0.9em
@@ -88,13 +124,15 @@ for $color-name in ('red' 'green' 'blue')
     cursor: not-allowed
 
 .ui-input
-  @extend .ui-border
+  @extend .ui-input-static, .ui-press-inline, .ui-color-dark, .ui-border
   width: 100%
 
 .ui-button
+  @extend .ui-input-static, .ui-press-inline, .ui-color-dark, .ui-rounded
   border: none
   padding-left: 1.5em
   padding-right: 1.5em
+  cursor: pointer
 
 .ui-overlay
   @extend .flex-center-children, .ui-scroll
@@ -110,7 +148,7 @@ for $color-name in ('red' 'green' 'blue')
 
 .ui-overlay-panel
   @extend .ui-color-main, .ui-raised
-  width: min-content
+  width: max-content
 
 for $side in ('left' 'right')
   .ui-overlay-panel-{$side}
@@ -121,6 +159,7 @@ for $side in ('left' 'right')
     {$side}: 0
 
 .ui-input-icon
+  @extend .ui-press
   position: relative
 
   .ui-icon
@@ -130,7 +169,9 @@ for $side in ('left' 'right')
     opacity: 0.5
     pointer-events: none
 
-  .ui-input
+  input, textarea
+    @extend .ui-input-static, .ui-color-dark, .ui-border
+    width: 100%
     padding-left: 1.8rem
 
 .ui-select
@@ -175,15 +216,18 @@ for $side in ('left' 'right')
 *
   box-sizing: border-box
 
+:root
+  @extend .ui-text
+
+:focus
+  outline: none
+
 div
   padding: 0
   margin: 0
 
 p
   margin: 0em 0em 0.8em
-
-:root
-  @extend .ui-text
 
 h1, h2, h3, h4, h5, h6
   @extend .ui-header

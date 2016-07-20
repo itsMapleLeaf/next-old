@@ -1,7 +1,11 @@
 <template>
-  <a href='#' class='flex-center-children' :class="activeClasses" @click.self="$emit('selected')">
-    <span :style="{ pointerEvents: 'none' }"><slot></slot></span>
-    <i class="mdi mdi-close" @click.prevent.stop="$emit('closed')"></i>
+  <a href='#' class='flex-row flex-center-children' :class="activeClasses" @click.self="$emit('selected')">
+    <div class='flex-center-children tab-content' :style="{ pointerEvents: 'none' }">
+      <slot></slot>
+    </div>
+    <div class='ui-press close-button' @click.prevent.stop="$emit('closed')">
+      <i class="mdi mdi-close"></i>
+    </div>
   </a>
 </template>
 
@@ -11,29 +15,35 @@ a {
   width: 10em;
   justify-content: space-between;
   cursor: default;
+  padding-left: 0.5em;
+  padding-right: 0.4em;
 }
 
-a.ui-color-darker {
-  opacity: 0.7;
+.inactive {
+  opacity: 0.6;
+}
+
+.inactive:hover {
+  opacity: 0.85;
 }
 
 a:not(:last-child) {
   margin-right: 0.2em;
 }
 
-span {
+.tab-content {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding: 0em 0.5em;
 }
 
-i {
-  padding: 0em 0.5em;
-  font-size: 0.7em;
-  width: min-content;
-  height: min-content;
+.close-button {
   opacity: 0.3;
+  font-size: 0.7em;
+}
+
+.close-button:hover {
+  opacity: 0.8;
 }
 </style>
 
@@ -45,7 +55,7 @@ export default {
 
   computed: {
     activeClasses () {
-      return this.active ? 'ui-color-main' : 'ui-color-darker'
+      return this.active ? 'active ui-color-main' : 'inactive ui-color-darker'
     }
   }
 }

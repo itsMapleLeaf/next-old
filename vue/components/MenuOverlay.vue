@@ -24,7 +24,7 @@
   margin-bottom: 0.6em
 
 .content
-  width: 11em
+  /*width: 11em*/
   padding: 1em 0.8em 0em
 </style>
 

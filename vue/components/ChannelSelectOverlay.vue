@@ -20,7 +20,7 @@
       </div>
       <div class='ui-field ui-input-icon'>
         <i class='ui-icon mdi mdi-magnify'></i>
-        <input class='ui-input' type='text' placeholder='Search...' v-model='searchText'>
+        <input type='text' placeholder='Search...' v-model='searchText'>
       </div>
       <div class='ui-field'>
         <toggle :value='showAll' @click='showAll = !showAll'>Show all channels (lag warning)</toggle>
