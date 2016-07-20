@@ -7,8 +7,10 @@
 - Shows the channel ID under private channels
 - Added notification bubbles, with sounds on a PM
 - Removed the channel mode buttons (in favor of a better messaging filter system to be added later)
-- Added tab icons
-- Some style changes
+- Added tab icons, shows the character avatar on PM tabs
+- Clicking on one of your own characters in a character list will hide a few useless options
+  - Clicking on your _current_ character opens the app menu
+- _Many_ style changes
 
 # 0.3.0
 - Showing LFRP ads
