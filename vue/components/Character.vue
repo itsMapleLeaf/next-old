@@ -1,6 +1,6 @@
 <template>
-  <a href='#' class="gender-color" :class="classes" :data-character-action="character.name">
-    <i class="mdi mdi-checkbox-blank-circle status-color" :class="character.status.toLowerCase()"></i>
+  <a href='#' :class="'gender-color ' + gender" :data-character-action="character.name">
+    <span :class="'status-color ' + status">●</span>
     <slot>{{character.name}}</slot>
   </a>
 </template>
@@ -13,10 +13,8 @@ i
   pointer-events: none
 
 .status-color
-  font-size: 0.5em
-  position: relative
-  top: -0.3em
-
+  font-size: 0.9em
+  vertical-align: top
   &.online { color: rgba(#333, 0.8) }
   &.looking { color: rgb(32, 223, 109) }
   &.busy { color: rgba(white, 0.5) }
@@ -48,9 +46,8 @@ export default {
   },
 
   computed: {
-    classes () {
-      return this.character.gender.toLowerCase()
-    }
+    gender () { return this.character.gender.toLowerCase() },
+    status () { return this.character.status.toLowerCase() }
   }
 }
 </script>
