@@ -10,6 +10,7 @@ a {
   font-family: 'Roboto Condensed';
   width: 10em;
   justify-content: space-between;
+  cursor: default;
 }
 
 a.ui-color-darker {
