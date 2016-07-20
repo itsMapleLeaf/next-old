@@ -15,13 +15,14 @@ i
 .status-color
   font-size: 0.9em
   vertical-align: top
-  &.online { color: rgba(#333, 0.8) }
+
+  &.online { color: rgb(33, 150, 243) }
   &.looking { color: rgb(32, 223, 109) }
-  &.busy { color: rgba(white, 0.5) }
-  &.away { color: rgb(58, 111, 246) }
-  &.idle { color: rgb(235, 237, 129) }
+  &.busy { color: rgb(255, 152, 0) }
+  &.away { color: rgb(255, 241, 118) }
   &.dnd { color: rgb(191, 77, 64) }
-  &.offline { color: rgba(62, 62, 62, 0.5) }
+  &.idle { color: rgb(171, 124, 255) }
+  &.offline { color: rgba(62, 62, 62, 0.3) }
 
 .gender-color
   &.male { color: hsl(210, 50%, 60%) }
