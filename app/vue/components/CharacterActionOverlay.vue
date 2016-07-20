@@ -83,6 +83,22 @@ export default {
     CharacterAvatarLink
   },
 
+  vuex: {
+    getters: {
+      focusedCharacter: state => state.ui.focusedCharacter,
+      onlineCharacters: state => state.chat.onlineCharacters,
+      bookmarks: state => state.chat.bookmarks,
+      friends: state => state.chat.friends,
+      ignored: state => state.chat.ignored,
+      auth: state => state.auth
+    },
+
+    actions: {
+      popOverlay,
+      addPrivateChat ({dispatch}, name) { dispatch('AddActivePrivateChat', name) }
+    }
+  },
+
   data () {
     return {
       getProfileURL,
@@ -122,18 +138,9 @@ export default {
     }
   },
 
-  vuex: {
-    getters: {
-      char: state => state.ui.focusedCharacter,
-      bookmarks: state => state.chat.bookmarks,
-      friends: state => state.chat.friends,
-      ignored: state => state.chat.ignored,
-      auth: state => state.auth
-    },
-
-    actions: {
-      popOverlay,
-      addPrivateChat ({dispatch}, name) { dispatch('AddActivePrivateChat', name) }
+  computed: {
+    char () {
+      return this.onlineCharacters[this.focusedCharacter]
     }
   },
 

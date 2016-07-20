@@ -48,9 +48,10 @@ const state = {
 
     publicChannels: {},  // id => ChannelInfo
     privateChannels: {}, // id => ChannelInfo
+    allChannels: {},     // combination of above
 
     activeChannels: [],      // ChannelID[]
-    channelCharacters: {},   // id => charlist: Character[]
+    channelCharacters: {},   // id => charlist: CharacterName[]
     channelMessages: {},     // id => messages: ChatMessage[]
     channelDescriptions: {}, // id => description: string
 
@@ -154,10 +155,9 @@ const mutations = {
   },
 
   RemoveCharacter (state, name: CharacterName) {
-    const char = state.chat.characters[name]
     Vue.delete(state.chat.characters, name)
-    for (let id in state.chat.channelCharacters) {
-      state.chat.channelCharacters[id].$remove(char)
+    for (let list in Object.values(state.chat.channelCharacters)) {
+      if (list.includes(name)) list.$remove(name)
     }
   },
 
@@ -166,7 +166,7 @@ const mutations = {
   },
 
   SetFocusedCharacter (state, name: CharacterName) {
-    state.ui.focusedCharacter = state.chat.characters[name] || new Character(name, 'None', 'offline')
+    state.ui.focusedCharacter = name
   },
 
   SetPublicChannelList (state, channels: ChannelInfo[]) {
@@ -183,6 +183,8 @@ const mutations = {
 
   AddActiveChannel (state, id: ChannelID) {
     state.chat.activeChannels.push(id)
+    state.chat.channelCharacters[id] = []
+    state.chat.channelMessages[id] = []
   },
 
   RemoveActiveChannel (state, id: ChannelID) {
@@ -190,11 +192,7 @@ const mutations = {
   },
 
   SetChannelCharacterList (state, id: ChannelID, characters: CharacterName[]) {
-    const charlist = characters
-      .map(name => state.chat.characters[name])
-      .filter(char => char != null)
-
-    state.chat.channelCharacters[id] = (charlist: Character[])
+    state.chat.channelCharacters[id] = characters
   },
 
   // SetChannelMode (state, id: ChannelID, mode: ChannelMode) {
@@ -206,18 +204,16 @@ const mutations = {
   },
 
   AddChannelCharacter (state, id: ChannelID, name: CharacterName) {
-    const char: Character = state.chat.characters[name]
-    state.chat.channelCharacters[id].push(char)
+    state.chat.channelCharacters[id].push(name)
   },
 
   RemoveChannelCharacter (state, id: ChannelID, name: CharacterName) {
-    const char: Character = state.chat.characters[name]
-    state.chat.channelCharacters[id].$remove(char)
+    state.chat.channelCharacters[id].$remove(name)
   },
 
   AddChannelMessage (state, id: ChannelID, sender: CharacterName, text: string, type: MessageType) {
-    const char: Character = state.chat.characters[sender]
-    const message: ChatMessage = new ChatMessage(char, text, type)
+    const char = state.chat.characters[sender]
+    const message = new ChatMessage(char, text, type)
     state.chat.channelMessages[id].push(message)
   },
 
@@ -230,9 +226,9 @@ const mutations = {
   // },
 
   AddPrivateChatMessage (state, partner: CharacterName, sender: CharacterName, text: string) {
-    const char: Character = state.chat.characters[sender]
+    const char = state.chat.characters[sender]
     const message = new ChatMessage(char, text, 'normal')
-    if (!state.chat.privateMessages) {
+    if (!state.chat.privateMessages[partner]) {
       state.chat.privateMessages[partner] = []
     }
     state.chat.privateMessages[partner].push(message)

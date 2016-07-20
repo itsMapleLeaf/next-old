@@ -8,12 +8,16 @@
 import ChatMessage from './ChatMessage.vue'
 
 export default {
+  components: {ChatMessage},
+
   props: {
     messages: Array
   },
 
-  components: {
-    ChatMessage
+  vuex: {
+    getters: {
+      onlineCharacters: state => state.chat.characters
+    }
   },
 
   data () {

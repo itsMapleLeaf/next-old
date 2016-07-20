@@ -1,7 +1,7 @@
 <template>
   <a href='#' class="gender-color" :class="classes" :data-character-action="character.name">
     <i class="mdi mdi-checkbox-blank-circle status-color" :class="character.status.toLowerCase()"></i>
-    {{character.name}}
+    <slot>{{character.name}}</slot>
   </a>
 </template>
 
@@ -49,15 +49,7 @@ export default {
 
   computed: {
     classes () {
-      const gender = this.character.gender.toLowerCase()
-      const ignored = this.ignored[this.character.name] != null
-      return `${gender} ${ignored ? 'ignored' : ''}`
-    }
-  },
-
-  vuex: {
-    getters: {
-      ignored: state => state.chat.ignored
+      return this.character.gender.toLowerCase()
     }
   }
 }

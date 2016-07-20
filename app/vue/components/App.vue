@@ -154,7 +154,7 @@ export default {
             break
 
           case 'data-toggle-channel':
-            if (!this.activeChannels[value]) {
+            if (!this.activeChannels.includes(value)) {
               socket.joinChannel(value)
             } else {
               socket.leaveChannel(value)
@@ -212,25 +212,25 @@ export default {
 
     newNotice ({text}) {
       this.addNotice(text)
-    },
-
-    joinedChannel ({id}) {
-      const data = getStorage()
-      if (data) {
-        const channels = data[`channels:${this.character}`] || {}
-        channels[id] = true
-        saveStorageKeys({ [`channels:${this.character}`]: channels })
-      }
-    },
-
-    leftChannel ({id}) {
-      const data = getStorage()
-      if (data) {
-        const channels = data[`channels:${this.character}`]
-        delete channels[id]
-        saveStorageKeys({ [`channels:${this.character}`]: channels })
-      }
     }
+
+    // joinedChannel ({id}) {
+    //   const data = getStorage()
+    //   if (data) {
+    //     const channels = data[`channels:${this.character}`] || {}
+    //     channels[id] = true
+    //     saveStorageKeys({ [`channels:${this.character}`]: channels })
+    //   }
+    // },
+    //
+    // leftChannel ({id}) {
+    //   const data = getStorage()
+    //   if (data) {
+    //     const channels = data[`channels:${this.character}`]
+    //     delete channels[id]
+    //     saveStorageKeys({ [`channels:${this.character}`]: channels })
+    //   }
+    // }
   }
 }
 </script>

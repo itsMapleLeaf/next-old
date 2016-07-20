@@ -5,12 +5,12 @@
       <div class='ui-field'>
         <div class='ui-select'>
           <a href='#' v-for='channel in publicChannels' :data-toggle-channel='channel.id'
-            :class="{ 'ui-highlight-green': activeChannels[channel.id] }">
+            :class="{ 'ui-highlight-green': activeChannels.includes(channel.id) }">
             <span style='float: right'>{{channel.users}}</span>
             <span v-html='channel.name'></span>
           </a>
           <a href='#' v-for='channel in privateChannels' :data-toggle-channel='channel.id'
-            :class="{ 'ui-highlight-green': activeChannels[channel.id] }">
+            :class="{ 'ui-highlight-green': activeChannels.includes(channel.id) }">
             <span style='float: right'>{{channel.users}}</span>
             <span v-html='channel.name'></span><br />
             <small style='opacity: 0.5; font-style: italic'>{{channel.id}}</small>

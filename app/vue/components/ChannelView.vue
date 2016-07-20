@@ -5,7 +5,7 @@
 
       <!-- description -->
       <div class='flex-stretch flex-column ui-color-main ui-scroll description'>
-        <span v-html="state.description | bbcode"></span>
+        <span v-html="description | bbcode"></span>
       </div>
     </div>
 
@@ -13,28 +13,28 @@
 
     <div class='flex-row flex-stretch'>
       <!-- message -->
-      <chat-message-list class="flex-stretch" :messages='state.messages'></chat-message-list>
+      <chat-message-list class="flex-stretch" :messages='messages'></chat-message-list>
 
       <div class='flex-divider'></div>
 
       <!-- users -->
       <div class='flex-fixed ui-color-main ui-scroll character-list'>
-        <div v-for='char in groups.friends || []' class='flex-center-children ui-highlight-green'>
-          <character :character='char'></character>
+        <div v-for='name in groups.friends || []' class='flex-center-children ui-highlight-green'>
+          <character :character='onlineCharacters[name]'></character>
           <i class='mdi mdi-heart'></i>
         </div>
-        <div v-for='char in groups.bookmarks || []' class='flex-center-children ui-highlight-blue'>
-          <character :character='char'></character>
+        <div v-for='name in groups.bookmarks || []' class='flex-center-children ui-highlight-blue'>
+          <character :character='onlineCharacters[name]'></character>
           <i class='mdi mdi-star'></i>
         </div>
-        <div v-for='char in groups.admins || []' class='flex-center-children ui-highlight-red'>
-          <character :character='char'></character>
+        <div v-for='name in groups.admins || []' class='flex-center-children ui-highlight-red'>
+          <character :character='onlineCharacters[name]'></character>
         </div>
-        <div v-for='char in groups.looking || []' class='flex-center-children'>
-          <character :character='char'></character>
+        <div v-for='name in groups.looking || []' class='flex-center-children'>
+          <character :character='onlineCharacters[name]'></character>
         </div>
-        <div v-for='char in groups.rest || []' class='flex-center-children'>
-          <character :character='char'></character>
+        <div v-for='name in groups.rest || []' class='flex-center-children'>
+          <character :character='onlineCharacters[name]'></character>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@ import Chatbox from './Chatbox.vue'
 import Character from './Character.vue'
 import ChatMessage from './ChatMessage.vue'
 import ChatMessageList from './ChatMessageList.vue'
-import ChannelState from '../types/ChannelState'
+// import ChannelState from '../types/ChannelState'
 import {bbcode} from '../modules/filters'
 import socket from '../modules/socket'
 import {groupSort, compareByField} from '../modules/common'
@@ -100,7 +100,9 @@ export default {
   },
 
   props: {
-    state: ChannelState
+    description: String,
+    messages: Array,
+    characters: Array
   },
 
   data () {
@@ -113,7 +115,8 @@ export default {
     getters: {
       friends: state => state.chat.friends,
       bookmarks: state => state.chat.bookmarks,
-      admins: state => state.chat.admins
+      admins: state => state.chat.admins,
+      onlineCharacters: state => state.chat.characters
     }
   },
 
@@ -121,15 +124,20 @@ export default {
     this.sortCharacters()
   },
 
+  watch: {
+    characters () { this.sortCharacters() }
+  },
+
   methods: {
     sortCharacters () {
-      const groups = groupSort(this.state.characters, char => {
+      const groups = groupSort(this.characters, name => {
+        const char = this.onlineCharacters[name]
         switch (true) {
-          case this.friends[char.name] != null:
+          case this.friends[name] != null:
             return 'friends'
-          case this.bookmarks[char.name]:
+          case this.bookmarks[name]:
             return 'bookmarks'
-          case this.admins[char.name]:
+          case this.admins[name]:
             return 'admins'
           case char.status === 'looking':
             return 'looking'
@@ -144,12 +152,6 @@ export default {
     },
     chatboxSubmit (message) {
       socket.sendMessage(this.state.id, message)
-    }
-  },
-
-  watch: {
-    'state.characters' () {
-      this.sortCharacters()
     }
   },
 
