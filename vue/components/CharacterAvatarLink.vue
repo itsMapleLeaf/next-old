@@ -1,6 +1,6 @@
 <template>
   <a :href="profileURL" target="_blank" :title="character">
-    <img class='ui-link' v-show="imageLoaded" transition="fade" :src="avatarURL" @load="imageLoaded = true" />
+    <img v-show="imageLoaded" transition="fade" :src="avatarURL" @load="imageLoaded = true" />
   </a>
 </template>
 
@@ -10,8 +10,11 @@ a
   width: 100px
   height: 100px
 
+img
+  filter: drop-shadow(0px 2px 3px rgba(black, 0.4))
+
 img:hover
-  opacity: 0.8
+  opacity: 0.7
 </style>
 
 <script>
