@@ -221,8 +221,7 @@ const mutations = {
 
   AddChannelMessage (state, id: ChannelID, sender: CharacterName, text: string, type: MessageType) {
     const char = state.chat.characters[sender]
-    const message = new ChatMessage(char, text, type)
-    state.chat.channelState[id].messages.push(message)
+    state.chat.channelState[id].addMessage(new ChatMessage(char, text, type))
   },
 
   AddActivePrivateChat (state, partner: CharacterName) {
