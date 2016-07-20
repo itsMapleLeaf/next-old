@@ -164,8 +164,12 @@ export default {
             break
 
           case 'data-character-action':
-            this.setCharacterFocus(value)
-            this.pushOverlay('character-action-overlay')
+            if (value !== this.character) {
+              this.setCharacterFocus(value)
+              this.pushOverlay('character-action-overlay')
+            } else {
+              this.pushOverlay('menu-overlay')
+            }
             break
         }
       }

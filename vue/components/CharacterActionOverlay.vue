@@ -22,15 +22,16 @@
     </div>
 
     <div slot="options">
+      <menu-option icon='link-variant' :href="getProfileURL(character.name)" target="_blank">View Profile</menu-option>
       <menu-option icon='message' @click='openPrivateChat'>Send Message</menu-option>
 
-      <menu-option icon='star-outline' v-if='!bookmarks[character.name]' @click.prevent='toggleBookmark(character.name)'>Bookmark</menu-option>
-      <menu-option icon='star' v-else @click.prevent='toggleBookmark(char.name)'>Unbookmark</menu-option>
+      <template v-if="!userCharacterList.includes(character.name)">
+        <menu-option icon='star-outline' v-if='!bookmarks[character.name]' @click.prevent='toggleBookmark(character.name)'>Bookmark</menu-option>
+        <menu-option icon='star' v-else @click.prevent='toggleBookmark(char.name)'>Unbookmark</menu-option>
 
-      <menu-option icon='minus-circle-outline' v-if='!ignored[character.name]' @click.prevent='toggleIgnored(character.name)'>Ignore</menu-option>
-      <menu-option icon='minus-circle' v-else @click.prevent='toggleIgnored(character.name)'>Unignore</menu-option>
-
-      <menu-option icon='link-variant' :href="getProfileURL(character.name)" target="_blank">View Profile</menu-option>
+        <menu-option icon='minus-circle-outline' v-if='!ignored[character.name]' @click.prevent='toggleIgnored(character.name)'>Ignore</menu-option>
+        <menu-option icon='minus-circle' v-else @click.prevent='toggleIgnored(character.name)'>Unignore</menu-option>
+      </template>
     </div>
   </side-panel>
 </template>
@@ -85,6 +86,7 @@ export default {
   vuex: {
     getters: {
       character: state => state.ui.focusedCharacter,
+      userCharacterList: state => state.user.characterList,
       bookmarks: state => state.chat.bookmarks,
       friends: state => state.chat.friends,
       ignored: state => state.chat.ignored,
