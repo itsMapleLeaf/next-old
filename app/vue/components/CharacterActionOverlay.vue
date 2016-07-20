@@ -1,20 +1,20 @@
 <template>
   <side-panel side="right">
     <div slot="content" class='content'>
-      <h2 class="wrap-break-word">{{char.name}}</h2>
+      <h2 class="wrap-break-word">{{character.name}}</h2>
       <form slot="content">
         <div class='ui-field'>
-          <character-avatar-link :character="char.name"></character-avatar-link>
+          <character-avatar-link :character="character.name"></character-avatar-link>
         </div>
         <div class='ui-field'>
           <em class="ui-color-dark ui-border character-status" style="opacity: 0.8">
-            {{char.gender}}, {{char.status}}
-            <span v-if="char.statusMessage !== ''" v-html="'- ' + char.statusMessage | bbcode">
+            {{character.gender}}, {{character.status}}
+            <span v-if="character.statusMessage !== ''" v-html="'- ' + character.statusMessage | bbcode">
             </span>
           </em>
         </div>
-        <template v-if="friends[char.name]">
-          <div class="ui-field ui-highlight-green friend" v-for="friend in friends[char.name]">
+        <template v-if="friends[character.name]">
+          <div class="ui-field ui-highlight-green friend" v-for="friend in friends[character.name]">
             <em><i class="mdi mdi-heart"></i> {{friend}}</em>
           </div>
         </template>
@@ -24,13 +24,13 @@
     <div slot="options">
       <menu-option icon='message' @click='openPrivateChat'>Send Message</menu-option>
 
-      <menu-option icon='star-outline' v-if='!bookmarks[char.name]' @click.prevent='toggleBookmark(char.name)'>Bookmark</menu-option>
+      <menu-option icon='star-outline' v-if='!bookmarks[character.name]' @click.prevent='toggleBookmark(character.name)'>Bookmark</menu-option>
       <menu-option icon='star' v-else @click.prevent='toggleBookmark(char.name)'>Unbookmark</menu-option>
 
-      <menu-option icon='minus-circle-outline' v-if='!ignored[char.name]' @click.prevent='toggleIgnored(char.name)'>Ignore</menu-option>
-      <menu-option icon='minus-circle' v-else @click.prevent='toggleIgnored(char.name)'>Unignore</menu-option>
+      <menu-option icon='minus-circle-outline' v-if='!ignored[character.name]' @click.prevent='toggleIgnored(character.name)'>Ignore</menu-option>
+      <menu-option icon='minus-circle' v-else @click.prevent='toggleIgnored(character.name)'>Unignore</menu-option>
 
-      <menu-option icon='link-variant' :href="getProfileURL(char.name)" target="_blank">View Profile</menu-option>
+      <menu-option icon='link-variant' :href="getProfileURL(character.name)" target="_blank">View Profile</menu-option>
     </div>
   </side-panel>
 </template>
@@ -85,8 +85,7 @@ export default {
 
   vuex: {
     getters: {
-      focusedCharacter: state => state.ui.focusedCharacter,
-      onlineCharacters: state => state.chat.onlineCharacters,
+      character: state => state.ui.focusedCharacter,
       bookmarks: state => state.chat.bookmarks,
       friends: state => state.chat.friends,
       ignored: state => state.chat.ignored,
@@ -108,7 +107,7 @@ export default {
 
   methods: {
     openPrivateChat () {
-      this.addPrivateChat(this.char.name)
+      this.addPrivateChat(this.character.name)
       this.popOverlay()
     },
 
@@ -135,12 +134,6 @@ export default {
       } else {
         socket.unignore(name)
       }
-    }
-  },
-
-  computed: {
-    char () {
-      return this.onlineCharacters[this.focusedCharacter]
     }
   },
 

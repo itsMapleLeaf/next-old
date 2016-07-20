@@ -7,14 +7,17 @@ export type FilterMap = { [filter: MessageType]: boolean }
 export default class ChannelState {
   id: string
   name: string
-  filter: FilterMap
   description: string
   characters: Character[]
   messages: ChatMessage[]
+  filter: FilterMap
 
   constructor (id, name) {
     this.id = id
     this.name = name
+    this.description = ''
+    this.characters = []
+    this.messages = []
     this.filter = {
       normal: true,
       self: true,
@@ -22,9 +25,6 @@ export default class ChannelState {
       friend: true,
       bookmark: true
     }
-    this.description = ''
-    this.characters = []
-    this.messages = []
   }
 
   addMessage (msg: ChatMessage) {

@@ -1,12 +1,12 @@
 <template>
   <div class='flex-column flex-stretch'>
     <header class='flex-fixed ui-color-main'>
-      <character :character='partnerCharacter'></character>
+      <character :character='partner'></character>
       <em>
-        <span>- {{partnerCharacter.status}}</span>
+        <span>- {{partner.status}}</span>
         <span
-          v-if="partnerCharacter.statusMessage"
-          v-html='", " + partnerCharacter.statusMessage | bbcode'>
+          v-if="partner.statusMessage"
+          v-html='", " + partner.statusMessage | bbcode'>
         </span>
       </em>
     </header>
@@ -36,6 +36,7 @@ import ChatMessage from './ChatMessage.vue'
 import ChatMessageList from './ChatMessageList.vue'
 import CharacterType from '../types/Character'
 import socket from '../modules/socket'
+import {bbcode} from '../modules/filters'
 
 export default {
   components: {
@@ -52,14 +53,8 @@ export default {
 
   methods: {
     chatboxSubmit (message) {
-      socket.sendPrivateMessage(this.partner, message)
-      this.addPrivateMessage(this.partner, this.userCharacter, message)
-    }
-  },
-
-  computed: {
-    partnerCharacter () {
-      return this.onlineCharacters[this.partner]
+      socket.sendPrivateMessage(this.partner.name, message)
+      this.addPrivateMessage(this.partner.name, this.userCharacter, message)
     }
   },
 
@@ -73,6 +68,8 @@ export default {
         dispatch('AddPrivateChatMessage', partner, sender, message)
       }
     }
-  }
+  },
+
+  filters: {bbcode}
 }
 </script>

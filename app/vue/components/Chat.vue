@@ -9,17 +9,21 @@
       <chat-tab v-for="(index, tab) in tabList"
         :active="index === tabIndex"
         @selected="tabIndex = index"
-        @closed="tab.close()">
+        @closed="closeTab(tab)">
         {{tab.title}}
       </chat-tab>
     </nav>
 
     <template v-if="activeTab">
-      <channel-view v-if="activeTab.type === 'channel'"
-        :characters="activeTab.characters || []"
-        :messages="activeTab.messages || []"
-        :description="activeTab.description || ''">
+      <channel-view
+        v-if="activeTab.type === 'channel'"
+        :state='activeTab.state'>
       </channel-view>
+      <private-chat-view
+        v-if="activeTab.type === 'private-chat'"
+        :messages='activeTab.messages'
+        :partner='activeTab.partner'>
+      </private-chat-view>
     </template>
   </div>
 </template>
@@ -73,6 +77,7 @@ export default {
   data () {
     return {
       channelTabs: {},
+      privateChatTabs: {},
       tabIndex: 0,
       viewType: '',
       viewState: {}
@@ -81,12 +86,14 @@ export default {
 
   vuex: {
     getters: {
-      activeChannels: state => state.chat.activeChannels,
       publicChannels: state => state.chat.publicChannels,
       privateChannels: state => state.chat.privateChannels,
-      channelCharacters: state => state.chat.channelCharacters,
-      channelMessages: state => state.chat.channelMessages,
-      channelDescriptions: state => state.chat.channelDescriptions
+      activeChannels: state => state.chat.activeChannels,
+      channelState: state => state.chat.channelState,
+      activePrivateChats: state => state.chat.activePrivateChats,
+      privateMessages: state => state.chat.privateMessages,
+      onlineCharacters: state => state.chat.characters,
+      newPrivateMessage: state => state.chat.newPrivateMessage
     },
     actions: {
       closePrivateChat ({dispatch}, partner) {
@@ -112,15 +119,25 @@ export default {
         channelTabs[id] = {
           type: 'channel',
           title: info.name,
-          characters: this.channelCharacters[id],
-          messages: this.channelMessages[id],
-          description: this.channelDescriptions[id],
-          close: () => socket.leaveChannel(id)
+          state: this.channelState[id]
         }
       }
 
-      const tabs = Object.values(this.channelTabs = channelTabs)
+      const privateTabs = {}
+      for (let partner of this.activePrivateChats) {
+        privateTabs[partner] = {
+          type: 'private-chat',
+          title: partner,
+          messages: this.privateMessages[partner],
+          partner: this.onlineCharacters[partner]
+        }
+      }
+
+      const tabs = Object.values(this.privateChatTabs = privateTabs)
+        .concat(Object.values(this.channelTabs = channelTabs))
+
       this.tabIndex = Math.min(Math.max(this.tabIndex, 0), tabs.length - 1)
+
       return tabs
     },
 
@@ -128,22 +145,22 @@ export default {
       return this.tabList[this.tabIndex]
     },
 
-    currentPrivateChatPartner () {
+    activePrivateChatPartner () {
       if (this.activeTab && this.activeTab.type === 'private-chat') {
-        return this.activeTab.state.partner.name
+        return this.activeTab.partner.name
       }
     }
   },
 
   methods: {
     closeTab (tab) {
-      if (tab.close) tab.close()
+      // etc
     }
   },
 
   watch: {
     newPrivateMessage ({ sender, message }) {
-      if (this.currentPrivateChatPartner !== sender.name) {
+      if (this.activePrivateChatPartner !== sender.name) {
         this.addNotice(`${sender.name}: ${message}`)
         document.querySelector('#sound-notify').currentTime = 0
         document.querySelector('#sound-notify').play()

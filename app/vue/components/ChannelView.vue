@@ -5,7 +5,7 @@
 
       <!-- description -->
       <div class='flex-stretch flex-column ui-color-main ui-scroll description'>
-        <span v-html="description | bbcode"></span>
+        <span v-html="state.description | bbcode"></span>
       </div>
     </div>
 
@@ -13,28 +13,28 @@
 
     <div class='flex-row flex-stretch'>
       <!-- message -->
-      <chat-message-list class="flex-stretch" :messages='messages'></chat-message-list>
+      <chat-message-list class="flex-stretch" :messages='state.messages'></chat-message-list>
 
       <div class='flex-divider'></div>
 
       <!-- users -->
       <div class='flex-fixed ui-color-main ui-scroll character-list'>
-        <div v-for='name in groups.friends || []' class='flex-center-children ui-highlight-green'>
-          <character :character='onlineCharacters[name]'></character>
+        <div v-for='char in groups.friends || []' class='flex-center-children ui-highlight-green'>
+          <character :character='char'></character>
           <i class='mdi mdi-heart'></i>
         </div>
-        <div v-for='name in groups.bookmarks || []' class='flex-center-children ui-highlight-blue'>
-          <character :character='onlineCharacters[name]'></character>
+        <div v-for='char in groups.bookmarks || []' class='flex-center-children ui-highlight-blue'>
+          <character :character='char'></character>
           <i class='mdi mdi-star'></i>
         </div>
-        <div v-for='name in groups.admins || []' class='flex-center-children ui-highlight-red'>
-          <character :character='onlineCharacters[name]'></character>
+        <div v-for='char in groups.admins || []' class='flex-center-children ui-highlight-red'>
+          <character :character='char'></character>
         </div>
-        <div v-for='name in groups.looking || []' class='flex-center-children'>
-          <character :character='onlineCharacters[name]'></character>
+        <div v-for='char in groups.looking || []' class='flex-center-children'>
+          <character :character='char'></character>
         </div>
-        <div v-for='name in groups.rest || []' class='flex-center-children'>
-          <character :character='onlineCharacters[name]'></character>
+        <div v-for='char in groups.rest || []' class='flex-center-children'>
+          <character :character='char'></character>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@ import Chatbox from './Chatbox.vue'
 import Character from './Character.vue'
 import ChatMessage from './ChatMessage.vue'
 import ChatMessageList from './ChatMessageList.vue'
-// import ChannelState from '../types/ChannelState'
+import ChannelState from '../types/ChannelState'
 import {bbcode} from '../modules/filters'
 import socket from '../modules/socket'
 import {groupSort} from '../modules/common'
@@ -100,9 +100,7 @@ export default {
   },
 
   props: {
-    description: String,
-    messages: Array,
-    characters: Array
+    state: ChannelState
   },
 
   data () {
@@ -125,13 +123,12 @@ export default {
   },
 
   watch: {
-    characters () { this.sortCharacters() }
+    'state.characters' () { this.sortCharacters() }
   },
 
   methods: {
     sortCharacters () {
-      const groups = groupSort(this.characters, name => {
-        const char = this.onlineCharacters[name]
+      const groups = groupSort(this.state.characters, ({name, status}) => {
         switch (true) {
           case this.friends[name] != null:
             return 'friends'
@@ -139,7 +136,7 @@ export default {
             return 'bookmarks'
           case this.admins[name]:
             return 'admins'
-          case char && char.status === 'looking':
+          case status === 'looking':
             return 'looking'
           default:
             return 'rest'
