@@ -1,3 +1,3 @@
+start http://localhost:8080/dist
 webpack-dev-server --inline --hot --progress &
-webpack -p --watch &
-electron electron/main.js --dev
+webpack -p --watch
