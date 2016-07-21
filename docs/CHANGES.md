@@ -1,5 +1,6 @@
 # 0.4.1
 - Fixed joining duplicate channels in some cases
+- Fixed some silly transition-related graphical glitches
 
 # 0.4.0
 - Added a pretty loading screen

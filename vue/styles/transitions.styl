@@ -2,7 +2,7 @@ $duration = 0.3s
 
 .fade-
   &transition
-    transition: $duration
+    transition: $duration opacity
     opacity: 1
 
   &enter, &leave
@@ -11,7 +11,7 @@ $duration = 0.3s
 .slide-
   &v-
     &transition
-      transition: $duration
+      transition: $duration transform
       transform: translateY(0)
 
     &enter, &leave
@@ -19,7 +19,7 @@ $duration = 0.3s
 
   &left-
     &transition
-      transition: $duration
+      transition: $duration transform
       transform: translateX(0)
 
     &enter, &leave
@@ -27,7 +27,7 @@ $duration = 0.3s
 
   &right-
     &transition
-      transition: $duration
+      transition: $duration transform
       transform: translateX(0)
 
     &enter, &leave
