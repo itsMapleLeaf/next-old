@@ -126,7 +126,7 @@ export default {
       setLoadingMessage,
 
       addNotice ({dispatch}, text) {
-        dispatch('SetNewNotice', text)
+        dispatch('AddNewNotice', text)
       }
     }
   }

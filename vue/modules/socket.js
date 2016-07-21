@@ -312,7 +312,7 @@ export class Socket {
 
       // errors
       case 'ERR':
-        store.dispatch('SetNewNotice', params.message)
+        store.dispatch('AddNewNotice', params.message)
         break
 
       default:

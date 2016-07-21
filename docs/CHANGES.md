@@ -1,6 +1,7 @@
 # 0.4.1
 - Fixed joining duplicate channels in some cases
 - Fixed some silly transition-related graphical glitches
+- Fixed _some_ issues with notifications, still a little buggy...
 
 # 0.4.0
 - Added a pretty loading screen

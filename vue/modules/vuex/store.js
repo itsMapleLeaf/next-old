@@ -14,6 +14,7 @@ type CharacterName = string
 type ChannelID = string
 type ServerVariable = number | string | string[]
 type CharacterBatchEntry = [CharacterName, Gender, Status, string]
+type Notice = { text: string }
 
 type ConnectionState
   = 'offline'
@@ -74,7 +75,7 @@ class ChatState {
 class UIState {
   overlays: string[] = []
   focusedCharacter: Character
-  newNotice: { text: string }
+  notices: Notice[] = []
   loadingMessage: string = ''
 }
 
@@ -259,8 +260,12 @@ const mutations = {
     state.ui.overlays.pop()
   },
 
-  SetNewNotice (state, text: string) {
-    state.ui.newNotice = { text }
+  AddNewNotice (state, text: string) {
+    const notices = state.ui.notices
+    notices.push({ text })
+    if (notices.length > 50) {
+      notices.shift()
+    }
   },
 
   SetNewPrivateMessage (state, sender: CharacterName, message: string) {

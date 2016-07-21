@@ -88,7 +88,7 @@ export default {
       ticket: state => state.auth.ticket,
       character: state => state.user.character,
       activeChannels: state => state.chat.activeChannels,
-      newNotice: state => state.ui.newNotice
+      notices: state => state.ui.notices
     },
     actions: {
       pushOverlay,
@@ -199,8 +199,7 @@ export default {
       }
     },
 
-    addNotice (text) {
-      const note = { text }
+    addNotice (note) {
       this.notes.push(note)
       window.setTimeout(() => {
         this.notes.$remove(note)
@@ -243,8 +242,8 @@ export default {
       }
     },
 
-    newNotice ({text}) {
-      this.addNotice(text)
+    notices (list) {
+      this.addNotice(list[list.length - 1])
     },
 
     activeChannels (channels) {
