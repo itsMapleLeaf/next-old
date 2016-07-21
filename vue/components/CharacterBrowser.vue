@@ -1,128 +1,91 @@
 <template>
-  <overlay>
-    <h2>Let's find some friends.</h2>
-    <form>
-      <div class='ui-field'>
-        <div class="ui-color-dark ui-border ui-scroll characters">
-          <div class="ui-highlight-green" v-for='char in groups.friends || []'>
-            <character class='character' :character='char'></character>
-            <i class='mdi mdi-heart'></i>
-          </div>
-          <div class="ui-highlight-blue" v-for='char in groups.bookmarks || []'>
-            <character class='character' :character='char'></character>
-            <i class='mdi mdi-star'></i>
-          </div>
-          <div v-for='char in groups.looking || []'>
-            <character class='character' :character='char'></character>
-          </div>
-          <div v-for='char in groups.rest || []'>
-            <character class='character' :character='char'></character>
-          </div>
+  <div transition='fade'>
+    <div class='ui-overlay-shade'></div>
+    <div class='character-list ui-scroll'>
+      <div class='character ui-color-main ui-border ui-raised' v-for='char in characterList'>
+        <div class='image ui-color-dark flex-fixed'>
+          <img :src='char.avatarURL' />
+        </div>
+        <div class='character-info flex-stretch'>
+          <h3 class='name flex-fixed'>{{ char.name }}</h3>
+          <small class='status flex-stretch'>
+            <span>{{char.status}}</span>
+            <span v-if='char.statusmsg' v-html="' - ' + char.statusmsg | bbcode"></span>
+          </small>
         </div>
       </div>
-      <div class="ui-field flex-row" style="justify-content: space-between">
-        <div class='ui-input-icon flex-stretch'>
-          <i class="ui-icon mdi mdi-magnify"></i>
-          <input type="text" placeholder="Search..." v-model="searchText" debounce="500" />
-        </div>
-        <div class='flex-divider' style='width: 0.4em'></div>
-        <button class='ui-button flex-fixed' style='padding: 0.4em 0.75em' @click='generateGroups'>
-          <i class='mdi mdi-refresh'></i>
-        </button>
-      </div>
-      <div class="ui-field">
-        <toggle :value='showAll' @click='toggleShowAll'>Show all characters (MEGA LAG WARNING)</toggle>
-      </div>
-    </form>
-  </overlay>
+    </div>
+  </div>
 </template>
 
-<style scoped>
-.characters {
-  text-align: left;
-  width: 16em;
-  height: 20em;
-}
+<style lang="stylus" scoped>
+.character-list
+  padding-top: 1em
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  position: absolute
+  height: 100vh
+  width: 100vw
 
-.characters > div {
-  position: relative;
-}
+.character
+  box-sizing: content-box
+  width: 15em
+  height: 100px
+  margin-right: 1em
+  margin-bottom: 1em
+  display: flex
 
-.characters > div > i {
-  position: absolute;
-  top: 0.4em;
-  right: 0.6em;
-  pointer-events: none;
-}
+  img
+    display: block
 
-.character {
-  display: block;
-  padding: 0.4em 0.6em;
-}
+.character-info
+  display: flex
+  flex-direction: column
+  word-wrap: break-word
+
+.name, .status
+  padding: 0.3em 0.6em
+
+.name
+  margin: 0
+
+.status
+  overflow: hidden
+  text-overflow: ellipsis
+  overflow-wrap: break-word
+  font-style: italic
 </style>
 
 <script>
-import Character from './Character.vue'
-import Dropdown from './Dropdown.vue'
 import Overlay from './Overlay.vue'
-import Toggle from './Toggle.vue'
-import {groupSort} from '../modules/common'
-
-function compareOnlineTime (a, b) {
-  return b.onlineSince - a.onlineSince
-}
+import {getAvatarURL} from '../modules/flist'
+import {bbcode} from '../modules/filters'
 
 export default {
-  components: {Character, Dropdown, Overlay, Toggle},
-
-  data () {
-    return {
-      searchText: '',
-      groups: {},
-      showAll: false
-    }
-  },
+  components: {Overlay},
 
   vuex: {
     getters: {
-      characterList: state => Object.values(state.chat.characters)
+      characterMap: state => state.chat.characters
     }
   },
 
-  ready () {
-    this.generateGroups()
+  computed: {
+    characterList () {
+      return Object.values(this.characterMap)
+        .slice(0, 100)
+        .map(char => {
+          return {
+            name: char.name,
+            status: char.status,
+            statusmsg: char.statusMessage,
+            avatarURL: getAvatarURL(char.name)
+          }
+        })
+    }
   },
 
-  methods: {
-    generateGroups () {
-      const groups = groupSort(this.characterList, char => {
-        switch (true) {
-          case char.getFriends().length > 0:
-            return 'friends'
-          case char.isBookmarked():
-            return 'bookmarks'
-          case char.status === 'looking':
-            return 'looking'
-          default:
-            return 'rest'
-        }
-      })
-
-      for (let group in groups) {
-        groups[group] = groups[group]
-          .filter(char => char.name.toLocaleLowerCase()
-            .includes(this.searchText.toLocaleLowerCase()))
-          .slice(0, this.showAll ? undefined : 150)
-          .sort(compareOnlineTime)
-      }
-
-      this.groups = groups
-    },
-
-    toggleShowAll () {
-      this.showAll = !this.showAll
-      this.generateGroups()
-    }
-  }
+  filters: {bbcode}
 }
 </script>
