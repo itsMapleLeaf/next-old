@@ -183,6 +183,10 @@ const mutations = {
     Vue.set(state.chat.channels, which, channels)
   },
 
+  ClearActiveChannels (state) {
+    state.chat.activeChannels = []
+  },
+
   AddActiveChannel (state, id: ChannelID, name: string) {
     state.chat.activeChannels.push(id)
     // TODO: preserve logs from previous channel state if any were found

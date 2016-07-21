@@ -105,8 +105,7 @@ export default {
       activePrivateChats: state => state.chat.activePrivateChats,
       privateChatState: state => state.chat.privateChatState,
       onlineCharacters: state => state.chat.characters,
-      newPrivateMessage: state => state.chat.newPrivateMessage,
-      newActiveChannel: state => state.chat.newActiveChannel
+      newPrivateMessage: state => state.chat.newPrivateMessage
     },
     actions: {
       closePrivateChat ({dispatch}, partner) {

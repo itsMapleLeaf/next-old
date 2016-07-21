@@ -107,6 +107,10 @@ export default {
 
       setCharacterFocus ({dispatch}, name) {
         dispatch('SetFocusedCharacter', name)
+      },
+
+      clearActiveChannels ({dispatch}) {
+        dispatch('ClearActiveChannels')
       }
     }
   },
@@ -217,6 +221,8 @@ export default {
           break
 
         case 'identified': {
+          this.clearActiveChannels()
+
           this.setLoadingMessage('')
           this.popOverlay()
           const data = getStorage()
