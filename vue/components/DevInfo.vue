@@ -1,14 +1,16 @@
 <template>
   <p>
-    <h2>fchat-next alpha v{{version}}</h2>
+    <h2>fchat-next v{{version}}</h2>
     <p>
       <i class='mdi mdi-code-tags'></i> with
       <i class='mdi mdi-heart'></i> by
       <a class='ui-link' href='https://www.f-list.net/c/alexander%20grapevine/' target='_blank'>Alexander Grapevine</a>
     </p>
-    <p>Note me for questions, concerns, suggestions, and comments.</p>
-    <p><a class='ui-link' href='https://github.com/Kingdaro/fchat'>View the Code on GitHub</a></p>
-    <p><strong>Warning:</strong> buggy and incomplete. Many things do not work.</p>
+    <p>Note me if you have any suggestions, or if you found a bug. There are probably lots of them.</p>
+    <p>
+      <a class='ui-link' href='https://github.com/Kingdaro/fchat/blob/master/docs/TODO.md' target='_blank'>Here's</a> a list of things already planned for addition.
+    </p>
+    <p><a class='ui-link' href='https://github.com/Kingdaro/fchat' target='_blank'>View the code on GitHub</a></p>
   </p>
 </template>
 
