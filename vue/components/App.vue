@@ -248,6 +248,10 @@ export default {
 
     activeChannels (channels) {
       saveStorageKeys({ [`channels:${this.character}`]: channels })
+    },
+
+    character (name) {
+      document.title = `${name} | fchat-next`
     }
   }
 }
