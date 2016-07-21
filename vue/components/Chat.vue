@@ -90,8 +90,6 @@ export default {
 
   data () {
     return {
-      channelTabs: {},
-      privateChatTabs: {},
       tabIndex: 0,
       viewType: '',
       viewState: {},
@@ -106,7 +104,8 @@ export default {
       activePrivateChats: state => state.chat.activePrivateChats,
       privateChatState: state => state.chat.privateChatState,
       onlineCharacters: state => state.chat.characters,
-      newPrivateMessage: state => state.chat.newPrivateMessage
+      newPrivateMessage: state => state.chat.newPrivateMessage,
+      newActiveChannel: state => state.chat.newActiveChannel
     },
     actions: {
       closePrivateChat ({dispatch}, partner) {
@@ -126,27 +125,24 @@ export default {
 
   computed: {
     tabList () {
-      const channelTabs = {}
+      const tabs = []
+
       for (let id of this.activeChannels) {
         const state = this.channelState[id]
-        channelTabs[id] = {
+        tabs.push({
           type: 'channel',
           title: state.name,
           state: this.channelState[id]
-        }
+        })
       }
 
-      const privateTabs = {}
       for (let partner of this.activePrivateChats) {
-        privateTabs[partner] = {
+        tabs.push({
           type: 'private-chat',
           title: partner,
           state: this.privateChatState[partner]
-        }
+        })
       }
-
-      const tabs = Object.values(this.channelTabs = channelTabs)
-        .concat(Object.values(this.privateChatTabs = privateTabs))
 
       this.tabIndex = Math.min(Math.max(this.tabIndex, 0), tabs.length - 1)
 
@@ -180,6 +176,19 @@ export default {
         this.addNotice(`${sender.name}: ${message}`)
         document.querySelector('#sound-notify').currentTime = 0
         document.querySelector('#sound-notify').play()
+      }
+    },
+
+    'activeChannels.length' (current, prev) {
+      if (current > prev) {
+        const id = this.activeChannels[current - 1]
+        for (let index in this.tabList) {
+          const tab = this.tabList[index]
+          if (tab.type === 'channel' && tab.state.id === id) {
+            this.tabIndex = index
+            break
+          }
+        }
       }
     }
   }
