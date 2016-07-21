@@ -49,7 +49,7 @@ import MenuOverlay from './MenuOverlay.vue'
 import ChannelSelectOverlay from './ChannelSelectOverlay.vue'
 import CharacterSelectOverlay from './CharacterSelectOverlay.vue'
 import Loading from './LoadingOverlay.vue'
-import OnlineUsersOverlay from './OnlineUsersOverlay.vue'
+import CharacterBrowser from './CharacterBrowser.vue'
 import AboutOverlay from './AboutOverlay.vue'
 import CharacterActionOverlay from './CharacterActionOverlay.vue'
 import Notice from './Notice.vue'
@@ -66,7 +66,7 @@ export default {
     MenuOverlay,
     ChannelSelectOverlay,
     CharacterSelectOverlay,
-    OnlineUsersOverlay,
+    CharacterBrowser,
     AboutOverlay,
     CharacterActionOverlay,
     Loading,

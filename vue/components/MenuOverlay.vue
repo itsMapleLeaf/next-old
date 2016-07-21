@@ -10,7 +10,7 @@
 
     <nav slot="options">
       <menu-option icon='forum' @click="openOverlay('channel-select-overlay')">Channels</menu-option>
-      <menu-option icon='heart' @click="openOverlay('online-users-overlay')">Online Users</menu-option>
+      <menu-option icon='heart' @click="openOverlay('character-browser')">Online Users</menu-option>
       <menu-option icon='settings' @click="addNotice('This doesn\'t work yet.')">Settings</menu-option>
       <menu-option icon='account-switch' @click="switchCharacter">Switch Character</menu-option>
       <menu-option icon='logout' @click="logOut">Log Out</menu-option>
