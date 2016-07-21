@@ -16,7 +16,7 @@ function createWindow () {
 
   if (process.argv.includes('--dev')) {
     BrowserWindow.addDevToolsExtension(path.join(extensionFolder, vuejsExtensionID, vuejsExtensionVersion))
-    win.loadURL('http://localhost:8080')
+    win.loadURL('http://localhost:8080/dist')
     // win.webContents.openDevTools()
   } else {
     win.loadURL(`file://${index}`)

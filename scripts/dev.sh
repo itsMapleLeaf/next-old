@@ -1,3 +1,3 @@
-start webpack-dev-server --inline --hot
-start webpack -p --watch
-electron . --dev
+webpack-dev-server --inline --hot --progress &
+webpack -p --watch &
+electron electron/main.js --dev
