@@ -270,7 +270,7 @@ const mutations = {
 
   SetNewPrivateMessage (state, sender: CharacterName, message: string) {
     const char: Character = state.chat.getCharacter(sender)
-    state.chat.newPrivateMessage = new ChatMessage(char, message)
+    Vue.set(state.chat, 'newPrivateMessage', new ChatMessage(char, message, 'normal'))
   },
 
   SetLoadingMessage (state, message: string) {
