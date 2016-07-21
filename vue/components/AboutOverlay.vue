@@ -1,9 +1,7 @@
 <template>
   <overlay>
     <section>
-      <p><a class='ui-link' href='https://www.f-list.net/c/alexander%20grapevine/'>
-        <img src="https://static.f-list.net/images/avatar/alexander%20grapevine.png" />
-      </a></p>
+      <p><avatar character='Alexander Grapevine'></avatar></p>
       <p><dev-info></dev-info></p>
     </section>
   </overlay>
@@ -14,13 +12,11 @@ section { width: 16em }
 </style>
 
 <script>
+import Avatar from './CharacterAvatarLink.vue'
 import Overlay from './Overlay.vue'
 import DevInfo from './DevInfo.vue'
 
 export default {
-  components: {
-    DevInfo,
-    Overlay
-  }
+  components: {DevInfo, Overlay, Avatar}
 }
 </script>

@@ -14,7 +14,6 @@
       <menu-option icon='settings' @click="addNotice('This doesn\'t work yet.')">Settings</menu-option>
       <menu-option icon='account-switch' @click="switchCharacter">Switch Character</menu-option>
       <menu-option icon='logout' @click="logOut">Log Out</menu-option>
-      <menu-option icon='information' @click="openOverlay('about-overlay')">About</menu-option>
     </nav>
   </side-panel>
 </template>

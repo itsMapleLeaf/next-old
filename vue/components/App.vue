@@ -8,6 +8,11 @@
         {{note.text}}
       </notice>
     </div>
+    <div class='about-link' :class="{ hidden: overlays.includes('about-overlay') }">
+      <a href='#' class='ui-link' @click="pushOverlay('about-overlay')">
+        <i class='mdi mdi-information'></i>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -26,6 +31,18 @@ $spacing = 0.8em
 
 .notice-list .notice
   margin-bottom: $spacing
+
+.about-link
+  position: absolute; right: 0; bottom: 0
+  padding: 0.5em
+  transition: 0.3s opacity
+  opacity: 0.25
+
+  &:hover
+    opacity: 0.7
+
+  &.hidden
+    opacity: 0
 </style>
 
 <script>
