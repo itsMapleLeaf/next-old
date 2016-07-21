@@ -9,7 +9,7 @@
 - [ ] ability to post ads
 - [ ] a better character browser
 - [ ] responsive styling
-- [ ] browsible notification list, that and other ui panels will replace the console (probably only keep the last 50 or so)
+- [ ] browsable notification list, that and other ui panels will replace the console (probably only keep the last 50 or so)
 - [ ] notifications for friends/bookmarks coming online
 - [ ] some kind of tab notification for channel messages
 - [ ] cobble together some semblance of a settings menu

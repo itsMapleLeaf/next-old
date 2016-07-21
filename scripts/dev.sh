@@ -1,3 +1,3 @@
-start webpack-dev-server --inline --hot
-start webpack -p --watch
-electron . --dev
+start http://localhost:8080/dist
+webpack-dev-server --inline --hot --progress &
+webpack -p --watch

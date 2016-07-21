@@ -4,7 +4,7 @@
     <component v-for="overlay in overlays" :is='overlay'></component>
     <loading></loading>
     <div class='notice-list'>
-      <notice v-for='note in notes' @click='notes.$remove(note)' transition='fade'>
+      <notice v-for='note in notes' @click='notes.$remove(note)' transition='fade' track-by="$index">
         {{note.text}}
       </notice>
     </div>
@@ -88,7 +88,7 @@ export default {
       ticket: state => state.auth.ticket,
       character: state => state.user.character,
       activeChannels: state => state.chat.activeChannels,
-      newNotice: state => state.ui.newNotice
+      notices: state => state.ui.notices
     },
     actions: {
       pushOverlay,
@@ -107,6 +107,10 @@ export default {
 
       setCharacterFocus ({dispatch}, name) {
         dispatch('SetFocusedCharacter', name)
+      },
+
+      clearActiveChannels ({dispatch}) {
+        dispatch('ClearActiveChannels')
       }
     }
   },
@@ -195,8 +199,7 @@ export default {
       }
     },
 
-    addNotice (text) {
-      const note = { text }
+    addNotice (note) {
       this.notes.push(note)
       window.setTimeout(() => {
         this.notes.$remove(note)
@@ -217,6 +220,8 @@ export default {
           break
 
         case 'identified': {
+          this.clearActiveChannels()
+
           this.setLoadingMessage('')
           this.popOverlay()
           const data = getStorage()
@@ -237,12 +242,16 @@ export default {
       }
     },
 
-    newNotice ({text}) {
-      this.addNotice(text)
+    notices (list) {
+      this.addNotice(list[list.length - 1])
     },
 
     activeChannels (channels) {
       saveStorageKeys({ [`channels:${this.character}`]: channels })
+    },
+
+    character (name) {
+      document.title = `${name} | fchat-next`
     }
   }
 }

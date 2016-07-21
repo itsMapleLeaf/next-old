@@ -1,15 +1,10 @@
 {
   "name": "fchat-next",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A modernized responsive client for F-Chat",
   "repository": "https://github.com/Kingdaro/fchat",
   "author": "Kingdaro",
   "license": "MIT",
-  "scripts": {
-    "dev": "webpack-dev-server --inline --hot --progress",
-    "build": "webpack -p",
-    "start": "npm run build && electron app/electron/main.js"
-  },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.10.4",

@@ -60,7 +60,7 @@ export default {
       },
 
       addNotice ({dispatch}, text) {
-        dispatch('SetNewNotice', text)
+        dispatch('AddNewNotice', text)
       }
     }
   },
