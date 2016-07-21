@@ -15,10 +15,7 @@
             <i v-if="tab.state.id === tab.state.name" class='mdi mdi-earth'></i>
             <i v-else class='mdi mdi-key-variant'></i>
           </template>
-          <div v-if="tab.type === 'private-chat'"
-            class='tab-avatar'
-            :style="'background-image: url(' + getAvatarURL(tab.state.partner.name) + ')'">
-          </div>
+          <img v-if="tab.type === 'private-chat'" class='tab-avatar' :src="getAvatarURL(tab.state.partner.name)" />
         </span>
         <span v-html="tab.title"></span>
       </chat-tab>
@@ -44,7 +41,9 @@
 .tab-avatar {
   width: 1em;
   height: 1em;
-  background-size: contain;
+  display: inline-block;
+  position: relative;
+  top: 0.2em;
 }
 </style>
 
