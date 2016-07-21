@@ -6,10 +6,11 @@
       <shortcut title="Online Users" icon="heart" data-push-overlay="online-users-overlay"></shortcut>
 
       <chat-tab v-for="(index, tab) in tabList"
+        :title="tab.title"
         :active="index === tabIndex"
         @selected="tabIndex = index"
         @closed="closeTab(tab)">
-        <div class='tab-icon'>
+        <span class='tab-icon'>
           <template v-if="tab.type === 'channel'">
             <i v-if="tab.state.id === tab.state.name" class='mdi mdi-earth'></i>
             <i v-else class='mdi mdi-key-variant'></i>
@@ -18,7 +19,7 @@
             class='tab-avatar'
             :style="'background-image: url(' + getAvatarURL(tab.state.partner.name) + ')'">
           </div>
-        </div>
+        </span>
         <span v-html="tab.title"></span>
       </chat-tab>
     </nav>
@@ -37,7 +38,7 @@
 }
 
 .tab-icon {
-  margin-right: 0.3em;
+  margin-right: 0.2em;
 }
 
 .tab-avatar {

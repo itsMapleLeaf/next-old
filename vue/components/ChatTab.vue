@@ -1,8 +1,8 @@
 <template>
-  <a href='#' class='flex-row flex-center-children' :class="activeClasses" @click.self="$emit('selected')">
-    <div class='flex-center-children tab-content' :style="{ pointerEvents: 'none' }">
+  <a href='#' class='flex-row' :class="activeClasses" @click.self="$emit('selected')">
+    <span class='tab-content' :style="{ pointerEvents: 'none' }">
       <slot></slot>
-    </div>
+    </span>
     <div class='ui-press close-button' @click.prevent.stop="$emit('closed')">
       <i class="mdi mdi-close"></i>
     </div>
@@ -14,9 +14,8 @@ a {
   font-family: 'Roboto Condensed';
   width: 10em;
   justify-content: space-between;
+  align-items: center;
   cursor: default;
-  padding-left: 0.5em;
-  padding-right: 0.4em;
 }
 
 .inactive {
@@ -32,6 +31,7 @@ a:not(:last-child) {
 }
 
 .tab-content {
+  padding: 0 0.5em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -40,6 +40,7 @@ a:not(:last-child) {
 .close-button {
   opacity: 0.3;
   font-size: 0.7em;
+  padding: 0 0.4em;
 }
 
 .close-button:hover {
