@@ -230,19 +230,19 @@ export class Socket {
 
       // received list of public channels
       case 'CHA': {
-        const channels: ChannelInfo[] = params.channels.map(ch => {
+        const channels = params.channels.map(ch => {
           return new ChannelInfo(ch.name, ch.name, ch.characters)
         })
-        store.dispatch('SetPublicChannelList', channels)
+        store.dispatch('SetChannelList', 'public', channels)
         break
       }
 
       // received list of private channels
       case 'ORS': {
-        const channels: ChannelInfo[] = params.channels.map(ch => {
+        const channels = params.channels.map(ch => {
           return new ChannelInfo(ch.name, ch.title, ch.characters)
         })
-        store.dispatch('SetPrivateChannelList', channels)
+        store.dispatch('SetChannelList', 'private', channels)
         break
       }
 
