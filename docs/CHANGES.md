@@ -1,3 +1,12 @@
+# 0.5.0
+- Fixed scrolling not working in some cases
+
+# 0.4.1
+- Fixed joining duplicate channels in some cases
+- Fixed some silly transition-related graphical glitches
+- Fixed _some_ issues with notifications, still a little buggy...
+- The title bar now shows your current character's name
+
 # 0.4.0
 - Added a pretty loading screen
 - Shows your character's image on the character select screen

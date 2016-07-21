@@ -22,16 +22,14 @@ export default {
 
   data () {
     return {
-      scroll: 0,
-      scrollMax: 0
+      scrollToBottom: true
     }
   },
 
   methods: {
     onScroll () {
       const {container} = this.$els
-      this.scroll = container.scrollTop
-      this.scrollMax = container.scrollHeight - container.clientHeight
+      this.scrollToBottom = container.scrollHeight - container.scrollTop === container.clientHeight
     }
   },
 
@@ -42,18 +40,11 @@ export default {
   },
 
   watch: {
-    'messages' () {
-      const {container} = this.$els
-      const {scrollTop, scrollHeight, clientHeight} = container
-      const scroll = scrollTop
-      const scrollMax = scrollHeight - clientHeight
-
-      if (this.scroll === this.scrollMax) {
-        container.scrollTop = scrollMax
+    messages () {
+      if (this.scrollToBottom) {
+        const {container} = this.$els
+        container.scrollTop = container.scrollHeight
       }
-
-      this.scroll = scroll
-      this.scrollMax = scrollMax
     }
   }
 }

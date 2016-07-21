@@ -15,6 +15,8 @@
 - [ ] cobble together some semblance of a settings menu
 
 ## Onward
+- [ ] some resizable parts of the UI
+- [ ] an interface to view the description on a bigger page area
 - [ ] add a functional character menu
   - [ ] report (low priority)
   - [x] ignore
@@ -23,7 +25,6 @@
   - [x] bookmark
   - [x] show friendship status & reflect it in the options
   - [x] ~~add friend~~ accidentally adding someone will be awkward
-- [ ] add a messaging mode toggle for channels (to send LFRP ads)
 - [ ] default left click to open profile, right click to open character menu
 - [ ] settings menu
 - [ ] better link handling
