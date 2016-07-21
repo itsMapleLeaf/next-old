@@ -14,23 +14,19 @@
             <i v-if="tab.state.id === tab.state.name" class='mdi mdi-earth'></i>
             <i v-else class='mdi mdi-key-variant'></i>
           </template>
-          <div v-if="tab.type === 'private-chat'" class='tab-avatar' :style="'background-image: url(' + getAvatarURL(tab.partner.name) + ')'"></div>
+          <div v-if="tab.type === 'private-chat'"
+            class='tab-avatar'
+            :style="'background-image: url(' + getAvatarURL(tab.state.partner.name) + ')'">
+          </div>
         </div>
         <span v-html="tab.title"></span>
       </chat-tab>
     </nav>
 
-    <template v-if="activeTab">
-      <channel-view
-        v-if="activeTab.type === 'channel'"
-        :state='activeTab.state'>
-      </channel-view>
-      <private-chat-view
-        v-if="activeTab.type === 'private-chat'"
-        :messages='activeTab.messages'
-        :partner='activeTab.partner'>
-      </private-chat-view>
-    </template>
+    <component v-if="activeTab"
+      :is="activeTab.type + '-view'"
+      :state="activeTab.state">
+    </component>
   </div>
 </template>
 
@@ -105,12 +101,10 @@ export default {
 
   vuex: {
     getters: {
-      publicChannels: state => state.chat.publicChannels,
-      privateChannels: state => state.chat.privateChannels,
       activeChannels: state => state.chat.activeChannels,
       channelState: state => state.chat.channelState,
       activePrivateChats: state => state.chat.activePrivateChats,
-      privateMessages: state => state.chat.privateMessages,
+      privateChatState: state => state.chat.privateChatState,
       onlineCharacters: state => state.chat.characters,
       newPrivateMessage: state => state.chat.newPrivateMessage
     },
@@ -134,10 +128,10 @@ export default {
     tabList () {
       const channelTabs = {}
       for (let id of this.activeChannels) {
-        const info = this.publicChannels[id] || this.privateChannels[id]
+        const state = this.channelState[id]
         channelTabs[id] = {
           type: 'channel',
-          title: info.name,
+          title: state.name,
           state: this.channelState[id]
         }
       }
@@ -147,8 +141,7 @@ export default {
         privateTabs[partner] = {
           type: 'private-chat',
           title: partner,
-          messages: this.privateMessages[partner],
-          partner: this.onlineCharacters[partner]
+          state: this.privateChatState[partner]
         }
       }
 
@@ -166,7 +159,7 @@ export default {
 
     activePrivateChatPartner () {
       if (this.activeTab && this.activeTab.type === 'private-chat') {
-        return this.activeTab.partner.name
+        return this.activeTab.state.partner.name
       }
     }
   },
@@ -176,7 +169,7 @@ export default {
       if (tab.type === 'channel') {
         socket.leaveChannel(tab.state.id)
       } else if (tab.type === 'private-chat') {
-        this.closePrivateChat(tab.partner.name)
+        this.closePrivateChat(tab.state.partner.name)
       }
     }
   },

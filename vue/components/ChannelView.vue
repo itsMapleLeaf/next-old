@@ -111,9 +111,6 @@ export default {
 
   vuex: {
     getters: {
-      friends: state => state.chat.friends,
-      bookmarks: state => state.chat.bookmarks,
-      admins: state => state.chat.admins,
       onlineCharacters: state => state.chat.characters
     }
   },
@@ -128,15 +125,15 @@ export default {
 
   methods: {
     sortCharacters () {
-      const groups = groupSort(this.state.characters, ({name, status}) => {
+      const groups = groupSort(this.state.characters, (char) => {
         switch (true) {
-          case this.friends[name] != null:
+          case char.getFriends().length > 0:
             return 'friends'
-          case this.bookmarks[name]:
+          case char.isBookmarked():
             return 'bookmarks'
-          case this.admins[name]:
+          case char.isAdmin():
             return 'admins'
-          case status === 'looking':
+          case char.status === 'looking':
             return 'looking'
           default:
             return 'rest'

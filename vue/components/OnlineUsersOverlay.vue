@@ -85,8 +85,6 @@ export default {
 
   vuex: {
     getters: {
-      friends: state => state.chat.friends,
-      bookmarks: state => state.chat.bookmarks,
       characterList: state => Object.values(state.chat.characters)
     }
   },
@@ -99,9 +97,9 @@ export default {
     generateGroups () {
       const groups = groupSort(this.characterList, char => {
         switch (true) {
-          case this.friends[char.name] != null:
+          case char.getFriends().length > 0:
             return 'friends'
-          case this.bookmarks[char.name]:
+          case char.isBookmarked():
             return 'bookmarks'
           case char.status === 'looking':
             return 'looking'

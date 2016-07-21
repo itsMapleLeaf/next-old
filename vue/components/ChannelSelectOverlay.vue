@@ -92,8 +92,8 @@ export default {
 
   vuex: {
     getters: {
-      publicChannelMap: state => state.chat.publicChannels,
-      privateChannelMap: state => state.chat.privateChannels,
+      publicChannelMap: state => state.chat.channels.public,
+      privateChannelMap: state => state.chat.channels.private,
       activeChannels: state => state.chat.activeChannels
     },
     actions: {pushOverlay, popOverlay}

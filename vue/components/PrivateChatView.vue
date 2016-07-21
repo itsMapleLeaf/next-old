@@ -34,21 +34,20 @@ import Chatbox from './Chatbox.vue'
 import Character from './Character.vue'
 import ChatMessage from './ChatMessage.vue'
 import ChatMessageList from './ChatMessageList.vue'
-import CharacterType from '../types/Character'
+import PrivateChatState from '../types/PrivateChatState'
 import socket from '../modules/socket'
 import {bbcode} from '../modules/filters'
 
 export default {
-  components: {
-    Chatbox,
-    Character,
-    ChatMessage,
-    ChatMessageList
-  },
+  components: {Chatbox, Character, ChatMessage, ChatMessageList},
 
   props: {
-    partner: CharacterType,
-    messages: Array
+    state: PrivateChatState
+  },
+
+  computed: {
+    partner () { return this.state.partner },
+    messages () { return this.state.messages }
   },
 
   methods: {

@@ -303,7 +303,7 @@ export class Socket {
 
       // private message
       case 'PRI':
-        if (!store.state.chat.activePrivateChats[params.character]) {
+        if (!store.state.chat.activePrivateChats.includes(params.character)) {
           store.dispatch('AddActivePrivateChat', params.character)
         }
         store.dispatch('AddPrivateChatMessage', params.character, params.character, params.message)

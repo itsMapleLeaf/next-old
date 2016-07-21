@@ -91,9 +91,7 @@ export default {
       ticket: state => state.auth.ticket,
       character: state => state.user.character,
       activeChannels: state => state.chat.activeChannels,
-      newNotice: state => state.ui.newNotice,
-      joinedChannel: state => state.chat.joinedChannel,
-      leftChannel: state => state.chat.leftChannel
+      newNotice: state => state.ui.newNotice
     },
     actions: {
       pushOverlay,
@@ -237,24 +235,6 @@ export default {
     newNotice ({text}) {
       this.addNotice(text)
     }
-
-    // joinedChannel ({id}) {
-    //   const data = getStorage()
-    //   if (data) {
-    //     const channels = data[`channels:${this.character}`] || {}
-    //     channels[id] = true
-    //     saveStorageKeys({ [`channels:${this.character}`]: channels })
-    //   }
-    // },
-    //
-    // leftChannel ({id}) {
-    //   const data = getStorage()
-    //   if (data) {
-    //     const channels = data[`channels:${this.character}`]
-    //     delete channels[id]
-    //     saveStorageKeys({ [`channels:${this.character}`]: channels })
-    //   }
-    // }
   }
 }
 </script>
