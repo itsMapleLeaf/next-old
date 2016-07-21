@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 import {inspect} from 'util'
 import store from './vuex/store'
-import meta from './meta'
+import * as meta from './meta'
 
 import ChannelInfo from '../types/ChannelInfo'
 import type {Status} from '../types/Character'

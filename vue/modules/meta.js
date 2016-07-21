@@ -1,2 +1,2 @@
-import meta from '../../package.json'
-export default meta
+import appinfo from '../../package.json'
+export const {name, version} = appinfo

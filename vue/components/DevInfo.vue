@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import meta from '../modules/meta'
+import {version} from '../modules/meta'
 
 export default {
   data () {
-    return { version: meta.version }
+    return { version }
   }
 }
 </script>
