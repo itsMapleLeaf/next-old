@@ -4,7 +4,7 @@
     <component v-for="overlay in overlays" :is='overlay'></component>
     <loading></loading>
     <div class='notice-list'>
-      <notice v-for='note in notes' @click='notes.$remove(note)' transition='fade'>
+      <notice v-for='note in notes' @click='notes.$remove(note)' transition='fade' track-by="$index">
         {{note.text}}
       </notice>
     </div>
