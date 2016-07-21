@@ -8,8 +8,8 @@
         {{note.text}}
       </notice>
     </div>
-    <div class='about-link' :class="{ hidden: overlays.includes('about-overlay') }">
-      <a href='#' class='ui-link' @click="pushOverlay('about-overlay')">
+    <div class='about-link' v-if="!overlays.includes('about-overlay')" transition='fade'>
+      <a href='#' class='ui-press ui-hover' @click="!overlays.includes('about-overlay') && pushOverlay('about-overlay')">
         <i class='mdi mdi-information'></i>
       </a>
     </div>
@@ -35,14 +35,11 @@ $spacing = 0.8em
 .about-link
   position: absolute; right: 0; bottom: 0
   padding: 0.5em
-  transition: 0.3s opacity
-  opacity: 0.25
 
-  &:hover
-    opacity: 0.7
-
-  &.hidden
-    opacity: 0
+  a
+    opacity: 0.25
+    &:hover
+      opacity: 0.7
 </style>
 
 <script>
@@ -178,6 +175,14 @@ export default {
             }
             break
 
+          case 'data-join-channel':
+            socket.joinChannel(value)
+            break
+
+          case 'data-leave-channel':
+            socket.leaveChannel(value)
+            break
+
           case 'data-character-action':
             if (value !== this.character) {
               this.setCharacterFocus(value)
@@ -216,8 +221,8 @@ export default {
           this.popOverlay()
           const data = getStorage()
           const channels = data && data[`channels:${this.character}`]
-          if (channels) {
-            for (let id in channels) {
+          if (Array.isArray(channels)) {
+            for (let id of channels) {
               socket.joinChannel(id)
             }
           } else {
@@ -234,6 +239,10 @@ export default {
 
     newNotice ({text}) {
       this.addNotice(text)
+    },
+
+    activeChannels (channels) {
+      saveStorageKeys({ [`channels:${this.character}`]: channels })
     }
   }
 }
