@@ -1,23 +1,30 @@
 <template>
-  <a href='#' class='ui-color-main ui-border ui-raised' :data-character-action='character.name'>
+  <div class='card flex-row ui-color-main ui-border'>
     <div class='avatar ui-color-dark flex-fixed'>
       <img :src='avatarURL' />
     </div>
-    <div class='character-info flex-stretch'>
-      <h3 class='name flex-fixed ui-color-darker'>
-        {{character.name}}
-      </h3>
-      <small class='status flex-stretch'>
-        <span>{{character.status}}</span>
-        <span v-if='character.statusmsg' v-html="' - ' + character.statusmsg | bbcode"></span>
-      </small>
+    <div class='character-info flex-column flex-stretch'>
+      <h4 class='flex-fixed ui-color-darker'>
+        <div class='name flex-row' style='justify-content: space-between' :class='relationClass'>
+          <span>{{character.name}}</span>
+          <span v-if="iconClass"><i class='mdi' :class="iconClass"></i></span>
+        </div>
+      </h4>
+      <div class='status'>
+        <small>
+          <span>{{character.status}}</span>
+          <span v-if='character.statusMessage' v-html="' - ' + character.statusMessage | bbcode"></span>
+        </small>
+      </div>
     </div>
-  </a>
+  </div>
 </template>
 
-<style lang="stylus">
-a > *
-  pointer-events: none
+<style lang="stylus" scoped>
+.card
+  width: 16em
+  height: calc(100px + 1em)
+  display: flex
 
 .avatar
   padding: 0.5em
@@ -25,27 +32,21 @@ a > *
   img
     display: block
 
-.character-info
-  display: flex
-  flex-direction: column
-  word-wrap: break-word
-
-.name, .status
+.name span, .status
   padding: 0.3rem 0.6rem
 
-.name
+h4
   margin: 0
 
 .status
   overflow: hidden
-  text-overflow: ellipsis
-  overflow-wrap: break-word
   font-style: italic
 </style>
 
 <script>
 import Character from '../types/Character'
 import {getAvatarURL} from '../modules/flist'
+import {bbcode} from '../modules/filters'
 
 export default {
   props: {
@@ -55,7 +56,27 @@ export default {
   computed: {
     avatarURL () {
       return getAvatarURL(this.character.name)
+    },
+
+    relationClass () {
+      const char = this.character
+      if (char.isFriend()) {
+        return 'ui-highlight-green'
+      } else if (char.isBookmarked()) {
+        return 'ui-highlight-blue'
+      }
+      return ''
+    },
+
+    iconClass () {
+      const char = this.character
+      return {
+        'mdi-heart': char.isFriend(),
+        'mdi-star': char.isBookmarked()
+      }
     }
-  }
+  },
+
+  filters: {bbcode}
 }
 </script>

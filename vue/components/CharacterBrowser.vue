@@ -12,32 +12,33 @@
 <style lang="stylus" scoped>
 .container
   position: absolute
-  height: 100vh
   width: 100vw
-  padding-top: 1em
+  display: flex
+  flex-direction: column
+  align-items: center
 
 .character-list
+  padding: 0.4em
+  max-width: 70em
   display: flex
   flex-wrap: wrap
   justify-content: center
   align-items: flex-start
 
 .character
-  box-sizing: content-box
-  width: 15em
-  height: min-content
-  margin-right: 1em
-  margin-bottom: 1em
-  display: flex
+  margin: 0.4em
 </style>
 
 <script>
 import Overlay from './Overlay.vue'
 import Card from './CharacterBrowserCard.vue'
-import {bbcode} from '../modules/filters'
 import {groupSort, compareByField} from '../modules/common'
 
 const compareName = compareByField('name')
+
+function compareOnlineTime (a, b) {
+  return a.onlineSince - b.onlineSince
+}
 
 export default {
   components: {Overlay, Card},
@@ -53,7 +54,7 @@ export default {
       const characters = Object.values(this.characterMap)
       const sorted = groupSort(characters, char => {
         switch (true) {
-          case char.getFriends().length > 0: return 'friends'
+          case char.isFriend(): return 'friends'
           case char.isBookmarked(): return 'bookmarks'
           case char.status === 'looking': return 'looking'
           default: return 'rest'
@@ -62,14 +63,13 @@ export default {
 
       for (let group in sorted) {
         sorted[group] = sorted[group]
-          .slice(0, 200)
+          .sort(compareOnlineTime)
+          .slice(0, 150)
           .sort(compareName)
       }
 
       return sorted
     }
-  },
-
-  filters: {bbcode}
+  }
 }
 </script>

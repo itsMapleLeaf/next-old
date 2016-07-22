@@ -47,6 +47,10 @@ export default class Character {
       .map(entry => entry.you)
   }
 
+  isFriend (): boolean {
+    return this.state.chat.friends.find(entry => entry.them === this.name) != null
+  }
+
   isBookmarked (): boolean {
     return this.state.chat.bookmarks.includes(this.name)
   }
