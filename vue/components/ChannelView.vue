@@ -127,11 +127,11 @@ export default {
     sortCharacters () {
       const groups = groupSort(this.state.characters, (char) => {
         switch (true) {
-          case char.getFriends().length > 0:
+          case char.isFriend:
             return 'friends'
-          case char.isBookmarked():
+          case char.isBookmarked:
             return 'bookmarks'
-          case char.isAdmin():
+          case char.isAdmin:
             return 'admins'
           case char.status === 'looking':
             return 'looking'

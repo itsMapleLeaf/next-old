@@ -13,7 +13,7 @@
             </span>
           </em>
         </div>
-        <div class="ui-field ui-highlight-green friend" v-for="friend in character.getFriends()">
+        <div class="ui-field ui-highlight-green friend" v-for="friend in character.friends">
           <em><i class="mdi mdi-heart"></i> {{friend}}</em>
         </div>
       </form>
@@ -24,10 +24,10 @@
       <menu-option icon='message' @click='openPrivateChat'>Send Message</menu-option>
 
       <template v-if="!userCharacterList.includes(character.name)">
-        <menu-option icon='star-outline' v-if='!character.isBookmarked()' @click.prevent='toggleBookmark(character.name)'>Bookmark</menu-option>
+        <menu-option icon='star-outline' v-if='!character.isBookmarked' @click.prevent='toggleBookmark(character.name)'>Bookmark</menu-option>
         <menu-option icon='star' v-else @click.prevent='toggleBookmark(char.name)'>Unbookmark</menu-option>
 
-        <menu-option icon='minus-circle-outline' v-if='!character.isIgnored()' @click.prevent='toggleIgnored(character.name)'>Ignore</menu-option>
+        <menu-option icon='minus-circle-outline' v-if='!character.isIgnored' @click.prevent='toggleIgnored(character.name)'>Ignore</menu-option>
         <menu-option icon='minus-circle' v-else @click.prevent='toggleIgnored(character.name)'>Unignore</menu-option>
       </template>
     </div>

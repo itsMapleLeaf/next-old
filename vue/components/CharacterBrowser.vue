@@ -54,8 +54,8 @@ export default {
       const characters = Object.values(this.characterMap)
       const sorted = groupSort(characters, char => {
         switch (true) {
-          case char.isFriend(): return 'friends'
-          case char.isBookmarked(): return 'bookmarks'
+          case char.isFriend: return 'friends'
+          case char.isBookmarked: return 'bookmarks'
           case char.status === 'looking': return 'looking'
           default: return 'rest'
         }

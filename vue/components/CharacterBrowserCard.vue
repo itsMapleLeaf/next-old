@@ -60,9 +60,9 @@ export default {
 
     relationClass () {
       const char = this.character
-      if (char.isFriend()) {
+      if (char.isFriend) {
         return 'ui-highlight-green'
-      } else if (char.isBookmarked()) {
+      } else if (char.isBookmarked) {
         return 'ui-highlight-blue'
       }
       return ''
@@ -71,8 +71,8 @@ export default {
     iconClass () {
       const char = this.character
       return {
-        'mdi-heart': char.isFriend(),
-        'mdi-star': char.isBookmarked()
+        'mdi-heart': char.isFriend,
+        'mdi-star': char.isBookmarked
       }
     }
   },

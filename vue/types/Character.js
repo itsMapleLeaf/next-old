@@ -41,25 +41,25 @@ export default class Character {
     this.statusMessage = message
   }
 
-  getFriends (): CharacterName[] {
+  get friends (): CharacterName[] {
     return this.state.chat.friends
       .filter(entry => entry.them === this.name)
       .map(entry => entry.you)
   }
 
-  isFriend (): boolean {
+  get isFriend (): boolean {
     return this.state.chat.friends.find(entry => entry.them === this.name) != null
   }
 
-  isBookmarked (): boolean {
+  get isBookmarked (): boolean {
     return this.state.chat.bookmarks.includes(this.name)
   }
 
-  isIgnored (): boolean {
+  get isIgnored (): boolean {
     return this.state.chat.ignored.includes(this.name)
   }
 
-  isAdmin (): boolean {
+  get isAdmin (): boolean {
     return this.state.chat.admins.includes(this.name)
   }
 }
