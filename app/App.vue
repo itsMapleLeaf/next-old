@@ -1,15 +1,13 @@
 <template>
-  <div>
-    {{msg}}
-  </div>
+  <chat></chat>
 </template>
 
 <style lang="stylus" src="./styles.styl"></style>
 
 <script>
+import Chat from './Chat.vue'
+
 export default {
-  data () {
-    return { msg: 'Hello, world' }
-  }
+  components: {Chat}
 }
 </script>

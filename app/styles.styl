@@ -1,3 +1,15 @@
+$colors = {
+  text: hsl(205, 30%, 90%)
+
+  main: hsl(210, 50%, 30%)
+  dark: hsl(211, 50%, 23%)
+  light: lighten(hsl(210, 50%, 30%), 20%)
+
+  red: rgb(231, 76, 60)
+  blue: rgb(52, 152, 219)
+  green: rgb(39, 174, 96)
+}
+
 // reset
 *
   box-sizing: border-box
@@ -15,15 +27,55 @@
 .ui-font-light
   font-weight: 300
 
+.ui-font-color
+  color: $colors.text
+
 .ui-text
-  @extend .ui-font-primary
-  @extend .ui-font-size
+  @extend .ui-font-primary, .ui-font-size, .ui-font-color
 
 for $h in 1..6
   .ui-header-{$h}
-    @extend .ui-font-secondary, .ui-font-light
+    @extend .ui-text, .ui-font-secondary
     font-size: 200% - ($h * 20)%
     margin: 1rem 0
+
+// coloring
+.ui-color-main { background-color: $colors.main }
+.ui-color-dark { background-color: $colors.dark }
+.ui-color-darker { background-color: darken($colors.dark, 25%) }
+.ui-color-light { background-color: $colors.light }
+.ui-color-lighter { background-color: lighten($colors.light, 20%) }
+
+// layout
+.ui-fullscreen
+  position: absolute
+  left: 0
+  right: 0
+  max-height: 100vh
+
+for n in 1..5
+  .ui-width-{n}
+    width: 2rem * n
+
+  .ui-height-{n}
+    height: 2rem * n
+
+.ui-scroll-y
+  overflow-y: auto
+
+// flexbox
+.flex
+  display: flex
+
+.flex-column
+  @extend .flex
+  flex-direction: column
+
+.flex-grow
+  flex-grow: 1
+
+.flex-fixed
+  flex-shrink: 0
 
 // root styles
 :root
