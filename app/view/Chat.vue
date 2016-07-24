@@ -4,14 +4,21 @@
       test description
     </description>
     <div class='flex-grow flex flex-align-stretch ui-divide-top'>
-      <messages class='flex-grow ui-scroll-y' :messages='messages'></messages>
+      <messages
+        class='flex-grow ui-scroll-y'
+        :messages='messages'>
+      </messages>
       <users
         class='ui-desktop flex-fixed ui-width-5 ui-color-main ui-scroll-y ui-divide-left'
         :users='users'>
       </users>
     </div>
     <chatbox class='flex-fixed ui-color-main ui-height-2 ui-divide-top'></chatbox>
-    <users v-if='showUserList' class='ui-mobile ui-width-5 ui-scroll-y ui-color-main ui-anchor-right ui-shadow' :users='users'></users>
+    <users
+      v-if='showUserList'
+      class='ui-mobile ui-width-5 ui-scroll-y ui-color-main ui-anchor-right ui-shadow'
+      :users='users'>
+    </users>
   </div>
 </template>
 
