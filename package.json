@@ -38,12 +38,14 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "vue": "^1.0.26",
+    "vue": "^2.0.0-beta.3",
     "vue-resource": "^0.8.0",
     "vuex": "^1.0.0-rc.2"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   },
   "eslintConfig": {
     "parser": "babel-eslint",

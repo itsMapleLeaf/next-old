@@ -1,6 +1,6 @@
 <template>
-  <div class='ui-fullscreen flex'>
-    <menu class='flex-fixed ui-width-5'></menu>
+  <div class='flex-grow flex ui-fullscreen'>
+    <menu class='flex-fixed ui-width-5 ui-desktop'></menu>
     <chat class='flex-grow'></chat>
   </div>
 </template>
