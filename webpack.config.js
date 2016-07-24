@@ -2,10 +2,10 @@ const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
-  entry: './vue/main.js',
+  entry: './app/main.js',
   output: {
-    publicPath: '/dist/build/',
-    path: path.join(__dirname, 'dist/build'),
+    publicPath: 'dist',
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   module: {
@@ -32,5 +32,5 @@ module.exports = {
       }
     })
   ],
-  devtool: '#eval-source-map'
+  devtool: 'source-map'
 }

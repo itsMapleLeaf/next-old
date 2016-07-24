@@ -1,0 +1,34 @@
+// reset
+*
+  box-sizing: border-box
+
+// typography
+.ui-font-primary
+  font-family: 'Roboto', sans-serif
+
+.ui-font-secondary
+  font-family: 'Roboto Condensed', sans-serif
+
+.ui-font-size
+  font-size: 14pt
+
+.ui-font-light
+  font-weight: 300
+
+.ui-text
+  @extend .ui-font-primary
+  @extend .ui-font-size
+
+for $h in 1..6
+  .ui-header-{$h}
+    @extend .ui-font-secondary, .ui-font-light
+    font-size: 200% - ($h * 20)%
+    margin: 1rem 0
+
+// root styles
+:root
+  @extend .ui-text
+
+for $h in 1..6
+  h{$h}
+    @extend .ui-header-{$h}
