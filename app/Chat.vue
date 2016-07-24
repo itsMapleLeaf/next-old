@@ -1,15 +1,14 @@
 <template>
-  <div class='chat ui-fullscreen ui-color-dark flex-column'>
-    <tabs class='flex-fixed ui-height-1' :tabs='tabs' :active='1'></tabs>
+  <div class='chat ui-color-dark flex-column'>
     <description class='flex-fixed ui-color-main ui-height-2 ui-desktop'>
       test description
     </description>
     <div class='flex-grow flex flex-align-stretch ui-divide-top'>
       <messages class='flex-grow ui-scroll-y' :messages='messages'></messages>
-      <users class='ui-desktop flex-fixed ui-width-3 ui-color-main ui-scroll-y ui-divide-left' :users='users'></users>
+      <users class='ui-desktop flex-fixed ui-width-5 ui-color-main ui-scroll-y ui-divide-left' :users='users'></users>
     </div>
     <chatbox class='flex-fixed ui-color-main ui-height-2 ui-divide-top'></chatbox>
-    <users v-if='showUserList' class='ui-mobile ui-width-3 ui-scroll-y ui-color-main ui-anchor-right ui-shadow' :users='users'></users>
+    <users v-if='showUserList' class='ui-mobile ui-width-5 ui-scroll-y ui-color-main ui-anchor-right ui-shadow' :users='users'></users>
   </div>
 </template>
 
@@ -18,10 +17,9 @@ import Description from './RoomDescription.vue'
 import Users from './UserList.vue'
 import Messages from './MessageList.vue'
 import Chatbox from './Chatbox.vue'
-import Tabs from './RoomTabs.vue'
 
 export default {
-  components: {Description, Users, Messages, Chatbox, Tabs},
+  components: {Description, Users, Messages, Chatbox},
 
   data () {
     return {

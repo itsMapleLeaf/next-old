@@ -35,9 +35,9 @@ $colors = {
 
 for $h in 1..6
   .ui-header-{$h}
-    @extend .ui-text, .ui-font-secondary
-    font-size: 200% - ($h * 20)%
-    margin: 1rem 0
+    @extend .ui-text, .ui-font-secondary, .ui-font-light
+    // font-size: 200% - ($h * 20)%
+    margin: 0
 
 // coloring & styling
 .ui-color-main { background-color: $colors.main }
@@ -59,10 +59,10 @@ for $h in 1..6
 
 for n in 1..6
   .ui-width-{n}
-    width: 3rem * n
+    width: 2rem * n
 
   .ui-max-width-{n}
-    max-width: 3rem * n
+    max-width: 2rem * n
 
   .ui-height-{n}
     height: 2rem * n
@@ -71,7 +71,7 @@ for n in 1..6
     max-height: 2rem * n
 
   .ui-padding-{n}
-    padding: (0.15rem * n) 0.5rem
+    padding: (0.15rem * n) 0.6rem
 
 .ui-scroll-y
   overflow-y: auto
