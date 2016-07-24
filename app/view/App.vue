@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<style lang="stylus" src="./styles.styl"></style>
+<style lang="stylus" src="../styles.styl"></style>
 
 <script>
 import Chat from './Chat.vue'

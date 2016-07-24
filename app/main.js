@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import App from './App.vue'
+import App from './view/App.vue'
 // import store from './modules/vuex/store'
 
 Vue.config.debug = true
