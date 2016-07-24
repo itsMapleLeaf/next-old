@@ -39,12 +39,15 @@ for $h in 1..6
     font-size: 200% - ($h * 20)%
     margin: 1rem 0
 
-// coloring
+// coloring & styling
 .ui-color-main { background-color: $colors.main }
 .ui-color-dark { background-color: $colors.dark }
 .ui-color-darker { background-color: darken($colors.dark, 25%) }
 .ui-color-light { background-color: $colors.light }
 .ui-color-lighter { background-color: lighten($colors.light, 20%) }
+
+.ui-shadow
+  box-shadow: 0px 2px 8px rgba(black, 0.3)
 
 // layout
 .ui-fullscreen
@@ -54,16 +57,46 @@ for $h in 1..6
   top: 0
   bottom: 0
 
-for n in 1..5
+for n in 1..6
   .ui-width-{n}
     width: 3rem * n
+
+  .ui-max-width-{n}
+    max-width: 3rem * n
 
   .ui-height-{n}
     height: 2rem * n
 
+  .ui-height-{n}
+    max-height: 2rem * n
+
+  .ui-padding-{n}
+    padding: (0.15rem * n) 0.5rem
+
 .ui-scroll-y
   overflow-y: auto
-  min-height: 0
+
+.ui-block
+  display: block
+
+for side in (top right bottom left)
+  .ui-divide-{side}
+    margin-{side}: 4px
+
+.ui-anchor-right
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+
+// responsive styles
+@media (max-width: 750px)
+  .ui-desktop
+    display: none
+
+@media (min-width: 750px)
+  .ui-mobile
+    display: none
 
 // flexbox
 .flex
@@ -84,6 +117,35 @@ for n in 1..5
 :root
   @extend .ui-text
 
+a
+  color: inherit
+  text-decoration: none
+
+button, input, textarea
+  border: none
+  color: inherit
+  background: transparent
+
+textarea
+  resize: none
+
 for $h in 1..6
   h{$h}
     @extend .ui-header-{$h}
+
+// scrollbar styles
+::-webkit-scrollbar
+  width: 8px
+  height: 8px
+
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner
+  background-color: darken($colors.dark, 20%)
+
+::-webkit-scrollbar-thumb
+  background-color: $colors.light
+
+::-webkit-scrollbar-button
+  display: none
+
+::selection
+  background: rgba(black, 0.3)

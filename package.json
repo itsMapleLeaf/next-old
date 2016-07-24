@@ -43,23 +43,7 @@
     "vuex": "^1.0.0-rc.2"
   },
   "babel": {
-    "presets": [
-      "es2015",
-      "stage-1"
-    ],
-    "plugins": [
-      [
-        "typecheck",
-        {
-          "disable": {
-            "production": true
-          }
-        }
-      ],
-      "syntax-flow",
-      "transform-flow-strip-types",
-      "transform-runtime"
-    ]
+    "presets": ["es2015"]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
