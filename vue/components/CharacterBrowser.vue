@@ -1,10 +1,10 @@
 <template>
   <div class='container ui-overlay-shade ui-scroll' transition='fade'>
     <div class='character-list'>
-      <card v-for='char in groups.friends' class='character' :character='char'></card>
-      <card v-for='char in groups.bookmarks' class='character' :character='char'></card>
-      <card v-for='char in groups.looking' class='character' :character='char'></card>
-      <card v-for='char in groups.rest' class='character' :character='char'></card>
+      <card v-for='char in groups.friends || []' class='character' :character='char'></card>
+      <card v-for='char in groups.bookmarks || []' class='character' :character='char'></card>
+      <card v-for='char in groups.looking || []' class='character' :character='char'></card>
+      <card v-for='char in groups.rest || []' class='character' :character='char'></card>
     </div>
   </div>
 </template>
@@ -49,8 +49,16 @@ export default {
     }
   },
 
-  computed: {
-    groups () {
+  data () {
+    return { groups: {} }
+  },
+
+  ready () {
+    this.groups = this.createGroups()
+  },
+
+  methods: {
+    createGroups () {
       const characters = Object.values(this.characterMap)
       const sorted = groupSort(characters, char => {
         switch (true) {

@@ -2,7 +2,7 @@
   <overlay>
     <section>
       <p><avatar character='Alexander Grapevine'></avatar></p>
-      <p><dev-info></dev-info></p>
+      <dev-info></dev-info>
     </section>
   </overlay>
 </template>

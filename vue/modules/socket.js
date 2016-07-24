@@ -266,7 +266,7 @@ export class Socket {
       case 'JCH': {
         const name: CharacterName = params.character.identity
         if (name === store.state.user.character) {
-          store.dispatch('AddActiveChannel', params.channel, params.title)
+          store.dispatch('AddChannelChat', params.channel, params.title)
         }
         store.dispatch('AddChannelCharacter', params.channel, name)
         break
@@ -275,36 +275,34 @@ export class Socket {
       // user left a channel (could be us)
       case 'LCH':
         if (params.character === store.state.user.character) {
-          store.dispatch('RemoveActiveChannel', params.channel)
+          store.dispatch('RemoveChannelChat', params.channel)
         } else {
           store.dispatch('RemoveChannelCharacter', params.channel, params.character)
         }
         break
 
       // channel message
-      case 'MSG': {
+      case 'MSG':
         store.dispatch('AddChannelMessage',
           params.channel,
           params.character,
           params.message,
           'normal')
         break
-      }
 
       // LFRP channel message
-      case 'LRP': {
+      case 'LRP':
         store.dispatch('AddChannelMessage',
           params.channel,
           params.character,
           params.message,
           'lfrp')
         break
-      }
 
       // private message
       case 'PRI':
-        if (!store.state.chat.activePrivateChats.includes(params.character)) {
-          store.dispatch('AddActivePrivateChat', params.character)
+        if (!store.state.chat.activePrivateChats[params.character]) {
+          store.dispatch('AddPrivateChat', params.character)
         }
         store.dispatch('AddPrivateChatMessage', params.character, params.character, params.message)
         store.dispatch('SetNewPrivateMessage', params.character, params.message)

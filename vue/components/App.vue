@@ -17,14 +17,15 @@
 </template>
 
 <style lang="stylus" src="../styles/ui.styl"></style>
-<style lang="stylus" src="../styles/flex.styl"></style>
+<!-- <style lang="stylus" src="../styles/flex.styl"></style> -->
 <style lang="stylus" src="../styles/transitions.styl"></style>
+<style lang="stylus" src="../styles/user-colors.styl"></style>
 
 <style lang="stylus" scoped>
 $spacing = 0.8em
 
 .notice-list
-  position: fixed
+  position: absolute
   right: 0
   bottom: 4em
   margin-right: $spacing
@@ -172,7 +173,7 @@ export default {
             break
 
           case 'data-toggle-channel':
-            if (!this.activeChannels.includes(value)) {
+            if (this.activeChannels[value] == null) {
               socket.joinChannel(value)
             } else {
               socket.leaveChannel(value)
@@ -247,7 +248,7 @@ export default {
     },
 
     activeChannels (channels) {
-      saveStorageKeys({ [`channels:${this.character}`]: channels })
+      saveStorageKeys({ [`channels:${this.character}`]: Object.keys(channels) })
     },
 
     character (name) {

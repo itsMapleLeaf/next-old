@@ -15,6 +15,7 @@ type ChannelID = string
 type ServerVariable = number | string | string[]
 type CharacterBatchEntry = [CharacterName, Gender, Status, string]
 type Notice = { text: string }
+type Chat = ChannelState | PrivateChatState
 
 type ConnectionState
   = 'offline'
@@ -49,11 +50,9 @@ class ChatState {
     private: []
   }
 
-  activeChannels: ChannelID[] = []
-  activePrivateChats: CharacterName[] = []
-
-  channelState: { [id: ChannelID]: ChannelState } = {}
-  privateChatState: { [id: ChannelID]: PrivateChatState } = {}
+  activeChats: Chat[] = []
+  activeChannels: { [id: ChannelID]: ChannelState } = {}
+  activePrivateChats: { [partner: CharacterName]: PrivateChatState } = {}
 
   newPrivateMessage: ChatMessage
 
@@ -79,7 +78,6 @@ class UIState {
   loadingMessage: string = ''
 }
 
-// TODO: reinstate usage of PrivateChatState
 const state = {
   auth: new AuthState(),
   user: new UserState(),
@@ -166,7 +164,7 @@ const mutations = {
   RemoveCharacter (state, name: CharacterName) {
     const char = state.chat.characters[name]
     state.chat.removeCharacter(name)
-    for (let channel of Object.values(state.chat.channelState)) {
+    for (let channel of Object.values(state.chat.activeChannels)) {
       channel.characters.$remove(char)
     }
   },
@@ -184,18 +182,16 @@ const mutations = {
     Vue.set(state.chat.channels, which, channels)
   },
 
-  ClearActiveChannels (state) {
-    state.chat.activeChannels = []
+  AddChannelChat (state, id: ChannelID, name: string) {
+    const {activeChannels} = state.chat
+    if (!activeChannels[id]) {
+      Vue.set(activeChannels, id, new ChannelState(id, name))
+    }
+    state.chat.activeChats.push(activeChannels[id])
   },
 
-  AddActiveChannel (state, id: ChannelID, name: string) {
-    state.chat.activeChannels.push(id)
-    // TODO: preserve logs from previous channel state if any were found
-    Vue.set(state.chat.channelState, id, new ChannelState(id, name))
-  },
-
-  RemoveActiveChannel (state, id: ChannelID) {
-    state.chat.activeChannels.$remove(id)
+  RemoveChannelChat (state, id: ChannelID) {
+    state.chat.activeChats.$remove(state.chat.activeChannels[id])
   },
 
   SetChannelCharacterList (state, id: ChannelID, characters: CharacterName[]) {
@@ -203,7 +199,7 @@ const mutations = {
       .map(name => state.chat.characters[name])
       .filter(char => char != null)
 
-    state.chat.channelState[id].characters = charlist
+    state.chat.activeChannels[id].characters = charlist
   },
 
   // SetChannelMode (state, id: ChannelID, mode: ChannelMode) {
@@ -211,45 +207,40 @@ const mutations = {
   // },
 
   SetChannelDescription (state, id: ChannelID, description: string) {
-    state.chat.channelState[id].description = description
+    state.chat.activeChannels[id].description = description
   },
 
   AddChannelCharacter (state, id: ChannelID, name: CharacterName) {
     const char = state.chat.characters[name]
-    state.chat.channelState[id].characters.push(char)
+    state.chat.activeChannels[id].characters.push(char)
   },
 
   RemoveChannelCharacter (state, id: ChannelID, name: CharacterName) {
     const char = state.chat.characters[name]
-    state.chat.channelState[id].characters.$remove(char)
+    state.chat.activeChannels[id].characters.$remove(char)
   },
 
   AddChannelMessage (state, id: ChannelID, sender: CharacterName, text: string, type: MessageType) {
     const char = state.chat.characters[sender]
-    state.chat.channelState[id].addMessage(new ChatMessage(char, text, type))
+    state.chat.activeChannels[id].addMessage(new ChatMessage(char, text, type))
   },
 
-  AddActivePrivateChat (state, partner: CharacterName) {
-    const chats = state.chat.activePrivateChats
-    if (!chats.includes(partner)) {
-      chats.push(partner)
-      if (!state.chat.privateChatState[partner]) {
-        Vue.set(state.chat.privateChatState, partner, new PrivateChatState(state.chat.getCharacter(partner)))
-      }
+  AddPrivateChat (state, partner: CharacterName) {
+    const {activePrivateChats} = state.chat
+    if (!activePrivateChats[partner]) {
+      activePrivateChats[partner] = new PrivateChatState(partner)
     }
+    state.chat.activeChats.push(activePrivateChats[partner])
   },
 
-  RemoveActivePrivateChat (state, partner: CharacterName) {
-    state.chat.activePrivateChats.$remove(partner)
+  RemovePrivateChat (state, partner: CharacterName) {
+    state.chat.activeChats.$remove(state.chat.activePrivateChats[partner])
   },
 
   AddPrivateChatMessage (state, partner: CharacterName, sender: CharacterName, text: string) {
     const char = state.chat.characters[sender]
     const message = new ChatMessage(char, text, 'normal')
-    if (!state.chat.privateChatState[partner]) {
-      Vue.set(state.chat.privateChatState, partner, new PrivateChatState(state.chat.getCharacter(partner)))
-    }
-    state.chat.privateChatState[partner].messages.push(message)
+    state.chat.activePrivateChats[partner].messages.push(message)
   },
 
   PushOverlay (state, overlay: string) {
@@ -261,7 +252,7 @@ const mutations = {
   },
 
   AddNewNotice (state, text: string) {
-    const notices = state.ui.notices
+    const {notices} = state.ui
     notices.push({ text })
     if (notices.length > 50) {
       notices.shift()

@@ -5,7 +5,7 @@
       <shortcut title="Channels" icon="forum" data-push-overlay="channel-select-overlay"></shortcut>
       <shortcut title="Online Users" icon="heart" data-push-overlay="character-browser"></shortcut>
 
-      <chat-tab v-for="(index, tab) in tabList"
+      <!-- <chat-tab v-for="(index, tab) in tabList"
         :title="tab.title"
         :active="index === tabIndex"
         @selected="tabIndex = index"
@@ -18,13 +18,17 @@
           <img v-if="tab.type === 'private-chat'" class='tab-avatar' :src="getAvatarURL(tab.state.partner.name)" />
         </span>
         <span v-html="tab.title"></span>
+      </chat-tab> -->
+
+      <chat-tab v-for="chat in activeChats">
+        {{ tabTitle(chat) }}
       </chat-tab>
     </nav>
 
-    <component v-if="activeTab"
+    <!-- <component v-if="activeTab"
       :is="activeTab.type + '-view'"
       :state="activeTab.state">
-    </component>
+    </component> -->
   </div>
 </template>
 
@@ -99,8 +103,8 @@ export default {
 
   vuex: {
     getters: {
+      activeChats: state => state.chat.activeChats,
       activeChannels: state => state.chat.activeChannels,
-      channelState: state => state.chat.channelState,
       activePrivateChats: state => state.chat.activePrivateChats,
       privateChatState: state => state.chat.privateChatState,
       onlineCharacters: state => state.chat.characters,
@@ -123,50 +127,28 @@ export default {
   },
 
   computed: {
-    tabList () {
-      const tabs = []
-
-      for (let id of this.activeChannels) {
-        const state = this.channelState[id]
-        tabs.push({
-          type: 'channel',
-          title: state.name,
-          state: this.channelState[id]
-        })
-      }
-
-      for (let partner of this.activePrivateChats) {
-        tabs.push({
-          type: 'private-chat',
-          title: partner,
-          state: this.privateChatState[partner]
-        })
-      }
-
-      this.tabIndex = Math.min(Math.max(this.tabIndex, 0), tabs.length - 1)
-
-      return tabs
-    },
-
-    activeTab () {
-      return this.tabList[this.tabIndex]
-    },
-
-    activePrivateChatPartner () {
-      if (this.activeTab && this.activeTab.type === 'private-chat') {
-        return this.activeTab.state.partner.name
-      }
-    }
+    // activeTab () {
+    //   return this.tabList[this.tabIndex]
+    // },
+    //
+    // activePrivateChatPartner () {
+    //   if (this.activeTab && this.activeTab.type === 'private-chat') {
+    //     return this.activeTab.state.partner.name
+    //   }
+    // }
   },
 
   methods: {
-    closeTab (tab) {
-      if (tab.type === 'channel') {
-        socket.leaveChannel(tab.state.id)
-      } else if (tab.type === 'private-chat') {
-        this.closePrivateChat(tab.state.partner.name)
-      }
+    tabTitle (chat) {
+      return chat.name || chat.partner.name
     }
+    // closeTab (tab) {
+    //   if (tab.type === 'channel') {
+    //     socket.leaveChannel(tab.state.id)
+    //   } else if (tab.type === 'private-chat') {
+    //     this.closePrivateChat(tab.state.partner.name)
+    //   }
+    // }
   },
 
   watch: {
@@ -176,20 +158,20 @@ export default {
         document.querySelector('#sound-notify').currentTime = 0
         document.querySelector('#sound-notify').play()
       }
-    },
-
-    'activeChannels.length' (current, prev) {
-      if (current > prev) {
-        const id = this.activeChannels[current - 1]
-        for (let index in this.tabList) {
-          const tab = this.tabList[index]
-          if (tab.type === 'channel' && tab.state.id === id) {
-            this.tabIndex = index
-            break
-          }
-        }
-      }
     }
+
+    // 'activeChats.length' (current, prev) {
+    //   if (current > prev) {
+    //     const id = this.activeChannels[current - 1]
+    //     for (let index in this.tabList) {
+    //       const tab = this.tabList[index]
+    //       if (tab.type === 'channel' && tab.state.id === id) {
+    //         this.tabIndex = index
+    //         break
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
 </script>

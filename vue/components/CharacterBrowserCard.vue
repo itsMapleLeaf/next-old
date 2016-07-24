@@ -1,19 +1,34 @@
 <template>
-  <div class='card flex-row ui-color-main ui-border'>
-    <div class='avatar ui-color-dark flex-fixed'>
-      <img :src='avatarURL' />
+  <div class='col-3 flex ui-color-main ui-border'>
+    <!-- avatar -->
+    <div class='ui-color-dark ui-cursor-pointer ui-padding-square'>
+      <img class='block' :src='avatarURL' :data-character-action='character.name' />
     </div>
-    <div class='character-info flex-column flex-stretch'>
-      <h4 class='flex-fixed ui-color-darker'>
-        <div class='name flex-row' style='justify-content: space-between' :class='relationClass'>
-          <span>{{character.name}}</span>
-          <span v-if="iconClass"><i class='mdi' :class="iconClass"></i></span>
+
+    <div class='flex-auto flex flex-column'>
+      <!-- name -->
+      <div class='ui-color-darker'> <!-- darker background -->
+        <div :class='relationClass'>
+          <a class='ui-ellipsis' href='#' :data-character-action='character.name'>
+            {{character.name}}
+          </a>
+          <span>
+            <i class='mdi mdi-heart' v-if="character.isFriend"></i>
+            <i class='mdi mdi-star' v-if="character.isBookmarked"></i>
+          </span>
         </div>
-      </h4>
-      <div class='status'>
+      </div>
+
+      <!-- status -->
+      <div class='table-row ui-scroll'>
         <small>
-          <span>{{character.status}}</span>
-          <span v-if='character.statusMessage' v-html="' - ' + character.statusMessage | bbcode"></span>
+          <span class='status-color' :class="character.status.toLowerCase()">
+            {{character.status}}
+          </span>
+          <span
+            v-if='character.statusMessage'
+            v-html="' - ' + character.statusMessage | bbcode">
+          </span>
         </small>
       </div>
     </div>
@@ -21,26 +36,6 @@
 </template>
 
 <style lang="stylus" scoped>
-.card
-  width: 16em
-  height: calc(100px + 1em)
-  display: flex
-
-.avatar
-  padding: 0.5em
-
-  img
-    display: block
-
-.name span, .status
-  padding: 0.3rem 0.6rem
-
-h4
-  margin: 0
-
-.status
-  overflow: hidden
-  font-style: italic
 </style>
 
 <script>

@@ -15,7 +15,7 @@ $colors = {
 
 // helpers
 .ui-fullscreen
-  position: fixed
+  position: absolute
   left: 0
   top: 0
   right: 0
@@ -27,6 +27,9 @@ $colors = {
 .ui-no-select
   user-select: none
 
+.ui-cursor-pointer
+  cursor: pointer
+
 // typography
 .ui-font
   font: 14pt 'Roboto', sans-serif
@@ -36,6 +39,11 @@ $colors = {
 
 .ui-text
   @extend .ui-text-color, .ui-font
+
+.ui-ellipsis
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
 
 // color and highlight styles
 .ui-color-main { background-color: $colors.main }
@@ -50,13 +58,24 @@ for $color-name in ('red' 'green' 'blue')
     background-color: rgba($color, 0.25)
     color: lighten($color, 20%)
 
+// layout
+for $n in 1..6
+  .ui-padding-{$n}
+    padding: (0.15rem * $n) (0.3rem * $n)
+
+  .ui-width-{$n}
+    width: (3rem * $n)
+
+  .ui-height-{$n}
+    height: (2rem * $n)
+
+  .ui-min-width-{$n}
+    min-width: (3rem * $n)
+
 // complimentary / additive composition styling
 .ui-border
   border: none
   border-bottom: 3px solid $colors.light
-
-.ui-padding-regular
-  padding: 0.4em 0.75em
 
 .ui-header
   font-family: 'Roboto Condensed', sans-serif
@@ -114,7 +133,7 @@ for $color-name in ('red' 'green' 'blue')
   margin-bottom: 1em
 
 .ui-input-static
-  @extend .ui-padding-regular
+  @extend .ui-padding-2
   color: inherit
   font-family: inherit
   font-size: 0.9em
@@ -128,10 +147,8 @@ for $color-name in ('red' 'green' 'blue')
   width: 100%
 
 .ui-button
-  @extend .ui-input-static, .ui-press-inline, .ui-color-dark, .ui-rounded
+  @extend .ui-input-static, .ui-press-inline, .ui-color-dark, .ui-rounded, .ui-min-width-1
   border: none
-  padding-left: 1.5em
-  padding-right: 1.5em
   cursor: pointer
 
 .ui-overlay
@@ -153,7 +170,7 @@ for $color-name in ('red' 'green' 'blue')
 for $side in ('left' 'right')
   .ui-overlay-panel-{$side}
     @extend .ui-overlay-panel
-    position: fixed
+    position: absolute
     top: 0
     bottom: 0
     {$side}: 0
@@ -163,16 +180,17 @@ for $side in ('left' 'right')
   position: relative
 
   .ui-icon
+    @extend .ui-padding-2
     position: absolute
-    left: 0.4em
-    top: 0.4em
+    top: 0
+    left: 0
     opacity: 0.5
     pointer-events: none
 
   input, textarea
     @extend .ui-input-static, .ui-color-dark, .ui-border
     width: 100%
-    padding-left: 1.8rem
+    padding-left: 2.1rem
 
 .ui-select
   @extend .ui-input, .ui-scroll

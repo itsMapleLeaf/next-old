@@ -6,12 +6,12 @@
         <div class='ui-select'>
           <!-- TODO: make these click on focus, to make switching through them possible w/ tab -->
           <a href='#' v-for='channel in publicChannels' :data-toggle-channel='channel.id'
-            :class="{ 'ui-highlight-green': activeChannels.includes(channel.id) }">
+            :class="{ 'ui-highlight-green': isChannelActive(channel.id) }">
             <span style='float: right'>{{channel.users}}</span>
             <span v-html='channel.name'></span>
           </a>
           <a href='#' v-for='channel in privateChannels' :data-toggle-channel='channel.id'
-            :class="{ 'ui-highlight-green': activeChannels.includes(channel.id) }">
+            :class="{ 'ui-highlight-green': isChannelActive(channel.id) }">
             <span style='float: right'>{{channel.users}}</span>
             <span v-html='channel.name'></span><br />
             <small style='opacity: 0.5; font-style: italic'>{{channel.id}}</small>
@@ -87,6 +87,10 @@ export default {
         list = list.slice(0, 300)
       }
       return list
+    },
+
+    isChannelActive (id) {
+      return this.activeChannels[id] != null
     }
   },
 
