@@ -51,17 +51,19 @@ for $h in 1..6
   position: absolute
   left: 0
   right: 0
-  max-height: 100vh
+  top: 0
+  bottom: 0
 
 for n in 1..5
   .ui-width-{n}
-    width: 2rem * n
+    width: 3rem * n
 
   .ui-height-{n}
     height: 2rem * n
 
 .ui-scroll-y
   overflow-y: auto
+  min-height: 0
 
 // flexbox
 .flex
@@ -73,6 +75,7 @@ for n in 1..5
 
 .flex-grow
   flex-grow: 1
+  min-height: 0
 
 .flex-fixed
   flex-shrink: 0
