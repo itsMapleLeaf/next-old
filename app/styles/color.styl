@@ -19,3 +19,9 @@ $colors = {
 .color-dark-hover
   &:hover
     @extend .color-dark
+
+for $color-name in ('red' 'green' 'blue')
+  $color = $colors[$color-name]
+  .highlight-{$color-name}
+    background-color: rgba($color, 0.25)
+    color: lighten($color, 20%)

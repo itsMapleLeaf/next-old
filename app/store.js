@@ -40,6 +40,5 @@ export default {
       this.friends = data[1]
       this.bookmarks = data[2]
     })
-    .catch(err => console.error(err))
   }
 }

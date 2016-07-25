@@ -11,6 +11,7 @@ a
   height: 100px
 
 img
+  -webkit-filter: drop-shadow(0px 2px 3px rgba(black, 0.4))
   filter: drop-shadow(0px 2px 3px rgba(black, 0.4))
 
 img:hover

@@ -55,6 +55,7 @@ export default {
         return this.store.fetchUserData(this.username, ticket)
       }).then(() => {
         this.store.popOverlay()
+        this.store.pushOverlay('character-select')
       }).catch(error => {
         this.status = error.toString()
         console.error(error)
