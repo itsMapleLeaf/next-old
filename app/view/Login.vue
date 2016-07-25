@@ -1,6 +1,6 @@
 <template>
   <div class='ui-shade flex-center'>
-    <div class='ui-panel'>
+    <div class='ui-panel ui-text-center'>
       <h2 class='ui-margin-1'>Hello, gorgeous.</h2>
       <form @submit.prevent='submit'>
         <div class='ui-margin-1 ui-input-icon-left'>
@@ -17,10 +17,10 @@
         <div class='ui-margin-1'>
           <button class='ui-button' action='submit'>Go</button>
         </div>
-        <div class='ui-margin-1'>
-          {{status}}
-        </div>
       </form>
+      <div class='ui-margin-1'>
+        {{status}}
+      </div>
     </div>
   </div>
 </template>
@@ -29,7 +29,8 @@
 
 <script>
 import Checkbox from './Checkbox.vue'
-import {endpoints} from '../f-list'
+import store from '../store'
+import {getTicket} from '../f-list'
 
 export default {
   components: {
@@ -40,20 +41,19 @@ export default {
       username: '',
       password: '',
       remember: false,
-      status: ''
+      status: '',
+      store
     }
   },
   methods: {
     submit () {
-      this.$http.post(endpoints.login, {
-        account: this.username,
-        password: this.password
-      })
-      .then(res => {
-        console.log(res.data)
-      })
-      .catch(err => {
-        console.error(err)
+      getTicket(this.username, this.password).then(ticket => {
+        return this.store.fetchUserData(this.username, ticket)
+      }).then(() => {
+        this.store.popOverlay()
+      }).catch(error => {
+        this.status = error.toString()
+        console.error(error)
       })
     }
   }
