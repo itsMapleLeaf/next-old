@@ -65,11 +65,33 @@ export default {
 
       HLO () { console.info(params.message) },
       CON () { console.info(`There are ${params.count} characters online.`) },
-      PIN () { this.sendCommand('PIN') }
+
+      /* ping~! */
+      PIN () {
+        /* pong~! */
+        this.sendCommand('PIN')
+      },
+
+      // ignored, we get friends from login
+      FRL () {},
+
+      IGN () {
+        if (params.action === 'init') {
+          store.setIgnoreList(params.characters)
+        }
+      },
+      
+      LIS () { store.addCharacterBatch(params.characters) },
+      ADL () { store.setAdminList(params.ops) },
+      NLN () { store.addCharacter(params.identity, params.gender) },
+      FLN () { store.removeCharacter(params.character) },
+      STA () { store.setCharacterStatus(params.character, params.status, params.statusmsg) },
+
+      VAR () {}
     }
 
     handlers[command]
-      ? handlers[command]()
+      ? handlers[command].call(this)
       : console.warn(`Unknown command: ${command} ${JSON.stringify(params)}`)
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class='flex-grow flex ui-fullscreen'>
-      <user-menu class='flex-fixed ui-width-1 ui-desktop'></user-menu>
+    <div class='flex-column ui-fullscreen'>
+      <div class='flex-fixed color-darker ui-height-1'></div>
       <chat class='flex-grow'></chat>
     </div>
     <component :is='store.overlays[store.overlays.length - 1]'></component>
