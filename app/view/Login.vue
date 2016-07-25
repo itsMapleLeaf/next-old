@@ -12,6 +12,9 @@
           <input type='password' placeholder='••••••••' v-model='password' />
         </div>
         <div class='ui-margin-1'>
+          <checkbox v-model='remember'>Remember me</checkbox>
+        </div>
+        <div class='ui-margin-1'>
           <button class='ui-button' action='submit'>Go</button>
         </div>
       </form>
@@ -22,11 +25,17 @@
 <style></style>
 
 <script>
+import Checkbox from './Checkbox.vue'
+
 export default {
+  components: {
+    Checkbox
+  },
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      remember: false
     }
   },
   methods: {
