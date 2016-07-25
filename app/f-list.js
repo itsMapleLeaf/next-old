@@ -31,7 +31,6 @@ export function getCharacters (account, ticket) {
 
 export function getFriends (account, ticket) {
   return post(endpoints.friendList, { account, ticket }).then(data => {
-    console.log(data)
     return data.friends.map(entry => ({ you: entry.source, them: entry.dest }))
   })
 }

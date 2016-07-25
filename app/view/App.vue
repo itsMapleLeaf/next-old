@@ -12,17 +12,31 @@
 import Chat from './Chat.vue'
 import UserMenu from './UserMenu.vue'
 import Login from './Login.vue'
+import CharacterSelect from './CharacterSelect.vue'
+
 import store from '../store'
+import session from '../session'
 
 export default {
-  components: {Chat, UserMenu, Login},
+  components: {Chat, UserMenu, Login, CharacterSelect},
 
   data () {
     return {store}
   },
 
   mounted () {
-    this.store.pushOverlay('login')
+    const data = session.load()
+    if (data) {
+      this.store.fetchUserData(data.account, data.ticket).then(() => {
+        this.store.pushOverlay('character-select')
+      })
+      .catch(err => {
+        console.warn(err)
+        this.store.pushOverlay('login')
+      })
+    } else {
+      this.store.pushOverlay('login')
+    }
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class='ui-shade flex-center'>
+  <div class='ui-overlay'>
     <div class='ui-panel ui-text-center'>
       <h2 class='ui-margin-1'>Hello, gorgeous.</h2>
       <form @submit.prevent='submit'>
@@ -30,6 +30,7 @@
 <script>
 import Checkbox from './Checkbox.vue'
 import store from '../store'
+import session from '../session'
 import {getTicket} from '../f-list'
 
 export default {
@@ -48,6 +49,9 @@ export default {
   methods: {
     submit () {
       getTicket(this.username, this.password).then(ticket => {
+        session.data.account = this.username
+        session.data.ticket = ticket
+        session.save()
         return this.store.fetchUserData(this.username, ticket)
       }).then(() => {
         this.store.popOverlay()
