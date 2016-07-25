@@ -3,7 +3,7 @@
     <div class='ui-panel ui-text-center'>
       <form @submit.prevent='submit'>
         <div class='ui-margin-1'>
-          <avatar :name='current'></avatar>
+          <avatar :name='store.identity'></avatar>
         </div>
         <selection-list
           class='ui-width-6 ui-height-8'
@@ -23,6 +23,7 @@ import Avatar from './CharacterAvatarLink.vue'
 import SelectionList from './SelectionList.vue'
 import store from '../store'
 import session from '../session'
+import socket from '../socket'
 
 export default {
   components: {Avatar, SelectionList},
@@ -44,13 +45,17 @@ export default {
   },
 
   methods: {
-    submit () {}
+    submit () {
+      this.store.popOverlay()
+      socket.connect()
+    }
   },
 
   watch: {
-    current (character) {
-      session.data.character = character
+    'current' (name) {
+      session.data.character = name
       session.save()
+      this.store.setIdentity(name)
     }
   }
 }

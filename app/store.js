@@ -23,9 +23,11 @@ export default {
   pushOverlay (overlay) {
     this.overlays.push(overlay)
   },
+
   popOverlay () {
     this.overlays.pop()
   },
+
   fetchUserData (account, ticket) {
     this.account = account
     this.ticket = ticket
@@ -40,5 +42,9 @@ export default {
       this.friends = data[1]
       this.bookmarks = data[2]
     })
+  },
+
+  setIdentity (name) {
+    this.identity = name
   }
 }
