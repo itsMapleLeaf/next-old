@@ -46,12 +46,23 @@ export default {
       store
     }
   },
+  mounted () {
+    const data = session.load()
+    if (data && data.account) {
+      this.username = data.account
+      this.remember = true
+    }
+  },
   methods: {
     submit () {
       getTicket(this.username, this.password).then(ticket => {
-        session.data.account = this.username
-        session.data.ticket = ticket
-        session.save()
+        if (this.remember) {
+          session.data.account = this.username
+          session.data.ticket = ticket
+          session.save()
+        } else {
+          session.clear()
+        }
         return this.store.fetchUserData(this.username, ticket)
       }).then(() => {
         this.store.popOverlay()
