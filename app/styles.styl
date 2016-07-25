@@ -38,6 +38,9 @@ for $h in 1..6
     @extend .ui-font-color, .ui-font-secondary, .ui-font-light
     margin: 0
 
+.ui-text-small
+  font-size: 90%
+
 // coloring & styling
 .ui-color-main { background-color: $colors.main }
 .ui-color-dark { background-color: $colors.dark }
@@ -145,15 +148,16 @@ for side in (left right)
 
 .ui-panel
   @extend .ui-color-main, .ui-shadow, .ui-padding-2, .ui-max-width-8, .ui-text-center
+  padding-left: 1rem
+  padding-right: 1rem
   width: max-content
 
 .ui-input
   @extend .ui-color-dark, .ui-border, .ui-width-5, .flex
 
   input, textarea
-    @extend .ui-padding-2
+    @extend .ui-padding-2, .ui-text-small
     width: 100%
-    font-size: 90%
 
   .ui-icon
     @extend .ui-padding-2
@@ -170,8 +174,7 @@ for side in (left right)
     pointer-events: none
 
 .ui-button
-  @extend .ui-color-dark, .ui-padding-2, .ui-min-width-2, .ui-rounded
-  font-size: 90%
+  @extend .ui-color-dark, .ui-padding-2, .ui-min-width-2, .ui-rounded, .ui-text-small
 
 // root styles
 :root

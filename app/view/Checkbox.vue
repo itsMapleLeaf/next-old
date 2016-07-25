@@ -1,8 +1,8 @@
 <template>
-  <a href='#' @click.prevent="$emit('input', !value)"><small>
+  <a class='ui-text-small' href='#' @click.prevent="$emit('input', !value)">
     <i :class="'mdi mdi-' + (value ? 'checkbox-marked' : 'checkbox-blank-outline')"></i>
     <slot></slot>
-  </small></a>
+  </a>
 </template>
 
 <script>
