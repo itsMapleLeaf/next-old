@@ -56,6 +56,11 @@ export default {
     })
   },
 
+  requestChannels () {
+    this.sendCommand('CHA')
+    this.sendCommand('ORS')
+  },
+
   handleCommand (command, params) {
     const handlers = {
       IDN () {
@@ -80,12 +85,22 @@ export default {
           store.setIgnoreList(params.characters)
         }
       },
-      
+
       LIS () { store.addCharacterBatch(params.characters) },
       ADL () { store.setAdminList(params.ops) },
       NLN () { store.addCharacter(params.identity, params.gender) },
       FLN () { store.removeCharacter(params.character) },
       STA () { store.setCharacterStatus(params.character, params.status, params.statusmsg) },
+
+      CHA () {
+        const channels = params.channels.map(ch => ({ id: ch.name, name: ch.name, users: ch.characters }))
+        store.addChannels(channels)
+      },
+
+      ORS () {
+        const channels = params.channels.map(ch => ({ id: ch.name, name: ch.title, users: ch.characters }))
+        store.addChannels(channels)
+      },
 
       VAR () {}
     }

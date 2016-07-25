@@ -36,7 +36,7 @@ module.exports = {
       }
     })
   ],
-  devtool: 'source-map'
+  devtool: '#eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {

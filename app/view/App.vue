@@ -13,17 +13,20 @@ import Chat from './Chat.vue'
 import UserMenu from './UserMenu.vue'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
+import ChannelSelect from './ChannelSelect.vue'
 
 import store from '../store'
 import session from '../session'
+import socket from '../socket'
 
 export default {
-  components: {Chat, UserMenu, Login, CharacterSelect},
+  components: {Chat, UserMenu, Login, CharacterSelect, ChannelSelect},
 
   data () {
     return {
       initialized: false,
-      store
+      store,
+      socket
     }
   },
 
@@ -45,6 +48,14 @@ export default {
         this.store.pushOverlay('login')
       }
     })
+  },
+
+  watch: {
+    'socket.state' (state) {
+      if (state === 'identified') {
+        this.store.pushOverlay('channel-select')
+      }
+    }
   }
 }
 </script>

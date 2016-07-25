@@ -1,5 +1,6 @@
-import * as flist from './f-list'
+import Vue from 'vue'
 import Character from './models/Character'
+import * as flist from './f-list'
 
 export default {
   // auth information
@@ -29,6 +30,10 @@ export default {
 
   // a map of all online characters, name to Character object
   onlineCharacters: {},
+
+  // list of available channels
+  // format: { id: channelID, name: channelTitle, users: numberOfCharacters }
+  channels: [],
 
   pushOverlay (overlay) {
     this.overlays.push(overlay)
@@ -87,5 +92,9 @@ export default {
 
   setAdminList (list) {
     this.admins = list
+  },
+
+  addChannels (list) {
+    this.channels = this.channels.concat(list)
   }
 }
