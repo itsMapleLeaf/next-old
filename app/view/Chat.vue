@@ -1,7 +1,7 @@
 <template>
   <div class='chat ui-color-dark flex-column'>
     <description class='flex-fixed ui-color-main ui-height-2 ui-desktop'>
-      test description
+      {{description}}
     </description>
     <div class='flex-grow flex flex-align-stretch ui-divide-top'>
       <messages
@@ -33,15 +33,9 @@ export default {
 
   data () {
     return {
-      users: Array(100).fill({ name: 'motherfucker mike' }),
-      messages: Array(100).fill({ sender: 'some bitch', text: 'fuck you' }),
-      tabs: [
-        { title: 'test' },
-        { title: 'test' },
-        { title: 'test' },
-        { title: 'test' },
-        { title: 'test' }
-      ],
+      users: [],
+      messages: [],
+      description: 'info here',
       showUserList: false
     }
   }

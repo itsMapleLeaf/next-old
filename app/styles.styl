@@ -35,8 +35,7 @@ $colors = {
 
 for $h in 1..6
   .ui-header-{$h}
-    @extend .ui-text, .ui-font-secondary, .ui-font-light
-    // font-size: 200% - ($h * 20)%
+    @extend .ui-font-color, .ui-font-secondary, .ui-font-light
     margin: 0
 
 // coloring & styling
@@ -46,8 +45,14 @@ for $h in 1..6
 .ui-color-light { background-color: $colors.light }
 .ui-color-lighter { background-color: lighten($colors.light, 20%) }
 
+.ui-border
+  border-bottom: 3px solid $colors.light
+
 .ui-shadow
   box-shadow: 0px 2px 8px rgba(black, 0.3)
+
+.ui-rounded
+  border-radius: 0.2rem
 
 // layout
 .ui-fullscreen
@@ -57,12 +62,15 @@ for $h in 1..6
   top: 0
   bottom: 0
 
-for n in 1..6
+for n in 1..8
   .ui-width-{n}
     width: 2rem * n
 
   .ui-max-width-{n}
     max-width: 2rem * n
+
+  .ui-min-width-{n}
+    min-width: 2rem * n
 
   .ui-height-{n}
     height: 2rem * n
@@ -71,7 +79,11 @@ for n in 1..6
     max-height: 2rem * n
 
   .ui-padding-{n}
-    padding: (0.15rem * n) 0.6rem
+    padding: (0.15rem * n) 0.65rem
+
+  .ui-margin-{n}
+    margin-top: 1rem * n
+    margin-bottom: 1rem * n
 
 .ui-scroll-y
   overflow-y: auto
@@ -89,6 +101,9 @@ for side in (left right)
     top: 0
     bottom: 0
     {side}: 0
+
+.ui-text-center
+  text-align: center
 
 // responsive styles
 @media (max-width: 750px)
@@ -113,6 +128,50 @@ for side in (left right)
 
 .flex-fixed
   flex-shrink: 0
+
+.flex-justify-center
+  justify-content: center
+
+.flex-align-center
+  align-items: center
+
+.flex-center
+  @extend .flex, .flex-justify-center, .flex-align-center
+
+// components
+.ui-shade
+  @extend .ui-fullscreen
+  background-color: rgba(black, 0.5)
+
+.ui-panel
+  @extend .ui-color-main, .ui-shadow, .ui-padding-2, .ui-max-width-8, .ui-text-center
+  width: max-content
+
+.ui-input
+  @extend .ui-color-dark, .ui-border, .ui-width-5, .flex
+
+  input, textarea
+    @extend .ui-padding-2
+    width: 100%
+    font-size: 90%
+
+  .ui-icon
+    @extend .ui-padding-2
+    position: absolute
+
+.ui-input-icon-left
+  @extend .ui-input
+
+  input, textarea
+    padding-left: 2.2rem
+
+  .ui-icon
+    opacity: 0.5
+    pointer-events: none
+
+.ui-button
+  @extend .ui-color-dark, .ui-padding-2, .ui-min-width-2, .ui-rounded
+  font-size: 90%
 
 // root styles
 :root

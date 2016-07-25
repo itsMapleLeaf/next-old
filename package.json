@@ -5,7 +5,8 @@
   "author": "Kingdaro",
   "dependencies": {
     "vue": "^2.0.0-beta.3",
-    "vue-resource": "^0.9.3"
+    "vue-resource": "^0.9.3",
+    "vuex": "^2.0.0-rc.3"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
