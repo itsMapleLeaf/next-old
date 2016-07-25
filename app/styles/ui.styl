@@ -1,15 +1,34 @@
 
-.ui-border
-  border-bottom: 3px solid $colors.light
-
 .ui-shadow
   box-shadow: 0px 2px 8px rgba(black, 0.3)
 
 .ui-rounded
   border-radius: 0.2rem
 
+.ui-transition
+  transition: 0.17s
+
+.ui-pointer
+  cursor: pointer
+
 .ui-faded
   opacity: 0.6
+
+.ui-border
+  border-bottom: 2px solid $colors.light
+
+.ui-border-focus
+  @extend .ui-transition
+  &:focus
+    border-color: lighten($colors.light, 40%)
+
+.ui-hover-darken
+  &:hover
+    @extend .color-darker
+
+.ui-focus-darken
+  &:focus
+    @extend .color-darker
 
 .ui-shade
   @extend .ui-fullscreen
@@ -22,11 +41,14 @@
   width: max-content
 
 .ui-input
-  @extend .color-dark, .ui-border, .ui-width-5, .flex
+  @extend .color-dark, .ui-width-5, .flex, .ui-transition
 
   input, textarea
-    @extend .ui-padding-2, .ui-text-small
+    @extend .ui-padding-2, .ui-text-small, .ui-border, .ui-border-focus
     width: 100%
+
+    &:focus
+      @extend .color-darker
 
   .ui-icon
     @extend .ui-padding-2
@@ -43,4 +65,8 @@
     pointer-events: none
 
 .ui-button
-  @extend .color-dark, .ui-padding-2, .ui-min-width-2, .ui-rounded, .ui-text-small
+  @extend .color-dark
+  @extend .ui-padding-2, .ui-min-width-2
+  @extend .ui-text-small
+  @extend .ui-pointer, .ui-transition
+  @extend .ui-hover-darken, .ui-focus-darken

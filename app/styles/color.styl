@@ -15,3 +15,7 @@ $colors = {
 .color-darker { background-color: darken($colors.dark, 25%) }
 .color-light { background-color: $colors.light }
 .color-lighter { background-color: lighten($colors.light, 20%) }
+
+.color-dark-hover
+  &:hover
+    @extend .color-dark
