@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class='flex-grow flex ui-fullscreen'>
-      <user-menu class='flex-fixed ui-width-5 ui-desktop'></user-menu>
+      <user-menu class='flex-fixed ui-width-1 ui-desktop'></user-menu>
       <chat class='flex-grow'></chat>
     </div>
     <component :is='store.overlays[store.overlays.length - 1]'></component>
@@ -21,22 +21,30 @@ export default {
   components: {Chat, UserMenu, Login, CharacterSelect},
 
   data () {
-    return {store}
+    return {
+      initialized: false,
+      store
+    }
   },
 
   mounted () {
-    const data = session.load()
-    if (data) {
-      this.store.fetchUserData(data.account, data.ticket).then(() => {
-        this.store.pushOverlay('character-select')
-      })
-      .catch(err => {
-        console.warn(err)
+    this.$nextTick(() => {
+      if (this.initialized) return
+      this.initialized = true
+
+      const data = session.load()
+      if (data) {
+        this.store.fetchUserData(data.account, data.ticket).then(() => {
+          this.store.pushOverlay('character-select')
+        })
+        .catch(err => {
+          console.warn(err)
+          this.store.pushOverlay('login')
+        })
+      } else {
         this.store.pushOverlay('login')
-      })
-    } else {
-      this.store.pushOverlay('login')
-    }
+      }
+    })
   }
 }
 </script>
