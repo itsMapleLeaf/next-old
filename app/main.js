@@ -5,7 +5,10 @@ import store from './store'
 
 import './styles/root.styl'
 
-Vue.config.debug = true
+Vue.config.keyCodes = {
+  enter: 13,
+  space: 32
+}
 
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true

@@ -1,5 +1,3 @@
-import {http} from 'vue'
-
 export const endpoints = {
   login: 'https://www.f-list.net/json/getApiTicket.php',
   characterList: 'https://www.f-list.net/json/api/character-list.php',

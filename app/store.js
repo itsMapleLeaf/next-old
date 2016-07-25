@@ -1,11 +1,9 @@
-export const state = {
-  overlays: []
-}
-
-export function pushOverlay (overlay) {
-  state.overlays.push(overlay)
-}
-
-export function popOverlay (overlay) {
-  state.overlays.pop()
+export default {
+  overlays: [],
+  pushOverlay (overlay) {
+    this.overlays.push(overlay)
+  },
+  popOverlay () {
+    this.overlays.pop()
+  }
 }

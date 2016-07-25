@@ -17,6 +17,9 @@
         <div class='ui-margin-1'>
           <button class='ui-button' action='submit'>Go</button>
         </div>
+        <div class='ui-margin-1'>
+          {{status}}
+        </div>
       </form>
     </div>
   </div>
@@ -26,6 +29,7 @@
 
 <script>
 import Checkbox from './Checkbox.vue'
+import {endpoints} from '../f-list'
 
 export default {
   components: {
@@ -35,11 +39,23 @@ export default {
     return {
       username: '',
       password: '',
-      remember: false
+      remember: false,
+      status: ''
     }
   },
   methods: {
-    submit () {}
+    submit () {
+      this.$http.post(endpoints.login, {
+        account: this.username,
+        password: this.password
+      })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+    }
   }
 }
 </script>
