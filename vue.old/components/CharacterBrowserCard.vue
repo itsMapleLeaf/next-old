@@ -1,13 +1,13 @@
 <template>
-  <div class='col-3 flex ui-color-main ui-border'>
+  <div class='col-3 flex color-main ui-border'>
     <!-- avatar -->
-    <div class='ui-color-dark ui-cursor-pointer ui-padding-square'>
+    <div class='color-dark ui-cursor-pointer ui-padding-square'>
       <img class='block' :src='avatarURL' :data-character-action='character.name' />
     </div>
 
     <div class='flex-auto flex flex-column'>
       <!-- name -->
-      <div class='ui-color-darker'> <!-- darker background -->
+      <div class='color-darker'> <!-- darker background -->
         <div :class='relationClass'>
           <a class='ui-ellipsis' href='#' :data-character-action='character.name'>
             {{character.name}}

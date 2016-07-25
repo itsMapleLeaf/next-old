@@ -1,0 +1,17 @@
+$colors = {
+  text: hsl(205, 30%, 90%)
+
+  main: hsl(210, 50%, 30%)
+  dark: hsl(211, 50%, 23%)
+  light: lighten(hsl(210, 50%, 30%), 20%)
+
+  red: rgb(231, 76, 60)
+  blue: rgb(52, 152, 219)
+  green: rgb(39, 174, 96)
+}
+
+.color-main { background-color: $colors.main }
+.color-dark { background-color: $colors.dark }
+.color-darker { background-color: darken($colors.dark, 25%) }
+.color-light { background-color: $colors.light }
+.color-lighter { background-color: lighten($colors.light, 20%) }

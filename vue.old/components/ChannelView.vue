@@ -4,7 +4,7 @@
       <div class='flex-divider'></div>
 
       <!-- description -->
-      <div class='flex-stretch flex-column ui-color-main ui-scroll description'>
+      <div class='flex-stretch flex-column color-main ui-scroll description'>
         <span v-html="state.description | bbcode"></span>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class='flex-divider'></div>
 
       <!-- users -->
-      <div class='flex-fixed ui-color-main ui-scroll character-list'>
+      <div class='flex-fixed color-main ui-scroll character-list'>
         <div v-for='char in groups.friends || []' class='flex-center-children ui-highlight-green'>
           <character :character='char'></character>
           <i class='mdi mdi-heart'></i>
@@ -42,7 +42,7 @@
     <div class='flex-divider'></div>
 
     <!-- chatbox -->
-    <div class='flex-fixed ui-color-main'>
+    <div class='flex-fixed color-main'>
       <chatbox @submit='chatboxSubmit'></chatbox>
     </div>
   </div>

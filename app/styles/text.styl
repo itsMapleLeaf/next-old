@@ -1,0 +1,26 @@
+
+.ui-font-primary
+  font-family: 'Roboto', sans-serif
+
+.ui-font-secondary
+  font-family: 'Roboto Condensed', sans-serif
+
+.ui-font-size
+  font-size: 14pt
+
+.ui-font-light
+  font-weight: 300
+
+.ui-font-color
+  color: $colors.text
+
+.ui-text
+  @extend .ui-font-primary, .ui-font-size, .ui-font-color
+
+for $h in 1..6
+  .ui-header-{$h}
+    @extend .ui-font-color, .ui-font-secondary, .ui-font-light
+    margin: 0
+
+.ui-text-small
+  font-size: 90%

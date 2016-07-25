@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class='ui-color-dark ui-no-select ui-press ui-hover'>
+  <a href='#' class='color-dark ui-no-select ui-press ui-hover'>
     <i :class="'ui-icon mdi mdi-' + icon"></i> <slot></slot>
   </a>
 </template>

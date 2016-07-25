@@ -1,5 +1,5 @@
 <template>
-  <textarea class='ui-color-main ui-text'
+  <textarea class='color-main ui-text'
     v-model='message'
     :placeholder='placeholder'
     @keydown='keydown($event)'></textarea>

@@ -56,7 +56,7 @@ export default {
 
   computed: {
     activeClasses () {
-      return this.active ? 'active ui-color-main' : 'inactive ui-color-darker'
+      return this.active ? 'active color-main' : 'inactive color-darker'
     }
   }
 }

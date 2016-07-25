@@ -5,7 +5,7 @@
       <div class='flex-fixed'>
         <slot name="content"></slot>
       </div>
-      <nav class='flex-stretch ui-color-dark'>
+      <nav class='flex-stretch color-dark'>
         <slot name="options"></slot>
       </nav>
     </div>

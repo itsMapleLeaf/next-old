@@ -7,7 +7,7 @@
           <character-avatar-link :character="character.name"></character-avatar-link>
         </div>
         <div class='ui-field'>
-          <em class="ui-color-dark ui-border character-status" style="opacity: 0.8">
+          <em class="color-dark ui-border character-status" style="opacity: 0.8">
             {{character.gender}}, {{character.status}}
             <span v-if="character.statusMessage !== ''" v-html="'- ' + character.statusMessage | bbcode">
             </span>

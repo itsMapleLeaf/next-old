@@ -1,0 +1,50 @@
+
+.ui-fullscreen
+  position: absolute
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+
+for n in 1..8
+  .ui-width-{n}
+    width: 2rem * n
+
+  .ui-max-width-{n}
+    max-width: 2rem * n
+
+  .ui-min-width-{n}
+    min-width: 2rem * n
+
+  .ui-height-{n}
+    height: 2rem * n
+
+  .ui-height-{n}
+    max-height: 2rem * n
+
+  .ui-padding-{n}
+    padding: (0.15rem * n) 0.65rem
+
+  .ui-margin-{n}
+    margin-top: 1rem * n
+    margin-bottom: 1rem * n
+
+.ui-scroll-y
+  overflow-y: auto
+
+.ui-block
+  display: block
+
+for side in (top right bottom left)
+  .ui-divide-{side}
+    margin-{side}: 4px
+
+for side in (left right)
+  .ui-anchor-{side}
+    position: absolute
+    top: 0
+    bottom: 0
+    {side}: 0
+
+.ui-text-center
+  text-align: center

@@ -1,5 +1,5 @@
 <template>
-  <a class='ui-text-small' href='#' @click.prevent="$emit('input', !value)">
+  <a class='ui-text-small' :class="{'ui-faded': !value}" href='#' @click.prevent="$emit('input', !value)">
     <i :class="'mdi mdi-' + (value ? 'checkbox-marked' : 'checkbox-blank-outline')"></i>
     <slot></slot>
   </a>

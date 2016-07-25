@@ -1,5 +1,5 @@
 <template>
-  <div class='ui-color-main ui-border ui-padding-regular ui-raised notice'>
+  <div class='color-main ui-border ui-padding-regular ui-raised notice'>
     <i class='mdi mdi-information-outline'></i>
     <slot></slot>
   </div>

@@ -1,3 +1,3 @@
 <template>
-  <div class='ui-color-darker'></div>
+  <div class='color-darker'></div>
 </template>

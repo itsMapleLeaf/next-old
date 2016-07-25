@@ -3,7 +3,7 @@ import VueResource from 'vue-resource'
 import App from './view/App.vue'
 import store from './store'
 
-import './styles.styl'
+import './styles/root.styl'
 
 Vue.config.debug = true
 

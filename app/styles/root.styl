@@ -1,0 +1,45 @@
+@import 'color'
+@import 'flex'
+@import 'layout'
+@import 'responsive'
+@import 'text'
+@import 'ui'
+
+*
+  box-sizing: border-box
+
+:root
+  @extend .ui-text
+
+a
+  color: inherit
+  text-decoration: none
+
+button, input, textarea
+  border: none
+  color: inherit
+  background: transparent
+
+textarea
+  resize: none
+
+for $h in 1..6
+  h{$h}
+    @extend .ui-header-{$h}
+
+// scrollbar styles
+::-webkit-scrollbar
+  width: 8px
+  height: 8px
+
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner
+  background-color: darken($colors.dark, 20%)
+
+::-webkit-scrollbar-thumb
+  background-color: $colors.light
+
+::-webkit-scrollbar-button
+  display: none
+
+::selection
+  background: rgba(black, 0.3)

@@ -1,6 +1,6 @@
 <template>
   <div class='flex-column flex-stretch'>
-    <header class='flex-fixed ui-color-main'>
+    <header class='flex-fixed color-main'>
       <character :character='partner'></character>
       <em>
         <span>- {{partner.status}}</span>
@@ -18,7 +18,7 @@
 
     <div class='flex-divider'></div>
 
-    <div class='flex-fixed ui-color-main'>
+    <div class='flex-fixed color-main'>
       <chatbox @submit='chatboxSubmit'></chatbox>
     </div>
   </div>

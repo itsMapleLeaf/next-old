@@ -1,5 +1,5 @@
 <template>
-  <div class='flex-column ui-color-dark ui-fullscreen'>
+  <div class='flex-column color-dark ui-fullscreen'>
     <nav class='flex-fixed flex-row' style='overflow-x: auto'>
       <shortcut title="Menu" icon="menu" data-push-overlay="menu-overlay"></shortcut>
       <shortcut title="Channels" icon="forum" data-push-overlay="channel-select-overlay"></shortcut>

@@ -46,11 +46,11 @@ $colors = {
   text-overflow: ellipsis
 
 // color and highlight styles
-.ui-color-main { background-color: $colors.main }
-.ui-color-dark { background-color: $colors.dark }
-.ui-color-darker { background-color: darken($colors.dark, 25%) }
-.ui-color-light { background-color: $colors.light }
-.ui-color-lighter { background-color: lighten($colors.light, 20%) }
+.color-main { background-color: $colors.main }
+.color-dark { background-color: $colors.dark }
+.color-darker { background-color: darken($colors.dark, 25%) }
+.color-light { background-color: $colors.light }
+.color-lighter { background-color: lighten($colors.light, 20%) }
 
 for $color-name in ('red' 'green' 'blue')
   $color = $colors[$color-name]
@@ -108,7 +108,7 @@ for $n in 1..6
   position: relative
 
   &::after
-    @extend .ui-color-light
+    @extend .color-light
     content: ''
     display: block
     position: absolute
@@ -143,11 +143,11 @@ for $n in 1..6
     cursor: not-allowed
 
 .ui-input
-  @extend .ui-input-static, .ui-press-inline, .ui-color-dark, .ui-border
+  @extend .ui-input-static, .ui-press-inline, .color-dark, .ui-border
   width: 100%
 
 .ui-button
-  @extend .ui-input-static, .ui-press-inline, .ui-color-dark, .ui-rounded, .ui-min-width-1
+  @extend .ui-input-static, .ui-press-inline, .color-dark, .ui-rounded, .ui-min-width-1
   border: none
   cursor: pointer
 
@@ -164,7 +164,7 @@ for $n in 1..6
   background-color: rgba(black, 0.4)
 
 .ui-overlay-panel
-  @extend .ui-color-main, .ui-raised
+  @extend .color-main, .ui-raised
   width: max-content
 
 for $side in ('left' 'right')
@@ -188,7 +188,7 @@ for $side in ('left' 'right')
     pointer-events: none
 
   input, textarea
-    @extend .ui-input-static, .ui-color-dark, .ui-border
+    @extend .ui-input-static, .color-dark, .ui-border
     width: 100%
     padding-left: 2.1rem
 
@@ -221,7 +221,7 @@ for $side in ('left' 'right')
     padding: 0.3rem 0.6rem
 
   .ui-dropdown-items
-    @extend .ui-color-darker
+    @extend .color-darker
     z-index: 420
 
 .ui-editor p
