@@ -35,6 +35,12 @@ export default {
   // format: { id: channelID, name: channelTitle, users: numberOfCharacters }
   channels: [],
 
+  // list of all active chats
+  chats: [],
+
+  // map of active channel IDs to the channel chat
+  channelChats: {},
+
   pushOverlay (overlay) {
     this.overlays.push(overlay)
   },
@@ -96,5 +102,56 @@ export default {
 
   addChannels (list) {
     this.channels = this.channels.concat(list)
+  },
+
+  addChannelChat (id, name) {
+    const state = {
+      id, name,
+      type: 'channel',
+      description: '',
+      mode: 'both',
+      characters: [],
+      messages: [],
+      ops: []
+    }
+
+    Vue.set(this.channelChats, id, state)
+    this.chats.push(state)
+  },
+
+  removeChannelChat (id) {
+    this.chats.splice(this.chats.findIndex(ch => ch === this.channelChats[id]), 1)
+    Vue.delete(this.channelChats, id)
+  },
+
+  isChannelJoined (id) {
+    return this.channelChats[id] != null
+  },
+
+  addChannelCharacter (id, name) {
+    const chat = this.channelChats[id]
+    chat.characters.push(this.onlineCharacters[name])
+  },
+
+  removeChannelCharacter (id, name) {
+    const chat = this.channelChats[id]
+    const index = chat.characters.findIndex(char => char.name === name)
+    chat.characters.splice(index, 1)
+  },
+
+  setChannelOps (id, ops) {
+    this.channelChats[id].ops = ops
+  },
+
+  setChannelCharacters (id, names) {
+    this.channelChats[id].characters = names.map(name => this.onlineCharacters[name])
+  },
+
+  setChannelMode (id, mode) {
+    this.channelChats[id].mode = mode
+  },
+
+  setChannelDescription (id, description) {
+    this.channelChats[id].description = description
   }
 }

@@ -61,6 +61,14 @@ export default {
     this.sendCommand('ORS')
   },
 
+  joinChannel (channel) {
+    this.sendCommand('JCH', { channel })
+  },
+
+  leaveChannel (channel) {
+    this.sendCommand('LCH', { channel })
+  },
+
   handleCommand (command, params) {
     const handlers = {
       IDN () {
@@ -92,14 +100,52 @@ export default {
       FLN () { store.removeCharacter(params.character) },
       STA () { store.setCharacterStatus(params.character, params.status, params.statusmsg) },
 
+      // public channel list
       CHA () {
         const channels = params.channels.map(ch => ({ id: ch.name, name: ch.name, users: ch.characters }))
         store.addChannels(channels)
       },
 
+      // private channel list
       ORS () {
         const channels = params.channels.map(ch => ({ id: ch.name, name: ch.title, users: ch.characters }))
         store.addChannels(channels)
+      },
+
+      // someone joined a channel
+      // if it's us, add a new chat
+      JCH () {
+        if (params.character.identity === store.identity) {
+          store.addChannelChat(params.channel, params.title)
+        } else {
+          store.addChannelCharacter(params.channel, params.character.identity)
+        }
+      },
+
+      // someone left a channel
+      // if it's us, remove that channel
+      LCH () {
+        store.removeChannelCharacter(params.channel, params.character)
+        if (params.character === store.identity) {
+          store.removeChannelChat(params.channel)
+        }
+      },
+
+      // list of ops for a channel
+      COL () {
+        store.setChannelOps(params.channel, params.oplist)
+      },
+
+      // initial channel information
+      ICH () {
+        const names = params.users.map(user => user.identity)
+        store.setChannelCharacters(params.channel, names)
+        store.setChannelMode(params.channel, params.mode)
+      },
+
+      // channel description update
+      CDS () {
+        store.setChannelDescription(params.channel, params.description)
       },
 
       VAR () {}

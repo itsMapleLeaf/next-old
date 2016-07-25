@@ -3,7 +3,10 @@
     <div class='ui-panel'>
       <form>
         <div class='ui-margin-1 ui-width-7 ui-height-12 color-dark ui-scroll-y'>
-          <a href='#' v-for='channel in channels' class='ui-block ui-padding-3'>
+          <a href='#' v-for='channel in channels'
+            class='ui-block ui-padding-3'
+            :class="{ 'highlight-green': store.isChannelJoined(channel.id) }"
+            @click='toggleChannel(channel.id)'>
             <div class='flex flex-justify-space-between'>
               <span v-html='channel.name'></span>
               <span>{{channel.users}}</span>
@@ -65,6 +68,17 @@ export default {
         .filter(ch => ch.name.toLocaleLowerCase()
           .includes(this.searchText.toLocaleLowerCase()))
         .slice(0, this.showAll ? undefined : 200)
+    }
+  },
+
+  methods: {
+    toggleChannel (id) {
+      if (!this.store.isChannelJoined(id)) {
+        socket.joinChannel(id)
+      } else {
+        socket.leaveChannel(id)
+      }
+
     }
   }
 }
