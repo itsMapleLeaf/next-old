@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class='ui-hover-darken ui-transition ui-inline-block ui-faded' :class="align">
+  <a href='#' class='ui-hover-darken ui-inline-block ui-faded ui-padding-subtle' :class="align">
     <i class='mdi mdi-arrow-left'></i>
   </a>
 </template>
@@ -8,7 +8,6 @@
 a {
   position: absolute;
   left: 0;
-  padding: 0.5em;
 }
 
 .top { top: 0 }

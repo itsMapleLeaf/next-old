@@ -23,10 +23,12 @@
     border-color: lighten($colors.light, 40%)
 
 .ui-hover-darken
+  @extend .ui-transition
   &:hover
     @extend .color-darker
 
 .ui-focus-darken
+  @extend .ui-transition
   &:focus
     @extend .color-darker
 

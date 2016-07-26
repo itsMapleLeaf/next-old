@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class='flex-column ui-fullscreen'>
-      <div class='flex-fixed color-darker ui-height-1'></div>
+      <div class='flex-fixed color-darker'>
+        <a href='#' v-for="shortcut in shortcuts" class='ui-inline-block ui-padding-subtle' @click="shortcut.action">
+          <i :class="'mdi mdi-' + shortcut.icon"></i>
+        </a>
+      </div>
       <chat class='flex-grow'></chat>
     </div>
     <component :is='store.overlays[store.overlays.length - 1]'></component>
@@ -26,7 +30,14 @@ export default {
     return {
       initialized: false,
       store,
-      socket
+      socket,
+      shortcuts: [
+        { icon: 'menu', action () {} },
+        { icon: 'forum', action: () => this.store.pushOverlay('channel-select') },
+        { icon: 'heart', action () {} }
+        // { icon: 'menu' },
+        // { icon: 'menu' }
+      ]
     }
   },
 
