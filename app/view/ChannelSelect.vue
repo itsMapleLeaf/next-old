@@ -1,5 +1,5 @@
 <template>
-  <div class='ui-overlay'>
+  <div class='ui-overlay' @click.self='close'>
     <form class='ui-panel ui-height-12 ui-fit-viewport flex-column res res-desktop res-mobile-portrait' @submit.prevent>
       <div class='flex-grow color-dark ui-width-9 ui-fit-width ui-margin-bottom-1 ui-scroll-y'>
         <a href='#' v-for='channel in channels'
@@ -22,7 +22,7 @@
       <div class='flex-fixed ui-field ui-text-center'>
         <checkbox v-model='showAll'>Show ALL channels (lag warning)</checkbox>
       </div>
-      <back-button></back-button>
+      <back-button @click.native='close'></back-button>
     </form>
 
     <form class='flex ui-panel ui-fit-viewport flex res res-mobile-landscape' @submit.prevent>
@@ -51,7 +51,7 @@
           <checkbox v-model='showAll'>Show ALL channels (lag warning)</checkbox>
         </div>
       </div>
-      <back-button align='middle'></back-button>
+      <back-button align='middle' @click.native='close'></back-button>
     </form>
   </div>
 </template>
@@ -107,7 +107,10 @@ export default {
       } else {
         socket.leaveChannel(id)
       }
+    },
 
+    close () {
+      this.store.popOverlay()
     }
   }
 }
