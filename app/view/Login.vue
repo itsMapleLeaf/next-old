@@ -1,6 +1,6 @@
 <template>
   <div class='ui-overlay'>
-    <div class='ui-panel ui-text-center ui-max-width-6'>
+    <div class='ui-panel ui-text-center'>
       <h2 class='ui-margin-1'>Hello, gorgeous.</h2>
       <form @submit.prevent='submit'>
         <div class='ui-margin-1 ui-input-icon-left'>

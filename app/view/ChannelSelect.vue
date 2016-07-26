@@ -22,10 +22,11 @@
       <div class='flex-fixed ui-field ui-text-center'>
         <checkbox v-model='showAll'>Show ALL channels (lag warning)</checkbox>
       </div>
+      <back-button></back-button>
     </form>
 
     <form class='flex ui-panel ui-fit-viewport flex res res-mobile-landscape' @submit.prevent>
-      <div class='flex-grow color-dark ui-scroll-y ui-fit-height ui-margin-left-1 ui-margin-right-1'>
+      <div class='flex-grow color-dark ui-width-8 ui-scroll-y ui-fit-height ui-margin-left-2 ui-margin-right-2'>
         <a href='#' v-for='channel in channels'
           class='ui-block ui-padding-3'
           :class="{ 'highlight-green': store.isChannelJoined(channel.id) }"
@@ -39,7 +40,7 @@
           </em>
         </a>
       </div>
-      <div class='fiex-fixed ui-margin-right-1 flex-column flex-center'>
+      <div class='fiex-fixed ui-margin-right-2 flex-column flex-center'>
         <div class='ui-field'>
           <div class='ui-input-icon-left'>
             <i class='ui-icon mdi mdi-magnify'></i>
@@ -50,6 +51,7 @@
           <checkbox v-model='showAll'>Show ALL channels (lag warning)</checkbox>
         </div>
       </div>
+      <back-button align='middle'></back-button>
     </form>
   </div>
 </template>
@@ -57,11 +59,12 @@
 <script>
 import SelectionList from './SelectionList.vue'
 import Checkbox from './Checkbox.vue'
+import BackButton from './BackButton.vue'
 import store from '../store'
 import socket from '../socket'
 
 export default {
-  components: {SelectionList, Checkbox},
+  components: {SelectionList, Checkbox, BackButton},
 
   data () {
     return {
