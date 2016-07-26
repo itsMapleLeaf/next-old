@@ -1,20 +1,36 @@
 <template>
   <div class='ui-overlay'>
-    <div class='ui-panel ui-text-center'>
-      <form @submit.prevent='submit'>
-        <div class='ui-margin-1'>
-          <avatar :name='store.identity'></avatar>
-        </div>
+    <form class='ui-panel ui-text-center ui-height-11 ui-fit-viewport flex-column res res-desktop res-mobile-portrait' @submit.prevent='submit'>
+      <div class='ui-field flex-fixed'>
+        <avatar :name='store.identity'></avatar>
+      </div>
+      <div class='ui-field flex-grow ui-scroll-y ui-block-center ui-width-8 ui-fit-width'>
         <selection-list
-          class='ui-width-6 ui-height-8'
           :items='store.characters'
           v-model='current'>
         </selection-list>
-        <div class='ui-margin-1'>
-          <button class='ui-button'>Go</button>
+      </div>
+      <div class='ui-field flex-fixed'>
+        <button class='ui-button' action='submit'>Go</button>
+      </div>
+    </form>
+
+    <form class='ui-panel ui-text-center ui-fit-viewport flex res res-mobile-landscape' @submit.prevent='submit'>
+      <div class='flex-grow ui-scroll-y ui-width-7 ui-fit-height ui-margin-left-1 ui-margin-right-1'>
+        <selection-list
+          :items='store.characters'
+          v-model='current'>
+        </selection-list>
+      </div>
+      <div class='flex-fixed flex-column flex-center ui-margin-right-1'>
+        <div class='ui-field flex-fixed'>
+          <avatar :name='store.identity'></avatar>
         </div>
-      </form>
-    </div>
+        <div class='ui-field flex-fixed'>
+          <button class='ui-button' action='submit'>Go</button>
+        </div>
+      </div>
+    </form>
   </div>
 </template>
 

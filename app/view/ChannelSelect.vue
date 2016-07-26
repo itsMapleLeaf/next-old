@@ -1,30 +1,56 @@
 <template>
   <div class='ui-overlay'>
-    <div class='ui-panel'>
-      <form>
-        <div class='ui-margin-1 ui-width-7 ui-height-12 color-dark ui-scroll-y'>
-          <a href='#' v-for='channel in channels'
-            class='ui-block ui-padding-3'
-            :class="{ 'highlight-green': store.isChannelJoined(channel.id) }"
-            @click='toggleChannel(channel.id)'>
-            <div class='flex flex-justify-space-between'>
-              <span v-html='channel.name'></span>
-              <span>{{channel.users}}</span>
-            </div>
-            <em class='ui-text-small ui-text-faded' v-if='channel.id !== channel.name'>
-              {{channel.id}}
-            </em>
-          </a>
+    <form class='ui-panel ui-height-12 ui-fit-viewport flex-column res res-desktop res-mobile-portrait' @submit.prevent>
+      <div class='flex-grow color-dark ui-width-9 ui-fit-width ui-margin-bottom-1 ui-scroll-y'>
+        <a href='#' v-for='channel in channels'
+          class='ui-block ui-padding-3'
+          :class="{ 'highlight-green': store.isChannelJoined(channel.id) }"
+          @click='toggleChannel(channel.id)'>
+          <div class='flex flex-justify-space-between'>
+            <span v-html='channel.name'></span>
+            <span>{{channel.users}}</span>
+          </div>
+          <em class='ui-text-small ui-text-faded' v-if='channel.id !== channel.name'>
+            {{channel.id}}
+          </em>
+        </a>
+      </div>
+      <div class='flex-fixed ui-field ui-input-icon-left ui-block-center'>
+        <i class='ui-icon mdi mdi-magnify'></i>
+        <input type='text' v-model='searchText' placeholder='Search...' />
+      </div>
+      <div class='flex-fixed ui-field ui-text-center'>
+        <checkbox v-model='showAll'>Show ALL channels (lag warning)</checkbox>
+      </div>
+    </form>
+
+    <form class='flex ui-panel ui-fit-viewport flex res res-mobile-landscape' @submit.prevent>
+      <div class='flex-grow color-dark ui-scroll-y ui-fit-height ui-margin-left-1 ui-margin-right-1'>
+        <a href='#' v-for='channel in channels'
+          class='ui-block ui-padding-3'
+          :class="{ 'highlight-green': store.isChannelJoined(channel.id) }"
+          @click='toggleChannel(channel.id)'>
+          <div class='flex flex-justify-space-between'>
+            <span v-html='channel.name'></span>
+            <span>{{channel.users}}</span>
+          </div>
+          <em class='ui-text-small ui-text-faded' v-if='channel.id !== channel.name'>
+            {{channel.id}}
+          </em>
+        </a>
+      </div>
+      <div class='fiex-fixed ui-margin-right-1 flex-column flex-center'>
+        <div class='ui-field'>
+          <div class='ui-input-icon-left'>
+            <i class='ui-icon mdi mdi-magnify'></i>
+            <input type='text' v-model='searchText' placeholder='Search...' />
+          </div>
         </div>
-        <div class='ui-margin-1 ui-input-icon-left ui-block-center'>
-          <i class='ui-icon mdi mdi-magnify'></i>
-          <input type='text' v-model='searchText' placeholder='Search...' />
-        </div>
-        <div class='ui-margin-1 ui-text-center'>
+        <div class='ui-field'>
           <checkbox v-model='showAll'>Show ALL channels (lag warning)</checkbox>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 

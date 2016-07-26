@@ -6,31 +6,30 @@
   top: 0
   bottom: 0
 
-for n in 1..12
+for n in 0..12
   .ui-width-{n}
     width: 2rem * n
 
-  .ui-max-width-{n}
-    max-width: 2rem * n
-
-  .ui-min-width-{n}
-    min-width: 2rem * n
-
   .ui-height-{n}
-    height: 2rem * n
-
-  .ui-height-{n}
-    max-height: 2rem * n
+    height: 3rem * n
 
   .ui-padding-{n}
     padding: (0.15rem * n) 0.65rem
 
+  .ui-padding-square-{n}
+    padding: 1rem * n
+
   .ui-margin-{n}
-    margin-top: 1rem * n
-    margin-bottom: 1rem * n
+    margin: 1rem * n
+
+  for $side in (left top right bottom)
+    .ui-margin-{$side}-{n}
+      margin-{$side}: 1rem * n
 
 .ui-scroll-y
   overflow-y: auto
+  &.flex-grow
+    min-height: 0
 
 .ui-block
   display: block
@@ -52,3 +51,13 @@ for side in (left right)
 .ui-block-center
   margin-left: auto
   margin-right: auto
+
+.ui-fit-width
+  max-width: 100%
+
+.ui-fit-height
+  max-height: 100%
+
+.ui-fit-viewport
+  max-width: calc(100vw - 2rem)
+  max-height: calc(100vh - 2rem)

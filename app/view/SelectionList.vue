@@ -1,5 +1,5 @@
 <template>
-  <div class='color-dark ui-scroll-y'>
+  <div class='color-dark'>
     <a href='#'
       v-for='item in items'
       @click="$emit('input', item)"
