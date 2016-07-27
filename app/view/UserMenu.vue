@@ -6,13 +6,15 @@
         <status-form></status-form>
       </section>
       <section class='flex-grow color-dark'>
-        <a v-for='room in rooms' href='#'
-          :class="'ui-block ui-padding-4 ui-hover-darken ' + (room === currentRoom ? 'highlight-blue' : '')"
-          @click.prevent='setRoom(room)'>
-          <i class='mdi mdi-earth'></i> {{room.name}}
-        </a>
+        <div class='res res-mobile-landscape res-mobile-portrait'>
+          <a v-for='room in rooms' href='#'
+            :class="'ui-block ui-padding-4 ui-hover-darken ' + (room === currentRoom ? 'highlight-blue' : '')"
+            @click.prevent='setRoom(room)'>
+            <i class='mdi mdi-earth'></i> {{room.name}}
+          </a>
 
-        <div class='ui-padding-1 color-main'></div>
+          <div class='ui-padding-1 color-main'></div>
+        </div>
 
         <a v-for='option in options'
           href='#'
