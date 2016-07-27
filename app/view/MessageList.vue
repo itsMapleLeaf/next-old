@@ -1,7 +1,8 @@
 <template>
   <div>
     <div v-for='message in messages' class='ui-padding-1'>
-      {{message.sender}}: {{message.text}}
+      <strong style='margin-right: 0.5rem'>{{message.sender.name}}</strong>
+      <span v-html='message.message'></span>
     </div>
   </div>
 </template>
