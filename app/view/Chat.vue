@@ -10,10 +10,11 @@
           class='flex-grow ui-scroll-y'
           :messages='currentRoom.messages'>
         </messages>
-        <users
-          class='flex-fixed ui-width-5 color-main ui-scroll-y ui-divide-left res res-desktop'
-          :users='currentRoom.characters'>
-        </users>
+        <div class='flex-fixed ui-width-5 color-main ui-scroll-y ui-divide-left res res-desktop'>
+          <a v-for='user in currentRoom.characters' class='ui-block ui-padding-1' href='#'>
+            <strong :class="'gender-color ' + user.gender">{{user.name}}</strong>
+          </a>
+        </div>
       </div>
       <chatbox class='flex-fixed color-main ui-height-2 ui-divide-top'></chatbox>
     </template>
