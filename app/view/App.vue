@@ -28,14 +28,12 @@ export default {
   data () {
     return {
       initialized: false,
-      store,
-      socket,
-      shortcuts: [
-        { icon: 'menu', action: () => this.store.pushOverlay('user-menu') },
-        { icon: 'forum', action: () => this.store.pushOverlay('channel-select') },
-        { icon: 'heart', action: () => {} }
-      ]
+      store, socket
     }
+  },
+
+  computed: {
+    identity () { return store.identity }
   },
 
   mounted () {
@@ -45,15 +43,15 @@ export default {
 
       const data = session.load()
       if (data) {
-        this.store.fetchUserData(data.account, data.ticket).then(() => {
-          this.store.pushOverlay('character-select')
+        store.fetchUserData(data.account, data.ticket).then(() => {
+          store.pushOverlay('character-select')
         })
         .catch(err => {
           console.warn(err)
-          this.store.pushOverlay('login')
+          store.pushOverlay('login')
         })
       } else {
-        this.store.pushOverlay('login')
+        store.pushOverlay('login')
       }
     })
   },
@@ -61,7 +59,20 @@ export default {
   watch: {
     'socket.state' (state) {
       if (state === 'identified') {
-        this.store.pushOverlay('channel-select')
+        const data = session.load()
+        if (data) {
+          for (let id of data[`channels:${store.identity}`] || []) {
+            socket.joinChannel(id)
+          }
+        }
+      }
+    },
+
+    'store.channelRooms' (rooms) {
+      const data = session.load()
+      if (data) {
+        data[`channels:${this.identity}`] = Object.keys(rooms)
+        session.save()
       }
     }
   }

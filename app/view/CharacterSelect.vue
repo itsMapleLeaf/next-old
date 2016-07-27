@@ -56,19 +56,19 @@ export default {
     if (data && data.character) {
       this.current = data.character
     } else {
-      this.current = this.store.characters[0]
+      this.current = store.characters[0]
     }
   },
 
   methods: {
     submit () {
-      this.store.popOverlay()
+      store.popOverlay()
       socket.connect()
     },
 
     back () {
-      this.store.popOverlay()
-      this.store.pushOverlay('login')
+      store.popOverlay()
+      store.pushOverlay('login')
     }
   },
 
@@ -76,7 +76,7 @@ export default {
     'current' (name) {
       session.data.character = name
       session.save()
-      this.store.setIdentity(name)
+      store.setIdentity(name)
     }
   }
 }
