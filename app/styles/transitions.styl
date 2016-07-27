@@ -34,8 +34,11 @@ $ease-in-out-quad  = cubic-bezier(0.455,  0.030, 0.515, 0.955)
   from { transform: translateX(0) }
   to { transform: translateX(100%) }
 
+.fade-enter-active { animation: fade-enter 0.3s }
+.fade-leave-active { animation: fade-leave 0.3s }
+
 .overlay-enter-active
-  animation: fade-enter 0.3s ease-out
+  animation: fade-enter 0.3s ease
 
   .ui-panel { animation: slide-enter 0.3s $ease-out-quad }
   .ui-panel-left { animation: slide-left-enter 0.3s $ease-out-quad }
