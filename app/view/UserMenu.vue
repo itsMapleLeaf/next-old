@@ -14,7 +14,10 @@
 
         <div class='ui-padding-1 color-main'></div>
 
-        <a v-for='option in options' href='#' class='ui-block ui-padding-4 ui-hover-darken'>
+        <a v-for='option in options'
+          href='#'
+          class='ui-block ui-padding-4 ui-hover-darken'
+          @click.prevent='option.action'>
           <i :class="'mdi mdi-' + option.icon"></i> {{option.text}}
         </a>
       </section>
@@ -26,6 +29,7 @@
 import MenuHeader from './MenuHeader.vue'
 import StatusForm from './MenuStatusForm.vue'
 import store from '../store'
+import socket from '../socket'
 
 export default {
   components: {MenuHeader, StatusForm},
@@ -33,11 +37,39 @@ export default {
   data () {
     return {
       options: [
-        { text: 'Channels', icon: 'forum' },
-        { text: 'Online Users', icon: 'heart' },
-        { text: 'Settings', icon: 'settings' },
-        { text: 'Log Out', icon: 'logout' },
-        { text: 'Switch Character', icon: 'account-switch' }
+        {
+          text: 'Channels',
+          icon: 'forum',
+          action: () => store.pushOverlay('channel-select')
+        },
+        {
+          text: 'Online Users',
+          icon: 'heart',
+          action: () => {}
+        },
+        {
+          text: 'Settings',
+          icon: 'settings',
+          action: () => {}
+        },
+        {
+          text: 'Log Out',
+          icon: 'logout',
+          action: () => {
+            socket.disconnect()
+            store.popOverlay()
+            store.pushOverlay('login')
+          }
+        },
+        {
+          text: 'Switch Character',
+          icon: 'account-switch',
+          action: () => {
+            socket.disconnect()
+            store.popOverlay()
+            store.pushOverlay('character-select')
+          }
+        }
       ]
     }
   },

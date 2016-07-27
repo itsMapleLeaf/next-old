@@ -39,6 +39,10 @@ export default {
     this.state = 'connecting'
   },
 
+  disconnect () {
+    this.ws.close()
+  },
+
   sendCommand (command, params) {
     const data = params ? `${command} ${JSON.stringify(params)}` : command
     this.ws.send(data)
