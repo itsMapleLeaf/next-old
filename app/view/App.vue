@@ -2,7 +2,7 @@
   <div>
     <div class='flex-column ui-fullscreen'>
       <div class='flex-fixed color-darker'>
-        <a href='#' v-for="shortcut in shortcuts" class='ui-inline-block ui-padding-subtle' @click="shortcut.action">
+        <a href='#' v-for="shortcut in shortcuts" class='ui-inline-block ui-padding-subtle ui-fluid-border' @click="shortcut.action">
           <i :class="'mdi mdi-' + shortcut.icon"></i>
         </a>
       </div>
@@ -22,8 +22,8 @@ import CharacterSelect from './CharacterSelect.vue'
 import ChannelSelect from './ChannelSelect.vue'
 
 import store from '../store'
-import session from '../session'
 import socket from '../socket'
+import session from '../session'
 
 export default {
   components: {Chat, UserMenu, Login, CharacterSelect, ChannelSelect},
@@ -34,32 +34,31 @@ export default {
       store,
       socket,
       shortcuts: [
-        { icon: 'menu', action () {} },
+        { icon: 'menu', action: () => this.store.pushOverlay('user-menu') },
         { icon: 'forum', action: () => this.store.pushOverlay('channel-select') },
-        { icon: 'heart', action () {} }
+        { icon: 'heart', action: () => {} }
       ]
     }
   },
 
   mounted () {
-    this.store.pushOverlay('user-menu')
-    // this.$nextTick(() => {
-    //   if (this.initialized) return
-    //   this.initialized = true
-    //
-    //   const data = session.load()
-    //   if (data) {
-    //     this.store.fetchUserData(data.account, data.ticket).then(() => {
-    //       this.store.pushOverlay('character-select')
-    //     })
-    //     .catch(err => {
-    //       console.warn(err)
-    //       this.store.pushOverlay('login')
-    //     })
-    //   } else {
-    //     this.store.pushOverlay('login')
-    //   }
-    // })
+    this.$nextTick(() => {
+      if (this.initialized) return
+      this.initialized = true
+
+      const data = session.load()
+      if (data) {
+        this.store.fetchUserData(data.account, data.ticket).then(() => {
+          this.store.pushOverlay('character-select')
+        })
+        .catch(err => {
+          console.warn(err)
+          this.store.pushOverlay('login')
+        })
+      } else {
+        this.store.pushOverlay('login')
+      }
+    })
   },
 
   watch: {
