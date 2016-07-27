@@ -28,20 +28,21 @@
 .ui-pre-wrap
   white-space: pre-wrap
 
-.ui-border-focus
-  @extend .ui-transition
-  &:focus
-    border-color: lighten($colors.light, 40%)
+for $state in (hover focus)
+  .ui-{$state}-border
+    @extend .ui-transition
+    &:{$state}
+      border-color: lighten($colors.light, 40%)
 
-.ui-hover-darken
-  @extend .ui-transition
-  &:hover
-    @extend .color-darker
+  .ui-{$state}-darken
+    @extend .ui-transition
+    &:{$state}
+      @extend .color-darker
 
-.ui-focus-darken
-  @extend .ui-transition
-  &:focus
-    @extend .color-darker
+.ui-link
+  @extend .ui-hover-border
+  border-bottom: 2px solid transparent
+  color: lighten($colors.light, 70%)
 
 .ui-overlay
   @extend .ui-fullscreen, .flex-center
@@ -65,7 +66,7 @@ for $side in (left right)
   @extend .color-dark, .flex, .ui-transition
 
   input, textarea
-    @extend .ui-padding-2, .ui-border, .ui-border-focus
+    @extend .ui-padding-2, .ui-border, .ui-focus-border
     font-size: 90%
     width: 100%
 
