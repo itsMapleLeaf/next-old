@@ -8,9 +8,10 @@
       <section class='flex-grow color-dark'>
         <div class='res res-mobile-landscape res-mobile-portrait'>
           <a v-for='room in rooms' href='#'
-            :class="'ui-block ui-padding-4 ui-hover-darken ' + (room === currentRoom ? 'highlight-blue' : '')"
-            @click.prevent='setRoom(room)'>
-            <i class='mdi mdi-earth'></i> {{room.name}}
+            class='flex flex-justify-space-between'
+            :class="room === currentRoom ? 'highlight-blue' : ''" @click.prevent='setRoom(room)'>
+            <span class='ui-padding-4'><i class='mdi mdi-earth'></i> {{room.name}}</span>
+            <span class='ui-padding-4 ui-faded' @click.stop='leaveRoom(room)'><i class='mdi mdi-close'></i></span>
           </a>
 
           <div class='ui-padding-1 color-main'></div>
@@ -88,6 +89,10 @@ export default {
 
     setRoom (room) {
       store.setCurrentRoom(room)
+    },
+
+    leaveRoom (room) {
+      socket.leaveChannel(room.id)
     }
   }
 }

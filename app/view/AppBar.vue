@@ -5,7 +5,7 @@
       <i :class="'mdi mdi-' + shortcut.icon"></i>
     </a>
     <div class='flex-grow flex flex-wrap res res-desktop'>
-      <room-tab v-for='room in rooms' :key="room.name" :active='room === currentRoom' @click.native='setRoom(room)'>
+      <room-tab v-for='room in rooms' :key="room.name" :active='room === currentRoom' @click.native='setRoom(room)' @closed='leaveRoom(room)'>
         <i class='mdi mdi-earth'></i> {{room.name}}
       </room-tab>
     </div>
@@ -19,6 +19,7 @@
 <script>
 import RoomTab from './RoomTab.vue'
 import store from '../store'
+import socket from '../socket'
 
 export default {
   components: {RoomTab},
@@ -39,7 +40,8 @@ export default {
   },
 
   methods: {
-    setRoom (room) { store.setCurrentRoom(room) }
+    setRoom (room) { store.setCurrentRoom(room) },
+    leaveRoom (room) { socket.leaveChannel(room.id) }
   }
 }
 </script>
