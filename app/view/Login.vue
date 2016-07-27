@@ -2,7 +2,7 @@
   <div class='ui-overlay'>
     <div class='ui-panel ui-text-center'>
       <h2 class='ui-margin-1'>Hello, gorgeous.</h2>
-      <form @submit.prevent='submit'>
+      <form class='ui-width-6' @submit.prevent='submit'>
         <div class='ui-margin-1 ui-input-icon-left'>
           <i class='ui-icon mdi mdi-account-circle'></i>
           <input type='text' placeholder='Username' v-model='username' />
