@@ -41,13 +41,17 @@
   width: min-content
   position: relative
 
+for $side in (left right)
+  .ui-panel-{$side}
+    @extend .color-main, .ui-shadow, .ui-anchor-{$side}
+
 .ui-field
   margin-bottom: 1rem
   &:first-child
     margin-top: 1rem
 
 .ui-input
-  @extend .color-dark, .ui-width-5, .flex, .ui-transition
+  @extend .color-dark, .flex, .ui-transition
 
   input, textarea
     @extend .ui-padding-2, .ui-border, .ui-border-focus
@@ -57,19 +61,20 @@
     &:focus
       @extend .color-darker
 
-  .ui-icon
-    @extend .ui-padding-2
-    position: absolute
+for $side in (left right)
+  .ui-input-icon-{$side}
+    @extend .ui-input
+    position: relative
 
-.ui-input-icon-left
-  @extend .ui-input
+    input, textarea
+      padding-{$side}: 2.2rem
 
-  input, textarea
-    padding-left: 2.2rem
-
-  .ui-icon
-    opacity: 0.5
-    pointer-events: none
+    .ui-icon
+      @extend .ui-padding-2
+      position: absolute
+      {$side}: 0
+      opacity: 0.5
+      pointer-events: none
 
 .ui-button
   @extend .color-dark

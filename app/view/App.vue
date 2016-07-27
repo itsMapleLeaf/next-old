@@ -42,23 +42,24 @@ export default {
   },
 
   mounted () {
-    this.$nextTick(() => {
-      if (this.initialized) return
-      this.initialized = true
-
-      const data = session.load()
-      if (data) {
-        this.store.fetchUserData(data.account, data.ticket).then(() => {
-          this.store.pushOverlay('character-select')
-        })
-        .catch(err => {
-          console.warn(err)
-          this.store.pushOverlay('login')
-        })
-      } else {
-        this.store.pushOverlay('login')
-      }
-    })
+    this.store.pushOverlay('user-menu')
+    // this.$nextTick(() => {
+    //   if (this.initialized) return
+    //   this.initialized = true
+    //
+    //   const data = session.load()
+    //   if (data) {
+    //     this.store.fetchUserData(data.account, data.ticket).then(() => {
+    //       this.store.pushOverlay('character-select')
+    //     })
+    //     .catch(err => {
+    //       console.warn(err)
+    //       this.store.pushOverlay('login')
+    //     })
+    //   } else {
+    //     this.store.pushOverlay('login')
+    //   }
+    // })
   },
 
   watch: {
