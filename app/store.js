@@ -128,23 +128,23 @@ export default {
     return this.channelRooms[id] != null
   },
 
+  setChannelCharacters (id, names) {
+    const room = this.channelRooms[id]
+    room.setCharacters(names.map(name => this.onlineCharacters[name]))
+  },
+
   addChannelCharacter (id, name) {
-    const chat = this.channelRooms[id]
-    chat.characters.push(this.onlineCharacters[name])
+    const room = this.channelRooms[id]
+    room.addCharacter(this.onlineCharacters[name])
   },
 
   removeChannelCharacter (id, name) {
-    const chat = this.channelRooms[id]
-    const index = chat.characters.findIndex(char => char.name === name)
-    chat.characters.splice(index, 1)
+    const room = this.channelRooms[id]
+    room.removeCharacter(this.onlineCharacters[name])
   },
 
   setChannelOps (id, ops) {
     this.channelRooms[id].ops = ops
-  },
-
-  setChannelCharacters (id, names) {
-    this.channelRooms[id].characters = names.map(name => this.onlineCharacters[name])
   },
 
   setChannelMode (id, mode) {
