@@ -4,9 +4,9 @@
       <app-bar class='flex-fixed'></app-bar>
       <chat class='flex-grow'></chat>
     </div>
-    <transition-group name='fade' appear v-if='store.overlays.length > 0'>
-      <component v-for='(overlay, index) in store.overlays' :is='overlay' :key='index'></component>
-    </transition-group>
+    <transition v-for='overlay in store.overlays' name='overlay'>
+      <component :is='overlay'></component>
+    </transition>
   </div>
 </template>
 

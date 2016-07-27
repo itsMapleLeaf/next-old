@@ -1,13 +1,49 @@
-.fade-enter
-  opacity: 0
+$ease-in-quad      = cubic-bezier(0.550,  0.085, 0.680, 0.530)
+$ease-out-quad     = cubic-bezier(0.250,  0.460, 0.450, 0.940)
+$ease-in-out-quad  = cubic-bezier(0.455,  0.030, 0.515, 0.955)
 
-.fade-enter-active
-  transition: 0.25s
-  opacity: 1
+@keyframes fade-enter
+  from { opacity: 0 }
+  to { opacity: 1 }
 
-.fade-leave
-  opacity: 1
+@keyframes fade-leave
+  from { opacity: 1 }
+  to { opacity: 0 }
 
-.fade-leave-active
-  transition: 0.25s
-  opacity: 0
+@keyframes slide-enter
+  from { transform: translateY(-4em) }
+  to { transform: translateY(0) }
+
+@keyframes slide-leave
+  from { transform: translateY(0) }
+  to { transform: translateY(-4em) }
+
+@keyframes slide-left-enter
+  from { transform: translateX(-100%) }
+  to { transform: translateX(0) }
+
+@keyframes slide-left-leave
+  from { transform: translateX(0) }
+  to { transform: translateX(-100%) }
+
+@keyframes slide-right-enter
+  from { transform: translateX(100%) }
+  to { transform: translateX(0) }
+
+@keyframes slide-right-leave
+  from { transform: translateX(0) }
+  to { transform: translateX(100%) }
+
+.overlay-enter-active
+  animation: fade-enter 0.3s ease-out
+
+  .ui-panel { animation: slide-enter 0.3s $ease-out-quad }
+  .ui-panel-left { animation: slide-left-enter 0.3s $ease-out-quad }
+  .ui-panel-right { animation: slide-right-enter 0.3s $ease-out-quad }
+
+.overlay-leave-active
+  animation: fade-leave 0.3s ease-in
+
+  .ui-panel { animation: slide-leave 0.3s $ease-in-quad }
+  .ui-panel-left { animation: slide-left-leave 0.3s $ease-in-quad }
+  .ui-panel-right { animation: slide-right-leave 0.3s $ease-in-quad }
