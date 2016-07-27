@@ -1,7 +1,7 @@
 <template>
   <div class='color-dark flex-column'>
     <template v-if='currentRoom != null'>
-      <description class='flex-fixed color-main ui-height-2 ui-desktop'>
+      <description class='flex-fixed color-main ui-height-2 res res-desktop'>
         {{currentRoom.description}}
       </description>
       <div class='flex-grow flex flex-align-stretch ui-divide-top'>
@@ -10,7 +10,7 @@
           :messages='currentRoom.messages'>
         </messages>
         <users
-          class='ui-desktop flex-fixed ui-width-5 color-main ui-scroll-y ui-divide-left'
+          class='flex-fixed ui-width-5 color-main ui-scroll-y ui-divide-left res res-desktop'
           :users='currentRoom.characters'>
         </users>
       </div>

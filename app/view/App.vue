@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class='flex-column ui-fullscreen'>
-      <div class='flex-fixed color-darker'>
-        <a href='#' v-for="shortcut in shortcuts" class='ui-inline-block ui-padding-subtle ui-fluid-border' @click="shortcut.action">
-          <i :class="'mdi mdi-' + shortcut.icon"></i>
-        </a>
-      </div>
+      <app-bar class='flex-fixed'></app-bar>
       <chat class='flex-grow'></chat>
     </div>
     <transition-group name='fade' appear v-if='store.overlays.length > 0'>
@@ -20,13 +16,14 @@ import UserMenu from './UserMenu.vue'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import ChannelSelect from './ChannelSelect.vue'
+import AppBar from './AppBar.vue'
 
 import store from '../store'
 import socket from '../socket'
 import session from '../session'
 
 export default {
-  components: {Chat, UserMenu, Login, CharacterSelect, ChannelSelect},
+  components: {Chat, UserMenu, Login, CharacterSelect, ChannelSelect, AppBar},
 
   data () {
     return {
