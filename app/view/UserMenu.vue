@@ -6,7 +6,9 @@
         <status-form></status-form>
       </section>
       <section class='flex-grow color-dark'>
-        <a v-for='room in rooms' href='#' class='ui-block ui-padding-4 ui-hover-darken'>
+        <a v-for='room in rooms' href='#'
+          :class="'ui-block ui-padding-4 ui-hover-darken ' + (room === currentRoom ? 'highlight-blue' : '')"
+          @click.prevent='setRoom(room)'>
           <i class='mdi mdi-earth'></i> {{room.name}}
         </a>
 
@@ -41,12 +43,17 @@ export default {
   },
 
   computed: {
-    rooms () { return store.rooms }
+    rooms () { return store.rooms },
+    currentRoom () { return store.getCurrentRoom() }
   },
 
   methods: {
     close () {
       store.popOverlay()
+    },
+
+    setRoom (room) {
+      store.setCurrentRoom(room)
     }
   }
 }

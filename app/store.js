@@ -39,6 +39,9 @@ export default {
   // list of all active rooms
   rooms: [],
 
+  // index of the current active room
+  currentRoomIndex: 0,
+
   // map of active channel IDs to the channel chat
   channelRooms: {},
 
@@ -155,5 +158,16 @@ export default {
     const channel = this.channelRooms[id]
     const sender = this.onlineCharacters[name]
     channel.messages.push({ sender, message })
+  },
+
+  getCurrentRoom () {
+    return this.rooms[this.currentRoomIndex]
+  },
+
+  setCurrentRoom (room) {
+    const index = this.rooms.indexOf(room)
+    if (index > -1) {
+      this.currentRoomIndex = index
+    }
   }
 }
