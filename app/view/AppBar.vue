@@ -9,7 +9,10 @@
         <i class='mdi mdi-earth'></i> {{room.name}}
       </room-tab>
     </div>
-    <a href='#' v-if='currentRoom' class='flex-grow flex flex-align-center flex-justify-end res res-mobile-landscape res-mobile-portrait'>
+    <a href='#'
+      v-if='currentRoom'
+      class='flex-grow flex flex-align-center flex-justify-end res res-mobile-landscape res-mobile-portrait'
+      @click="pushOverlay('room-info')">
       <span class='ui-faded'><i class='mdi mdi-earth'></i> {{currentRoom.name}}</span>
       <span class='ui-padding-subtle'><i class='mdi mdi-dots-vertical'></i></span>
     </a>
@@ -27,8 +30,8 @@ export default {
   data () {
     return {
       shortcuts: [
-        { icon: 'menu', action: () => store.pushOverlay('user-menu') },
-        { icon: 'forum', action: () => store.pushOverlay('channel-select') },
+        { icon: 'menu', action: () => this.pushOverlay('user-menu') },
+        { icon: 'forum', action: () => this.pushOverlay('channel-select') },
         { icon: 'heart', action: () => {} }
       ]
     }
@@ -40,6 +43,7 @@ export default {
   },
 
   methods: {
+    pushOverlay (overlay) { store.pushOverlay(overlay) },
     setRoom (room) { store.setCurrentRoom(room) },
     leaveRoom (room) { socket.leaveChannel(room.id) }
   }

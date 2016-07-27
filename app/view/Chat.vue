@@ -3,7 +3,7 @@
     <template v-if='currentRoom != null'>
       <div
         class='flex-fixed color-main ui-padding-2 ui-scroll-y ui-pre-wrap res res-desktop'
-        style='height: 5rem'
+        style='height: 4rem'
         v-html='currentRoom.description'>
       </div>
       <div class='flex-grow flex flex-align-stretch ui-divide-top'>
@@ -12,13 +12,13 @@
           :messages='currentRoom.messages'>
         </messages>
         <users
-          class='flex-fixed ui-width-5 color-main ui-scroll-y ui-divide-left res res-desktop'
+          class='flex-fixed ui-width-6 color-main ui-scroll-y ui-divide-left res res-desktop'
           :users='currentRoom.characters'>
         </users>
       </div>
       <chatbox
         class='flex-fixed color-main ui-divide-top'
-        style='height: 5rem'>
+        style='height: 4rem'>
       </chatbox>
     </template>
   </div>
