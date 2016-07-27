@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import Character from './models/Character'
+import ChannelRoom from './models/ChannelRoom'
 import * as flist from './f-list'
 
 export default {
+  // ui overlays
+  overlays: [],
+
   // auth information
   account: '',
   ticket: '',
@@ -25,9 +29,6 @@ export default {
   // global admins by name
   admins: [],
 
-  // ui overlays
-  overlays: [],
-
   // a map of all online characters, name to Character object
   onlineCharacters: {},
 
@@ -35,11 +36,11 @@ export default {
   // format: { id: channelID, name: channelTitle, users: numberOfCharacters }
   channels: [],
 
-  // list of all active chats
-  chats: [],
+  // list of all active rooms
+  rooms: [],
 
   // map of active channel IDs to the channel chat
-  channelChats: {},
+  channelRooms: {},
 
   pushOverlay (overlay) {
     this.overlays.push(overlay)
@@ -109,53 +110,50 @@ export default {
   },
 
   addChannelChat (id, name) {
-    const state = {
-      id, name,
-      type: 'channel',
-      description: '',
-      mode: 'both',
-      characters: [],
-      messages: [],
-      ops: []
-    }
-
-    Vue.set(this.channelChats, id, state)
-    this.chats.push(state)
+    const room = new ChannelRoom(id, name)
+    Vue.set(this.channelRooms, id, room)
+    this.rooms.push(room)
   },
 
   removeChannelChat (id) {
-    this.chats.splice(this.chats.findIndex(ch => ch === this.channelChats[id]), 1)
-    Vue.delete(this.channelChats, id)
+    this.rooms.splice(this.rooms.findIndex(ch => ch === this.channelRooms[id]), 1)
+    Vue.delete(this.channelRooms, id)
   },
 
   isChannelJoined (id) {
-    return this.channelChats[id] != null
+    return this.channelRooms[id] != null
   },
 
   addChannelCharacter (id, name) {
-    const chat = this.channelChats[id]
+    const chat = this.channelRooms[id]
     chat.characters.push(this.onlineCharacters[name])
   },
 
   removeChannelCharacter (id, name) {
-    const chat = this.channelChats[id]
+    const chat = this.channelRooms[id]
     const index = chat.characters.findIndex(char => char.name === name)
     chat.characters.splice(index, 1)
   },
 
   setChannelOps (id, ops) {
-    this.channelChats[id].ops = ops
+    this.channelRooms[id].ops = ops
   },
 
   setChannelCharacters (id, names) {
-    this.channelChats[id].characters = names.map(name => this.onlineCharacters[name])
+    this.channelRooms[id].characters = names.map(name => this.onlineCharacters[name])
   },
 
   setChannelMode (id, mode) {
-    this.channelChats[id].mode = mode
+    this.channelRooms[id].mode = mode
   },
 
   setChannelDescription (id, description) {
-    this.channelChats[id].description = description
+    this.channelRooms[id].description = description
+  },
+
+  addChannelMessage (id, name, message) {
+    const channel = this.channelRooms[id]
+    const sender = this.onlineCharacters[name]
+    channel.messages.push({ sender, message })
   }
 }

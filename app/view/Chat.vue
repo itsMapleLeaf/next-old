@@ -32,13 +32,13 @@ export default {
   data () {
     return {
       store,
-      currentChatIndex: 0
+      currentRoomIndex: 0
     }
   },
 
   computed: {
     chat () {
-      return this.store.chats[this.currentChatIndex]
+      return this.store.rooms[this.currentRoomIndex]
     }
   }
 }

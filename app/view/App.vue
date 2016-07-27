@@ -8,7 +8,9 @@
       </div>
       <chat class='flex-grow'></chat>
     </div>
-    <component v-for='(overlay, index) in store.overlays' :is='overlay' :key='index'></component>
+    <transition-group name='fade' appear v-if='store.overlays.length > 0'>
+      <component v-for='(overlay, index) in store.overlays' :is='overlay' :key='index'></component>
+    </transition-group>
   </div>
 </template>
 
