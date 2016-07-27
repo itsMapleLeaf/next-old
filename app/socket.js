@@ -149,6 +149,11 @@ export default {
         store.setChannelDescription(params.channel, params.description)
       },
 
+      // channel message
+      MSG () {
+        store.addChannelMessage(params.channel, params.character, params.message)
+      },
+
       VAR () {}
     }
 
