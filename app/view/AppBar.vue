@@ -4,11 +4,15 @@
       class='flex-fixed ui-inline-block ui-padding-subtle ui-fluid-border' @click="shortcut.action">
       <i :class="'mdi mdi-' + shortcut.icon"></i>
     </a>
-    <div class='flex-grow flex'>
+    <div class='flex-grow flex res res-desktop'>
       <room-tab v-for='room in rooms' :active='room === currentRoom' @click.native='setRoom(room)'>
         <i class='mdi mdi-earth'></i> {{room.name}}
       </room-tab>
     </div>
+    <a href='#' v-if='currentRoom' class='flex-grow flex flex-align-center flex-justify-end res res-mobile-landscape res-mobile-portrait'>
+      <span class='ui-faded'><i class='mdi mdi-earth'></i> {{currentRoom.name}}</span>
+      <span class='ui-padding-subtle'><i class='mdi mdi-dots-vertical'></i></span>
+    </a>
   </div>
 </template>
 
