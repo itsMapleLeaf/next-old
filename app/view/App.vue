@@ -8,7 +8,7 @@
       </div>
       <chat class='flex-grow'></chat>
     </div>
-    <component :is='store.overlays[store.overlays.length - 1]'></component>
+    <component v-for='(overlay, index) in store.overlays' :is='overlay' :key='index'></component>
   </div>
 </template>
 
@@ -35,8 +35,6 @@ export default {
         { icon: 'menu', action () {} },
         { icon: 'forum', action: () => this.store.pushOverlay('channel-select') },
         { icon: 'heart', action () {} }
-        // { icon: 'menu' },
-        // { icon: 'menu' }
       ]
     }
   },
