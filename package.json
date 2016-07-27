@@ -4,7 +4,7 @@
   "description": "A Vue.js project",
   "author": "Kingdaro",
   "dependencies": {
-    "vue": "^2.0.0-beta.3",
+    "vue": "^2.0.0-beta.5",
     "vue-resource": "^0.9.3",
     "vuex": "^2.0.0-rc.3"
   },
