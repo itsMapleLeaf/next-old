@@ -15,6 +15,10 @@ export default {
   // our current identity
   identity: '',
 
+  // our status
+  status: 'online',
+  statusmsg: '',
+
   // our list of characters
   characters: [],
 
@@ -72,6 +76,11 @@ export default {
 
   setIdentity (name) {
     this.identity = name
+  },
+
+  setStatus (status, message) {
+    this.status = status
+    this.statusmsg = message
   },
 
   addCharacterBatch (batch) {

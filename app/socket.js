@@ -74,6 +74,10 @@ export default {
     this.sendCommand('LCH', { channel })
   },
 
+  updateStatus (status, statusmsg) {
+    this.sendCommand('STA', { status, statusmsg })
+  },
+
   handleCommand (command, params) {
     const handlers = {
       IDN () {
