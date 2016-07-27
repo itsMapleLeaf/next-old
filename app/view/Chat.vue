@@ -2,7 +2,7 @@
   <div class='color-dark flex-column'>
     <template v-if='currentRoom != null'>
       <div
-        class='flex-fixed color-main ui-height-2 ui-padding-2 res res-desktop'
+        class='flex-fixed color-main ui-height-2 ui-padding-2 ui-scroll-y ui-pre-wrap res res-desktop'
         v-html='currentRoom.description'>
       </div>
       <div class='flex-grow flex flex-align-stretch ui-divide-top'>
