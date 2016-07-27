@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Character from './models/Character'
 import ChannelRoom from './models/ChannelRoom'
 import * as flist from './f-list'
+import parseBBC from './parse-bbc'
 
 export default {
   // ui overlays
@@ -151,13 +152,13 @@ export default {
   },
 
   setChannelDescription (id, description) {
-    this.channelRooms[id].description = description
+    this.channelRooms[id].description = parseBBC(description)
   },
 
   addChannelMessage (id, name, message) {
     const channel = this.channelRooms[id]
     const sender = this.onlineCharacters[name]
-    channel.messages.push({ sender, message })
+    channel.messages.push({ sender, message: parseBBC(message) })
   },
 
   getCurrentRoom () {

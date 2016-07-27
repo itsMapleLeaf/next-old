@@ -1,9 +1,10 @@
 <template>
   <div class='color-dark flex-column'>
     <template v-if='currentRoom != null'>
-      <description class='flex-fixed color-main ui-height-2 res res-desktop'>
-        {{currentRoom.description}}
-      </description>
+      <div
+        class='flex-fixed color-main ui-height-2 ui-padding-2 res res-desktop'
+        v-html='currentRoom.description'>
+      </div>
       <div class='flex-grow flex flex-align-stretch ui-divide-top'>
         <messages
           class='flex-grow ui-scroll-y'
