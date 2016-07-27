@@ -5,7 +5,7 @@
       <i :class="'mdi mdi-' + shortcut.icon"></i>
     </a>
     <div class='flex-grow flex flex-wrap res res-desktop'>
-      <room-tab v-for='room in rooms' :active='room === currentRoom' @click.native='setRoom(room)'>
+      <room-tab v-for='room in rooms' :key="room.name" :active='room === currentRoom' @click.native='setRoom(room)'>
         <i class='mdi mdi-earth'></i> {{room.name}}
       </room-tab>
     </div>
