@@ -104,6 +104,10 @@ export default {
     this.channels = this.channels.concat(list)
   },
 
+  clearChannels () {
+    this.channels = []
+  },
+
   addChannelChat (id, name) {
     const state = {
       id, name,

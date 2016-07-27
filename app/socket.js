@@ -57,6 +57,7 @@ export default {
   },
 
   requestChannels () {
+    store.clearChannels()
     this.sendCommand('CHA')
     this.sendCommand('ORS')
   },
