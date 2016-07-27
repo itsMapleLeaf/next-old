@@ -2,7 +2,8 @@
   <div class='color-dark flex-column'>
     <template v-if='currentRoom != null'>
       <div
-        class='flex-fixed color-main ui-height-2 ui-padding-2 ui-scroll-y ui-pre-wrap res res-desktop'
+        class='flex-fixed color-main ui-padding-2 ui-scroll-y ui-pre-wrap res res-desktop'
+        style='height: 5rem'
         v-html='currentRoom.description'>
       </div>
       <div class='flex-grow flex flex-align-stretch ui-divide-top'>
@@ -15,7 +16,10 @@
           :users='currentRoom.characters'>
         </users>
       </div>
-      <chatbox class='flex-fixed color-main ui-height-2 ui-divide-top'></chatbox>
+      <chatbox
+        class='flex-fixed color-main ui-divide-top'
+        style='height: 5rem'>
+      </chatbox>
     </template>
   </div>
 </template>
