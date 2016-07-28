@@ -6,7 +6,7 @@
         <status-form></status-form>
       </section>
       <section class='flex-grow color-dark'>
-        <div class='res res-mobile-landscape res-mobile-portrait'>
+        <div class='res res-mobile'>
           <a v-for='room in rooms' href='#'
             class='flex flex-justify-space-between'
             :class="room === currentRoom ? 'highlight-blue' : ''" @click.prevent='setRoom(room)'>

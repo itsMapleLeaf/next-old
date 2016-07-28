@@ -1,17 +1,25 @@
 <template>
   <div class='color-darker flex'>
-    <a href='#' v-for="shortcut in shortcuts"
-      class='flex-fixed ui-inline-block ui-padding-subtle ui-fluid-border' @click="shortcut.action">
+    <a href='#'
+      v-for="shortcut in shortcuts"
+      class='flex-fixed ui-inline-block ui-padding-subtle ui-fluid-border'
+      @click="shortcut.action">
       <i :class="'mdi mdi-' + shortcut.icon"></i>
     </a>
     <div class='flex-grow flex flex-wrap res res-desktop'>
-      <room-tab v-for='room in rooms' :key="room.name" :active='room === currentRoom' @click.native='setRoom(room)' @closed='leaveRoom(room)'>
+      <room-tab
+        v-for='room in rooms'
+        :key="room.name"
+        :active='room === currentRoom'
+        @click.native='setRoom(room)' @closed='leaveRoom(room)'>
         <i class='mdi mdi-earth'></i> {{room.name}}
       </room-tab>
     </div>
     <a href='#'
       v-if='currentRoom'
-      class='flex-grow flex flex-align-center flex-justify-end res res-mobile-landscape res-mobile-portrait'
+      class='
+        flex-grow flex flex-align-center flex-justify-end
+        res res-mobile'
       @click="pushOverlay('room-info')">
       <span class='ui-faded'><i class='mdi mdi-earth'></i> {{currentRoom.name}}</span>
       <span class='ui-padding-subtle'><i class='mdi mdi-dots-vertical'></i></span>

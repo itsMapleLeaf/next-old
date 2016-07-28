@@ -12,7 +12,7 @@
         class='
           color-dark
           ui-margin-1 ui-width-7 ui-fit-width ui-block-center
-          res res-mobile-landscape res-mobile-portrait'
+          res res-mobile'
         :users='users'>
       </user-list>
       <back-button align='top' @click.native='store.popOverlay'></back-button>
