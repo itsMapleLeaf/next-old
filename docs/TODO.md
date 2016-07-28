@@ -8,7 +8,7 @@
 ## For 0.5.0
 - [ ] ability to post ads
 - [ ] a better character browser
-- [ ] responsive styling
+- [x] responsive styling
 - [ ] browsable notification list, that and other ui panels will replace the console (probably only keep the last 50 or so)
 - [ ] notifications for friends/bookmarks coming online
 - [ ] some kind of tab notification for channel messages
