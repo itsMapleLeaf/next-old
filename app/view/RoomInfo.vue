@@ -4,8 +4,17 @@
       <div class='ui-padding-subtle ui-text-center'>
         <h2>{{ title }}</h2>
       </div>
-      <div class='color-dark ui-padding-square-1 ui-fit-width ui-pre-wrap' style='width: 40em' v-html='description'></div>
-      <user-list class='color-dark ui-margin-1 ui-width-7 ui-fit-width ui-block-center res res-mobile-landscape res-mobile-portrait' :users='users'></user-list>
+      <div
+        class='color-dark ui-padding-square-1 ui-fit-width ui-pre-wrap'
+        style='width: 40em' v-html='description'>
+      </div>
+      <user-list
+        class='
+          color-dark
+          ui-margin-1 ui-width-7 ui-fit-width ui-block-center
+          res res-mobile-landscape res-mobile-portrait'
+        :users='users'>
+      </user-list>
       <back-button align='top' @click.native='store.popOverlay'></back-button>
     </div>
   </div>
