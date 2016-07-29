@@ -50,6 +50,9 @@ export default {
   // map of active channel IDs to the channel chat
   channelRooms: {},
 
+  // current character opened on the character menu (character object)
+  characterMenuFocus: null,
+
   pushOverlay (overlay) {
     this.overlays.push(overlay)
   },
@@ -178,5 +181,14 @@ export default {
     if (index > -1) {
       this.currentRoomIndex = index
     }
+  },
+
+  setCharacterMenuFocus (name) {
+    this.characterMenuFocus = this.onlineCharacters[name]
+  },
+
+  openCharacterMenu (name) {
+    this.setCharacterMenuFocus(name)
+    this.pushOverlay('character-menu')
   }
 }

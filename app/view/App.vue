@@ -13,6 +13,7 @@
 <script>
 import Chat from './Chat.vue'
 import UserMenu from './UserMenu.vue'
+import CharacterMenu from './CharacterMenu.vue'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import ChannelSelect from './ChannelSelect.vue'
@@ -28,6 +29,7 @@ export default {
   components: {
     Chat,
     UserMenu,
+    CharacterMenu,
     Login,
     CharacterSelect,
     ChannelSelect,

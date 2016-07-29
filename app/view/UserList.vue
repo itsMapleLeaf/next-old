@@ -1,26 +1,29 @@
 <template>
   <div>
-    <a v-for='user in users' :class="'flex flex-justify-space-between ui-padding-1 ' + getHighlight(user)" href='#'>
-      <strong :class="'gender-color ' + user.gender">{{user.name}}</strong>
-      <span>
-        <i class='mdi mdi-heart' v-if='user.isFriend'></i>
-        <i class='mdi mdi-star' v-if='user.isBookmark'></i>
-      </span>
-    </a>
+    <character-list-item v-for='char in users' :character='char' class="ui-padding-1"
+      @click.native='openCharacterMenu(char)'>
+    </character-list-item>
   </div>
 </template>
 
 <script>
+import CharacterListItem from './CharacterListItem.vue'
+import store from '../store'
+
 export default {
+  components: {CharacterListItem},
+
   props: {
     users: Array
   },
 
+  data () {
+    return { store }
+  },
+
   methods: {
-    getHighlight (char) {
-      return char.isFriend ? 'highlight-green'
-        : char.isBookmark ? 'highlight-blue'
-        : ''
+    openCharacterMenu (char) {
+      this.store.openCharacterMenu(char.name)
     }
   }
 }
