@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class='flex ui-width-8 ui-shade ui-link ui-fit-viewport' style='height: 100px; margin: 0.5rem'>
+  <a href='#' class='flex ui-width-8 ui-link ui-fit-viewport' style='height: 100px; margin: 0.5rem'>
     <img class='flex-fixed ui-block' :src='avatarURL' />
     <div class='flex-grow flex-column' style='width: calc(100% - 100px); overflow-wrap: break-word'>
       <h3 class='flex-fixed ui-block ui-padding-2 gender-color' :class='gender'>

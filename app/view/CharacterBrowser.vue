@@ -1,24 +1,25 @@
 <template>
-  <div class='flex-column flex-align-center ui-overlay'>
+  <div class='flex-column flex-align-stretch ui-fullscreen'>
     <back-button class='res res-desktop' align='middle' @click.native='close'></back-button>
     <back-button class='res res-mobile' align='top' @click.native='close'></back-button>
-    <div class='flex-fixed flex flex-justify-center'>
+
+    <div class='color-main ui-shadow-symmetric flex-fixed flex flex-justify-center' style='z-index: 1'>
       <a href='#' v-for='(group, index) in groups'
         class='ui-link ui-header-2 ui-margin-1' :class="{ 'ui-faded': currentGroup !== index }"
         @click="currentGroup = index">
         {{ group.title }}
       </a>
+    </div>
 
-      <!-- <a href='#' class='ui-link ui-margin-1 ui-faded'><h2>Friends</h2></a>
-      <a href='#' class='ui-link ui-margin-1'><h2>Looking</h2></a>
-      <a href='#' class='ui-link ui-margin-1 ui-faded'><h2>All</h2></a> -->
+    <div class='ui-shade flex-grow flex flex-justify-center flex-wrap ui-scroll-y' style='align-content: flex-start'>
+      <card v-for='char in filteredCharacters' :character='char' class='color-dark'></card>
     </div>
-    <div class='flex-grow flex flex-justify-center flex-wrap ui-scroll-y' style='align-content: flex-start'>
-      <card v-for='char in filteredCharacters' :character='char'></card>
-    </div>
-    <div class='flex-fixed ui-width-12 ui-header-2 ui-margin-1 ui-input-icon-left ui-fit-viewport' style='background-color: transparent'>
-      <i class='ui-icon mdi mdi-magnify'></i>
-      <input class='ui-border' v-model='searchText' />
+
+    <div class='color-main ui-shadow-symmetric flex-fixed flex flex-center'>
+      <div class='ui-width-12 ui-header-2 ui-margin-1 ui-input-icon-left ui-fit-viewport' style='background-color: transparent'>
+        <i class='ui-icon mdi mdi-magnify'></i>
+        <input class='ui-border' v-model='searchText' />
+      </div>
     </div>
   </div>
 </template>
