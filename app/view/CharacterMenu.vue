@@ -14,11 +14,15 @@
       </section>
 
       <section class='flex-grow color-dark'>
-        <!-- <menu-option v-for='opt in options'
-          :text='opt.text'
-          :icon='opt.icon'
-          :action='opt.action'>
-        </menu-option> -->
+        <menu-option icon='comment'>Send Message</menu-option>
+
+        <menu-option icon='star' v-if='character.isBookmark'>Unbookmark</menu-option>
+        <menu-option icon='star-outline' v-else>Bookmark</menu-option>
+
+        <menu-option icon='minus-circle' v-if='character.isIgnored'>Unignore</menu-option>
+        <menu-option icon='minus-circle-outline' v-else>Ignore</menu-option>
+
+        <menu-option icon='link-variant'>View Profile</menu-option>
       </section>
     </div>
   </div>

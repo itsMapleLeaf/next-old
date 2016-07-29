@@ -4,7 +4,9 @@
       <section class='flex-fixed ui-padding-5'>
         <menu-header :character='identity'>
           <span slot='header'>{{ header }}</span>
-          <span slot='subtext' class='ui-faded'>In the mood for some play?</span>
+          <span slot='subtext' class='ui-faded'>
+            In the mood for some play?
+          </span>
         </menu-header>
         <status-form></status-form>
       </section>
@@ -14,11 +16,11 @@
           <menu-room v-for='room in rooms' :room='room' :active='room === currentRoom'
             @selected='setRoom(room)' @closed='leaveRoom(room)'>
           </menu-room>
-
           <div class='ui-padding-1 color-main'></div>
         </div>
 
-        <menu-option v-for='opt in options' :text='opt.text' :icon='opt.icon' :action='opt.action'>
+        <menu-option v-for='opt in options' :icon='opt.icon' :action='opt.action'>
+          {{ opt.text }}
         </menu-option>
       </section>
     </div>
