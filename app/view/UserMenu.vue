@@ -1,33 +1,32 @@
 <template>
-  <div class='ui-overlay' @click.self='close'>
-    <div class='ui-panel-left ui-width-6 flex-column ui-scroll-y'>
-      <section class='flex-fixed ui-padding-5'>
-        <menu-header :character='identity'>
-          <span slot='header'>{{ header }}</span>
-          <span slot='subtext' class='ui-faded'>
-            In the mood for some play?
-          </span>
-        </menu-header>
-        <status-form></status-form>
-      </section>
+  <side-menu left>
+    <span slot='content'>
+      <menu-header :character='identity'>
+        <span slot='header'>{{ header }}</span>
+        <span slot='subtext' class='ui-faded'>
+          In the mood for some play?
+        </span>
+      </menu-header>
+      <status-form></status-form>
+    </span>
 
-      <section class='flex-grow color-dark'>
-        <div class='res res-mobile'>
-          <menu-room v-for='room in rooms' :room='room' :active='room === currentRoom'
-            @selected='setRoom(room)' @closed='leaveRoom(room)'>
-          </menu-room>
-          <div class='ui-padding-1 color-main'></div>
-        </div>
+    <span slot='options'>
+      <div class='res res-mobile'>
+        <menu-room v-for='room in rooms' :room='room' :active='room === currentRoom'
+          @selected='setRoom(room)' @closed='leaveRoom(room)'>
+        </menu-room>
+        <div class='ui-padding-1 color-main'></div>
+      </div>
 
-        <menu-option v-for='opt in options' :icon='opt.icon' :action='opt.action'>
-          {{ opt.text }}
-        </menu-option>
-      </section>
-    </div>
-  </div>
+      <menu-option v-for='opt in options' :icon='opt.icon' :action='opt.action'>
+        {{ opt.text }}
+      </menu-option>
+    </span>
+  </side-menu>
 </template>
 
 <script>
+import SideMenu from './SideMenu.vue'
 import MenuHeader from './MenuHeader.vue'
 import StatusForm from './MenuStatusForm.vue'
 import MenuOption from './MenuOption.vue'
@@ -37,7 +36,7 @@ import socket from '../socket'
 import {userMenu as options} from '../menus'
 
 export default {
-  components: {MenuHeader, StatusForm, MenuOption, MenuRoom},
+  components: {SideMenu, MenuHeader, StatusForm, MenuOption, MenuRoom},
 
   data () {
     return {
@@ -54,10 +53,6 @@ export default {
   },
 
   methods: {
-    close () {
-      this.store.popOverlay()
-    },
-
     setRoom (room) {
       this.store.setCurrentRoom(room)
     },
