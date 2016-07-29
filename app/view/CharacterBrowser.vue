@@ -1,19 +1,26 @@
 <template>
   <div class='flex-column flex-align-stretch ui-overlay'>
     <div class='flex-fixed flex flex-justify-center'>
-      <a href='#' class='ui-link ui-margin-1 ui-faded'><h2>Friends</h2></a>
+      <a href='#' v-for='(group, index) in groups'
+        class='ui-link ui-margin-1'
+        :class="{ 'ui-faded': currentGroup !== index }"
+        @click="currentGroup = index">
+        <h2>{{ group.title }}</h2>
+      </a>
+
+      <!-- <a href='#' class='ui-link ui-margin-1 ui-faded'><h2>Friends</h2></a>
       <a href='#' class='ui-link ui-margin-1'><h2>Looking</h2></a>
-      <a href='#' class='ui-link ui-margin-1 ui-faded'><h2>All</h2></a>
+      <a href='#' class='ui-link ui-margin-1 ui-faded'><h2>All</h2></a> -->
     </div>
-    <div class='flex-grow flex flex-justify-center flex-wrap ui-scroll-y'>
-      <a href='#' v-for='char in looking' class='flex ui-width-8 ui-shade ui-link ui-fit-viewport' style='height: 100px; margin: 0.5rem'>
+    <div class='flex-grow flex flex-justify-center flex-wrap ui-scroll-y' style='align-content: flex-start'>
+      <a href='#' v-for='char in groups[currentGroup].list()' class='flex ui-width-8 ui-shade ui-link ui-fit-viewport' style='height: 100px; margin: 0.5rem'>
         <img class='flex-fixed ui-block' :src='getAvatarURL(char.name)' />
         <div class='flex-grow flex-column' style='width: calc(100% - 100px); overflow-wrap: break-word'>
           <h3 class='flex-fixed ui-block ui-padding-2'>
-            {{char.name}}
+            {{ char.name }}
           </h3>
           <em class='flex-grow ui-block ui-small ui-padding-0' style='overflow-y: hidden'>
-            <span class='status-color' :class='char.status'>{{char.status}}</span>
+            <span class='status-color' :class='char.status'>{{ char.status }}</span>
             <span v-html="' - ' + char.statusmsg" v-if='char.statusmsg'></span>
           </em>
         </div>
@@ -52,10 +59,11 @@ export default {
   data () {
     return {
       groups: [
-        { title: 'Friends', characters: [] },
-        { title: 'Looking', characters: [] },
-        { title: 'All', characters: [] }
+        { title: 'Friends', list: () => this.friends.concat(this.bookmarks) },
+        { title: 'Looking', list: () => this.looking },
+        { title: 'All', list: () => this.allCharacters.slice(0, 200).sort(compareNames) }
       ],
+      currentGroup: 0,
       store,
       getAvatarURL,
       getProfileURL
@@ -64,8 +72,8 @@ export default {
 
   methods: {
     filterCharacters (filter) {
-      return util.values(this.store.onlineCharacters)
-        .reverse()
+      return this.allCharacters
+        // .reverse()
         .filter(filter)
         .slice(0, 200)
         .sort(sortCharacters)
@@ -75,7 +83,8 @@ export default {
   computed: {
     friends () { return this.filterCharacters(char => char.isFriend) },
     bookmarks () { return this.filterCharacters(char => char.isBookmark) },
-    looking () { return this.filterCharacters(char => char.status === 'looking') }
+    looking () { return this.filterCharacters(char => char.status === 'looking') },
+    allCharacters () { return util.values(this.store.onlineCharacters) }
   }
 }
 </script>
