@@ -1,6 +1,7 @@
 <template>
   <div class='flex-column flex-align-center ui-overlay'>
-    <back-button align='top' @click.native='close'></back-button>
+    <back-button class='res res-desktop' align='middle' @click.native='close'></back-button>
+    <back-button class='res res-mobile' align='top' @click.native='close'></back-button>
     <div class='flex-fixed flex flex-justify-center'>
       <a href='#' v-for='(group, index) in groups'
         class='ui-link ui-header-2 ui-margin-1' :class="{ 'ui-faded': currentGroup !== index }"
