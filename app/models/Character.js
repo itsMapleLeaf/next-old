@@ -1,11 +1,16 @@
 import store from '../store'
+import parseBBC from '../parse-bbc'
 
 export default class Character {
   constructor (name, gender, status = 'online', statusmsg = '') {
     this.name = name
     this.gender = gender.toLowerCase()
+    this.setStatus(status, statusmsg)
+  }
+
+  setStatus (status, message) {
     this.status = status
-    this.statusmsg = statusmsg
+    this.statusmsg = parseBBC(message)
   }
 
   get friends () {

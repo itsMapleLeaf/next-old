@@ -102,8 +102,7 @@ export default {
 
   setCharacterStatus (name, status, message) {
     const char = this.onlineCharacters[name]
-    char.status = status
-    char.statusmsg = message
+    char.setStatus(status, message)
   },
 
   setIgnoreList (list) {
