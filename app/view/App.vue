@@ -54,15 +54,15 @@ export default {
 
       const data = session.load()
       if (data) {
-        store.fetchUserData(data.account, data.ticket).then(() => {
-          store.pushOverlay('character-select')
+        this.store.fetchUserData(data.account, data.ticket).then(() => {
+          this.store.pushOverlay('character-select')
         })
         .catch(err => {
           console.warn(err)
-          store.pushOverlay('login')
+          this.store.pushOverlay('login')
         })
       } else {
-        store.pushOverlay('login')
+        this.store.pushOverlay('login')
       }
     })
   },
@@ -72,7 +72,7 @@ export default {
       if (state === 'identified') {
         const data = session.load()
         if (data) {
-          for (let id of data[`channels:${store.identity}`] || []) {
+          for (let id of data[`channels:${this.store.identity}`] || []) {
             socket.joinChannel(id)
           }
         }

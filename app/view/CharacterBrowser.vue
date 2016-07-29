@@ -1,7 +1,5 @@
 <template>
   <div class='flex-column flex-align-stretch ui-fullscreen'>
-    <back-button class='res res-desktop' align='middle' @click.native='close'></back-button>
-    <back-button class='res res-mobile' align='top' @click.native='close'></back-button>
 
     <div class='color-main ui-shadow-symmetric flex-fixed flex flex-justify-center' style='z-index: 1'>
       <a href='#' v-for='(group, index) in groups'
@@ -9,9 +7,12 @@
         @click="currentGroup = index">
         {{ group.title }}
       </a>
+      <back-button align='top' @click.native='close'></back-button>
     </div>
 
-    <div class='ui-shade flex-grow flex flex-justify-center flex-wrap ui-scroll-y' style='align-content: flex-start'>
+    <div class='ui-shade flex-grow flex flex-justify-center flex-wrap ui-scroll-y'
+      style='align-content: flex-start'
+      @click.self='close'>
       <card v-for='char in filteredCharacters' :character='char' class='color-dark'></card>
     </div>
 
