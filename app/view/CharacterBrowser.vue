@@ -2,8 +2,7 @@
   <div class='flex-column flex-align-center ui-overlay'>
     <div class='flex-fixed flex flex-justify-center'>
       <a href='#' v-for='(group, index) in groups'
-        class='ui-link ui-header-2 ui-margin-1'
-        :class="{ 'ui-faded': currentGroup !== index }"
+        class='ui-link ui-header-2 ui-margin-1' :class="{ 'ui-faded': currentGroup !== index }"
         @click="currentGroup = index">
         {{ group.title }}
       </a>
@@ -13,7 +12,7 @@
       <a href='#' class='ui-link ui-margin-1 ui-faded'><h2>All</h2></a> -->
     </div>
     <div class='flex-grow flex flex-justify-center flex-wrap ui-scroll-y' style='align-content: flex-start'>
-      <a href='#' v-for='char in groups[currentGroup].list()' class='flex ui-width-8 ui-shade ui-link ui-fit-viewport' style='height: 100px; margin: 0.5rem'>
+      <a href='#' v-for='char in filteredCharacters' class='flex ui-width-8 ui-shade ui-link ui-fit-viewport' style='height: 100px; margin: 0.5rem'>
         <img class='flex-fixed ui-block' :src='getAvatarURL(char.name)' />
         <div class='flex-grow flex-column' style='width: calc(100% - 100px); overflow-wrap: break-word'>
           <h3 class='flex-fixed ui-block ui-padding-2'>
@@ -28,7 +27,7 @@
     </div>
     <div class='flex-fixed ui-width-12 ui-header-2 ui-margin-1 ui-input-icon-left ui-fit-viewport' style='background-color: transparent'>
       <i class='ui-icon mdi mdi-magnify'></i>
-      <input class='ui-border' />
+      <input class='ui-border' v-model='searchText' />
     </div>
   </div>
 </template>
@@ -65,9 +64,10 @@ export default {
       groups: [
         { title: 'Friends', list: () => this.friends.concat(this.bookmarks) },
         { title: 'Looking', list: () => this.looking },
-        { title: 'All', list: () => this.allCharacters.slice(0, 200).sort(compareNames) }
+        { title: 'All', list: () => this.sortCharacters(() => true) }
       ],
       currentGroup: 0,
+      searchText: '',
       store,
       getAvatarURL,
       getProfileURL
@@ -75,20 +75,25 @@ export default {
   },
 
   methods: {
-    filterCharacters (filter) {
+    sortCharacters (filter) {
       return this.allCharacters
-        // .reverse()
         .filter(filter)
+        .filter(char => char.name.toLowerCase()
+          .includes(this.searchText.toLowerCase()))
         .slice(0, 200)
         .sort(sortCharacters)
     }
   },
 
   computed: {
-    friends () { return this.filterCharacters(char => char.isFriend) },
-    bookmarks () { return this.filterCharacters(char => char.isBookmark) },
-    looking () { return this.filterCharacters(char => char.status === 'looking') },
-    allCharacters () { return util.values(this.store.onlineCharacters) }
+    allCharacters () { return util.values(this.store.onlineCharacters) },
+    friends () { return this.sortCharacters(char => char.isFriend) },
+    bookmarks () { return this.sortCharacters(char => char.isBookmark) },
+    looking () { return this.sortCharacters(char => char.status === 'looking') },
+
+    filteredCharacters () {
+      return this.groups[this.currentGroup].list()
+    }
   }
 }
 </script>
