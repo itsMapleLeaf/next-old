@@ -40,7 +40,7 @@ export default {
       shortcuts: [
         { icon: 'menu', action: () => this.pushOverlay('user-menu') },
         { icon: 'forum', action: () => this.pushOverlay('channel-select') },
-        { icon: 'heart', action: () => {} }
+        { icon: 'heart', action: () => this.pushOverlay('character-browser') }
       ]
     }
   },

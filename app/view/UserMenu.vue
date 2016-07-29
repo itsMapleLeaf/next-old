@@ -48,7 +48,7 @@ export default {
         {
           text: 'Online Users',
           icon: 'heart',
-          action: () => {}
+          action: () => store.pushOverlay('character-browser')
         },
         {
           text: 'Settings',

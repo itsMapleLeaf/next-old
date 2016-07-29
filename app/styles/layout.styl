@@ -57,6 +57,13 @@ for $side in (left right)
     bottom: 0
     {$side}: 0
 
+for $side in (top bottom)
+  .ui-anchor-{$side}
+    position: absolute
+    left: 0
+    right: 0
+    {$side}: 0
+
 .ui-text-center
   text-align: center
 
@@ -68,6 +75,10 @@ for $side in (left right)
   max-width: 100%
 
 .ui-fit-height
+  max-height: 100%
+
+.ui-fit
+  max-width: 100%
   max-height: 100%
 
 .ui-fit-viewport

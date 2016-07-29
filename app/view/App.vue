@@ -16,15 +16,25 @@ import UserMenu from './UserMenu.vue'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import ChannelSelect from './ChannelSelect.vue'
-import AppBar from './AppBar.vue'
 import RoomInfo from './RoomInfo.vue'
+import CharacterBrowser from './CharacterBrowser.vue'
+import AppBar from './AppBar.vue'
 
 import store from '../store'
 import socket from '../socket'
 import session from '../session'
 
 export default {
-  components: {Chat, UserMenu, Login, CharacterSelect, ChannelSelect, AppBar, RoomInfo},
+  components: {
+    Chat,
+    UserMenu,
+    Login,
+    CharacterSelect,
+    ChannelSelect,
+    AppBar,
+    RoomInfo,
+    CharacterBrowser
+  },
 
   data () {
     return {
