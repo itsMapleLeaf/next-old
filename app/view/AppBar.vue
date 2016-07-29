@@ -7,12 +7,9 @@
       <i :class="'mdi mdi-' + shortcut.icon"></i>
     </a>
     <div class='flex-grow flex flex-wrap res res-desktop'>
-      <room-tab
-        v-for='room in rooms'
-        :key="room.name"
-        :active='room === currentRoom'
+      <room-tab v-for='room in rooms' :key="room.name" :active='room === currentRoom'
         @click.native='setRoom(room)' @closed='leaveRoom(room)'>
-        <i class='mdi mdi-earth'></i> {{room.name}}
+        <room-title :room='room'></room-title>
       </room-tab>
     </div>
     <a href='#'
@@ -21,19 +18,20 @@
         flex-grow flex flex-align-center flex-justify-end
         res res-mobile'
       @click="pushOverlay('room-info')">
-      <span class='ui-faded'><i class='mdi mdi-earth'></i> {{currentRoom.name}}</span>
+      <span class='ui-faded'><room-title :room='currentRoom'></room-title></span>
       <span class='ui-padding-subtle'><i class='mdi mdi-dots-vertical'></i></span>
     </a>
   </div>
 </template>
 
 <script>
+import RoomTitle from './RoomTitle.vue'
 import RoomTab from './RoomTab.vue'
 import store from '../store'
 import socket from '../socket'
 
 export default {
-  components: {RoomTab},
+  components: {RoomTab, RoomTitle},
 
   data () {
     return {

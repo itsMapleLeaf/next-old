@@ -10,7 +10,7 @@
           <a v-for='room in rooms' href='#'
             class='flex flex-justify-space-between'
             :class="room === currentRoom ? 'highlight-blue' : ''" @click.prevent='setRoom(room)'>
-            <span class='ui-padding-4'><i class='mdi mdi-earth'></i> {{room.name}}</span>
+            <span class='ui-padding-4'><room-title :room='room'></room-title></span>
             <span class='ui-padding-4 ui-faded' @click.stop='leaveRoom(room)'><i class='mdi mdi-close'></i></span>
           </a>
 
@@ -29,13 +29,14 @@
 </template>
 
 <script>
+import RoomTitle from './RoomTitle.vue'
 import MenuHeader from './MenuHeader.vue'
 import StatusForm from './MenuStatusForm.vue'
 import store from '../store'
 import socket from '../socket'
 
 export default {
-  components: {MenuHeader, StatusForm},
+  components: {MenuHeader, StatusForm, RoomTitle},
 
   data () {
     return {
