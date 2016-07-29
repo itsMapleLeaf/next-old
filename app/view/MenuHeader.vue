@@ -1,8 +1,10 @@
 <template>
   <section>
     <header class='ui-margin-bottom-1'>
-      <h2>{{ header }}</h2>
-      <small class='ui-faded'>{{ subtext }}</small>
+      <h2><slot name='header'></slot></h2>
+      <small>
+        <slot name='subtext'></slot>
+      </small>
     </header>
     <span class='ui-margin-v-1'>
       <avatar :name='character'></avatar>
@@ -17,8 +19,6 @@ export default {
   components: {Avatar},
 
   props: {
-    header: String,
-    subtext: String,
     character: String
   }
 }

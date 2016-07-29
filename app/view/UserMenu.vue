@@ -2,7 +2,9 @@
   <div class='ui-overlay' @click.self='close'>
     <div class='ui-panel-left ui-width-6 flex-column ui-scroll-y'>
       <section class='flex-fixed ui-padding-5'>
-        <menu-header :header='header' subtext="In the mood for some play?" :character='identity'>
+        <menu-header :character='identity'>
+          <span slot='header'>{{ header }}</span>
+          <span slot='subtext' class='ui-faded'>In the mood for some play?</span>
         </menu-header>
         <status-form></status-form>
       </section>

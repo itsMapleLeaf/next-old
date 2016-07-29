@@ -17,3 +17,8 @@ export function assign (...objs) {
     return result
   }
 }
+
+// uppercase the first letter of a string and lowercase the rest
+export function capitalize (text) {
+  return text.substring(0, 1).toLocaleUpperCase() + text.substring(1).toLocaleLowerCase()
+}

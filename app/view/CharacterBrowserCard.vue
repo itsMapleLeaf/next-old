@@ -6,8 +6,7 @@
         {{ name }}
       </h3>
       <em class='flex-grow ui-block ui-small ui-padding-0' style='overflow-y: hidden'>
-        <span class='status-color' :class='status'>{{ status }}</span>
-        <span v-html="' - ' + statusmsg" v-if='statusmsg'></span>
+        <user-status :status='status' :statusmsg='statusmsg'></user-status>
       </em>
     </div>
   </a>
@@ -15,9 +14,12 @@
 
 <script>
 import Character from '../models/Character'
+import UserStatus from './UserStatus.vue'
 import {getAvatarURL} from '../f-list'
 
 export default {
+  components: {UserStatus},
+
   props: {
     character: Character
   },
