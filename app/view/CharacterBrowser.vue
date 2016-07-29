@@ -26,26 +26,14 @@
 import Card from './CharacterBrowserCard.vue'
 import BackButton from './BackButton.vue'
 import store from '../store'
-import {getAvatarURL, getProfileURL} from '../f-list'
 import * as util from '../util'
-
-function getSortPriority (char) {
-  return char.isFriend ? 3
-    : char.isBookmark ? 2
-    : char.status === 'looking' ? 1
-    : 0
-}
-
-function comparePriority (a, b) {
-  return getSortPriority(b) - getSortPriority(a)
-}
 
 function compareNames (a, b) {
   return a.name.localeCompare(b.name)
 }
 
-function sortCharacters (a, b) {
-  return compareNames(a, b) + comparePriority(a, b)
+function compareOnlineTime (a, b) {
+  return a.onlineTime > b.onlineTime
 }
 
 export default {
@@ -60,9 +48,7 @@ export default {
       ],
       currentGroup: 0,
       searchText: '',
-      store,
-      getAvatarURL,
-      getProfileURL
+      store
     }
   },
 
@@ -77,8 +63,8 @@ export default {
           char.status.toLowerCase().includes(search) ||
           char.statusmsg.toLowerCase().includes(search)
         )
+        .sort(compareOnlineTime)
         .slice(0, 200)
-        .sort(sortCharacters)
     },
 
     close () {

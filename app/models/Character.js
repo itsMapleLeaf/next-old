@@ -6,6 +6,7 @@ export default class Character {
     this.name = name
     this.gender = gender.toLowerCase()
     this.setStatus(status, statusmsg)
+    this.onlineTime = Date.now()
   }
 
   setStatus (status, message) {
