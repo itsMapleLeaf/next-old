@@ -1,11 +1,11 @@
 <template>
-  <div class='flex-column flex-align-stretch ui-overlay'>
+  <div class='flex-column flex-align-center ui-overlay'>
     <div class='flex-fixed flex flex-justify-center'>
       <a href='#' v-for='(group, index) in groups'
-        class='ui-link ui-margin-1'
+        class='ui-link ui-header-2 ui-margin-1'
         :class="{ 'ui-faded': currentGroup !== index }"
         @click="currentGroup = index">
-        <h2>{{ group.title }}</h2>
+        {{ group.title }}
       </a>
 
       <!-- <a href='#' class='ui-link ui-margin-1 ui-faded'><h2>Friends</h2></a>
@@ -25,6 +25,10 @@
           </em>
         </div>
       </a>
+    </div>
+    <div class='flex-fixed ui-width-12 ui-header-2 ui-margin-1 ui-input-icon-left ui-fit-viewport' style='background-color: transparent'>
+      <i class='ui-icon mdi mdi-magnify'></i>
+      <input class='ui-border' />
     </div>
   </div>
 </template>

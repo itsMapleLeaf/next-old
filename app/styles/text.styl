@@ -20,7 +20,7 @@
 for $h in 1..6
   .ui-header-{$h}
     @extend .ui-font-color, .ui-font-secondary, .ui-font-light
-    margin: 0
+    font-size: 180% - (($h - 1) * 30%)
 
 .ui-text-small
   font-size: 75%
