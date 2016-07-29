@@ -68,10 +68,15 @@ export default {
 
   methods: {
     sortCharacters (filter) {
+      const search = this.searchText.toLowerCase()
       return this.allCharacters
         .filter(filter)
-        .filter(char => char.name.toLowerCase()
-          .includes(this.searchText.toLowerCase()))
+        .filter(char =>
+          char.name.toLowerCase().includes(search) ||
+          char.gender.toLowerCase().includes(search) ||
+          char.status.toLowerCase().includes(search) ||
+          char.statusmsg.toLowerCase().includes(search)
+        )
         .slice(0, 200)
         .sort(sortCharacters)
     },
