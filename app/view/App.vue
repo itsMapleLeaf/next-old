@@ -75,7 +75,11 @@ export default {
         switch (name) {
           case 'data-character':
             this.store.openCharacterMenu(value)
-            return false
+            return
+
+          case 'data-join-channel':
+            socket.joinChannel(value)
+            return
         }
       }
     }
