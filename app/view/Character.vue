@@ -1,8 +1,8 @@
 <template>
-  <span>
+  <a href='#'>
     <span :class="'status-color ' + character.status">•</span>
     <strong :class="'gender-color ' + character.gender">{{ character.name }}</strong>
-  </span>
+  </a>
 </template>
 
 <script>

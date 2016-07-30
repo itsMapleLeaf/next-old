@@ -1,10 +1,10 @@
 <template>
-  <a href='#' class='flex flex-justify-space-between' :class='highlight'>
+  <div class='flex flex-justify-space-between' :class='highlight'>
     <character :character='character'></character>
     <span v-if='icon'>
       <i :class="'mdi mdi-' + icon"></i>
     </span>
-  </a>
+  </div>
 </template>
 
 <script>
