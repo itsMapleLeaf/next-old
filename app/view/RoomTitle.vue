@@ -1,6 +1,6 @@
 <template>
   <span>
-    <i class='mdi mdi-earth'></i> {{room.name}}
+    <i :class="'mdi mdi-' + icon"></i> {{room.name}}
   </span>
 </template>
 
@@ -8,6 +8,12 @@
 export default {
   props: {
     room: Object
+  },
+
+  computed: {
+    icon () {
+      return this.room.id === this.room.name ? 'earth' : 'key-variant'
+    }
   }
 }
 </script>
