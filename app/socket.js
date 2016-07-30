@@ -179,7 +179,12 @@ export default {
 
       // channel message
       MSG () {
-        store.addChannelMessage(params.channel, params.character, params.message)
+        store.addChannelMessage(params.channel, params.character, params.message, 'chat')
+      },
+
+      // LFRP message
+      LRP () {
+        store.addChannelMessage(params.channel, params.character, params.message, 'lfrp')
       },
 
       VAR () {}

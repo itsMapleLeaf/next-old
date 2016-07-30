@@ -167,10 +167,10 @@ export default {
     this.channelRooms[id].description = parseBBC(description)
   },
 
-  addChannelMessage (id, name, message) {
+  addChannelMessage (id, name, message, type) {
     const channel = this.channelRooms[id]
     const sender = this.onlineCharacters[name]
-    channel.messages.push(new Message(sender, message))
+    channel.messages.push(new Message(sender, message, type))
   },
 
   getCurrentRoom () {

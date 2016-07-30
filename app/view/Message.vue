@@ -1,5 +1,5 @@
 <template>
-  <div :style='style'>
+  <div :style='style' :class='classes'>
     <small class='ui-faded'>[{{ time }}]</small>
     <character :character='message.sender' style='margin-right: 0.3rem'></character>
     <span v-html='parsedMessage'></span>
@@ -27,6 +27,12 @@ export default {
     style () {
       return {
         fontStyle: meCommand.test(this.message.message) ? 'italic' : 'initial'
+      }
+    },
+
+    classes () {
+      return {
+        'highlight-green': this.message.type === 'lfrp'
       }
     },
 
