@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click='clicked'>
     <div class='flex-column ui-fullscreen'>
       <app-bar class='flex-fixed'></app-bar>
       <chat class='flex-grow'></chat>
@@ -67,6 +67,18 @@ export default {
         this.store.pushOverlay('login')
       }
     })
+  },
+
+  methods: {
+    clicked (event) {
+      for (let {name, value} of event.target.attributes) {
+        switch (name) {
+          case 'data-character':
+            this.store.openCharacterMenu(value)
+            return false
+        }
+      }
+    }
   },
 
   watch: {

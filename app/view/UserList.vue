@@ -1,7 +1,7 @@
 <template>
   <div>
-    <character-list-item v-for='char in users' :character='char' class="ui-padding-1"
-      @click.native='openCharacterMenu(char)'>
+    <character-list-item v-for='char in users'
+      :character='char' class="ui-padding-1">
     </character-list-item>
   </div>
 </template>
