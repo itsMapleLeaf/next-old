@@ -204,5 +204,13 @@ export default {
     .then(() => {
       this.bookmarks = this.bookmarks.filter(b => b !== name)
     })
+  },
+
+  addIgnored (name) {
+    this.ignored.push(name)
+  },
+
+  removeIgnored (name) {
+    this.ignored = this.ignored.filter(i => i !== name)
   }
 }

@@ -27,4 +27,8 @@ export default class Character {
   get isBookmark () {
     return store.bookmarks.includes(this.name)
   }
+
+  get isIgnored () {
+    return store.ignored.includes(this.name)
+  }
 }

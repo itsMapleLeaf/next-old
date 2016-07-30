@@ -78,6 +78,12 @@ export default {
     this.sendCommand('STA', { status, statusmsg })
   },
 
+  ignoreAction (character, action) {
+    // action can be: 'add', 'delete', 'notify', or 'list'
+    // https://wiki.f-list.net/F-Chat_Client_Commands#IGN
+    this.sendCommand('IGN', { character, action })
+  },
+
   handleCommand (command, params) {
     const handlers = {
       IDN () {
@@ -98,8 +104,22 @@ export default {
       FRL () {},
 
       IGN () {
-        if (params.action === 'init') {
-          store.setIgnoreList(params.characters)
+        switch (params.action) {
+          case 'init':
+          case 'list':
+            store.setIgnoreList(params.characters)
+            break
+
+          case 'add':
+            store.addIgnored(params.character)
+            break
+
+          case 'delete':
+            store.removeIgnored(params.character)
+            break
+
+          default:
+            console.warn(`Unknown ignore action "${params.action}"`, params)
         }
       },
 
