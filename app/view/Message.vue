@@ -1,13 +1,14 @@
 <template>
   <div :style='style'>
-    <character :character='sender' style='margin-right: 0.3rem'></character>
+    <small class='ui-faded'>[{{ time }}]</small>
+    <character :character='message.sender' style='margin-right: 0.3rem'></character>
     <span v-html='parsedMessage'></span>
   </div>
 </template>
 
 <script>
 import Character from './Character.vue'
-import CharacterModel from '../models/Character'
+import Message from '../models/Message'
 
 const meCommand = /^\/me/
 
@@ -15,19 +16,22 @@ export default {
   components: {Character},
 
   props: {
-    sender: CharacterModel,
-    message: String
+    message: Message
   },
 
   computed: {
     parsedMessage () {
-      return this.message.replace(meCommand, '')
+      return this.message.message.replace(meCommand, '')
     },
 
     style () {
       return {
-        fontStyle: meCommand.test(this.message) ? 'italic' : 'initial'
+        fontStyle: meCommand.test(this.message.message) ? 'italic' : 'initial'
       }
+    },
+
+    time () {
+      return new Date(this.message.time).toLocaleTimeString()
     }
   }
 }

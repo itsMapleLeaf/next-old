@@ -1,8 +1,7 @@
 <template>
   <div>
-    <message v-for='message in messages' class='ui-padding-1'
-      :message='message.message'
-      :sender='message.sender'>
+    <message v-for='msg in messages' :message='msg'
+      class='ui-padding-1'>
     </message>
   </div>
 </template>

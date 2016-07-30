@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Character from './models/Character'
 import ChannelRoom from './models/ChannelRoom'
+import Message from './models/Message'
 import * as flist from './f-list'
 import parseBBC from './parse-bbc'
 
@@ -169,7 +170,7 @@ export default {
   addChannelMessage (id, name, message) {
     const channel = this.channelRooms[id]
     const sender = this.onlineCharacters[name]
-    channel.messages.push({ sender, message: parseBBC(message) })
+    channel.messages.push(new Message(sender, message))
   },
 
   getCurrentRoom () {
