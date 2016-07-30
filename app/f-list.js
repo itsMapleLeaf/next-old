@@ -41,6 +41,24 @@ export function getBookmarks (account, ticket) {
   })
 }
 
+export function addBookmark (account, ticket, name) {
+  return post(endpoints.bookmarkAdd, { account, ticket, name }).then(data => {
+    if (data.error) {
+      throw new Error(data.error)
+    }
+    return true
+  })
+}
+
+export function removeBookmark (account, ticket, name) {
+  return post(endpoints.bookmarkRemove, { account, ticket, name }).then(data => {
+    if (data.error) {
+      throw new Error(data.error)
+    }
+    return true
+  })
+}
+
 export function getProfileURL (name) {
   const encoded = encodeURI(name.toLowerCase())
   return `https://www.f-list.net/c/${encoded}`

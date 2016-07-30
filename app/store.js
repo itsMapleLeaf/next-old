@@ -190,5 +190,19 @@ export default {
   openCharacterMenu (name) {
     this.setCharacterMenuFocus(name)
     this.pushOverlay('character-menu')
+  },
+
+  addBookmark (name) {
+    return flist.addBookmark(this.account, this.ticket, name)
+    .then(() => {
+      this.bookmarks.push(name)
+    })
+  },
+
+  removeBookmark (name) {
+    return flist.removeBookmark(this.account, this.ticket, name)
+    .then(() => {
+      this.bookmarks = this.bookmarks.filter(b => b !== name)
+    })
   }
 }

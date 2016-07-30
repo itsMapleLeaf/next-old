@@ -15,8 +15,9 @@
     <span slot='options'>
       <menu-option icon='comment'>Send Message</menu-option>
 
-      <menu-option icon='star' v-if='character.isBookmark'>Unbookmark</menu-option>
-      <menu-option icon='star-outline' v-else>Bookmark</menu-option>
+      <menu-option :icon="character.isBookmark ? 'star' : 'star-outline'" :action='toggleBookmark'>
+        {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
+      </menu-option>
 
       <menu-option icon='minus-circle' v-if='character.isIgnored'>Unignore</menu-option>
       <menu-option icon='minus-circle-outline' v-else>Ignore</menu-option>
@@ -43,6 +44,16 @@ export default {
 
   computed: {
     character () { return this.store.characterMenuFocus }
+  },
+
+  methods: {
+    toggleBookmark () {
+      if (this.character.isBookmark) {
+        this.store.removeBookmark(this.character.name).catch(err => console.error(err))
+      } else {
+        this.store.addBookmark(this.character.name).catch(err => console.error(err))
+      }
+    }
   }
 }
 </script>
