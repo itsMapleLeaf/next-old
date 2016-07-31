@@ -1,14 +1,3 @@
-function sortPriority (char) {
-  if (char.isFriend) {
-    return 3
-  } else if (char.isBookmark) {
-    return 2
-  } else if (char.status === 'looking') {
-    return 1
-  }
-  return 0
-}
-
 export default class ChannelRoom {
   constructor (id, name) {
     this.type = 'channel'
@@ -39,13 +28,33 @@ export default class ChannelRoom {
 
   sortCharacters () {
     this.characters.sort((a, b) => {
-      const pri1 = sortPriority(a)
-      const pri2 = sortPriority(b)
+      const pri1 = this.getSortPriority(a)
+      const pri2 = this.getSortPriority(b)
       if (pri1 !== pri2) {
         return pri2 - pri1
       } else {
         return a.name.localeCompare(b.name)
       }
     })
+  }
+
+  getSortPriority (char) {
+    switch (true) {
+      case char.isFriend:
+      case char.isBookmark:
+        return 4
+
+      case char.isAdmin:
+        return 3
+
+      case this.ops.includes(char.name):
+        return 2
+
+      case char.status === 'looking':
+        return 1
+
+      default:
+        return 0
+    }
   }
 }

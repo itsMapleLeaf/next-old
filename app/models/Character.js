@@ -33,6 +33,10 @@ export default class Character {
     return store.ignored.includes(this.name)
   }
 
+  get isAdmin () {
+    return store.admins.includes(this.name)
+  }
+
   get avatarURL () {
     return flist.getAvatarURL(this.name)
   }

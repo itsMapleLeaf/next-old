@@ -15,14 +15,27 @@ export default {
   components: {Character},
 
   props: {
-    character: CharacterModel
+    character: CharacterModel,
+    isOp: Boolean
   },
 
   computed: {
     highlight () {
-      return this.character.isFriend ? 'highlight-green'
-        : this.character.isBookmark ? 'highlight-blue'
-        : ''
+      const {isFriend, isBookmark, isAdmin} = this.character
+      const {isOp} = this
+      const isLooking = this.character.status === 'looking'
+      switch (true) {
+        case isFriend || isBookmark:
+          return 'highlight-green'
+        case isAdmin:
+          return 'highlight-red'
+        case isOp:
+          return 'highlight-yellow'
+        case isLooking:
+          return 'highlight-blue'
+        default:
+          return ''
+      }
     },
 
     icon () {
