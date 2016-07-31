@@ -1,5 +1,6 @@
 import store from '../store'
 import parseBBC from '../parse-bbc'
+import * as flist from '../f-list'
 
 export default class Character {
   constructor (name, gender, status = 'online', statusmsg = '') {
@@ -30,5 +31,13 @@ export default class Character {
 
   get isIgnored () {
     return store.ignored.includes(this.name)
+  }
+
+  get avatarURL () {
+    return flist.getAvatarURL(this.name)
+  }
+
+  get profileURL () {
+    return flist.getProfileURL(this.name)
   }
 }
