@@ -187,6 +187,11 @@ export default {
         store.addChannelMessage(params.channel, params.character, params.message, 'lfrp')
       },
 
+      // private message
+      PRI () {
+        store.addPrivateMessage(params.character, params.character, params.message, 'chat')
+      },
+
       VAR () {}
     }
 

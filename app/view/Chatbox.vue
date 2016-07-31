@@ -1,6 +1,5 @@
 <template>
   <textarea
-    placeholder="Sending as Somebody..."
     class='ui-padding-2'
     v-model='message'
     @keydown='submit($event)'>

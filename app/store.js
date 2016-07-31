@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Character from './models/Character'
 import ChannelRoom from './models/ChannelRoom'
+import PrivateRoom from './models/PrivateRoom'
 import Message from './models/Message'
 import * as flist from './f-list'
 import parseBBC from './parse-bbc'
@@ -48,8 +49,11 @@ export default {
   // index of the current active room
   currentRoomIndex: 0,
 
-  // map of active channel IDs to the channel chat
+  // map of channel IDs to channel room objects
   channelRooms: {},
+
+  // map of partner names to private room objects
+  privateRooms: {},
 
   // current character opened on the character menu (character object)
   characterMenuFocus: null,
@@ -171,6 +175,21 @@ export default {
     const channel = this.channelRooms[id]
     const sender = this.onlineCharacters[name]
     channel.messages.push(new Message(sender, message, type))
+  },
+
+  addPrivateMessage (partnerName, senderName, message, type) {
+    let room = this.privateRooms[partnerName]
+    if (!room) {
+      const partner = this.onlineCharacters[partnerName]
+      room = this.privateRooms[partnerName] = new PrivateRoom(partner)
+    }
+
+    const sender = this.onlineCharacters[senderName]
+    room.messages.push(new Message(sender, message, type))
+
+    if (partnerName === senderName && this.rooms.indexOf(room) === -1) {
+      this.rooms.push(room)
+    }
   },
 
   getCurrentRoom () {
