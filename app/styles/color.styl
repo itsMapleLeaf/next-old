@@ -1,13 +1,8 @@
 $colors = {
   text: hsl(205, 30%, 90%)
-
   main: hsl(210, 50%, 30%)
   dark: hsl(211, 50%, 23%)
   light: lighten(hsl(210, 50%, 30%), 20%)
-
-  red: rgb(231, 76, 60)
-  blue: rgb(52, 152, 219)
-  green: rgb(39, 174, 96)
 }
 
 .color-main { background-color: $colors.main }
@@ -20,8 +15,14 @@ $colors = {
   &:hover
     @extend .color-dark
 
-for $color-name in ('red' 'green' 'blue')
-  $color = $colors[$color-name]
-  .highlight-{$color-name}
-    background-color: rgba($color, 0.25)
+$highlights = {
+  red: rgb(231, 76, 60)
+  blue: rgb(52, 152, 219)
+  green: rgb(39, 174, 96)
+  yellow: rgb(241, 196, 15)
+}
+
+for $name, $color in $highlights
+  .highlight-{$name}
+    background-color: rgba($color, 0.15)
     color: lighten($color, 20%)

@@ -1,7 +1,8 @@
 <template>
   <div>
-    <character-list-item v-for='char in users'
-      :character='char' class="ui-padding-1">
+    <character-list-item class='ui-padding-1' v-for='char in users'
+      :class="ops.includes(char.name) && 'highlight-yellow'"
+      :character='char'>
     </character-list-item>
   </div>
 </template>
@@ -14,7 +15,8 @@ export default {
   components: {CharacterListItem},
 
   props: {
-    users: Array
+    users: Array,
+    ops: Array
   },
 
   data () {
