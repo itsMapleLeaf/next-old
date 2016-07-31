@@ -11,6 +11,7 @@ function sortPriority (char) {
 
 export default class ChannelRoom {
   constructor (id, name) {
+    this.type = 'channel'
     this.id = id
     this.name = name
     this.description = ''
