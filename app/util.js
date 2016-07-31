@@ -22,3 +22,8 @@ export function assign (...objs) {
 export function capitalize (text) {
   return text.substring(0, 1).toLocaleUpperCase() + text.substring(1).toLocaleLowerCase()
 }
+
+// remove an element from an array
+export function remove (array, item) {
+  return array.filter(v => v !== item)
+}

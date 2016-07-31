@@ -4,6 +4,7 @@ import ChannelRoom from './models/ChannelRoom'
 import PrivateRoom from './models/PrivateRoom'
 import Message from './models/Message'
 import * as flist from './f-list'
+import * as util from './util'
 import parseBBC from './parse-bbc'
 
 export default {
@@ -105,6 +106,10 @@ export default {
   },
 
   removeCharacter (name) {
+    const char = this.onlineCharacters[name]
+    for (let room of util.values(this.channelRooms)) {
+      util.remove(room.characters, char)
+    }
     delete this.onlineCharacters[name]
   },
 
