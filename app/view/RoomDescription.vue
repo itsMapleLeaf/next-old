@@ -1,7 +1,6 @@
-<template>
-  <div class='ui-padding-2'>
-    <slot></slot>
-  </div>
+<template lang='jade'>
+.ui-padding-2
+  slot
 </template>
 
 <script>

@@ -1,12 +1,7 @@
-<template>
-  <div class='color-dark flex-column'>
-    <component class='flex-grow' v-if='room' :is='roomView' :room='room'></component>
-    <textarea class='flex-fixed color-main ui-block ui-padding-2'
-      v-if='room'
-      style='height: 4rem'
-      :placeholder="'Chatting as ' + store.identity + '...'">
-    </textarea>
-  </div>
+<template lang='jade'>
+.color-dark.flex-column
+  component.flex-grow(v-if='room', :is='roomView', :room='room')
+  textarea.flex-fixed.color-main.ui-block.ui-padding-2(v-if='room', style='height: 4rem', :placeholder="'Chatting as ' + store.identity + '...'")
 </template>
 
 <script>

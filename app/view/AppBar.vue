@@ -1,27 +1,15 @@
-<template>
-  <div class='color-darker flex'>
-    <a href='#'
-      v-for="shortcut in shortcuts"
-      class='flex-fixed ui-inline-block ui-padding-subtle ui-fluid-border'
-      @click="shortcut.action">
-      <i :class="'mdi mdi-' + shortcut.icon"></i>
-    </a>
-    <div class='flex-grow flex flex-wrap res res-desktop'>
-      <room-tab v-for='room in rooms' :key="room.name" :active='room === currentRoom'
-        @click.native='setRoom(room)' @closed='leaveRoom(room)'>
-        <room-title :room='room'></room-title>
-      </room-tab>
-    </div>
-    <a href='#'
-      v-if='currentRoom'
-      class='
-        flex-grow flex flex-align-center flex-justify-end
-        res res-mobile'
-      @click="pushOverlay('room-info')">
-      <span class='ui-faded'><room-title :room='currentRoom'></room-title></span>
-      <span class='ui-padding-subtle'><i class='mdi mdi-dots-vertical'></i></span>
-    </a>
-  </div>
+<template lang='jade'>
+.color-darker.flex
+  a.flex-fixed.ui-inline-block.ui-padding-subtle.ui-fluid-border(href='#', v-for='shortcut in shortcuts', @click='shortcut.action')
+    i(:class="'mdi mdi-' + shortcut.icon")
+  .flex-grow.flex.flex-wrap.res.res-desktop
+    room-tab(v-for='room in rooms', :key='room.name', :active='room === currentRoom', @click.native='setRoom(room)', @closed='leaveRoom(room)')
+      room-title(:room='room')
+  a.flex-grow.flex.flex-align-center.flex-justify-end.res.res-mobile(href='#', v-if='currentRoom', @click="pushOverlay('room-info')")
+    span.ui-faded
+      room-title(:room='currentRoom')
+    span.ui-padding-subtle
+      i.mdi.mdi-dots-vertical
 </template>
 
 <script>

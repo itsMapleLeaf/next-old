@@ -1,8 +1,7 @@
-<template>
-  <span>
-    <i :class="'mdi mdi-' + icon"></i>
-    <span v-html='room.name'></span>
-  </span>
+<template lang='jade'>
+span
+  i(:class="'mdi mdi-' + icon")
+  span(v-html='room.name')
 </template>
 
 <script>

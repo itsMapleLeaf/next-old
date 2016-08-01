@@ -1,9 +1,6 @@
-<template>
-  <div>
-    <message v-for='msg in messages' :message='msg'
-      class='ui-padding-1'>
-    </message>
-  </div>
+<template lang='jade'>
+div
+  message.ui-padding-1(v-for='msg in messages', :message='msg')
 </template>
 
 <script>

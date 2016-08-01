@@ -1,7 +1,6 @@
-<template>
-  <a href='#' class='ui-hover-darken ui-inline-block ui-faded ui-padding-subtle' :class="align">
-    <i class='mdi mdi-arrow-left'></i>
-  </a>
+<template lang='jade'>
+a.ui-hover-darken.ui-inline-block.ui-faded.ui-padding-subtle(href='#', :class='align')
+  i.mdi.mdi-arrow-left
 </template>
 
 <style scoped>

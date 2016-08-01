@@ -1,28 +1,15 @@
-<template>
-  <div class='flex-column flex-align-stretch ui-fullscreen'>
-
-    <div class='color-main ui-shadow-symmetric flex-fixed flex flex-justify-center' style='z-index: 1'>
-      <a href='#' v-for='(group, index) in groups'
-        class='ui-link ui-header-2 ui-margin-1' :class="{ 'ui-faded': currentGroup !== index }"
-        @click="currentGroup = index">
-        {{ group.title }}
-      </a>
-      <back-button align='top' @click.native='close'></back-button>
-    </div>
-
-    <div class='ui-shade flex-grow flex flex-justify-center flex-wrap ui-scroll-y'
-      style='align-content: flex-start'
-      @click.self='close'>
-      <card v-for='char in filteredCharacters' :character='char' class='color-dark'></card>
-    </div>
-
-    <div class='color-main ui-shadow-symmetric flex-fixed flex flex-center'>
-      <div class='ui-width-12 ui-header-2 ui-margin-1 ui-input-icon-left ui-fit-viewport' style='background-color: transparent'>
-        <i class='ui-icon mdi mdi-magnify'></i>
-        <input class='ui-border' v-model='searchText' />
-      </div>
-    </div>
-  </div>
+<template lang='jade'>
+.flex-column.flex-align-stretch.ui-fullscreen
+  .color-main.ui-shadow-symmetric.flex-fixed.flex.flex-justify-center(style='z-index: 1')
+    a.ui-link.ui-header-2.ui-margin-1(href='#', v-for='(group, index) in groups', :class="{ 'ui-faded': currentGroup !== index }", @click='currentGroup = index')
+      | {{ group.title }}
+    back-button(align='top', @click.native='close')
+  .ui-shade.flex-grow.flex.flex-justify-center.flex-wrap.ui-scroll-y(style='align-content: flex-start', @click.self='close')
+    card.color-dark(v-for='char in filteredCharacters', :character='char')
+  .color-main.ui-shadow-symmetric.flex-fixed.flex.flex-center
+    .ui-width-12.ui-header-2.ui-margin-1.ui-input-icon-left.ui-fit-viewport(style='background-color: transparent')
+      i.ui-icon.mdi.mdi-magnify
+      input.ui-border(v-model='searchText')
 </template>
 
 <script>

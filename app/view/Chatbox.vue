@@ -1,9 +1,5 @@
-<template>
-  <textarea
-    class='ui-padding-2'
-    v-model='message'
-    @keydown='submit($event)'>
-  </textarea>
+<template lang='jade'>
+textarea.ui-padding-2(v-model='message', @keydown='submit($event)')
 </template>
 
 <script>

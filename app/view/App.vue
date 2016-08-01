@@ -1,13 +1,10 @@
-<template>
-  <div @click='clicked'>
-    <div class='flex-column ui-fullscreen'>
-      <app-bar class='flex-fixed'></app-bar>
-      <chat class='flex-grow'></chat>
-    </div>
-    <transition v-for='overlay in store.overlays' name='overlay'>
-      <component :is='overlay'></component>
-    </transition>
-  </div>
+<template lang='jade'>
+div(@click='clicked')
+  .flex-column.ui-fullscreen
+    app-bar.flex-fixed
+    chat.flex-grow
+  transition(v-for='overlay in store.overlays', name='overlay')
+    component(:is='overlay')
 </template>
 
 <script>

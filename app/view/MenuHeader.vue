@@ -1,15 +1,12 @@
-<template>
-  <section>
-    <header class='ui-margin-bottom-1'>
-      <h2><slot name='header'></slot></h2>
-      <small>
-        <slot name='subtext'></slot>
-      </small>
-    </header>
-    <span class='ui-margin-v-1'>
-      <avatar :name='character'></avatar>
-    </span>
-  </section>
+<template lang='jade'>
+section
+  header.ui-margin-bottom-1
+    h2
+      slot(name='header')
+    small
+      slot(name='subtext')
+  span.ui-margin-v-1
+    avatar(:name='character')
 </template>
 
 <script>

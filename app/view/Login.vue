@@ -1,28 +1,20 @@
-<template>
-  <div class='ui-overlay'>
-    <div class='ui-panel ui-text-center'>
-      <h2 class='ui-margin-1'>Hello, gorgeous.</h2>
-      <form class='ui-width-6' @submit.prevent='submit'>
-        <div class='ui-margin-1 ui-input-icon-left'>
-          <i class='ui-icon mdi mdi-account-circle'></i>
-          <input type='text' placeholder='Username' v-model='username' />
-        </div>
-        <div class='ui-margin-1 ui-input-icon-left'>
-          <i class='ui-icon mdi mdi-lock'></i>
-          <input type='password' placeholder='••••••••' v-model='password' />
-        </div>
-        <div class='ui-margin-1'>
-          <checkbox v-model='remember'>Remember me</checkbox>
-        </div>
-        <div class='ui-margin-1'>
-          <button class='ui-button' action='submit'>Go</button>
-        </div>
-      </form>
-      <div class='ui-margin-1'>
-        {{status}}
-      </div>
-    </div>
-  </div>
+<template lang='jade'>
+.ui-overlay
+  .ui-panel.ui-text-center
+    h2.ui-margin-1 Hello, gorgeous.
+    form.ui-width-6(@submit.prevent='submit')
+      .ui-margin-1.ui-input-icon-left
+        i.ui-icon.mdi.mdi-account-circle
+        input(type='text', placeholder='Username', v-model='username')
+      .ui-margin-1.ui-input-icon-left
+        i.ui-icon.mdi.mdi-lock
+        input(type='password', placeholder='••••••••', v-model='password')
+      .ui-margin-1
+        checkbox(v-model='remember') Remember me
+      .ui-margin-1
+        button.ui-button(action='submit') Go
+    .ui-margin-1
+      | {{status}}
 </template>
 
 <style></style>

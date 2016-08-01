@@ -1,9 +1,8 @@
-<template>
-  <div :style='style' :class='classes'>
-    <small class='ui-faded'>[{{ time }}]</small>
-    <character :character='message.sender' style='margin-right: 0.3rem'></character>
-    <span v-html='parsedMessage'></span>
-  </div>
+<template lang='jade'>
+div(:style='style', :class='classes')
+  small.ui-faded [{{ time }}]
+  character(:character='message.sender', style='margin-right: 0.3rem')
+  span(v-html='parsedMessage')
 </template>
 
 <script>

@@ -1,8 +1,7 @@
-<template>
-  <span>
-    <img :src='room.partner.avatarURL' style='height: 1em; position: relative; top: 0.1em'>
-    {{ room.partner.name }}
-  </span>
+<template lang='jade'>
+span
+  img(:src='room.partner.avatarURL', style='height: 1em; position: relative; top: 0.1em')
+  |     {{ room.partner.name }}
 </template>
 
 <script>

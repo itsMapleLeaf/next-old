@@ -1,8 +1,7 @@
-<template>
-  <span>
-    <span class='status-color' :class='status'>{{ status }}</span>
-    <span v-html="' - ' + statusmsg" v-if='statusmsg'></span>
-  </span>
+<template lang='jade'>
+span
+  span.status-color(:class='status') {{ status }}
+  span(v-html="' - ' + statusmsg", v-if='statusmsg')
 </template>
 
 <script>

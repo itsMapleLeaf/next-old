@@ -1,59 +1,35 @@
-<template>
-  <div class='ui-overlay' @click.self='close'>
-    <form class='ui-panel ui-height-12 ui-fit-viewport flex-column res res-desktop res-mobile-portrait' @submit.prevent>
-      <div class='flex-grow color-dark ui-width-9 ui-fit-width ui-margin-bottom-1 ui-scroll-y'>
-        <a href='#' v-for='channel in channels'
-          class='ui-block ui-padding-3'
-          :class="{ 'highlight-green': store.isChannelJoined(channel.id) }"
-          @click='toggleChannel(channel.id)'>
-          <div class='flex flex-justify-space-between'>
-            <span v-html='channel.name'></span>
-            <span>{{channel.users}}</span>
-          </div>
-          <em class='ui-text-small ui-text-faded' v-if='channel.id !== channel.name'>
-            {{channel.id}}
-          </em>
-        </a>
-      </div>
-      <div class='flex-fixed ui-field ui-input-icon-left ui-block-center'>
-        <i class='ui-icon mdi mdi-magnify'></i>
-        <input type='text' v-model='searchText' placeholder='Search...' />
-      </div>
-      <div class='flex-fixed ui-field ui-text-center'>
-        <checkbox v-model='showAll'>Show ALL channels (lag warning)</checkbox>
-      </div>
-      <back-button @click.native='close'></back-button>
-    </form>
-
-    <form class='flex ui-panel ui-fit-viewport flex res res-mobile-landscape' @submit.prevent>
-      <div class='flex-grow color-dark ui-width-8 ui-scroll-y ui-fit-height ui-margin-left-2 ui-margin-right-2'>
-        <a href='#' v-for='channel in channels'
-          class='ui-block ui-padding-3'
-          :class="{ 'highlight-green': store.isChannelJoined(channel.id) }"
-          @click='toggleChannel(channel.id)'>
-          <div class='flex flex-justify-space-between'>
-            <span v-html='channel.name'></span>
-            <span>{{channel.users}}</span>
-          </div>
-          <em class='ui-text-small ui-text-faded' v-if='channel.id !== channel.name'>
-            {{channel.id}}
-          </em>
-        </a>
-      </div>
-      <div class='fiex-fixed ui-margin-right-2 flex-column flex-center'>
-        <div class='ui-field'>
-          <div class='ui-input-icon-left'>
-            <i class='ui-icon mdi mdi-magnify'></i>
-            <input type='text' v-model='searchText' placeholder='Search...' />
-          </div>
-        </div>
-        <div class='ui-field'>
-          <checkbox v-model='showAll'>Show ALL channels (lag warning)</checkbox>
-        </div>
-      </div>
-      <back-button align='middle' @click.native='close'></back-button>
-    </form>
-  </div>
+<template lang='jade'>
+.ui-overlay(@click.self='close')
+  form.ui-panel.ui-height-12.ui-fit-viewport.flex-column.res.res-desktop.res-mobile-portrait(@submit.prevent='')
+    .flex-grow.color-dark.ui-width-9.ui-fit-width.ui-margin-bottom-1.ui-scroll-y
+      a.ui-block.ui-padding-3(href='#', v-for='channel in channels', :class="{ 'highlight-green': store.isChannelJoined(channel.id) }", @click='toggleChannel(channel.id)')
+        .flex.flex-justify-space-between
+          span(v-html='channel.name')
+          span {{channel.users}}
+        em.ui-text-small.ui-text-faded(v-if='channel.id !== channel.name')
+          | {{channel.id}}
+    .flex-fixed.ui-field.ui-input-icon-left.ui-block-center
+      i.ui-icon.mdi.mdi-magnify
+      input(type='text', v-model='searchText', placeholder='Search...')
+    .flex-fixed.ui-field.ui-text-center
+      checkbox(v-model='showAll') Show ALL channels (lag warning)
+    back-button(@click.native='close')
+  form.flex.ui-panel.ui-fit-viewport.flex.res.res-mobile-landscape(@submit.prevent='')
+    .flex-grow.color-dark.ui-width-8.ui-scroll-y.ui-fit-height.ui-margin-left-2.ui-margin-right-2
+      a.ui-block.ui-padding-3(href='#', v-for='channel in channels', :class="{ 'highlight-green': store.isChannelJoined(channel.id) }", @click='toggleChannel(channel.id)')
+        .flex.flex-justify-space-between
+          span(v-html='channel.name')
+          span {{channel.users}}
+        em.ui-text-small.ui-text-faded(v-if='channel.id !== channel.name')
+          | {{channel.id}}
+    .fiex-fixed.ui-margin-right-2.flex-column.flex-center
+      .ui-field
+        .ui-input-icon-left
+          i.ui-icon.mdi.mdi-magnify
+          input(type='text', v-model='searchText', placeholder='Search...')
+      .ui-field
+        checkbox(v-model='showAll') Show ALL channels (lag warning)
+    back-button(align='middle', @click.native='close')
 </template>
 
 <script>

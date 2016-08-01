@@ -1,14 +1,10 @@
-<template>
-  <div class='ui-overlay' @click.self='close'>
-    <div :class='panelClass' class='ui-width-6 flex-column ui-scroll-y'>
-      <section class='flex-fixed ui-padding-5'>
-        <slot name='content'></slot>
-      </section>
-      <section class='flex-grow color-dark'>
-        <slot name='options'></slot>
-      </section>
-    </div>
-  </div>
+<template lang='jade'>
+.ui-overlay(@click.self='close')
+  .ui-width-6.flex-column.ui-scroll-y(:class='panelClass')
+    section.flex-fixed.ui-padding-5
+      slot(name='content')
+    section.flex-grow.color-dark
+      slot(name='options')
 </template>
 
 <script>

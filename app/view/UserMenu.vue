@@ -1,28 +1,17 @@
-<template>
-  <side-menu left>
-    <span slot='content'>
-      <menu-header :character='identity'>
-        <span slot='header'>{{ header }}</span>
-        <span slot='subtext' class='ui-faded'>
-          In the mood for some play?
-        </span>
-      </menu-header>
-      <status-form></status-form>
-    </span>
-
-    <span slot='options'>
-      <div class='res res-mobile'>
-        <menu-room v-for='room in rooms' :room='room' :active='room === currentRoom'
-          @selected='setRoom(room)' @closed='leaveRoom(room)'>
-        </menu-room>
-        <div class='ui-padding-1 color-main'></div>
-      </div>
-
-      <menu-option v-for='opt in options' :icon='opt.icon' :action='opt.action'>
-        {{ opt.text }}
-      </menu-option>
-    </span>
-  </side-menu>
+<template lang='jade'>
+side-menu(left='')
+  span(slot='content')
+    menu-header(:character='identity')
+      span(slot='header') {{ header }}
+      span.ui-faded(slot='subtext')
+        | In the mood for some play?
+    status-form
+  span(slot='options')
+    .res.res-mobile
+      menu-room(v-for='room in rooms', :room='room', :active='room === currentRoom', @selected='setRoom(room)', @closed='leaveRoom(room)')
+      .ui-padding-1.color-main
+    menu-option(v-for='opt in options', :icon='opt.icon', :action='opt.action')
+      | {{ opt.text }}
 </template>
 
 <script>

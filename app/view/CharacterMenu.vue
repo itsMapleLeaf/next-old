@@ -1,33 +1,19 @@
-<template>
-  <side-menu right>
-    <span slot='content'>
-      <menu-header :character='character.name'>
-        <span slot='header'>{{ character.name }}</span>
-        <span slot='subtext' class='gender-color' :class='character.gender'>
-          {{ capitalize(character.gender) }}
-        </span>
-      </menu-header>
-      <em class='color-dark ui-block ui-small ui-padding-3 ui-margin-top-1'>
-        <user-status :status='character.status' :statusmsg='character.statusmsg'></user-status>
-      </em>
-    </span>
-
-    <span slot='options'>
-      <menu-option icon='comment'>Send Message</menu-option>
-
-      <menu-option :icon="character.isBookmark ? 'star' : 'star-outline'" :action='toggleBookmark'>
-        {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
-      </menu-option>
-
-      <menu-option
-        :icon="character.isIgnored ? 'minus-circle' : 'minus-circle-outline'"
-        :action='toggleIgnored'>
-        {{ character.isIgnored ? 'Unignore' : 'Ignore' }}
-      </menu-option>
-
-      <menu-option icon='link-variant'>View Profile</menu-option>
-    </span>
-  </side-menu>
+<template lang='jade'>
+side-menu(right='')
+  span(slot='content')
+    menu-header(:character='character.name')
+      span(slot='header') {{ character.name }}
+      span.gender-color(slot='subtext', :class='character.gender')
+        | {{ capitalize(character.gender) }}
+    em.color-dark.ui-block.ui-small.ui-padding-3.ui-margin-top-1
+      user-status(:status='character.status', :statusmsg='character.statusmsg')
+  span(slot='options')
+    menu-option(icon='comment') Send Message
+    menu-option(:icon="character.isBookmark ? 'star' : 'star-outline'", :action='toggleBookmark')
+      | {{ character.isBookmark ? &apos;Unbookmark&apos; : &apos;Bookmark&apos; }}
+    menu-option(:icon="character.isIgnored ? 'minus-circle' : 'minus-circle-outline'", :action='toggleIgnored')
+      | {{ character.isIgnored ? &apos;Unignore&apos; : &apos;Ignore&apos; }}
+    menu-option(icon='link-variant') View Profile
 </template>
 
 <script>

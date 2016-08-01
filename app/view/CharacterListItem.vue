@@ -1,10 +1,8 @@
-<template>
-  <div class='flex flex-justify-space-between' :class='highlight'>
-    <character :character='character'></character>
-    <span v-if='icon'>
-      <i :class="'mdi mdi-' + icon"></i>
-    </span>
-  </div>
+<template lang='jade'>
+.flex.flex-justify-space-between(:class='highlight')
+  character(:character='character')
+  span(v-if='icon')
+    i(:class="'mdi mdi-' + icon")
 </template>
 
 <script>

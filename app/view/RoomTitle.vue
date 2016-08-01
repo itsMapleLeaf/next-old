@@ -1,5 +1,5 @@
-<template>
-  <component :is='roomTitle' :room='room'></component>
+<template lang='jade'>
+component(:is='roomTitle', :room='room')
 </template>
 
 <script>

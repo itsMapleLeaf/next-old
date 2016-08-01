@@ -1,7 +1,6 @@
-<template>
-  <a class='ui-transition' :href="profileURL" target="_blank" :title="name">
-    <img v-show="imageLoaded" transition="fade" :src="avatarURL" @load="imageLoaded = true" />
-  </a>
+<template lang='jade'>
+a.ui-transition(:href='profileURL', target='_blank', :title='name')
+  img(v-show='imageLoaded', transition='fade', :src='avatarURL', @load='imageLoaded = true')
 </template>
 
 <style lang="stylus" scoped>
