@@ -182,19 +182,18 @@ export default {
     channel.messages.push(new Message(sender, message, type))
   },
 
-  addPrivateMessage (partnerName, senderName, message, type) {
-    let room = this.privateRooms[partnerName]
-    if (!room) {
-      const partner = this.onlineCharacters[partnerName]
-      room = this.privateRooms[partnerName] = new PrivateRoom(partner)
-    }
+  addPrivateRoom (partnerName) {
+    const partner = this.onlineCharacters[partnerName]
+    const room = new PrivateRoom(partner)
+    this.rooms.push(room)
+    this.privateRooms[partnerName] = room
+    return room
+  },
 
+  addPrivateMessage (partnerName, senderName, message, type) {
+    const room = this.privateRooms[partnerName] || this.addPrivateRoom(partnerName)
     const sender = this.onlineCharacters[senderName]
     room.messages.push(new Message(sender, message, type))
-
-    if (partnerName === senderName && this.rooms.indexOf(room) === -1) {
-      this.rooms.push(room)
-    }
   },
 
   getCurrentRoom () {

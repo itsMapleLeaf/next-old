@@ -4,16 +4,18 @@ side-menu(right='')
     menu-header(:character='character.name')
       span(slot='header') {{ character.name }}
       span.gender-color(slot='subtext', :class='character.gender')
-        | {{ capitalize(character.gender) }}
+        span {{ capitalize(character.gender) }}
     em.color-dark.ui-block.ui-small.ui-padding-3.ui-margin-top-1
       user-status(:status='character.status', :statusmsg='character.statusmsg')
   span(slot='options')
-    menu-option(icon='comment') Send Message
-    menu-option(:icon="character.isBookmark ? 'star' : 'star-outline'", :action='toggleBookmark')
-      | {{ character.isBookmark ? &apos;Unbookmark&apos; : &apos;Bookmark&apos; }}
-    menu-option(:icon="character.isIgnored ? 'minus-circle' : 'minus-circle-outline'", :action='toggleIgnored')
-      | {{ character.isIgnored ? &apos;Unignore&apos; : &apos;Ignore&apos; }}
-    menu-option(icon='link-variant') View Profile
+    menu-option(icon='comment', :action='openPrivateRoom').
+      Send Message
+    menu-option(:icon="bookmarkIcon", :action='toggleBookmark').
+      {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
+    menu-option(:icon="ignoredIcon", :action='toggleIgnored').
+      {{ character.isIgnored ? 'Unignore' : 'Ignore' }}
+    menu-option(icon='link-variant', :href='character').
+      View Profile
 </template>
 
 <script>
@@ -33,7 +35,9 @@ export default {
   },
 
   computed: {
-    character () { return this.store.characterMenuFocus }
+    character () { return this.store.characterMenuFocus },
+    bookmarkIcon () { return this.character.isBookmark ? 'star' : 'star-outline' },
+    ignoredIcon () { return this.character.isIgnored ? 'minus-circle' : 'minus-circle-outline' }
   },
 
   methods: {
@@ -48,6 +52,12 @@ export default {
     toggleIgnored () {
       const action = this.character.isIgnored ? 'delete' : 'add'
       socket.ignoreAction(this.character.name, action)
+    },
+
+    openPrivateRoom () {
+      const room = this.store.addPrivateRoom(this.character.name)
+      this.store.setCurrentRoom(room)
+      this.store.popOverlay()
     }
   }
 }

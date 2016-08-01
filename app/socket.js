@@ -74,6 +74,14 @@ export default {
     this.sendCommand('LCH', { channel })
   },
 
+  sendChannelMessage (channel, message) {
+    this.sendCommand('MSG', { channel, message })
+  },
+
+  sendPrivateMessage (recipient, message) {
+    this.sendCommand('PRI', { recipient, message })
+  },
+
   updateStatus (status, statusmsg) {
     this.sendCommand('STA', { status, statusmsg })
   },

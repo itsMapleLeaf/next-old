@@ -1,11 +1,22 @@
 <template lang='jade'>
-textarea.ui-padding-2(v-model='message', @keydown='submit($event)')
+textarea(v-model='message', :placeholder='placeholder', @keydown='submit')
 </template>
 
 <script>
+import store from '../store'
+
 export default {
   data () {
-    return { message: '' }
+    return {
+      message: '',
+      store
+    }
+  },
+
+  computed: {
+    placeholder () {
+      return `Chatting as ${this.store.identity}...`
+    }
   },
 
   methods: {
