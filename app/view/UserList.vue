@@ -8,7 +8,6 @@
 
 <script>
 import CharacterListItem from './CharacterListItem.vue'
-import store from '../store'
 
 export default {
   components: {CharacterListItem},
@@ -16,16 +15,6 @@ export default {
   props: {
     users: Array,
     ops: Array
-  },
-
-  data () {
-    return { store }
-  },
-
-  methods: {
-    openCharacterMenu (char) {
-      this.store.openCharacterMenu(char.name)
-    }
   }
 }
 </script>
