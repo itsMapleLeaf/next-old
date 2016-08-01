@@ -1,5 +1,5 @@
 <template lang='jade'>
-a.ui-block.ui-padding-4.ui-hover-darken(href='#', @click.prevent='action')
+a.ui-block.ui-padding-4.ui-hover-darken(href='#', @click.prevent!="action && action()")
   i.mdi(:class="'mdi-' + icon")
   span
     slot
