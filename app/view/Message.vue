@@ -1,7 +1,7 @@
 <template lang='jade'>
 div(:style='style', :class='classes')
   small.ui-faded [{{ time }}]
-  character(:character='message.sender', style='margin-right: 0.3rem')
+  character.ui-label(:character='message.sender', style='margin-right: 0.3em')
   span(v-html='parsedMessage')
 </template>
 

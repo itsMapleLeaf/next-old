@@ -1,8 +1,8 @@
 <template lang='jade'>
 a(href='#')
-  span(:class="'status-color ' + character.status") &bull;
-  strong(:class="'gender-color ' + character.gender", :data-character='character.name')
-    | {{ character.name }}
+  span.status-color(:class="character.status") &bull;
+  strong.gender-color.ui-label(:class="character.gender", :data-character='character.name').
+    {{ character.name }}
 </template>
 
 <script>

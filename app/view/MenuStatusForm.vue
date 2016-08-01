@@ -3,8 +3,8 @@ form(@submit.prevent='submit')
   .ui-fit-width.ui-field
     dropdown(:items='statusList', v-model='store.status')
   .ui-input-icon-right.ui-fit-width.ui-field
-    i.ui-icon.mdi.mdi-pencil
     textarea(placeholder='Status...', v-model='store.statusmsg')
+    i.ui-icon.mdi.mdi-pencil
   .ui-field
     button.ui-button.ui-small(action='submit', :disabled='disabled') Update
 </template>

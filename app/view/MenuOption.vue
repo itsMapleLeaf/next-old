@@ -1,7 +1,8 @@
 <template lang='jade'>
 a.ui-block.ui-padding-4.ui-hover-darken(href='#', @click.prevent='action')
-  i(:class="'mdi mdi-' + icon")
-  slot
+  i.mdi(:class="'mdi-' + icon")
+  span
+    slot
 </template>
 
 <script>
