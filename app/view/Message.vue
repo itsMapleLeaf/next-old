@@ -41,7 +41,7 @@ export default {
       const date = new Date(this.message.time)
       const hours = date.getHours()
       const minutes = date.getMinutes()
-      return `${hours}:${minutes}`
+      return `${hours}:${'0'.repeat(2 - minutes.toString().length) + minutes}`
     }
   }
 }
