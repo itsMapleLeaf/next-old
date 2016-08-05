@@ -36,7 +36,10 @@ export default {
     },
 
     time () {
-      return new Date(this.message.time).toLocaleTimeString()
+      const date = new Date(this.message.time)
+      const hours = date.getHours()
+      const minutes = date.getMinutes()
+      return `${hours}:${minutes}`
     }
   }
 }
