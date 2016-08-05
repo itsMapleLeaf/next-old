@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .ui-overlay(@click.self='close')
   form.ui-panel.ui-height-12.ui-fit-viewport.flex-column.res.res-desktop.res-mobile-portrait(@submit.prevent='')
     .flex-grow.color-dark.ui-width-9.ui-fit-width.ui-margin-bottom-1.ui-scroll-y

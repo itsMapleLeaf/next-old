@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .ui-overlay(@click.self='store.popOverlay')
   .ui-panel.ui-fit-viewport.ui-scroll-y
     .ui-padding-subtle.ui-text-center

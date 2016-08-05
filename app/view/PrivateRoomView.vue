@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .flex-column
   .flex-fixed.color-main.ui-padding-2.ui-scroll-y.res.res-desktop(style='height: 4rem')
     status(:status='room.partner.status', :statusmsg='room.partner.statusmsg')

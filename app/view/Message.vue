@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 div(:style='style', :class='classes')
   small.ui-faded [{{ time }}]
   character.ui-label(:character='message.sender', style='margin-right: 0.3em')

@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 a.flex.flex-justify-space-between(href='#', :class="active ? 'highlight-blue' : ''", @click="$emit('selected')")
   span.ui-padding-4
     room-title(:room='room')

@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 component(:is='roomTitle', :room='room')
 </template>
 

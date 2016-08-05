@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .color-darker.flex
   a.flex-fixed.ui-inline-block.ui-padding-subtle.ui-fluid-border(href='#', v-for='shortcut in shortcuts', @click='shortcut.action')
     i(:class="'mdi mdi-' + shortcut.icon")
@@ -38,8 +38,20 @@ export default {
 
   methods: {
     pushOverlay (overlay) { store.pushOverlay(overlay) },
+
     setRoom (room) { store.setCurrentRoom(room) },
-    leaveRoom (room) { socket.leaveChannel(room.id) }
+
+    leaveRoom (room) {
+      switch (room.type) {
+        case 'channel':
+          socket.leaveChannel(room.id)
+          break
+
+        case 'private':
+          store.removePrivateRoom(room)
+          break
+      }
+    }
   }
 }
 </script>

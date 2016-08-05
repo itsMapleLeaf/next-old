@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .flex-column
   .flex-fixed.color-main.ui-padding-2.ui-scroll-y.res.res-desktop(style='height: 4rem', v-html='room.description')
   .flex-grow.flex.flex-align-stretch.ui-divide-top.ui-divide-bottom

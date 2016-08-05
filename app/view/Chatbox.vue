@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 textarea(v-model='message', :placeholder='placeholder', @keydown='submit')
 </template>
 

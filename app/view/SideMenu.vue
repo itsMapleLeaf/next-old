@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .ui-overlay(@click.self='close')
   .ui-width-6.flex-column.ui-scroll-y(:class='panelClass')
     section.flex-fixed.ui-padding-5

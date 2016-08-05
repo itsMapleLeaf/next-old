@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .color-dark.flex-column
   component.flex-grow(v-if='room', :is='roomView', :room='room')
 </template>

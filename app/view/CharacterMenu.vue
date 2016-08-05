@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 side-menu(right='')
   span(slot='content')
     menu-header(:character='character.name')

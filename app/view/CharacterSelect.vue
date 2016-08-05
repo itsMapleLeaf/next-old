@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .ui-overlay
   form.ui-panel.ui-height-11.ui-fit-viewport.flex-column.res.res-desktop.res-mobile-portrait(@submit.prevent='submit')
     .ui-field.flex-fixed.ui-text-center

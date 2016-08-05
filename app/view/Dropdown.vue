@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 .ui-border(@click='open = !open')
   .color-dark.ui-padding-3.ui-pointer
     | {{ currentLabel }} 

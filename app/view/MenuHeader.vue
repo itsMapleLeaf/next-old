@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 section
   header.ui-margin-bottom-1
     h2

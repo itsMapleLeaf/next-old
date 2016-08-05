@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 div(@click='clicked')
   .flex-column.ui-fullscreen
     app-bar.flex-fixed

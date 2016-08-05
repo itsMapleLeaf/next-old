@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 div
   message.ui-padding-1(v-for='msg in messages', :message='msg')
 </template>

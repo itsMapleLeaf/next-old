@@ -1,4 +1,4 @@
-<template lang='jade'>
+<template lang="jade">
 span
   i(:class="'mdi mdi-' + icon")
   span(v-html='room.name')
