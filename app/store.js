@@ -190,6 +190,12 @@ export default {
     return room
   },
 
+  removePrivateRoom (partnerName) {
+    const room = this.privateRooms[partnerName]
+    delete this.privateRooms[partnerName]
+    this.rooms = util.remove(this.rooms, room)
+  },
+
   addPrivateMessage (partnerName, senderName, message, type) {
     const room = this.privateRooms[partnerName] || this.addPrivateRoom(partnerName)
     const sender = this.onlineCharacters[senderName]

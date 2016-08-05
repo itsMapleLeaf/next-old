@@ -48,7 +48,7 @@ export default {
           break
 
         case 'private':
-          store.removePrivateRoom(room)
+          store.removePrivateRoom(room.partner.name)
           break
       }
     }
