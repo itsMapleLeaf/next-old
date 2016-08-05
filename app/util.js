@@ -27,3 +27,8 @@ export function capitalize (text) {
 export function remove (array, item) {
   return array.filter(v => v !== item)
 }
+
+// clamp a number between an upper and lower bound
+export function clamp (n, min, max) {
+  return n < min ? min : n > max ? max : n
+}

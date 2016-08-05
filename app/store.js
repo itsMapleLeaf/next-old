@@ -204,7 +204,8 @@ export default {
   },
 
   getCurrentRoom () {
-    return this.rooms[this.currentRoomIndex]
+    const index = util.clamp(this.currentRoomIndex, 0, this.rooms.length - 1)
+    return this.rooms[index]
   },
 
   setCurrentRoom (room) {
