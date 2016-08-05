@@ -141,8 +141,9 @@ export default {
   },
 
   removeChannelChat (id) {
-    this.rooms.splice(this.rooms.findIndex(ch => ch === this.channelRooms[id]), 1)
-    Vue.delete(this.channelRooms, id)
+    const room = this.channelRooms[id]
+    delete this.channelRooms[id]
+    this.rooms = util.remove(this.rooms, room)
   },
 
   isChannelJoined (id) {
