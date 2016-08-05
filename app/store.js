@@ -143,7 +143,7 @@ export default {
   removeChannelChat (id) {
     const room = this.channelRooms[id]
     delete this.channelRooms[id]
-    this.rooms = util.remove(this.rooms, room)
+    util.remove(this.rooms, room)
   },
 
   isChannelJoined (id) {
@@ -194,7 +194,7 @@ export default {
   removePrivateRoom (partnerName) {
     const room = this.privateRooms[partnerName]
     delete this.privateRooms[partnerName]
-    this.rooms = util.remove(this.rooms, room)
+    util.remove(this.rooms, room)
   },
 
   addPrivateMessage (partnerName, senderName, message, type) {
@@ -234,7 +234,7 @@ export default {
   removeBookmark (name) {
     return flist.removeBookmark(this.account, this.ticket, name)
     .then(() => {
-      this.bookmarks = this.bookmarks.filter(b => b !== name)
+      util.remove(this.bookmarks, name)
     })
   },
 
@@ -243,6 +243,6 @@ export default {
   },
 
   removeIgnored (name) {
-    this.ignored = this.ignored.filter(i => i !== name)
+    util.remove(this.ignored, name)
   }
 }

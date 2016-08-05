@@ -23,9 +23,12 @@ export function capitalize (text) {
   return text.substring(0, 1).toLocaleUpperCase() + text.substring(1).toLocaleLowerCase()
 }
 
-// remove an element from an array
+// remove an element from an array (destructive)
 export function remove (array, item) {
-  return array.filter(v => v !== item)
+  const index = array.indexOf(item)
+  if (index > -1) {
+    array.splice(index, 1)
+  }
 }
 
 // clamp a number between an upper and lower bound
