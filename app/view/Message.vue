@@ -30,9 +30,11 @@ export default {
     },
 
     classes () {
-      return {
-        'highlight-green': this.message.type === 'lfrp'
-      }
+      const {type, sender} = this.message
+      return sender.isFriend || sender.isBookmark ? 'highlight-blue'
+        : type === 'lfrp' ? 'highlight-green'
+        : type === 'self' ? 'color-darker'
+        : ''
     },
 
     time () {
