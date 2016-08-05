@@ -13,6 +13,7 @@ import Users from './UserList.vue'
 import Chatbox from './Chatbox.vue'
 import ChannelRoom from '../models/ChannelRoom'
 import socket from '../socket'
+import store from '../store'
 
 export default {
   components: {Messages, Users, Chatbox},
@@ -24,6 +25,7 @@ export default {
   methods: {
     messageSent (message) {
       socket.sendChannelMessage(this.room.id, message)
+      store.addChannelMessage(this.room.id, store.identity, message, 'self')
     }
   }
 }

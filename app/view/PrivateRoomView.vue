@@ -12,6 +12,7 @@ import Messages from './MessageList.vue'
 import Chatbox from './Chatbox.vue'
 import PrivateRoom from '../models/PrivateRoom'
 import socket from '../socket'
+import store from '../store'
 
 export default {
   components: {Status, Messages, Chatbox},
@@ -21,6 +22,7 @@ export default {
   methods: {
     messageSent (message) {
       socket.sendPrivateMessage(this.room.partner.name, message)
+      store.addPrivateMessage(this.room.partner.name, store.identity, message, 'self')
     }
   }
 }
