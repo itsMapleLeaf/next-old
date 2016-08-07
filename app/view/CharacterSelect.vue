@@ -1,21 +1,31 @@
 <template lang="jade">
+mixin avatar
+  avatar(:name='state.identity')
+
+mixin characters
+  selection-list(:items='state.characters', v-model='current')
+
+mixin confirm
+  button.ui-button(action='submit') Go
+
 .ui-overlay
   form.ui-panel.ui-height-11.flex-column.res.res-desktop.res-mobile-portrait(@submit.prevent='submit')
     .ui-field.flex-fixed.ui-text-center
-      avatar(:name='state.identity')
+      +avatar
     .ui-field.flex-grow.ui-scroll-y.ui-block-center.ui-width-8.ui-fit-width.ui-text-center
-      selection-list(:items='state.characters', v-model='current')
+      +characters
     .ui-field.flex-fixed.ui-text-center
-      button.ui-button(action='submit') Go
+      +confirm
     back-button(@click.native='back')
+
   form.ui-panel.ui-text-center.flex.res.res-mobile-landscape(@submit.prevent='submit')
     .flex-grow.ui-scroll-y.ui-width-7.ui-fit-height.ui-margin-left-2.ui-margin-right-2
-      selection-list(:items='state.characters', v-model='current')
+      +characters
     .flex-fixed.flex-column.flex-center.ui-margin-right-2
       .ui-field.flex-fixed
-        avatar(:name='state.identity')
+        +avatar
       .ui-field.flex-fixed.flex-column.flex-align-center
-        button.ui-button(action='submit') Go
+        +confirm
     back-button(@click.native='back', align='middle')
 </template>
 
