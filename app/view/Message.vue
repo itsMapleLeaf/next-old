@@ -33,6 +33,7 @@ export default {
       const {type, sender} = this.message
       return sender.isFriend || sender.isBookmark ? 'highlight-blue'
         : type === 'lfrp' ? 'highlight-green'
+        : type === 'admin' ? 'highlight-red'
         : type === 'self' ? 'color-darker'
         : ''
     },

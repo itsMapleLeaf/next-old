@@ -23,17 +23,16 @@ export default {
       const {isOp} = this
       const isLooking = this.character.status === 'looking'
       switch (true) {
-        case isFriend || isBookmark:
+        case isFriend:
           return 'highlight-green'
+        case isBookmark:
+          return 'highlight-blue'
         case isAdmin:
           return 'highlight-red'
         case isOp:
           return 'highlight-yellow'
-        case isLooking:
-          return 'highlight-blue'
-        default:
-          return ''
       }
+      return ''
     },
 
     icon () {
