@@ -37,6 +37,10 @@
 .ui-label
   margin-left: 0.25em
 
+.ui-no-click
+  pointer-events: none
+  -webkit-pointer-events: none
+
 for $state in (hover focus)
   .ui-{$state}-border
     @extend .ui-transition

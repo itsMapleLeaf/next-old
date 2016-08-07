@@ -4,7 +4,7 @@ div(@click='clicked')
     app-bar.flex-fixed
     chat.flex-grow
   transition(v-for='overlay in state.overlays', name='overlay')
-    component(:is='overlay')
+    component(:is='overlay', style='z-index: 9999')
 </template>
 
 <script>

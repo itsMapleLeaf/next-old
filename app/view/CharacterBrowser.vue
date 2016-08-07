@@ -8,8 +8,8 @@
     card.color-dark(v-for='char in filteredCharacters', :character='char')
   .color-main.ui-shadow-symmetric.flex-fixed.flex.flex-center
     .ui-width-12.ui-header-2.ui-margin-1.ui-input-icon-left.ui-fit-viewport(style='background-color: transparent')
-      i.ui-icon.mdi.mdi-magnify
       input.ui-border(v-model='searchText')
+      i.ui-icon.mdi.mdi-magnify
 </template>
 
 <script>
