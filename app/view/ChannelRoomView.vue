@@ -12,11 +12,14 @@ import Messages from './MessageList.vue'
 import Users from './UserList.vue'
 import Chatbox from './Chatbox.vue'
 import ChannelRoom from '../models/ChannelRoom'
-import socket from '../socket'
-import store from '../store'
+import {state, store} from '../store'
 
 export default {
   components: {Messages, Users, Chatbox},
+
+  data () {
+    return { state }
+  },
 
   props: {
     room: ChannelRoom
@@ -24,8 +27,8 @@ export default {
 
   methods: {
     messageSent (message) {
-      socket.sendChannelMessage(this.room.id, message)
-      store.addChannelMessage(this.room.id, store.identity, message, 'self')
+      store.sendChannelMessage(this.room.id, message)
+      store.addChannelMessage(this.room.id, this.state.identity, message, 'self')
     }
   }
 }

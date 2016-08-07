@@ -8,14 +8,14 @@ side-menu(right='')
     em.color-dark.ui-block.ui-small.ui-padding-3.ui-margin-top-1
       user-status(:status='character.status', :statusmsg='character.statusmsg')
   span(slot='options')
-    menu-option(icon='comment', :action='openPrivateRoom').
-      Send Message
-    menu-option(:icon="bookmarkIcon", :action='toggleBookmark').
-      {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
-    menu-option(:icon="ignoredIcon", :action='toggleIgnored').
-      {{ character.isIgnored ? 'Unignore' : 'Ignore' }}
-    menu-option(icon='link-variant', :href='character').
-      View Profile
+    menu-option(icon='comment', :action='openPrivateRoom')
+      | Send Message
+    menu-option(:icon="bookmarkIcon", :action='toggleBookmark')
+      | {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
+    menu-option(:icon="ignoredIcon", :action='toggleIgnored')
+      | {{ character.isIgnored ? 'Unignore' : 'Ignore' }}
+    menu-option(icon='link-variant', :href='character')
+      | View Profile
 </template>
 
 <script>
@@ -23,7 +23,7 @@ import SideMenu from './SideMenu.vue'
 import MenuHeader from './MenuHeader.vue'
 import MenuOption from './MenuOption.vue'
 import UserStatus from './UserStatus.vue'
-import store from '../store'
+import {store, state} from '../store'
 import socket from '../socket'
 import {capitalize} from '../util'
 
@@ -31,11 +31,11 @@ export default {
   components: {SideMenu, MenuHeader, MenuOption, UserStatus},
 
   data () {
-    return { store, capitalize }
+    return { state, capitalize }
   },
 
   computed: {
-    character () { return this.store.characterMenuFocus },
+    character () { return this.state.characterMenuFocus },
     bookmarkIcon () { return this.character.isBookmark ? 'star' : 'star-outline' },
     ignoredIcon () { return this.character.isIgnored ? 'minus-circle' : 'minus-circle-outline' }
   },
@@ -43,9 +43,9 @@ export default {
   methods: {
     toggleBookmark () {
       if (this.character.isBookmark) {
-        this.store.removeBookmark(this.character.name).catch(err => console.error(err))
+        store.removeBookmark(this.character.name).catch(err => console.error(err))
       } else {
-        this.store.addBookmark(this.character.name).catch(err => console.error(err))
+        store.addBookmark(this.character.name).catch(err => console.error(err))
       }
     },
 
@@ -55,9 +55,9 @@ export default {
     },
 
     openPrivateRoom () {
-      const room = this.store.addPrivateRoom(this.character.name)
-      this.store.setCurrentRoom(room)
-      this.store.popOverlay()
+      const room = store.addPrivateRoom(this.character.name)
+      store.setCurrentRoom(room)
+      store.popOverlay()
     }
   }
 }

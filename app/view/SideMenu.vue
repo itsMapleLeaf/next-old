@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import store from '../store'
+import {store} from '../store'
 
 export default {
   props: {
@@ -16,13 +16,9 @@ export default {
     right: Boolean
   },
 
-  data () {
-    return { store }
-  },
-
   methods: {
     close () {
-      this.store.popOverlay()
+      store.popOverlay()
     }
   },
 

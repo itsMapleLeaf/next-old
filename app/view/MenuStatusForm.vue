@@ -1,9 +1,9 @@
 <template lang="jade">
 form(@submit.prevent='submit')
   .ui-fit-width.ui-field
-    dropdown(:items='statusList', v-model='store.status')
+    dropdown(:items='statusList', v-model='status')
   .ui-input-icon-right.ui-fit-width.ui-field
-    textarea(placeholder='Status...', v-model='store.statusmsg')
+    textarea(placeholder='Status...', v-model='statusmsg')
     i.ui-icon.mdi.mdi-pencil
   .ui-field
     button.ui-button.ui-small(action='submit', :disabled='disabled') Update
@@ -11,14 +11,15 @@ form(@submit.prevent='submit')
 
 <script>
 import Dropdown from './Dropdown.vue'
-import store from '../store'
-import socket from '../socket'
+import {store} from '../store'
 
 export default {
   components: {Dropdown},
 
   data () {
     return {
+      status: '',
+      statusmsg: '',
       statusList: [
         { label: 'Online', value: 'online' },
         { label: 'Looking', value: 'looking' },
@@ -26,15 +27,14 @@ export default {
         { label: 'Away', value: 'away' },
         { label: 'DND', value: 'dnd' }
       ],
-      disabled: false,
-      store
+      disabled: false
     }
   },
 
   methods: {
     submit () {
       if (this.disabled) return
-      socket.updateStatus(store.status, store.statusmsg)
+      store.updateStatus(this.status, this.statusmsg)
       this.disabled = true
       window.setTimeout(() => { this.disabled = false }, 1500)
     }

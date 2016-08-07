@@ -11,19 +11,20 @@
 <script>
 import UserList from './UserList.vue'
 import BackButton from './BackButton.vue'
-import store from '../store'
+import {state} from '../store'
 
 export default {
   components: {UserList, BackButton},
 
+  // TODO: use a prop for the room instead of importing store state
   data () {
-    return { store }
+    return { state }
   },
 
   computed: {
-    title () { return store.getCurrentRoom().name },
-    description () { return store.getCurrentRoom().description },
-    users () { return store.getCurrentRoom().characters }
+    title () { return this.state.currentRoom.name },
+    description () { return this.state.currentRoom.description },
+    users () { return this.state.currentRoom.characters }
   }
 }
 </script>

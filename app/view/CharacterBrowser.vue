@@ -15,12 +15,12 @@
 <script>
 import Card from './CharacterBrowserCard.vue'
 import BackButton from './BackButton.vue'
-import store from '../store'
+import {store, state} from '../store'
 import * as util from '../util'
 
-function compareNames (a, b) {
-  return a.name.localeCompare(b.name)
-}
+// function compareNames (a, b) {
+//   return a.name.localeCompare(b.name)
+// }
 
 function compareOnlineTime (a, b) {
   return a.onlineTime > b.onlineTime
@@ -38,7 +38,7 @@ export default {
       ],
       currentGroup: 0,
       searchText: '',
-      store
+      state
     }
   },
 
@@ -58,12 +58,12 @@ export default {
     },
 
     close () {
-      this.store.popOverlay()
+      store.popOverlay()
     }
   },
 
   computed: {
-    allCharacters () { return util.values(this.store.onlineCharacters) },
+    allCharacters () { return util.values(this.state.onlineCharacters) },
     friends () { return this.sortCharacters(char => char.isFriend) },
     bookmarks () { return this.sortCharacters(char => char.isBookmark) },
     looking () { return this.sortCharacters(char => char.status === 'looking') },

@@ -3,19 +3,19 @@ textarea(v-model='message', :placeholder='placeholder', @keydown='submit')
 </template>
 
 <script>
-import store from '../store'
+import {state} from '../store'
 
 export default {
   data () {
     return {
       message: '',
-      store
+      state
     }
   },
 
   computed: {
     placeholder () {
-      return `Chatting as ${this.store.identity}...`
+      return `Chatting as ${this.state.identity}...`
     }
   },
 

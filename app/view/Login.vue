@@ -18,7 +18,7 @@
 
 <script>
 import Checkbox from './Checkbox.vue'
-import store from '../store'
+import {store} from '../store'
 import session from '../session'
 import {getTicket} from '../f-list'
 
@@ -31,8 +31,7 @@ export default {
       username: '',
       password: '',
       remember: false,
-      status: '',
-      store
+      status: ''
     }
   },
   mounted () {
@@ -52,10 +51,10 @@ export default {
         } else {
           session.clear()
         }
-        return this.store.fetchUserData(this.username, ticket)
+        return store.fetchUserData(this.username, ticket)
       }).then(() => {
-        this.store.popOverlay()
-        this.store.pushOverlay('character-select')
+        store.popOverlay()
+        store.pushOverlay('character-select')
       }).catch(error => {
         this.status = error.toString()
         console.error(error)

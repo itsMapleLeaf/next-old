@@ -18,8 +18,7 @@ import MenuHeader from './MenuHeader.vue'
 import StatusForm from './MenuStatusForm.vue'
 import MenuOption from './MenuOption.vue'
 import MenuRoom from './MenuRoom.vue'
-import store from '../store'
-import socket from '../socket'
+import {store, state} from '../store'
 
 const options = [
   {
@@ -41,7 +40,7 @@ const options = [
     text: 'Log Out',
     icon: 'logout',
     action: () => {
-      socket.disconnect()
+      store.disconnect()
       store.popOverlay()
       store.pushOverlay('login')
     }
@@ -50,7 +49,7 @@ const options = [
     text: 'Switch Character',
     icon: 'account-switch',
     action: () => {
-      socket.disconnect()
+      store.disconnect()
       store.popOverlay()
       store.pushOverlay('character-select')
     }
@@ -62,25 +61,25 @@ export default {
 
   data () {
     return {
-      store,
+      state,
       options
     }
   },
 
   computed: {
-    rooms () { return this.store.rooms },
-    currentRoom () { return this.store.getCurrentRoom() },
-    identity () { return this.store.identity },
+    rooms () { return this.state.rooms },
+    currentRoom () { return this.state.getCurrentRoom() },
+    identity () { return this.state.identity },
     header () { return `Hi, ${this.identity.split(' ')[0]}!` }
   },
 
   methods: {
     setRoom (room) {
-      this.store.setCurrentRoom(room)
+      store.setCurrentRoom(room)
     },
 
     leaveRoom (room) {
-      socket.leaveChannel(room.id)
+      store.leaveChannel(room.id)
     }
   }
 }

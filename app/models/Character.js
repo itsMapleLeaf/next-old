@@ -1,4 +1,4 @@
-import store from '../store'
+import {state} from '../store'
 import parseBBC from '../parse-bbc'
 import * as flist from '../f-list'
 
@@ -16,7 +16,7 @@ export default class Character {
   }
 
   get friends () {
-    return store.friends
+    return state.friends
       .filter(entry => entry.them === this.name)
       .map(entry => entry.you)
   }
@@ -26,15 +26,15 @@ export default class Character {
   }
 
   get isBookmark () {
-    return store.bookmarks.includes(this.name)
+    return state.bookmarks.includes(this.name)
   }
 
   get isIgnored () {
-    return store.ignored.includes(this.name)
+    return state.ignored.includes(this.name)
   }
 
   get isAdmin () {
-    return store.admins.includes(this.name)
+    return state.admins.includes(this.name)
   }
 
   get avatarURL () {

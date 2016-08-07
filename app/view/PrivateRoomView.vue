@@ -11,18 +11,20 @@ import Status from './UserStatus.vue'
 import Messages from './MessageList.vue'
 import Chatbox from './Chatbox.vue'
 import PrivateRoom from '../models/PrivateRoom'
-import socket from '../socket'
-import store from '../store'
+import {store, state} from '../store'
 
 export default {
   components: {Status, Messages, Chatbox},
+  data () {
+    return { state }
+  },
   props: {
     room: PrivateRoom
   },
   methods: {
     messageSent (message) {
-      socket.sendPrivateMessage(this.room.partner.name, message)
-      store.addPrivateMessage(this.room.partner.name, store.identity, message, 'self')
+      store.sendPrivateMessage(this.room.partner.name, message)
+      store.addPrivateMessage(this.room.partner.name, this.state.identity, message, 'self')
     }
   }
 }

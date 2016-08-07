@@ -3,7 +3,7 @@ div(@click='clicked')
   .flex-column.ui-fullscreen
     app-bar.flex-fixed
     chat.flex-grow
-  transition(v-for='overlay in store.overlays', name='overlay')
+  transition(v-for='overlay in state.overlays', name='overlay')
     component(:is='overlay')
 </template>
 
@@ -18,8 +18,7 @@ import RoomInfo from './RoomInfo.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import AppBar from './AppBar.vue'
 
-import store from '../store'
-import socket from '../socket'
+import {store, state} from '../store'
 import session from '../session'
 
 export default {
@@ -38,12 +37,8 @@ export default {
   data () {
     return {
       initialized: false,
-      store, socket
+      state
     }
-  },
-
-  computed: {
-    identity () { return store.identity }
   },
 
   mounted () {
@@ -53,15 +48,16 @@ export default {
 
       const data = session.load()
       if (data) {
-        this.store.fetchUserData(data.account, data.ticket).then(() => {
-          this.store.pushOverlay('character-select')
+        store.fetchUserData(data.account, data.ticket)
+        .then(() => {
+          store.pushOverlay('character-select')
         })
         .catch(err => {
           console.warn(err)
-          this.store.pushOverlay('login')
+          store.pushOverlay('login')
         })
       } else {
-        this.store.pushOverlay('login')
+        store.pushOverlay('login')
       }
     })
   },
@@ -71,11 +67,11 @@ export default {
       for (let {name, value} of event.target.attributes) {
         switch (name) {
           case 'data-character':
-            this.store.openCharacterMenu(value)
+            store.openCharacterMenu(value)
             return
 
           case 'data-join-channel':
-            socket.joinChannel(value)
+            store.joinChannel(value)
             return
         }
       }
@@ -83,21 +79,21 @@ export default {
   },
 
   watch: {
-    'socket.state' (state) {
+    'state.socketState' (state) {
       if (state === 'identified') {
         const data = session.load()
         if (data) {
-          for (let id of data[`channels:${this.store.identity}`] || []) {
-            socket.joinChannel(id)
+          for (let id of data[`channels:${this.state.identity}`] || []) {
+            store.joinChannel(id)
           }
         }
       }
     },
 
-    'store.channelRooms' (rooms) {
+    'state.channelRooms' (rooms) {
       const data = session.load()
       if (data) {
-        data[`channels:${this.identity}`] = Object.keys(rooms)
+        data[`channels:${this.state.identity}`] = Object.keys(rooms)
         session.save()
       }
     }

@@ -15,14 +15,14 @@
 <script>
 import RoomTitle from './RoomTitle.vue'
 import RoomTab from './RoomTab.vue'
-import store from '../store'
-import socket from '../socket'
+import {store, state} from '../store'
 
 export default {
   components: {RoomTab, RoomTitle},
 
   data () {
     return {
+      state,
       shortcuts: [
         { icon: 'menu', action: () => this.pushOverlay('user-menu') },
         { icon: 'forum', action: () => this.pushOverlay('channel-select') },
@@ -32,8 +32,8 @@ export default {
   },
 
   computed: {
-    rooms () { return store.rooms },
-    currentRoom () { return store.getCurrentRoom() }
+    rooms () { return this.state.rooms },
+    currentRoom () { return this.state.currentRoom }
   },
 
   methods: {
@@ -44,7 +44,7 @@ export default {
     leaveRoom (room) {
       switch (room.type) {
         case 'channel':
-          socket.leaveChannel(room.id)
+          store.leaveChannel(room.id)
           break
 
         case 'private':

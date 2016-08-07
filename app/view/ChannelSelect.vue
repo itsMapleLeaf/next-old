@@ -1,6 +1,6 @@
 <template lang="jade">
 mixin channel-list
-  a.ui-block.ui-padding-3(href='#', v-for='channel in channels', :class="{ 'highlight-green': store.isChannelJoined(channel.id) }", @click='toggleChannel(channel.id)')
+  a.ui-block.ui-padding-3(href='#', v-for='channel in channels', :class="channelListHighlight(channel)", @click='toggleChannel(channel.id)')
     .flex.flex-justify-space-between
       span(v-html='channel.name')
       span {{channel.users}}
@@ -40,8 +40,7 @@ mixin show-all-channels
 import SelectionList from './SelectionList.vue'
 import Checkbox from './Checkbox.vue'
 import BackButton from './BackButton.vue'
-import store from '../store'
-import socket from '../socket'
+import {store, state} from '../store'
 
 export default {
   components: {SelectionList, Checkbox, BackButton},
@@ -50,12 +49,12 @@ export default {
     return {
       searchText: '',
       showAll: false,
-      store
+      state
     }
   },
 
   mounted () {
-    socket.requestChannels()
+    store.requestChannels()
   },
 
   computed: {
@@ -63,7 +62,7 @@ export default {
       const pub = []
       const priv = []
 
-      for (let ch of this.store.channels) {
+      for (let ch of this.state.channels) {
         if (ch.name === ch.id) {
           pub.push(ch)
         } else {
@@ -81,16 +80,20 @@ export default {
   },
 
   methods: {
+    channelListHighlight (channel) {
+      return { 'highlight-green': store.isChannelJoined(channel.id) }
+    },
+
     toggleChannel (id) {
-      if (!this.store.isChannelJoined(id)) {
-        socket.joinChannel(id)
+      if (!store.isChannelJoined(id)) {
+        store.joinChannel(id)
       } else {
-        socket.leaveChannel(id)
+        store.leaveChannel(id)
       }
     },
 
     close () {
-      this.store.popOverlay()
+      store.popOverlay()
     }
   }
 }

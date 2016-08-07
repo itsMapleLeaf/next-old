@@ -1,32 +1,30 @@
 <template lang="jade">
 .color-dark.flex-column
-  component.flex-grow(v-if='room', :is='roomView', :room='room')
+  component.flex-grow(v-if='roomView', :is='roomView', :room='state.currentRoom')
 </template>
 
 <script>
 import ChannelRoomView from './ChannelRoomView.vue'
 import PrivateRoomView from './PrivateRoomView.vue'
-import store from '../store'
+import {state} from '../store'
 
 export default {
   components: {ChannelRoomView, PrivateRoomView},
 
   data () {
     return {
-      store
+      state
     }
   },
 
   computed: {
-    room () {
-      return this.store.getCurrentRoom()
-    },
-
     roomView () {
-      if (this.room.type === 'channel') {
-        return 'channel-room-view'
-      } else if (this.room.type === 'private') {
-        return 'private-room-view'
+      const {currentRoom} = this.state
+      if (currentRoom) {
+        switch (currentRoom.type) {
+          case 'channel': return 'channel-room-view'
+          case 'private': return 'private-room-view'
+        }
       }
     }
   }

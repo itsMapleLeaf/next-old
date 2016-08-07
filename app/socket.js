@@ -1,42 +1,11 @@
-import store from './store'
-import meta from '../package.json'
+import {store, state} from './store'
 
 export default {
   ws: null,
 
-  // connection state
-  // either: offline, connecting, online, identified
-  state: 'offline',
-
   connect () {
-    const ws = new window.WebSocket('wss://chat.f-list.net:9799')
-
-    ws.onopen = () => {
-      console.log('Socket opened')
-      this.state = 'connected'
-      this.identify()
-    }
-
-    ws.onclose = () => {
-      console.log('Socket closed')
-      this.state = 'offline'
-    }
-
-    ws.onerror = (err) => {
-      console.error('Socket error:', err)
-      this.state = 'offline'
-    }
-
-    ws.onmessage = (msg) => {
-      const {data} = msg
-      const command = data.substring(0, 3)
-      const params = data.length > 3 ? JSON.parse(data.substring(4)) : {}
-
-      this.handleCommand(command, params)
-    }
-
-    this.ws = ws
-    this.state = 'connecting'
+    this.ws = new window.WebSocket('wss://chat.f-list.net:9799')
+    return this.ws
   },
 
   disconnect () {
@@ -49,54 +18,11 @@ export default {
     console.log(`Sent command: ${data}`)
   },
 
-  identify () {
-    this.sendCommand('IDN', {
-      method: 'ticket',
-      account: store.account,
-      ticket: store.ticket,
-      character: store.identity,
-      cname: meta.name,
-      cversion: meta.version
-    })
-  },
-
-  requestChannels () {
-    store.clearChannels()
-    this.sendCommand('CHA')
-    this.sendCommand('ORS')
-  },
-
-  joinChannel (channel) {
-    this.sendCommand('JCH', { channel })
-  },
-
-  leaveChannel (channel) {
-    this.sendCommand('LCH', { channel })
-  },
-
-  sendChannelMessage (channel, message) {
-    this.sendCommand('MSG', { channel, message })
-  },
-
-  sendPrivateMessage (recipient, message) {
-    this.sendCommand('PRI', { recipient, message })
-  },
-
-  updateStatus (status, statusmsg) {
-    this.sendCommand('STA', { status, statusmsg })
-  },
-
-  ignoreAction (character, action) {
-    // action can be: 'add', 'delete', 'notify', or 'list'
-    // https://wiki.f-list.net/F-Chat_Client_Commands#IGN
-    this.sendCommand('IGN', { character, action })
-  },
-
   handleCommand (command, params) {
     const handlers = {
       IDN () {
         console.info('Successfully identified with server.')
-        this.state = 'identified'
+        store.setSocketState('identified')
       },
 
       HLO () { console.info(params.message) },
@@ -152,7 +78,7 @@ export default {
       // someone joined a channel
       // if it's us, add a new chat
       JCH () {
-        if (params.character.identity === store.identity) {
+        if (params.character.identity === state.identity) {
           store.addChannelChat(params.channel, params.title)
         } else {
           store.addChannelCharacter(params.channel, params.character.identity)
@@ -163,7 +89,7 @@ export default {
       // if it's us, remove that channel
       LCH () {
         store.removeChannelCharacter(params.channel, params.character)
-        if (params.character === store.identity) {
+        if (params.character === state.identity) {
           store.removeChannelChat(params.channel)
         }
       },
