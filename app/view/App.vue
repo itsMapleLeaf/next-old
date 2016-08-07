@@ -96,6 +96,10 @@ export default {
         data[`channels:${this.state.identity}`] = Object.keys(rooms)
         session.save()
       }
+    },
+
+    'state.identity' (name) {
+      document.title = name ? `${name} | F-Chat Next` : 'F-Chat Next'
     }
   }
 }
