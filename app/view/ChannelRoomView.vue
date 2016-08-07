@@ -5,7 +5,7 @@
   .flex-grow.flex.flex-align-stretch.ui-divide-top.ui-divide-bottom
     .flex-grow.flex-column
       // chat messages
-      messages.flex-grow(:messages='filteredMessages')
+      messages.flex-grow.ui-scroll-y(:messages='filteredMessages')
       // filters
       .flex-fixed.color-darker.ui-padding-1
         checkbox(v-for='filter of filters', v-model='filter.enabled', style='margin-right: 0.7rem')
