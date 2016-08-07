@@ -1,7 +1,7 @@
 <template lang="jade">
-a.flex.ui-width-8.ui-link.ui-fit-viewport(href='#', style='height: 100px; margin: 0.5rem', :data-character='character.name')
-  img.flex-fixed.ui-block.ui-no-click(:src='avatarURL')
-  .flex-grow.flex-column.ui-no-click(style='width: calc(100% - 100px); overflow-wrap: break-word')
+a.flex.ui-link.ui-fit-viewport(href='#', style='height: 100px; margin: 0.5rem; box-sizing: content-box', :data-character='character.name')
+  img.ui-block.ui-no-click(:src='avatarURL', style='width: 100px; height: 100px')
+  .flex-column.ui-width-5.ui-no-click.res.res-desktop(style='overflow-wrap: break-word')
     h3.flex-fixed.ui-block.ui-padding-2.gender-color(:class='gender')
       | {{ name }}
     em.flex-grow.ui-block.ui-small.ui-padding-0(style='overflow-y: hidden')
