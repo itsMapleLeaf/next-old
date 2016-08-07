@@ -11,14 +11,14 @@ form(@submit.prevent='submit')
 
 <script>
 import Dropdown from './Dropdown.vue'
-import {store} from '../store'
+import {store, state} from '../store'
 
 export default {
   components: {Dropdown},
 
   data () {
     return {
-      status: '',
+      status: 'online',
       statusmsg: '',
       statusList: [
         { label: 'Online', value: 'online' },
@@ -29,6 +29,11 @@ export default {
       ],
       disabled: false
     }
+  },
+
+  created () {
+    this.status = state.status
+    this.statusmsg = state.statusmsg
   },
 
   methods: {

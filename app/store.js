@@ -180,6 +180,7 @@ const store = {
 
   updateStatus (status, statusmsg) {
     socket.sendCommand('STA', { status, statusmsg })
+    this.setStatus(status, statusmsg)
   },
 
   ignoreAction (character, action) {
