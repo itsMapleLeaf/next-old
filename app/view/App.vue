@@ -3,7 +3,7 @@ div(@click='checkDataAttribute')
   .flex-column.ui-fullscreen
     app-bar.flex-fixed
     chat.flex-grow
-  transition(v-for='overlay in state.overlays', name='overlay')
+  transition(v-for='(overlay, index) in state.overlays', :key='index', name='overlay')
     component(:is='overlay', style='z-index: 9999')
 </template>
 

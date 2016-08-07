@@ -1,7 +1,7 @@
 <template lang="jade">
 .flex-column
   .flex-grow.ui-scroll-y
-    message.ui-padding-1(v-for='msg in filteredMessages', :message='msg')
+    message.ui-padding-1(v-for='msg in filteredMessages', :key='msg.id', :message='msg')
   .flex-fixed.color-darker.ui-padding-1
     checkbox(v-for='filter of filters', v-model='filter.enabled', style='margin-right: 0.7rem')
       | {{ filter.label }}

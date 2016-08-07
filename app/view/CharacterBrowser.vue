@@ -5,7 +5,7 @@
       | {{ group.title }}
     back-button(align='top', @click.native='close')
   .ui-shade.flex-grow.flex.flex-justify-center.flex-wrap.ui-scroll-y(style='align-content: flex-start', @click.self='close')
-    card.color-dark(v-for='char in filteredCharacters', :character='char')
+    card.color-dark(v-for='char in filteredCharacters', :key='char.name', :character='char')
   .color-main.ui-shadow-symmetric.flex-fixed.flex.flex-center
     .ui-width-12.ui-header-2.ui-margin-1.ui-input-icon-left.ui-fit-viewport(style='background-color: transparent')
       input.ui-border(v-model='searchText')
