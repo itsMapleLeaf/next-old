@@ -1,5 +1,5 @@
 <template lang="jade">
-div(@click='clicked')
+div(@click='checkDataAttribute')
   .flex-column.ui-fullscreen
     app-bar.flex-fixed
     chat.flex-grow
@@ -63,7 +63,7 @@ export default {
   },
 
   methods: {
-    clicked (event) {
+    checkDataAttribute (event) {
       for (let {name, value} of event.target.attributes) {
         switch (name) {
           case 'data-character':
