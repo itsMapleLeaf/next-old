@@ -16,7 +16,7 @@ mixin show-all-channels
   checkbox(v-model='showAll') Show ALL channels (lag warning)
 
 .ui-overlay(@click.self='close')
-  form.ui-panel.ui-height-12.ui-fit-viewport.flex-column.res.res-desktop.res-mobile-portrait(@submit.prevent='')
+  form.ui-panel.ui-height-12.flex-column.res.res-desktop.res-mobile-portrait(@submit.prevent='')
     .flex-grow.color-dark.ui-width-9.ui-fit-width.ui-margin-bottom-1.ui-scroll-y
       +channel-list
     .flex-fixed.ui-field.ui-block-center
@@ -25,7 +25,7 @@ mixin show-all-channels
       +show-all-channels
     back-button(@click.native='close')
 
-  form.flex.ui-panel.ui-fit-viewport.flex.res.res-mobile-landscape(@submit.prevent='')
+  form.flex.ui-panel.flex.res.res-mobile-landscape(@submit.prevent='')
     .flex-grow.color-dark.ui-width-8.ui-scroll-y.ui-fit-height.ui-margin-left-2.ui-margin-right-2
       +channel-list
     .fiex-fixed.ui-margin-right-2.flex-column.flex-center

@@ -1,6 +1,6 @@
 <template lang="jade">
 .ui-overlay(@click.self='store.popOverlay')
-  .ui-panel.ui-fit-viewport.ui-scroll-y
+  .ui-panel.ui-scroll-y
     .ui-padding-subtle.ui-text-center
       h2 {{ title }}
     .color-dark.ui-padding-square-1.ui-fit-width.ui-pre-wrap(style='width: 40em', v-html='description')
