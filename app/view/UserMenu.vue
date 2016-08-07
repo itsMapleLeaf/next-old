@@ -68,7 +68,7 @@ export default {
 
   computed: {
     rooms () { return this.state.rooms },
-    currentRoom () { return this.state.getCurrentRoom() },
+    currentRoom () { return this.state.currentRoom },
     identity () { return this.state.identity },
     header () { return `Hi, ${this.identity.split(' ')[0]}!` }
   },
