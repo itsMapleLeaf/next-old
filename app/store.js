@@ -239,7 +239,7 @@ const store = {
 
   removeChannelChat (id) {
     const room = this.state.channelRooms[id]
-    delete this.state.channelRooms[id]
+    Vue.delete(this.state.channelRooms, id)
     util.remove(this.state.rooms, room)
   },
 
