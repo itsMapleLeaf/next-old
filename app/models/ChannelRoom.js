@@ -41,6 +41,8 @@ export default class ChannelRoom {
   getSortPriority (char) {
     switch (true) {
       case char.isFriend:
+        return 5
+        
       case char.isBookmark:
         return 4
 
