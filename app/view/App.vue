@@ -4,7 +4,9 @@ div(@click='checkDataAttribute')
     app-bar.flex-fixed
     chat.flex-grow
   transition(v-for='(overlay, index) in state.overlays', :key='index', name='overlay')
-    component(:is='overlay', style='z-index: 9999')
+    component(:is='overlay', style='z-index: 2')
+  a.ui-anchor-right.ui-anchor-bottom.ui-padding-subtle.ui-faded(href='#', style='z-index: 3', v-if="!state.overlays.includes('about')", @click="pushOverlay('about')")
+    i.mdi.mdi-information
 </template>
 
 <script>
@@ -17,6 +19,7 @@ import ChannelSelect from './ChannelSelect.vue'
 import RoomInfo from './RoomInfo.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import AppBar from './AppBar.vue'
+import About from './About.vue'
 
 import {store, state} from '../store'
 import session from '../session'
@@ -31,7 +34,8 @@ export default {
     ChannelSelect,
     AppBar,
     RoomInfo,
-    CharacterBrowser
+    CharacterBrowser,
+    About
   },
 
   data () {
@@ -42,24 +46,25 @@ export default {
   },
 
   mounted () {
-    this.$nextTick(() => {
-      if (this.initialized) return
-      this.initialized = true
+    store.pushOverlay('about')
+    // this.$nextTick(() => {
+    //   if (this.initialized) return
+    //   this.initialized = true
 
-      const data = session.load()
-      if (data) {
-        store.fetchUserData(data.account, data.ticket)
-        .then(() => {
-          store.pushOverlay('character-select')
-        })
-        .catch(err => {
-          console.warn(err)
-          store.pushOverlay('login')
-        })
-      } else {
-        store.pushOverlay('login')
-      }
-    })
+    //   const data = session.load()
+    //   if (data) {
+    //     store.fetchUserData(data.account, data.ticket)
+    //     .then(() => {
+    //       store.pushOverlay('character-select')
+    //     })
+    //     .catch(err => {
+    //       console.warn(err)
+    //       store.pushOverlay('login')
+    //     })
+    //   } else {
+    //     store.pushOverlay('login')
+    //   }
+    // })
   },
 
   methods: {
@@ -75,6 +80,10 @@ export default {
             return
         }
       }
+    },
+
+    pushOverlay (overlay) {
+      store.pushOverlay(overlay)
     }
   },
 
