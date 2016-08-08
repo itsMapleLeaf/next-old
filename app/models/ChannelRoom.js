@@ -4,7 +4,7 @@ export default class ChannelRoom {
     this.id = id
     this.name = name
     this.description = ''
-    this.mode = 'both'
+    this.mode = 'both' // either 'both', 'chat', or 'ads'
     this.characters = []
     this.messages = []
     this.ops = []
