@@ -8,8 +8,8 @@
       messages.flex-grow.ui-scroll-y(:messages='filteredMessages')
       // filters
       .flex-fixed.color-darker.ui-padding-1
-        checkbox(v-for='filter of filters', v-model='filter.enabled', style='margin-right: 0.7rem')
-          | {{ filter.label }}
+        template(v-for='(filter, index) of filters', v-if='!filter.visible || filter.visible()')
+          checkbox(:key='index', v-model='filter.enabled', style='margin-right: 0.7rem') {{ filter.label }}
     // character list
     users.flex-fixed.ui-width-6.color-main.ui-scroll-y.ui-divide-left.res.res-desktop(:users='room.characters', :ops='room.ops')
   // chatbox
@@ -39,7 +39,8 @@ export default {
         {
           label: 'LFRP',
           enabled: true,
-          filter: msg => msg.type === 'lfrp'
+          filter: msg => this.room.mode === 'ads' || msg.type === 'lfrp',
+          visible: () => this.room.mode === 'both'
         },
         {
           label: 'Friends',
