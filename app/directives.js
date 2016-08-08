@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 function scrollToBottom (event) {
   const el = event.target
   el.dataset.bottomScrollEnabled = el.scrollHeight - el.scrollTop === el.clientHeight
