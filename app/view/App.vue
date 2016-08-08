@@ -46,28 +46,36 @@ export default {
   },
 
   mounted () {
-    store.pushOverlay('about')
-    // this.$nextTick(() => {
-    //   if (this.initialized) return
-    //   this.initialized = true
+    this.$nextTick(() => {
+      if (this.initialized) return
+      this.initialized = true
 
-    //   const data = session.load()
-    //   if (data) {
-    //     store.fetchUserData(data.account, data.ticket)
-    //     .then(() => {
-    //       store.pushOverlay('character-select')
-    //     })
-    //     .catch(err => {
-    //       console.warn(err)
-    //       store.pushOverlay('login')
-    //     })
-    //   } else {
-    //     store.pushOverlay('login')
-    //   }
-    // })
+      this.authenticate()
+      .then(() => {
+        store.pushOverlay('character-select')
+      })
+      .catch(err => {
+        console.warn(err)
+        store.pushOverlay('login')
+      })
+    })
   },
 
   methods: {
+    authenticate () {
+      return new Promise((resolve, reject) => {
+        const data = session.load()
+        if (data) {
+          resolve(data)
+        } else {
+          reject()
+        }
+      })
+      .then(data => {
+        return store.fetchUserData(data.account, data.ticket)
+      })
+    },
+
     checkDataAttribute (event) {
       for (let {name, value} of event.target.attributes) {
         switch (name) {
