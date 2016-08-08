@@ -66,9 +66,10 @@ for $state in (hover focus)
   width: min-content
   position: relative
 
-for $side in (left right)
+for $side in left right
   .ui-panel-{$side}
-    @extend .color-main, .ui-shadow, .ui-anchor-{$side}
+    @extend .color-main, .ui-shadow
+    @extend .ui-anchor-{$side}, .ui-anchor-top, .ui-anchor-bottom
 
 .ui-field
   margin-bottom: 1rem
