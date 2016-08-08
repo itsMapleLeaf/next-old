@@ -7,6 +7,12 @@ div(v-bottom-scroll='')
 import Message from './Message.vue'
 import Vue from 'vue'
 
+function onScroll (event) {
+  const el = event.target
+  el.dataset.bottomScrollEnabled = el.scrollHeight - el.scrollTop === el.clientHeight
+  console.log('scroll', el.dataset.bottomScrollEnabled)
+}
+
 export default {
   components: {Message},
 
@@ -18,10 +24,7 @@ export default {
     bottomScroll: {
       bind (el, binding) {
         el.dataset.bottomScrollEnabled = 'true'
-        el.addEventListener('scroll', () => {
-          el.dataset.bottomScrollEnabled = el.scrollHeight - el.scrollTop === el.clientHeight
-          console.log('scroll', el.dataset.bottomScrollEnabled)
-        })
+        el.addEventListener('scroll', onScroll)
       },
       update (el, binding) {
         console.log('update', el.dataset.bottomScrollEnabled)
@@ -32,7 +35,7 @@ export default {
         }
       },
       unbind (el, binding) {
-        el.removeEventListener('scroll')
+        el.removeEventListener('scroll', onScroll)
       }
     }
   }
