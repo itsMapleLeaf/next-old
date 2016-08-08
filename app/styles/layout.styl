@@ -46,22 +46,13 @@ for n in 0..12
 .ui-inline-block
   display: inline-block
 
-for $side in (top right bottom left)
+for $side in top right bottom left
   .ui-divide-{$side}
     margin-{$side}: 4px
 
-for $side in (left right)
+for $side in left right top bottom
   .ui-anchor-{$side}
     position: absolute
-    top: 0
-    bottom: 0
-    {$side}: 0
-
-for $side in (top bottom)
-  .ui-anchor-{$side}
-    position: absolute
-    left: 0
-    right: 0
     {$side}: 0
 
 .ui-text-center
