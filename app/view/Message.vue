@@ -11,6 +11,10 @@ import Message from '../models/Message'
 
 const meCommand = /^\/me/
 
+function leftPad (input, len, char = ' ') {
+  return char.repeat(len - input.toString().length) + input.toString()
+}
+
 export default {
   components: {Character},
 
@@ -40,9 +44,7 @@ export default {
 
     time () {
       const date = new Date(this.message.time)
-      const hours = date.getHours()
-      const minutes = date.getMinutes()
-      return `${hours}:${'0'.repeat(2 - minutes.toString().length) + minutes}`
+      return `${date.getHours()}:${leftPad(date.getMinutes(), 2, '0')}`
     }
   }
 }
