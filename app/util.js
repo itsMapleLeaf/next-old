@@ -1,10 +1,10 @@
 // return the values of an object
-export const values = Object.values || function values (obj) {
-  return Object.keys(obj).map(key => obj[key])
+function values (obj) {
+  return Object.values ? Object.values(obj) : Object.keys(obj).map(key => obj[key])
 }
 
 // assign the key/value pairs from other objects to a fresh object
-export function assign (...objs) {
+function assign (...objs) {
   if (Object.assign) {
     return Object.assign({}, ...objs)
   } else {
@@ -19,12 +19,12 @@ export function assign (...objs) {
 }
 
 // uppercase the first letter of a string and lowercase the rest
-export function capitalize (text) {
+function capitalize (text) {
   return text.substring(0, 1).toLocaleUpperCase() + text.substring(1).toLocaleLowerCase()
 }
 
 // remove an element from an array (destructive)
-export function remove (array, item) {
+function remove (array, item) {
   const index = array.indexOf(item)
   if (index > -1) {
     array.splice(index, 1)
@@ -32,6 +32,8 @@ export function remove (array, item) {
 }
 
 // clamp a number between an upper and lower bound
-export function clamp (n, min, max) {
+function clamp (n, min, max) {
   return n < min ? min : n > max ? max : n
 }
+
+export { values, assign, capitalize, remove, clamp }

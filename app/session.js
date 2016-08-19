@@ -1,21 +1,21 @@
-export default {
-  data: {},
-  storageKey: 'flist-next-session',
+let data = {}
+const storageKey = 'flist-next-session'
 
-  load () {
-    const data = window.localStorage[this.storageKey]
-    if (data) {
-      return (this.data = JSON.parse(data))
-    }
-    return null
-  },
-
-  save () {
-    window.localStorage[this.storageKey] = JSON.stringify(this.data)
-  },
-
-  clear () {
-    window.localStorage.removeItem(this.storageKey)
-    this.data = {}
+function load () {
+  const loaded = window.localStorage[storageKey]
+  if (loaded) {
+    return (data = JSON.parse(loaded))
   }
+  return null
 }
+
+function save () {
+  window.localStorage[storageKey] = JSON.stringify(data)
+}
+
+function clear () {
+  window.localStorage.removeItem(storageKey)
+  data = {}
+}
+
+export { load, save, clear }
