@@ -19,7 +19,7 @@
 <script>
 import Checkbox from './Checkbox.vue'
 import {store} from '../store'
-import session from '../session'
+import * as session from session
 import {getTicket} from '../f-list'
 
 export default {

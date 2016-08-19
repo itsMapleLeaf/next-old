@@ -34,7 +34,7 @@ import Avatar from './CharacterAvatarLink.vue'
 import SelectionList from './SelectionList.vue'
 import BackButton from './BackButton.vue'
 import * as store from '../store'
-import session from '../session'
+import * as session from session
 
 export default {
   components: {Avatar, SelectionList, BackButton},
