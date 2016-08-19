@@ -1,22 +1,5 @@
 import {store, state} from './store'
 
-let ws = null
-
-export function connect () {
-  ws = new window.WebSocket('wss://chat.f-list.net:9799')
-  return ws
-}
-
-export function disconnect () {
-  ws.close()
-}
-
-export function sendCommand (command, params) {
-  const data = params ? `${command} ${JSON.stringify(params)}` : command
-  ws.send(data)
-  console.log(`Sent command: ${data}`)
-}
-
 const serverCommands = {
   IDN () {
     console.info('Successfully identified with server.')
@@ -127,8 +110,27 @@ const serverCommands = {
   VAR () {}
 }
 
-export function handleCommand (command, params) {
+let ws = null
+
+function connect () {
+  ws = new window.WebSocket('wss://chat.f-list.net:9799')
+  return ws
+}
+
+function disconnect () {
+  ws.close()
+}
+
+function sendCommand (command, params) {
+  const data = params ? `${command} ${JSON.stringify(params)}` : command
+  ws.send(data)
+  console.log(`Sent command: ${data}`)
+}
+
+function handleCommand (command, params) {
   serverCommands[command]
     ? serverCommands[command](params)
     : console.warn(`Unknown command: ${command} ${JSON.stringify(params)}`)
 }
+
+export { connect, disconnect, sendCommand, handleCommand }
