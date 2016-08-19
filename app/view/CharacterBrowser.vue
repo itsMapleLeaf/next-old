@@ -15,7 +15,7 @@
 <script>
 import Card from './CharacterBrowserCard.vue'
 import BackButton from './BackButton.vue'
-import {store, state} from '../store'
+import * as store from '../store'
 import * as util from '../util'
 
 // function compareNames (a, b) {
@@ -38,7 +38,7 @@ export default {
       ],
       currentGroup: 0,
       searchText: '',
-      state
+      state: store.state
     }
   },
 

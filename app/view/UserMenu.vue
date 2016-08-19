@@ -18,7 +18,7 @@ import MenuHeader from './MenuHeader.vue'
 import StatusForm from './MenuStatusForm.vue'
 import MenuOption from './MenuOption.vue'
 import MenuRoom from './MenuRoom.vue'
-import {store, state} from '../store'
+import * as store from '../store'
 
 const options = [
   {
@@ -61,7 +61,7 @@ export default {
 
   data () {
     return {
-      state,
+      state: store.state,
       options
     }
   },

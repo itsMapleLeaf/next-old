@@ -40,7 +40,7 @@ mixin show-all-channels
 import SelectionList from './SelectionList.vue'
 import Checkbox from './Checkbox.vue'
 import BackButton from './BackButton.vue'
-import {store, state} from '../store'
+import * as store from '../store'
 
 export default {
   components: {SelectionList, Checkbox, BackButton},
@@ -49,7 +49,7 @@ export default {
     return {
       searchText: '',
       showAll: false,
-      state
+      state: store.state
     }
   },
 

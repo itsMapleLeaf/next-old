@@ -11,12 +11,12 @@ import Status from './UserStatus.vue'
 import Messages from './MessageList.vue'
 import Chatbox from './Chatbox.vue'
 import PrivateRoom from '../models/PrivateRoom'
-import {store, state} from '../store'
+import * as store from '../store'
 
 export default {
   components: {Status, Messages, Chatbox},
   data () {
-    return { state }
+    return { state: store.state }
   },
   props: {
     room: PrivateRoom

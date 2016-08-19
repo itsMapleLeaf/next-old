@@ -33,7 +33,7 @@ mixin confirm
 import Avatar from './CharacterAvatarLink.vue'
 import SelectionList from './SelectionList.vue'
 import BackButton from './BackButton.vue'
-import {store, state} from '../store'
+import * as store from '../store'
 import session from '../session'
 
 export default {
@@ -42,7 +42,7 @@ export default {
   data () {
     return {
       current: '',
-      state
+      state: store.state
     }
   },
 

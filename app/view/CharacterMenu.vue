@@ -23,7 +23,7 @@ import SideMenu from './SideMenu.vue'
 import MenuHeader from './MenuHeader.vue'
 import MenuOption from './MenuOption.vue'
 import UserStatus from './UserStatus.vue'
-import {store, state} from '../store'
+import * as store from '../store'
 import socket from '../socket'
 import {capitalize} from '../util'
 
@@ -31,7 +31,7 @@ export default {
   components: {SideMenu, MenuHeader, MenuOption, UserStatus},
 
   data () {
-    return { state, capitalize }
+    return { state: store.state, capitalize }
   },
 
   computed: {

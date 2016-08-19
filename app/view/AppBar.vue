@@ -15,14 +15,14 @@
 <script>
 import RoomTitle from './RoomTitle.vue'
 import RoomTab from './RoomTab.vue'
-import {store, state} from '../store'
+import * as store from '../store'
 
 export default {
   components: {RoomTab, RoomTitle},
 
   data () {
     return {
-      state,
+      state: store.state,
       shortcuts: [
         { icon: 'menu', action: () => this.pushOverlay('user-menu') },
         { icon: 'forum', action: () => this.pushOverlay('channel-select') },

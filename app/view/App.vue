@@ -21,7 +21,7 @@ import CharacterBrowser from './CharacterBrowser.vue'
 import AppBar from './AppBar.vue'
 import About from './About.vue'
 
-import {store, state} from '../store'
+import * as store from '../store'
 import session from '../session'
 
 export default {
@@ -41,7 +41,7 @@ export default {
   data () {
     return {
       initialized: false,
-      state
+      state: store.state
     }
   },
 

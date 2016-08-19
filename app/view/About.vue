@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {store, state} from '../store'
+import * as store from '../store'
 import {version} from '../../package.json'
 
 export default {
