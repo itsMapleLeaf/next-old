@@ -7,7 +7,7 @@ import * as flist from './f-list'
 import * as util from './util'
 import * as socket from './socket'
 import parseBBC from './parse-bbc'
-import meta from '../package.json'
+import meta from '../../package.json'
 
 const socketStates = ['offline', 'connected', 'identified', 'online']
 

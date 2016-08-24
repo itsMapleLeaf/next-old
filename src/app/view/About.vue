@@ -25,7 +25,7 @@
 
 <script>
 import * as store from '../store'
-import {version} from '../../package.json'
+import {version} from '../../../package.json'
 
 export default {
   data () {
