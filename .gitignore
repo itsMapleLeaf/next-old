@@ -1,5 +1,4 @@
 node_modules
-build
+dist
 *.log
 *.map
-.atom-build.cson
