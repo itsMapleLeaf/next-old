@@ -1,18 +1,17 @@
-const electron = require('electron')
-const {app, BrowserWindow} = electron
-const path = require('path')
+import {app, BrowserWindow} from 'electron'
+import path from 'path'
 
 const vuejsExtensionID = 'nhdogjmejiglipccpnnnanhbledajbpd'
 const vuejsExtensionVersion = '2.0.2_0'
 const appDataFolder = process.env.LOCALAPPDATA
-const extensionFolder = appDataFolder + '/Google/Chrome/User Data/Default/Extensions'
+const extensionFolder = path.join(appDataFolder, '/Google/Chrome/User Data/Default/Extensions')
 
 let win
 
 function createWindow () {
   win = new BrowserWindow({ title: 'F-Chat Next' })
 
-  const index = path.resolve(__dirname, '../dist/index.html')
+  const index = path.join(__dirname, 'app.html')
 
   if (process.argv.includes('--dev')) {
     BrowserWindow.addDevToolsExtension(path.join(extensionFolder, vuejsExtensionID, vuejsExtensionVersion))

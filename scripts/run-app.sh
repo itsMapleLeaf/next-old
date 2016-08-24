@@ -1,2 +1,0 @@
-scripts/build.sh
-electron .
