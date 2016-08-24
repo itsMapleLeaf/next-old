@@ -1,7 +1,13 @@
-app_main = src/app/main.js
-dist = dist
-dist_web = $(dist)/web
-dist_electron = $(dist)/electron
+app_main = "src/app/main.js"
+dist = "dist"
+dist_web = "$(dist)/web"
+dist_electron = "$(dist)/electron"
+
+run-web:
+	start ./dist/web/index.html
+
+dev-web:
+	webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web)
 
 build: clean build-web build-electron
 
