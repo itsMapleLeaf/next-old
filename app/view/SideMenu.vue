@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {store} from '../store'
+import * as store from '../store'
 
 export default {
   props: {

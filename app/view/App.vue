@@ -22,7 +22,7 @@ import AppBar from './AppBar.vue'
 import About from './About.vue'
 
 import * as store from '../store'
-import * as session from session
+import * as session from '../session'
 
 export default {
   components: {

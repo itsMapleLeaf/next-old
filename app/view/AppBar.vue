@@ -1,7 +1,12 @@
 <template lang="jade">
+mixin shortcut(icon, action)
+  a.flex-fixed.ui-inline-block.ui-padding-subtle(href='#', v-for='shortcut in shortcuts', @click!=action)
+    i(:class='mdi mdi-' + icon)
+
 .color-darker.flex
-  a.flex-fixed.ui-inline-block.ui-padding-subtle.ui-fluid-border(href='#', v-for='shortcut in shortcuts', @click='shortcut.action')
-    i(:class="'mdi mdi-' + shortcut.icon")
+  +shortcut('menu', "pushOverlay('user-menu')")
+  +shortcut('forum', "pushOverlay('channel-select')")
+  +shortcut('heart', "pushOverlay('character-browser')")
   .flex-grow.flex.flex-wrap.res.res-desktop
     room-tab(v-for='room in rooms', :key='room.name', :active='room === currentRoom', @click.native='setRoom(room)', @closed='leaveRoom(room)')
       room-title(:room='room')
@@ -22,12 +27,7 @@ export default {
 
   data () {
     return {
-      state: store.state,
-      shortcuts: [
-        { icon: 'menu', action: () => this.pushOverlay('user-menu') },
-        { icon: 'forum', action: () => this.pushOverlay('channel-select') },
-        { icon: 'heart', action: () => this.pushOverlay('character-browser') }
-      ]
+      state: store.state
     }
   },
 

@@ -18,4 +18,4 @@ function clear () {
   data = {}
 }
 
-export { load, save, clear }
+export { load, save, clear, data }

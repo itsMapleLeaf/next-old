@@ -1,4 +1,4 @@
-import {store, state} from './store'
+import * as store from './store'
 
 const serverCommands = {
   IDN () {
@@ -59,7 +59,7 @@ const serverCommands = {
   // someone joined a channel
   // if it's us add a new chat
   JCH (params) {
-    if (params.character.identity === state.identity) {
+    if (params.character.identity === store.state.identity) {
       store.addChannelChat(params.channel, params.title)
     } else {
       store.addChannelCharacter(params.channel, params.character.identity)
@@ -70,7 +70,7 @@ const serverCommands = {
   // if it's us remove that channel
   LCH (params) {
     store.removeChannelCharacter(params.channel, params.character)
-    if (params.character === state.identity) {
+    if (params.character === store.state.identity) {
       store.removeChannelChat(params.channel)
     }
   },
