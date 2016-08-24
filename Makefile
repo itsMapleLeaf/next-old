@@ -1,29 +1,22 @@
 app_main = src/app/main.js
+dist = dist
+dist_web = $(dist)/web
+dist_electron = $(dist)/electron
 
+build: clean build-web build-electron
 
-build: build-web build-electron
+clean:
+	rm -rf $(dist)
 
+build-web:
+	mkdir -p $(dist_web)
+	webpack $(app_main) $(dist_web)/bundle.js
+	pug src/web -o $(dist_web) --pretty
+	cp -r src/assets dist/web
 
-build-web: build-web-scripts build-web-templates build-web-assets
-
-build-web-assets:
-	cp -r src/assets dist/web/assets
-
-build-web-scripts:
-	webpack $(app_main) dist/web/bundle.js
-
-build-web-templates:
-	pug src/web -o dist/web --pretty
-
-
-build-electron: build-electron-scripts build-electron-templates build-electron-assets
-
-build-electron-assets:
-	cp -r src/assets dist/electron/assets
-
-build-electron-scripts:
-	babel src/electron -d dist/electron
-	webpack $(app_main) dist/electron/bundle.js
-
-build-electron-templates:
-	pug src/electron -o dist/electron --pretty
+build-electron:
+	mkdir -p $(dist_electron)
+	webpack $(app_main) $(dist_electron)/bundle.js
+	pug src/electron -o $(dist_electron) --pretty
+	babel src/electron -d $(dist_electron)
+	cp -r src/assets $(dist_electron)
