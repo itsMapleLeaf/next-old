@@ -1,6 +1,6 @@
 <template lang="jade">
 mixin shortcut(icon, action)
-  a.flex-fixed.ui-inline-block.ui-padding-subtle(href='#', v-for='shortcut in shortcuts', @click!=action)
+  a.flex-fixed.ui-inline-block.ui-padding-subtle(href='#', @click!=action)
     i(class='mdi mdi-' + icon)
 
 .color-darker.flex
