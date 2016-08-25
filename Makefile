@@ -3,8 +3,11 @@ dist = dist
 dist_web = $(dist)/web
 dist_electron = $(dist)/electron
 
-run-web:
+run-web: build-web
 	start ./dist/web/index.html
+
+run-electron: build-electron
+	electron dist/electron/app.js
 
 dev-web:
 	webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web)
