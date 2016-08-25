@@ -8,7 +8,7 @@
     card.color-dark(v-for='char in filteredCharacters', :key='char.name', :character='char')
   .color-main.ui-shadow-symmetric.flex-fixed.flex.flex-center
     .ui-width-12.ui-header-2.ui-margin-1.ui-input-icon-left.ui-fit-viewport(style='background-color: transparent')
-      input.ui-border(v-model='searchText')
+      input.ui-border(v-model='searchText', placeholder="Search... (Try typing 'female' or 'online'!)")
       i.ui-icon.mdi.mdi-magnify
 </template>
 
@@ -48,10 +48,9 @@ export default {
       return this.allCharacters
         .filter(filter)
         .filter(char =>
-          char.name.toLowerCase().includes(search) ||
-          char.gender.toLowerCase().includes(search) ||
-          char.status.toLowerCase().includes(search) ||
-          char.statusmsg.toLowerCase().includes(search)
+          ['name', 'gender', 'status', 'statusmsg']
+          .map(field => char[field].toLocaleLowerCase())
+          .some(value => value.includes(search))
         )
         .sort(compareOnlineTime)
         .slice(0, 200)
