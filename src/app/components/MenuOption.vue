@@ -1,5 +1,5 @@
 <template lang="pug">
-a.ui-block.ui-padding-4.ui-hover-darken(href='#', @click.prevent!="action && action()")
+a.ui-block.ui-padding-4.ui-hover-darken(href='#', @click.prevent!="$emit('input')")
   i.mdi(:class="'mdi-' + icon")
   span
     slot
@@ -8,7 +8,6 @@ a.ui-block.ui-padding-4.ui-hover-darken(href='#', @click.prevent!="action && act
 <script>
 export default {
   props: {
-    action: Function,
     icon: String
   }
 }

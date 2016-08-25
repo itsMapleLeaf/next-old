@@ -4,7 +4,7 @@ mixin avatar
 
 mixin characters
   .color-dark
-    selection-option(v-for="char in state.characters", :option="char", v-model="current")
+    selection-option(v-for="char in state.characters", :active="char === current", @input="current = char")
       | {{ char }}
 
 mixin confirm

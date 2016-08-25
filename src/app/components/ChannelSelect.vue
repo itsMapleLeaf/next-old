@@ -1,11 +1,12 @@
 <template lang="pug">
 mixin channel-list
-  selection-option(v-for="ch of channels", :option="ch.id", :value="joinedChannels", @input="toggleChannel")
-    .flex.flex-justify-space-between
-      span(v-html='ch.name')
-      span {{ ch.users }}
-    em.ui-text-small.ui-text-faded(v-if='ch.id !== ch.name')
-      | {{ ch.id }}
+  selection-option(v-for="ch of channels",
+    :active="isChannelJoined(ch.id)", @input="toggleChannel(ch.id)")
+      .flex.flex-justify-space-between
+        span(v-html='ch.name')
+        span {{ ch.users }}
+      em.ui-text-small.ui-text-faded(v-if='ch.id !== ch.name')
+        | {{ ch.id }}
 
 mixin search-box
   .ui-input-icon-left
@@ -42,6 +43,8 @@ import Checkbox from './Checkbox.vue'
 import BackButton from './BackButton.vue'
 import * as store from '../store'
 
+const {isChannelJoined} = store
+
 export default {
   components: {SelectionOption, Checkbox, BackButton},
 
@@ -76,14 +79,12 @@ export default {
         .filter(ch => ch.name.toLocaleLowerCase()
           .includes(this.searchText.toLocaleLowerCase()))
         .slice(0, this.showAll ? undefined : 200)
-    },
-
-    joinedChannels () {
-      return Object.keys(this.state.channelRooms)
     }
   },
 
   methods: {
+    isChannelJoined,
+
     channelListHighlight (channel) {
       return { 'highlight-green': store.isChannelJoined(channel.id) }
     },

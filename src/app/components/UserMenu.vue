@@ -1,6 +1,6 @@
 <template lang="pug">
 mixin option(text, icon, action)
-  menu-option(icon!=icon, :action!=action)!= text
+  menu-option(icon!=icon, @input!=action)!= text
 
 side-menu(left)
   span(slot='content')
@@ -12,11 +12,11 @@ side-menu(left)
     .res.res-mobile
       menu-room(v-for='room in rooms', :room='room', :active='room === currentRoom', @selected='setRoom(room)', @closed='leaveRoom(room)')
       .ui-padding-1.color-main
-    +option('Channels', 'forum', "store.pushOverlay('channel-select')")
-    +option('Online Users', 'heart', "store.pushOverlay('character-browser')")
+    +option('Channels', 'forum', "pushOverlay('channel-select')")
+    +option('Online Users', 'heart', "pushOverlay('character-browser')")
     +option('Settings', 'settings')
-    +option('Log Out', 'logout', "logOut()")
-    +option('Switch Character', 'account-switch', "switchCharacter()")
+    +option('Log Out', 'logout', "logOut")
+    +option('Switch Character', 'account-switch', "switchCharacter")
 </template>
 
 <script>
@@ -44,6 +44,10 @@ export default {
   },
 
   methods: {
+    pushOverlay (overlay) {
+      store.pushOverlay(overlay)
+    },
+
     setRoom (room) {
       store.setCurrentRoom(room)
     },
