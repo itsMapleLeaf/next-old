@@ -32,8 +32,8 @@ export default {
   },
 
   created () {
-    this.status = state.status
-    this.statusmsg = state.statusmsg
+    this.status = store.state.status
+    this.statusmsg = store.state.statusmsg
   },
 
   methods: {

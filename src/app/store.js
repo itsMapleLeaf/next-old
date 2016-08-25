@@ -122,18 +122,18 @@ export function connectToChatServer () {
 
   ws.onopen = () => {
     console.log('Socket opened')
-    this.setSocketState('connected')
-    this.identify()
+    setSocketState('connected')
+    identify()
   }
 
   ws.onclose = () => {
     console.log('Socket closed')
-    this.setSocketState('offline')
+    setSocketState('offline')
   }
 
   ws.onerror = (err) => {
     console.error('Socket error:', err)
-    this.setSocketState('offline')
+    setSocketState('offline')
   }
 
   ws.onmessage = (msg) => {
@@ -160,7 +160,7 @@ export function identify () {
 }
 
 export function requestChannels () {
-  this.clearChannels()
+  clearChannels()
   socket.sendCommand('CHA')
   socket.sendCommand('ORS')
 }
@@ -183,7 +183,7 @@ export function sendPrivateMessage (recipient, message) {
 
 export function updateStatus (status, statusmsg) {
   socket.sendCommand('STA', { status, statusmsg })
-  this.setStatus(status, statusmsg)
+  .setStatus(status, statusmsg)
 }
 
 export function ignoreAction (character, action) {
@@ -299,7 +299,7 @@ export function removePrivateRoom (partnerName) {
 }
 
 export function addPrivateMessage (partnerName, senderName, message, type) {
-  const room = state.privateRooms[partnerName] || this.addPrivateRoom(partnerName)
+  const room = state.privateRooms[partnerName] || addPrivateRoom(partnerName)
   const sender = state.onlineCharacters[senderName]
   room.messages.push(new Message(sender, message, type))
 }
@@ -309,8 +309,8 @@ export function setCharacterMenuFocus (name) {
 }
 
 export function openCharacterMenu (name) {
-  this.setCharacterMenuFocus(name)
-  this.pushOverlay('character-menu')
+  setCharacterMenuFocus(name)
+  pushOverlay('character-menu')
 }
 
 export function addBookmark (name) {

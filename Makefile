@@ -9,7 +9,7 @@ run-web: build-web
 run-electron: build-electron
 	electron dist/electron/app.js
 
-dev-web:
+dev-web: build-web
 	webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web)
 
 build: clean build-web build-electron
