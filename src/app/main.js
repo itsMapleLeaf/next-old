@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import App from './view/App.vue'
+import App from './components/App.vue'
 
 import './styles/root.styl'
 
