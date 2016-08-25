@@ -3,7 +3,9 @@ mixin avatar
   avatar(:name='state.identity')
 
 mixin characters
-  selection-list(:items='state.characters', v-model='current')
+  .color-dark
+    selection-option(v-for="char in state.characters", :option="char", v-model="current")
+      | {{ char }}
 
 mixin confirm
   button.ui-button(action='submit') Go
@@ -31,13 +33,13 @@ mixin confirm
 
 <script>
 import Avatar from './CharacterAvatarLink.vue'
-import SelectionList from './SelectionList.vue'
+import SelectionOption from './SelectionOption.vue'
 import BackButton from './BackButton.vue'
 import * as store from '../store'
 import * as session from '../session'
 
 export default {
-  components: {Avatar, SelectionList, BackButton},
+  components: {Avatar, SelectionOption, BackButton},
 
   data () {
     return {
@@ -46,7 +48,7 @@ export default {
     }
   },
 
-  mounted () {
+  created () {
     const data = session.load()
     if (data && data.character) {
       this.current = data.character

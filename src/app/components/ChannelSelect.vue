@@ -1,11 +1,11 @@
 <template lang="pug">
 mixin channel-list
-  a.ui-block.ui-padding-3(href='#', v-for='channel in channels', :key='channel.id', :class="channelListHighlight(channel)", @click='toggleChannel(channel.id)')
+  selection-option(v-for="ch of channels", :option="ch.id", :value="joinedChannels", @input="toggleChannel")
     .flex.flex-justify-space-between
-      span(v-html='channel.name')
-      span {{channel.users}}
-    em.ui-text-small.ui-text-faded(v-if='channel.id !== channel.name')
-      | {{channel.id}}
+      span(v-html='ch.name')
+      span {{ ch.users }}
+    em.ui-text-small.ui-text-faded(v-if='ch.id !== ch.name')
+      | {{ ch.id }}
 
 mixin search-box
   .ui-input-icon-left
@@ -37,13 +37,13 @@ mixin show-all-channels
 </template>
 
 <script>
-import SelectionList from './SelectionList.vue'
+import SelectionOption from './SelectionOption.vue'
 import Checkbox from './Checkbox.vue'
 import BackButton from './BackButton.vue'
 import * as store from '../store'
 
 export default {
-  components: {SelectionList, Checkbox, BackButton},
+  components: {SelectionOption, Checkbox, BackButton},
 
   data () {
     return {
@@ -76,6 +76,10 @@ export default {
         .filter(ch => ch.name.toLocaleLowerCase()
           .includes(this.searchText.toLocaleLowerCase()))
         .slice(0, this.showAll ? undefined : 200)
+    },
+
+    joinedChannels () {
+      return Object.keys(this.state.channelRooms)
     }
   },
 
