@@ -1,7 +1,7 @@
-app_main = "src/app/main.js"
-dist = "dist"
-dist_web = "$(dist)/web"
-dist_electron = "$(dist)/electron"
+app_main = src/app/main.js
+dist = dist
+dist_web = $(dist)/web
+dist_electron = $(dist)/electron
 
 run-web:
 	start ./dist/web/index.html

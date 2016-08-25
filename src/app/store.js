@@ -144,6 +144,10 @@ export function connectToChatServer () {
   }
 }
 
+export function disconnectFromChatServer () {
+  socket.disconnect()
+}
+
 export function identify () {
   socket.sendCommand('IDN', {
     method: 'ticket',

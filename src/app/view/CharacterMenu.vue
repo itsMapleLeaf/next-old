@@ -24,7 +24,6 @@ import MenuHeader from './MenuHeader.vue'
 import MenuOption from './MenuOption.vue'
 import UserStatus from './UserStatus.vue'
 import * as store from '../store'
-import socket from '../socket'
 import {capitalize} from '../util'
 
 export default {
@@ -51,7 +50,7 @@ export default {
 
     toggleIgnored () {
       const action = this.character.isIgnored ? 'delete' : 'add'
-      socket.ignoreAction(this.character.name, action)
+      store.ignoreAction(this.character.name, action)
     },
 
     openPrivateRoom () {

@@ -1,19 +1,29 @@
 <template lang="jade">
-.flex-column
-  // room description
+mixin description
   .flex-fixed.color-main.ui-padding-2.ui-scroll-y.res.res-desktop(style='height: 4rem', v-html='room.description')
+
+mixin messages
+  messages.flex-grow.ui-scroll-y(:messages='filteredMessages')
+
+mixin filters
+  .flex-fixed.color-darker.ui-padding-1
+    template(v-for='(filter, index) of filters', v-if='!filter.visible || filter.visible()')
+      checkbox(:key='index', v-model='filter.enabled', style='margin-right: 0.7rem') {{ filter.label }}
+
+mixin character-list
+  users.flex-fixed.ui-width-6.color-main.ui-scroll-y.ui-divide-left.res.res-desktop(:users='room.characters', :ops='room.ops')
+
+mixin chatbox
+  chatbox.flex-fixed.color-main.ui-block.ui-padding-2(style='height: 4rem', @message-sent='messageSent')
+
+.flex-column
+  +description
   .flex-grow.flex.flex-align-stretch.ui-divide-top.ui-divide-bottom
     .flex-grow.flex-column
-      // chat messages
-      messages.flex-grow.ui-scroll-y(:messages='filteredMessages')
-      // filters
-      .flex-fixed.color-darker.ui-padding-1
-        template(v-for='(filter, index) of filters', v-if='!filter.visible || filter.visible()')
-          checkbox(:key='index', v-model='filter.enabled', style='margin-right: 0.7rem') {{ filter.label }}
-    // character list
-    users.flex-fixed.ui-width-6.color-main.ui-scroll-y.ui-divide-left.res.res-desktop(:users='room.characters', :ops='room.ops')
-  // chatbox
-  chatbox.flex-fixed.color-main.ui-block.ui-padding-2(style='height: 4rem', @message-sent='messageSent')
+      +messages
+      +filters
+    +character-list
+  +chatbox
 </template>
 
 <script>
@@ -22,14 +32,14 @@ import Users from './UserList.vue'
 import Chatbox from './Chatbox.vue'
 import Checkbox from './Checkbox.vue'
 import ChannelRoom from '../models/ChannelRoom'
-import {state, store} from '../store'
+import * as store from '../store'
 
 export default {
   components: {Messages, Users, Chatbox, Checkbox},
 
   data () {
     return {
-      state,
+      state: store.state,
       filters: [
         {
           label: 'Chat',

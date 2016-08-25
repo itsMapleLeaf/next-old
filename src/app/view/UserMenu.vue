@@ -40,7 +40,7 @@ const options = [
     text: 'Log Out',
     icon: 'logout',
     action: () => {
-      store.disconnect()
+      store.disconnectFromChatServer()
       store.popOverlay()
       store.pushOverlay('login')
     }
@@ -49,7 +49,7 @@ const options = [
     text: 'Switch Character',
     icon: 'account-switch',
     action: () => {
-      store.disconnect()
+      store.disconnectFromChatServer()
       store.popOverlay()
       store.pushOverlay('character-select')
     }
