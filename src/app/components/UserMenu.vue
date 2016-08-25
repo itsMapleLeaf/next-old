@@ -1,5 +1,8 @@
 <template lang="pug">
-side-menu(left='')
+mixin option(text, icon, action)
+  menu-option(icon!=icon, :action!=action)!= text
+
+side-menu(left)
   span(slot='content')
     menu-header(:character='identity')
       span(slot='header') {{ header }}
@@ -9,7 +12,11 @@ side-menu(left='')
     .res.res-mobile
       menu-room(v-for='room in rooms', :room='room', :active='room === currentRoom', @selected='setRoom(room)', @closed='leaveRoom(room)')
       .ui-padding-1.color-main
-    menu-option(v-for='opt in options', :icon='opt.icon', :action='opt.action') {{ opt.text }}
+    +option('Channels', 'forum', "store.pushOverlay('channel-select')")
+    +option('Online Users', 'heart', "store.pushOverlay('character-browser')")
+    +option('Settings', 'settings')
+    +option('Log Out', 'logout', "logOut()")
+    +option('Switch Character', 'account-switch', "switchCharacter()")
 </template>
 
 <script>
@@ -20,49 +27,12 @@ import MenuOption from './MenuOption.vue'
 import MenuRoom from './MenuRoom.vue'
 import * as store from '../store'
 
-const options = [
-  {
-    text: 'Channels',
-    icon: 'forum',
-    action: () => store.pushOverlay('channel-select')
-  },
-  {
-    text: 'Online Users',
-    icon: 'heart',
-    action: () => store.pushOverlay('character-browser')
-  },
-  {
-    text: 'Settings',
-    icon: 'settings',
-    action: () => {}
-  },
-  {
-    text: 'Log Out',
-    icon: 'logout',
-    action: () => {
-      store.disconnectFromChatServer()
-      store.popOverlay()
-      store.pushOverlay('login')
-    }
-  },
-  {
-    text: 'Switch Character',
-    icon: 'account-switch',
-    action: () => {
-      store.disconnectFromChatServer()
-      store.popOverlay()
-      store.pushOverlay('character-select')
-    }
-  }
-]
-
 export default {
   components: {SideMenu, MenuHeader, StatusForm, MenuOption, MenuRoom},
 
   data () {
     return {
-      state: store.state,
-      options
+      state: store.state
     }
   },
 
@@ -80,6 +50,18 @@ export default {
 
     leaveRoom (room) {
       store.leaveChannel(room.id)
+    },
+
+    logOut () {
+      store.disconnectFromChatServer()
+      store.popOverlay()
+      store.pushOverlay('login')
+    },
+
+    switchCharacter () {
+      store.disconnectFromChatServer()
+      store.popOverlay()
+      store.pushOverlay('character-select')
     }
   }
 }
