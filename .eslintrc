@@ -1,0 +1,8 @@
+parser: babel-eslint
+extends: standard
+plugins:
+  - standard
+  - html
+rules:
+  generator-star-spacing: 0
+  no-duplicate-imports: 0
