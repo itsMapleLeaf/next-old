@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 a.ui-transition(:href='profileURL', target='_blank', :title='name')
   img(v-show='imageLoaded', transition='fade', :src='avatarURL', @load='imageLoaded = true')
 </template>

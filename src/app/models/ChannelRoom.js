@@ -42,7 +42,7 @@ export default class ChannelRoom {
     switch (true) {
       case char.isFriend:
         return 5
-        
+
       case char.isBookmark:
         return 4
 

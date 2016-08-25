@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 textarea(v-model='message', :placeholder='placeholder', @keydown='submit')
 </template>
 

@@ -11,9 +11,10 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
+      compress: { warnings: false }
+    }),
+    new webpack.NamedModulesPlugin({
+      context: 'src/app'
     })
   ],
   devtool: '#eval-source-map'

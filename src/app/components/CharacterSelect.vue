@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 mixin avatar
   avatar(:name='state.identity')
 

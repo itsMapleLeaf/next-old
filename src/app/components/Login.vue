@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .ui-overlay
   .ui-panel.ui-text-center
     h2.ui-margin-1 Hello, gorgeous.

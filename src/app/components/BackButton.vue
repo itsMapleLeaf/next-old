@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 a.ui-hover-darken.ui-inline-block.ui-faded.ui-padding-subtle(href='#', :class='align')
   i.mdi.mdi-arrow-left
 </template>

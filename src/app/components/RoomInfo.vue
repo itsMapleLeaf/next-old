@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .ui-overlay(@click.self='popOverlay')
   .ui-panel.ui-scroll-y
     .ui-padding-subtle.ui-text-center

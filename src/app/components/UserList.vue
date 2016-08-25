@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 div
   character-list-item.ui-padding-1(v-for='char in users', :key='char.name', :character='char', :is-op='ops.includes(char.name)')
 </template>

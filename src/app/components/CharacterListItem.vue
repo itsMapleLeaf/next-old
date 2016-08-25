@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .flex.flex-justify-space-between(:class='highlight')
   character(:character='character')
   span(v-if='icon')

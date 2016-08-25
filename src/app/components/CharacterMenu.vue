@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 side-menu(right='')
   span(slot='content')
     menu-header(:character='character.name')

@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 mixin shortcut(icon, action)
   a.flex-fixed.ui-inline-block.ui-padding-subtle(href='#', @click!=action)
     i(class='mdi mdi-' + icon)

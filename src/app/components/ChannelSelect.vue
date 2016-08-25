@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 mixin channel-list
   a.ui-block.ui-padding-3(href='#', v-for='channel in channels', :key='channel.id', :class="channelListHighlight(channel)", @click='toggleChannel(channel.id)')
     .flex.flex-justify-space-between

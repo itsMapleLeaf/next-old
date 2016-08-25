@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .flex-column.flex-align-stretch.ui-fullscreen
   .color-main.ui-shadow-symmetric.flex-fixed.flex.flex-justify-center(style='z-index: 1')
     a.ui-link.ui-header-2.ui-margin-1(href='#', v-for='(group, index) in groups', :class="{ 'ui-faded': currentGroup !== index }", @click='currentGroup = index')

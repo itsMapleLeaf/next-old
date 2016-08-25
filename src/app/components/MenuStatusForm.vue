@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 form(@submit.prevent='submit')
   .ui-fit-width.ui-field
     dropdown(:items='statusList', v-model='status')

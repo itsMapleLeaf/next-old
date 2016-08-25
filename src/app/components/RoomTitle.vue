@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 component(:is='roomTitle', :room='room')
 </template>
 

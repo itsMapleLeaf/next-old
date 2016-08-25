@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 mixin description
   .flex-fixed.color-main.ui-padding-2.ui-scroll-y.res.res-desktop(style='height: 4rem', v-html='room.description')
 

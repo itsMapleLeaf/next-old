@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .ui-overlay(@click.self="close")
   .ui-panel.ui-padding-8
     .ui-width-8.ui-text-center

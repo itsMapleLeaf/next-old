@@ -10,7 +10,7 @@ run-electron: build-electron
 	electron dist/electron/app.js
 
 dev-web: build-web
-	webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web)
+	webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web) --labeled-modules
 
 build: clean build-web build-electron
 

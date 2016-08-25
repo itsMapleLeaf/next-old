@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 a.flex.ui-link.ui-fit-viewport(href='#', style='height: 100px; margin: 0.5rem; box-sizing: content-box', :data-character='character.name')
   img.ui-block.ui-no-click(:src='avatarURL', style='width: 100px; height: 100px')
   .flex-column.ui-width-5.ui-no-click.res.res-desktop(style='overflow-wrap: break-word')

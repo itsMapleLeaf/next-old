@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 span
   span.status-color(:class='status') {{ status }}
   span(v-html="' - ' + statusmsg", v-if='statusmsg')

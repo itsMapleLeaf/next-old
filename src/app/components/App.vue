@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 div(@click='checkDataAttribute')
   .flex-column.ui-fullscreen
     app-bar.flex-fixed
