@@ -4,7 +4,8 @@ mixin icon-link(icon)
     i.mdi(class='mdi-' + icon)
 
 .flex-row.flex-justify-space-between.flex-align-center.flex-wrap.ui-padding-2
-  h1.flex-fixed F-Chat Next v{{ version }}
+  h1.flex-fixed F-Chat Next
+    small.ui-faded  v{{ version }}
   div
     +icon-link('bell')
     +icon-link('settings')
