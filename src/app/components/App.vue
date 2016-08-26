@@ -3,20 +3,20 @@ div(@click='checkDataAttribute')
   .ui-fullscreen.flex-column.color-darker
     app-header.flex-fixed.color-main.ui-divide-bottom
     .flex-grow.flex-row
-      .flex-fixed.ui-width-6.color-dark
+      .flex-fixed.color-dark.ui-width-6.ui-divide-right.res.res-desktop
         active-room-list.flex-grow
         // user info / config
 
-      .flex-grow.flex-column.ui-divide-left.ui-divide-right
+      .flex-grow.flex-column
         template(v-if="state.currentRoom")
           .flex-fixed.color-dark.ui-height-2.ui-padding-3.ui-scroll-y.ui-pre-wrap(v-if="state.currentRoom.description")
             span(v-html="state.currentRoom.description || ''")
           .flex-fixed.color-dark.ui-height-1.ui-padding-2.ui-pre-wrap(v-if="state.currentRoom.partner")
             user-status(:status="state.currentRoom.partner.status", :statusmsg="state.currentRoom.partner.statusmsg")
           message-list.flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y(:messages="state.currentRoom ? state.currentRoom.messages : []")
-          chatbox.flex-fixed.color-dark.ui-padding-4
+          chatbox.flex-fixed.color-dark.ui-height-1.ui-padding-4
 
-      .flex-fixed.ui-width-6.color-dark.ui-scroll-y
+      .flex-fixed.color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop
         // user count
         user-list(v-if="state.currentRoom", :users="state.currentRoom.characters", :ops="state.currentRoom.ops")
 

@@ -1,16 +1,15 @@
 <template lang="pug">
-mixin icon-link(icon)
-  a.ui-margin-right-1(href='#', style="font-size: 1.25em; line-height: 1")
+mixin icon-link(icon, action)
+  a(href='#', style="font-size: 1.25em; line-height: 1", @click!=action)
     i.mdi(class='mdi-' + icon)
 
-.flex-row.flex-justify-space-between.flex-align-center.flex-wrap.ui-padding-2
-  h1.flex-fixed F-Chat Next
+.flex-row.flex-justify-space-between.flex-align-center.flex-wrap.ui-padding-3
+  h1.flex-fixed.res.res-desktop F-Chat Next
+    small.ui-faded  v{{ version }}
+  span.flex-fixed.res.res-mobile F-Chat Next
     small.ui-faded  v{{ version }}
   .flex-row.flex-align-center
-    +icon-link('bell-outline')
-    +icon-link('settings')
-    a(href='#', @click="pushOverlay('user-menu')")
-      img.ui-block(:src="getAvatarURL(state.identity)", width='30', height='30', style="border-radius: 50%")
+    +icon-link('menu', "pushOverlay('user-menu')")
 </template>
 
 <script>
