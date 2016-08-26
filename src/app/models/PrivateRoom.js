@@ -1,3 +1,6 @@
+import {state, sendPrivateMessage} from '../store'
+import Message from './Message'
+
 export default class PrivateRoom {
   constructor (partner) {
     this.type = 'private'
@@ -7,5 +10,10 @@ export default class PrivateRoom {
 
   addMessage (message) {
     this.messages.push(message)
+  }
+
+  sendMessage (message) {
+    sendPrivateMessage(this.partner.name, message)
+    this.messages.push(new Message(state.userCharacter, message, 'self'))
   }
 }

@@ -23,7 +23,7 @@ export default {
     submit (event) {
       if (event.keyCode === 13 && !event.shiftKey) {
         event.preventDefault()
-        this.$emit('message-sent', this.message)
+        this.$emit('submit', this.message)
         this.message = ''
       }
     }

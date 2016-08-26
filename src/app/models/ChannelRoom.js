@@ -1,3 +1,6 @@
+import {state, sendChannelMessage} from '../store'
+import Message from './Message'
+
 export default class ChannelRoom {
   constructor (id, name) {
     this.type = 'channel'
@@ -58,5 +61,10 @@ export default class ChannelRoom {
       default:
         return 0
     }
+  }
+
+  sendMessage (message) {
+    sendChannelMessage(this.id, message)
+    this.messages.push(new Message(state.userCharacter, message, 'self'))
   }
 }

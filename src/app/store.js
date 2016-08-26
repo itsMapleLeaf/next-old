@@ -71,6 +71,11 @@ export const state = {
   get currentRoom () {
     const index = util.clamp(this.currentRoomIndex, 0, this.rooms.length - 1)
     return this.rooms[index]
+  },
+
+  // convenience getter for the user's character object
+  get userCharacter () {
+    return this.onlineCharacters[this.identity]
   }
 }
 

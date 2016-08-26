@@ -5,7 +5,6 @@ div(@click='checkDataAttribute')
     .flex-grow.flex-row
       .flex-fixed.color-dark.ui-width-6.ui-divide-right.res.res-desktop
         active-room-list.flex-grow
-        // user info / config
 
       .flex-grow.flex-column
         template(v-if="state.currentRoom")
@@ -14,10 +13,9 @@ div(@click='checkDataAttribute')
           .flex-fixed.color-dark.ui-height-1.ui-padding-2.ui-pre-wrap(v-if="state.currentRoom.partner")
             user-status(:status="state.currentRoom.partner.status", :statusmsg="state.currentRoom.partner.statusmsg")
           message-list.flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y(:messages="state.currentRoom ? state.currentRoom.messages : []")
-          chatbox.flex-fixed.color-dark.ui-height-1.ui-padding-4
+          chatbox.flex-fixed.color-dark.ui-height-1.ui-padding-4(@submit="chatboxSubmit")
 
       .flex-fixed.color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop
-        // user count
         user-list(v-if="state.currentRoom", :users="state.currentRoom.characters", :ops="state.currentRoom.ops")
 
   overlays(style="z-index: 2")
@@ -102,6 +100,10 @@ export default {
 
     pushOverlay (overlay) {
       store.pushOverlay(overlay)
+    },
+
+    chatboxSubmit (message) {
+      this.state.currentRoom.sendMessage(message)
     }
   },
 
