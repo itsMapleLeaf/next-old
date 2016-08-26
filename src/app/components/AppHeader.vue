@@ -1,14 +1,14 @@
 <template lang="pug">
-mixin link(text)
-  a.ui-link.ui-margin-left-1(href='#')= text
+mixin icon-link(icon)
+  a.ui-margin-right-1(href='#', style="font-size: 1.25em")
+    i.mdi(class='mdi-' + icon)
 
-.flex-row.flex-justify-space-between.flex-align-center.ui-padding-2
-  h1 F-Chat Next {{ version }}
+.flex-row.flex-justify-space-between.flex-align-center.flex-wrap.ui-padding-2
+  h1.flex-fixed F-Chat Next v{{ version }}
   div
-    +link('About')
-    +link('Settings')
-    +link('Help')
-    +link('Feedback')
+    +icon-link('bell')
+    +icon-link('settings')
+    +icon-link('account')
 </template>
 
 <script>

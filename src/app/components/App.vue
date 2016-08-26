@@ -13,7 +13,7 @@ div(@click='checkDataAttribute')
             span(v-html="state.currentRoom.description || ''")
           .flex-fixed.color-dark.ui-height-1.ui-padding-2.ui-pre-wrap(v-if="state.currentRoom.partner")
             user-status(:status="state.currentRoom.partner.status", :statusmsg="state.currentRoom.partner.statusmsg")
-          message-list.flex-grow.ui-divide-bottom.ui-divide-top(:messages="state.currentRoom ? state.currentRoom.messages : []")
+          message-list.flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y(:messages="state.currentRoom ? state.currentRoom.messages : []")
           chatbox.flex-fixed.color-dark.ui-padding-4
 
       .flex-fixed.ui-width-6.color-dark.ui-scroll-y
