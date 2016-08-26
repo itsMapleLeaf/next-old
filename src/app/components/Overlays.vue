@@ -1,6 +1,6 @@
 <template lang="pug">
 span
-  transition(v-for='(overlay, index) in overlays', :key='index', name='overlay', appear)
+  transition(v-for='(overlay, index) in state.overlays', :key='index', name='overlay', appear)
     component(:is='overlay')
 </template>
 
@@ -13,6 +13,8 @@ import ChannelSelect from './ChannelSelect.vue'
 import RoomInfo from './RoomInfo.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import About from './About.vue'
+
+import {state} from '../store'
 
 export default {
   components: {
@@ -27,6 +29,9 @@ export default {
   },
   props: {
     overlays: Array
+  },
+  data () {
+    return {state}
   }
 }
 </script>

@@ -2,12 +2,18 @@
 div(@click='checkDataAttribute')
   //- chat.ui-fullscreen
   .ui-fullscreen.flex-column
-    app-header.flex-fixed.color-main.ui-padding-4
+    app-header.flex-fixed.color-main
     .flex-grow.flex-row
       .flex-fixed.ui-width-6.color-darker
+        // sidebar room list
       .flex-grow.color-dark
+        // room description
+        // message list
+        // chatbox
       .flex-fixed.ui-width-6.color-darker
-  overlays(:overlays="state.overlays", style="z-index: 2")
+        // user count
+        // user list
+  overlays(style="z-index: 2")
   a.ui-anchor-right.ui-anchor-bottom.ui-padding-subtle.ui-faded(href='#', style='z-index: 3', v-if="!state.overlays.includes('about')", @click="pushOverlay('about')")
     i.mdi.mdi-information
 </template>
@@ -31,7 +37,7 @@ export default {
 
   data () {
     return {
-      initialized: false,
+      initialized: true,
       state: store.state
     }
   },
