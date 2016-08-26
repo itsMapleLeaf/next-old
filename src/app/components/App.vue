@@ -1,23 +1,16 @@
 <template lang="pug">
 div(@click='checkDataAttribute')
   chat.ui-fullscreen
-  transition(v-for='(overlay, index) in state.overlays', :key='index', name='overlay', appear)
-    component(:is='overlay', style='z-index: 2')
+  //- .ui-fullscreen.flex-row
+  overlays(:overlays="state.overlays", style="z-index: 2")
   a.ui-anchor-right.ui-anchor-bottom.ui-padding-subtle.ui-faded(href='#', style='z-index: 3', v-if="!state.overlays.includes('about')", @click="pushOverlay('about')")
     i.mdi.mdi-information
 </template>
 
 <script>
 import Chat from './Chat.new.vue'
-import UserMenu from './UserMenu.vue'
-import CharacterMenu from './CharacterMenu.vue'
-import Login from './Login.vue'
-import CharacterSelect from './CharacterSelect.vue'
-import ChannelSelect from './ChannelSelect.vue'
-import RoomInfo from './RoomInfo.vue'
-import CharacterBrowser from './CharacterBrowser.vue'
-import AppBar from './AppBar.vue'
-import About from './About.vue'
+import UserList from './UserList.vue'
+import Overlays from './Overlays.vue'
 
 import * as store from '../store'
 import * as session from '../session'
@@ -25,15 +18,8 @@ import * as session from '../session'
 export default {
   components: {
     Chat,
-    UserMenu,
-    CharacterMenu,
-    Login,
-    CharacterSelect,
-    ChannelSelect,
-    AppBar,
-    RoomInfo,
-    CharacterBrowser,
-    About
+    Overlays,
+    UserList
   },
 
   data () {
