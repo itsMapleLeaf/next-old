@@ -2,7 +2,7 @@
 mixin option(text, icon, action)
   menu-option(icon!=icon, @input!=action)!= text
 
-side-menu(left)
+side-menu(right)
   span(slot='content')
     menu-header(:character='identity')
       span(slot='header') {{ header }}
