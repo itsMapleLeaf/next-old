@@ -21,7 +21,7 @@ export default {
 
   methods: {
     submit (event) {
-      if (event.keyCode === 13) {
+      if (event.keyCode === 13 && !event.shiftKey) {
         event.preventDefault()
         this.$emit('message-sent', this.message)
         this.message = ''

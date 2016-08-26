@@ -1,8 +1,6 @@
 <template lang="pug">
 div(@click='checkDataAttribute')
-  .flex-column.ui-fullscreen
-    app-bar.flex-fixed
-    chat.flex-grow
+  chat.ui-fullscreen
   transition(v-for='(overlay, index) in state.overlays', :key='index', name='overlay', appear)
     component(:is='overlay', style='z-index: 2')
   a.ui-anchor-right.ui-anchor-bottom.ui-padding-subtle.ui-faded(href='#', style='z-index: 3', v-if="!state.overlays.includes('about')", @click="pushOverlay('about')")
@@ -10,7 +8,7 @@ div(@click='checkDataAttribute')
 </template>
 
 <script>
-import Chat from './Chat.vue'
+import Chat from './Chat.new.vue'
 import UserMenu from './UserMenu.vue'
 import CharacterMenu from './CharacterMenu.vue'
 import Login from './Login.vue'

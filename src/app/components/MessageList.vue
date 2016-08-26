@@ -5,7 +5,6 @@ div(v-bottom-scroll='')
 
 <script>
 import Message from './Message.vue'
-import Vue from 'vue'
 import {bottomScroll} from '../directives'
 
 export default {

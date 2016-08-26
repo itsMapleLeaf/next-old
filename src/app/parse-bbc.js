@@ -32,29 +32,25 @@ export default function parseBBC (input) {
         const {hostname, pathname} = urllib.parse(href)
         const ext = path.extname(pathname)
         const icon = imageExtensions.includes(ext) ? 'image' : 'link-variant'
-        return `
-          <a class="ui-link" href="${href}" target="_blank" title="${hostname}">
-            <i class='mdi mdi-${icon}'></i> ${text}
-          </a>`
+        return `<a class="ui-link" href="${href}" target="_blank" title="${hostname}">` +
+          `<i class='mdi mdi-${icon}'></i> ${text}` +
+          `</a>`
 
       case 'channel':
-        return `
-          <a href='#' class='ui-link' data-join-channel='${text}'>
-            <i class='mdi mdi-earth'></i> ${text}
-          </a>`
+        return `<a href='#' class='ui-link' data-join-channel='${text}'>` +
+          `<i class='mdi mdi-earth'></i> ${text}` +
+          `</a>`
 
       case 'session':
-        return `
-          <a href='#' class='ui-link' data-join-channel='${text}'>
-            <i class='mdi mdi-key-variant'></i> ${value}
-          </a>`
+        return `<a href='#' class='ui-link' data-join-channel='${text}'>` +
+          `<i class='mdi mdi-key-variant'></i> ${value}` +
+          `</a>`
 
       case 'icon':
       case 'user':
-        return `
-          <a href="${getProfileURL(text)}" class="ui-link">
-            <img src="${getAvatarURL(text)}" style="width: 50px; height: auto" />
-          </a>`
+        return `<a href="${getProfileURL(text)}" class="ui-link">` +
+          `<img src="${getAvatarURL(text)}" style="width: 50px; height: auto" />` +
+          `</a>`
 
       default:
         return match
