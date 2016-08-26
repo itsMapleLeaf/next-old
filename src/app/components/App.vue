@@ -1,18 +1,19 @@
 <template lang="pug">
 div(@click='checkDataAttribute')
-  //- chat.ui-fullscreen
-  .ui-fullscreen.flex-column
-    app-header.flex-fixed.color-main
+  .ui-fullscreen.flex-column.color-darker
+    app-header.flex-fixed.color-main.ui-divide-bottom
     .flex-grow.flex-row
-      .flex-fixed.ui-width-6.color-darker
-        // sidebar room list
-      .flex-grow.color-dark
-        // room description
-        // message list
-        // chatbox
-      .flex-fixed.ui-width-6.color-darker
+      .flex-fixed.ui-width-6.color-dark
+        active-room-list.flex-grow
+        // user info / config
+      .flex-grow.flex-column.ui-divide-left.ui-divide-right
+        .flex-fixed.color-dark.ui-height-2.ui-padding-3.ui-scroll-y.ui-pre-wrap(v-html="state.currentRoom ? state.currentRoom.description : ''")
+        message-list.flex-grow.ui-divide-bottom.ui-divide-top(:messages="state.currentRoom ? state.currentRoom.messages : []")
+        chatbox.flex-fixed.color-dark.ui-padding-4
+
+      .flex-fixed.ui-width-6.color-dark.ui-scroll-y
         // user count
-        // user list
+        user-list(v-if="state.currentRoom", :users="state.currentRoom.characters", :ops="state.currentRoom.ops")
   overlays(style="z-index: 2")
   a.ui-anchor-right.ui-anchor-bottom.ui-padding-subtle.ui-faded(href='#', style='z-index: 3', v-if="!state.overlays.includes('about')", @click="pushOverlay('about')")
     i.mdi.mdi-information
@@ -23,6 +24,9 @@ import Chat from './Chat.new.vue'
 import UserList from './UserList.vue'
 import Overlays from './Overlays.vue'
 import AppHeader from './AppHeader.vue'
+import ActiveRoomList from './ActiveRoomList.vue'
+import MessageList from './MessageList.vue'
+import Chatbox from './Chatbox.vue'
 
 import * as store from '../store'
 import * as session from '../session'
@@ -32,17 +36,20 @@ export default {
     Chat,
     Overlays,
     UserList,
-    AppHeader
+    AppHeader,
+    ActiveRoomList,
+    MessageList,
+    Chatbox
   },
 
   data () {
     return {
-      initialized: true,
+      initialized: false,
       state: store.state
     }
   },
 
-  mounted () {
+  created () {
     this.$nextTick(() => {
       if (this.initialized) return
       this.initialized = true
