@@ -8,11 +8,11 @@ side-menu(right='')
     em.color-dark.ui-block.ui-small.ui-padding-3.ui-margin-top-1
       user-status(:status='character.status', :statusmsg='character.statusmsg')
   span(slot='options')
-    menu-option(icon='comment', :action='openPrivateRoom')
+    menu-option(icon="comment", @input='openPrivateRoom')
       | Send Message
-    menu-option(:icon="bookmarkIcon", :action='toggleBookmark')
+    menu-option(:icon="bookmarkIcon", @input='toggleBookmark')
       | {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
-    menu-option(:icon="ignoredIcon", :action='toggleIgnored')
+    menu-option(:icon="ignoredIcon", @input='toggleIgnored')
       | {{ character.isIgnored ? 'Unignore' : 'Ignore' }}
     menu-option(icon='link-variant', :href='character')
       | View Profile
