@@ -3,10 +3,9 @@ mixin icon-link(icon, action)
   a(href='#', style="font-size: 1.25em; line-height: 1", @click!=action)
     i.mdi(class='mdi-' + icon)
 mixin info-icon
-  span.ui-faded
-    transition(name='fade')
-      a.ui-padding-subtle(href='#', style='z-index: 3', v-show="!state.overlays.includes('about')", @click="pushOverlay('about')")
-        i.mdi.mdi-information
+  transition(name='fade')
+    a.ui-padding-subtle(href='#', style='z-index: 3', v-show="!state.overlays.includes('about')", @click="pushOverlay('about')")
+      i.mdi.mdi-information.ui-faded
 
 .flex-row.flex-justify-space-between.flex-align-center.flex-wrap.ui-padding-3
   .flex-row
