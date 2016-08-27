@@ -1,23 +1,35 @@
 <template lang="pug">
+mixin header
+  app-header.flex-fixed.color-main.ui-divide-bottom
+
+mixin left-column
+  .flex-fixed.color-main.ui-width-6.ui-divide-right.ui-scroll-y.res.res-desktop(v-if!="state.socketState === 'identified'")
+    user-menu-content
+
+mixin middle-column
+  .flex-grow.flex-column
+    template(v-if="state.currentRoom")
+      .flex-fixed.color-dark.ui-height-2.ui-padding-3.ui-scroll-y.ui-pre-wrap(v-if="state.currentRoom.description")
+        span(v-html="state.currentRoom.description || ''")
+      .flex-fixed.color-dark.ui-height-1.ui-padding-2.ui-pre-wrap(v-if="state.currentRoom.partner")
+        user-status(:status="state.currentRoom.partner.status", :statusmsg="state.currentRoom.partner.statusmsg")
+      message-list.flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y(:messages="state.currentRoom ? state.currentRoom.messages : []")
+      chatbox.flex-fixed.color-dark.ui-height-1.ui-padding-4(@submit="chatboxSubmit")
+
+mixin right-column
+  .flex-fixed.color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop(v-if!="state.currentRoom && state.currentRoom.characters")
+    user-list(:users="state.currentRoom.characters", :ops="state.currentRoom.ops")
+
+mixin chat-content
+  .flex-grow.flex-row
+    +left-column
+    +middle-column
+    +right-column
+
 div(@click='checkDataAttribute')
   .ui-fullscreen.flex-column.color-darker
-    app-header.flex-fixed.color-main.ui-divide-bottom
-    .flex-grow.flex-row
-      .flex-fixed.color-dark.ui-width-6.ui-divide-right.res.res-desktop
-        active-room-list.flex-grow
-
-      .flex-grow.flex-column
-        template(v-if="state.currentRoom")
-          .flex-fixed.color-dark.ui-height-2.ui-padding-3.ui-scroll-y.ui-pre-wrap(v-if="state.currentRoom.description")
-            span(v-html="state.currentRoom.description || ''")
-          .flex-fixed.color-dark.ui-height-1.ui-padding-2.ui-pre-wrap(v-if="state.currentRoom.partner")
-            user-status(:status="state.currentRoom.partner.status", :statusmsg="state.currentRoom.partner.statusmsg")
-          message-list.flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y(:messages="state.currentRoom ? state.currentRoom.messages : []")
-          chatbox.flex-fixed.color-dark.ui-height-1.ui-padding-4(@submit="chatboxSubmit")
-
-      .flex-fixed.color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop
-        user-list(v-if="state.currentRoom", :users="state.currentRoom.characters", :ops="state.currentRoom.ops")
-
+    +header
+    +chat-content
   overlays(style="z-index: 2")
   a.ui-anchor-right.ui-anchor-bottom.ui-padding-subtle.ui-faded(href='#', style='z-index: 3', v-if="!state.overlays.includes('about')", @click="pushOverlay('about')")
     i.mdi.mdi-information
@@ -31,6 +43,7 @@ import ActiveRoomList from './ActiveRoomList.vue'
 import MessageList from './MessageList.vue'
 import Chatbox from './Chatbox.vue'
 import UserStatus from './UserStatus.vue'
+import UserMenuContent from './UserMenuContent.vue'
 
 import * as store from '../store'
 import * as session from '../session'
@@ -43,7 +56,8 @@ export default {
     ActiveRoomList,
     MessageList,
     Chatbox,
-    UserStatus
+    UserStatus,
+    UserMenuContent
   },
 
   data () {

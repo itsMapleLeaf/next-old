@@ -1,10 +1,7 @@
 <template lang="pug">
 .ui-overlay(@click.self='close')
   .ui-width-6.flex-column.ui-scroll-y(:class='panelClass')
-    section.flex-fixed.ui-padding-5
-      slot(name='content')
-    section.flex-grow.color-dark
-      slot(name='options')
+    slot
 </template>
 
 <script>
