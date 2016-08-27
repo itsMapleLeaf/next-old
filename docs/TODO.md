@@ -6,11 +6,14 @@
 - [x] remembering last active channels
 
 ## For 0.5.0
-- [ ] ability to post ads
 - [x] a better character browser
 - [x] responsive styling
+- [ ] more compact user menu with tooltips and such
 - [ ] browsable notification list, that and other ui panels will replace the console (probably only keep the last 50 or so)
 - [ ] notifications for friends/bookmarks coming online
+
+## For 0.6.0
+- [ ] ability to post ads
 - [ ] some kind of tab notification for channel messages
 - [ ] cobble together some semblance of a settings menu
 
