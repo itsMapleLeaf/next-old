@@ -15,7 +15,7 @@ mixin info-icon
     span.flex-fixed.res.res-mobile F-Chat Next
       small.ui-faded  v{{ version }}
       +info-icon
-  .flex-row.flex-align-center
+  .flex-row.flex-align-center.res.res-mobile
     +icon-link('menu', "pushOverlay('user-menu')")
 </template>
 
