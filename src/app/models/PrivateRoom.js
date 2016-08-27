@@ -1,4 +1,4 @@
-import {state, sendPrivateMessage} from '../store'
+import {state, sendPrivateMessage, removePrivateRoom} from '../store'
 import Message from './Message'
 
 export default class PrivateRoom {
@@ -15,5 +15,9 @@ export default class PrivateRoom {
   sendMessage (message) {
     sendPrivateMessage(this.partner.name, message)
     this.messages.push(new Message(state.userCharacter, message, 'self'))
+  }
+
+  close () {
+    removePrivateRoom(this.partner.name)
   }
 }

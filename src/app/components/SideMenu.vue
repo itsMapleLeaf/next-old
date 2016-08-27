@@ -1,6 +1,6 @@
 <template lang="pug">
 .ui-overlay(@click.self='close')
-  .ui-width-6.flex-column.ui-scroll-y(:class='panelClass')
+  .ui-width-6(:class='panelClass')
     slot
 </template>
 

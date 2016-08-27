@@ -1,23 +1,17 @@
 <template lang="pug">
 div
-  a.ui-block.ui-padding-3(href='#', v-for="room of state.rooms",
-    :class="room === state.currentRoom ? 'color-main' : ''", @click="setCurrentRoom(room)")
-    room-title(:room="room")
+  menu-room(v-for='room in rooms', :room='room', :active='room === current',
+    @selected="$emit('input', room)", @closed="$emit('closed', room)")
 </template>
 
 <script>
-import RoomTitle from './RoomTitle.vue'
-import {state, setCurrentRoom} from '../store'
+import MenuRoom from './MenuRoom.vue'
 
 export default {
-  components: {RoomTitle},
-  data () {
-    return {
-      state
-    }
-  },
-  methods: {
-    setCurrentRoom
+  components: {MenuRoom},
+  props: {
+    rooms: Array,
+    current: Object
   }
 }
 </script>

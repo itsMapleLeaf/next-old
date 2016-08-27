@@ -1,69 +1,35 @@
 <template lang="pug">
-mixin option(text, icon, action)
-  menu-option(icon!=icon, @input!=action)!= text
-
 .flex-column
-  .flex-fixed.ui-padding-5
-    menu-header(:character='identity')
-      span(slot='header') {{ header }}
-      span.ui-faded(slot='subtext') In the mood for some play?
-    status-form
-  .flex-grow.color-dark
-    menu-room(v-for='room in rooms', :room='room', :active='room === currentRoom', @selected='setRoom(room)', @closed='leaveRoom(room)')
-    .ui-padding-1.color-main
-    +option('Channels', 'forum', "pushOverlay('channel-select')")
-    +option('Online Users', 'heart', "pushOverlay('character-browser')")
-    +option('Settings', 'settings')
-    +option('Log Out', 'logout', "logOut")
-    +option('Switch Character', 'account-switch', "switchCharacter")
+  .color-main.flex-fixed.ui-padding-4
+    user-header(:name='state.identity')
+    menu-status-form
+  .color-dark.flex-grow.ui-scroll-y.ui-divide-top
+    active-room-list.color-main(:rooms="state.rooms", :current="state.currentRoom",
+      @input="setCurrentRoom", @closed="closeRoom")
+  .color-dark
+    user-menu-options
 </template>
 
 <script>
-import MenuHeader from './MenuHeader.vue'
-import StatusForm from './MenuStatusForm.vue'
-import MenuOption from './MenuOption.vue'
-import MenuRoom from './MenuRoom.vue'
-import * as store from '../store'
+import UserHeader from './UserHeader.vue'
+import MenuStatusForm from './MenuStatusForm.vue'
+import ActiveRoomList from './ActiveRoomList.vue'
+import UserMenuOptions from './UserMenuOptions.vue'
+import {state, setCurrentRoom} from '../store'
 
 export default {
-  components: {MenuHeader, StatusForm, MenuOption, MenuRoom},
+  components: {UserHeader, MenuStatusForm, ActiveRoomList, UserMenuOptions},
 
   data () {
     return {
-      state: store.state
+      state
     }
   },
 
-  computed: {
-    rooms () { return this.state.rooms },
-    currentRoom () { return this.state.currentRoom },
-    identity () { return this.state.identity },
-    header () { return `Hi, ${this.identity.split(' ')[0]}!` }
-  },
-
   methods: {
-    pushOverlay (overlay) {
-      store.pushOverlay(overlay)
-    },
-
-    setRoom (room) {
-      store.setCurrentRoom(room)
-    },
-
-    leaveRoom (room) {
-      store.leaveChannel(room.id)
-    },
-
-    logOut () {
-      store.disconnectFromChatServer()
-      store.popOverlay()
-      store.pushOverlay('login')
-    },
-
-    switchCharacter () {
-      store.disconnectFromChatServer()
-      store.popOverlay()
-      store.pushOverlay('character-select')
+    setCurrentRoom,
+    closeRoom (room) {
+      room.close()
     }
   }
 }

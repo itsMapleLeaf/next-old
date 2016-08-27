@@ -1,21 +1,22 @@
 <template lang="pug">
-side-menu(right='')
-  span(slot='content')
-    menu-header(:character='character.name')
-      span(slot='header') {{ character.name }}
-      span.gender-color(slot='subtext', :class='character.gender')
-        span {{ capitalize(character.gender) }}
-    em.color-dark.ui-block.ui-small.ui-padding-3.ui-margin-top-1
-      user-status(:status='character.status', :statusmsg='character.statusmsg')
-  span(slot='options')
-    menu-option(icon="comment", @input='openPrivateRoom')
-      | Send Message
-    menu-option(:icon="bookmarkIcon", @input='toggleBookmark')
-      | {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
-    menu-option(:icon="ignoredIcon", @input='toggleIgnored')
-      | {{ character.isIgnored ? 'Unignore' : 'Ignore' }}
-    menu-option(icon='link-variant', :href='character')
-      | View Profile
+side-menu(right)
+  .color-dark(style="height: 100%")
+    .color-main.ui-padding-5
+      menu-header(:character='character.name')
+        span(slot='header') {{ character.name }}
+        span.gender-color(slot='subtext', :class='character.gender')
+          span {{ capitalize(character.gender) }}
+      em.color-dark.ui-block.ui-small.ui-padding-3.ui-margin-top-1
+        user-status(:status='character.status', :statusmsg='character.statusmsg')
+    div
+      menu-option(icon="comment", @input='openPrivateRoom')
+        | Send Message
+      menu-option(:icon="bookmarkIcon", @input='toggleBookmark')
+        | {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
+      menu-option(:icon="ignoredIcon", @input='toggleIgnored')
+        | {{ character.isIgnored ? 'Unignore' : 'Ignore' }}
+      menu-option(icon='link-variant', :href='character')
+        | View Profile
 </template>
 
 <script>

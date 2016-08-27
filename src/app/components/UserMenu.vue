@@ -1,6 +1,6 @@
 <template lang="pug">
 side-menu(right)
-  user-menu-content
+  user-menu-content(style="height: 100%")
 </template>
 
 <script>

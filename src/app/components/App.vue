@@ -1,13 +1,12 @@
 <template lang="pug">
 mixin header
-  app-header.flex-fixed.color-main.ui-divide-bottom
+  app-header.color-main.ui-divide-bottom&attributes(attributes)
 
 mixin left-column
-  .flex-fixed.color-main.ui-width-6.ui-divide-right.ui-scroll-y.res.res-desktop(v-if!="state.socketState === 'identified'")
-    user-menu-content
+  user-menu-content.ui-width-6.ui-divide-right.res.res-desktop(v-if!="state.socketState === 'identified'")&attributes(attributes)
 
 mixin middle-column
-  .flex-grow.flex-column
+  .flex-column&attributes(attributes)
     template(v-if="state.currentRoom")
       .flex-fixed.color-dark.ui-height-2.ui-padding-3.ui-scroll-y.ui-pre-wrap(v-if="state.currentRoom.description")
         span(v-html="state.currentRoom.description || ''")
@@ -17,29 +16,23 @@ mixin middle-column
       chatbox.flex-fixed.color-dark.ui-height-1.ui-padding-4(@submit="chatboxSubmit")
 
 mixin right-column
-  .flex-fixed.color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop(v-if!="state.currentRoom && state.currentRoom.characters")
+  .color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop(v-if!="state.currentRoom && state.currentRoom.characters")&attributes(attributes)
     user-list(:users="state.currentRoom.characters", :ops="state.currentRoom.ops")
-
-mixin chat-content
-  .flex-grow.flex-row
-    +left-column
-    +middle-column
-    +right-column
 
 div(@click='checkDataAttribute')
   .ui-fullscreen.flex-column.color-darker
-    +header
-    +chat-content
+    +header.flex-fixed
+    .flex-grow.flex-row.ui-divide-bottom
+      +left-column.flex-fixed
+      +middle-column.flex-grow
+      +right-column.flex-fixed
   overlays(style="z-index: 2")
-  a.ui-anchor-right.ui-anchor-bottom.ui-padding-subtle.ui-faded(href='#', style='z-index: 3', v-if="!state.overlays.includes('about')", @click="pushOverlay('about')")
-    i.mdi.mdi-information
 </template>
 
 <script>
 import UserList from './UserList.vue'
 import Overlays from './Overlays.vue'
 import AppHeader from './AppHeader.vue'
-import ActiveRoomList from './ActiveRoomList.vue'
 import MessageList from './MessageList.vue'
 import Chatbox from './Chatbox.vue'
 import UserStatus from './UserStatus.vue'
@@ -53,33 +46,27 @@ export default {
     Overlays,
     UserList,
     AppHeader,
-    ActiveRoomList,
+    UserMenuContent,
     MessageList,
     Chatbox,
-    UserStatus,
-    UserMenuContent
+    UserStatus
   },
 
   data () {
     return {
-      initialized: false,
       state: store.state
     }
   },
 
-  mounted () {
-    this.$nextTick(() => {
-      if (this.initialized) return
-      this.initialized = true
-
-      this.authenticate()
-      .then(() => {
-        store.pushOverlay('character-select')
-      })
-      .catch(err => {
-        console.warn(err)
-        store.pushOverlay('login')
-      })
+  created () {
+    if (this.state.socketState !== 'offline') return
+    this.authenticate()
+    .then(() => {
+      store.pushOverlay('character-select')
+    })
+    .catch(err => {
+      console.warn(err)
+      store.pushOverlay('login')
     })
   },
 
@@ -118,6 +105,12 @@ export default {
 
     chatboxSubmit (message) {
       this.state.currentRoom.sendMessage(message)
+    },
+
+    setCurrentRoom: store.setCurrentRoom,
+
+    closeRoom (room) {
+      room.close()
     }
   },
 

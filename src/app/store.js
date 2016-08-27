@@ -240,13 +240,13 @@ export function clearChannels () {
   state.channels = []
 }
 
-export function addChannelChat (id, name) {
+export function addChannelRoom (id, name) {
   const room = new ChannelRoom(id, name)
   Vue.set(state.channelRooms, id, room)
   state.rooms.push(room)
 }
 
-export function removeChannelChat (id) {
+export function removeChannelRoom (id) {
   const room = state.channelRooms[id]
   Vue.delete(state.channelRooms, id)
   util.remove(state.rooms, room)
@@ -345,4 +345,16 @@ export function setCurrentRoom (room) {
   if (index > -1) {
     state.currentRoomIndex = index
   }
+}
+
+export function logOut () {
+  disconnectFromChatServer()
+  popOverlay()
+  pushOverlay('login')
+}
+
+export function switchCharacter () {
+  disconnectFromChatServer()
+  popOverlay()
+  pushOverlay('character-select')
 }
