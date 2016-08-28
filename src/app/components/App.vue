@@ -40,7 +40,7 @@ export default {
   computed: {},
 
   created () {
-    if (this.state.socketState !== 'offline') return
+    if (store.state.socketState !== 'offline') return
     this.authenticate()
     .then(() => {
       store.pushOverlay('character-select')
