@@ -1,16 +1,17 @@
-import {state, sendChannelMessage, removeChannelRoom} from '../store'
+import Room from './Room'
 import Message from './Message'
+import {state, sendChannelMessage, removeChannelRoom} from '../store'
 
-export default class ChannelRoom {
+export default class ChannelRoom extends Room {
+  description = ''
+  mode = 'both' // either 'both', 'chat', or 'ads'
+  characters = []
+  ops = []
+
   constructor (id, name) {
-    this.type = 'channel'
+    super('private')
     this.id = id
     this.name = name
-    this.description = ''
-    this.mode = 'both' // either 'both', 'chat', or 'ads'
-    this.characters = []
-    this.messages = []
-    this.ops = []
   }
 
   setCharacters (list) {

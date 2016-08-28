@@ -1,15 +1,11 @@
-import {state, sendPrivateMessage, removePrivateRoom} from '../store'
+import Room from './Room'
 import Message from './Message'
+import {state, sendPrivateMessage, removePrivateRoom} from '../store'
 
-export default class PrivateRoom {
+export default class PrivateRoom extends Room {
   constructor (partner) {
-    this.type = 'private'
+    super('private')
     this.partner = partner
-    this.messages = []
-  }
-
-  addMessage (message) {
-    this.messages.push(message)
   }
 
   sendMessage (message) {
