@@ -11,10 +11,10 @@ side-menu(right)
     div
       menu-option(icon="comment", @input='openPrivateRoom')
         | Send Message
-      menu-option(:icon="bookmarkIcon", @input='toggleBookmark')
-        | {{ character.isBookmark ? 'Unbookmark' : 'Bookmark' }}
-      menu-option(:icon="ignoredIcon", @input='toggleIgnored')
-        | {{ character.isIgnored ? 'Unignore' : 'Ignore' }}
+      menu-option(:icon="isBookmark ? 'star' : 'star-outline'", @input='toggleBookmark')
+        | {{ isBookmark ? 'Unbookmark' : 'Bookmark' }}
+      menu-option(:icon="isIgnored ? 'minus-circle' : 'minus-circle-outline'", @input='toggleIgnored')
+        | {{ isIgnored ? 'Unignore' : 'Ignore' }}
       menu-option(icon='link-variant', :href='character')
         | View Profile
 </template>
@@ -36,13 +36,13 @@ export default {
 
   computed: {
     character () { return this.state.characterMenuFocus },
-    bookmarkIcon () { return this.character.isBookmark ? 'star' : 'star-outline' },
-    ignoredIcon () { return this.character.isIgnored ? 'minus-circle' : 'minus-circle-outline' }
+    isBookmark () { return this.state.bookmarks[this.character.name] != null },
+    isIgnored () { return this.state.ignored[this.character.name] != null }
   },
 
   methods: {
     toggleBookmark () {
-      if (this.character.isBookmark) {
+      if (this.isBookmark) {
         store.removeBookmark(this.character.name).catch(err => console.error(err))
       } else {
         store.addBookmark(this.character.name).catch(err => console.error(err))
@@ -50,7 +50,7 @@ export default {
     },
 
     toggleIgnored () {
-      const action = this.character.isIgnored ? 'delete' : 'add'
+      const action = this.isIgnored ? 'delete' : 'add'
       store.ignoreAction(this.character.name, action)
     },
 
