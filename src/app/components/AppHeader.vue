@@ -1,6 +1,6 @@
 <template lang="pug">
 mixin icon-link(icon, action)
-  a(href='#', style="font-size: 1.25em; line-height: 1", @click!=action)
+  a(href='#', @click!=action)
     i.mdi(class='mdi-' + icon)
 mixin info-icon
   transition(name='fade')
