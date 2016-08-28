@@ -138,4 +138,8 @@ function handleCommand (command, params) {
     : console.warn(`Unknown command: ${command} ${JSON.stringify(params)}`)
 }
 
-export { connect, disconnect, sendCommand, handleCommand }
+function isConnected () {
+  return ws != null
+}
+
+export { connect, disconnect, sendCommand, handleCommand, isConnected }

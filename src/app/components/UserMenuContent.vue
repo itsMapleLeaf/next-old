@@ -5,7 +5,7 @@
     menu-status-form
   .color-dark.flex-grow.ui-scroll-y.ui-divide-top
     active-room-list.color-main(:rooms="state.rooms", :current="state.currentRoom",
-      @input="setCurrentRoom", @closed="closeRoom")
+      @selected="setCurrentRoom", @closed="closeRoom")
   .color-dark
     user-menu-options
 </template>

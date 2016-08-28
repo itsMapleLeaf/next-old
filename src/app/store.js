@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Character from './models/Character'
 import ChannelRoom from './models/ChannelRoom'
 import PrivateRoom from './models/PrivateRoom'
-import Message from './models/Message'
 import * as flist from './f-list'
 import * as util from './util'
 import * as socket from './socket'
@@ -155,6 +154,8 @@ export function setSocketState (socketState) {
 }
 
 export function connectToChatServer () {
+  if (socket.isConnected()) return
+
   const ws = socket.connect()
 
   ws.onopen = () => {
@@ -318,7 +319,10 @@ export function setChannelDescription (id, description) {
 export function addChannelMessage (id, name, message, type) {
   const channel = state.channelRooms[id]
   const sender = state.onlineCharacters[name]
-  channel.messages.push(new Message(sender, message, type))
+  channel.addMessage(sender, message, type)
+  if (name !== state.identity && channel !== state.currentRoom) {
+    channel.active = true
+  }
 }
 
 export function addPrivateRoom (partnerName) {
@@ -338,7 +342,10 @@ export function removePrivateRoom (partnerName) {
 export function addPrivateMessage (partnerName, senderName, message, type) {
   const room = state.privateRooms[partnerName] || addPrivateRoom(partnerName)
   const sender = state.onlineCharacters[senderName]
-  room.messages.push(new Message(sender, message, type))
+  room.addMessage(sender, message, type)
+  if (senderName !== state.identity && room !== state.currentRoom) {
+    room.active = true
+  }
 }
 
 export function setCharacterMenuFocus (name) {

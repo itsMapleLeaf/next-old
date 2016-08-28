@@ -1,5 +1,4 @@
 import Room from './Room'
-import Message from './Message'
 import {state, sendChannelMessage, removeChannelRoom} from '../store'
 
 export default class ChannelRoom extends Room {
@@ -9,7 +8,7 @@ export default class ChannelRoom extends Room {
   ops = []
 
   constructor (id, name) {
-    super('private')
+    super('channel')
     this.id = id
     this.name = name
   }
@@ -61,7 +60,7 @@ export default class ChannelRoom extends Room {
 
   sendMessage (message) {
     sendChannelMessage(this.id, message)
-    this.messages.push(new Message(state.userCharacter, message, 'self'))
+    this.addMessage(state.userCharacter, message, 'self')
   }
 
   close () {

@@ -22,6 +22,7 @@ import Notification from './Notification.vue'
 
 import * as store from '../store'
 import * as session from '../session'
+import {isConnected} from '../socket'
 
 export default {
   components: {
@@ -40,7 +41,10 @@ export default {
   computed: {},
 
   created () {
-    if (store.state.socketState !== 'offline') return
+    if (isConnected()) {
+      store.setSocketState('identified')
+      return
+    }
     this.authenticate()
     .then(() => {
       store.pushOverlay('character-select')
@@ -119,6 +123,10 @@ export default {
 
     'state.identity' (name) {
       document.title = name ? `${name} | F-Chat Next` : 'F-Chat Next'
+    },
+
+    'state.currentRoom' (room) {
+      room.active = false
     }
   }
 }
