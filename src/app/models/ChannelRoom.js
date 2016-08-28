@@ -45,19 +45,14 @@ export default class ChannelRoom {
     switch (true) {
       case state.friends[char.name] != null:
         return 5
-
       case state.bookmarks[char.name] != null:
         return 4
-
       case state.admins[char.name] != null:
         return 3
-
       case this.ops.includes(char.name):
         return 2
-
       case char.status === 'looking':
         return 1
-
       default:
         return 0
     }
