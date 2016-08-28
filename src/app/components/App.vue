@@ -1,31 +1,11 @@
 <template lang="pug">
-mixin header
-  app-header.color-main.ui-divide-bottom&attributes(attributes)
-
-mixin left-column
-  user-menu-content.ui-width-6.ui-divide-right.res.res-desktop(v-if!="state.socketState === 'identified'")&attributes(attributes)
-
-mixin middle-column
-  .flex-column&attributes(attributes)
-    template(v-if="state.currentRoom")
-      .flex-fixed.color-dark.ui-height-2.ui-padding-3.ui-scroll-y.ui-pre-wrap(v-if="state.currentRoom.description")
-        span(v-html="state.currentRoom.description || ''")
-      .flex-fixed.color-dark.ui-height-1.ui-padding-2.ui-pre-wrap(v-if="state.currentRoom.partner")
-        user-status(:status="state.currentRoom.partner.status", :statusmsg="state.currentRoom.partner.statusmsg")
-      message-list.flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y(:messages="state.currentRoom ? state.currentRoom.messages : []")
-      chatbox.flex-fixed.color-dark.ui-height-1.ui-padding-4(@submit="chatboxSubmit")
-
-mixin right-column
-  .color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop(v-if!="state.currentRoom && state.currentRoom.characters")&attributes(attributes)
-    character-list(:users="state.currentRoom.characters", :ops="state.currentRoom.ops")
-
 div(@click='checkDataAttribute')
   .ui-fullscreen.flex-column.color-darker
-    +header.flex-fixed
-    .flex-grow.flex-row.ui-divide-bottom
-      +left-column.flex-fixed
-      +middle-column.flex-grow
-      +right-column.flex-fixed
+    app-header.flex-fixed.color-main.ui-divide-bottom
+    chat.flex-grow.ui-divide-bottom(
+      v-if="state.currentRoom != null",
+      :room="state.currentRoom",
+      @chatbox-submit="chatboxSubmit")
   overlays(style="z-index: 2")
   .ui-anchor-right.ui-anchor-bottom.ui-margin-right-1
     transition(v-for='note in state.notifications', v-if='note.visible', name='fade', appear)
@@ -35,13 +15,9 @@ div(@click='checkDataAttribute')
 </template>
 
 <script>
-import CharacterList from './CharacterList.vue'
+import Chat from './Chat.vue'
 import Overlays from './Overlays.vue'
 import AppHeader from './AppHeader.vue'
-import MessageList from './MessageList.vue'
-import Chatbox from './Chatbox.vue'
-import UserStatus from './UserStatus.vue'
-import UserMenuContent from './UserMenuContent.vue'
 import Notification from './Notification.vue'
 
 import * as store from '../store'
@@ -49,13 +25,9 @@ import * as session from '../session'
 
 export default {
   components: {
+    Chat,
     Overlays,
-    CharacterList,
     AppHeader,
-    UserMenuContent,
-    MessageList,
-    Chatbox,
-    UserStatus,
     Notification
   },
 
@@ -64,6 +36,8 @@ export default {
       state: store.state
     }
   },
+
+  computed: {},
 
   created () {
     if (this.state.socketState !== 'offline') return

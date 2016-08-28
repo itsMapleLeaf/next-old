@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  character-list-item.ui-padding-1(v-for='char in users', :key='char.name', :character='char', :is-op='ops[char.name] != null')
+  character-list-item.ui-padding-1(v-for='char in users', :key='char.name', :character='char', :is-op='oplist.includes(char.name)')
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
   components: {CharacterListItem},
   props: {
     users: Array,
-    ops: Array
+    oplist: Array
   }
 }
 </script>
