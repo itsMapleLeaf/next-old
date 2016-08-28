@@ -43,13 +43,13 @@ export default class ChannelRoom {
 
   getSortPriority (char) {
     switch (true) {
-      case char.isFriend:
+      case state.friends[char.name] != null:
         return 5
 
-      case char.isBookmark:
+      case state.bookmarks[char.name] != null:
         return 4
 
-      case char.isAdmin:
+      case state.admins[char.name] != null:
         return 3
 
       case this.ops.includes(char.name):
