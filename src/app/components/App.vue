@@ -52,6 +52,9 @@ export default {
   },
 
   methods: {
+    pushOverlay: store.pushOverlay,
+    setCurrentRoom: store.setCurrentRoom,
+
     authenticate () {
       return new Promise((resolve, reject) => {
         const data = session.load()
@@ -80,15 +83,9 @@ export default {
       }
     },
 
-    pushOverlay (overlay) {
-      store.pushOverlay(overlay)
-    },
-
     chatboxSubmit (message) {
       this.state.currentRoom.sendMessage(message)
     },
-
-    setCurrentRoom: store.setCurrentRoom,
 
     closeRoom (room) {
       room.close()
