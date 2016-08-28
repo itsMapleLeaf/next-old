@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  menu-room(v-for='room in rooms', :room='room', :active='room === current',
+  menu-room.ui-transition(v-for='room in rooms', :room='room', :active='room === current',
     @selected="$emit('input', room)", @closed="$emit('closed', room)")
 </template>
 
