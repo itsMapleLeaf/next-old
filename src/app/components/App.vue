@@ -2,7 +2,7 @@
 div(@click='checkDataAttribute')
   .ui-fullscreen.flex-column.color-darker
     app-header.flex-fixed.color-main.ui-divide-bottom
-    chat.flex-grow.ui-divide-bottom(
+    chat.flex-grow(
       v-if="state.currentRoom != null",
       :room="state.currentRoom",
       @chatbox-submit="chatboxSubmit")

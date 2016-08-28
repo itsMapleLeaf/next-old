@@ -18,8 +18,8 @@ export default {
   },
   methods: {
     roomClass (room) {
-      return room === this.current ? 'color-main'
-        : room.active ? 'color-dark'
+      return room === this.current ? 'highlight-blue'
+        : room.active ? 'color-main'
         : 'color-darker'
     }
   }
