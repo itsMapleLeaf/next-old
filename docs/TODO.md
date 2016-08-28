@@ -11,6 +11,7 @@
 - [ ] more compact user menu with tooltips and such
 - [ ] browsable notification list, that and other ui panels will replace the console (probably only keep the last 50 or so)
 - [ ] notifications for friends/bookmarks coming online
+- [ ] *try* to fix awful room switch performance
 
 ## For 0.6.0
 - [ ] ability to post ads
