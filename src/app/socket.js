@@ -105,6 +105,11 @@ const serverCommands = {
   // private message
   PRI (params) {
     store.addPrivateMessage(params.character, params.character, params.message, 'chat')
+    if (!document.hasFocus() || store.state.currentRoom.partner !== params.character) {
+      store.addAudioNotification(`${params.character}: ${params.message}`, 4000, () => {
+        store.setPrivateRoom(params.character)
+      })
+    }
   },
 
   VAR () {}

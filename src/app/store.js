@@ -97,17 +97,23 @@ export function popOverlay () {
   state.overlays.pop()
 }
 
-export function addNotification (text, lifetime) {
-  const note = { text }
+export function addNotification (text, lifetime = 2000, activate = () => {}) {
+  const note = {
+    text,
+    created: Date.now(),
+    lifetime,
+    visible: true,
+    activate
+  }
   state.notifications.push(note)
-  if (lifetime) {
-    window.setTimeout(() => removeNotification(note), lifetime)
+  if (lifetime != null) {
+    window.setTimeout(() => { note.visible = false }, lifetime)
   }
 }
 
-export function addAudioNotification (text, lifetime) {
-  addNotification(text, lifetime)
-  notificationSound.play()
+export function addAudioNotification (...args) {
+  addNotification(...args)
+  notificationSound.stop().play()
 }
 
 export function removeNotification (note) {
@@ -368,6 +374,13 @@ export function removeIgnored (name) {
 
 export function setCurrentRoom (room) {
   const index = state.rooms.indexOf(room)
+  if (index > -1) {
+    state.currentRoomIndex = index
+  }
+}
+
+export function setPrivateRoom (partnerName) {
+  const index = state.rooms.findIndex(room => room.partner && room.partner.name === partnerName)
   if (index > -1) {
     state.currentRoomIndex = index
   }

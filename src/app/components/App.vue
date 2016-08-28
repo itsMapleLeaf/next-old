@@ -28,9 +28,9 @@ div(@click='checkDataAttribute')
       +right-column.flex-fixed
   overlays(style="z-index: 2")
   .ui-anchor-right.ui-anchor-bottom.ui-margin-right-1
-    transition(v-for='note in state.notifications', name='fade', appear)
-      notification.ui-margin-bottom-1(@click.native="removeNotification(note)")
-        i.mdi.mdi-information.ui-faded
+    transition(v-for='note in state.notifications', v-if='note.visible', name='fade', appear)
+      notification.ui-margin-bottom-1(@click.native="activateNotification(note)")
+        i.mdi.mdi-information-variant
         |  {{ note.text }}
 </template>
 
@@ -77,10 +77,6 @@ export default {
     })
   },
 
-  mounted () {
-    store.addAudioNotification('test', 1000)
-  },
-
   methods: {
     authenticate () {
       return new Promise((resolve, reject) => {
@@ -124,7 +120,10 @@ export default {
       room.close()
     },
 
-    removeNotification: store.removeNotification
+    activateNotification (note) {
+      note.activate()
+      note.visible = false
+    }
   },
 
   watch: {
