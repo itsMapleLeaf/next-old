@@ -33,17 +33,17 @@ export const state = {
   // our list of characters
   characters: [],
 
-  // a list of friendship entries: { you: yourCharacter, them: theirCharacter }
-  friends: [],
+  // a map of characters to friends they're with { "their character": ["your character 1", "your character 2"] }
+  friends: {},
 
   // our bookmarks by name
-  bookmarks: [],
+  bookmarks: {},
 
   // ignored characters by name
-  ignored: [],
+  ignored: {},
 
   // global admins by name
-  admins: [],
+  admins: {},
 
   // a map of all online characters, name to Character object
   onlineCharacters: {},
@@ -100,8 +100,8 @@ export function fetchUserData (account, ticket) {
   ])
   .then(data => {
     state.characters = data[0]
-    state.friends = data[1]
-    state.bookmarks = data[2]
+    state.friends = util.mapToObject(data[1], name => [name, true])
+    state.bookmarks = util.mapToObject(data[2], name => [name, true])
   })
 }
 
@@ -225,11 +225,11 @@ export function setCharacterStatus (name, status, message) {
 }
 
 export function setIgnoreList (list) {
-  state.ignored = list
+  state.ignored = util.mapToObject(list, name => [name, true])
 }
 
 export function setAdminList (list) {
-  state.admins = list
+  state.admins = util.mapToObject(list, name => [name, true])
 }
 
 export function addChannels (list) {
@@ -321,23 +321,23 @@ export function openCharacterMenu (name) {
 export function addBookmark (name) {
   return flist.addBookmark(state.account, state.ticket, name)
   .then(() => {
-    state.bookmarks.push(name)
+    Vue.set(state.bookmarks, name, true)
   })
 }
 
 export function removeBookmark (name) {
   return flist.removeBookmark(state.account, state.ticket, name)
   .then(() => {
-    util.remove(state.bookmarks, name)
+    Vue.delete(state.bookmarks, name)
   })
 }
 
 export function addIgnored (name) {
-  state.ignored.push(name)
+  Vue.set(state.ignored, name, true)
 }
 
 export function removeIgnored (name) {
-  util.remove(state.ignored, name)
+  Vue.delete(state.ignored, name)
 }
 
 export function setCurrentRoom (room) {

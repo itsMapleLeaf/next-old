@@ -36,4 +36,14 @@ function clamp (n, min, max) {
   return n < min ? min : n > max ? max : n
 }
 
-export { values, assign, capitalize, remove, clamp }
+// map an array to object keys/values
+function mapToObject (set, func) {
+  let result = {}
+  for (let item of set) {
+    const [key, value] = func(item)
+    result[key] = value
+  }
+  return result
+}
+
+export { values, assign, capitalize, remove, clamp, mapToObject }

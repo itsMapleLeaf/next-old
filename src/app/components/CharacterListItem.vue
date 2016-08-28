@@ -8,36 +8,40 @@
 <script>
 import Character from './Character.vue'
 import CharacterModel from '../models/Character'
+import {state} from '../store'
 
 export default {
-  components: {Character},
-
+  components: {
+    Character
+  },
   props: {
     character: CharacterModel,
     isOp: Boolean
   },
-
   computed: {
+    name () { return this.character.name },
+    isFriend () { return state.friends[this.name] != null },
+    isBookmark () { return state.bookmarks[this.name] != null },
+    isAdmin () { return state.admins[this.name] != null },
+
     highlight () {
-      const {isFriend, isBookmark, isAdmin} = this.character
-      const {isOp} = this
-      const isLooking = this.character.status === 'looking'
       switch (true) {
-        case isFriend:
+        case this.isFriend:
           return 'highlight-green'
-        case isBookmark:
+        case this.isBookmark:
           return 'highlight-blue'
-        case isAdmin:
+        case this.isAdmin:
           return 'highlight-red'
-        case isOp:
+        case this.isOp:
           return 'highlight-yellow'
+        default:
+          return ''
       }
-      return ''
     },
 
     icon () {
-      return this.character.isFriend ? 'heart'
-        : this.character.isBookmark ? 'star'
+      return this.isFriend ? 'heart'
+        : this.isBookmark ? 'star'
         : ''
     }
   }

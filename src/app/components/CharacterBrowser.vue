@@ -63,8 +63,8 @@ export default {
 
   computed: {
     allCharacters () { return util.values(this.state.onlineCharacters) },
-    friends () { return this.sortCharacters(char => char.isFriend) },
-    bookmarks () { return this.sortCharacters(char => char.isBookmark) },
+    friends () { return this.sortCharacters(char => this.state.friends[char.name] != null) },
+    bookmarks () { return this.sortCharacters(char => this.state.bookmarks[char.name] != null) },
     looking () { return this.sortCharacters(char => char.status === 'looking') },
 
     filteredCharacters () {
