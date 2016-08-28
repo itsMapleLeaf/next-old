@@ -8,12 +8,21 @@ import * as util from './util'
 import * as socket from './socket'
 import parseBBC from './parse-bbc'
 import meta from '../../package.json'
+import {Howl} from 'howler'
 
 const socketStates = ['offline', 'connected', 'identified', 'online']
+
+const notificationSound = new Howl({
+  src: ['assets/notify.mp3', 'assets/notify.ogg'],
+  volume: 0.5
+})
 
 export const state = {
   // ui overlays
   overlays: [],
+
+  // user notifications
+  notifications: [],
 
   // socket connection state
   // either: offline, connecting, online, identified
@@ -86,6 +95,23 @@ export function pushOverlay (overlay) {
 
 export function popOverlay () {
   state.overlays.pop()
+}
+
+export function addNotification (text, lifetime) {
+  const note = { text }
+  state.notifications.push(note)
+  if (lifetime) {
+    window.setTimeout(() => removeNotification(note), lifetime)
+  }
+}
+
+export function addAudioNotification (text, lifetime) {
+  addNotification(text, lifetime)
+  notificationSound.play()
+}
+
+export function removeNotification (note) {
+  util.remove(state.notifications, note)
 }
 
 // user data stuff

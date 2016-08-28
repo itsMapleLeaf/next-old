@@ -16,6 +16,7 @@
     "eslint-plugin-html": "^1.5.2",
     "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-standard": "^2.0.0",
+    "howler": "^2.0.0",
     "json-loader": "^0.5.4",
     "pug": "^2.0.0-beta5",
     "pug-lexer": "^2.1.0",

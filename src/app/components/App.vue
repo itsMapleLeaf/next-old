@@ -27,6 +27,11 @@ div(@click='checkDataAttribute')
       +middle-column.flex-grow
       +right-column.flex-fixed
   overlays(style="z-index: 2")
+  .ui-anchor-right.ui-anchor-bottom.ui-margin-right-1
+    transition(v-for='note in state.notifications', name='fade', appear)
+      notification.ui-margin-bottom-1(@click.native="removeNotification(note)")
+        i.mdi.mdi-information.ui-faded
+        |  {{ note.text }}
 </template>
 
 <script>
@@ -37,6 +42,7 @@ import MessageList from './MessageList.vue'
 import Chatbox from './Chatbox.vue'
 import UserStatus from './UserStatus.vue'
 import UserMenuContent from './UserMenuContent.vue'
+import Notification from './Notification.vue'
 
 import * as store from '../store'
 import * as session from '../session'
@@ -49,7 +55,8 @@ export default {
     UserMenuContent,
     MessageList,
     Chatbox,
-    UserStatus
+    UserStatus,
+    Notification
   },
 
   data () {
@@ -68,6 +75,10 @@ export default {
       console.warn(err)
       store.pushOverlay('login')
     })
+  },
+
+  mounted () {
+    store.addAudioNotification('test', 1000)
   },
 
   methods: {
@@ -111,7 +122,9 @@ export default {
 
     closeRoom (room) {
       room.close()
-    }
+    },
+
+    removeNotification: store.removeNotification
   },
 
   watch: {
