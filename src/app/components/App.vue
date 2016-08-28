@@ -17,7 +17,7 @@ mixin middle-column
 
 mixin right-column
   .color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop(v-if!="state.currentRoom && state.currentRoom.characters")&attributes(attributes)
-    user-list(:users="state.currentRoom.characters", :ops="state.currentRoom.ops")
+    character-list(:users="state.currentRoom.characters", :ops="state.currentRoom.ops")
 
 div(@click='checkDataAttribute')
   .ui-fullscreen.flex-column.color-darker
@@ -30,7 +30,7 @@ div(@click='checkDataAttribute')
 </template>
 
 <script>
-import UserList from './UserList.vue'
+import CharacterList from './CharacterList.vue'
 import Overlays from './Overlays.vue'
 import AppHeader from './AppHeader.vue'
 import MessageList from './MessageList.vue'
@@ -44,7 +44,7 @@ import * as session from '../session'
 export default {
   components: {
     Overlays,
-    UserList,
+    CharacterList,
     AppHeader,
     UserMenuContent,
     MessageList,
