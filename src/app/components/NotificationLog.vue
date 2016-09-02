@@ -1,8 +1,11 @@
 <template lang="pug">
-side-menu(right)
-  a(href='#', v-for="note in notes").ui-padding-4.ui-block.color-dark
-    i.mdi.mdi-information.ui-faded
-    |  {{ note.text }}
+side-menu(right, panel-class='flex-column')
+  .flex-fixed.ui-padding-3
+    h1 Notifications
+  .flex-grow.color-dark
+    a(href='#', v-for="note in notes").ui-padding-4.ui-block
+      i.mdi.mdi-information.ui-faded
+      |  {{ note.text }}
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template lang="pug">
 .ui-overlay(@click.self='close')
-  .ui-width-6(:class='panelClass')
+  .ui-width-6(:class="panelClass + ' ' + panelAlignClass")
     slot
 </template>
 
@@ -10,7 +10,8 @@ import * as store from '../store'
 export default {
   props: {
     left: Boolean,
-    right: Boolean
+    right: Boolean,
+    panelClass: String
   },
   methods: {
     close () {
@@ -18,7 +19,7 @@ export default {
     }
   },
   computed: {
-    panelClass () {
+    panelAlignClass () {
       return this.left ? 'ui-panel-left'
         : this.right ? 'ui-panel-right'
         : ''
