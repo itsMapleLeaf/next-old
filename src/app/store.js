@@ -20,8 +20,9 @@ export const state = {
   // ui overlays
   overlays: [],
 
-  // user notifications
-  notifications: [],
+  messageBubbles: [],
+  messageLog: [],
+  unreadMessageCount: 0,
 
   // socket connection state
   // either: offline, connecting, online, identified
@@ -96,27 +97,30 @@ export function popOverlay () {
   state.overlays.pop()
 }
 
-export function addNotification (text, lifetime = 2000, activate = () => {}) {
-  const note = {
-    text,
-    created: Date.now(),
-    lifetime,
-    visible: true,
-    activate
-  }
-  state.notifications.push(note)
+export function showMessageBubble (text, lifetime = 2000, onclick = () => {}) {
+  const bubble = { text, onclick }
+  state.messageBubbles.push(bubble)
   if (lifetime != null) {
-    window.setTimeout(() => { note.visible = false }, lifetime)
+    window.setTimeout(() => {
+      util.remove(state.messageBubbles, bubble)
+    }, lifetime)
   }
 }
 
-export function addAudioNotification (...args) {
-  addNotification(...args)
-  notificationSound.stop().play()
+export function logMessage (text) {
+  state.messageLog.push({ text })
 }
 
-export function removeNotification (note) {
-  util.remove(state.notifications, note)
+export function incrementUnreadMessageCount () {
+  state.unreadMessageCount++
+}
+
+export function resetUnreadMessageCount () {
+  state.unreadMessageCount = 0
+}
+
+export function playNotificationSound () {
+  notificationSound.stop().play()
 }
 
 // user data stuff

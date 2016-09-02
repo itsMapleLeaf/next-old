@@ -13,6 +13,7 @@ import ChannelSelect from './ChannelSelect.vue'
 import RoomInfo from './RoomInfo.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import About from './About.vue'
+import NotificationLog from './NotificationLog.vue'
 
 import {state} from '../store'
 
@@ -25,7 +26,8 @@ export default {
     ChannelSelect,
     RoomInfo,
     CharacterBrowser,
-    About
+    About,
+    NotificationLog
   },
   props: {
     overlays: Array

@@ -12,13 +12,11 @@ export default {
     left: Boolean,
     right: Boolean
   },
-
   methods: {
     close () {
       store.popOverlay()
     }
   },
-
   computed: {
     panelClass () {
       return this.left ? 'ui-panel-left'

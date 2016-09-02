@@ -1,22 +1,27 @@
 <template lang="pug">
 mixin icon-link(icon, action)
-  a(href='#', @click!=action)
+  a(href='#', @click!=action)&attributes(attributes)
     i.mdi(class='mdi-' + icon)
+
 mixin info-icon
   transition(name='fade')
     a.ui-padding-subtle(href='#', style='z-index: 3', v-show="!state.overlays.includes('about')", @click="pushOverlay('about')")
       i.mdi.mdi-information.ui-faded
 
-.flex-row.flex-justify-space-between.flex-align-center.flex-wrap.ui-padding-3
-  .flex-row
-    h1.flex-fixed.res.res-desktop F-Chat Next
-      small.ui-faded  v{{ version }}
-        +info-icon
-    span.flex-fixed.res.res-mobile F-Chat Next
-      small.ui-faded  v{{ version }}
-      +info-icon
-  .flex-row.flex-align-center.res.res-mobile
-    +icon-link('menu', "pushOverlay('user-menu')")
+mixin app-info
+  span F-Chat Next
+  small.ui-faded  v{{ version }}
+  +info-icon
+
+.flex-row.flex-justify-space-between.flex-align-center.ui-padding-3
+  .flex-fixed
+    h1.res.res-desktop
+      +app-info
+    .res.res-mobile
+      +app-info
+  .flex-fixed
+    +icon-link('bell', "pushOverlay('notification-log')")
+    +icon-link('menu', "pushOverlay('user-menu')").res.res-mobile
 </template>
 
 <script>

@@ -8,7 +8,7 @@ div(@click='checkDataAttribute')
       @chatbox-submit="chatboxSubmit")
   overlays(style="z-index: 2")
   .ui-anchor-right.ui-anchor-bottom.ui-margin-right-1
-    transition(v-for='note in state.notifications', v-if='note.visible', name='fade', appear)
+    transition(v-for='note in state.messageBubbles', v-if='note.visible', name='fade', appear)
       notification.ui-margin-bottom-1(@click.native="activateNotification(note)")
         i.mdi.mdi-information-variant
         |  {{ note.text }}
@@ -38,13 +38,14 @@ export default {
     }
   },
 
-  computed: {},
-
   created () {
+    store.logMessage('test message')
+
     if (isConnected()) {
       store.setSocketState('identified')
       return
     }
+
     this.authenticate()
     .then(() => {
       store.pushOverlay('character-select')
@@ -98,6 +99,13 @@ export default {
     activateNotification (note) {
       note.activate()
       note.visible = false
+    }
+  },
+
+  computed: {
+    windowTitle: {
+      get () { return document.title },
+      set (title) { document.title = title }
     }
   },
 
