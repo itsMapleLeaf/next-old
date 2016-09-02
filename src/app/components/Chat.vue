@@ -4,12 +4,16 @@ mixin left-column
 
 mixin middle-column
   .flex-column&attributes(attributes)
-    .flex-fixed.color-dark.ui-height-2.ui-padding-3.ui-scroll-y.ui-pre-wrap(v-if="room.type === 'channel'")
+    .flex-fixed.color-dark.ui-height-2.ui-padding-3.ui-scroll-y.ui-pre-wrap(
+      v-if="room.type === 'channel'")
       span(v-html="room.description || ''")
     .flex-fixed.color-dark.ui-height-1.ui-padding-2.ui-pre-wrap(v-if="room.type === 'private'")
       user-status(:status="room.partner.status", :statusmsg="room.partner.statusmsg")
-    message-list.flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y(:messages="room ? room.messages : []")
-    chatbox.flex-fixed.color-dark.ui-padding-4(@submit="$emit('chatbox-submit', arguments[0])", style="height: 5em")
+    .flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y.ui-break-word
+      message-list(:messages="room ? room.messages : []")
+    chatbox.flex-fixed.color-dark.ui-padding-4(
+      @submit="$emit('chatbox-submit', arguments[0])",
+      style="height: 5em")
 
 mixin right-column
   .color-dark.ui-width-6.ui-divide-left.ui-scroll-y.res.res-desktop(v-if!="room && room.characters")&attributes(attributes)

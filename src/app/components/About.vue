@@ -1,7 +1,7 @@
 <template lang="pug">
-.ui-overlay(@click.self="close")
+.ui-overlay(@click.self="popOverlay")
   .ui-panel.ui-padding-8
-    .ui-width-8.ui-text-center
+    .ui-width-8.ui-fit-width.ui-text-center
       h1 F-Chat Next v{{ version }}
       p
         i.mdi.mdi-code-tags
@@ -19,21 +19,20 @@
       p.
         Send me a note on F-List if you have any questions, ideas,
         or bug reports.
-    a.ui-anchor-right.ui-anchor-top.ui-padding-subtle.ui-faded(href='#', @click="close")
+    a.ui-anchor-right.ui-anchor-top.ui-padding-subtle.ui-faded(href='#', @click="popOverlay")
       i.mdi.mdi-close
 </template>
 
 <script>
-import * as store from '../store'
+import {popOverlay} from '../store'
 import {version} from '../../../package.json'
 
 export default {
   data () {
     return {version}
   },
-
   methods: {
-    close () { store.popOverlay() }
+    popOverlay
   }
 }
 </script>
