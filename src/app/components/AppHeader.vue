@@ -20,13 +20,15 @@ mixin app-info
     .res.res-mobile
       +app-info
   .flex-fixed
-    +icon-link('bell', "pushOverlay('notification-log')")
+    a(href='#', @click="notificationIconClicked")
+      i.mdi(:class="'mdi-' + bellIcon")
+    //- +icon-link('bell', "pushOverlay('notification-log')")
     +icon-link('menu', "pushOverlay('user-menu')").res.res-mobile
 </template>
 
 <script>
 import {getAvatarURL} from '../f-list'
-import {state, pushOverlay} from '../store'
+import {state, pushOverlay, resetUnreadMessageCount} from '../store'
 import {version} from '../../../package.json'
 
 export default {
@@ -38,7 +40,17 @@ export default {
   },
   methods: {
     getAvatarURL,
-    pushOverlay
+    pushOverlay,
+
+    notificationIconClicked () {
+      pushOverlay('notification-log')
+      resetUnreadMessageCount()
+    }
+  },
+  computed: {
+    bellIcon () {
+      return this.state.unreadMessageCount > 0 ? 'bell' : 'bell-outline'
+    }
   }
 }
 </script>
