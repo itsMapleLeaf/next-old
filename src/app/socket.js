@@ -38,11 +38,38 @@ const serverCommands = {
     }
   },
 
-  LIS (params) { store.addCharacterBatch(params.characters) },
-  ADL (params) { store.setAdminList(params.ops) },
-  NLN (params) { store.addCharacter(params.identity, params.gender) },
-  FLN (params) { store.removeCharacter(params.character) },
-  STA (params) { store.setCharacterStatus(params.character, params.status, params.statusmsg) },
+  LIS (params) {
+    store.addCharacterBatch(params.characters)
+  },
+
+  ADL (params) {
+    store.setAdminList(params.ops)
+  },
+
+  // character came online
+  NLN ({ identity: name, gender }) {
+    store.addCharacter(name, gender)
+    if (store.isFriend(name) || store.isBookmark(name)) {
+      store.showSilentNotification(`${name} is online!`)
+    }
+  },
+
+  // character went offline
+  FLN ({ character: name }) {
+    store.removeCharacter(name)
+    if (store.isFriend(name) || store.isBookmark(name)) {
+      store.showSilentNotification(`${name} went offline. :(`)
+    }
+  },
+
+  // character updated status
+  STA ({ character: name, status, statusmsg }) {
+    store.setCharacterStatus(name, status, statusmsg)
+    if (store.isFriend(name) || store.isBookmark(name)) {
+      store.showSilentNotification(
+        `${name} changed their status: ${status}, ${statusmsg}`)
+    }
+  },
 
   // public channel list
   CHA (params) {
@@ -103,14 +130,12 @@ const serverCommands = {
   },
 
   // private message
-  PRI (params) {
-    store.addPrivateMessage(params.character, params.character, params.message, 'chat')
-    if (!document.hasFocus() || store.state.currentRoom.partner !== params.character) {
-      const message = `${params.character}: ${params.message}`
-      store.showMessageBubble(message)
-      store.logMessage(message)
-      store.incrementUnreadMessageCount()
-      store.playNotificationSound()
+  PRI ({ character: name, message }) {
+    store.addPrivateMessage(name, name, message, 'chat')
+    if (!document.hasFocus() || store.state.currentRoom.partner.name !== name) {
+      store.showNotification(`${name}: ${message}`, 4000, () => {
+        store.setPrivateRoom(name)
+      })
     }
   },
 

@@ -42,7 +42,8 @@ export const state = {
   // our list of characters
   characters: [],
 
-  // a map of characters to friends they're with { "their character": ["your character 1", "your character 2"] }
+  // a map of characters to friends they're with
+  // e.g.: { "their character": ["your character 1", "your character 2"] }
   friends: {},
 
   // our bookmarks by name
@@ -97,14 +98,20 @@ export function popOverlay () {
   state.overlays.pop()
 }
 
-export function showMessageBubble (text, lifetime = 2000, onclick = () => {}) {
-  const bubble = { text, onclick }
-  state.messageBubbles.push(bubble)
+export function showMessageBubble (text, lifetime = 3500, callback) {
+  const bubble = {
+    text,
+    onclick () {
+      if (callback) callback()
+      util.remove(state.messageBubbles, bubble)
+    }
+  }
   if (lifetime != null) {
     window.setTimeout(() => {
       util.remove(state.messageBubbles, bubble)
     }, lifetime)
   }
+  state.messageBubbles.push(bubble)
 }
 
 export function logMessage (text) {
@@ -121,6 +128,17 @@ export function resetUnreadMessageCount () {
 
 export function playNotificationSound () {
   notificationSound.stop().play()
+}
+
+export function showNotification (text, lifetime, callback) {
+  showSilentNotification(text, lifetime, callback)
+  playNotificationSound()
+}
+
+export function showSilentNotification (text, lifetime, callback) {
+  showMessageBubble(text, lifetime, callback)
+  logMessage(text)
+  incrementUnreadMessageCount()
 }
 
 // user data stuff
@@ -395,6 +413,22 @@ export function setPrivateRoom (partnerName) {
   if (index > -1) {
     state.currentRoomIndex = index
   }
+}
+
+export function isFriend (name) {
+  return state.friends[name] != null
+}
+
+export function isBookmark (name) {
+  return state.bookmarks[name]
+}
+
+export function isAdmin (name) {
+  return state.admins[name]
+}
+
+export function isIgnored (name) {
+  return state.ignored[name]
 }
 
 export function logOut () {
