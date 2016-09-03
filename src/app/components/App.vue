@@ -35,8 +35,6 @@ export default {
   },
 
   created () {
-    store.logMessage('test message')
-
     if (isConnected()) {
       store.setSocketState('identified')
       return
@@ -90,11 +88,6 @@ export default {
 
     closeRoom (room) {
       room.close()
-    },
-
-    activateNotification (note) {
-      note.activate()
-      note.visible = false
     }
   },
 
