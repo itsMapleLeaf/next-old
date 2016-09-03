@@ -17,7 +17,7 @@
         Note: this is a super early beta!
         There will probably be a few bugs, and some missing functionality.
       p.
-        Send me a note on F-List if you have any questions, ideas,
+        Make an issue on GitHub or send me a note on F-List if you have any questions, ideas,
         or bug reports.
     a.ui-anchor-right.ui-anchor-top.ui-padding-subtle.ui-faded(href='#', @click="popOverlay")
       i.mdi.mdi-close
