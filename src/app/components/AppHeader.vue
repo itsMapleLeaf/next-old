@@ -5,25 +5,34 @@ mixin icon-link(icon, action)
 
 mixin info-icon
   transition(name='fade')
-    a.ui-padding-subtle(href='#', style='z-index: 3', v-show="!state.overlays.includes('about')", @click="pushOverlay('about')")
+    a.ui-padding-subtle(href='#', style='z-index: 3', v-show="!state.overlays.includes('about')",
+      @click="pushOverlay('about')")
       i.mdi.mdi-information.ui-faded
+
+mixin menu-icon
+  a(href='#', @click="pushOverlay('user-menu')")
+    i.mdi.mdi-menu
+
+mixin notification-icon
+  a(href='#', @click="notificationIconClicked")
+    i.mdi(:class="'mdi-' + bellIcon")
 
 mixin app-info
   span F-Chat Next
   small.ui-faded  v{{ version }}
-  +info-icon
 
 .flex-row.flex-justify-space-between.flex-align-center.ui-padding-3
   .flex-fixed
-    h1.res.res-desktop
-      +app-info
+    .res.res-desktop
+      h1(style="display: inline")
+        +app-info
+      +info-icon
     .res.res-mobile
+      +menu-icon
       +app-info
+      +info-icon
   .flex-fixed
-    a(href='#', @click="notificationIconClicked")
-      i.mdi(:class="'mdi-' + bellIcon")
-    //- +icon-link('bell', "pushOverlay('notification-log')")
-    +icon-link('menu', "pushOverlay('user-menu')").res.res-mobile
+    +notification-icon
 </template>
 
 <script>
