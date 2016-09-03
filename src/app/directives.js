@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 
 function scrollToBottom (event) {
   const el = event.target
@@ -13,7 +13,7 @@ const bottomScroll = {
   update (el, binding) {
     console.log('update', el.dataset.bottomScrollEnabled)
     if (el.dataset.bottomScrollEnabled === 'true') {
-      Vue.nextTick(() => {
+      window.requestAnimationFrame(() => {
         el.scrollTop = el.scrollHeight
       })
     }

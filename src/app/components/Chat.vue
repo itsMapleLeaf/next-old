@@ -9,7 +9,7 @@ mixin middle-column
       span(v-html="room.description || ''")
     .flex-fixed.color-dark.ui-height-1.ui-padding-2.ui-pre-wrap(v-if="room.type === 'private'")
       user-status(:status="room.partner.status", :statusmsg="room.partner.statusmsg")
-    .flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y.ui-break-word
+    .flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y.ui-break-word(v-bottom-scroll='')
       message-list(:messages="room ? room.messages : []")
     chatbox.flex-fixed.color-dark.ui-padding-4(
       @submit="$emit('chatbox-submit', arguments[0])",
@@ -33,6 +33,7 @@ import UserStatus from './UserStatus.vue'
 import UserMenuContent from './UserMenuContent.vue'
 import ChannelRoom from '../models/ChannelRoom'
 import PrivateRoom from '../models/PrivateRoom'
+import {bottomScroll} from '../directives'
 
 export default {
   props: {
@@ -44,6 +45,9 @@ export default {
     MessageList,
     Chatbox,
     UserStatus
+  },
+  directives: {
+    bottomScroll
   }
 }
 </script>
