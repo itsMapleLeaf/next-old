@@ -2,16 +2,12 @@
 div(@click='checkDataAttribute')
   .ui-fullscreen.flex-column.color-darker
     app-header.flex-fixed.color-main.ui-divide-bottom
-    chat.flex-grow(
-      v-if="state.currentRoom != null",
-      :room="state.currentRoom",
+    chat.flex-grow(v-if="state.currentRoom != null", :room="state.currentRoom",
       @chatbox-submit="chatboxSubmit")
   overlays(style="z-index: 2")
   .ui-anchor-right.ui-anchor-bottom.ui-margin-right-1
-    transition(v-for='note in state.messageBubbles', v-if='note.visible', name='fade', appear)
-      notification.ui-margin-bottom-1(@click.native="activateNotification(note)")
-        i.mdi.mdi-information-variant
-        |  {{ note.text }}
+    notification.ui-margin-bottom-1(v-for="note in state.messageBubbles",
+      :text="note.text", @click.native="note.onclick()")
 </template>
 
 <script>
