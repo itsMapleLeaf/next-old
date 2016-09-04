@@ -6,7 +6,7 @@ export default class Message {
     this.originalMessage = message
     this.message = parseBBC(message)
     this.time = Date.now()
-    this.type = type // either 'chat', 'lfrp', 'self', or 'admin'
+    this.type = type // either 'chat', 'lfrp', 'self', 'admin', 'friend'
     this.id = Math.random() * 999999
   }
 }

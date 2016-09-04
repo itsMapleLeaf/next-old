@@ -120,8 +120,9 @@ const serverCommands = {
   },
 
   // channel message
-  MSG (params) {
-    store.addChannelMessage(params.channel, params.character, params.message, 'chat')
+  MSG ({ character: name, channel, message }) {
+    store.addChannelMessage(channel, name, message,
+      store.isBookmark(name) || store.isFriend(name) ? 'friend' : 'chat')
   },
 
   // LFRP message
