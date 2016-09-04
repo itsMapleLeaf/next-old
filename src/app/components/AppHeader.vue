@@ -22,13 +22,14 @@ mixin app-info
   small.ui-faded  v{{ version }}
 
 .flex-row.flex-justify-space-between.flex-align-center.ui-padding-3
+  .flex-fixed.res.res-mobile
+    +menu-icon
   .flex-fixed
     .res.res-desktop
       h1(style="display: inline")
         +app-info
       +info-icon
     .res.res-mobile
-      +menu-icon
       +app-info
       +info-icon
   .flex-fixed
