@@ -11,7 +11,6 @@ const bottomScroll = {
     el.addEventListener('scroll', scrollToBottom)
   },
   update (el, binding) {
-    console.log('update', el.dataset.bottomScrollEnabled)
     if (el.dataset.bottomScrollEnabled === 'true') {
       window.requestAnimationFrame(() => {
         el.scrollTop = el.scrollHeight
