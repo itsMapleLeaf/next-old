@@ -16,32 +16,35 @@ function leftPad (input, len, char = ' ') {
 }
 
 export default {
-  components: {Character},
-
+  components: {
+    Character
+  },
   props: {
     message: Message
   },
-
   computed: {
     parsedMessage () {
       return this.message.message.replace(meCommand, '')
     },
-
     style () {
       return {
         fontStyle: meCommand.test(this.message.message) ? 'italic' : 'initial'
       }
     },
-
     classes () {
-      const {type, sender} = this.message
-      return sender.isFriend || sender.isBookmark ? 'highlight-blue'
-        : type === 'lfrp' ? 'highlight-green'
-        : type === 'admin' ? 'highlight-red'
-        : type === 'self' ? 'color-darker'
-        : ''
+      switch (this.message.type) {
+        case 'friend':
+          return 'highlight-blue'
+        case 'lfrp':
+          return 'highlight-green'
+        case 'admin':
+          return 'highlight-red'
+        case 'self':
+          return 'color-darker'
+        default:
+          return ''
+      }
     },
-
     time () {
       const date = new Date(this.message.time)
       return `${date.getHours()}:${leftPad(date.getMinutes(), 2, '0')}`
