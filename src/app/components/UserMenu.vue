@@ -1,6 +1,6 @@
 <template lang="pug">
-side-menu(right)
-  user-menu-content(style="height: 100%")
+side-menu(left, panel-class='ui-scroll-y')
+  user-menu-content
 </template>
 
 <script>
