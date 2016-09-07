@@ -99,16 +99,19 @@ export function popOverlay () {
 }
 
 export function showMessageBubble (text, lifetime = 3500, callback) {
+  function removeBubble () {
+    state.messageBubbles = util.remove(state.messageBubbles, bubble)
+  }
   const bubble = {
     text,
     onclick () {
       if (callback) callback()
-      util.remove(state.messageBubbles, bubble)
+      removeBubble()
     }
   }
   if (lifetime != null) {
     window.setTimeout(() => {
-      util.remove(state.messageBubbles, bubble)
+      removeBubble()
     }, lifetime)
   }
   state.messageBubbles.push(bubble)
@@ -269,7 +272,7 @@ export function addCharacter (name, gender) {
 export function removeCharacter (name) {
   const char = state.onlineCharacters[name]
   for (let room of util.values(state.channelRooms)) {
-    util.remove(room.characters, char)
+    room.characters = util.remove(room.characters, char)
   }
   delete state.onlineCharacters[name]
 }
@@ -304,7 +307,7 @@ export function addChannelRoom (id, name) {
 export function removeChannelRoom (id) {
   const room = state.channelRooms[id]
   Vue.delete(state.channelRooms, id)
-  util.remove(state.rooms, room)
+  state.rooms = util.remove(state.rooms, room)
 }
 
 export function isChannelJoined (id) {
@@ -358,7 +361,7 @@ export function addPrivateRoom (partnerName) {
 export function removePrivateRoom (partnerName) {
   const room = state.privateRooms[partnerName]
   delete state.privateRooms[partnerName]
-  util.remove(state.rooms, room)
+  state.rooms = util.remove(state.rooms, room)
 }
 
 export function addPrivateMessage (partnerName, senderName, message, type) {
