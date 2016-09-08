@@ -24,13 +24,11 @@ export default {
     AppHeader,
     Notification
   },
-
   data () {
     return {
       state: store.state
     }
   },
-
   created () {
     if (isConnected()) {
       store.setSocketState('identified')
@@ -46,7 +44,6 @@ export default {
       store.pushOverlay('login')
     })
   },
-
   methods: {
     pushOverlay: store.pushOverlay,
     setCurrentRoom: store.setCurrentRoom,
@@ -65,7 +62,6 @@ export default {
         return store.fetchUserData(account, ticket)
       })
     },
-
     checkDataAttribute (event) {
       for (let {name, value} of event.target.attributes) {
         switch (name) {
@@ -79,16 +75,13 @@ export default {
         }
       }
     },
-
     chatboxSubmit (message) {
       this.state.currentRoom.sendMessage(message)
     },
-
     closeRoom (room) {
       room.close()
     }
   },
-
   computed: {
     windowTitle () {
       const {identity, unreadMessageCount} = this.state
@@ -98,7 +91,6 @@ export default {
       return title
     }
   },
-
   watch: {
     'state.socketState' (state) {
       if (state === 'identified') {
@@ -108,15 +100,12 @@ export default {
         }
       }
     },
-
     'state.channelRooms' (rooms) {
       session.setStorageItem(`channels:${this.state.identity}`, Object.keys(rooms))
     },
-
     'state.currentRoom' (room) {
       room.active = false
     },
-
     'windowTitle' (title) {
       document.title = title
     }
