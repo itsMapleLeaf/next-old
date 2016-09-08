@@ -47,7 +47,7 @@ export function addCharacterBatch (batch) {
   for (let [name, gender, status, statusmsg] of batch) {
     map[name] = Character(name, gender, status, statusmsg)
   }
-  assign(state.onlineCharacters, map)
+  state.onlineCharacters = assign({}, state.onlineCharacters, map)
 }
 
 export function addCharacter (name, gender) {
