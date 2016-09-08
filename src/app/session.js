@@ -25,7 +25,7 @@ export function disableStorage () {
 
 export function getStorageItem (key) {
   if (isStorageEnabled()) {
-    return localStorage[`${storageKey}:${key}`]
+    return loadStorage()[key]
   }
   return null
 }

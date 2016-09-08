@@ -58,9 +58,11 @@ export default {
       return new Promise((resolve, reject) => {
         const account = session.getStorageItem('account')
         const ticket = session.getStorageItem('ticket')
-        account && ticket
-          ? resolve(account, ticket)
-          : reject('Storage data not found')
+        if (account && ticket) {
+          resolve(account, ticket)
+        } else {
+          reject('Storage data not found')
+        }
       })
       .then((account, ticket) => {
         return store.fetchUserData(account, ticket)
