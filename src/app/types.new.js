@@ -1,7 +1,7 @@
 // @flow
 
 // alias types
-type CharacterName = string
+export type CharacterName = string
 
 // enum types
 type Gender
@@ -56,6 +56,11 @@ export type Channel = {
 export type PrivateChat = {
   partner: CharacterName,
   messages: Message[]
+}
+
+export type Relationship = {
+  you: CharacterName,
+  them: CharacterName
 }
 
 // constructors
