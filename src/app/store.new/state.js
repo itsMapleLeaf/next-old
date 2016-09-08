@@ -2,8 +2,13 @@ export default {
   // ui overlays
   overlays: [],
 
+  // message bubbles that show up in the bottom right
   messageBubbles: [],
+
+  // list of messages
   messageLog: [],
+
+  // the number of unread messages we have
   unreadMessageCount: 0,
 
   // socket connection state
