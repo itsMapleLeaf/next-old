@@ -27,11 +27,9 @@ function parseBBC (input) {
       case 'url': return formatURL(value, text)
       case 'channel': return formatPublicChannelLink(text)
       case 'session': return formatPrivateChannelLink(text, value)
-
       case 'icon':
       case 'user':
       case 'eicon': return formatUserIcon(text)
-
       default: return match
     }
   })
@@ -43,7 +41,7 @@ function formatColor (color, text) {
 
 function formatURL (url, text) {
   const href = url || text
-  const {hostname, pathname} = urllib.parse(href)
+  const {hostname, pathname} = urllib.parse(url)
   const ext = path.extname(pathname)
   const icon = imageExtensions.includes(ext) ? 'image' : 'link-variant'
   return (
