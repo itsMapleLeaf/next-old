@@ -91,9 +91,12 @@ export default {
   },
 
   computed: {
-    windowTitle: {
-      get () { return document.title },
-      set (title) { document.title = title }
+    windowTitle () {
+      const {identity, unreadMessageCount} = this.state
+      let title = 'F-Chat Next'
+      if (identity) title = `${identity} | ${title}`
+      if (unreadMessageCount > 0) title = `(${unreadMessageCount}) ${title}`
+      return title
     }
   },
 
@@ -113,6 +116,10 @@ export default {
 
     'state.currentRoom' (room) {
       room.active = false
+    },
+
+    'windowTitle' (title) {
+      document.title = title
     }
   }
 }
