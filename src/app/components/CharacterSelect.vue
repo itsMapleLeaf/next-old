@@ -49,12 +49,7 @@ export default {
   },
 
   created () {
-    const data = session.load()
-    if (data && data.character) {
-      this.current = data.character
-    } else {
-      this.current = this.state.characters[0]
-    }
+    this.current = session.getStorageItem('character') || this.state.characters[0]
   },
 
   methods: {
@@ -71,8 +66,7 @@ export default {
 
   watch: {
     'current' (name) {
-      session.data.character = name
-      session.save()
+      session.setStorageItem('character', name)
       store.setIdentity(name)
     }
   }

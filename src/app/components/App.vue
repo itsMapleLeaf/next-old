@@ -56,15 +56,14 @@ export default {
 
     authenticate () {
       return new Promise((resolve, reject) => {
-        const data = session.load()
-        if (data) {
-          resolve(data)
-        } else {
-          reject()
-        }
+        const account = session.getStorageItem('account')
+        const ticket = session.getStorageItem('ticket')
+        account && ticket
+          ? resolve(account, ticket)
+          : reject('Storage data not found')
       })
-      .then(data => {
-        return store.fetchUserData(data.account, data.ticket)
+      .then((account, ticket) => {
+        return store.fetchUserData(account, ticket)
       })
     },
 
@@ -101,25 +100,15 @@ export default {
   watch: {
     'state.socketState' (state) {
       if (state === 'identified') {
-        const data = session.load()
-        if (data) {
-          for (let id of data[`channels:${this.state.identity}`] || []) {
-            store.joinChannel(id)
-          }
+        const channels = session.getStorageItem(`channels:${this.state.identity}`)
+        for (let id of channels || []) {
+          store.joinChannel(id)
         }
       }
     },
 
     'state.channelRooms' (rooms) {
-      const data = session.load()
-      if (data) {
-        data[`channels:${this.state.identity}`] = Object.keys(rooms)
-        session.save()
-      }
-    },
-
-    'state.identity' (name) {
-      document.title = name ? `${name} | F-Chat Next` : 'F-Chat Next'
+      session.setStorageItem(`channels:${this.state.identity}`, Object.keys(rooms))
     },
 
     'state.currentRoom' (room) {

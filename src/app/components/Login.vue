@@ -34,22 +34,19 @@ export default {
       status: ''
     }
   },
-  mounted () {
-    const data = session.load()
-    if (data && data.account) {
-      this.username = data.account
-      this.remember = true
-    }
+  created () {
+    this.username = session.getStorageItem('account') || ''
+    this.remember = session.isStorageEnabled()
   },
   methods: {
     submit () {
       getTicket(this.username, this.password).then(ticket => {
         if (this.remember) {
-          session.data.account = this.username
-          session.data.ticket = ticket
-          session.save()
+          session.enableStorage()
+          session.setStorageItem('account', this.username)
+          session.setStorageItem('ticket', ticket)
         } else {
-          session.clear()
+          session.disableStorage()
         }
         return store.fetchUserData(this.username, ticket)
       }).then(() => {
