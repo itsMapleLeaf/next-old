@@ -6,8 +6,6 @@
   .color-dark.flex-grow.ui-scroll-y.ui-divide-top
     active-room-list.color-main(:rooms="state.rooms", :current="state.currentRoom",
       @selected="setCurrentRoom", @closed="closeRoom")
-  .color-dark
-    user-menu-options
 </template>
 
 <script>

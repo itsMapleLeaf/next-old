@@ -1,9 +1,10 @@
 <template lang="pug">
 mixin option(icon, action)
-  a.ui-padding-3(href='#', @click!=action)
+  a.ui-padding-subtle(href='#', @click!=action)
     i.mdi(class="mdi-" + icon)
 
-.flex-row.flex-justify-space-between
+div
+  +option('menu', '')
   +option('forum', "pushOverlay('channel-select')")
   +option('heart', "pushOverlay('character-browser')")
   +option('logout', 'logOut')

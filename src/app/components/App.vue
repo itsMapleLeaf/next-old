@@ -1,9 +1,6 @@
 <template lang="pug">
 div(@click='checkDataAttribute')
-  .ui-fullscreen.flex-column.color-darker
-    app-header.flex-fixed.color-main.ui-divide-bottom
-    chat.flex-grow(v-if="state.currentRoom != null", :room="state.currentRoom",
-      @chatbox-submit="chatboxSubmit")
+  chat.ui-fullscreen(:room="state.currentRoom", @chatbox-submit="chatboxSubmit")
   overlays(style="z-index: 2")
   .ui-anchor-right.ui-anchor-bottom.ui-margin-right-1
     notification.ui-margin-bottom-1(v-for="note in state.messageBubbles",

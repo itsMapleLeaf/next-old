@@ -22,7 +22,7 @@ mixin app-info
   small.ui-faded  v{{ version }}
 
 .flex-row.flex-justify-space-between.flex-align-center.ui-padding-3
-  .flex-fixed.res.res-mobile
+  //- .flex-fixed.res.res-mobile
     +menu-icon
   .flex-fixed
     .res.res-desktop
