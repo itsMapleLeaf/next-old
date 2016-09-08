@@ -32,10 +32,10 @@ mixin filter-toggle(value, label, description)
 
 mixin middle-column
   .flex-column&attributes(attributes)
-    template(v-if="room.type === 'channel'")
+    template(v-if="room && room.type === 'channel'")
       .flex-fixed.color-main.ui-padding-2
         h2 {{ room.name }}
-    template(v-if="room.type === 'private'")
+    template(v-if="room && room.type === 'private'")
       .flex-fixed.color-main.ui-height-1.ui-padding-2.ui-pre-wrap
         user-status(:status="room.partner.status", :statusmsg="room.partner.statusmsg")
     .flex-grow.ui-divide-bottom.ui-divide-top.ui-scroll-y.ui-break-word(v-bottom-scroll='')
@@ -49,12 +49,11 @@ mixin right-column
     character-list(:users="room.characters", :oplist="room.ops")
 
 .flex-row.color-darker
-  template(v-if="room != null")
-    +user-options.flex-fixed.ui-divide-right
-    //- +left-column.flex-fixed
-    +middle-column.flex-grow
-    //- +right-column.flex-fixed
-    +room-options.flex-fixed.ui-divide-left
+  +user-options.flex-fixed.ui-divide-right
+  //- +left-column.flex-fixed
+  +middle-column.flex-grow
+  //- +right-column.flex-fixed
+  +room-options.flex-fixed.ui-divide-left
 </template>
 
 <script>
