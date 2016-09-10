@@ -5,5 +5,8 @@
 [include]
 
 [libs]
+flowtype/libs
 
 [options]
+module.name_mapper.extension='vue' -> '<PROJECT_ROOT>/flowtype/imports/VueComponent.js.flow'
+module.name_mapper.extension='styl' -> '<PROJECT_ROOT>/flowtype/imports/StylusModule.js.flow'
