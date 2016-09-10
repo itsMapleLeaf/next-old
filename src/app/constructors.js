@@ -1,17 +1,18 @@
 // @flow
+import {
+  Name, Gender, Status, Character,
+  Message, MessageType,
+  Channel, PrivateChat
+} from './types'
+
 export function newCharacter (
-  name: Name,
-  gender: Gender,
-  status?: Status = 'online',
-  statusmsg?: string = ''
+  name: Name, gender: Gender, status?: Status = 'online', statusmsg?: string = ''
 ): Character {
   return { name, gender, status, statusmsg }
 }
 
 export function newMessage (
-  sender: Character,
-  message: string,
-  type: MessageType
+  sender: Character, message: string, type: MessageType
 ): Message {
   return { sender, type, message, time: Date.now() }
 }

@@ -1,8 +1,8 @@
 // alias types
-declare type Name = string
+export type Name = string
 
 // enum types
-declare type Gender
+export type Gender
   = 'Male'
   | 'Female'
   | 'Transgender'
@@ -11,7 +11,7 @@ declare type Gender
   | 'Male-herm'
   | 'None'
 
-declare type Status
+export type Status
   = 'online'
   | 'looking'
   | 'busy'
@@ -20,40 +20,40 @@ declare type Status
   | 'idle'
   | 'offline'
 
-declare type ChannelMode
+export type ChannelMode
   = 'both'
   | 'chat'
   | 'ads'
 
-declare type MessageType
+export type MessageType
   = 'chat'
   | 'lfrp'
   | 'friend'
   | 'admin'
   | 'self'
 
-declare type SocketState
+export type SocketState
   = 'offline'
   | 'connecting'
   | 'connected'
   | 'identified'
 
 // object types
-declare type Character = {
+export type Character = {
   name: Name,
   gender: Gender,
   status: Status,
   statusmsg: string
 }
 
-declare type Message = {
+export type Message = {
   sender: Character,
   message: string,
   type: MessageType,
   time: number
 }
 
-declare type Channel = {
+export type Channel = {
   id: string,
   name: string,
   description: string,
@@ -62,12 +62,12 @@ declare type Channel = {
   ops: Name[]
 }
 
-declare type PrivateChat = {
+export type PrivateChat = {
   partner: Character,
   messages: Message[]
 }
 
-declare type Relationship = {
+export type Relationship = {
   you: Name,
   them: Name
 }
