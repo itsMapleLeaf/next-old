@@ -9,7 +9,7 @@ import {
 
 import state from './state'
 import {newCharacter, newChannel, newMessage, newPrivateChat} from '../constructors'
-import {mapToObject, assign, remove} from '../util'
+import {mapToObject, assign} from '../util'
 import {disconnectFromChatServer} from './socket'
 import {popOverlay, pushOverlay} from './ui'
 import * as flist from '../f-list'

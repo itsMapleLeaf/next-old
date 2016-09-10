@@ -36,7 +36,7 @@ function clamp (n: number, min: number, max: number) {
 }
 
 // map an array to object keys/values
-function mapToObject<T> (array: T[], func: (item: T) => [string, any]) {
+function mapToObject <T> (array: T[], func: (item: T) => [string, any]) {
   let result = {}
   for (let item of array) {
     const [key, value] = func(item)
