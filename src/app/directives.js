@@ -1,4 +1,4 @@
-// import Vue from 'vue'
+// @flow
 
 function scrollToBottom (event) {
   const el = event.target
@@ -6,18 +6,18 @@ function scrollToBottom (event) {
 }
 
 const bottomScroll = {
-  bind (el, binding) {
+  bind (el: Object, binding: Object) {
     el.dataset.bottomScrollEnabled = 'true'
     el.addEventListener('scroll', scrollToBottom)
   },
-  update (el, binding) {
+  update (el: Object, binding: Object) {
     if (el.dataset.bottomScrollEnabled === 'true') {
       window.requestAnimationFrame(() => {
         el.scrollTop = el.scrollHeight
       })
     }
   },
-  unbind (el, binding) {
+  unbind (el: Object, binding: Object) {
     el.removeEventListener('scroll', scrollToBottom)
   }
 }

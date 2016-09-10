@@ -1,4 +1,8 @@
-import {http} from 'vue'
+// @flow
+import Vue from 'vue'
+import type {Name, Relationship} from './types'
+
+const {http} = Vue
 
 const endpoints = {
   login: 'https://www.f-list.net/json/getApiTicket.php',
@@ -9,62 +13,53 @@ const endpoints = {
   bookmarkRemove: 'https://www.f-list.net/json/api/bookmark-remove.php'
 }
 
-function post (url, data) {
-  return http.post(url, data).then(res => {
-    const data = JSON.parse(res.data)
-    if (data.error) throw new Error(data.error)
-    return data
+function endpointAction (url: string, data: Object): Promise<any> {
+  return new Promise((resolve, reject) => {
+    http.post(url, data).then(res => {
+      const data = JSON.parse(res.data)
+      data.error ? reject(data.error) : resolve(data)
+    })
   })
 }
 
-export function getTicket (account, password) {
-  return post(endpoints.login, { account, password }).then(data => {
+export function getTicket (account: string, password: string): Promise<string> {
+  return endpointAction(endpoints.login, { account, password }).then(data => {
     return data.ticket
   })
 }
 
-export function getCharacters (account, ticket) {
-  return post(endpoints.characterList, { account, ticket }).then(data => {
+export function getCharacters (account: string, ticket: string): Promise<Name[]> {
+  return endpointAction(endpoints.characterList, { account, ticket }).then(data => {
     return data.characters
   })
 }
 
-export function getFriends (account, ticket) {
-  return post(endpoints.friendList, { account, ticket }).then(data => {
+export function getFriends (account: string, ticket: string): Promise<Relationship[]> {
+  return endpointAction(endpoints.friendList, { account, ticket }).then(data => {
     return data.friends.map(entry => ({ you: entry.source, them: entry.dest }))
   })
 }
 
-export function getBookmarks (account, ticket) {
-  return post(endpoints.bookmarkList, { account, ticket }).then(data => {
+export function getBookmarks (account: string, ticket: string): Promise<Name[]> {
+  return endpointAction(endpoints.bookmarkList, { account, ticket }).then(data => {
     return data.characters
   })
 }
 
-export function addBookmark (account, ticket, name) {
-  return post(endpoints.bookmarkAdd, { account, ticket, name }).then(data => {
-    if (data.error) {
-      throw new Error(data.error)
-    }
-    return true
-  })
+export function addBookmark (account: string, ticket: string, name: Name): Promise<?string> {
+  return endpointAction(endpoints.bookmarkAdd, { account, ticket, name })
 }
 
-export function removeBookmark (account, ticket, name) {
-  return post(endpoints.bookmarkRemove, { account, ticket, name }).then(data => {
-    if (data.error) {
-      throw new Error(data.error)
-    }
-    return true
-  })
+export function removeBookmark (account: string, ticket: string, name: Name): Promise<?string> {
+  return endpointAction(endpoints.bookmarkRemove, { account, ticket, name })
 }
 
-export function getProfileURL (name) {
+export function getProfileURL (name: Name): string {
   const encoded = encodeURI(name.toLowerCase())
   return `https://www.f-list.net/c/${encoded}`
 }
 
-export function getAvatarURL (name) {
+export function getAvatarURL (name: Name): string {
   const encoded = encodeURI(name.toLowerCase())
   return `https://static.f-list.net/images/avatar/${encoded}.png`
 }

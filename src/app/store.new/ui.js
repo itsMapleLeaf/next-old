@@ -1,5 +1,7 @@
+// @flow
+import type {Name} from '../types'
 import state from './state'
-import {remove} from './util'
+import {remove} from '../util'
 import {Howl} from 'howler'
 
 const notificationSound = new Howl({
@@ -8,7 +10,7 @@ const notificationSound = new Howl({
 })
 
 // overlay management
-export function pushOverlay (overlay) {
+export function pushOverlay (overlay: string) {
   state.overlays.push(overlay)
 }
 
@@ -17,7 +19,7 @@ export function popOverlay () {
 }
 
 // notifications / messages
-export function showMessageBubble (text, lifetime = 3500, callback) {
+export function showMessageBubble (text: string, lifetime: number = 3500, callback?: Function) {
   const bubble = {
     text,
     onclick () {
@@ -33,8 +35,8 @@ export function showMessageBubble (text, lifetime = 3500, callback) {
   state.messageBubbles.push(bubble)
 }
 
-export function logMessage (text) {
-  state.messageLog.push({ text })
+export function logMessage (text: string) {
+  state.messageLog.push(text)
 }
 
 export function incrementUnreadMessageCount () {
@@ -49,23 +51,23 @@ export function playNotificationSound () {
   notificationSound.stop().play()
 }
 
-export function showNotification (text, lifetime, callback) {
+export function showNotification (text: string, lifetime?: number, callback?: Function) {
   showSilentNotification(text, lifetime, callback)
   playNotificationSound()
 }
 
-export function showSilentNotification (text, lifetime, callback) {
+export function showSilentNotification (text: string, lifetime?: number, callback?: Function) {
   showMessageBubble(text, lifetime, callback)
   logMessage(text)
   incrementUnreadMessageCount()
 }
 
 // character menu stuff
-export function setCharacterMenuFocus (name) {
+export function setCharacterMenuFocus (name: Name) {
   state.characterMenuFocus = state.onlineCharacters[name]
 }
 
-export function openCharacterMenu (name) {
+export function openCharacterMenu (name: Name) {
   setCharacterMenuFocus(name)
   pushOverlay('character-menu')
 }

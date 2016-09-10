@@ -1,8 +1,11 @@
+// @flow
 import state from './state'
 import * as socket from '../socket'
 import meta from '../../../package.json'
+import {setStatus} from './chat'
+import type {SocketState} from '../types'
 
-export function setSocketState (socketState) {
+export function setSocketState (socketState: SocketState) {
   state.socketState = socketState
 }
 
@@ -55,28 +58,28 @@ export function requestChannels () {
   socket.sendCommand('ORS')
 }
 
-export function joinChannel (channel) {
+export function joinChannel (channel: string) {
   socket.sendCommand('JCH', { channel })
 }
 
-export function leaveChannel (channel) {
+export function leaveChannel (channel: string) {
   socket.sendCommand('LCH', { channel })
 }
 
-export function sendChannelMessage (channel, message) {
+export function sendChannelMessage (channel: string, message: string) {
   socket.sendCommand('MSG', { channel, message })
 }
 
-export function sendPrivateMessage (recipient, message) {
+export function sendPrivateMessage (recipient: string, message: string) {
   socket.sendCommand('PRI', { recipient, message })
 }
 
-export function updateStatus (status, statusmsg) {
+export function updateStatus (status: string, statusmsg: string) {
   socket.sendCommand('STA', { status, statusmsg })
-  .setStatus(status, statusmsg)
+  setStatus(status, statusmsg)
 }
 
-export function ignoreAction (character, action) {
+export function ignoreAction (character: string, action: string) {
   // action can be: 'add', 'delete', 'notify', or 'list'
   // https://wiki.f-list.net/F-Chat_Client_Commands#IGN
   socket.sendCommand('IGN', { character, action })

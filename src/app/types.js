@@ -38,6 +38,14 @@ export type SocketState
   | 'connected'
   | 'identified'
 
+export type Category
+  = 'friend'
+  | 'bookmark'
+  | 'admin'
+  | 'op'
+  | 'looking'
+  | 'none'
+
 // object types
 export type Character = {
   name: Name,
@@ -63,7 +71,7 @@ export type Channel = {
 }
 
 export type PrivateChat = {
-  partner: Character,
+  partner: Name,
   messages: Message[]
 }
 
@@ -71,3 +79,16 @@ export type Relationship = {
   you: Name,
   them: Name
 }
+
+export type Bubble = {
+  text: string,
+  onclick: Function
+}
+
+export type ChannelInfo = {
+  id: string,
+  name: string,
+  users: number
+}
+
+export type CharacterBatchEntry = [Name, Gender, Status, string]

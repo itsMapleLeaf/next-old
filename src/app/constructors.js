@@ -28,7 +28,7 @@ export function newChannel (id: string, name: string): Channel {
   }
 }
 
-export function newPrivateChat (partner: Character): PrivateChat {
+export function newPrivateChat (partner: Name): PrivateChat {
   return {
     partner,
     messages: []

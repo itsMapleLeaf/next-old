@@ -1,4 +1,7 @@
+// @flow
 import * as store from './store'
+
+const {WebSocket} = window
 
 const serverCommands = {
   IDN () {
@@ -143,31 +146,35 @@ const serverCommands = {
   VAR () {}
 }
 
-let ws = null
+const state = {
+  ws: (null: ?WebSocket)
+}
 
 function connect () {
-  ws = new window.WebSocket('wss://chat.f-list.net:9799')
-  return ws
+  state.ws = new window.WebSocket('wss://chat.f-list.net:9799')
+  return state.ws
 }
 
 function disconnect () {
-  ws.close()
+  if (state.ws) state.ws.close()
 }
 
-function sendCommand (command, params) {
+function sendCommand (command: string, params?: Object) {
   const data = params ? `${command} ${JSON.stringify(params)}` : command
-  ws.send(data)
-  console.log(`Sent command: ${data}`)
+  if (state.ws) {
+    state.ws.send(data)
+    console.log(`Sent command: ${data}`)
+  }
 }
 
-function handleCommand (command, params) {
+function handleCommand (command: string, params: Object) {
   serverCommands[command]
     ? serverCommands[command](params)
     : console.warn(`Unknown command: ${command} ${JSON.stringify(params)}`)
 }
 
 function isConnected () {
-  return ws != null
+  return state.ws != null
 }
 
 export { connect, disconnect, sendCommand, handleCommand, isConnected }

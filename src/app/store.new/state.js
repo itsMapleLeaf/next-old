@@ -1,77 +1,105 @@
-export default {
+// @flow
+import type {
+  Character, Name, Status,
+  Channel, PrivateChat,
+  SocketState, ChannelInfo,
+  Bubble
+} from '../types'
+
+type NameMap = {
+  [name: Name]: boolean
+}
+
+type CharacterMap = {
+  [name: Name]: Character
+}
+
+type RelationshipMap = {
+  [you: Name]: Name[]
+}
+
+type ChannelMap = {
+  [id: string]: Channel
+}
+
+type PrivateChatMap = {
+  [partner: Name]: PrivateChat
+}
+
+class State {
   // ui overlays
-  overlays: [],
+  overlays: string[] = []
 
   // message bubbles that show up in the bottom right
-  messageBubbles: [],
+  messageBubbles: Bubble[] = []
 
   // list of messages
-  messageLog: [],
+  messageLog: string[] = []
 
   // the number of unread messages we have
-  unreadMessageCount: 0,
+  unreadMessageCount: number = 0
 
   // socket connection state
   // either: offline, connecting, online, identified
-  socketState: 'offline',
+  socketState: SocketState = 'offline'
 
   // auth information
-  account: '',
-  ticket: '',
+  account: string = ''
+  ticket: string = ''
 
   // our current identity
-  identity: '',
+  identity: Name = ''
 
   // our status
-  status: 'online',
-  statusmsg: '',
+  status: Status = 'online'
+  statusmsg: string = ''
 
-  // our list of characters
-  characters: [],
+  // list of user characters
+  characters: Name[] = []
 
   // a map of characters to friends they're with
-  // e.g.: { "their character": ["your character 1", "your character 2"] }
-  friends: {},
+  friends: RelationshipMap = {}
 
   // our bookmarks by name
-  bookmarks: {},
+  bookmarks: NameMap = {}
 
   // ignored characters by name
-  ignored: {},
+  ignored: NameMap = {}
 
   // global admins by name
-  admins: {},
+  admins: NameMap = {}
 
   // a map of all online characters, name to Character object
-  onlineCharacters: {},
+  onlineCharacters: CharacterMap = {}
 
   // list of available channels
-  // format: { id: channelID, name: channelTitle, users: numberOfCharacters }
-  channelList: [],
+  channelList: ChannelInfo[] = []
 
   // list of all active chats, for ordering
-  // activeChats: [],
+  // activeChats: []
 
   // index of the current active room
-  // currentChatIndex: 0,
+  // currentChatIndex: 0
 
-  // map of active channels { channelID => channel object }
-  activeChannels: {},
+  // map of active channels
+  activeChannels: ChannelMap = {}
 
   // map of active private chats { partner name => private chat object }
-  activePrivateChats: {},
+  activePrivateChats: PrivateChatMap = {}
 
   // current character opened on the character menu
-  characterMenuFocus: '',
+  characterMenuFocus: Name = ''
 
   // getter for the current room
   // get currentChat () {
   //   const index = clamp(this.currentRoomIndex, 0, this.rooms.length - 1)
   //   return this.rooms[index]
-  // },
+  // }
 
   // getter for the user's character object
-  get userCharacter () {
+  getUserCharacter (): Character {
     return this.onlineCharacters[this.identity]
   }
 }
+
+export default new State()

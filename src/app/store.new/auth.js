@@ -1,23 +1,26 @@
+// @flow
+import type {Name, Relationship} from '../types'
 import state from './state'
 import * as flist from '../f-list'
-import * as user from './user'
 
-export function fetchUserData (account, ticket) {
-  setAuthInfo(account, ticket)
+type UserData = {
+  characters: Name[],
+  friends: Relationship[],
+  bookmarks: Name[]
+}
 
+export function fetchUserData (account: string, ticket: string): Promise<UserData> {
   return Promise.all([
     flist.getCharacters(account, ticket),
     flist.getFriends(account, ticket),
     flist.getBookmarks(account, ticket)
   ])
   .then(([characters, friends, bookmarks]) => {
-    user.setCharacterList(characters)
-    user.setFriends(friends)
-    user.setBookmarks(bookmarks)
+    return {characters, friends, bookmarks}
   })
 }
 
-export function setAuthInfo (account, ticket) {
+export function setAuthInfo (account: string, ticket: string) {
   state.account = account
   state.ticket = ticket
 }
