@@ -1,7 +1,7 @@
 <template lang='pug'>
 form.login-form(@submit.prevent='')
   fieldset
-    h1 Login
+    h2 Hello, beautiful.
   fieldset
     .icon-input
       i.mdi.mdi-account-circle
