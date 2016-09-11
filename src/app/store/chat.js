@@ -5,14 +5,14 @@ import type {
   Channel, PrivateChat,
   MessageType,
   CharacterBatchEntry
-} from '../types'
+} from '../lib/types'
 
 import state from './state'
-import {newCharacter, newChannel, newMessage, newPrivateChat} from '../constructors'
-import {mapToObject, assign, values} from '../util'
 import {disconnectFromChatServer} from './socket'
 import {popOverlay, pushOverlay} from './ui'
-import * as flist from '../f-list'
+import {newCharacter, newChannel, newMessage, newPrivateChat} from '../lib/constructors'
+import {mapToObject, assign, values} from '../lib/util'
+import * as flist from '../lib/f-list'
 import Vue from 'vue'
 
 // user char state

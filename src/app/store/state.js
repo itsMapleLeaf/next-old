@@ -4,7 +4,7 @@ import type {
   Channel, PrivateChat, Chat,
   SocketState, ChannelInfo,
   Bubble
-} from '../types'
+} from '../lib/types'
 
 type NameMap = {
   [name: Name]: boolean

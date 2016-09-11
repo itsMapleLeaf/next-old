@@ -1,9 +1,9 @@
 // @flow
 import state from './state'
-import * as socket from '../socket'
+import * as socket from '../lib/socket'
 import meta from '../../../package.json'
 import {setStatus, clearChannels} from './chat'
-import type {Status, SocketState} from '../types'
+import type {Status, SocketState} from '../lib/types'
 
 export function setSocketState (socketState: SocketState) {
   state.socketState = socketState

@@ -1,11 +1,14 @@
 // @flow
-import type {Name} from '../types'
 import state from './state'
-import {remove} from '../util'
+import type {Name} from '../lib/types'
+import {remove} from '../lib/util'
 import {Howl} from 'howler'
 
 const notificationSound = new Howl({
-  src: ['assets/notify.mp3', 'assets/notify.ogg'],
+  src: [
+    'assets/notify.mp3',
+    'assets/notify.ogg'
+  ],
   volume: 0.5
 })
 

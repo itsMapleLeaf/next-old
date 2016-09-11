@@ -2,7 +2,7 @@
 // import type {Name, Relationship} from '../types'
 import state from './state'
 import {setCharacterList, setFriends, setBookmarks} from './chat'
-import * as flist from '../f-list'
+import * as flist from '../lib/f-list'
 
 // type UserData = {
 //   characters: Name[],
