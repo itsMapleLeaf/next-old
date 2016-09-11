@@ -1,0 +1,59 @@
+@require 'mixins'
+@require 'colors'
+
+.container
+  fullscreen()
+  flex()
+  flex-align(center)
+  background: $theme-color
+
+.login-form
+  text-align: center
+
+.input
+  active-animation()
+  input-styles()
+  accent-border()
+
+.button
+  active-animation()
+  input-styles()
+  width: min-content
+  min-width: 4em
+  opacity: 0.7
+  cursor: pointer
+
+  &:hover
+    opacity: 1
+
+.toggle
+  active-animation()
+  font-size: 90%
+  opacity: 0.5
+  border-bottom: 1px solid transparent
+
+  &.toggle-checked
+    opacity: 0.8
+
+  &:hover
+    opacity: 1
+    border-bottom-color: rgba($text-color, 0.3)
+
+.icon-input
+  active-animation()
+  position: relative
+
+  i
+    position: absolute
+    padding: 0.3em 0.5em
+    pointer-events: none
+    opacity: 0.5
+
+  input
+    input-styles()
+    accent-border()
+    animate()
+    padding-left: 2em
+
+.icon-label
+  margin-left: 0.15em

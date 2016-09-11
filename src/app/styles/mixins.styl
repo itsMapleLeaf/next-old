@@ -1,0 +1,39 @@
+@require 'colors'
+
+fullscreen()
+  position: absolute
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+
+flex($direction = row)
+  display: flex
+  flex-direction: $direction
+
+flex-align($justify, $align = $justify)
+  justify-content: $justify
+  align-items: $align
+
+animate($time = 0.25s)
+  transition: $time
+
+input-styles()
+  width: 10em
+  background: darken($theme-color, 25%)
+  padding: 0.3em 0.6em
+
+accent-border()
+  border-bottom: 2px solid $accent-color
+
+  &:focus
+    border-bottom-color: lighten($accent-color, 30%)
+
+active-animation()
+  display: inline-block
+  transform: scale(1)
+  animate()
+
+  &:active
+    transform: scale(0.95)
+    animate(0.05s)

@@ -1,12 +1,9 @@
 <template lang='pug'>
-a.toggle(href='#', :class!="value && 'toggle-checked'", @click="$emit('input', !value)")
+a.toggle(href='#', :class!="value && 'toggle-checked'", @click.prevent="$emit('input', !value)")
   i.mdi(:class="iconClass")
-  slot
+  span.icon-label
+    slot
 </template>
-
-<style lang='stylus'>
-i { margin-right: 0.15em }
-</style>
 
 <script>
 export default {

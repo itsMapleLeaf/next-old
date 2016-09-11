@@ -5,7 +5,7 @@ import App from './components/App.vue'
 import * as store from './store'
 
 // import styles
-import './styles.styl'
+import './styles/main.styl'
 
 // configure keycodes
 Vue.config.keyCodes = {
