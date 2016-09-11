@@ -1,28 +1,14 @@
 <template lang='pug'>
 .container
-  form.login-form(@submit.prevent='')
-    fieldset
-      h1 Login
-    fieldset
-      .icon-input
-        i.mdi.mdi-account-circle
-        input(type='text', placeholder='Username')
-    fieldset
-      .icon-input
-        i.mdi.mdi-lock
-        input(type='password', placeholder='••••••••')
-    fieldset
-      button.button Go
-    fieldset
-      toggle(v-model="remember") Remember me
+  login
 </template>
 
 <script>
-import Toggle from './Toggle.vue'
+import Login from './Login.vue'
 
 export default {
   components: {
-    Toggle
+    Login
   },
   data () {
     return {
