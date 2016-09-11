@@ -13,8 +13,8 @@ export default {
   computed: {
     iconClass () {
       return this.value
-        ? 'mdi-checkbox-marked-circle-outline'
-        : 'mdi-checkbox-blank-circle-outline'
+        ? 'mdi-checkbox-marked-outline'
+        : 'mdi-checkbox-blank-outline'
     }
   }
 }
