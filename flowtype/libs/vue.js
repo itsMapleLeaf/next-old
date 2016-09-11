@@ -5,7 +5,8 @@ declare module 'vue' {
     static http: typeof VueResource,
     static use (plugin: Object | Function): void,
     static set<T> (object: Object, key: string, value: T): T,
-    static delete (object: Object, key: string): void
+    static delete (object: Object, key: string): void,
+    $store: Object
   }
 
   declare var exports: typeof Vue
