@@ -1,5 +1,5 @@
 // @flow
-import state from './state'
+import {state} from './state'
 import * as socket from '../lib/socket'
 import meta from '../../../package.json'
 import {setStatus, clearChannels} from './chat'

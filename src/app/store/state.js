@@ -92,4 +92,4 @@ class State {
   }
 }
 
-export default new State()
+export const state = new State()

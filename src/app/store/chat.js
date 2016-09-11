@@ -7,7 +7,7 @@ import type {
   CharacterBatchEntry
 } from '../lib/types'
 
-import state from './state'
+import {state} from './state'
 import {disconnectFromChatServer} from './socket'
 import {popOverlay, pushOverlay} from './ui'
 import {newCharacter, newChannel, newMessage, newPrivateChat} from '../lib/constructors'

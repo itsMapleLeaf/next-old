@@ -1,5 +1,5 @@
 // @flow
-import state from './state'
+import {state} from './state'
 import type {Name} from '../lib/types'
 import {remove} from '../lib/util'
 import {Howl} from 'howler'
