@@ -8,7 +8,7 @@ import type {
 } from '../lib/types'
 
 import {state} from './state'
-import {disconnectFromChatServer} from './socket'
+import {disconnect} from './socket'
 import {popOverlay, pushOverlay} from './ui'
 import {newCharacter, newChannel, newMessage, newPrivateChat} from '../lib/constructors'
 import {mapToObject, assign, values} from '../lib/util'
@@ -204,13 +204,13 @@ export function removeIgnored (name: Name) {
 }
 
 export function logOut () {
-  disconnectFromChatServer()
+  disconnect()
   popOverlay()
   pushOverlay('login')
 }
 
 export function switchCharacter () {
-  disconnectFromChatServer()
+  disconnect()
   popOverlay()
   pushOverlay('character-select')
 }
