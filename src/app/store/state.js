@@ -31,6 +31,9 @@ class State {
   // the number of unread messages we have
   unreadMessageCount: number = 0
 
+  // our websocket object
+  socket: typeof window.WebSocket
+
   // socket connection state
   // either: offline, connecting, online, identified
   socketState: SocketState = 'offline'
