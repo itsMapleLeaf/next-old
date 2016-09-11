@@ -7,15 +7,14 @@
 
 <script>
 import Character from './Character.vue'
-import CharacterModel from '../models/Character'
-import {state} from '../store'
+import {state} from '../store.new'
 
 export default {
   components: {
     Character
   },
   props: {
-    character: CharacterModel,
+    character: Object,
     isOp: Boolean
   },
   computed: {

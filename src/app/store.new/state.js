@@ -1,7 +1,7 @@
 // @flow
 import type {
   Character, Name, Status,
-  Channel, PrivateChat,
+  Channel, PrivateChat, Chat,
   SocketState, ChannelInfo,
   Bubble
 } from '../types'
@@ -15,15 +15,7 @@ type CharacterMap = {
 }
 
 type RelationshipMap = {
-  [you: Name]: Name[]
-}
-
-type ChannelMap = {
-  [id: string]: Channel
-}
-
-type PrivateChatMap = {
-  [partner: Name]: PrivateChat
+  [them: Name]: Name[]
 }
 
 class State {
@@ -57,7 +49,10 @@ class State {
   // list of user characters
   characters: Name[] = []
 
-  // a map of characters to friends they're with
+  // current character opened on the character menu
+  characterMenuFocus: Character
+
+  // a map of characters to lists of user's friends they're with
   friends: RelationshipMap = {}
 
   // our bookmarks by name
@@ -75,26 +70,21 @@ class State {
   // list of available channels
   channelList: ChannelInfo[] = []
 
-  // list of all active chats, for ordering
-  // activeChats: []
+  // channel states
+  channels: { [id: string]: Channel } = {}
 
-  // index of the current active room
-  // currentChatIndex: 0
+  // private chat states
+  privateChats: { [partner: Name]: PrivateChat } = {}
 
-  // map of active channels
-  activeChannels: ChannelMap = {}
+  // list of active chats
+  activeChats: Chat[] = []
 
-  // map of active private chats { partner name => private chat object }
-  activePrivateChats: PrivateChatMap = {}
+  // index of the current active chat
+  currentChatIndex: number = 0
 
-  // current character opened on the character menu
-  characterMenuFocus: Name = ''
-
-  // getter for the current room
-  // get currentChat () {
-  //   const index = clamp(this.currentRoomIndex, 0, this.rooms.length - 1)
-  //   return this.rooms[index]
-  // }
+  getCurrentChat (): ?Chat {
+    return this.activeChats[this.currentChatIndex]
+  }
 
   // getter for the user's character object
   getUserCharacter (): Character {

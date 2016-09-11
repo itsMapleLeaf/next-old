@@ -1,7 +1,7 @@
 // @flow
 
 // return the values of an object
-function values (obj: Object) {
+function values (obj: Object): any[] {
   return Object.values ? Object.values(obj) : Object.keys(obj).map(key => obj[key])
 }
 

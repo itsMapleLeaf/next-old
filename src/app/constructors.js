@@ -1,8 +1,8 @@
 // @flow
-import {
+import type {
   Name, Gender, Status, Character,
-  Message, MessageType,
-  Channel, PrivateChat
+  Channel, PrivateChat,
+  Message, MessageType
 } from './types'
 
 export function newCharacter (
@@ -23,12 +23,13 @@ export function newChannel (id: string, name: string): Channel {
     name,
     description: '',
     mode: 'both', // either 'both', 'chat', or 'ads'
-    characters: [],
-    ops: []
+    users: [],
+    ops: [],
+    messages: []
   }
 }
 
-export function newPrivateChat (partner: Name): PrivateChat {
+export function newPrivateChat (partner: Character): PrivateChat {
   return {
     partner,
     messages: []

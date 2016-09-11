@@ -35,7 +35,7 @@ mixin confirm
 import Avatar from './CharacterAvatarLink.vue'
 import SelectionOption from './SelectionOption.vue'
 import BackButton from './BackButton.vue'
-import * as store from '../store'
+import * as store from '../store.new'
 import * as session from '../session'
 
 export default {

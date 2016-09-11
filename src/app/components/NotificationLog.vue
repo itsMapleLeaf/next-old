@@ -14,7 +14,7 @@ side-menu(right, panel-class='flex-column, ui-width-7')
 
 <script>
 import SideMenu from './SideMenu.vue'
-import {state, popOverlay} from '../store'
+import {state, popOverlay} from '../store.new'
 
 export default {
   components: {SideMenu},

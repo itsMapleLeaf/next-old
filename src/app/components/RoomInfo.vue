@@ -11,7 +11,7 @@
 <script>
 import CharacterList from './CharacterList.vue'
 import BackButton from './BackButton.vue'
-import * as store from '../store'
+import * as store from '../store.new'
 
 export default {
   components: {CharacterList, BackButton},

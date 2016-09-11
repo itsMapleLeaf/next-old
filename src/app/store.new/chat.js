@@ -1,15 +1,15 @@
 // @flow
-import {
+import type {
   Character, Name, Status, Gender, Relationship, Category,
-  Channel, ChannelInfo, ChannelMode,
-  PrivateChat,
+  ChannelInfo, ChannelMode,
+  Channel, PrivateChat,
   MessageType,
   CharacterBatchEntry
 } from '../types'
 
 import state from './state'
 import {newCharacter, newChannel, newMessage, newPrivateChat} from '../constructors'
-import {mapToObject, assign} from '../util'
+import {mapToObject, assign, values} from '../util'
 import {disconnectFromChatServer} from './socket'
 import {popOverlay, pushOverlay} from './ui'
 import * as flist from '../f-list'
@@ -32,7 +32,7 @@ export function setCharacterList (list: Name[]) {
 // character query maps
 export function setFriends (list: Relationship[]) {
   const map = {}
-  for (let {you, them} of list) {
+  for (const {you, them} of list) {
     map[them] = map[them] || []
     map[them].push(you)
   }
@@ -54,7 +54,7 @@ export function setAdminList (list: Name[]) {
 // online character list management
 export function addCharacterBatch (batch: CharacterBatchEntry[]) {
   const map = {}
-  for (let [name, gender, status, statusmsg] of batch) {
+  for (const [name, gender, status, statusmsg] of batch) {
     map[name] = newCharacter(name, gender, status, statusmsg)
   }
   state.onlineCharacters = assign({}, state.onlineCharacters, map)
@@ -65,9 +65,8 @@ export function addCharacter (name: Name, gender: Gender) {
 }
 
 export function removeCharacter (name: Name) {
-  for (let id in state.activeChannels) {
-    const ch: Channel = state.activeChannels[id]
-    ch.characters = ch.characters.filter(n => n !== name)
+  for (const channel: Channel of values(state.channels)) {
+    channel.users = channel.users.filter(c => c.name !== name)
   }
   delete state.onlineCharacters[name]
 }
@@ -89,65 +88,59 @@ export function clearChannels () {
 
 // channel management
 export function addChannelRoom (id: string, name: string) {
-  Vue.set(state.activeChannels, id, newChannel(id, name))
+  Vue.set(state.channels, id, newChannel(id, name))
 }
 
 export function removeChannelRoom (id: string) {
-  Vue.delete(state.activeChannels, id)
+  Vue.delete(state.channels, id)
 }
 
 export function isChannelJoined (id: string) {
-  return state.activeChannels[id] != null
+  return state.channels[id] != null
 }
 
 export function setChannelCharacters (id: string, names: Name[]) {
-  state.activeChannels[id].characters = names
+  state.channels[id].users = names.map(n => getCharacter(n))
 }
 
 export function addChannelCharacter (id: string, name: Name) {
-  state.activeChannels[id].characters.push(name)
+  state.channels[id].users.push(getCharacter(name))
 }
 
 export function removeChannelCharacter (id: string, name: Name) {
-  const channel = state.activeChannels[id]
-  channel.characters = channel.characters.filter(n => n !== name)
+  const channel = state.channels[id]
+  channel.users = channel.users.filter(n => n !== name)
 }
 
 export function setChannelOps (id: string, ops: Name[]) {
-  state.activeChannels[id].ops = ops
+  state.channels[id].ops = ops
 }
 
 export function setChannelMode (id: string, mode: ChannelMode) {
-  state.activeChannels[id].mode = mode
+  state.channels[id].mode = mode
 }
 
 export function setChannelDescription (id: string, description: string) {
-  state.activeChannels[id].description = description
+  state.channels[id].description = description
 }
 
 export function addChannelMessage (id: string, name: Name, message: string, type: MessageType) {
-  const room = state.activeChannels[id]
-  room.messages.push(newMessage(name, message, type))
-  if (name !== state.identity && room !== state.currentRoom) {
-    room.active = true
-  }
+  const channel = state.channels[id]
+  channel.messages.push(newMessage(getCharacter(name), message, type))
 }
 
 // private chat management
 export function addPrivateRoom (partner: Name): PrivateChat {
-  return Vue.set(state.activePrivateChats, partner, newPrivateChat(partner))
+  return Vue.set(state.privateChats, partner, newPrivateChat(getCharacter(partner)))
 }
 
 export function removePrivateRoom (partner: Name) {
-  Vue.delete(state.activePrivateChats, partner)
+  Vue.delete(state.privateChats, partner)
 }
 
 export function addPrivateMessage (partner: Name, sender: Name, message: string, type: MessageType) {
-  const room = state.activePrivateChats[partner] || addPrivateRoom(partner)
-  room.messages.push(newMessage(sender, message, type))
-  if (sender !== state.identity) {
-    room.active = true
-  }
+  const room = state.privateChats[partner] || addPrivateRoom(partner)
+  room.messages.push(newMessage(getCharacter(partner), message, type))
 }
 
 // queries
@@ -191,15 +184,13 @@ export function getCharacterCategory (name: Name, oplist: Name[] = []): Category
 
 // user actions
 export function addBookmark (name: Name): Promise<void> {
-  return flist.addBookmark(state.account, state.ticket, name)
-  .then(() => {
+  return flist.addBookmark(state.account, state.ticket, name).then(() => {
     Vue.set(state.bookmarks, name, true)
   })
 }
 
 export function removeBookmark (name: Name): Promise<void> {
-  return flist.removeBookmark(state.account, state.ticket, name)
-  .then(() => {
+  return flist.removeBookmark(state.account, state.ticket, name).then(() => {
     Vue.delete(state.bookmarks, name)
   })
 }

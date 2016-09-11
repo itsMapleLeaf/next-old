@@ -1,9 +1,8 @@
 <template lang="pug">
 div
-  a.flex-row.flex-justify-space-between.ui-transition(href='#', v-for="room of rooms", :class="roomClass(room)", @click="$emit('selected', room)")
-    span.ui-padding-3
-      room-title(:room='room')
-    span.ui-padding-3.ui-faded(@click.stop="$emit('closed', room)")
+  a.flex-row.flex-justify-space-between.ui-transition.ui-padding-3(href='#', v-for="room of rooms", :class="roomClass(room)", @click="$emit('selected', room)")
+    span: room-title(:room='room')
+    span.ui-faded(@click.stop="$emit('closed', room)")
       i.mdi.mdi-close
 </template>
 

@@ -24,7 +24,7 @@ import SideMenu from './SideMenu.vue'
 import MenuHeader from './MenuHeader.vue'
 import MenuOption from './MenuOption.vue'
 import UserStatus from './UserStatus.vue'
-import * as store from '../store'
+import * as store from '../store.new'
 import {capitalize} from '../util'
 
 export default {
@@ -56,7 +56,7 @@ export default {
 
     openPrivateRoom () {
       const room = store.addPrivateRoom(this.character.name)
-      store.setCurrentRoom(room)
+      store.setCurrentChat(room)
       store.popOverlay()
     }
   }

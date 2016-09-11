@@ -5,11 +5,9 @@ span
 </template>
 
 <script>
-import ChannelRoom from '../models/ChannelRoom'
-
 export default {
   props: {
-    room: ChannelRoom
+    room: Object
   },
 
   computed: {

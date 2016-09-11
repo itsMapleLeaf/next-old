@@ -38,7 +38,7 @@ mixin app-info
 
 <script>
 import {getAvatarURL} from '../f-list'
-import {state, pushOverlay, resetUnreadMessageCount} from '../store'
+import {state, pushOverlay, resetUnreadMessageCount} from '../store.new'
 import {version} from '../../../package.json'
 
 export default {

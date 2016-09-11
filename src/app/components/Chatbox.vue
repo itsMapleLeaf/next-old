@@ -3,7 +3,7 @@ textarea(v-model='message', :placeholder='placeholder', @keydown='submit', :styl
 </template>
 
 <script>
-import {state} from '../store'
+import {state} from '../store.new'
 
 export default {
   data () {
@@ -15,11 +15,13 @@ export default {
 
   computed: {
     placeholder () {
-      const room = this.state.currentRoom
-      if (room.type === 'channel') {
-        return `Chatting in ${room.name} as ${this.state.identity}...`
-      } else if (room.type === 'private') {
-        return `Chatting with ${room.partner.name} as ${this.state.identity}...`
+      const chat = this.state.currentChat
+      if (chat) {
+        if (chat.type === 'channel') {
+          return `Chatting in ${chat.name} as ${this.state.identity}...`
+        } else if (chat.type === 'private') {
+          return `Chatting with ${chat.partner.name} as ${this.state.identity}...`
+        }
       }
     }
   },

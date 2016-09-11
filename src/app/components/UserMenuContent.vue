@@ -5,7 +5,7 @@
     menu-status-form
   .color-dark.flex-grow.ui-scroll-y.ui-divide-top
     active-room-list.color-main(:rooms="state.rooms", :current="state.currentRoom",
-      @selected="setCurrentRoom", @closed="closeRoom")
+      @selected="setCurrentChat", @closed="closeRoom")
 </template>
 
 <script>
@@ -13,7 +13,7 @@ import UserHeader from './UserHeader.vue'
 import MenuStatusForm from './MenuStatusForm.vue'
 import ActiveRoomList from './ActiveRoomList.vue'
 import UserMenuOptions from './UserMenuOptions.vue'
-import {state, setCurrentRoom} from '../store'
+import {state, setCurrentChat} from '../store.new'
 
 export default {
   components: {UserHeader, MenuStatusForm, ActiveRoomList, UserMenuOptions},
@@ -25,7 +25,7 @@ export default {
   },
 
   methods: {
-    setCurrentRoom,
+    setCurrentChat,
     closeRoom (room) {
       room.close()
     }

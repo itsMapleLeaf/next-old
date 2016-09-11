@@ -5,12 +5,11 @@ span
 </template>
 
 <script>
-import PrivateRoom from '../models/PrivateRoom'
 import {getAvatarURL} from '../f-list'
 
 export default {
   props: {
-    room: PrivateRoom
+    room: Object
   },
   computed: {
     avatarURL () { return getAvatarURL(this.room.partner.name) }

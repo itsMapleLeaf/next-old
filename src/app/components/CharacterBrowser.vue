@@ -15,7 +15,7 @@
 <script>
 import Card from './CharacterBrowserCard.vue'
 import BackButton from './BackButton.vue'
-import * as store from '../store'
+import * as store from '../store.new'
 import * as util from '../util'
 
 // function compareNames (a, b) {

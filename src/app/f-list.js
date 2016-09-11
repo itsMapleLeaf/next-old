@@ -2,8 +2,6 @@
 import Vue from 'vue'
 import type {Name, Relationship} from './types'
 
-const {http} = Vue
-
 const endpoints = {
   login: 'https://www.f-list.net/json/getApiTicket.php',
   characterList: 'https://www.f-list.net/json/api/character-list.php',
@@ -15,7 +13,7 @@ const endpoints = {
 
 function endpointAction (url: string, data: Object): Promise<any> {
   return new Promise((resolve, reject) => {
-    http.post(url, data).then(res => {
+    Vue.http.post(url, data).then(res => {
       const data = JSON.parse(res.data)
       data.error ? reject(data.error) : resolve(data)
     })

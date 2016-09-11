@@ -15,7 +15,7 @@ import CharacterBrowser from './CharacterBrowser.vue'
 import About from './About.vue'
 import NotificationLog from './NotificationLog.vue'
 
-import {state} from '../store'
+import {state} from '../store.new'
 
 export default {
   components: {

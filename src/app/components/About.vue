@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {popOverlay} from '../store'
+import {popOverlay} from '../store.new'
 import {version} from '../../../package.json'
 
 export default {

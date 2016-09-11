@@ -18,7 +18,7 @@
 
 <script>
 import Checkbox from './Checkbox.vue'
-import * as store from '../store'
+import * as store from '../store.new'
 import * as session from '../session'
 import {getTicket} from '../f-list'
 

@@ -6,11 +6,9 @@ a(href='#')
 </template>
 
 <script>
-import Character from '../models/Character'
-
 export default {
   props: {
-    character: Character
+    character: Object
   }
 }
 </script>

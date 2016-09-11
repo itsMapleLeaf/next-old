@@ -1,5 +1,5 @@
 // @flow
-import * as store from './store'
+import * as store from './store.new'
 
 const {WebSocket} = window
 
@@ -136,9 +136,11 @@ const serverCommands = {
   // private message
   PRI ({ character: name, message }) {
     store.addPrivateMessage(name, name, message, 'chat')
-    if (!document.hasFocus() || store.state.currentRoom.partner.name !== name) {
+
+    const chat = store.state.getCurrentChat()
+    if (!document.hasFocus() || !(chat != null && chat.type === 'private' && chat.state.partner.name === name)) {
       store.showNotification(`${name}: ${message}`, 4000, () => {
-        store.setPrivateRoom(name)
+        // store.setPrivateRoom(name)
       })
     }
   },

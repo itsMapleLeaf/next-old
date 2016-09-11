@@ -14,7 +14,7 @@ div
 
 <script>
 import MenuOption from './MenuOption.vue'
-import {pushOverlay, logOut, switchCharacter} from '../store'
+import {pushOverlay, logOut, switchCharacter} from '../store.new'
 
 export default {
   components: {MenuOption},

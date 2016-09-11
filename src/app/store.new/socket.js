@@ -2,8 +2,8 @@
 import state from './state'
 import * as socket from '../socket'
 import meta from '../../../package.json'
-import {setStatus} from './chat'
-import type {SocketState} from '../types'
+import {setStatus, clearChannels} from './chat'
+import type {Status, SocketState} from '../types'
 
 export function setSocketState (socketState: SocketState) {
   state.socketState = socketState
@@ -54,6 +54,7 @@ export function identify () {
 }
 
 export function requestChannels () {
+  clearChannels()
   socket.sendCommand('CHA')
   socket.sendCommand('ORS')
 }
@@ -74,7 +75,7 @@ export function sendPrivateMessage (recipient: string, message: string) {
   socket.sendCommand('PRI', { recipient, message })
 }
 
-export function updateStatus (status: string, statusmsg: string) {
+export function updateStatus (status: Status, statusmsg: string) {
   socket.sendCommand('STA', { status, statusmsg })
   setStatus(status, statusmsg)
 }

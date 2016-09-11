@@ -1,6 +1,10 @@
 <template lang="pug">
+.container
+</template>
+
+<template lang="pug">
 div(@click='checkDataAttribute')
-  chat.ui-fullscreen(:room="state.currentRoom", @chatbox-submit="chatboxSubmit")
+  chat.ui-fullscreen(:room="state.currentChat", @chatbox-submit="chatboxSubmit")
   overlays(style="z-index: 2")
   .ui-anchor-right.ui-anchor-bottom.ui-margin-right-1
     notification.ui-margin-bottom-1(v-for="note in state.messageBubbles",
@@ -13,7 +17,7 @@ import Overlays from './Overlays.vue'
 import AppHeader from './AppHeader.vue'
 import Notification from './Notification.vue'
 
-import * as store from '../store'
+import * as store from '../store.new'
 import * as session from '../session'
 import {isConnected} from '../socket'
 
@@ -45,9 +49,6 @@ export default {
     })
   },
   methods: {
-    pushOverlay: store.pushOverlay,
-    setCurrentRoom: store.setCurrentRoom,
-
     authenticate () {
       return new Promise((resolve, reject) => {
         const account = session.getStorageItem('account')
@@ -63,7 +64,7 @@ export default {
       })
     },
     checkDataAttribute (event) {
-      for (let {name, value} of event.target.attributes) {
+      for (const {name, value} of event.target.attributes) {
         switch (name) {
           case 'data-character':
             store.openCharacterMenu(value)
@@ -76,10 +77,7 @@ export default {
       }
     },
     chatboxSubmit (message) {
-      this.state.currentRoom.sendMessage(message)
-    },
-    closeRoom (room) {
-      room.close()
+      this.state.activeChat.sendMessage(message)
     }
   },
   computed: {
@@ -95,15 +93,15 @@ export default {
     'state.socketState' (state) {
       if (state === 'identified') {
         const channels = session.getStorageItem(`channels:${this.state.identity}`)
-        for (let id of channels || []) {
+        for (const id of channels || []) {
           store.joinChannel(id)
         }
       }
     },
-    'state.channelRooms' (rooms) {
+    'state.activeChannels' (rooms) {
       session.setStorageItem(`channels:${this.state.identity}`, Object.keys(rooms))
     },
-    'state.currentRoom' (room) {
+    'state.currentChat' (room) {
       room.active = false
     },
     'windowTitle' (title) {

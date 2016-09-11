@@ -2,11 +2,10 @@
 mixin channel-list
   selection-option(v-for="ch of channels",
     :active="isChannelJoined(ch.id)", @input="toggleChannel(ch.id)")
-      .flex.flex-justify-space-between
-        span(v-html='ch.name')
-        span {{ ch.users }}
-      em.ui-text-small.ui-text-faded(v-if='ch.id !== ch.name')
-        | {{ ch.id }}
+    .flex.flex-justify-space-between
+      span(v-html='ch.name')
+      span {{ ch.users }}
+    em.ui-text-small.ui-text-faded(v-if='ch.id !== ch.name') {{ ch.id }}
 
 mixin search-box
   .ui-input-icon-left
@@ -41,7 +40,7 @@ mixin show-all-channels
 import SelectionOption from './SelectionOption.vue'
 import Checkbox from './Checkbox.vue'
 import BackButton from './BackButton.vue'
-import * as store from '../store'
+import * as store from '../store.new'
 
 const {isChannelJoined} = store
 
@@ -65,7 +64,7 @@ export default {
       const pub = []
       const priv = []
 
-      for (let ch of this.state.channels) {
+      for (let ch of this.state.channelList) {
         if (ch.name === ch.id) {
           pub.push(ch)
         } else {
@@ -73,8 +72,8 @@ export default {
         }
       }
 
-      pub.sort((a, b) => a.name.localeCompare(b.name))
-      priv.sort((a, b) => a.name.localeCompare(b.name))
+      pub.sort((a, b) => b.users - a.users)
+      priv.sort((a, b) => b.users - a.users)
       return pub.concat(priv)
         .filter(ch => ch.name.toLocaleLowerCase()
           .includes(this.searchText.toLocaleLowerCase()))

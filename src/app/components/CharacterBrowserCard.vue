@@ -9,7 +9,6 @@ a.flex.ui-link.ui-fit-viewport(href='#', style='height: 100px; margin: 0.5rem; b
 </template>
 
 <script>
-import Character from '../models/Character'
 import UserStatus from './UserStatus.vue'
 import {getAvatarURL} from '../f-list'
 
@@ -17,7 +16,7 @@ export default {
   components: {UserStatus},
 
   props: {
-    character: Character
+    character: Object
   },
 
   computed: {

@@ -1,5 +1,8 @@
+// @flow
+
 // alias types
 export type Name = string
+export type CharacterBatchEntry = [Name, Gender, Status, string]
 
 // enum types
 export type Gender
@@ -66,12 +69,13 @@ export type Channel = {
   name: string,
   description: string,
   mode: ChannelMode,
-  characters: Name[],
-  ops: Name[]
+  users: Character[],
+  ops: Name[],
+  messages: Message[]
 }
 
 export type PrivateChat = {
-  partner: Name,
+  partner: Character,
   messages: Message[]
 }
 
@@ -88,7 +92,9 @@ export type Bubble = {
 export type ChannelInfo = {
   id: string,
   name: string,
-  users: number
+  userCount: number
 }
 
-export type CharacterBatchEntry = [Name, Gender, Status, string]
+export type Chat
+  = { type: 'channel', hot: boolean, state: Channel }
+  | { type: 'private', hot: boolean, state: PrivateChat }

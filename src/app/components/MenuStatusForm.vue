@@ -11,7 +11,7 @@ form(@submit.prevent='submit')
 
 <script>
 import Dropdown from './Dropdown.vue'
-import * as store from '../store'
+import * as store from '../store.new'
 
 export default {
   components: {Dropdown},

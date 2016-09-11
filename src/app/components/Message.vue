@@ -7,7 +7,6 @@ div(:style='style', :class='classes')
 
 <script>
 import Character from './Character.vue'
-import Message from '../models/Message'
 
 const meCommand = /^\/me/
 
@@ -20,7 +19,7 @@ export default {
     Character
   },
   props: {
-    message: Message
+    message: Object
   },
   computed: {
     parsedMessage () {
