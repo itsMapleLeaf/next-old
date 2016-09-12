@@ -1,10 +1,10 @@
 <template lang='pug'>
 .chat.flex-row
   .option-bar.flex-fixed
-    div(data-tooltip='Channels'): a.option-bar-option(href='#'): i.mdi.mdi-forum
-    div(data-tooltip='Friends'): a.option-bar-option(href='#'): i.mdi.mdi-heart
-    div(data-tooltip='Update Status'): a.option-bar-option(href='#'): i.mdi.mdi-account-settings
-    div(data-tooltip='Settings'): a.option-bar-option(href='#'): i.mdi.mdi-settings
+    .tooltip-right(data-tooltip='Channels'): a.option-bar-option(href='#'): i.mdi.mdi-forum
+    .tooltip-right(data-tooltip='Friends'): a.option-bar-option(href='#'): i.mdi.mdi-heart
+    .tooltip-right(data-tooltip='Update Status'): a.option-bar-option(href='#'): i.mdi.mdi-account-settings
+    .tooltip-right(data-tooltip='Settings'): a.option-bar-option(href='#'): i.mdi.mdi-settings
   resizable(right).active-chat-list.flex-fixed
     a.current(href='#')
       i.mdi.mdi-earth
@@ -26,7 +26,15 @@
       |  test
   .divider
   .flex-grow.flex-column
-    .room-settings.flex-fixed
+    .room-settings.flex-fixed.flex-row
+      .room-filters.flex-grow
+        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle Chat
+        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle LFRP
+        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle Admin
+        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle Friend
+        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle Self
+      a.room-settings-button.flex-fixed.tooltip-bottom(data-tooltip='Room Settings', href='#')
+        i.mdi.mdi-tune
     .divider
     resizable(bottom).room-description.flex-fixed
     .divider
@@ -40,10 +48,12 @@
 
 <script>
 import Resizable from './Resizable.vue'
+import Toggle from './Toggle.vue'
 
 export default {
   components: {
-    Resizable
+    Resizable,
+    Toggle
   },
   mounted () {
     window.addEventListener('keydown', this.focusChatInput)
@@ -121,8 +131,20 @@ export default {
   width-limit: 6em 20em
 
 .room-settings
+  flex-align(center)
   background: darken($theme-color, 30%)
-  height: 2em
+
+  .room-filter
+    margin: 0.4em 0 0.4em 0.7em
+
+  .room-settings-button
+    padding: 0.3em
+    font-size: 130%
+    opacity: 0.5
+    animate()
+
+    &:hover
+      opacity: 1
 
 .chat-messages
   background: darken($theme-color, 30%)
