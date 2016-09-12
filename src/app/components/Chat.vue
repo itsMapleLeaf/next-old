@@ -5,8 +5,25 @@
     div(data-tooltip='Friends'): a.option-bar-option(href='#'): i.mdi.mdi-heart
     div(data-tooltip='Update Status'): a.option-bar-option(href='#'): i.mdi.mdi-account-settings
     div(data-tooltip='Settings'): a.option-bar-option(href='#'): i.mdi.mdi-settings
-  .divider
   resizable(right).active-chat-list.flex-fixed
+    a.current(href='#')
+      i.mdi.mdi-earth
+      |  test
+    a(href='#')
+      i.mdi.mdi-earth
+      |  test
+    a(href='#')
+      i.mdi.mdi-earth
+      |  test
+    a(href='#')
+      i.mdi.mdi-key-variant
+      |  test
+    a(href='#')
+      i.mdi.mdi-key-variant
+      |  test
+    a(href='#')
+      i.mdi.mdi-key-variant
+      |  test
   .divider
   .flex-grow.flex-column
     .room-settings.flex-fixed
@@ -73,13 +90,30 @@ export default {
 
   a
     active-animation()
-    font-size: 120%
+    font-size: 130%
     padding: 0.4em 0.5em
 
 .active-chat-list
   background: $theme-color
   width: 8em
   width-limit: 6em 20em
+
+  a
+    accent-border(left)
+    display: block
+    padding: 0.3em 0.6em
+    opacity: 0.5
+    animate()
+
+    &:hover
+      background: darken($theme-color, 20%)
+
+    &.current
+      background: darken($theme-color, 30%)
+      opacity: 1
+
+    &:not(.current)
+      border-color: transparent
 
 .user-list
   background: $theme-color
