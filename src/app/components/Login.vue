@@ -1,15 +1,15 @@
 <template lang='pug'>
-form.login-form(@submit.prevent='')
+form.login-form(@submit.prevent='submit')
   fieldset
     h2 Hello, beautiful.
   fieldset
     .icon-input
       i.mdi.mdi-account-circle
-      input(type='text', placeholder='Username')
+      input(type='text', placeholder='Username', v-model='account')
   fieldset
     .icon-input
       i.mdi.mdi-lock
-      input(type='password', placeholder='••••••••')
+      input(type='password', placeholder='••••••••', v-model='password')
   fieldset
     button.button Go
   fieldset
@@ -25,7 +25,14 @@ export default {
   },
   data () {
     return {
+      account: '',
+      password: '',
       remember: false
+    }
+  },
+  methods: {
+    submit () {
+      // log in
     }
   }
 }
