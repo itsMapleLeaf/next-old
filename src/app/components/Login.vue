@@ -11,10 +11,15 @@ form.login-form(@submit.prevent='submit')
       i.mdi.mdi-lock
       input(type='password', placeholder='••••••••', v-model='password')
   fieldset
-    button.button Go
+    toggle(v-model='remember') Remember me
   fieldset
-    toggle(v-model="remember") Remember me
+    button.button(action='submit') Go
 </template>
+
+<style lang='stylus' scoped>
+.login-form
+  text-align: center
+</style>
 
 <script>
 import Toggle from './Toggle.vue'
@@ -32,7 +37,7 @@ export default {
   },
   methods: {
     submit () {
-      // log in
+      this.$emit('login-submit', this.account, this.password, this.remember)
     }
   }
 }

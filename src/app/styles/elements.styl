@@ -1,15 +1,6 @@
 @require 'mixins'
 @require 'colors'
 
-.container
-  fullscreen()
-  flex()
-  flex-align(center)
-  background: $theme-color
-
-.login-form
-  text-align: center
-
 .input
   active-animation()
   input-styles()
@@ -57,3 +48,16 @@
 
 .icon-label
   margin-left: 0.15em
+
+.selection-list
+  display: inline-block
+  width: 10em
+  background: darken($theme-color, 20%)
+
+  a
+    active-animation()
+    display: block
+    padding: 0.35em 0.6em
+
+  a.selection-list-active
+    background: rgba($highlight-active, 0.5)
