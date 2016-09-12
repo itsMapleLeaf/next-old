@@ -46,14 +46,6 @@ export default {
 @require '../styles/mixins'
 @require '../styles/colors'
 
-width-limit($min, $max)
-  min-width: $min
-  max-width: $max
-
-height-limit($min, $max)
-  min-height: $min
-  max-height: $max
-
 .flex-row
   flex(row)
 
