@@ -25,7 +25,7 @@ import Chat from './Chat.vue'
 export default {
   data () {
     return {
-      currentView: Login
+      currentView: Chat
     }
   },
   methods: {
