@@ -4,25 +4,43 @@
     div(data-tooltip='Channels'): a.option-bar-option(href='#'): i.mdi.mdi-forum
     div(data-tooltip='Friends'): a.option-bar-option(href='#'): i.mdi.mdi-heart
     div(data-tooltip='Update Status'): a.option-bar-option(href='#'): i.mdi.mdi-account-settings
-    div(data-tooltip='Settings'): a.option-bar-option(href='#'): i.mdi.mdi-wrench
+    div(data-tooltip='Settings'): a.option-bar-option(href='#'): i.mdi.mdi-settings
   .divider
-  .active-chat-list.flex-fixed
+  resizable(right).active-chat-list.flex-fixed
   .divider
   .flex-grow.flex-column
     .room-settings.flex-fixed
     .divider
-    .room-description.flex-fixed
+    resizable(bottom).room-description.flex-fixed
     .divider
     .chat-messages.flex-grow
     .divider
-    .chat-input.flex-fixed
+    resizable(top).chat-input.flex-fixed
   .divider
-  .user-list.flex-fixed
+  resizable(left).user-list.flex-fixed
 </template>
+
+<script>
+import Resizable from './Resizable.vue'
+
+export default {
+  components: {
+    Resizable
+  }
+}
+</script>
 
 <style lang='stylus' scoped>
 @require '../styles/mixins'
 @require '../styles/colors'
+
+width-limit($min, $max)
+  min-width: $min
+  max-width: $max
+
+height-limit($min, $max)
+  min-height: $min
+  max-height: $max
 
 .flex-row
   flex(row)
@@ -57,10 +75,12 @@
 .active-chat-list
   background: $theme-color
   width: 8em
+  width-limit: 6em 20em
 
 .user-list
   background: $theme-color
   width: 8em
+  width-limit: 6em 20em
 
 .room-settings
   background: darken($theme-color, 30%)

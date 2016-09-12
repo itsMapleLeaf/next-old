@@ -1,5 +1,5 @@
 <template lang='pug'>
-.container
+body.container
   transition(name='fade', mode='out-in', appear)
     component(:is='currentView',
       @login-submit='loginSubmit',
