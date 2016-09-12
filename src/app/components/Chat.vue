@@ -16,6 +16,7 @@
     .chat-messages.flex-grow
     .divider
     resizable(top).chat-input.flex-fixed
+      textarea.textarea(ref='chatInput')
   .divider
   resizable(left).user-list.flex-fixed
 </template>
@@ -26,6 +27,17 @@ import Resizable from './Resizable.vue'
 export default {
   components: {
     Resizable
+  },
+  mounted () {
+    window.addEventListener('keydown', this.focusChatInput)
+  },
+  destroyed () {
+    window.removeEventListener('keydown', this.focusChatInput)
+  },
+  methods: {
+    focusChatInput () {
+      this.$refs.chatInput.focus()
+    }
   }
 }
 </script>
@@ -55,12 +67,12 @@ height-limit($min, $max)
   flex-shrink: 0
 
 .divider
-  size(3px)
+  size: 3px
   visibility: hidden
   flex-shrink: 0
 
 .chat
-  size(100%)
+  size: 100%
   background: darken($theme-color, 50%)
 
 .option-bar
@@ -90,10 +102,17 @@ height-limit($min, $max)
   background: darken($theme-color, 30%)
 
 .room-description
-  background: darken($theme-color, 15%)
+  background: darken($theme-color, 10%)
   height: 5em
 
 .chat-input
-  background: darken($theme-color, 15%)
+  background: darken($theme-color, 10%)
   height: 5em
+
+  textarea
+    display: block
+    size: 100%
+
+    &:focus
+      background: darken($theme-color, 40%)
 </style>
