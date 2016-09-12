@@ -48,7 +48,7 @@ export default {
         case 'bottom': return 'ns-resize'
         case 'left': return 'ew-resize'
         case 'right': return 'ew-resize'
-        default: return 'default'
+        default: return 'initial'
       }
     },
     getDraggedSize (x, y) {
