@@ -74,7 +74,7 @@ export default {
   a
     active-animation()
     font-size: 120%
-    padding: 0.3em 0.5em
+    padding: 0.4em 0.5em
 
 .active-chat-list
   background: $theme-color

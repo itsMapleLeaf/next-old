@@ -43,11 +43,11 @@ input-styles()
   background: darken($theme-color, 25%)
   padding: 0.3em 0.6em
 
-accent-border()
-  border-bottom: 2px solid $accent-color
+accent-border($side = 'bottom')
+  border-{$side}: 2px solid $accent-color
 
   &:focus
-    border-bottom-color: lighten($accent-color, 30%)
+    border-{$side}-color: lighten($accent-color, 30%)
 
 active-animation()
   display: inline-block
