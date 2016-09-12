@@ -1,40 +1,46 @@
 <template lang='pug'>
 .chat.flex-row
   .option-bar.flex-fixed
-    .tooltip-right(data-tooltip='Channels'): a.option-bar-option(href='#'): i.mdi.mdi-forum
-    .tooltip-right(data-tooltip='Friends'): a.option-bar-option(href='#'): i.mdi.mdi-heart
-    .tooltip-right(data-tooltip='Update Status'): a.option-bar-option(href='#'): i.mdi.mdi-account-settings
-    .tooltip-right(data-tooltip='Settings'): a.option-bar-option(href='#'): i.mdi.mdi-settings
+    tooltip(right, text='test'): a.option-bar-option(href='#'): i.mdi.mdi-forum
+    tooltip(right, text='test'): a.option-bar-option(href='#'): i.mdi.mdi-heart
+    tooltip(right, text='test'): a.option-bar-option(href='#'): i.mdi.mdi-account-settings
+    tooltip(right, text='test'): a.option-bar-option(href='#'): i.mdi.mdi-settings
   resizable(right).active-chat-list.flex-fixed
     a.current(href='#')
       i.mdi.mdi-earth
-      |  test
+      span  test
     a(href='#')
       i.mdi.mdi-earth
-      |  test
+      span  test
     a(href='#')
       i.mdi.mdi-earth
-      |  test
+      span  test
     a(href='#')
       i.mdi.mdi-key-variant
-      |  test
+      span  test
     a(href='#')
       i.mdi.mdi-key-variant
-      |  test
+      span  test
     a(href='#')
       i.mdi.mdi-key-variant
-      |  test
+      span  test
   .divider
   .flex-grow.flex-column
     .room-settings.flex-fixed.flex-row
       .room-filters.flex-grow
-        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle Chat
-        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle LFRP
-        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle Admin
-        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle Friend
-        span.room-filter.tooltip-bottom(data-tooltip='test'): toggle Self
-      a.room-settings-button.flex-fixed.tooltip-bottom(data-tooltip='Room Settings', href='#')
-        i.mdi.mdi-tune
+        tooltip(text='Normal Messages', bottom, inline)
+          toggle.room-filter(value) Chat
+        tooltip(text='RP Ads', bottom, inline)
+          toggle.room-filter(value) LFRP
+        tooltip(text='Red Admin Messages', bottom, inline)
+          toggle.room-filter(value) Admin
+        tooltip(text='Friend and Bookmark Messages', bottom, inline)
+          toggle.room-filter(value) Friend
+        tooltip(text='Your Messages', bottom, inline)
+          toggle.room-filter(value) Self
+      tooltip(bottom, text='Room Settings')
+        a.room-settings-button(href='#')
+          i.mdi.mdi-tune
     .divider
     resizable(bottom).room-description.flex-fixed
     .divider
@@ -49,11 +55,13 @@
 <script>
 import Resizable from './Resizable.vue'
 import Toggle from './Toggle.vue'
+import Tooltip from './Tooltip.vue'
 
 export default {
   components: {
     Resizable,
-    Toggle
+    Toggle,
+    Tooltip
   },
   mounted () {
     window.addEventListener('keydown', this.focusChatInput)
