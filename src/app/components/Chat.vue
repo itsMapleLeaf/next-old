@@ -37,7 +37,7 @@
   flex-shrink: 0
 
 .divider
-  size(0.2em)
+  size(3px)
   visibility: hidden
   flex-shrink: 0
 
