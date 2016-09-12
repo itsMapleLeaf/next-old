@@ -98,6 +98,8 @@ export default {
 
       if (this.dragging || this.checkBounds(clientX, clientY)) {
         document.body.style.cursor = cursor
+        event.preventDefault()
+        event.stopPropagation()
       }
     },
     mouseleave () {
