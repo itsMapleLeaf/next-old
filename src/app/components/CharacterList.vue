@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     submit () {
-      this.$emit('charcter-list-submit', this.current)
+      this.$emit('character-list-submit', this.current)
     }
   }
 }

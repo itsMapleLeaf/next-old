@@ -1,7 +1,9 @@
 <template lang='pug'>
 .container
   transition(name='fade', mode='out-in', appear)
-    component(:is='currentView', @login-submit='loginSubmit')
+    component(:is='currentView',
+      @login-submit='loginSubmit',
+      @character-list-submit='characterListSubmit')
 </template>
 
 <style lang='stylus' scoped>
@@ -18,20 +20,20 @@
 <script>
 import Login from './Login.vue'
 import CharacterList from './CharacterList.vue'
+import Chat from './Chat.vue'
 
 export default {
-  components: {
-    Login,
-    CharacterList
-  },
   data () {
     return {
       currentView: Login
     }
   },
   methods: {
-    loginSubmit () {
+    loginSubmit (account, password, remember) {
       this.currentView = CharacterList
+    },
+    characterListSubmit (character) {
+      this.currentView = Chat
     }
   }
 }
