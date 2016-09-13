@@ -54,19 +54,40 @@
       culpa qui officia deserunt mollit anim id est laborum.
     .divider
     .chat-messages.flex-grow
+      .message
+        .sender: character.user(name='AwesomeCharacter', gender='Male')
+        .message-text This is a chat message.
+      .message
+        .sender: character.user(name='AwesomeCharacter', gender='Female')
+        .message-text This is a chat message.
+      .message
+        .sender: character.user(name='AwesomeCharacter', gender='Transgender')
+        .message-text This is a chat message.
+      .message
+        .sender: character.user(name='AwesomeCharacter', gender='Herm')
+        .message-text This is a chat message.
+      .message
+        .sender: character.user(name='AwesomeCharacter', gender='Shemale')
+        .message-text This is a chat message.
+      .message
+        .sender: character.user(name='AwesomeCharacter', gender='Male-herm')
+        .message-text This is a chat message.
+      .message
+        .sender: character.user(name='AwesomeCharacter', gender='None')
+        .message-text This is a chat message.
     .divider
     resizable(top).chat-input.flex-fixed
       textarea.textarea(ref='chatInput')
   .divider
   resizable(left).user-list.flex-fixed
     .user-count Users: 420
-    character.user(name='AwesomeCharacter', gender='Male')
-    character.user(name='AwesomeCharacter', gender='Female')
-    character.user(name='AwesomeCharacter', gender='Transgender')
-    character.user(name='AwesomeCharacter', gender='Herm')
-    character.user(name='AwesomeCharacter', gender='Shemale')
-    character.user(name='AwesomeCharacter', gender='Male-herm')
-    character.user(name='AwesomeCharacter', gender='None')
+    character.user(name='AwesomeCharacter' gender='Male')
+    character.user(name='AwesomeCharacter' gender='Female')
+    character.user(name='AwesomeCharacter' gender='Transgender')
+    character.user(name='AwesomeCharacter' gender='Herm')
+    character.user(name='AwesomeCharacter' gender='Shemale')
+    character.user(name='AwesomeCharacter' gender='Male-herm')
+    character.user(name='AwesomeCharacter' gender='None')
 </template>
 
 <script>
@@ -183,6 +204,17 @@ export default {
 
 .chat-messages
   background: darken($theme-color, 30%)
+
+  .message
+    margin-top: 0.3em
+    margin-left: 0.5em
+
+    .sender
+      display: inline-block
+      margin-right: 0.5em
+
+    .message-text
+      display: inline-block
 
 .room-description
   background: darken($theme-color, 10%)
