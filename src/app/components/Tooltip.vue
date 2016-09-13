@@ -56,7 +56,7 @@ export default {
     transform: translateX(-50%)
 
   &:hover::after
-    transform: translateX(-50%) translateY(0.5em)
+    transform: translateX(-50%) translateY(0.3em)
 
 .inline
   display: inline-block

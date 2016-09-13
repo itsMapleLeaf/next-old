@@ -1,29 +1,33 @@
 <template lang='pug'>
 .chat.flex-row
   .option-bar.flex-fixed
-    tooltip(right, text='test'): a.option-bar-option(href='#'): i.mdi.mdi-forum
-    tooltip(right, text='test'): a.option-bar-option(href='#'): i.mdi.mdi-heart
-    tooltip(right, text='test'): a.option-bar-option(href='#'): i.mdi.mdi-account-settings
-    tooltip(right, text='test'): a.option-bar-option(href='#'): i.mdi.mdi-settings
+    tooltip(right, text='Channels')
+      a.option-bar-option(href='#'): i.mdi.mdi-forum
+    tooltip(right, text='Online Characters')
+      a.option-bar-option(href='#'): i.mdi.mdi-account-multiple
+    tooltip(right, text='Update Status')
+      a.option-bar-option(href='#'): i.mdi.mdi-account-settings
+    tooltip(right, text='Settings')
+      a.option-bar-option(href='#'): i.mdi.mdi-settings
   resizable(right).active-chat-list.flex-fixed
     a.current(href='#')
       i.mdi.mdi-earth
-      span  test
+      span  Fantasy
     a(href='#')
       i.mdi.mdi-earth
-      span  test
+      span  Story Driven RP
     a(href='#')
       i.mdi.mdi-earth
-      span  test
+      span  RP Bar
     a(href='#')
       i.mdi.mdi-key-variant
-      span  test
+      span  RP Dark City
     a(href='#')
       i.mdi.mdi-key-variant
-      span  test
+      span  Lesbians
     a(href='#')
       i.mdi.mdi-key-variant
-      span  test
+      span  Frontpage
   .divider
   .flex-grow.flex-column
     .room-settings.flex-fixed.flex-row
@@ -42,7 +46,12 @@
         a.room-settings-button(href='#')
           i.mdi.mdi-tune
     .divider
-    resizable(bottom).room-description.flex-fixed
+    resizable(bottom).room-description.flex-fixed.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+      et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+      aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+      culpa qui officia deserunt mollit anim id est laborum.
     .divider
     .chat-messages.flex-grow
     .divider
@@ -50,18 +59,28 @@
       textarea.textarea(ref='chatInput')
   .divider
   resizable(left).user-list.flex-fixed
+    .user-count Users: 420
+    character.user(name='AwesomeCharacter', gender='Male')
+    character.user(name='AwesomeCharacter', gender='Female')
+    character.user(name='AwesomeCharacter', gender='Transgender')
+    character.user(name='AwesomeCharacter', gender='Herm')
+    character.user(name='AwesomeCharacter', gender='Shemale')
+    character.user(name='AwesomeCharacter', gender='Male-herm')
+    character.user(name='AwesomeCharacter', gender='None')
 </template>
 
 <script>
 import Resizable from './Resizable.vue'
 import Toggle from './Toggle.vue'
 import Tooltip from './Tooltip.vue'
+import Character from './Character.vue'
 
 export default {
   components: {
     Resizable,
     Toggle,
-    Tooltip
+    Tooltip,
+    Character
   },
   mounted () {
     window.addEventListener('keydown', this.focusChatInput)
@@ -113,7 +132,7 @@ export default {
 
 .active-chat-list
   background: $theme-color
-  width: 8em
+  width: 10em
   width-limit: 6em 20em
 
   a
@@ -135,8 +154,16 @@ export default {
 
 .user-list
   background: $theme-color
-  width: 8em
+  width: 10em
   width-limit: 6em 20em
+
+  .user-count
+    background: darken($theme-color, 20%)
+    padding: 0.3em 0.6em
+
+  .user
+    display: block
+    padding: 0.2em 0.5em
 
 .room-settings
   flex-align(center)
@@ -160,6 +187,8 @@ export default {
 .room-description
   background: darken($theme-color, 10%)
   height: 5em
+  padding: 0.3em 0.6em
+  overflow-y: auto
 
 .chat-input
   background: darken($theme-color, 10%)
