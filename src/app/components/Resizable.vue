@@ -1,6 +1,7 @@
-<template lang='pug'>
-div(@mouseleave='mouseleave')
-  slot
+<template>  
+  <div @mouseleave='mouseleave'>
+    <slot></slot>
+  </div>
 </template>
 
 <script>

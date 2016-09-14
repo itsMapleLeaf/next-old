@@ -1,7 +1,8 @@
-<template lang='pug'>
-a.character(href='#', :data-character=`name`)
-  span.status(:class=`status.toLowerCase()`) ●
-  span.gender(:class=`gender.toLowerCase()`)  {{ name }}
+<template>
+  <a class='character' href='#' :data-character='name'>
+    <span class='status' :class='status.toLowerCase()'>●</span>
+    <span class='gender' :class='gender.toLowerCase()'>{{ name }}</span>
+  </a>
 </template>
 
 <script>

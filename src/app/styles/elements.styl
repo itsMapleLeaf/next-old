@@ -67,12 +67,12 @@
   a.selection-list-active
     background: rgba($highlight-active, 0.5)
 
-.tooltip
+[data-tooltip]
   position: relative
 
   &::after
     animate()
-    content: attr(data-tooltip-text)
+    content: attr(data-tooltip)
     background: darken($theme-color, 50%)
     font-size: 0.9rem
     position: absolute

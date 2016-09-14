@@ -1,19 +1,27 @@
-<template lang='pug'>
-form.login-form(@submit.prevent='submit')
-  fieldset
-    h2 Hello, beautiful.
-  fieldset
-    .icon-input
-      i.mdi.mdi-account-circle
-      input(type='text', placeholder='Username', v-model='account')
-  fieldset
-    .icon-input
-      i.mdi.mdi-lock
-      input(type='password', placeholder='••••••••', v-model='password')
-  fieldset
-    toggle(v-model='remember') Remember me
-  fieldset
-    button.button(action='submit') Go
+<template>
+  <form class='login-form' @submit.prevent='submit'>
+    <fieldset>
+      <h2>Hello, beautiful.</h2>
+    </fieldset>
+    <fieldset>
+      <div class='icon-input'>
+        <i class='mdi mdi-account-circle'></i>
+        <input type='text' placeholder='Username' v-model='account'/>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class='icon-input'>
+        <i class='mdi mdi-lock'></i>
+        <input type='password' placeholder='••••••••' v-model='password'/>
+      </div>
+    </fieldset>
+    <fieldset>
+      <toggle v-model='remember'>Remember me</toggle>
+    </fieldset>
+    <fieldset>
+      <button class='button' action='submit'>Go</button>
+    </fieldset>
+  </form>
 </template>
 
 <style lang='stylus' scoped>

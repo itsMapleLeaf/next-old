@@ -1,9 +1,9 @@
-<template lang='pug'>
-body.container
-  transition(name='fade', mode='out-in', appear)
-    component(:is='currentView',
-      @login-submit='loginSubmit',
-      @character-list-submit='characterListSubmit')
+<template>  
+  <body class='container'>
+    <transition name='fade' mode='out-in' appear='appear'>
+      <component :is='currentView' @login-submit='loginSubmit' @character-list-submit='characterListSubmit'></component>
+    </transition>
+  </body>
 </template>
 
 <style lang='stylus' scoped>
