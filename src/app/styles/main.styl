@@ -1,3 +1,48 @@
-@require 'root'
 @require 'elements'
 @require 'transitions'
+@require 'colors'
+@require 'mixins'
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+:root
+  color: $text-color
+  font: 14pt Roboto, sans-serif
+
+:focus
+  outline: none
+
+a
+  color: inherit
+  text-decoration: none
+
+h1, h2, h3, h4, h5, h6
+  font-family: 'Roboto Condensed'
+  font-weight: 300
+  opacity: 0.9
+
+h1 { font-size: 2.4em }
+h2 { font-size: 1.8em }
+h3 { font-size: 1.5em }
+h4 { font-size: 1.2em }
+h5 { font-size: 1.1em }
+h6 { font-size: 0.9em }
+
+input, button, textarea
+  font: inherit
+  color: inherit
+  background: none
+  border: none
+
+textarea
+  resize: none
+
+fieldset
+  border: none
+  margin: 0.6em 0
+
+ul, ol, li
+  list-style: none
