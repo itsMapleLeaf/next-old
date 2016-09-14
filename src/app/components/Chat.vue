@@ -77,7 +77,7 @@
         .message-text This is a chat message.
     .divider
     resizable(top).chat-input.flex-fixed
-      textarea.textarea(ref='chatInput')
+      textarea.textarea(placeholder='Chatting as Nobody...', ref='chatInput')
   .divider
   resizable(left).user-list.flex-fixed
     .user-count Users: 420
