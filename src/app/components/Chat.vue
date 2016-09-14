@@ -81,13 +81,13 @@
   .divider
   resizable(left).user-list.flex-fixed
     .user-count Users: 420
-    character.user(name='AwesomeCharacter' gender='Male')
-    character.user(name='AwesomeCharacter' gender='Female')
-    character.user(name='AwesomeCharacter' gender='Transgender')
-    character.user(name='AwesomeCharacter' gender='Herm')
-    character.user(name='AwesomeCharacter' gender='Shemale')
-    character.user(name='AwesomeCharacter' gender='Male-herm')
-    character.user(name='AwesomeCharacter' gender='None')
+    character.user(name='AwesomeCharacter', gender='Male')
+    character.user(name='AwesomeCharacter', gender='Female')
+    character.user(name='AwesomeCharacter', gender='Transgender')
+    character.user(name='AwesomeCharacter', gender='Herm')
+    character.user(name='AwesomeCharacter', gender='Shemale')
+    character.user(name='AwesomeCharacter', gender='Male-herm')
+    character.user(name='AwesomeCharacter', gender='None')
 </template>
 
 <script>
