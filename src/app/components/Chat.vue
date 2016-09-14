@@ -1,14 +1,14 @@
 <template lang='pug'>
 .chat.flex-row
   .option-bar.flex-fixed
-    tooltip(right, text='Channels')
-      a.option-bar-option(href='#'): i.mdi.mdi-forum
-    tooltip(right, text='Online Characters')
-      a.option-bar-option(href='#'): i.mdi.mdi-account-multiple
-    tooltip(right, text='Update Status')
-      a.option-bar-option(href='#'): i.mdi.mdi-account-settings
-    tooltip(right, text='Settings')
-      a.option-bar-option(href='#'): i.mdi.mdi-settings
+    a.option-bar-option(href='#', v-tooltip="Channels")
+      i.mdi.mdi-forum
+    a.option-bar-option(href='#', v-tooltip="Online Characters")
+      i.mdi.mdi-account-multiple
+    a.option-bar-option(href='#', v-tooltip="Update Status")
+      i.mdi.mdi-account-settings
+    a.option-bar-option(href='#', v-tooltip="Settings")
+      i.mdi.mdi-settings
   resizable(right).active-chat-list.flex-fixed
     a.current(href='#')
       i.mdi.mdi-earth
@@ -32,19 +32,13 @@
   .flex-grow.flex-column
     .room-settings.flex-fixed.flex-row
       .room-filters.flex-grow
-        tooltip(text='Normal Messages', bottom, inline)
-          toggle.room-filter(value) Chat
-        tooltip(text='RP Ads', bottom, inline)
-          toggle.room-filter(value) LFRP
-        tooltip(text='Red Admin Messages', bottom, inline)
-          toggle.room-filter(value) Admin
-        tooltip(text='Friend and Bookmark Messages', bottom, inline)
-          toggle.room-filter(value) Friend
-        tooltip(text='Your Messages', bottom, inline)
-          toggle.room-filter(value) Self
-      tooltip(bottom, text='Room Settings')
-        a.room-settings-button(href='#')
-          i.mdi.mdi-tune
+        toggle.room-filter(v-tooltip='Normal Messages') Chat
+        toggle.room-filter(v-tooltip='RP Ads') LFRP
+        toggle.room-filter(v-tooltip='Red Admin Messages') Admin
+        toggle.room-filter(v-tooltip='Friend and Bookmark Messages') Friend
+        toggle.room-filter(v-tooltip='Your Messages') Self
+      a.room-settings-button(href='#', v-tooltip='Room Settings')
+        i.mdi.mdi-tune
     .divider
     resizable(bottom).room-description.flex-fixed.
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
@@ -93,15 +87,18 @@
 <script>
 import Resizable from './Resizable.vue'
 import Toggle from './Toggle.vue'
-import Tooltip from './Tooltip.vue'
 import Character from './Character.vue'
+
+import {tooltip} from '../lib/directives'
 
 export default {
   components: {
     Resizable,
     Toggle,
-    Tooltip,
     Character
+  },
+  directives: {
+    tooltip
   },
   mounted () {
     window.addEventListener('keydown', this.focusChatInput)

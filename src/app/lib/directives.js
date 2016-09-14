@@ -5,21 +5,29 @@ function scrollToBottom (event) {
   el.dataset.bottomScrollEnabled = el.scrollHeight - el.scrollTop === el.clientHeight
 }
 
-const bottomScroll = {
-  bind (el: Object, binding: Object) {
-    el.dataset.bottomScrollEnabled = 'true'
+export const bottomScroll = {
+  bind (el: any, binding: any) {
+    el.dataset.bottomScrollEnabled = true
     el.addEventListener('scroll', scrollToBottom)
   },
-  update (el: Object, binding: Object) {
-    if (el.dataset.bottomScrollEnabled === 'true') {
+  update (el: any, binding: any) {
+    if (el.dataset.bottomScrollEnabled) {
       window.requestAnimationFrame(() => {
         el.scrollTop = el.scrollHeight
       })
     }
   },
-  unbind (el: Object, binding: Object) {
+  unbind (el: any, binding: any) {
     el.removeEventListener('scroll', scrollToBottom)
   }
 }
 
-export { bottomScroll }
+export const tooltip = {
+  bind (el: any, binding: any) {
+    el.classList.add('tooltip', 'tooltip-' + binding.arg)
+    el.setAttribute('data-tooltip-text', binding.expression)
+  },
+  unbind (el: any, binding: any) {
+    el.classList.remove('tooltip', 'tooltip-' + binding.arg)
+  }
+}
