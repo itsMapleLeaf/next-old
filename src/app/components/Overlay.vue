@@ -20,15 +20,22 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../stylus/mixins'
-@require '../stylus/colors'
+@require '../styles/mixins'
+@require '../styles/colors'
 
 .overlay-shade
   background: rgba(black, 0.5)
   fullscreen()
+  flex()
+  flex-align(center)
+
+.overlay
+  width: max-content
 
 .overlay-header
   background: darken($theme-color, 20%)
+  padding: 0.5em 1em
+  text-align: center
   accent-border(bottom)
 
 .overlay-content
