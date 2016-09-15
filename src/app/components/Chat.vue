@@ -14,7 +14,7 @@
         <i class='mdi mdi-settings'></i>
       </a>
     </div>
-    <resizable class='active-chat-list flex-fixed' right>
+    <Resizable class='active-chat-list flex-fixed' right>
       <a class='current' href='#'>
         <i class='mdi mdi-earth'></i>
         <span>Fantasy</span>
@@ -39,91 +39,91 @@
         <i class='mdi mdi-key-variant'></i>
         <span>Frontpage</span>
       </a>
-    </resizable>
+    </Resizable>
     <div class='divider'></div>
     <div class='flex-grow flex-column'>
       <div class='room-settings flex-fixed flex-row'>
         <div class='room-filters flex-grow'>
-          <toggle class='room-filter tooltip-bottom' data-tooltip='Normal Messages'>Chat</toggle>
-          <toggle class='room-filter tooltip-bottom' data-tooltip='RP Ads'>LFRP</toggle>
-          <toggle class='room-filter tooltip-bottom' data-tooltip='Red Admin Messages'>Admin</toggle>
-          <toggle class='room-filter tooltip-bottom' data-tooltip='Friend and Bookmark Messages'>Friend</toggle>
-          <toggle class='room-filter tooltip-bottom' data-tooltip='Your Messages'>Self</toggle>
+          <Toggle class='room-filter tooltip-bottom' data-tooltip='Normal Messages'>Chat</Toggle>
+          <Toggle class='room-filter tooltip-bottom' data-tooltip='RP Ads'>LFRP</Toggle>
+          <Toggle class='room-filter tooltip-bottom' data-tooltip='Red Admin Messages'>Admin</Toggle>
+          <Toggle class='room-filter tooltip-bottom' data-tooltip='Friend and Bookmark Messages'>Friend</Toggle>
+          <Toggle class='room-filter tooltip-bottom' data-tooltip='Your Messages'>Self</Toggle>
         </div>
         <a href='#' class='room-settings-button tooltip-bottom' data-tooltip='Room Settings'>
           <i class='mdi mdi-tune'></i>
         </a>
       </div>
       <div class='divider'></div>
-      <resizable class='room-description flex-fixed' bottom>
+      <Resizable class='room-description flex-fixed' bottom>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
         et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
         aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
         culpa qui officia deserunt mollit anim id est laborum.
-      </resizable>
+      </Resizable>
       <div class='divider'></div>
       <div class='chat-messages flex-grow'>
         <div class='message'>
           <div class='sender'>
-            <character class='user' name='AwesomeCharacter' gender='Male'></character>
+            <Character class='user' name='AwesomeCharacter' gender='Male'></Character>
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <character class='user' name='AwesomeCharacter' gender='Female'></character>
+            <Character class='user' name='AwesomeCharacter' gender='Female'></Character>
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <character class='user' name='AwesomeCharacter' gender='Transgender'></character>
+            <Character class='user' name='AwesomeCharacter' gender='Transgender'></Character>
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <character class='user' name='AwesomeCharacter' gender='Herm'></character>
+            <Character class='user' name='AwesomeCharacter' gender='Herm'></Character>
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <character class='user' name='AwesomeCharacter' gender='Shemale'></character>
+            <Character class='user' name='AwesomeCharacter' gender='Shemale'></Character>
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <character class='user' name='AwesomeCharacter' gender='Male-herm'></character>
+            <Character class='user' name='AwesomeCharacter' gender='Male-herm'></Character>
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <character class='user' name='AwesomeCharacter' gender='None'></character>
+            <Character class='user' name='AwesomeCharacter' gender='None'></Character>
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
       </div>
       <div class='divider'></div>
-      <resizable class='chat-input flex-fixed' top>
-        <chatbox :placeholder="'Chatting as ' + identity + '.'"></chatbox>
-      </resizable>
+      <Resizable class='chat-input flex-fixed' top>
+        <Chatbox :placeholder="'Chatting as ' + identity + '.'"></Chatbox>
+      </Resizable>
     </div>
     <div class='divider'></div>
-    <resizable class='user-list flex-fixed' left>
+    <Resizable class='user-list flex-fixed' left>
       <div class='user-count'>Users: 420</div>
-      <character class='user' name='AwesomeCharacter' gender='Male'></character>
-      <character class='user' name='AwesomeCharacter' gender='Female'></character>
-      <character class='user' name='AwesomeCharacter' gender='Transgender'></character>
-      <character class='user' name='AwesomeCharacter' gender='Herm'></character>
-      <character class='user' name='AwesomeCharacter' gender='Shemale'></character>
-      <character class='user' name='AwesomeCharacter' gender='Male-herm'></character>
-      <character class='user' name='AwesomeCharacter' gender='None'></character>
-    </resizable>
-    <channel-list></channel-list>
+      <Character class='user' name='AwesomeCharacter' gender='Male'></Character>
+      <Character class='user' name='AwesomeCharacter' gender='Female'></Character>
+      <Character class='user' name='AwesomeCharacter' gender='Transgender'></Character>
+      <Character class='user' name='AwesomeCharacter' gender='Herm'></Character>
+      <Character class='user' name='AwesomeCharacter' gender='Shemale'></Character>
+      <Character class='user' name='AwesomeCharacter' gender='Male-herm'></Character>
+      <Character class='user' name='AwesomeCharacter' gender='None'></Character>
+    </Resizable>
+    <ChannelList></ChannelList>
   </div>
 </template>
 

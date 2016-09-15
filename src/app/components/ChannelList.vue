@@ -1,12 +1,12 @@
 <template>
-  <overlay header='Channel List'>
+  <Overlay header='Channel List'>
     <div class='selection-list'>
       <a href='#' v-for='ch of channels'>
         <span class='channel-name'>{{ ch.name }}</span>
         <span class='channel-user-count'>{{ ch.users }}</span>
       </a>
     </div>
-  </overlay>
+  </Overlay>
 </template>
 
 <script>

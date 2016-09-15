@@ -12,7 +12,7 @@
       </component>
     </transition>
     <transition name='fade' appear>
-      <loading v-if='loadingMessage'>{{ loadingMessage }}</loading>
+      <Loading v-if='loadingMessage'>{{ loadingMessage }}</Loading>
     </transition>
   </body>
 </template>
