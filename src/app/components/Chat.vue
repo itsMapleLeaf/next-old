@@ -109,7 +109,7 @@
       </div>
       <div class='divider'></div>
       <resizable class='chat-input flex-fixed' top>
-        <textarea class='textarea' placeholder='Chatting as Nobody...' ref='chatInput'></textarea>
+        <chatbox></chatbox>
       </resizable>
     </div>
     <div class='divider'></div>
@@ -130,28 +130,19 @@
 import Resizable from './Resizable.vue'
 import Toggle from './Toggle.vue'
 import Character from './Character.vue'
+import Chatbox from './Chatbox.vue'
 
-import {tooltip} from '../lib/directives'
+import {tooltip, focusOnKeypress} from '../lib/directives'
 
 export default {
   components: {
     Resizable,
     Toggle,
-    Character
+    Character,
+    Chatbox
   },
   directives: {
     tooltip
-  },
-  mounted () {
-    window.addEventListener('keydown', this.focusChatInput)
-  },
-  destroyed () {
-    window.removeEventListener('keydown', this.focusChatInput)
-  },
-  methods: {
-    focusChatInput () {
-      this.$refs.chatInput.focus()
-    }
   }
 }
 </script>
