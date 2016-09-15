@@ -12,11 +12,9 @@ const endpoints = {
 }
 
 function endpointAction (url: string, data: Object): Promise<any> {
-  return new Promise((resolve, reject) => {
-    Vue.http.post(url, data).then(res => {
-      const data = JSON.parse(res.data)
-      data.error ? reject(data.error) : resolve(data)
-    })
+  return Vue.http.post(url, data).then(res => {
+    const data = JSON.parse(res.data)
+    return data.error ? Promise.reject(data.error) : Promise.resolve(data)
   })
 }
 

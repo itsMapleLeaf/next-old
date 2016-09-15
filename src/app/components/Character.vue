@@ -36,6 +36,9 @@ export default {
   &.male-herm   { color: hsl(225, 100%, 66%) }
   &.none        { color: rgb(227, 218, 145) }
 
+.character
+  font-weight: bold
+
 .ignored
   opacity: 0.5
 </style>

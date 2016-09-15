@@ -21,16 +21,18 @@
     <fieldset>
       <button class='button' action='submit'>Go</button>
     </fieldset>
+    <fieldset>
+      <div class='login-form-status'>
+        {{ status }}
+      </div>
+    </fieldset>
   </form>
 </template>
 
-<style lang='stylus' scoped>
-.login-form
-  text-align: center
-</style>
-
 <script>
 import Toggle from './Toggle.vue'
+import * as flist from '../lib/f-list'
+import * as storage from 'localforage'
 
 export default {
   components: {
@@ -40,13 +42,44 @@ export default {
     return {
       account: '',
       password: '',
-      remember: false
+      remember: false,
+      status: ''
     }
+  },
+  created () {
   },
   methods: {
     submit () {
-      this.$emit('login-submit', this.account, this.password, this.remember)
+      this.$emit('login-submit')
+      this.status = ''
+
+      flist.getTicket(this.account, this.password).then(ticket => {
+        this.$emit('login-success')
+
+        if (this.remember) {
+          storage.setItem('auth', { account: this.account, ticket })
+        } else {
+          storage.clear()
+        }
+      }).catch(err => {
+        this.$emit('login-failure')
+        this.status = err
+          ? 'Wrong username or password.'
+          : `Could not connect to the F-list website.
+            Either they're doing maintenance,
+            or someone spilled coke on the servers again.`
+
+        console.log(err)
+      })
     }
   }
 }
 </script>
+
+<style lang='stylus' scoped>
+.login-form
+  text-align: center
+
+.login-form-status
+  max-width: 16em
+</style>

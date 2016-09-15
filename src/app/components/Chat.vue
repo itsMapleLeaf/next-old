@@ -1,6 +1,6 @@
 <template>
   <div class='chat flex-row'>
-    <div class='option-bar flex-fixed'>
+    <div class='option-bar flex-fixed flex-column'>
       <a class='option-bar-option tooltip-right' href='#' data-tooltip='Channels'>
         <i class='mdi mdi-forum'></i>
       </a>
@@ -198,7 +198,7 @@ export default {
   a
     accent-border(left)
     display: block
-    padding: 0.3em 0.6em
+    padding: 0.3em 0.3em
     opacity: 0.5
     animate()
 
@@ -214,7 +214,7 @@ export default {
 
 .user-list
   background: $theme-color
-  width: 10em
+  width: 12em
   width-limit: 6em 20em
 
   .user-count
