@@ -1,12 +1,12 @@
 // @flow
-import {getProfileURL, getAvatarURL} from './f-list'
+import {getProfileURL, getAvatarURL} from '../lib/f-list'
 import {parse as parseURL} from 'url'
 import path from 'path'
 
 const bbcExpression = /\[(\w+?)=?([^\]]*)\]([\s\S]+?)\[\/\1\]|(https?:\/\/[^\[\]\(\)\s]+)/gi // lol
 const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.gif']
 
-function parseBBC (input: string) {
+export function parseBBC (input: string) {
   return input.replace(bbcExpression, (match, tag, value, text, url) => {
     if (url) {
       tag = 'url'
@@ -75,5 +75,3 @@ function formatUserIcon (user) {
     `</a>`
   )
 }
-
-export default parseBBC

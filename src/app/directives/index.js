@@ -21,13 +21,3 @@ export const bottomScroll = {
     el.removeEventListener('scroll', scrollToBottom)
   }
 }
-
-export const tooltip = {
-  bind (el: any, binding: any) {
-    el.classList.add('tooltip', 'tooltip-' + binding.arg)
-    el.setAttribute('data-tooltip-text', binding.expression)
-  },
-  unbind (el: any, binding: any) {
-    el.classList.remove('tooltip', 'tooltip-' + binding.arg)
-  }
-}
