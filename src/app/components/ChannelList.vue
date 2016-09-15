@@ -31,8 +31,8 @@ export default {
 
 <style lang='stylus' scoped>
 .selection-list
-  width: 14em
-  max-height: 18em
+  width: 18em
+  max-height: 24em
 
 .channel-user-count
   float: right

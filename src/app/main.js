@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './components/App.vue'
-import * as store from './store'
+import {state} from './store'
 
 // import styles
 import './styles/main.styl'
@@ -17,11 +17,9 @@ Vue.config.keyCodes = {
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true
 
-// make store accessible to vue components
-Vue.prototype.$store = store
-
 /* eslint no-new: 0 */
 new Vue({
   el: 'body',
-  render: h => h(App)
+  render: h => h(App),
+  data: {state}
 })

@@ -66,64 +66,64 @@
       <div class='chat-messages flex-grow'>
         <div class='message'>
           <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Male'></Character>
+            <Character class='user' name='AwesomeCharacter' gender='Male' />
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Female'></Character>
+            <Character class='user' name='AwesomeCharacter' gender='Female' />
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Transgender'></Character>
+            <Character class='user' name='AwesomeCharacter' gender='Transgender' />
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Herm'></Character>
+            <Character class='user' name='AwesomeCharacter' gender='Herm' />
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Shemale'></Character>
+            <Character class='user' name='AwesomeCharacter' gender='Shemale' />
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Male-herm'></Character>
+            <Character class='user' name='AwesomeCharacter' gender='Male-herm' />
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
         <div class='message'>
           <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='None'></Character>
+            <Character class='user' name='AwesomeCharacter' gender='None' />
           </div>
           <div class='message-text'>This is a chat message.</div>
         </div>
       </div>
       <div class='divider'></div>
       <Resizable class='chat-input flex-fixed' top>
-        <Chatbox :placeholder="'Chatting as ' + identity + '.'"></Chatbox>
+        <Chatbox :placeholder="'Chatting as ' + store.identity + '.'" />
       </Resizable>
     </div>
     <div class='divider'></div>
     <Resizable class='user-list flex-fixed' left>
       <div class='user-count'>Users: 420</div>
-      <Character class='user' name='AwesomeCharacter' gender='Male'></Character>
-      <Character class='user' name='AwesomeCharacter' gender='Female'></Character>
-      <Character class='user' name='AwesomeCharacter' gender='Transgender'></Character>
-      <Character class='user' name='AwesomeCharacter' gender='Herm'></Character>
-      <Character class='user' name='AwesomeCharacter' gender='Shemale'></Character>
-      <Character class='user' name='AwesomeCharacter' gender='Male-herm'></Character>
-      <Character class='user' name='AwesomeCharacter' gender='None'></Character>
+      <Character class='user' name='AwesomeCharacter' gender='Male' />
+      <Character class='user' name='AwesomeCharacter' gender='Female' />
+      <Character class='user' name='AwesomeCharacter' gender='Transgender' />
+      <Character class='user' name='AwesomeCharacter' gender='Herm' />
+      <Character class='user' name='AwesomeCharacter' gender='Shemale' />
+      <Character class='user' name='AwesomeCharacter' gender='Male-herm' />
+      <Character class='user' name='AwesomeCharacter' gender='None' />
     </Resizable>
-    <ChannelList></ChannelList>
+    <ChannelList/>
   </div>
 </template>
 
@@ -134,12 +134,9 @@ import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
 import ChannelList from './ChannelList.vue'
 
-import {tooltip, focusOnKeypress} from '../lib/directives'
+import {store} from '../store'
 
 export default {
-  props: {
-    identity: String
-  },
   components: {
     Resizable,
     Toggle,
@@ -147,8 +144,10 @@ export default {
     Chatbox,
     ChannelList
   },
-  directives: {
-    tooltip
+  data () {
+    return {
+      store
+    }
   }
 }
 </script>

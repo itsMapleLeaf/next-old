@@ -1,15 +1,7 @@
 <template>
   <body class='container'>
     <transition name='fade' mode='out-in' appear>
-      <component v-if='currentView'
-        :is='currentView'
-        :characters='userCharacters'
-        :identity='identity'
-        @login-submit='loginSubmit'
-        @login-success='loginSuccess'
-        @login-failure='loginFailure'
-        @character-list-submit='characterListSubmit'>
-      </component>
+      <component v-if='currentView' :is='currentView' />
     </transition>
     <transition name='fade' appear>
       <Loading v-if='loadingMessage'>{{ loadingMessage }}</Loading>
@@ -25,54 +17,19 @@ import Loading from './Loading.vue'
 
 import * as flist from '../lib/f-list'
 import * as storage from 'localforage'
+import {store, getters} from '../store'
 
 export default {
   components: {
+    Login,
+    CharacterList,
+    Chat,
     Loading
   },
-  data () {
-    return {
-      currentView: null,
-      loadingMessage: '',
-      userCharacters: [],
-      identity: ''
-    }
+  created () {
+    store.init()
   },
-  mounted () {
-    storage.getItem('auth')
-    .then(auth => {
-      if (!auth) {
-        return Promise.reject()
-      } else {
-        this.loadingMessage = 'Setting things up...'
-        return flist.getCharacters(auth.account, auth.ticket).then(characters => {
-          this.userCharacters = characters
-          this.currentView = CharacterList
-          this.loadingMessage = ''
-        })
-      }
-    })
-    .catch(() => {
-      this.loadingMessage = ''
-      this.currentView = Login
-    })
-  },
-  methods: {
-    loginSubmit () {
-      this.loadingMessage = 'Logging in...'
-    },
-    loginSuccess () {
-      this.loadingMessage = ''
-      this.currentView = CharacterList
-    },
-    loginFailure () {
-      this.loadingMessage = ''
-    },
-    characterListSubmit (name) {
-      this.currentView = Chat
-      this.identity = name
-    }
-  }
+  computed: getters(['currentView', 'loadingMessage'])
 }
 </script>
 

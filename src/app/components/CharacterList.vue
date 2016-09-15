@@ -40,15 +40,13 @@
 
 <script>
 import {getAvatarURL} from '../lib/f-list'
+import {store, getters} from '../store'
 import * as storage from 'localforage'
 
 export default {
-  props: {
-    characters: Array
-  },
   data () {
     return {
-      current: this.characters[0]
+      current: ''
     }
   },
   mounted () {
@@ -57,15 +55,18 @@ export default {
     })
   },
   methods: {
-    submit () {
-      this.$emit('character-list-submit', this.current)
-    },
     select (name) {
       this.current = name
       storage.setItem('character', name)
+    },
+    submit () {
+      store.setIdentity(this.current)
     }
   },
   computed: {
+    ...getters({
+      characters: 'userCharacters'
+    }),
     avatarURL () {
       return this.current && getAvatarURL(this.current)
     }

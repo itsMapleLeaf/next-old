@@ -33,6 +33,7 @@
 import Toggle from './Toggle.vue'
 import * as flist from '../lib/f-list'
 import * as storage from 'localforage'
+import {store} from '../store'
 
 export default {
   components: {
@@ -56,26 +57,9 @@ export default {
   },
   methods: {
     submit () {
-      this.$emit('login-submit')
       this.status = ''
-
-      flist.getTicket(this.account, this.password).then(ticket => {
-        this.$emit('login-success')
-
-        if (this.remember) {
-          storage.setItem('auth', { account: this.account, ticket })
-        } else {
-          storage.clear()
-        }
-      }).catch(err => {
-        this.$emit('login-failure')
+      store.login(this.account, this.password, this.remember).catch(err => {
         this.status = err
-          ? 'Wrong username or password.'
-          : `Could not connect to the F-list website.
-            Either they're doing maintenance,
-            or someone spilled coke on the servers again.`
-
-        console.log(err)
       })
     }
   }
