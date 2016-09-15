@@ -1,25 +1,35 @@
-export type Name = string
+// @flow
+import type {
+  Name, Character, ChannelInfo, Channel, PrivateChat
+} from '../lib/types'
 
-type State = {
-  currentView: Object,
-  loadingMessage: string,
+type CharacterMap = { [name: Name]: Character }
+type ChannelMap = { [id: string]: Channel }
+type PrivateChatMap = { [partner: Name]: PrivateChat }
+type RelationshipMap = { [friend: Name]: Name[] }
+type NameMap = { [name: Name]: boolean }
 
-  account: string,
-  ticket: string,
+export const state = {
+  currentView: ('': string),
+  loadingMessage: ('': string),
 
-  userCharacters: Name[],
-  identity: Name
+  account: ('': string),
+  ticket: ('': string),
+
+  userCharacters: ([]: Name[]),
+  identity: ('': Name),
+
+  socket: (null: ?window.WebSocket),
+
+  onlineCharacters: ({}: CharacterMap),
+
+  friends: ({}: RelationshipMap),
+  ignored: ({}: NameMap),
+  admins: ({}: NameMap),
+
+  publicChannelList: ([]: ChannelInfo[]),
+  privateChannelList: ([]: ChannelInfo[]),
+
+  joinedChannels: ({}: ChannelMap),
+  privateChats: ({}: PrivateChatMap)
 }
-
-const state: State = {
-  currentView: null,
-  loadingMessage: '',
-
-  account: '',
-  ticket: '',
-
-  userCharacters: [],
-  identity: ''
-}
-
-export { state }

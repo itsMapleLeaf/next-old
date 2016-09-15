@@ -1,4 +1,4 @@
-<template>  
+<template>
   <div @mouseleave='mouseleave'>
     <slot></slot>
   </div>
@@ -102,7 +102,7 @@ export default {
       }
     },
     mouseleave () {
-      document.body.style.cursor = 'default'
+      document.body.style.cursor = 'initial'
     }
   }
 }

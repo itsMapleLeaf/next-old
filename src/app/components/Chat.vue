@@ -109,7 +109,7 @@
       </div>
       <div class='divider'></div>
       <Resizable class='chat-input flex-fixed' top>
-        <Chatbox :placeholder="'Chatting as ' + store.identity + '.'" />
+        <Chatbox :placeholder="'Chatting as ' + identity" />
       </Resizable>
     </div>
     <div class='divider'></div>
@@ -134,7 +134,7 @@ import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
 import ChannelList from './ChannelList.vue'
 
-import {store} from '../store'
+import {store, getters} from '../store'
 
 export default {
   components: {
@@ -144,10 +144,9 @@ export default {
     Chatbox,
     ChannelList
   },
-  data () {
-    return {
-      store
-    }
+  computed: getters(['identity']),
+  created () {
+    store.connectToChatServer()
   }
 }
 </script>

@@ -1,31 +1,26 @@
 <template>
   <Overlay header='Channel List'>
     <div class='selection-list'>
-      <a href='#' v-for='ch of channels'>
+      <!-- <a href='#' v-for='ch of channels'>
         <span class='channel-name'>{{ ch.name }}</span>
         <span class='channel-user-count'>{{ ch.users }}</span>
-      </a>
+      </a> -->
     </div>
   </Overlay>
 </template>
 
 <script>
 import Overlay from './Overlay.vue'
+import {store, getters} from '../store'
 
 export default {
   components: {
     Overlay
   },
-  data () {
-    return {
-      channels: []
-    }
-  },
   created () {
-    for (let i = 1; i <= 20; i++) {
-      this.channels.push({ name: 'Channel' + i, users: 420 })
-    }
-  }
+    store.fetchChannelList()
+  },
+  computed: getters(['publicChannelList', 'privateChannelList'])
 }
 </script>
 
