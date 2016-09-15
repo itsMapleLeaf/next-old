@@ -1,17 +1,9 @@
 <template>
   <div class='chat flex-row'>
     <div class='option-bar flex-fixed flex-column'>
-      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Join a Channel' @click="overlays.push('ChannelList')">
-        <i class='mdi mdi-forum'></i>
-      </a>
-      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Browse Online Characters'>
-        <i class='mdi mdi-account-multiple'></i>
-      </a>
-      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Update Your Status'>
-        <i class='mdi mdi-account-settings'></i>
-      </a>
-      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Settings'>
-        <i class='mdi mdi-settings'></i>
+      <a href='#' v-for='option in sidebarOptions' class='tooltip-right'
+        :data-tooltip='option.info' @click='option.action'>
+        <i :class="'mdi mdi-' + option.icon"></i>
       </a>
     </div>
     <Resizable class='active-chat-list flex-fixed' right>
@@ -44,11 +36,10 @@
     <div class='flex-grow flex-column'>
       <div class='room-settings flex-fixed flex-row'>
         <div class='room-filters flex-grow'>
-          <Toggle class='room-filter tooltip-bottom' data-tooltip='Normal Messages'>Chat</Toggle>
-          <Toggle class='room-filter tooltip-bottom' data-tooltip='RP Ads'>LFRP</Toggle>
-          <Toggle class='room-filter tooltip-bottom' data-tooltip='Red Admin Messages'>Admin</Toggle>
-          <Toggle class='room-filter tooltip-bottom' data-tooltip='Friend and Bookmark Messages'>Friend</Toggle>
-          <Toggle class='room-filter tooltip-bottom' data-tooltip='Your Messages'>Self</Toggle>
+          <Toggle v-for='filter of filters' class='room-filter tooltip-bottom'
+            :data-tooltip='filter.info' v-model='filter.enabled'>
+            {{ filter.label }}
+          </Toggle>
         </div>
         <a href='#' class='room-settings-button tooltip-bottom' data-tooltip='Room Settings'>
           <i class='mdi mdi-tune'></i>
@@ -146,8 +137,22 @@ export default {
   },
   computed: getters(['identity']),
   data () {
+    const openOverlay = which => () => this.overlays.push(which)
     return {
-      overlays: []
+      overlays: [],
+      sidebarOptions: {
+        { info: 'Join a Channel', icon: 'forum', action: openOverlay('ChannelList') },
+        { info: 'Browse Online Characters', icon: 'heart' },
+        { info: 'Update Your Status', icon: 'account-settings' },
+        { info: 'Settings', icon: 'settings' }
+      },
+      filters: {
+        { label: 'Chat', info: 'Normal Messages', enabled: false },
+        { label: 'LFRP', info: 'RP Ads', enabled: false },
+        { label: 'Admin', info: 'Red Admin Messages', enabled: false },
+        { label: 'Friend', info: 'Friend and Bookmark Messages', enabled: false },
+        { label: 'Self', info: 'Your Messages', enabled: false }
+      }
     }
   },
   created () {
