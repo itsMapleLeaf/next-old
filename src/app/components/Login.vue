@@ -47,6 +47,12 @@ export default {
     }
   },
   created () {
+    storage.getItem('auth').then(value => {
+      if (value) {
+        this.account = value.account
+        this.remember = true
+      }
+    })
   },
   methods: {
     submit () {
