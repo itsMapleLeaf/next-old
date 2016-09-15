@@ -33,7 +33,8 @@ export default {
     return {
       currentView: null,
       loadingMessage: '',
-      userCharacters: []
+      userCharacters: [],
+      identity: ''
     }
   },
   mounted () {
@@ -64,8 +65,9 @@ export default {
     loginFailure () {
       this.loadingMessage = ''
     },
-    characterListSubmit (character) {
+    characterListSubmit (name) {
       this.currentView = Chat
+      this.identity = name
     }
   }
 }
