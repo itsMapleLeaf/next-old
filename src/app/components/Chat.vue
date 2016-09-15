@@ -123,6 +123,7 @@
       <character class='user' name='AwesomeCharacter' gender='Male-herm'></character>
       <character class='user' name='AwesomeCharacter' gender='None'></character>
     </resizable>
+    <channel-list></channel-list>
   </div>
 </template>
 
@@ -131,6 +132,7 @@ import Resizable from './Resizable.vue'
 import Toggle from './Toggle.vue'
 import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
+import ChannelList from './ChannelList.vue'
 
 import {tooltip, focusOnKeypress} from '../lib/directives'
 
@@ -142,7 +144,8 @@ export default {
     Resizable,
     Toggle,
     Character,
-    Chatbox
+    Chatbox,
+    ChannelList
   },
   directives: {
     tooltip
