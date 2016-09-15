@@ -1,7 +1,7 @@
 // @flow
 import type {Name, CharacterBatchEntry} from '../lib/types'
 import {state} from './state'
-import {newCharacter} from '../lib/constructors'
+import {newCharacter, newChannelInfo} from '../lib/constructors'
 import {assign, mapToObject} from '../lib/util'
 import storage from 'localforage'
 import * as flist from '../lib/f-list'
@@ -72,29 +72,32 @@ export const store = {
   connectToChatServer () {
     if (state.socket) return
 
+    state.loadingMessage = 'Connecting...'
     const socket = new window.WebSocket('wss://chat.f-list.net:9799')
 
     socket.onopen = () => {
+      state.loadingMessage = 'Identifying...'
       console.log('Socket opened')
 
-      const data = {
+      this.sendCommand('IDN', {
         method: 'ticket',
         account: state.account,
         ticket: state.ticket,
         character: state.identity,
         cname: meta.name,
         cversion: meta.version
-      }
-      socket.send(`IDN ${JSON.stringify(data)}`)
+      })
     }
 
     socket.onclose = () => {
       console.log('Socket closed')
+      state.loadingMessage = ''
       state.currentView = 'Login'
     }
 
     socket.onerror = (err) => {
       console.error('Socket error:', err)
+      state.loadingMessage = ''
       state.currentView = 'Login'
     }
 
@@ -131,11 +134,17 @@ export const store = {
     state.onlineCharacters = assign({}, state.onlineCharacters, map)
   },
 
-  fetchChannelList () {}
+  fetchChannelList () {
+    this.sendCommand('CHA')
+    this.sendCommand('ORS')
+  }
 }
 
 const serverCommands = {
-  IDN () { console.info('Successfully identified with server.') },
+  IDN () {
+    console.info('Successfully identified with server.')
+    state.loadingMessage = ''
+  },
   HLO (params) { console.info(params.message) },
   PIN () { store.sendCommand('PIN') },
   ERR (params) { console.info('Socket error', params.message) },
@@ -169,5 +178,15 @@ const serverCommands = {
     const char = state.onlineCharacters[character]
     char.status = status
     char.statusmsg = statusmsg
+  },
+
+  CHA ({ channels }) {
+    const list = channels.map(ch => newChannelInfo(ch.name, ch.name, ch.characters, ch.mode))
+    state.publicChannelList = list
+  },
+
+  ORS ({ channels }) {
+    const list = channels.map(ch => newChannelInfo(ch.name, ch.title, ch.characters, ch.mode))
+    state.privateChannelList = list
   }
 }

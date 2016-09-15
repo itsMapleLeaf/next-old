@@ -1,13 +1,13 @@
 <template>
   <div class='chat flex-row'>
     <div class='option-bar flex-fixed flex-column'>
-      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Channels'>
+      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Join a Channel' @click="overlays.push('ChannelList')">
         <i class='mdi mdi-forum'></i>
       </a>
-      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Online Characters'>
+      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Browse Online Characters'>
         <i class='mdi mdi-account-multiple'></i>
       </a>
-      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Update Status'>
+      <a class='option-bar-option tooltip-right' href='#' data-tooltip='Update Your Status'>
         <i class='mdi mdi-account-settings'></i>
       </a>
       <a class='option-bar-option tooltip-right' href='#' data-tooltip='Settings'>
@@ -123,7 +123,7 @@
       <Character class='user' name='AwesomeCharacter' gender='Male-herm' />
       <Character class='user' name='AwesomeCharacter' gender='None' />
     </Resizable>
-    <ChannelList/>
+    <component v-for='overlay of overlays' :is='overlay' />
   </div>
 </template>
 
@@ -145,6 +145,11 @@ export default {
     ChannelList
   },
   computed: getters(['identity']),
+  data () {
+    return {
+      overlays: []
+    }
+  },
   created () {
     store.connectToChatServer()
   }

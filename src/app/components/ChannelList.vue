@@ -1,10 +1,16 @@
 <template>
   <Overlay header='Channel List'>
     <div class='selection-list'>
-      <!-- <a href='#' v-for='ch of channels'>
+      <a href='#' v-for='ch of publicChannels'>
+        <i class='mdi mdi-earth'></i>
         <span class='channel-name'>{{ ch.name }}</span>
-        <span class='channel-user-count'>{{ ch.users }}</span>
-      </a> -->
+        <span class='channel-user-count'>{{ ch.userCount }}</span>
+      </a>
+      <a href='#' v-for='ch of privateChannels'>
+        <i class='mdi mdi-key-variant'></i>
+        <span class='channel-name' v-html='ch.name'></span>
+        <span class='channel-user-count'>{{ ch.userCount }}</span>
+      </a>
     </div>
   </Overlay>
 </template>
@@ -20,7 +26,22 @@ export default {
   created () {
     store.fetchChannelList()
   },
-  computed: getters(['publicChannelList', 'privateChannelList'])
+  computed: {
+    ...getters(['publicChannelList', 'privateChannelList']),
+
+    publicChannels () {
+      return this.publicChannelList
+        .slice()
+        .sort((a, b) => b.userCount - a.userCount)
+    },
+
+    privateChannels () {
+      return this.privateChannelList
+        .slice()
+        .sort((a, b) => b.userCount - a.userCount)
+        .slice(0, 200)
+    }
+  }
 }
 </script>
 

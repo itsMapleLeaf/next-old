@@ -92,7 +92,8 @@ export type Bubble = {
 export type ChannelInfo = {
   id: string,
   name: string,
-  userCount: number
+  userCount: number,
+  mode: ChannelMode
 }
 
 export type Chat
