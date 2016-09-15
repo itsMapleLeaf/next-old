@@ -1,7 +1,5 @@
-// @flow
-import {state} from './state'
-export * from './auth'
-export * from './chat'
-export * from './socket'
-export * from './ui'
-export {state}
+import EventEmitter from 'events'
+
+const store = new EventEmitter()
+
+export default store
