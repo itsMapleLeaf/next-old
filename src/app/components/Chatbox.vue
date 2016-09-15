@@ -1,8 +1,5 @@
 <template>
-  <textarea class='textarea' placeholder='Chatting as Nobody...'
-    v-model='message'
-    @keydown.enter.prevent='submit'>
-  </textarea>
+  <textarea class='textarea' v-model='message' @keydown.enter.prevent='submit'></textarea>
 </template>
 
 <script>

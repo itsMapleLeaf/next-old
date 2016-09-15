@@ -109,7 +109,7 @@
       </div>
       <div class='divider'></div>
       <resizable class='chat-input flex-fixed' top>
-        <chatbox></chatbox>
+        <chatbox :placeholder="'Chatting as ' + identity + '.'"></chatbox>
       </resizable>
     </div>
     <div class='divider'></div>
@@ -135,6 +135,9 @@ import Chatbox from './Chatbox.vue'
 import {tooltip, focusOnKeypress} from '../lib/directives'
 
 export default {
+  props: {
+    identity: String
+  },
   components: {
     Resizable,
     Toggle,
@@ -214,7 +217,7 @@ export default {
 
   .user
     display: block
-    padding: 0.2em 0.5em
+    margin: 0.3em 0.3em 0
 
 .room-settings
   flex-align(center)
@@ -236,8 +239,7 @@ export default {
   background: darken($theme-color, 30%)
 
   .message
-    margin-top: 0.3em
-    margin-left: 0.5em
+    margin: 0.3em 0.3em 0
 
     .sender
       display: inline-block

@@ -4,6 +4,7 @@
       <component v-if='currentView'
         :is='currentView'
         :characters='userCharacters'
+        :identity='identity'
         @login-submit='loginSubmit'
         @login-success='loginSuccess'
         @login-failure='loginFailure'
@@ -38,7 +39,8 @@ export default {
     }
   },
   mounted () {
-    storage.getItem('auth').then(auth => {
+    storage.getItem('auth')
+    .then(auth => {
       if (!auth) {
         return Promise.reject()
       } else {
@@ -49,7 +51,8 @@ export default {
           this.loadingMessage = ''
         })
       }
-    }).catch(() => {
+    })
+    .catch(() => {
       this.loadingMessage = ''
       this.currentView = Login
     })
