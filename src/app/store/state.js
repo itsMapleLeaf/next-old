@@ -24,6 +24,7 @@ export const state = {
   onlineCharacters: ({}: CharacterMap),
 
   friends: ({}: RelationshipMap),
+  bookmarks: ({}: NameMap),
   ignored: ({}: NameMap),
   admins: ({}: NameMap),
 

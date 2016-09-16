@@ -40,8 +40,10 @@
     </div>
     <div class='divider'></div>
     <Resizable class='user-list flex-fixed' left>
-      <div class='user-list-count'>Users: 420</div>
-      <div class='user-list-user' v-for='user in users'>
+      <div class='user-list-count'>
+        Users: {{ users.length }}
+      </div>
+      <div class='user-list-user' v-for='user in sortedUsers'>
         <Character :name='user.name' :gender='user.gender' :status='user.status' />
       </div>
     </Resizable>
@@ -74,7 +76,7 @@ export default {
     ChatTab
   },
   computed: {
-    ...getters(['identity', 'chatTabs']),
+    ...getters(['identity', 'chatTabs', 'friends', 'bookmarks', 'admins']),
 
     currentTab () {
       return this.chatTabs[this.currentTabIndex] || {}
@@ -88,6 +90,27 @@ export default {
     users () {
       const {channel} = this.currentTab
       return channel ? channel.users : []
+    },
+
+    sortedUsers () {
+      const priority = char => {
+        const {name, status} = char
+        switch (true) {
+          case this.friends[name] != null:
+            return 4
+          case this.bookmarks[name] != null:
+            return 3
+          case this.admins[name] != null:
+            return 2
+          case status === 'looking':
+            return 1
+          default:
+            return 0
+        }
+      }
+      return this.users.slice()
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .sort((a, b) => priority(b) - priority(a))
     },
 
     description () {
@@ -117,6 +140,7 @@ export default {
   },
   created () {
     store.connectToChatServer()
+    store.fetchUserData()
   },
   methods: {
     toggleChannel (ch) {

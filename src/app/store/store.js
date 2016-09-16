@@ -25,8 +25,7 @@ export const store = {
       return auth ? Promise.resolve(auth) : Promise.reject()
     })
     .then(({ account, ticket }) => {
-      state.account = account
-      state.ticket = ticket
+      this.setAuthInfo(account, ticket)
       return this.openCharacterList(account, ticket)
     })
     .then(() => {
@@ -41,8 +40,7 @@ export const store = {
   login (account: string, password: string, remember: boolean): Promise<void> {
     state.loadingMessage = 'Logging in...'
     return flist.getTicket(account, password).then(ticket => {
-      state.account = account
-      state.ticket = ticket
+      this.setAuthInfo(account, ticket)
       if (remember) {
         storage.setItem('auth', { account, ticket })
       } else {
@@ -63,6 +61,11 @@ export const store = {
         or someone spilled coke on the servers again.
       `)
     })
+  },
+
+  setAuthInfo (account: string, ticket: string) {
+    state.account = account
+    state.ticket = ticket
   },
 
   setIdentity (name: Name) {
@@ -120,6 +123,22 @@ export const store = {
     }
 
     state.socket = socket
+  },
+
+  fetchUserData () {
+    const {account, ticket} = state
+    flist.getFriends(account, ticket).then(res => {
+      const map = {}
+      for (const {you, them} of res) {
+        map[them] = map[them] || []
+        map[them].push(you)
+      }
+      state.friends = map
+    })
+
+    flist.getBookmarks(account, ticket).then(res => {
+      state.bookmarks = mapToObject(res, name => [name, true])
+    })
   },
 
   handleServerCommand (cmd: string, params: Object) {
