@@ -7,7 +7,9 @@
       </a>
     </div>
     <Resizable right class='chat-tabs flex-fixed'>
-      <ChatTab v-for='tab in chatTabs' :tab='tab' :active='tab === currentTab'></ChatTab>
+      <ChatTab v-for='(tab, index) in chatTabs' :tab='tab' :active='tab === currentTab'
+        @selected='currentTabIndex = index'>
+      </ChatTab>
     </Resizable>
     <div class='divider'></div>
     <div class='flex-grow flex-column'>
