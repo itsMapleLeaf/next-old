@@ -6,15 +6,8 @@
         <i :class="'mdi mdi-' + option.icon"></i>
       </a>
     </div>
-    <Resizable right class='channel-list flex-fixed'>
-      <a href='#' v-for='(tab, index) of chatTabs' class='channel-list-joined'
-        :class="{ 'channel-list-current': index === currentTabIndex }" @click='currentTabIndex = index'>
-        <span v-if="tab.type === 'channel'">
-          <i class='mdi mdi-earth' v-if='tab.channel.name === tab.channel.id'></i>
-          <i class='mdi mdi-key-variant' v-else></i>
-          <span>{{ tab.channel.id }}</span>
-        </span>
-      </a>
+    <Resizable right class='chat-tabs flex-fixed'>
+      <ChatTab v-for='tab in chatTabs' :tab='tab' :active='tab === currentTab'></ChatTab>
     </Resizable>
     <div class='divider'></div>
     <div class='flex-grow flex-column'>
@@ -35,18 +28,10 @@
       </Resizable>
       <div class='divider'></div>
       <div class='chat-messages flex-grow'>
-        <div class='chat-message' v-for='msg in messages'>
-          <div class='chat-message-sender'>
-            <Character
-              :name='msg.sender.name'
-              :gender='msg.sender.gender'
-              :status='msg.sender.status'>
-            </Character>
-          </div>
-          <div class='chat-message-text'>
-            {{ msg.message }}
-          </div>
-        </div>
+        <Message class='chat-message' v-for='msg in messages'
+          :sender='msg.sender'
+          :message='msg.message'>
+        </Message>
       </div>
       <div class='divider'></div>
       <Resizable class='chat-input flex-fixed' top>
@@ -57,7 +42,7 @@
     <Resizable class='user-list flex-fixed' left>
       <div class='user-list-count'>Users: 420</div>
       <div class='user-list-user' v-for='user in users'>
-        <Character :name='user.name' :gender='user.gender' :status='user.status'></Character>
+        <Character :name='user.name' :gender='user.gender' :status='user.status' />
       </div>
     </Resizable>
     <transition v-for='overlay of overlays' name='fade' appear>
@@ -73,6 +58,8 @@ import Toggle from './Toggle.vue'
 import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
 import ChannelList from './ChannelList.vue'
+import Message from './Message.vue'
+import ChatTab from './ChatTab.vue'
 
 import {store, getters} from '../store'
 
@@ -82,7 +69,9 @@ export default {
     Toggle,
     Character,
     Chatbox,
-    ChannelList
+    ChannelList,
+    Message,
+    ChatTab
   },
   computed: {
     ...getters(['identity', 'chatTabs']),
@@ -171,31 +160,11 @@ export default {
     font-size: 130%
     padding: 0.4em 0.5em
 
-.channel-list
+.chat-tabs
   background: $theme-color
   width: 12em
   width-limit: 6em 20em
   overflow-y: auto
-
-  a
-    display: block
-    padding: 0.3em 0.3em
-    opacity: 0.3
-    animate()
-    accent-border(left)
-
-    &:hover
-      background: darken($theme-color, 20%)
-
-  :not(.channel-list-current)
-    border-color: transparent
-
-  .channel-list-joined
-    opacity: 0.5
-
-  .channel-list-current
-    background: darken($theme-color, 30%)
-    opacity: 1
 
 .user-list
   background: $theme-color
@@ -231,15 +200,8 @@ export default {
   overflow-y: auto
   min-height: 0
 
-.chat-message
-  margin: 0.3em 0.3em 0
-
-  /*.chat-message-sender
-    display: inline-block
-    margin-right: 0.5em*/
-
-  /*.chat-message-text
-    display: inline-block*/
+  .chat-message
+    margin: 0.3em 0.3em 0
 
 .room-description
   background: darken($theme-color, 10%)
