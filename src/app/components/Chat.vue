@@ -8,7 +8,7 @@
     </div>
     <Resizable right class='chat-tabs flex-fixed'>
       <ChatTab v-for='(tab, index) in chatTabs' :tab='tab' :active='tab === currentTab'
-        @selected='currentTabIndex = index'>
+        @selected='currentTabIndex = index' @closed='closeTab(tab)'>
       </ChatTab>
     </Resizable>
     <div class='divider'></div>
@@ -60,6 +60,7 @@ import ChatTab from './ChatTab.vue'
 import UserList from './UserList.vue'
 
 import {store, getters} from '../store'
+import {clamp} from '../lib/util'
 
 export default {
   components: {
@@ -73,10 +74,11 @@ export default {
     UserList
   },
   computed: {
-    ...getters(['identity', 'chatTabs', 'friends', 'bookmarks', 'admins']),
+    ...getters(['identity', 'chatTabs']),
 
     currentTab () {
-      return this.chatTabs[this.currentTabIndex] || {}
+      const index = clamp(this.currentTabIndex, 0, this.chatTabs.length)
+      return this.chatTabs[index] || {}
     },
 
     messages () {
@@ -125,7 +127,12 @@ export default {
   },
   methods: {
     toggleChannel (ch) {
-      store.joinChannel(ch)
+      store.joinChannel(ch.id, ch.name)
+    },
+    closeTab (tab) {
+      if (tab.channel) {
+        store.leaveChannel(tab.channel.id)
+      }
     }
   }
 }

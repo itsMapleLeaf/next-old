@@ -1,6 +1,6 @@
 // @flow
 import type {
-  Name, CharacterBatchEntry, ChannelInfo
+  Name, CharacterBatchEntry, ChannelInfo, ChatTab
 } from '../lib/types'
 
 import {
@@ -170,10 +170,17 @@ export const store = {
     this.sendCommand('ORS')
   },
 
-  joinChannel ({ id, name }: ChannelInfo) {
+  joinChannel (id: string, name: string) {
     const channel = state.channels[id] || Vue.set(state.channels, id, newChannel(id, name))
     state.chatTabs.push({ type: 'channel', channel })
     this.sendCommand('JCH', { channel: id })
+  },
+
+  leaveChannel (id: string) {
+    state.chatTabs = state.chatTabs.filter((tab: ChatTab) => {
+      return !(tab.type === 'channel' && tab.channel.id === id)
+    })
+    this.sendCommand('LCH', { channel: id })
   },
 
   isFriend (name: Name) { return state.friends[name] != null },
@@ -241,9 +248,6 @@ const serverCommands = {
   LCH ({ channel: id, character: name }) {
     const channel = state.channels[id]
     channel.users = channel.users.filter(char => char.name !== name)
-    if (name === state.identity) {
-      state.chatTabs = state.chatTabs.filter(tab => tab.channel !== channel)
-    }
   },
 
   COL ({ channel: id, oplist }) {
