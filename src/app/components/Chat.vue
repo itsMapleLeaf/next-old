@@ -147,11 +147,11 @@ export default {
         { info: 'Settings', icon: 'settings' }
       },
       filters: {
-        { label: 'Chat', info: 'Normal Messages', enabled: false },
-        { label: 'LFRP', info: 'RP Ads', enabled: false },
-        { label: 'Admin', info: 'Red Admin Messages', enabled: false },
-        { label: 'Friend', info: 'Friend and Bookmark Messages', enabled: false },
-        { label: 'Self', info: 'Your Messages', enabled: false }
+        { label: 'Chat', info: 'Normal Messages', enabled: true },
+        { label: 'LFRP', info: 'RP Ads', enabled: true },
+        { label: 'Admin', info: 'Red Admin Messages', enabled: true },
+        { label: 'Friend', info: 'Friend and Bookmark Messages', enabled: true },
+        { label: 'Self', info: 'Your Messages', enabled: true }
       }
     }
   },
