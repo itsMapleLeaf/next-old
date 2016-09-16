@@ -96,6 +96,6 @@ export type ChannelInfo = {
   mode: ChannelMode
 }
 
-export type Chat
-  = { type: 'channel', hot: boolean, state: Channel }
-  | { type: 'private', hot: boolean, state: PrivateChat }
+export type ChatTab
+  = { type: 'channel', channel: Channel }
+  | { type: 'private-chat', privateChat: PrivateChat }

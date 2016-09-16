@@ -7,14 +7,22 @@
       </a>
     </div>
     <Resizable right class='channel-list flex-fixed'>
-      <a class='channel-list-joined channel-list-current' href='#'>
+      <a href='#' v-for='(tab, index) of chatTabs' class='channel-list-joined'
+        :class="{ 'channel-list-current': index === currentTab }" @click='currentTab = index'>
+        <span v-if="tab.type === 'channel'">
+          <i class='mdi mdi-earth' v-if='tab.channel.name === tab.channel.id'></i>
+          <i class='mdi mdi-key-variant' v-else></i>
+          <span>{{ tab.channel.id }}</span>
+        </span>
+      </a>
+      <!-- <a class='channel-list-joined channel-list-current' href='#'>
         <i class='mdi mdi-earth'></i>
         <span>Fantasy</span>
       </a>
       <a class='channel-list-joined' href='#'>
         <i class='mdi mdi-earth'></i>
         <span>Story Driven RP</span>
-      </a>
+      </a> -->
     </Resizable>
     <div class='divider'></div>
     <div class='flex-grow flex-column'>
@@ -99,7 +107,8 @@
       <Character class='user' name='AwesomeCharacter' gender='None' />
     </Resizable>
     <transition v-for='overlay of overlays' name='fade' appear>
-      <component :is='overlay' @closed="overlays.pop()" />
+      <component :is='overlay' @closed="overlays.pop()" @channel-toggled="toggleChannel">
+      </component>
     </transition>
   </div>
 </template>
@@ -122,11 +131,12 @@ export default {
     ChannelList
   },
   computed: {
-    ...getters(['identity'])
+    ...getters(['identity', 'chatTabs'])
   },
   data () {
     const openOverlay = which => () => this.overlays.push(which)
     return {
+      currentTab: 0,
       overlays: [],
       sidebarOptions: [
         { info: 'Join a Channel', icon: 'forum', action: openOverlay('ChannelList') },
@@ -145,6 +155,11 @@ export default {
   },
   created () {
     store.connectToChatServer()
+  },
+  methods: {
+    toggleChannel (ch) {
+      store.joinChannel(ch)
+    }
   }
 }
 </script>

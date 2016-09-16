@@ -1,9 +1,16 @@
 // @flow
-import type {Name, CharacterBatchEntry} from '../lib/types'
-import {state} from './state'
-import {newCharacter, newChannelInfo} from '../lib/constructors'
-import {assign, mapToObject} from '../lib/util'
+import type {
+  Name, CharacterBatchEntry, ChannelInfo
+} from '../lib/types'
+
+import {
+  newCharacter, newChannel, newChannelInfo, newMessage
+} from '../lib/constructors'
+
+import Vue from 'vue'
 import storage from 'localforage'
+import {state} from './state'
+import {assign, mapToObject} from '../lib/util'
 import * as flist from '../lib/f-list'
 import * as meta from '../../../package.json'
 
@@ -72,6 +79,7 @@ export const store = {
 
   connectToChatServer () {
     if (state.socket) {
+      state.socket.onclose = () => {}
       state.socket.close()
     }
 
@@ -140,6 +148,12 @@ export const store = {
   fetchChannelList () {
     this.sendCommand('CHA')
     this.sendCommand('ORS')
+  },
+
+  joinChannel ({ id, name }: ChannelInfo) {
+    const channel = state.channels[id] || Vue.set(state.channels, id, newChannel(id, name))
+    state.chatTabs.push({ type: 'channel', channel })
+    this.sendCommand('JCH', { channel: id })
   }
 }
 
@@ -150,7 +164,9 @@ const serverCommands = {
   },
   HLO (params) { console.info(params.message) },
   PIN () { store.sendCommand('PIN') },
-  ERR (params) { console.info('Socket error', params.message) },
+  ERR (params) {
+    console.info('Socket error', params.message)
+  },
 
   CON () {},
   FRL () {},
@@ -191,5 +207,30 @@ const serverCommands = {
   ORS ({ channels }) {
     const list = channels.map(ch => newChannelInfo(ch.name, ch.title, ch.characters, ch.mode))
     state.privateChannelList = list
+  },
+
+  JCH ({ channel: id, title, character: { identity: name } }) {
+    state.channels[id].name = title
+    state.channels[id].users.push(state.onlineCharacters[name])
+  },
+
+  COL ({ channel: id, oplist }) {
+    state.channels[id].ops = oplist
+  },
+
+  ICH ({ channel: id, mode, users }) {
+    const channel = state.channels[id]
+    const userlist = users.map(({ identity }) => state.onlineCharacters[identity])
+    channel.mode = mode
+    channel.users = channel.users.concat(userlist)
+  },
+
+  CDS ({ channel: id, description }) {
+    state.channels[id].description = description
+  },
+
+  MSG ({ channel: id, character: name, message }) {
+    const char = state.onlineCharacters[name]
+    state.channels[id].messages.push(newMessage(char, message, 'chat'))
   }
 }
