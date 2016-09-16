@@ -82,6 +82,7 @@ export const store = {
 
   connectToChatServer () {
     if (state.socket) {
+      state.chatTabs = []
       state.socket.onclose = () => {}
       state.socket.close()
     }
