@@ -34,13 +34,14 @@ export const store = {
   login (account: string, password: string, remember: boolean): Promise<void> {
     state.loadingMessage = 'Logging in...'
     return flist.getTicket(account, password).then(ticket => {
-      const data = { account, ticket }
+      state.account = account
+      state.ticket = ticket
       if (remember) {
-        storage.setItem('auth', data)
+        storage.setItem('auth', { account, ticket })
       } else {
         storage.clear()
       }
-      return data
+      return { account, ticket }
     })
     .then(auth => {
       return this.openCharacterList(auth.account, auth.ticket)
