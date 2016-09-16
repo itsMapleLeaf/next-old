@@ -18,7 +18,7 @@ dev-web:
 	$(copy_assets_web)
 	$(build_webpack_web) --watch &
 	$(build_pug_web) --watch &
-	webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web) --labeled-modules
+	webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web)
 
 build: clean build-web build-electron
 
