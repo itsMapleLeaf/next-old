@@ -3,7 +3,7 @@
     <span v-if="tab.channel">
       <i class='mdi mdi-earth' v-if='tab.channel.name === tab.channel.id'></i>
       <i class='mdi mdi-key-variant' v-else></i>
-      <span>{{ tab.channel.id }}</span>
+      <span>{{ tab.channel.name }}</span>
     </span>
   </a>
 </template>
