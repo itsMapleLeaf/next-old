@@ -238,6 +238,14 @@ const serverCommands = {
     state.channels[id].users.push(state.onlineCharacters[name])
   },
 
+  LCH ({ channel: id, character: name }) {
+    const channel = state.channels[id]
+    channel.users = channel.users.filter(char => char.name !== name)
+    if (name === state.identity) {
+      state.chatTabs = state.chatTabs.filter(tab => tab.channel !== channel)
+    }
+  },
+
   COL ({ channel: id, oplist }) {
     state.channels[id].ops = oplist
   },
@@ -256,5 +264,10 @@ const serverCommands = {
   MSG ({ channel: id, character: name, message }) {
     const char = state.onlineCharacters[name]
     state.channels[id].messages.push(newMessage(char, message, 'chat'))
+  },
+
+  LRP ({ channel: id, character: name, message }) {
+    const char = state.onlineCharacters[name]
+    state.channels[id].messages.push(newMessage(char, message, 'lfrp'))
   }
 }
