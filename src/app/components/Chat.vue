@@ -8,21 +8,13 @@
     </div>
     <Resizable right class='channel-list flex-fixed'>
       <a href='#' v-for='(tab, index) of chatTabs' class='channel-list-joined'
-        :class="{ 'channel-list-current': index === currentTab }" @click='currentTab = index'>
+        :class="{ 'channel-list-current': index === currentTabIndex }" @click='currentTabIndex = index'>
         <span v-if="tab.type === 'channel'">
           <i class='mdi mdi-earth' v-if='tab.channel.name === tab.channel.id'></i>
           <i class='mdi mdi-key-variant' v-else></i>
           <span>{{ tab.channel.id }}</span>
         </span>
       </a>
-      <!-- <a class='channel-list-joined channel-list-current' href='#'>
-        <i class='mdi mdi-earth'></i>
-        <span>Fantasy</span>
-      </a>
-      <a class='channel-list-joined' href='#'>
-        <i class='mdi mdi-earth'></i>
-        <span>Story Driven RP</span>
-      </a> -->
     </Resizable>
     <div class='divider'></div>
     <div class='flex-grow flex-column'>
@@ -47,47 +39,17 @@
       </Resizable>
       <div class='divider'></div>
       <div class='chat-messages flex-grow'>
-        <div class='message'>
-          <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Male' />
+        <div class='chat-message' v-for='msg in messages'>
+          <div class='chat-message-sender'>
+            <Character
+              :name='msg.sender.name'
+              :gender='msg.sender.gender'
+              :status='msg.sender.status'>
+            </Character>
           </div>
-          <div class='message-text'>This is a chat message.</div>
-        </div>
-        <div class='message'>
-          <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Female' />
+          <div class='chat-message-text'>
+            {{ msg.message }}
           </div>
-          <div class='message-text'>This is a chat message.</div>
-        </div>
-        <div class='message'>
-          <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Transgender' />
-          </div>
-          <div class='message-text'>This is a chat message.</div>
-        </div>
-        <div class='message'>
-          <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Herm' />
-          </div>
-          <div class='message-text'>This is a chat message.</div>
-        </div>
-        <div class='message'>
-          <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Shemale' />
-          </div>
-          <div class='message-text'>This is a chat message.</div>
-        </div>
-        <div class='message'>
-          <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='Male-herm' />
-          </div>
-          <div class='message-text'>This is a chat message.</div>
-        </div>
-        <div class='message'>
-          <div class='sender'>
-            <Character class='user' name='AwesomeCharacter' gender='None' />
-          </div>
-          <div class='message-text'>This is a chat message.</div>
         </div>
       </div>
       <div class='divider'></div>
@@ -97,14 +59,10 @@
     </div>
     <div class='divider'></div>
     <Resizable class='user-list flex-fixed' left>
-      <div class='user-count'>Users: 420</div>
-      <Character class='user' name='AwesomeCharacter' gender='Male' />
-      <Character class='user' name='AwesomeCharacter' gender='Female' />
-      <Character class='user' name='AwesomeCharacter' gender='Transgender' />
-      <Character class='user' name='AwesomeCharacter' gender='Herm' />
-      <Character class='user' name='AwesomeCharacter' gender='Shemale' />
-      <Character class='user' name='AwesomeCharacter' gender='Male-herm' />
-      <Character class='user' name='AwesomeCharacter' gender='None' />
+      <div class='user-list-count'>Users: 420</div>
+      <div class='user-list-user' v-for='user in users'>
+        <Character :name='user.name' :gender='user.gender' :status='user.status'></Character>
+      </div>
     </Resizable>
     <transition v-for='overlay of overlays' name='fade' appear>
       <component :is='overlay' @closed="overlays.pop()" @channel-toggled="toggleChannel">
@@ -131,12 +89,24 @@ export default {
     ChannelList
   },
   computed: {
-    ...getters(['identity', 'chatTabs'])
+    ...getters(['identity', 'chatTabs']),
+
+    currentTab () {
+      return this.chatTabs[this.currentTabIndex] || {}
+    },
+
+    messages () {
+      return this.currentTab.channel.messages || []
+    },
+
+    users () {
+      return this.currentTab.channel.users || []
+    }
   },
   data () {
     const openOverlay = which => () => this.overlays.push(which)
     return {
-      currentTab: 0,
+      currentTabIndex: 0,
       overlays: [],
       sidebarOptions: [
         { info: 'Join a Channel', icon: 'forum', action: openOverlay('ChannelList') },
@@ -228,13 +198,13 @@ export default {
   background: $theme-color
   width: 12em
   width-limit: 6em 20em
+  overflow-y: auto
 
-  .user-count
+  .user-list-count
     background: darken($theme-color, 20%)
     padding: 0.3em 0.6em
 
-  .user
-    display: block
+  .user-list-user
     margin: 0.3em 0.3em 0
 
 .room-settings
@@ -255,16 +225,18 @@ export default {
 
 .chat-messages
   background: darken($theme-color, 30%)
+  overflow-y: auto
+  min-height: 0
 
-  .message
-    margin: 0.3em 0.3em 0
+.chat-message
+  margin: 0.3em 0.3em 0
 
-    .sender
-      display: inline-block
-      margin-right: 0.5em
+  /*.chat-message-sender
+    display: inline-block
+    margin-right: 0.5em*/
 
-    .message-text
-      display: inline-block
+  /*.chat-message-text
+    display: inline-block*/
 
 .room-description
   background: darken($theme-color, 10%)
