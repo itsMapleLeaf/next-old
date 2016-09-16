@@ -173,7 +173,11 @@ export const store = {
     const channel = state.channels[id] || Vue.set(state.channels, id, newChannel(id, name))
     state.chatTabs.push({ type: 'channel', channel })
     this.sendCommand('JCH', { channel: id })
-  }
+  },
+
+  isFriend (name: Name) { return state.friends[name] != null },
+  isBookmark (name: Name) { return state.bookmarks[name] != null },
+  isAdmin (name: Name) { return state.admins[name] != null }
 }
 
 const serverCommands = {

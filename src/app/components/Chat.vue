@@ -39,14 +39,7 @@
       </Resizable>
     </div>
     <div class='divider'></div>
-    <Resizable class='user-list flex-fixed' left>
-      <div class='user-list-count'>
-        Users: {{ users.length }}
-      </div>
-      <div class='user-list-user' v-for='user in sortedUsers'>
-        <Character :name='user.name' :gender='user.gender' :status='user.status' />
-      </div>
-    </Resizable>
+    <UserList class='user-list flex-fixed' :users='users' :ops='ops'></UserList>
     <transition v-for='overlay of overlays' name='fade' appear>
       <component :is='overlay' @closed="overlays.pop()" @channel-toggled="toggleChannel">
       </component>
@@ -62,6 +55,7 @@ import Chatbox from './Chatbox.vue'
 import ChannelList from './ChannelList.vue'
 import Message from './Message.vue'
 import ChatTab from './ChatTab.vue'
+import UserList from './UserList.vue'
 
 import {store, getters} from '../store'
 
@@ -73,7 +67,8 @@ export default {
     Chatbox,
     ChannelList,
     Message,
-    ChatTab
+    ChatTab,
+    UserList
   },
   computed: {
     ...getters(['identity', 'chatTabs', 'friends', 'bookmarks', 'admins']),
@@ -92,30 +87,14 @@ export default {
       return channel ? channel.users : []
     },
 
-    sortedUsers () {
-      const priority = char => {
-        const {name, status} = char
-        switch (true) {
-          case this.friends[name] != null:
-            return 4
-          case this.bookmarks[name] != null:
-            return 3
-          case this.admins[name] != null:
-            return 2
-          case status === 'looking':
-            return 1
-          default:
-            return 0
-        }
-      }
-      return this.users.slice()
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .sort((a, b) => priority(b) - priority(a))
-    },
-
     description () {
       const {channel} = this.currentTab
       return channel ? channel.description : ''
+    },
+
+    ops () {
+      const {channel} = this.currentTab
+      return channel ? channel.ops : []
     }
   },
   data () {
@@ -195,13 +174,6 @@ export default {
   width: 12em
   width-limit: 6em 20em
   overflow-y: auto
-
-  .user-list-count
-    background: darken($theme-color, 20%)
-    padding: 0.3em 0.6em
-
-  .user-list-user
-    margin: 0.3em 0.3em 0
 
 .room-settings
   flex-align(center)
