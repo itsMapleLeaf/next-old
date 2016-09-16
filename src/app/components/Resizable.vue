@@ -31,13 +31,13 @@ export default {
     getSide (x, y) {
       const {top, right, bottom, left} = this.$el.getBoundingClientRect()
       switch (true) {
-        case this.left && left < x && x < left + 10:
+        case this.left && left < x && x < left - 10:
           return 'left'
-        case this.right && right - 10 < x && x < right:
+        case this.right && right + 10 < x && x < right:
           return 'right'
-        case this.top && top < y && y < top + 10:
+        case this.top && top < y && y < top - 10:
           return 'top'
-        case this.bottom && bottom - 10 < y && y < bottom:
+        case this.bottom && bottom + 10 < y && y < bottom:
           return 'bottom'
         default:
           return ''
@@ -69,7 +69,7 @@ export default {
     },
     checkBounds (x, y) {
       const {top, right, bottom, left} = this.$el.getBoundingClientRect()
-      return x >= left && x <= right && y >= top && y <= bottom
+      return left - 10 < x && x < right + 10 && top - 10 < y && y < bottom + 10
     },
     mousedown (event) {
       const {clientX, clientY} = event
@@ -102,7 +102,7 @@ export default {
       }
     },
     mouseleave () {
-      document.body.style.cursor = 'initial'
+      // document.body.style.cursor = 'initial'
     }
   }
 }

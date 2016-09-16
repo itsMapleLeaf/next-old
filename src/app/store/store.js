@@ -70,7 +70,9 @@ export const store = {
   },
 
   connectToChatServer () {
-    if (state.socket) return
+    if (state.socket) {
+      state.socket.close()
+    }
 
     state.loadingMessage = 'Connecting...'
     const socket = new window.WebSocket('wss://chat.f-list.net:9799')

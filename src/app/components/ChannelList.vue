@@ -1,17 +1,30 @@
 <template>
-  <Overlay header='Channel List'>
-    <div class='selection-list'>
-      <a href='#' v-for='ch of publicChannels'>
-        <i class='mdi mdi-earth'></i>
-        <span class='channel-name'>{{ ch.name }}</span>
-        <span class='channel-user-count'>{{ ch.userCount }}</span>
-      </a>
-      <a href='#' v-for='ch of privateChannels'>
-        <i class='mdi mdi-key-variant'></i>
-        <span class='channel-name' v-html='ch.name'></span>
-        <span class='channel-user-count'>{{ ch.userCount }}</span>
-      </a>
-    </div>
+  <Overlay header='Channel List' @closed="$emit('closed')">
+    <form @submit.prevent>
+      <fieldset>
+        <div class='selection-list'>
+          <a href='#' v-for='ch of publicChannels'>
+            <i class='mdi mdi-earth'></i>
+            <span class='channel-user-count'>{{ ch.userCount }}</span>
+            <span class='channel-name'>{{ ch.name }}</span>
+          </a>
+          <a href='#' v-for='ch of privateChannels'>
+            <div>
+              <i class='mdi mdi-key-variant'></i>
+              <span class='channel-user-count'>{{ ch.userCount }}</span>
+              <span class='channel-name' v-html='ch.name'></span>
+            </div>
+            <small class='channel-id'>{{ ch.id }}</small>
+          </a>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class='icon-input'>
+          <i class='mdi mdi-magnify'></i>
+          <input type='text' placeholder='Search...' v-model='searchText'>
+        </div>
+      </fieldset>
+    </form>
   </Overlay>
 </template>
 
@@ -26,18 +39,23 @@ export default {
   created () {
     store.fetchChannelList()
   },
+  data () {
+    return {
+      searchText: ''
+    }
+  },
   computed: {
     ...getters(['publicChannelList', 'privateChannelList']),
 
     publicChannels () {
       return this.publicChannelList
-        .slice()
+        .filter(ch => ch.name.toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase()))
         .sort((a, b) => b.userCount - a.userCount)
     },
 
     privateChannels () {
       return this.privateChannelList
-        .slice()
+        .filter(ch => ch.name.toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase()))
         .sort((a, b) => b.userCount - a.userCount)
         .slice(0, 200)
     }
@@ -46,10 +64,20 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+@require '../styles/colors'
+
+form
+  text-align: center
+
 .selection-list
+  text-align: left
   width: 18em
-  max-height: 24em
+  height: calc(100vh - 14em)
 
 .channel-user-count
   float: right
+
+.channel-id
+  margin-left: 1.3rem
+  color: lighten($theme-color, 25%)
 </style>

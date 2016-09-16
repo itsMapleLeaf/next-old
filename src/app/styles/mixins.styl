@@ -20,18 +20,20 @@ height-limit($min, $max)
   min-height: $min
   max-height: $max
 
-fullscreen()
+anchor($sides)
   position: absolute
-  left: 0
-  right: 0
-  top: 0
-  bottom: 0
+  for $side in $sides
+    {$side}: 0
+
+fullscreen()
+  anchor(top right bottom left)
 
 flex($direction = row)
   display: flex
   flex-direction: $direction
 
 flex-align($justify, $align = $justify)
+  display: flex
   justify-content: $justify
   align-items: $align
 

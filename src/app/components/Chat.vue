@@ -1,35 +1,19 @@
 <template>
   <div class='chat flex-row'>
     <div class='option-bar flex-fixed flex-column'>
-      <a href='#' v-for='option in sidebarOptions' class='tooltip-right'
-        :data-tooltip='option.info' @click='option.action'>
+      <a href='#' v-for='option of sidebarOptions' class='tooltip-right'
+        :data-tooltip='option.info' @click='option.action && option.action()'>
         <i :class="'mdi mdi-' + option.icon"></i>
       </a>
     </div>
-    <Resizable class='active-chat-list flex-fixed' right>
-      <a class='current' href='#'>
+    <Resizable right class='channel-list flex-fixed'>
+      <a class='channel-list-joined channel-list-current' href='#'>
         <i class='mdi mdi-earth'></i>
         <span>Fantasy</span>
       </a>
-      <a href='#'>
+      <a class='channel-list-joined' href='#'>
         <i class='mdi mdi-earth'></i>
         <span>Story Driven RP</span>
-      </a>
-      <a href='#'>
-        <i class='mdi mdi-earth'></i>
-        <span>RP Bar</span>
-      </a>
-      <a href='#'>
-        <i class='mdi mdi-key-variant'></i>
-        <span>RP Dark City</span>
-      </a>
-      <a href='#'>
-        <i class='mdi mdi-key-variant'></i>
-        <span>Lesbians</span>
-      </a>
-      <a href='#'>
-        <i class='mdi mdi-key-variant'></i>
-        <span>Frontpage</span>
       </a>
     </Resizable>
     <div class='divider'></div>
@@ -114,7 +98,9 @@
       <Character class='user' name='AwesomeCharacter' gender='Male-herm' />
       <Character class='user' name='AwesomeCharacter' gender='None' />
     </Resizable>
-    <component v-for='overlay of overlays' :is='overlay' />
+    <transition v-for='overlay of overlays' name='fade' appear>
+      <component :is='overlay' @closed="overlays.pop()" />
+    </transition>
   </div>
 </template>
 
@@ -135,24 +121,26 @@ export default {
     Chatbox,
     ChannelList
   },
-  computed: getters(['identity']),
+  computed: {
+    ...getters(['identity'])
+  },
   data () {
     const openOverlay = which => () => this.overlays.push(which)
     return {
       overlays: [],
-      sidebarOptions: {
+      sidebarOptions: [
         { info: 'Join a Channel', icon: 'forum', action: openOverlay('ChannelList') },
         { info: 'Browse Online Characters', icon: 'heart' },
         { info: 'Update Your Status', icon: 'account-settings' },
         { info: 'Settings', icon: 'settings' }
-      },
-      filters: {
+      ],
+      filters: [
         { label: 'Chat', info: 'Normal Messages', enabled: true },
         { label: 'LFRP', info: 'RP Ads', enabled: true },
         { label: 'Admin', info: 'Red Admin Messages', enabled: true },
         { label: 'Friend', info: 'Friend and Bookmark Messages', enabled: true },
         { label: 'Self', info: 'Your Messages', enabled: true }
-      }
+      ]
     }
   },
   created () {
@@ -195,27 +183,31 @@ export default {
     font-size: 130%
     padding: 0.4em 0.5em
 
-.active-chat-list
+.channel-list
   background: $theme-color
-  width: 10em
+  width: 12em
   width-limit: 6em 20em
+  overflow-y: auto
 
   a
-    accent-border(left)
     display: block
     padding: 0.3em 0.3em
-    opacity: 0.5
+    opacity: 0.3
     animate()
+    accent-border(left)
 
     &:hover
       background: darken($theme-color, 20%)
 
-    &.current
-      background: darken($theme-color, 30%)
-      opacity: 1
+  :not(.channel-list-current)
+    border-color: transparent
 
-    &:not(.current)
-      border-color: transparent
+  .channel-list-joined
+    opacity: 0.5
+
+  .channel-list-current
+    background: darken($theme-color, 30%)
+    opacity: 1
 
 .user-list
   background: $theme-color

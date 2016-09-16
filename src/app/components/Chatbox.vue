@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     keydown () {
-      this.$el.focus()
+      // this.$el.focus()
     },
     submit () {
       this.$emit('submit', this.message)
