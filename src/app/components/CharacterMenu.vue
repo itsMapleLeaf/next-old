@@ -5,9 +5,7 @@
         <form class='character-menu-info'>
           <fieldset>
             <h3>
-              <a class='link' :href='getProfileURL(character.name)'>
-                {{ character.name }}
-              </a>
+              <ProfileLink :name='character.name'></ProfileLink>
             </h3>
             <small :class="'character-gender-' + character.gender.toLowerCase()">
               {{ character.gender }}
@@ -22,12 +20,12 @@
             </div>
           </fieldset>
           <fieldset v-for='friend in friends[character.name] || []'>
-            <a :href='getProfileURL(friend)' target='_blank'>
+            <ProfileLink :name='friend'>
               <div class='character-menu-friend'>
                 <i class='mdi mdi-heart'></i>
                 {{ friend }}
               </div>
-            </a>
+            </ProfileLink>
           </fieldset>
         </form>
       </div>
@@ -38,8 +36,8 @@
 <script>
 import Avatar from './Avatar.vue'
 import Status from './Status.vue'
+import ProfileLink from './ProfileLink.vue'
 import {getters} from '../store'
-import {getProfileURL} from '../lib/f-list'
 
 export default {
   props: {
@@ -47,13 +45,11 @@ export default {
   },
   components: {
     Avatar,
-    Status
+    Status,
+    ProfileLink
   },
   computed: {
     ...getters(['friends']),
-  },
-  methods: {
-    getProfileURL
   }
 }
 </script>

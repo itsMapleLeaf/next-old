@@ -1,14 +1,20 @@
 <template>
-  <a :href='profileURL' class='avatar' :style='style' target='_blank'></a>
+  <ProfileLink class='avatar' :name='name'>
+    <div class='avatar-image' :style='style'></div>
+  </ProfileLink>
 </template>
 
 <script>
-import {getAvatarURL, getProfileURL} from '../lib/f-list'
+import ProfileLink from './ProfileLink.vue'
+import {getAvatarURL} from '../lib/f-list'
 
 export default {
   props: {
     name: String,
     size: Number
+  },
+  components: {
+    ProfileLink
   },
   computed: {
     style () {
@@ -18,16 +24,16 @@ export default {
         background-image: url(${getAvatarURL(this.name)});
         background-size: cover;
       `
-    },
-    profileURL () {
-      return getProfileURL(this.name)
     }
   }
 }
 </script>
 
 <style lang='stylus' scoped>
-.avatar
-  display: block
+.avatar-image
   filter: drop-shadow(0px 2px 4px rgba(black, 0.5))
+  opacity: 1
+  transition: 0.2s
+  &:hover
+    opacity: 0.7
 </style>
