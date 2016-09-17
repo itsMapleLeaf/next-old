@@ -4,8 +4,30 @@
   to
     opacity: 1
 
+@keyframes slide-right
+  from
+    transform: translateX(100%)
+  to
+    transform: translateX(0)
+
 .fade-enter-active
-  animation: fade 0.5s ease
+  animation: fade 0.3s ease
 
 .fade-leave-active
-  animation: fade 0.5s ease reverse
+  animation: fade 0.3s ease reverse
+
+.slide-right-enter-active
+  animation: slide-right 0.3s ease
+
+.slide-right-leave-active
+  animation: slide-right 0.3s ease reverse
+
+.overlay-slide-right-enter-active
+  @extend .fade-enter-active
+  .overlay-panel
+    @extend .slide-right-enter-active
+
+.overlay-slide-right-leave-active
+  @extend .fade-leave-active
+  .overlay-panel
+    @extend .slide-right-leave-active
