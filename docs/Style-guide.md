@@ -18,3 +18,4 @@
 - Use colons for attribute/value separation
 - No blank lines between attributes
 - Exactly one blank line between selector definitions
+- Always use `@require`, not `@import`
