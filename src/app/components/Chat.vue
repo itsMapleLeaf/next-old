@@ -31,7 +31,8 @@
       <div class='divider'></div>
       <div class='chat-messages flex-grow' v-bottom-scroll>
         <div class='chat-message' v-for='msg in channelMessages'>
-          <Message :sender='msg.sender' :message='msg.message' :type='msg.type'></Message>
+          <Message :sender='msg.sender' :message='msg.message' :type='msg.type' :time='msg.time'>
+          </Message>
         </div>
       </div>
       <div class='divider'></div>

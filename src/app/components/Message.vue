@@ -7,11 +7,14 @@
         </a>
       </div>
     </div>
-    <div :class='actionClass'>
-      <span class='chat-message-sender'>
-        <Character :name='sender.name' :gender='sender.gender' :status='sender.status'></Character>
+    <div class='flex-grow'>
+      <span class='chat-message-timestamp'>{{ parsedTime }}</span>
+      <span :class='actionClass'>
+        <span class='chat-message-sender'>
+          <Character :name='sender.name' :gender='sender.gender' :status='sender.status'></Character>
+        </span>
+        <span class='chat-message-text' v-html='parsedMessage'></span>
       </span>
-      <span class='chat-message-text' v-html='parsedMessage'></span>
     </div>
   </div>
 </template>
@@ -27,7 +30,8 @@ export default {
   props: {
     sender: Object,
     message: String,
-    type: String
+    type: String,
+    time: Number
   },
   components: {
     Character,
@@ -50,6 +54,12 @@ export default {
       return this.isAction
         ? parse(this.message.substring(4))
         : parse(this.message)
+    },
+    parsedTime () {
+      if (this.time) {
+        const time = new Date(this.time)
+        return `[${time.toLocaleTimeString()}]`
+      }
     }
   }
 }
@@ -73,4 +83,9 @@ export default {
 
 .chat-message-action
   font-style: italic
+
+.chat-message-timestamp
+  font-size: 70%
+  opacity: 0.5
+  float: right
 </style>
