@@ -1,28 +1,36 @@
 <template>
   <transition name='overlay-slide-right' appear>
     <div class='overlay-shade' @click.self="$emit('closed')">
-      <form class='overlay-panel'>
-        <fieldset>
-          <h3>{{ character.name }}</h3>
-          <small :class="'character-gender-' + character.gender.toLowerCase()">
-            {{ character.gender }}
-          </small>
-        </fieldset>
-        <fieldset>
-          <Avatar class='character-menu-avatar' :name='character.name'></Avatar>
-        </fieldset>
-        <fieldset>
-          <div class='character-menu-status'>
-            <Status :status='character.status' :statusmsg='character.statusmsg'></Status>
-          </div>
-        </fieldset>
-        <fieldset v-for='friend in friends[character.name] || []'>
-          <div class='character-menu-friend'>
-            <i class='mdi mdi-heart'></i>
-            {{ friend }}
-          </div>
-        </fieldset>
-      </form>
+      <div class='overlay-panel character-menu-panel'>
+        <form class='character-menu-info'>
+          <fieldset>
+            <h3>
+              <a class='link' :href='getProfileURL(character.name)'>
+                {{ character.name }}
+              </a>
+            </h3>
+            <small :class="'character-gender-' + character.gender.toLowerCase()">
+              {{ character.gender }}
+            </small>
+          </fieldset>
+          <fieldset>
+            <Avatar class='character-menu-avatar' :name='character.name'></Avatar>
+          </fieldset>
+          <fieldset>
+            <div class='character-menu-status'>
+              <Status :status='character.status' :statusmsg='character.statusmsg'></Status>
+            </div>
+          </fieldset>
+          <fieldset v-for='friend in friends[character.name] || []'>
+            <a :href='getProfileURL(friend)' target='_blank'>
+              <div class='character-menu-friend'>
+                <i class='mdi mdi-heart'></i>
+                {{ friend }}
+              </div>
+            </a>
+          </fieldset>
+        </form>
+      </div>
     </div>
   </transition>
 </template>
@@ -31,6 +39,7 @@
 import Avatar from './Avatar.vue'
 import Status from './Status.vue'
 import {getters} from '../store'
+import {getProfileURL} from '../lib/f-list'
 
 export default {
   props: {
@@ -41,7 +50,10 @@ export default {
     Status
   },
   computed: {
-    ...getters(['friends'])
+    ...getters(['friends']),
+  },
+  methods: {
+    getProfileURL
   }
 }
 </script>
@@ -50,11 +62,15 @@ export default {
 @require '../styles/mixins'
 @require '../styles/colors'
 
-.overlay-panel
+.character-menu-panel
+  background: darken($theme-color, 20%)
   anchor(top right bottom)
   position: fixed
   width: 12em
-  padding: 0.75em 1em
+
+.character-menu-info
+  background: $theme-color
+  padding: 0.75em 1em 0.1em
 
 .character-menu-status
   background: darken($theme-color, 20%)

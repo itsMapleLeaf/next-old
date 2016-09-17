@@ -1,9 +1,9 @@
 <template>
-  <div class='avatar' :style='style'></div>
+  <a :href='profileURL' class='avatar' :style='style' target='_blank'></a>
 </template>
 
 <script>
-import {getAvatarURL} from '../lib/f-list'
+import {getAvatarURL, getProfileURL} from '../lib/f-list'
 
 export default {
   props: {
@@ -18,6 +18,9 @@ export default {
         background-image: url(${getAvatarURL(this.name)});
         background-size: cover;
       `
+    },
+    profileURL () {
+      return getProfileURL(this.name)
     }
   }
 }
@@ -25,5 +28,6 @@ export default {
 
 <style lang='stylus' scoped>
 .avatar
+  display: block
   filter: drop-shadow(0px 2px 4px rgba(black, 0.5))
 </style>
