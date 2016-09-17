@@ -29,7 +29,7 @@
         <span v-html='description'></span>
       </Resizable>
       <div class='divider'></div>
-      <div class='chat-messages flex-grow'>
+      <div class='chat-messages flex-grow' v-bottom-scroll>
         <div class='chat-message' v-for='msg in messages'>
           <Message :sender='msg.sender' :message='msg.message' :type='msg.type'></Message>
         </div>
@@ -61,6 +61,7 @@ import UserList from './UserList.vue'
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
 import {parse} from '../lib/bbc'
+import {bottomScroll} from '../directives'
 
 export default {
   components: {
@@ -72,6 +73,9 @@ export default {
     Message,
     ChatTab,
     UserList
+  },
+  directives: {
+    bottomScroll
   },
   computed: {
     ...getters(['identity', 'chatTabs']),
