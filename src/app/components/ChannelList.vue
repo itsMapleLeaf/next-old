@@ -3,12 +3,12 @@
     <form @submit.prevent>
       <fieldset>
         <div class='selection-list'>
-          <a href='#' v-for='ch of publicChannels' @click="$emit('channel-toggled', ch)">
+          <a href='#' v-for='ch in publicChannels' @click="$emit('channel-toggled', ch)">
             <i class='mdi mdi-earth'></i>
             <span class='channel-user-count'>{{ ch.userCount }}</span>
             <span class='channel-name'>{{ ch.name }}</span>
           </a>
-          <a href='#' v-for='ch of privateChannels' @click="$emit('channel-toggled', ch)">
+          <a href='#' v-for='ch in privateChannels' @click="$emit('channel-toggled', ch)">
             <div>
               <i class='mdi mdi-key-variant'></i>
               <span class='channel-user-count'>{{ ch.userCount }}</span>

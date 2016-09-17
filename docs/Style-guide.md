@@ -9,7 +9,7 @@
 ## Vue Templates
 - Elements should always have semantic meaning whenever possible
 - Always use single quotes for attributes, except when escaping quotes
-- Always use 'of' with v-for and arrays
+- Always use 'in' with v-for and arrays
 
 ## Stylus
 - 2 spaces indentation

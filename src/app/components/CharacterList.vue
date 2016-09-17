@@ -8,7 +8,7 @@
     </fieldset>
     <fieldset>
       <div class='selection-list'>
-        <a href='#' v-for='name of characters'
+        <a href='#' v-for='name in characters'
           :class="name === current && 'selection-list-active'"
           @click.prevent='select(name)'
           @focus='select(name)'>

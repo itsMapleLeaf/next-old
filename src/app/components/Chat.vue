@@ -1,7 +1,7 @@
 <template>
   <div class='chat flex-row'>
     <div class='option-bar flex-fixed flex-column'>
-      <a href='#' v-for='option of sidebarOptions' class='tooltip-right'
+      <a href='#' v-for='option in sidebarOptions' class='tooltip-right'
         :data-tooltip='option.info' @click='option.action && option.action()'>
         <i :class="'mdi mdi-' + option.icon"></i>
       </a>
@@ -15,7 +15,7 @@
     <div class='flex-grow flex-column'>
       <div class='room-settings flex-fixed flex-row'>
         <div class='room-filters flex-grow'>
-          <Toggle v-for='filter of filters' class='room-filter tooltip-bottom'
+          <Toggle v-for='filter in filters' class='room-filter tooltip-bottom'
             :data-tooltip='filter.info' v-model='filter.enabled'>
             {{ filter.label }}
           </Toggle>
@@ -36,13 +36,13 @@
       </div>
       <div class='divider'></div>
       <Resizable class='chat-input flex-fixed' top>
-        <Chatbox :placeholder="'Chatting as ' + identity" />
+        <Chatbox :placeholder="'Chatting as ' + identity"></Chatbox>
       </Resizable>
     </div>
     <div class='divider'></div>
     <UserList class='user-list flex-fixed' :users='users' :ops='ops'></UserList>
-    <transition v-for='overlay of overlays' name='fade' appear>
-      <component :is='overlay' @closed="overlays.pop()" @channel-toggled="toggleChannel">
+    <transition v-for='overlay in overlays' name='fade' appear>
+      <component :is='overlay' @closed='overlays.pop()' @channel-toggled='toggleChannel'>
       </component>
     </transition>
   </div>
