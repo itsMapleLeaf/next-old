@@ -61,6 +61,7 @@ import UserList from './UserList.vue'
 
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
+import {parse} from '../lib/bbc'
 
 export default {
   components: {
@@ -93,7 +94,7 @@ export default {
 
     description () {
       const {channel} = this.currentTab
-      return channel ? channel.description : ''
+      return channel ? parse(channel.description) : ''
     },
 
     ops () {

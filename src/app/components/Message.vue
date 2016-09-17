@@ -5,14 +5,9 @@
     </div class='flex-fixed'>
     <div>
       <div class='chat-message-sender'>
-        <Character
-          :name='sender.name'
-          :gender='sender.gender'>
-        </Character>
+        <Character :name='sender.name' :gender='sender.gender'></Character>
       </div>
-      <div class='chat-message-text'>
-        {{ message }}
-      </div>
+      <div class='chat-message-text' v-html='parsedMessage'></div>
     </div>
   </div>
 </template>
@@ -21,6 +16,7 @@
 import Character from './Character.vue'
 
 import {getAvatarURL} from '../lib/f-list'
+import {parse} from '../lib/bbc'
 
 export default {
   props: {
@@ -36,6 +32,9 @@ export default {
     },
     avatarStyle () {
       return { 'background-image': `url(${this.avatar})` }
+    },
+    parsedMessage () {
+      return parse(this.message)
     }
   }
 }
