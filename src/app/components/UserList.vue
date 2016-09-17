@@ -69,21 +69,17 @@ export default {
 <style lang='stylus' scoped>
 @require '../styles/colors'
 
-.highlight-friend
-  background: rgba($green, 0.3)
-  color: $green
+$highlights = {
+  friend: $green
+  bookmark: $blue
+  admin: $red
+  op: $yellow
+}
 
-.highlight-bookmark
-  background: rgba($blue, 0.3)
-  color: $blue
-
-.highlight-admin
-  background: rgba($red, 0.3)
-  color: $red
-
-.highlight-op
-  background: rgba($yellow, 0.3)
-  color: $yellow
+for $name, $color in $highlights
+  .highlight-{$name}
+    background: rgba($color, 0.2)
+    color: $color
 
 .user-list-count
   background: darken($theme-color, 20%)
