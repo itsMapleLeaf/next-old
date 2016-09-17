@@ -6,7 +6,7 @@ import path from 'path'
 const bbcExpression = /\[(\w+?)=?([^\]]*)\]([\s\S]+?)\[\/\1\]|(https?:\/\/[^\[\]\(\)\s]+)/gi // lol
 const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.gif']
 
-export function parseBBC (input: string) {
+export function parse (input: string) {
   return input.replace(bbcExpression, (match, tag, value, text, url) => {
     if (url) {
       tag = 'url'
@@ -14,7 +14,7 @@ export function parseBBC (input: string) {
     } else if (tag === 'noparse') {
       return text
     } else if (tag !== 'url') {
-      text = parseBBC(text)
+      text = parse(text)
     }
 
     switch (tag) {
@@ -37,7 +37,7 @@ export function parseBBC (input: string) {
 }
 
 function formatColor (color, text) {
-  return `<span class="chat-color ${color}">${text}</span>`
+  return `<span class="chat-color-${color}">${text}</span>`
 }
 
 function formatURL (url, text) {
@@ -46,7 +46,7 @@ function formatURL (url, text) {
   const ext = path.extname(pathname)
   const icon = imageExtensions.includes(ext) ? 'image' : 'link-variant'
   return (
-    `<a class="ui-link" href="${href}" target="_blank" title="${hostname}">` +
+    `<a class="link" href="${href}" target="_blank" title="${hostname}">` +
       `<i class='mdi mdi-${icon}'></i> ${text}` +
     `</a>`
   )
@@ -54,7 +54,7 @@ function formatURL (url, text) {
 
 function formatPublicChannelLink (channel) {
   return (
-    `<a href='#' class='ui-link' data-join-channel='${channel}'>` +
+    `<a href='#' class='link' data-join-channel='${channel}'>` +
       `<i class='mdi mdi-earth'></i> ${channel}` +
     `</a>`
   )
@@ -62,7 +62,7 @@ function formatPublicChannelLink (channel) {
 
 function formatPrivateChannelLink (id, name) {
   return (
-    `<a href='#' class='ui-link' data-join-channel="${id}">` +
+    `<a href='#' class='link' data-join-channel="${id}">` +
       `<i class='mdi mdi-key-variant'></i> ${name}` +
     `</a>`
   )
@@ -70,7 +70,7 @@ function formatPrivateChannelLink (id, name) {
 
 function formatUserIcon (user) {
   return (
-    `<a href="${getProfileURL(user)}" class="ui-link">` +
+    `<a href="${getProfileURL(user)}" class="link">` +
       `<img src="${getAvatarURL(user)}" style="width: 50px; height: auto" />` +
     `</a>`
   )
