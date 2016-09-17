@@ -1,5 +1,5 @@
 <template>
-  <div class='chat flex-row'>
+  <div class='chat flex-row' @click='checkData($event)'>
     <div class='option-bar flex-fixed flex-column'>
       <a href='#' v-for='option in sidebarOptions' class='tooltip-right'
         :data-tooltip='option.info' @click='option.action && option.action()'>
@@ -26,11 +26,11 @@
       </div>
       <div class='divider'></div>
       <Resizable class='room-description flex-fixed' bottom>
-        <span v-html='description'></span>
+        <span v-html='channelDescription'></span>
       </Resizable>
       <div class='divider'></div>
       <div class='chat-messages flex-grow' v-bottom-scroll>
-        <div class='chat-message' v-for='msg in messages'>
+        <div class='chat-message' v-for='msg in channelMessages'>
           <Message :sender='msg.sender' :message='msg.message' :type='msg.type'></Message>
         </div>
       </div>
@@ -40,11 +40,13 @@
       </Resizable>
     </div>
     <div class='divider'></div>
-    <UserList class='user-list flex-fixed' :users='users' :ops='ops'></UserList>
+    <UserList class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
     <transition v-for='overlay in overlays' name='fade' appear>
       <component :is='overlay' @closed='overlays.pop()' @channel-toggled='toggleChannel'>
       </component>
     </transition>
+    <CharacterMenu v-if='characterMenuFocus' :character='characterMenuFocus' @closed='setCharacterFocus(null)'>
+    </CharacterMenu>
   </div>
 </template>
 
@@ -53,10 +55,11 @@ import Resizable from './Resizable.vue'
 import Toggle from './Toggle.vue'
 import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
-import ChannelList from './ChannelList.vue'
 import Message from './Message.vue'
 import ChatTab from './ChatTab.vue'
 import UserList from './UserList.vue'
+import ChannelList from './ChannelList.vue'
+import CharacterMenu from './CharacterMenu.vue'
 
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
@@ -69,38 +72,34 @@ export default {
     Toggle,
     Character,
     Chatbox,
-    ChannelList,
     Message,
     ChatTab,
-    UserList
+    UserList,
+    CharacterMenu
   },
   directives: {
     bottomScroll
   },
   computed: {
-    ...getters(['identity', 'chatTabs']),
+    ...getters(['identity', 'chatTabs', 'characterMenuFocus']),
 
     currentTab () {
       const index = clamp(this.currentTabIndex, 0, this.chatTabs.length)
       return this.chatTabs[index] || {}
     },
-
-    messages () {
+    channelMessages () {
       const {channel} = this.currentTab
       return channel ? channel.messages : []
     },
-
-    users () {
+    channelUsers () {
       const {channel} = this.currentTab
       return channel ? channel.users : []
     },
-
-    description () {
+    channelDescription () {
       const {channel} = this.currentTab
       return channel ? parse(channel.description) : ''
     },
-
-    ops () {
+    channelOps () {
       const {channel} = this.currentTab
       return channel ? channel.ops : []
     }
@@ -111,7 +110,7 @@ export default {
       currentTabIndex: 0,
       overlays: [],
       sidebarOptions: [
-        { info: 'Join a Channel', icon: 'forum', action: openOverlay('ChannelList') },
+        { info: 'Join a Channel', icon: 'forum', action: openOverlay(ChannelList) },
         { info: 'Browse Online Characters', icon: 'heart' },
         { info: 'Update Your Status', icon: 'account-settings' },
         { info: 'Settings', icon: 'settings' }
@@ -125,8 +124,6 @@ export default {
       ]
     }
   },
-  created () {
-  },
   methods: {
     toggleChannel (ch) {
       store.joinChannel(ch.id, ch.name)
@@ -135,7 +132,16 @@ export default {
       if (tab.channel) {
         store.leaveChannel(tab.channel.id)
       }
-    }
+    },
+    checkData (event) {
+      for (const el of event.path) {
+        if (el.dataset && el.dataset.character) {
+          store.setCharacterFocus(el.dataset.character)
+          break
+        }
+      }
+    },
+    setCharacterFocus: store.setCharacterFocus
   }
 }
 </script>

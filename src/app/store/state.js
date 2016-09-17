@@ -42,5 +42,6 @@ export const state = {
   channels: ({}: ChannelMap),
   privateChats: ({}: PrivateChatMap),
 
-  chatTabs: ([]: ChatTab[])
+  chatTabs: ([]: ChatTab[]),
+  characterMenuFocus: (null: ?Character)
 }

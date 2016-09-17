@@ -1,6 +1,6 @@
 <template>
   <div class='overlay-shade' @click.self="$emit('closed')">
-    <div class='overlay'>
+    <div class='overlay-panel'>
       <a href='#' class='overlay-close' @click="$emit('closed')">
         <i class='mdi mdi-close'></i>
       </a>
@@ -21,34 +21,3 @@ export default {
   }
 }
 </script>
-
-<style lang='stylus' scoped>
-@require '../styles/mixins'
-@require '../styles/colors'
-
-.overlay
-  background: $theme-color
-  width: max-content
-  box-shadow: 0px 2px 6px rgba(black, 0.5)
-  position: relative
-
-.overlay-shade
-  background: rgba(black, 0.5)
-  fullscreen()
-  flex-align(center)
-
-.overlay-header
-  background: darken($theme-color, 20%)
-  padding: 0.5em 1em
-  text-align: center
-  accent-border(bottom)
-
-.overlay-close
-  padding: 0.3em 0.5em
-  opacity: 0.3
-  anchor(top right)
-  animate()
-
-  &:hover
-    opacity: 0.7
-</style>

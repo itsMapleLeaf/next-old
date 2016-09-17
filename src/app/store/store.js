@@ -203,7 +203,11 @@ export const store = {
 
   isFriend (name: Name) { return state.friends[name] != null },
   isBookmark (name: Name) { return state.bookmarks[name] != null },
-  isAdmin (name: Name) { return state.admins[name] != null }
+  isAdmin (name: Name) { return state.admins[name] != null },
+
+  setCharacterFocus (name?: Name) {
+    state.characterMenuFocus = name ? state.onlineCharacters[name] : null
+  }
 }
 
 const serverCommands = {
