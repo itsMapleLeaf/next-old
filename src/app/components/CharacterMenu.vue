@@ -3,15 +3,16 @@
     <form class='overlay-panel'>
       <fieldset>
         <h3>{{ character.name }}</h3>
-        <small>{{ character.gender }}</small>
+        <small :class="'character-gender-' + character.gender.toLowerCase()">
+          {{ character.gender }}
+        </small>
       </fieldset>
       <fieldset>
         <Avatar class='character-menu-avatar' :name='character.name'></Avatar>
       </fieldset>
       <fieldset>
         <div class='character-menu-status'>
-          <span>{{ character.status }}</span>
-          <span v-if='parsedStatus' v-html="' - ' + parsedStatus"></span>
+          <Status :status='character.status' :statusmsg='character.statusmsg'></Status>
         </div>
       </fieldset>
       <fieldset v-for='friend in friends[character.name] || []'>
@@ -26,6 +27,7 @@
 
 <script>
 import Avatar from './Avatar.vue'
+import Status from './Status.vue'
 import {getters} from '../store'
 import {parse} from '../lib/bbc'
 
@@ -34,7 +36,8 @@ export default {
     character: Object
   },
   components: {
-    Avatar
+    Avatar,
+    Status
   },
   computed: {
     ...getters(['friends']),
