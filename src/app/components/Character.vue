@@ -1,6 +1,6 @@
 <template>
   <a class='character' href='#' :data-character='name'>
-    <span class='status' :class='status.toLowerCase()'>●</span>
+    <span class='status' :class='status.toLowerCase()' v-if='status'>●</span>
     <span class='gender' :class='gender.toLowerCase()'>{{ name }}</span>
   </a>
 </template>
@@ -10,8 +10,8 @@ export default {
   props: {
     name: { type: String, required: true },
     gender: { type: String, default: 'none' },
-    status: { type: String, default: 'offline' },
-    statusmsg: { type: String, default: '' }
+    status: String,
+    statusmsg: String
   }
 }
 </script>

@@ -140,18 +140,6 @@ export default {
 @require '../styles/mixins'
 @require '../styles/colors'
 
-.flex-row
-  flex(row)
-
-.flex-column
-  flex(column)
-
-.flex-grow
-  flex-grow: 1
-
-.flex-fixed
-  flex-shrink: 0
-
 .divider
   size: 3px
   visibility: hidden
@@ -204,7 +192,8 @@ export default {
   min-height: 0
 
   .chat-message
-    margin: 0.3em 0.3em 0
+    &:nth-child(2n)
+      background: darken($theme-color, 20%)
 
 .room-description
   background: darken($theme-color, 10%)
