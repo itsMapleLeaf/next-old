@@ -9,7 +9,7 @@
     </div>
     <div :class='actionClass'>
       <span class='chat-message-sender'>
-        <Character :name='sender.name' :gender='sender.gender'></Character>
+        <Character :name='sender.name' :gender='sender.gender' :status='sender.status'></Character>
       </span>
       <span class='chat-message-text' v-html='parsedMessage'></span>
     </div>
