@@ -22,22 +22,6 @@
   </form>
 </template>
 
-<style lang='stylus' scoped>
-@require '../styles/mixins'
-
-.character-list
-  text-align: center
-
-.character-list-avatar
-  size: 100px
-  margin: 0.3em
-  display: inline-block
-  filter: drop-shadow(0px 2px 4px rgba(black, 0.5))
-
-.selection-list
-  width: 12em
-</style>
-
 <script>
 import {getAvatarURL} from '../lib/f-list'
 import {store, getters} from '../store'
@@ -73,3 +57,19 @@ export default {
   }
 }
 </script>
+
+<style lang='stylus' scoped>
+@require '../styles/mixins'
+
+.character-list
+  text-align: center
+
+.character-list-avatar
+  size: 100px
+  margin: 0.3em
+  display: inline-block
+  filter: drop-shadow(0px 2px 4px rgba(black, 0.5))
+
+.selection-list
+  width: 12em
+</style>
