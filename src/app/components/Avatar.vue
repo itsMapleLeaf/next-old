@@ -1,20 +1,14 @@
 <template>
-  <ProfileLink class='avatar' :name='name'>
-    <div class='avatar-image' :style='style'></div>
-  </ProfileLink>
+  <div class='avatar-image' :style='style'></div>
 </template>
 
 <script>
-import ProfileLink from './ProfileLink.vue'
 import {getAvatarURL} from '../lib/f-list'
 
 export default {
   props: {
     name: String,
-    size: Number
-  },
-  components: {
-    ProfileLink
+    size: String
   },
   computed: {
     style () {
@@ -31,7 +25,7 @@ export default {
 
 <style lang='stylus' scoped>
 .avatar-image
-  filter: drop-shadow(0px 2px 4px rgba(black, 0.5))
+  filter: drop-shadow(0em 0.1em 0.15em rgba(black, 0.5))
   opacity: 1
   transition: 0.2s
   &:hover

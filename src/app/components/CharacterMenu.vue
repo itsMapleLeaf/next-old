@@ -12,7 +12,9 @@
             </small>
           </fieldset>
           <fieldset>
-            <Avatar class='character-menu-avatar' :name='character.name'></Avatar>
+            <ProfileLink :name='character.name'>
+              <Avatar class='character-menu-avatar' :name='character.name'></Avatar>
+            </ProfileLink>
           </fieldset>
           <fieldset>
             <div class='character-menu-status'>

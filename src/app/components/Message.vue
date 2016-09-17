@@ -1,7 +1,11 @@
 <template>
   <div class='chat-message flex-row' :class="type && 'chat-message-' + type">
     <div class='flex-fixed'>
-      <div class='chat-message-avatar' :style='avatarStyle'></div>
+      <div class='chat-message-avatar'>
+        <a href='#' :data-character='sender.name'>
+          <Avatar :name='sender.name' size='2.25em'></Avatar>
+        </a>
+      </div>
     </div>
     <div :class='actionClass'>
       <span class='chat-message-sender'>
@@ -14,6 +18,7 @@
 
 <script>
 import Character from './Character.vue'
+import Avatar from './Avatar.vue'
 
 import {getAvatarURL} from '../lib/f-list'
 import {parse} from '../lib/bbc'
@@ -25,7 +30,8 @@ export default {
     type: String
   },
   components: {
-    Character
+    Character,
+    Avatar
   },
   computed: {
     avatar () {
@@ -60,8 +66,6 @@ export default {
   padding: 0.5em 0.8em
 
 .chat-message-avatar
-  size(2.25em)
-  background-size: cover
   margin: 0.2em 0.5em 0.2em 0
 
 .chat-message-sender
