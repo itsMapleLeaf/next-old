@@ -89,9 +89,31 @@ export const store = {
     store.connectToChatServer()
   },
 
+  saveChatTabs (identity: Name) {
+    const data = state.chatTabs.map(tab => {
+      if (tab.channel) {
+        return { channel: tab.channel.id, name: tab.channel.name }
+      } else if (tab.privateChat) {
+        return { privateChat: tab.privateChat.partner.name }
+      }
+    })
+    storage.setItem(`tabs:${identity}`, data)
+  },
+
+  loadChatTabs (identity: Name) {
+    state.chatTabs = []
+    storage.getItem(`tabs:${identity}`).then(tabs => {
+      if (!tabs) return
+      for (const tab of tabs) {
+        if (tab.channel) {
+          this.joinChannel(tab.channel, tab.name)
+        }
+      }
+    })
+  },
+
   connectToChatServer () {
     if (state.socket) {
-      state.chatTabs = []
       state.socket.onclose = () => {}
       state.socket.close()
     }
@@ -163,6 +185,7 @@ export const store = {
   joinChannel (id: string, name: string) {
     const channel = state.channels[id] || Vue.set(state.channels, id, newChannel(id, name))
     state.chatTabs.push({ channel })
+    this.saveChatTabs(state.identity)
     this.sendCommand('JCH', { channel: id })
   },
 
@@ -170,6 +193,7 @@ export const store = {
     state.chatTabs = state.chatTabs.filter((tab: ChatTab) => {
       return !(tab.channel && tab.channel.id === id)
     })
+    this.saveChatTabs(state.identity)
     this.sendCommand('LCH', { channel: id })
   },
 
@@ -182,6 +206,7 @@ const serverCommands = {
   IDN () {
     console.info('Successfully identified with server.')
     state.appState = 'online'
+    store.loadChatTabs(state.identity)
   },
   HLO (params) { console.info(params.message) },
   PIN () { store.sendCommand('PIN') },
