@@ -1,6 +1,6 @@
 // @flow
 import type {
-  Name, CharacterBatchEntry, ChatTab
+  Name, CharacterBatchEntry, ChatTab, Relationship
 } from '../lib/types'
 
 import {
@@ -16,43 +16,59 @@ import * as meta from '../../../package.json'
 
 export const store = {
   init () {
-    this.authenticate()
-  },
-
-  authenticate () {
-    state.loadingMessage = 'Setting things up...'
-    storage.getItem('auth').then(auth => {
-      return auth ? Promise.resolve(auth) : Promise.reject()
+    state.appState = 'setup'
+    storage.getItem('auth')
+    .then(auth => {
+      return auth || Promise.reject()
     })
-    .then(({ account, ticket }) => {
-      this.setAuthInfo(account, ticket)
-      return this.openCharacterList(account, ticket)
+    .then(auth => {
+      return this.fetchUserData(auth.account, auth.ticket).then(() => auth)
     })
-    .then(() => {
-      state.loadingMessage = ''
+    .then(auth => {
+      state.appState = 'character-select'
     })
     .catch(() => {
-      state.loadingMessage = ''
-      state.currentView = 'Login'
+      state.appState = 'login'
     })
+  },
+
+  fetchUserData (account: string, ticket: string) {
+    return Promise.all([
+      flist.getCharacters(account, ticket),
+      flist.getFriends(account, ticket),
+      flist.getBookmarks(account, ticket)
+    ])
+    .then(([ characters, friends, bookmarks ]) => {
+      this.setAuthInfo(account, ticket)
+      state.userCharacters = characters
+      state.friends = this.mapFriends(friends)
+      state.bookmarks = mapToObject(bookmarks, name => [name, true])
+    })
+  },
+
+  mapFriends (friends: Relationship[]) {
+    const map = {}
+    for (const {you, them} of friends) {
+      map[them] = map[them] || []
+      map[them].push(you)
+    }
+    return map
   },
 
   login (account: string, password: string, remember: boolean): Promise<void> {
-    state.loadingMessage = 'Logging in...'
-    return flist.getTicket(account, password).then(ticket => {
-      this.setAuthInfo(account, ticket)
+    state.appState = 'logging-in'
+
+    return flist.getTicket(account, password)
+    .then(ticket => {
       if (remember) {
         storage.setItem('auth', { account, ticket })
       } else {
         storage.clear()
       }
-      return { account, ticket }
-    })
-    .then(auth => {
-      return this.openCharacterList(auth.account, auth.ticket)
+      return this.fetchUserData(account, ticket)
     })
     .then(() => {
-      state.loadingMessage = ''
+      state.appState = 'character-select'
     })
     .catch(err => {
       return Promise.reject(err || `
@@ -68,16 +84,9 @@ export const store = {
     state.ticket = ticket
   },
 
-  setIdentity (name: Name) {
+  chooseCharacter (name: Name) {
     state.identity = name
-    state.currentView = 'Chat'
-  },
-
-  openCharacterList (account: string, ticket: string): Promise<void> {
-    return flist.getCharacters(account, ticket).then(characters => {
-      state.userCharacters = characters
-      state.currentView = 'CharacterList'
-    })
+    store.connectToChatServer()
   },
 
   connectToChatServer () {
@@ -87,13 +96,13 @@ export const store = {
       state.socket.close()
     }
 
-    state.loadingMessage = 'Connecting...'
+    state.appState = 'connecting'
+
     const socket = new window.WebSocket('wss://chat.f-list.net:9799')
 
     socket.onopen = () => {
-      state.loadingMessage = 'Identifying...'
       console.log('Socket opened')
-
+      state.appState = 'identifying'
       this.sendCommand('IDN', {
         method: 'ticket',
         account: state.account,
@@ -106,14 +115,11 @@ export const store = {
 
     socket.onclose = () => {
       console.log('Socket closed')
-      state.loadingMessage = ''
-      state.currentView = 'Login'
+      this.init()
     }
 
     socket.onerror = (err) => {
       console.error('Socket error:', err)
-      state.loadingMessage = ''
-      state.currentView = 'Login'
     }
 
     socket.onmessage = (msg) => {
@@ -124,22 +130,6 @@ export const store = {
     }
 
     state.socket = socket
-  },
-
-  fetchUserData () {
-    const {account, ticket} = state
-    flist.getFriends(account, ticket).then(res => {
-      const map = {}
-      for (const {you, them} of res) {
-        map[them] = map[them] || []
-        map[them].push(you)
-      }
-      state.friends = map
-    })
-
-    flist.getBookmarks(account, ticket).then(res => {
-      state.bookmarks = mapToObject(res, name => [name, true])
-    })
   },
 
   handleServerCommand (cmd: string, params: Object) {
@@ -191,7 +181,7 @@ export const store = {
 const serverCommands = {
   IDN () {
     console.info('Successfully identified with server.')
-    state.loadingMessage = ''
+    state.appState = 'online'
   },
   HLO (params) { console.info(params.message) },
   PIN () { store.sendCommand('PIN') },

@@ -122,8 +122,6 @@ export default {
     }
   },
   created () {
-    store.connectToChatServer()
-    store.fetchUserData()
   },
   methods: {
     toggleChannel (ch) {

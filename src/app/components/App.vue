@@ -21,15 +21,36 @@ import {store, getters} from '../store'
 
 export default {
   components: {
-    Login,
-    CharacterList,
-    Chat,
     Loading
   },
-  created () {
-    store.init()
-  },
-  computed: getters(['currentView', 'loadingMessage'])
+  computed: {
+    ...getters(['appState']),
+
+    currentView () {
+      switch (this.appState) {
+        case 'login':
+          return Login
+        case 'character-select':
+          return CharacterList
+        case 'online':
+          return Chat
+      }
+    },
+    loadingMessage () {
+      switch (this.appState) {
+        case 'setup':
+          return 'Setting things up...'
+        case 'logging-in':
+          return 'Logging in...'
+        case 'connecting':
+          return 'Connecting...'
+        case 'identifying':
+          return 'Identifying...'
+        default:
+          return ''
+      }
+    }
+  }
 }
 </script>
 

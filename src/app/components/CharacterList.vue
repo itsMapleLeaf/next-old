@@ -60,7 +60,7 @@ export default {
       storage.setItem('character', name)
     },
     submit () {
-      store.setIdentity(this.current)
+      store.chooseCharacter(this.current)
     }
   },
   computed: {

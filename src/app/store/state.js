@@ -9,9 +9,17 @@ type PrivateChatMap = { [partner: Name]: PrivateChat }
 type RelationshipMap = { [friend: Name]: Name[] }
 type NameMap = { [name: Name]: boolean }
 
+type AppState
+  = 'setup'
+  | 'login'
+  | 'logging-in'
+  | 'character-select'
+  | 'connecting'
+  | 'identifying'
+  | 'online'
+
 export const state = {
-  currentView: ('': string),
-  loadingMessage: ('': string),
+  appState: ('setup': AppState),
 
   account: ('': string),
   ticket: ('': string),
