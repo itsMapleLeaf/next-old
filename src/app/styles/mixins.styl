@@ -59,3 +59,8 @@ active-animation()
   &:active
     transform: scale(0.95)
     animate(0.05s)
+
+highlight($name, $color)
+  .highlight-{$name}
+    background: rgba($color, 0.2)
+    color: $color

@@ -30,10 +30,9 @@
       </Resizable>
       <div class='divider'></div>
       <div class='chat-messages flex-grow'>
-        <Message class='chat-message' v-for='msg in messages'
-          :sender='msg.sender'
-          :message='msg.message'>
-        </Message>
+        <div class='chat-message' v-for='msg in messages'>
+          <Message :sender='msg.sender' :message='msg.message' :type='msg.type'></Message>
+        </div>
       </div>
       <div class='divider'></div>
       <Resizable class='chat-input flex-fixed' top>

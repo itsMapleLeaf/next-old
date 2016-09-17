@@ -1,5 +1,5 @@
 <template>
-  <div class='chat-message flex-row'>
+  <div class='chat-message flex-row' :class="type && 'highlight-' + type">
     <div class='flex-fixed'>
       <div class='chat-message-avatar' :style="avatarStyle"></div>
     </div class='flex-fixed'>
@@ -21,7 +21,8 @@ import {parse} from '../lib/bbc'
 export default {
   props: {
     sender: Object,
-    message: String
+    message: String,
+    type: String
   },
   components: {
     Character
@@ -42,9 +43,12 @@ export default {
 
 <style lang='stylus' scoped>
 @require '../styles/mixins'
+@require '../styles/colors'
+
+highlight(lfrp, $green)
 
 .chat-message
-  padding: 0.5em
+  padding: 0.5em 0.8em
 
 .chat-message-avatar
   size(40px)
@@ -52,5 +56,5 @@ export default {
   margin-right: 0.5em
 
 .chat-message-sender
-  margin-bottom: 0.2em
+  margin-bottom: 0.1em
 </style>
