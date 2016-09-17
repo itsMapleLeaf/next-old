@@ -68,18 +68,12 @@ export default {
 
 <style lang='stylus' scoped>
 @require '../styles/colors'
+@require '../styles/mixins'
 
-$highlights = {
-  friend: $green
-  bookmark: $blue
-  admin: $red
-  op: $yellow
-}
-
-for $name, $color in $highlights
-  .highlight-{$name}
-    background: rgba($color, 0.2)
-    color: $color
+highlight(friend, $green)
+highlight(bookmark, $blue)
+highlight(admin, $red)
+highlight(op, $yellow)
 
 .user-list-count
   background: darken($theme-color, 20%)
