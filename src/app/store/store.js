@@ -197,6 +197,10 @@ export const store = {
     this.sendCommand('LCH', { channel: id })
   },
 
+  isChannelJoined (id: string) {
+    return state.chatTabs.some(tab => tab.channel && tab.channel.id === id)
+  },
+
   isFriend (name: Name) { return state.friends[name] != null },
   isBookmark (name: Name) { return state.bookmarks[name] != null },
   isAdmin (name: Name) { return state.admins[name] != null }
@@ -208,8 +212,16 @@ const serverCommands = {
     state.appState = 'online'
     store.loadChatTabs(state.identity)
   },
-  HLO (params) { console.info(params.message) },
-  PIN () { store.sendCommand('PIN') },
+
+  HLO (params) {
+    console.info(params.message)
+  },
+
+  /* ping~! */
+  PIN () {
+    store.sendCommand('PIN') /* pong ~! */
+  },
+
   ERR (params) {
     console.info('Socket error', params.message)
   },
