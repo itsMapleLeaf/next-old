@@ -42,10 +42,10 @@ export default {
     },
     getHighlight (char) {
       const highlights = [
-        'highlight-friend',
-        'highlight-bookmark',
-        'highlight-admin',
-        'highlight-op'
+        'user-list-friend',
+        'user-list-bookmark',
+        'user-list-admin',
+        'user-list-op'
       ]
       return highlights[this.getSortWeight(char)]
     },
@@ -70,10 +70,17 @@ export default {
 @require '../styles/colors'
 @require '../styles/mixins'
 
-highlight(friend, $green)
-highlight(bookmark, $blue)
-highlight(admin, $red)
-highlight(op, $yellow)
+.user-list-friend
+  highlight($green)
+
+.user-list-bookmark
+  highlight($blue)
+
+.user-list-admin
+  highlight($red)
+
+.user-list-op
+  highlight($yellow)
 
 .user-list-count
   background: darken($theme-color, 20%)

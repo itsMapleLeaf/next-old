@@ -3,19 +3,23 @@
     <form @submit.prevent>
       <fieldset>
         <div class='selection-list'>
-          <a href='#' v-for='ch in publicChannels' @click="$emit('channel-toggled', ch)">
-            <i class='mdi mdi-earth'></i>
-            <span class='channel-user-count'>{{ ch.userCount }}</span>
-            <span class='channel-name'>{{ ch.name }}</span>
-          </a>
-          <a href='#' v-for='ch in privateChannels' @click="$emit('channel-toggled', ch)">
-            <div>
-              <i class='mdi mdi-key-variant'></i>
+          <div v-for='ch in publicChannels' :class='channelHighlight(ch)'>
+            <a href='#' @click="$emit('channel-toggled', ch)">
+              <i class='mdi mdi-earth'></i>
               <span class='channel-user-count'>{{ ch.userCount }}</span>
-              <span class='channel-name' v-html='ch.name'></span>
-            </div>
-            <small class='channel-id'>{{ ch.id }}</small>
-          </a>
+              <span class='channel-name'>{{ ch.name }}</span>
+            </a>
+          </div>
+          <div v-for='ch in privateChannels' :class='channelHighlight(ch)'>
+            <a href='#' @click="$emit('channel-toggled', ch)">
+              <div>
+                <i class='mdi mdi-key-variant'></i>
+                <span class='channel-user-count'>{{ ch.userCount }}</span>
+                <span class='channel-name' v-html='ch.name'></span>
+              </div>
+              <small class='channel-id'>{{ ch.id }}</small>
+            </a>
+          </div>
         </div>
       </fieldset>
       <fieldset>
@@ -52,12 +56,16 @@ export default {
         .filter(ch => ch.name.toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase()))
         .sort((a, b) => b.userCount - a.userCount)
     },
-
     privateChannels () {
       return this.privateChannelList
         .filter(ch => ch.name.toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase()))
         .sort((a, b) => b.userCount - a.userCount)
         .slice(0, 200)
+    }
+  },
+  methods: {
+    channelHighlight (ch) {
+      return store.isChannelJoined(ch.id) && 'channel-list-joined'
     }
   }
 }
@@ -65,6 +73,7 @@ export default {
 
 <style lang='stylus' scoped>
 @require '../styles/colors'
+@require '../styles/mixins'
 
 form
   text-align: center
@@ -80,4 +89,7 @@ form
 .channel-id
   margin-left: 1.3rem
   color: lighten($theme-color, 25%)
+
+.channel-list-joined
+  highlight($green)
 </style>

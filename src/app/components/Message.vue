@@ -1,5 +1,5 @@
 <template>
-  <div class='chat-message flex-row' :class="type && 'highlight-' + type">
+  <div class='chat-message flex-row' :class="type && 'chat-message-' + type">
     <div class='flex-fixed'>
       <div class='chat-message-avatar' :style="avatarStyle"></div>
     </div class='flex-fixed'>
@@ -45,7 +45,8 @@ export default {
 @require '../styles/mixins'
 @require '../styles/colors'
 
-highlight(lfrp, $green)
+.chat-message-lfrp
+  highlight($green)
 
 .chat-message
   padding: 0.5em 0.8em
