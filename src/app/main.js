@@ -4,9 +4,6 @@ import VueResource from 'vue-resource'
 import App from './components/App.vue'
 import {store, state} from './store'
 
-// import styles
-import './styles/main.styl'
-
 // configure keycodes
 Vue.config.keyCodes = {
   enter: 13,

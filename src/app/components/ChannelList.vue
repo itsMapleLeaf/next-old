@@ -72,8 +72,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../styles/colors'
-@require '../styles/mixins'
+@require 'elements/form'
+@require 'mixins/theme'
 
 form
   text-align: center

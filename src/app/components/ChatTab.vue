@@ -21,8 +21,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../styles/mixins'
-@require '../styles/colors'
+@require 'mixins/theme'
 
 .chat-tab
   display: block

@@ -1,0 +1,12 @@
+@require 'transitions/fade'
+@require 'transitions/slide'
+
+.overlay-slide-right-enter-active
+  @extend .fade-enter-active
+  .overlay-panel
+    @extend .slide-right-enter-active
+
+.overlay-slide-right-leave-active
+  @extend .fade-leave-active
+  .overlay-panel
+    @extend .slide-right-leave-active

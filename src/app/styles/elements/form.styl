@@ -1,0 +1,54 @@
+@require 'mixins'
+@require 'colors'
+
+.input
+  active-animation()
+  input-styles()
+  accent-border()
+
+.button
+  active-animation()
+  input-styles()
+  width: min-content
+  min-width: 4em
+  opacity: 0.7
+  cursor: pointer
+
+  &:hover
+    opacity: 1
+
+.textarea
+  input-styles()
+  accent-border()
+  transition: 0.25s
+
+.icon-input
+  active-animation()
+  position: relative
+
+  i
+    position: absolute
+    padding: 0.3em 0.5em
+    pointer-events: none
+    opacity: 0.5
+
+  input
+    input-styles()
+    accent-border()
+    transition: 0.25s
+    padding-left: 2em
+
+.selection-list
+  display: inline-block
+  width: 14em
+  height: 20em
+  background: darken($theme-color, 20%)
+  overflow-y: auto
+
+  a
+    active-animation()
+    display: block
+    padding: 0.35em 0.6em
+
+  a.selection-list-active
+    background: rgba($highlight-active, 0.5)

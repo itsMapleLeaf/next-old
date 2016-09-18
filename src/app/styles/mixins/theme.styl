@@ -1,0 +1,38 @@
+$red = rgb(231, 76, 60)
+$blue = rgb(52, 152, 219)
+$green = rgb(39, 174, 96)
+$yellow = rgb(241, 196, 15)
+
+$theme-color = rgb(52, 73, 94)
+$accent-color = rgb(83, 104, 136)
+$text-color = rgb(236, 240, 241)
+
+$highlight-active = $green
+
+animate($state, $time = 0.25s)
+  transition: $time
+  if block
+    &:{$state}
+      {block}
+
+input-styles()
+  width: 10em
+  background: darken($theme-color, 25%)
+  padding: 0.3em 0.6em
+
+accent-border($side = 'bottom')
+  border-{$side}: 2px solid $accent-color
+
+  &:focus
+    border-{$side}-color: lighten($accent-color, 30%)
+
+active-animation()
+  display: inline-block
+  transform: scale(1)
+  +animate(active)
+    transform: scale(0.95)
+    transition-duration: 0.05s
+
+highlight($color)
+  background: rgba($color, 0.2)
+  color: lighten($color, 20%)

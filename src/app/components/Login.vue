@@ -67,6 +67,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+@require 'elements/form'
+
 .login-form
   text-align: center
 

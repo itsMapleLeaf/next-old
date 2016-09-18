@@ -20,6 +20,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+@import 'elements/user-colors'
+
 .character
   font-weight: bold
 

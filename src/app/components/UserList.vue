@@ -67,8 +67,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../styles/colors'
-@require '../styles/mixins'
+@require 'mixins/theme'
 
 .user-list-friend
   highlight($green)

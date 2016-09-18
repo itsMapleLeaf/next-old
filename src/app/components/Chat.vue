@@ -148,8 +148,11 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../styles/mixins'
-@require '../styles/colors'
+@require 'elements/flex'
+@require 'elements/form'
+@require 'elements/tooltip'
+@require 'mixins/theme'
+@require 'mixins/flex'
 
 .divider
   size: 3px

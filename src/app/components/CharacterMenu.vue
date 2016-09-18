@@ -57,8 +57,9 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../styles/mixins'
-@require '../styles/colors'
+@require 'elements/user-colors'
+@require 'elements/overlay'
+@require 'mixins/theme'
 
 .character-menu-panel
   background: darken($theme-color, 20%)

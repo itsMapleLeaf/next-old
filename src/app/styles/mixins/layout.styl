@@ -1,0 +1,28 @@
+
+size($width, $height = $width)
+  width: $width
+  height: $height
+
+min-size($width, $height = $width)
+  min-width: $width
+  min-height: $height
+
+max-size($width, $height = $width)
+  max-width: $width
+  max-height: $height
+
+width-limit($min, $max)
+  min-width: $min
+  max-width: $max
+
+height-limit($min, $max)
+  min-height: $min
+  max-height: $max
+
+anchor($sides)
+  position: absolute
+  for $side in $sides
+    {$side}: 0
+
+fullscreen()
+  anchor(top right bottom left)

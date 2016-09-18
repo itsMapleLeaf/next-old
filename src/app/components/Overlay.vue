@@ -21,3 +21,7 @@ export default {
   }
 }
 </script>
+
+<style lang='stylus' scoped>
+@require 'elements/overlay'
+</style>

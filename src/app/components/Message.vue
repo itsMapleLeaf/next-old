@@ -66,8 +66,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require '../styles/mixins'
-@require '../styles/colors'
+@require 'elements/flex'
+@require 'mixins/theme'
 
 .chat-message-lfrp
   highlight($green)
