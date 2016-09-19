@@ -6,13 +6,13 @@
     <div class='divider'></div>
     <div class='flex-grow flex-row'>
       <Resizable right class='chat-tabs flex-fixed'>
-        <ChatTab v-for='(tab, index) in chatTabs' :tab='tab' :active='tab === currentTab'
+        <ChatTab v-for='(tab, index) in tabs' :tab='tab' :active='tab === currentTab'
           @selected='currentTabIndex = index' @closed='closeTab(tab)'>
         </ChatTab>
       </Resizable>
       <div class='divider'></div>
       <div class='flex-grow flex-column'>
-        <template v-if='isChannel'>
+        <template v-if='channel'>
           <div class='room-filters flex-fixed'>
             <ChatFilter class='filter' v-for='label in filterLabels' v-model='filters[label.filter]'
               :disabled="isFilterDisabled(label.filter)" :tooltip='label.tooltip'>
@@ -21,13 +21,12 @@
           </div>
           <div class='divider'></div>
         </template>
-        <div class='room-description flex-fixed'>
-          <ChatDescription :channel='currentTab.channel' :private-chat='currentTab.privateChat'>
-          </ChatDescription>
+        <div class='description flex-fixed'>
+          <ChatDescription :channel='channel' :private-chat='privateChat'></ChatDescription>
         </div>
         <div class='divider'></div>
         <div class='chat-messages flex-grow' v-bottom-scroll>
-          <div class='chat-message' v-for='msg in channelMessages'>
+          <div class='chat-message' v-for='msg in messages'>
             <Message :sender='msg.sender' :message='msg.message' :type='msg.type' :time='msg.time'>
             </Message>
           </div>
@@ -37,9 +36,9 @@
           <Chatbox :placeholder="'Chatting as ' + identity"></Chatbox>
         </Resizable>
       </div>
-      <template v-if='isChannel'>
+      <template v-if='channel'>
         <div class='divider'></div>
-        <UserList class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
+        <UserList class='user-list flex-fixed' :users='channel.users' :ops='channel.ops'></UserList>
       </template>
       <transition v-for='overlay in overlays' name='fade' appear>
         <component :is='overlay' @closed='overlays.pop()'
@@ -102,40 +101,20 @@ export default {
     }
   },
   computed: {
-    ...getters(['identity', 'chatTabs', 'characterMenuFocus']),
-    isChannel () {
-      return this.currentTab.channel != null
-    },
-    isPrivateChat () {
-      return this.currentTab.privateChat != null
-    },
+    ...getters({ identity: 'identity', tabs: 'chatTabs' }),
     currentTab () {
-      const index = clamp(this.currentTabIndex, 0, this.chatTabs.length - 1)
-      return this.chatTabs[index] || {}
+      const index = clamp(this.currentTabIndex, 0, this.tabs.length)
+      return this.tabs[index] || {}
     },
-    channelMessages () {
-      const {channel} = this.currentTab
-      return channel ? channel.messages : []
+    channel () {
+      return this.currentTab.channel
     },
-    channelUsers () {
-      const {channel} = this.currentTab
-      return channel ? channel.users : []
+    privateChat () {
+      return this.currentTab.privateChat
     },
-    channelDescription () {
-      const {channel} = this.currentTab
-      return channel ? parse(channel.description) : ''
-    },
-    channelOps () {
-      const {channel} = this.currentTab
-      return channel ? channel.ops : []
-    },
-    channelMode () {
-      const {channel} = this.currentTab
-      return channel && channel.mode
-    },
-    partner () {
-      const {privateChat} = this.currentTab
-      return privateChat && privateChat.partner
+    messages () {
+      const tab = this.channel || this.privateChat || {}
+      return tab.messages || []
     },
     headerOptions () {
       const openOverlay = which => () => this.overlays.push(which)
@@ -180,7 +159,7 @@ export default {
     openPrivateChat (name) {
       store.openPrivateChat(name)
       store.setCharacterFocus(null)
-      this.currentTabIndex = this.chatTabs.length - 1
+      this.currentTabIndex = this.tabs.length - 1
     },
     isFilterDisabled (filter) {
       const {channel} = this.currentTab
@@ -243,7 +222,7 @@ export default {
     &:nth-child(2n)
       background: theme-darker(20%)
 
-.room-description
+.description
   background: theme-darker(10%)
   max-height: 5em
   padding: 0.3em 0.6em
