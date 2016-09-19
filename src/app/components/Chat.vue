@@ -25,9 +25,14 @@
         </a>
       </div>
       <div class='divider'></div>
-      <Resizable class='room-description flex-fixed' bottom>
-        <span v-html='channelDescription'></span>
-      </Resizable>
+      <div class='room-description flex-fixed' bottom>
+        <span v-if='currentTab.channel' v-html='channelDescription'></span>
+        <span v-if='currentTab.privateChat'>
+          <Status :status='partner.status'
+            :statusmsg='partner.statusmsg'>
+          </Status>
+        </span>
+      </div>
       <div class='divider'></div>
       <div class='chat-messages flex-grow' v-bottom-scroll>
         <div class='chat-message' v-for='msg in channelMessages'>
@@ -41,7 +46,7 @@
       </Resizable>
     </div>
     <div class='divider'></div>
-    <UserList class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
+    <UserList v-if='currentTab.channel' class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
     <transition v-for='overlay in overlays' name='fade' appear>
       <component :is='overlay' @closed='overlays.pop()'
         @channel-toggled='toggleChannel'
@@ -61,6 +66,7 @@ import ChatTab from './ChatTab.vue'
 import UserList from './UserList.vue'
 import ChannelList from './ChannelList.vue'
 import CharacterMenu from './CharacterMenu.vue'
+import Status from './Status.vue'
 
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
@@ -75,7 +81,8 @@ export default {
     Chatbox,
     Message,
     ChatTab,
-    UserList
+    UserList,
+    Status
   },
   directives: {
     bottomScroll
@@ -114,6 +121,10 @@ export default {
     channelOps () {
       const {channel} = this.currentTab
       return channel ? channel.ops : []
+    },
+    partner () {
+      const {privateChat} = this.currentTab
+      return privateChat && privateChat.partner
     },
     sidebarOptions () {
       const openOverlay = which => () => this.overlays.push(which)
@@ -227,7 +238,7 @@ export default {
 
 .room-description
   background: theme-darker(10%)
-  height: 5em
+  max-height: 5em
   padding: 0.3em 0.6em
   overflow-y: auto
 
@@ -238,7 +249,4 @@ export default {
   textarea
     display: block
     size: 100%
-
-    &:focus
-      background: theme-darker(40%)
 </style>
