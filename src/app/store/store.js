@@ -3,14 +3,13 @@ import type {
   Name, CharacterBatchEntry, ChatTab, Relationship
 } from '../lib/types'
 
-import {
-  newCharacter, newChannel, newChannelInfo, newMessage
-} from '../lib/constructors'
+import {newCharacter, newChannel} from '../lib/constructors'
 
 import Vue from 'vue'
 import storage from 'localforage'
 import {state} from './state'
 import {assign, mapToObject} from '../lib/util'
+import * as serverCommands from './server-commands'
 import * as flist from '../lib/f-list'
 import * as meta from '../../../package.json'
 
@@ -224,102 +223,5 @@ export const store = {
 
   setCharacterFocus (name?: Name) {
     state.characterMenuFocus = name ? state.onlineCharacters[name] : null
-  }
-}
-
-const serverCommands = {
-  IDN () {
-    console.info('Successfully identified with server.')
-    state.appState = 'online'
-    store.loadChatTabs(state.identity)
-  },
-
-  HLO (params) {
-    console.info(params.message)
-  },
-
-  /* ping~! */
-  PIN () {
-    store.sendCommand('PIN') /* pong ~! */
-  },
-
-  ERR (params) {
-    console.info('Socket error', params.message)
-  },
-
-  CON () {},
-  FRL () {},
-
-  IGN (params) {
-    if (params.action === 'init') {
-      state.ignored = mapToObject(params.characters, name => [name, true])
-    }
-  },
-
-  ADL (params) {
-    state.admins = mapToObject(params.ops, name => [name, true])
-  },
-
-  LIS (params) {
-    store.addCharacterBatch(params.characters)
-  },
-
-  NLN ({ identity, gender }) {
-    state.onlineCharacters[identity] = newCharacter(identity, gender)
-  },
-
-  FLN ({ character }) {
-    delete state.onlineCharacters[character]
-  },
-
-  STA ({ character, status, statusmsg }) {
-    const char = state.onlineCharacters[character]
-    char.status = status
-    char.statusmsg = statusmsg
-  },
-
-  CHA ({ channels }) {
-    const list = channels.map(ch => newChannelInfo(ch.name, ch.name, ch.characters, ch.mode))
-    state.publicChannelList = list
-  },
-
-  ORS ({ channels }) {
-    const list = channels.map(ch => newChannelInfo(ch.name, ch.title, ch.characters, ch.mode))
-    state.privateChannelList = list
-  },
-
-  JCH ({ channel: id, title, character: { identity: name } }) {
-    state.channels[id].name = title
-    state.channels[id].users.push(state.onlineCharacters[name])
-  },
-
-  LCH ({ channel: id, character: name }) {
-    const channel = state.channels[id]
-    channel.users = channel.users.filter(char => char.name !== name)
-  },
-
-  COL ({ channel: id, oplist }) {
-    state.channels[id].ops = oplist
-  },
-
-  ICH ({ channel: id, mode, users }) {
-    const channel = state.channels[id]
-    const userlist = users.map(({ identity }) => state.onlineCharacters[identity])
-    channel.mode = mode
-    channel.users = userlist
-  },
-
-  CDS ({ channel: id, description }) {
-    state.channels[id].description = description
-  },
-
-  MSG ({ channel: id, character: name, message }) {
-    const char = state.onlineCharacters[name]
-    state.channels[id].messages.push(newMessage(char, message, 'chat'))
-  },
-
-  LRP ({ channel: id, character: name, message }) {
-    const char = state.onlineCharacters[name]
-    state.channels[id].messages.push(newMessage(char, message, 'lfrp'))
   }
 }
