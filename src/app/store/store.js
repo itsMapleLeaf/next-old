@@ -306,7 +306,7 @@ const serverCommands = {
     const channel = state.channels[id]
     const userlist = users.map(({ identity }) => state.onlineCharacters[identity])
     channel.mode = mode
-    channel.users = channel.users.concat(userlist)
+    channel.users = userlist
   },
 
   CDS ({ channel: id, description }) {
