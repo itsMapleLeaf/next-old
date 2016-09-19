@@ -15,7 +15,7 @@
         <template v-if='channel'>
           <div class='room-filters flex-fixed'>
             <ChatFilter class='filter' v-for='label in filterLabels' v-model='filters[label.filter]'
-              :disabled="isFilterDisabled(label.filter)" :tooltip='label.tooltip'>
+              :disabled='isFilterDisabled(label.filter)' :tooltip='label.tooltip'>
               {{ label.label }}
             </ChatFilter>
           </div>
@@ -33,7 +33,7 @@
         </div>
         <div class='divider'></div>
         <Resizable class='chat-input flex-fixed' top>
-          <Chatbox :placeholder="'Chatting as ' + identity"></Chatbox>
+          <Chatbox :placeholder="'Chatting as ' + identity" @submit='chatboxSubmit'></Chatbox>
         </Resizable>
       </div>
       <template v-if='channel'>
@@ -168,7 +168,16 @@ export default {
           case 'both': return false
           case 'ads': return true
           case 'chat': return filter === 'lfrp'
+          default: return false
         }
+      }
+    },
+    chatboxSubmit(message) {
+      const {channel, privateChat} = this.currentTab
+      if (channel) {
+        store.sendChannelMessage(channel.id, message)
+      } else if (privateChat) {
+        store.sendPrivateMessage(privateChat.partner.name, message)
       }
     },
   },

@@ -1,6 +1,6 @@
 // @flow
 import type {Name, CharacterBatchEntry, ChatTab, Relationship} from '../lib/types'
-import {newCharacter, newChannel, newPrivateChat} from '../lib/constructors'
+import {newCharacter, newChannel, newPrivateChat, newMessage} from '../lib/constructors'
 import {state} from './state'
 import {assign, mapToObject} from '../lib/util'
 import * as serverCommands from './server-commands'
@@ -209,6 +209,18 @@ export function closePrivateChat(partner: Name) {
 
 export function isPrivateChatOpened(partner: Name) {
   return state.chatTabs.some(tab => tab.privateChat && tab.privateChat.partner.name === partner)
+}
+
+export function sendChannelMessage(id: string, message: string) {
+  const char = state.onlineCharacters[state.identity]
+  state.channels[id].messages.push(newMessage(char, message, 'self'))
+  sendCommand('MSG', { channel: id, message })
+}
+
+export function sendPrivateMessage(partner: Name, message: string) {
+  const char = state.onlineCharacters[state.identity]
+  state.privateChats[partner].messages.push(newMessage(char, message, 'self'))
+  sendCommand('PRI', { recipient: partner, message })
 }
 
 export function isFriend(name: Name) { return state.friends[name] != null }
