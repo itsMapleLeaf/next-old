@@ -21,9 +21,9 @@
           </div>
           <div class='divider'></div>
         </template>
-        <div class='description flex-fixed'>
-          <ChatDescription :channel='channel' :private-chat='privateChat'></ChatDescription>
-        </div>
+        <ChatDescription class='description flex-fixed'
+          :channel='channel' :private-chat='privateChat'>
+        </ChatDescription>
         <div class='divider'></div>
         <div class='chat-messages flex-grow' v-bottom-scroll>
           <div class='chat-message' v-for='msg in messages'>
@@ -120,9 +120,9 @@ export default {
       const openOverlay = which => () => this.overlays.push(which)
       return [
         { info: 'Join a Channel', icon: 'forum', action: openOverlay(ChannelList) },
-        { info: 'Browse Online Characters', icon: 'heart' },
-        { info: 'Update Your Status', icon: 'account-settings' },
-        { info: 'Settings', icon: 'settings' },
+        // { info: 'Browse Online Characters', icon: 'heart' },
+        // { info: 'Update Your Status', icon: 'account-settings' },
+        // { info: 'Settings', icon: 'settings' },
       ]
     },
     filterLabels() {
