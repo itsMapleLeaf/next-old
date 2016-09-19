@@ -136,13 +136,28 @@ export default {
       ]
     },
     filterLabels () {
-      return [
-        { label: 'Chat', info: 'Normal Messages', filter: 'chat' },
-        { label: 'LFRP', info: 'RP Ads', filter: 'lfrp' },
-        { label: 'Admin', info: 'Red Admin Messages', filter: 'admin' },
-        { label: 'Friend', info: 'Friend and Bookmark Messages', filter: 'friend' },
-        { label: 'Self', info: 'Your Messages', filter: 'self' }
-      ]
+      if (this.currentTab.channel) {
+        const {mode} = this.currentTab.channel
+        switch (mode) {
+          case 'both':
+            return [
+              { label: 'Chat', info: 'Normal Messages', filter: 'chat' },
+              { label: 'LFRP', info: 'RP Ads', filter: 'lfrp' },
+              { label: 'Admin', info: 'Red Admin Messages', filter: 'admin' },
+              { label: 'Friend', info: 'Friend and Bookmark Messages', filter: 'friend' },
+              { label: 'Self', info: 'Your Messages', filter: 'self' }
+            ]
+          case 'ads':
+            return []
+          case 'chat':
+            return [
+              { label: 'Chat', info: 'Normal Messages', filter: 'chat' },
+              { label: 'Admin', info: 'Red Admin Messages', filter: 'admin' },
+              { label: 'Friend', info: 'Friend and Bookmark Messages', filter: 'friend' },
+              { label: 'Self', info: 'Your Messages', filter: 'self' }
+            ]
+        }
+      }
     }
   },
   methods: {
