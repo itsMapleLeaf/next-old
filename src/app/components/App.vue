@@ -70,6 +70,7 @@ body
 <style lang='stylus'>
 @require 'mixins/theme'
 @require 'mixins/layout'
+@require 'elements/link'
 
 *
   margin: 0
@@ -121,4 +122,10 @@ ul, ol, li
     background: darken($theme-color, 40%)
   &-thumb
     background: lighten($theme-color, 10%)
+
+.character-icon
+  size(40px)
+  display: inline-block
+  background-size: contain
+  vertical-align: text-top
 </style>

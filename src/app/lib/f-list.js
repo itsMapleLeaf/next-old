@@ -59,3 +59,7 @@ export function getAvatarURL (name: Name): string {
   const encoded = encodeURI(name.toLowerCase())
   return `https://static.f-list.net/images/avatar/${encoded}.png`
 }
+
+export function getExtendedIcon (icon: string): string {
+  return `https://static.f-list.net/images/eicon/${icon}.gif`
+}

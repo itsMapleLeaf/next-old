@@ -1,5 +1,5 @@
 // @flow
-import {getProfileURL, getAvatarURL} from '../lib/f-list'
+import {getProfileURL, getAvatarURL, getExtendedIcon} from '../lib/f-list'
 import {parse as parseURL} from 'url'
 import path from 'path'
 
@@ -29,8 +29,8 @@ export function parse (input: string) {
       case 'channel': return formatPublicChannelLink(text)
       case 'session': return formatPrivateChannelLink(text, value)
       case 'icon':
-      case 'user':
-      case 'eicon': return formatUserIcon(text)
+      case 'user': return formatUserIcon(text)
+      case 'eicon': return formatExtendedIcon(text)
       default: return match
     }
   })
@@ -68,10 +68,18 @@ function formatPrivateChannelLink (id, name) {
   )
 }
 
-function formatUserIcon (user) {
+function formatUserIcon (name) {
+  const href = getProfileURL(name)
+  const avatar = getAvatarURL(name)
+  const style = `background-image: url(${avatar})`
   return (
-    `<a href="${getProfileURL(user)}" class="link">` +
-      `<img src="${getAvatarURL(user)}" style="width: 50px; height: auto" />` +
-    `</a>`
+    `<a class='chat-icon link' href='${href}' target='_blank' style='${style}'></a>`
+  )
+}
+
+function formatExtendedIcon (icon) {
+  const iconURL = getExtendedIcon(icon)
+  return (
+    `<div class='chat-icon link' style='background-image: url(${iconURL})'></div>`
   )
 }
