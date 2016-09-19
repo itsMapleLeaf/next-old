@@ -18,7 +18,7 @@ function mapFriends(friends: Relationship[]) {
   return map
 }
 
-export function init() {
+export function initialize() {
   state.appState = 'setup'
   storage.getItem('auth')
   .then(auth => {
@@ -131,7 +131,7 @@ export function connectToChatServer() {
 
   socket.onclose = () => {
     console.log('Socket closed')
-    init()
+    initialize()
   }
 
   socket.onerror = (err) => {

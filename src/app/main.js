@@ -15,7 +15,7 @@ Vue.use(VueResource)
 Vue.http.options.emulateJSON = true
 
 // initialize the application store (jumpstart the app)
-store.init()
+store.initialize()
 
 // create vue instance
 /* eslint no-new: off */
