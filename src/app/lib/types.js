@@ -34,6 +34,8 @@ export type MessageType
   | 'friend'
   | 'admin'
   | 'self'
+  | 'dice'
+  | 'bottle'
 
 export type SocketState
   = 'offline'
@@ -48,6 +50,11 @@ export type Category
   | 'op'
   | 'looking'
   | 'none'
+
+export type TypingState
+  = 'clear'
+  | 'paused'
+  | 'typing'
 
 // object types
 export type Character = {
@@ -76,7 +83,8 @@ export type Channel = {
 
 export type PrivateChat = {
   partner: Character,
-  messages: Message[]
+  messages: Message[],
+  typing: TypingState
 }
 
 export type Relationship = {
@@ -99,4 +107,9 @@ export type ChannelInfo = {
 export type ChatTab = {
   channel?: Channel,
   privateChat?: PrivateChat
+}
+
+export type Notification = {
+  text: string,
+  time: number
 }

@@ -43,5 +43,7 @@ export const state = {
   privateChats: ({}: PrivateChatMap),
 
   chatTabs: ([]: ChatTab[]),
-  characterMenuFocus: (null: ?Character)
+  characterMenuFocus: (null: ?Character),
+
+  notifications: []
 }

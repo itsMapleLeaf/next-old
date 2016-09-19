@@ -1,6 +1,6 @@
 // @flow
 import type {Name, CharacterBatchEntry, ChatTab, Relationship} from '../lib/types'
-import {newCharacter, newChannel} from '../lib/constructors'
+import {newCharacter, newChannel, newPrivateChat} from '../lib/constructors'
 import {state} from './state'
 import {assign, mapToObject} from '../lib/util'
 import * as serverCommands from './server-commands'
@@ -196,11 +196,10 @@ export function isChannelJoined (id: string) {
 }
 
 export function openPrivateChat (partner: Name) {
-  const privateChat = state.privateChats[partner] || Vue.set(state.privateChats, partner, {
-    partner: state.onlineCharacters[partner],
-    messages: []
-  })
+  const char = state.onlineCharacters[partner]
+  const privateChat = state.privateChats[partner] || Vue.set(state.privateChats, partner, newPrivateChat(char))
   state.chatTabs.push({ privateChat })
+  return privateChat
 }
 
 export function closePrivateChat (partner: Name) {

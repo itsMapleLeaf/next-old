@@ -42,6 +42,7 @@ export function newChannelInfo (
 export function newPrivateChat (partner: Character): PrivateChat {
   return {
     partner,
-    messages: []
+    messages: [],
+    typing: 'clear'
   }
 }

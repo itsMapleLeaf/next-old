@@ -1,4 +1,6 @@
 // @flow
+// reference: https://wiki.f-list.net/F-Chat_Server_Commands
+
 import * as store from './store'
 import {state} from './state'
 import {mapToObject} from '../lib/util'
@@ -25,17 +27,36 @@ export function ERR (params: Params) {
   console.info('Socket error', params.message)
 }
 
+// ignored
 export function CON () {}
+
+// ignored; we get friends from f-list
 export function FRL () {}
 
-export function IGN (params: Params) {
-  if (params.action === 'init') {
-    state.ignored = mapToObject(params.characters, name => [name, true])
+export function IGN ({ action, character: name, characters }: Params) {
+  switch (action) {
+    case 'init':
+    case 'list':
+    case 'notify':
+      state.ignored = mapToObject(characters, name => [name, true])
+      break
+
+    case 'add':
+      state.ignored[name] = true
+      break
+
+    case 'delete':
+      delete state.ignored[name]
+      break
   }
 }
 
 export function ADL (params: Params) {
   state.admins = mapToObject(params.ops, name => [name, true])
+}
+
+export function AOP ({ character }: Params) {
+  state.admins[character] = true
 }
 
 export function LIS (params: Params) {
@@ -46,8 +67,11 @@ export function NLN ({ identity, gender }: Params) {
   state.onlineCharacters[identity] = newCharacter(identity, gender)
 }
 
-export function FLN ({ character }: Params) {
-  delete state.onlineCharacters[character]
+export function FLN ({ character: name }: Params) {
+  for (const ch of state.channels) {
+    ch.users = ch.users.filter(u => u.name !== name)
+  }
+  delete state.onlineCharacters[name]
 }
 
 export function STA ({ character, status, statusmsg }: Params) {
@@ -91,6 +115,10 @@ export function CDS ({ channel: id, description }: Params) {
   state.channels[id].description = description
 }
 
+export function RMO ({ mode, channel: id }: Params) {
+  state.channels[id].mode = mode
+}
+
 export function MSG ({ channel: id, character: name, message }: Params) {
   const char = state.onlineCharacters[name]
   state.channels[id].messages.push(newMessage(char, message, 'chat'))
@@ -99,4 +127,92 @@ export function MSG ({ channel: id, character: name, message }: Params) {
 export function LRP ({ channel: id, character: name, message }: Params) {
   const char = state.onlineCharacters[name]
   state.channels[id].messages.push(newMessage(char, message, 'lfrp'))
+}
+
+export function PRI ({ character: name, message }: Params) {
+  const chat = state.privateChats[name] || store.openPrivateChat(name)
+  const char = state.onlineCharacters[name]
+  chat.messages.push(newMessage(char, message, 'chat'))
+}
+
+export function TPN ({ character: name, status }: Params) {
+  const chat = state.privateChats[name]
+  if (chat) {
+    chat.typing = status
+  }
+}
+
+export function RLL (params: Params) {
+  const {type, channel: id, character: name} = params
+  const char = state.onlineCharacters[name]
+  let message = ''
+
+  if (type === 'dice') {
+    const {results, rolls, endresult} = params
+    message = `${name} rolled ${rolls.join(', ')}: ${endresult} (${results.join(', ')})`
+  } else if (type === 'bottle') {
+    const {target} = params
+    message = `${name} spun the bottle. It landed on: ${target}`
+  }
+
+  state.channels[id].messages.push(newMessage(char, message, type))
+}
+
+export function BRO ({ message: text }: Params) {
+  state.notifications.push({ text, time: Date.now() })
+}
+
+export function CIU ({ sender, title, name }: Params) {
+  // show confirmation bubble
+}
+
+export function CKU ({ operator, channel: id, character: name }: Params) {
+  const channel = state.channels[id]
+  channel.users = channel.users.filter(u => u.name !== name)
+}
+
+export function COA ({ character: name, channel: id }: Params) {
+  state.channels[id].ops.push(name)
+}
+
+export function COR ({ character: name, channel: id }: Params) {
+  const channel = state.channels[id]
+  channel.ops = channel.ops.filter(op => op !== name)
+}
+
+export function CSO ({ character: name, channel: id }: Params) {
+  // ???
+}
+
+export function CTU ({ operator, channel: id, length, character: name }: Params) {
+  const channel = state.channels[id]
+  channel.users = channel.users.filter(u => u.name !== name)
+}
+
+export function DOP ({ character: name }: Params) {
+  state.admins[name] = false
+}
+
+export function FKS () {
+  // deal with this later
+}
+
+export function KID () {
+  // probably just set state.onlineCharacters[name].kinks or something
+}
+
+export function PRD () {
+  // *definitely* do something with this
+}
+
+export function RTB () {
+  // probably more notifications
+}
+
+export function SFC () {
+  // hm...
+}
+
+export function SYS () {
+  // again, notification
 }
