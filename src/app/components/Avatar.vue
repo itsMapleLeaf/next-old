@@ -1,5 +1,5 @@
 <template>
-  <div :style='style'></div>
+  <span :style='style'></span>
 </template>
 
 <script>
@@ -26,7 +26,8 @@ export default {
 <style lang='stylus' scoped>
 @require 'mixins/theme'
 
-div
+span
+  display: inline-block
   filter: drop-shadow(0em 0.1em 0.15em rgba(black, 0.5))
   opacity: 1
 

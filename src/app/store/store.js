@@ -201,6 +201,23 @@ export const store = {
     return state.chatTabs.some(tab => tab.channel && tab.channel.id === id)
   },
 
+  openPrivateChat (partner: Name) {
+    const privateChat = state.privateChats[partner] || Vue.set(state.privateChats, partner, {
+      partner: state.onlineCharacters[partner],
+      messages: []
+    })
+    state.chatTabs.push({ privateChat })
+  },
+
+  closePrivateChat (partner: Name) {
+    const filter = tab => !(tab.privateChat && tab.privateChat.partner.name === partner)
+    state.chatTabs = state.chatTabs.filter(filter)
+  },
+
+  isPrivateChatOpened (partner: Name) {
+    return state.chatTabs.some(tab => tab.privateChat && tab.privateChat.partner.name === partner)
+  },
+
   isFriend (name: Name) { return state.friends[name] != null },
   isBookmark (name: Name) { return state.bookmarks[name] != null },
   isAdmin (name: Name) { return state.admins[name] != null },

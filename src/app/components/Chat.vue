@@ -43,11 +43,11 @@
     <div class='divider'></div>
     <UserList class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
     <transition v-for='overlay in overlays' name='fade' appear>
-      <component :is='overlay' @closed='overlays.pop()' @channel-toggled='toggleChannel'>
+      <component :is='overlay' @closed='overlays.pop()'
+        @channel-toggled='toggleChannel'
+        @private-chat-opened='openPrivateChat'>
       </component>
     </transition>
-    <CharacterMenu v-if='characterMenuFocus' :character='characterMenuFocus' @closed='setCharacterFocus(null)'>
-    </CharacterMenu>
   </div>
 </template>
 
@@ -75,8 +75,7 @@ export default {
     Chatbox,
     Message,
     ChatTab,
-    UserList,
-    CharacterMenu
+    UserList
   },
   directives: {
     bottomScroll
@@ -97,7 +96,7 @@ export default {
   computed: {
     ...getters(['identity', 'chatTabs', 'characterMenuFocus']),
     currentTab () {
-      const index = clamp(this.currentTabIndex, 0, this.chatTabs.length)
+      const index = clamp(this.currentTabIndex, 0, this.chatTabs.length - 1)
       return this.chatTabs[index] || {}
     },
     channelMessages () {
@@ -142,15 +141,23 @@ export default {
     closeTab (tab) {
       if (tab.channel) {
         store.leaveChannel(tab.channel.id)
+      } else if (tab.privateChat) {
+        store.closePrivateChat(tab.privateChat.partner.name)
       }
     },
     checkData (event) {
       for (const el of event.path) {
         if (el.dataset && el.dataset.character) {
           store.setCharacterFocus(el.dataset.character)
+          this.overlays.push(CharacterMenu)
           break
         }
       }
+    },
+    openPrivateChat (name) {
+      store.openPrivateChat(name)
+      store.setCharacterFocus(null)
+      this.currentTabIndex = this.chatTabs.length - 1
     },
     setCharacterFocus: store.setCharacterFocus
   }

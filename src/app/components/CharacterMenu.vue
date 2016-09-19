@@ -44,26 +44,32 @@
 import Avatar from './Avatar.vue'
 import Status from './Status.vue'
 import ProfileLink from './ProfileLink.vue'
-import {getters} from '../store'
+import {store, getters} from '../store'
 
 export default {
-  props: {
-    character: Object
-  },
   components: {
     Avatar,
     Status,
     ProfileLink
   },
   computed: {
-    ...getters(['friends']),
+    ...getters({
+      friends: 'friends',
+      character: 'characterMenuFocus'
+    }),
     menuOptions () {
       return [
-        { label: 'Send Message', icon: 'comment' },
+        { label: 'Send Message', icon: 'comment', action: this.openPrivateChat },
         { label: 'Bookmark', icon: 'bookmark-outline' },
         { label: 'Ignore', icon: 'minus-circle-outline' },
         { label: 'View Profile', icon: 'link-variant' }
       ]
+    }
+  },
+  methods: {
+    openPrivateChat () {
+      this.$emit('private-chat-opened', this.character.name)
+      this.$emit('closed')
     }
   }
 }
