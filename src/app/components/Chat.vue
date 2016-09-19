@@ -199,6 +199,7 @@ export default {
 
 .chat
   fullscreen()
+  position: fixed
   background: theme-darker(50%)
 
 .header
