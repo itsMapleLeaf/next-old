@@ -123,7 +123,7 @@ ul, ol, li
   &-thumb
     background: lighten($theme-color, 10%)
 
-.character-icon
+.chat-icon
   size(40px)
   display: inline-block
   background-size: contain
