@@ -72,7 +72,7 @@ export default {
 
 .message
   padding: 0.3em 0.6em
-  border-bottom: 1px solid theme-darker(45%)
+  border-bottom: 1px solid theme-darker(40%)
 
 .avatar
   margin: 0.2em 0.5em 0.2em 0
@@ -93,4 +93,5 @@ export default {
 
 .message-type-self
   background: theme-darker(40%)
+  border-bottom: 1px solid theme-darker(50%)
 </style>
