@@ -1,4 +1,5 @@
 // @flow
+import 'babel-polyfill'
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './components/App.vue'
