@@ -1,43 +1,41 @@
 <template>
-  <transition name='overlay-slide-right' appear>
-    <div class='overlay-shade' @click.self="$emit('closed')">
-      <div class='overlay-panel'>
-        <form class='info'>
-          <fieldset>
-            <h3>
-              <ProfileLink :name='character.name'></ProfileLink>
-            </h3>
-            <small :class="'character-gender-' + character.gender.toLowerCase()">
-              {{ character.gender }}
-            </small>
-          </fieldset>
-          <fieldset>
-            <ProfileLink :name='character.name'>
-              <Avatar :name='character.name'></Avatar>
-            </ProfileLink>
-          </fieldset>
-          <fieldset>
-            <div class='status'>
-              <Status :status='character.status' :statusmsg='character.statusmsg'></Status>
+  <div class='overlay-shade' @click.self="$emit('closed')">
+    <div class='overlay-panel overlay-slide-right'>
+      <form class='info'>
+        <fieldset>
+          <h3>
+            <ProfileLink :name='character.name'></ProfileLink>
+          </h3>
+          <small :class="'character-gender-' + character.gender.toLowerCase()">
+            {{ character.gender }}
+          </small>
+        </fieldset>
+        <fieldset>
+          <ProfileLink :name='character.name'>
+            <Avatar :name='character.name'></Avatar>
+          </ProfileLink>
+        </fieldset>
+        <fieldset>
+          <div class='status'>
+            <Status :status='character.status' :statusmsg='character.statusmsg'></Status>
+          </div>
+        </fieldset>
+        <fieldset v-for='friend in friends[character.name] || []'>
+          <ProfileLink :name='friend'>
+            <div class='friend'>
+              <i class='mdi mdi-heart'></i>
+              {{ friend }}
             </div>
-          </fieldset>
-          <fieldset v-for='friend in friends[character.name] || []'>
-            <ProfileLink :name='friend'>
-              <div class='friend'>
-                <i class='mdi mdi-heart'></i>
-                {{ friend }}
-              </div>
-            </ProfileLink>
-          </fieldset>
-        </form>
-        <nav>
-          <a href='#' v-for='opt in menuOptions' @click='opt.action && opt.action()'>
-            <i :class="'mdi mdi-' + opt.icon"></i> {{ opt.label }}
-          </a>
-        </nav>
-      </div>
+          </ProfileLink>
+        </fieldset>
+      </form>
+      <nav>
+        <a href='#' v-for='opt in menuOptions' @click='opt.action && opt.action()'>
+          <i :class="'mdi mdi-' + opt.icon"></i> {{ opt.label }}
+        </a>
+      </nav>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>

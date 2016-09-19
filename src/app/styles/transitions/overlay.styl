@@ -1,12 +1,17 @@
 @require 'transitions/fade'
 @require 'transitions/slide'
+@require 'transitions/ease'
 
-.overlay-slide-right-enter-active
+.overlay-enter-active
   animation: fade 0.3s ease
-  .overlay-panel
+  .overlay-ease-down
+    animation: ease-down 0.3s ease
+  .overlay-slide-right
     animation: slide-right 0.3s ease
 
-.overlay-slide-right-leave-active
+.overlay-leave-active
   animation: fade 0.3s ease reverse
-  .overlay-panel
+  .overlay-ease-down
+    animation: ease-down 0.3s ease reverse
+  .overlay-slide-right
     animation: slide-right 0.3s ease reverse

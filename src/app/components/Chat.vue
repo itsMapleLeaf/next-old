@@ -40,7 +40,7 @@
         <div class='divider'></div>
         <UserList class='user-list flex-fixed' :users='channel.users' :ops='channel.ops'></UserList>
       </template>
-      <transition v-for='overlay in overlays' name='fade' appear>
+      <transition v-for='overlay in overlays' name='overlay' appear>
         <component :is='overlay' @closed='overlays.pop()'
           @channel-toggled='toggleChannel'
           @private-chat-opened='openPrivateChat'>
@@ -190,7 +190,7 @@ export default {
 @require 'mixins/layout'
 @require 'mixins/theme'
 @require 'mixins/flex'
-@require 'transitions/fade'
+@require 'transitions/overlay'
 
 .divider
   size: 3px

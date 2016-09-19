@@ -1,6 +1,6 @@
 <template>
   <div class='overlay-shade' @click.self="$emit('closed')">
-    <div class='overlay-panel'>
+    <div class='overlay-panel overlay-ease-down'>
       <a href='#' class='overlay-close' @click="$emit('closed')">
         <i class='mdi mdi-close'></i>
       </a>
@@ -24,4 +24,5 @@ export default {
 
 <style lang='stylus' scoped>
 @require 'elements/overlay'
+@require 'transitions/overlay'
 </style>
