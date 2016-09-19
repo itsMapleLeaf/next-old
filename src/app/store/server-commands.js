@@ -1,5 +1,5 @@
 // @flow
-import {store} from './store'
+import * as store from './store'
 import {state} from './state'
 import {mapToObject} from '../lib/util'
 import {newCharacter, newChannelInfo, newMessage} from '../lib/constructors'

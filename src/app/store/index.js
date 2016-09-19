@@ -1,3 +1,4 @@
+import * as store from './store'
+export {store}
 export {state} from './state'
-export {store} from './store'
 export {getters} from './getters'
