@@ -13,18 +13,15 @@
     </Resizable>
     <div class='divider'></div>
     <div class='flex-grow flex-column'>
-      <div class='room-settings flex-fixed flex-row'>
-        <div class='room-filters flex-grow'>
-          <Toggle v-for='label in filterLabels' class='room-filter tooltip-bottom'
+      <template v-if='filterLabels.length > 0'>
+        <div class='room-filters flex-fixed'>
+          <Toggle v-for='label in filterLabels' class='filter tooltip-bottom'
             :data-tooltip='label.info' v-model='filters[label.filter]'>
             {{ label.label }}
           </Toggle>
         </div>
-        <a href='#' class='room-settings-button tooltip-bottom' data-tooltip='Room Settings'>
-          <i class='mdi mdi-tune'></i>
-        </a>
-      </div>
-      <div class='divider'></div>
+        <div class='divider'></div>
+      </template>
       <div class='room-description flex-fixed' bottom>
         <span v-if='currentTab.channel' v-html='channelDescription'></span>
         <span v-if='currentTab.privateChat'>
@@ -136,9 +133,9 @@ export default {
       ]
     },
     filterLabels () {
-      if (this.currentTab.channel) {
-        const {mode} = this.currentTab.channel
-        switch (mode) {
+      const {channel} = this.currentTab
+      if (channel) {
+        switch (channel.mode) {
           case 'both':
             return [
               { label: 'Chat', info: 'Normal Messages', filter: 'chat' },
@@ -158,6 +155,7 @@ export default {
             ]
         }
       }
+      return []
     }
   },
   methods: {
@@ -228,19 +226,10 @@ export default {
   width-limit: 6em 20em
   overflow-y: auto
 
-.room-settings
-  flex-align(center)
+.room-filters
   background: theme-darker(30%)
-
-  .room-filter
+  .filter
     margin: 0.4em 0 0.4em 0.7em
-
-  .room-settings-button
-    padding: 0.3em
-    font-size: 130%
-    opacity: 0.5
-    +animate(hover)
-      opacity: 1
 
 .chat-messages
   background: theme-darker(30%)
