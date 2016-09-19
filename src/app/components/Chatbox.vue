@@ -1,5 +1,5 @@
 <template>
-  <textarea class='textarea' v-model='message' @keydown.enter.prevent='submit'></textarea>
+  <textarea v-model='message' @keydown.enter.prevent='submit'></textarea>
 </template>
 
 <script>
@@ -15,3 +15,12 @@ export default {
   }
 }
 </script>
+
+<style lang='stylus' scoped>
+@require 'mixins/theme'
+
+textarea
+  padding: 0.3em 0.6em
+  +animate(focus)
+    background: theme-darker(40%)
+</style>
