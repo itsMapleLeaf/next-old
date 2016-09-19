@@ -1,20 +1,8 @@
 <template>
   <div class='chat flex-column' @click='checkData($event)'>
-    <header class='flex-fixed flex-row'>
-      <div class='flex-fixed'>
-        <span>F-Chat Next</span>
-        <span>v0.5.0</span>
-        <a href='#' class='link'>
-          <i class='mdi mdi-information'></i>
-        </a>
-      </div>
-      <nav class='flex-grow'>
-        <a href='#' v-for='option in sidebarOptions' class='tooltip-bottom'
-          :data-tooltip='option.info' @click='option.action && option.action()'>
-          <i :class="'mdi mdi-' + option.icon"></i>
-        </a>
-      </nav>
-    </header>
+    <div class='flex-fixed'>
+      <ChatHeader class='header' :options='headerOptions'></ChatHeader>
+    </div>
     <div class='divider'></div>
     <div class='flex-grow flex-row'>
       <Resizable right class='chat-tabs flex-fixed'>
@@ -26,24 +14,16 @@
       <div class='flex-grow flex-column'>
         <template v-if='isChannel'>
           <div class='room-filters flex-fixed'>
-            <template v-for='label in filterLabels'>
-              <Toggle v-if='isFilterDisabled(label.filter)' class='filter tooltip-bottom' :data-tooltip='label.info' disabled value>
-                {{ label.label }}
-              </Toggle>
-              <Toggle v-else class='filter tooltip-bottom' :data-tooltip='label.info' v-model='filters[label.filter]'>
-                {{ label.label }}
-              </Toggle>
-            </template>
+            <ChatFilter class='filter' v-for='label in filterLabels' v-model='filters[label.filter]'
+              :disabled="isFilterDisabled(label.filter)" :tooltip='label.tooltip'>
+              {{ label.label }}
+            </ChatFilter>
           </div>
           <div class='divider'></div>
         </template>
-        <div class='room-description flex-fixed' bottom>
-          <span v-if='isChannel' v-html='channelDescription'></span>
-          <span v-if='isPrivateChat'>
-            <Status :status='partner.status'
-              :statusmsg='partner.statusmsg'>
-            </Status>
-          </span>
+        <div class='room-description flex-fixed'>
+          <ChatDescription :channel='currentTab.channel' :private-chat='currentTab.privateChat'>
+          </ChatDescription>
         </div>
         <div class='divider'></div>
         <div class='chat-messages flex-grow' v-bottom-scroll>
@@ -57,8 +37,10 @@
           <Chatbox :placeholder="'Chatting as ' + identity"></Chatbox>
         </Resizable>
       </div>
-      <div class='divider'></div>
-      <UserList v-if='isChannel' class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
+      <template v-if='isChannel'>
+        <div class='divider'></div>
+        <UserList class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
+      </template>
       <transition v-for='overlay in overlays' name='fade' appear>
         <component :is='overlay' @closed='overlays.pop()'
           @channel-toggled='toggleChannel'
@@ -80,6 +62,9 @@ import UserList from './UserList.vue'
 import ChannelList from './ChannelList.vue'
 import CharacterMenu from './CharacterMenu.vue'
 import Status from './Status.vue'
+import ChatHeader from './ChatHeader.vue'
+import ChatFilter from './ChatFilter.vue'
+import ChatDescription from './ChatDescription.vue'
 
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
@@ -95,7 +80,10 @@ export default {
     Message,
     ChatTab,
     UserList,
-    Status
+    Status,
+    ChatHeader,
+    ChatFilter,
+    ChatDescription
   },
   directives: {
     bottomScroll
@@ -141,11 +129,15 @@ export default {
       const {channel} = this.currentTab
       return channel ? channel.ops : []
     },
+    channelMode () {
+      const {channel} = this.currentTab
+      return channel && channel.mode
+    },
     partner () {
       const {privateChat} = this.currentTab
       return privateChat && privateChat.partner
     },
-    sidebarOptions () {
+    headerOptions () {
       const openOverlay = which => () => this.overlays.push(which)
       return [
         { info: 'Join a Channel', icon: 'forum', action: openOverlay(ChannelList) },
@@ -156,11 +148,11 @@ export default {
     },
     filterLabels () {
       return [
-        { filter: 'chat', label: 'Chat', info: 'Normal Messages' },
-        { filter: 'lfrp', label: 'LFRP', info: 'RP Ads' },
-        { filter: 'admin', label: 'Admin', info: 'Red Admin Messages' },
-        { filter: 'friend', label: 'Friend', info: 'Friend and Bookmark Messages' },
-        { filter: 'self', label: 'Self', info: 'Your Messages' }
+        { filter: 'chat', label: 'Chat', tooltip: 'Normal Messages' },
+        { filter: 'lfrp', label: 'LFRP', tooltip: 'RP Ads' },
+        { filter: 'admin', label: 'Admin', tooltip: 'Red Admin Messages' },
+        { filter: 'friend', label: 'Friend', tooltip: 'Friend and Bookmark Messages' },
+        { filter: 'self', label: 'Self', tooltip: 'Your Messages' }
       ]
     }
   },
@@ -221,18 +213,9 @@ export default {
   fullscreen()
   background: theme-darker(50%)
 
-header
+.header
   background: theme-darker(10%)
   padding: 0.4em 0.7em
-  flex-align(center)
-
-  nav
-    text-align: right
-
-    a
-      active-animation()
-      font-size: 120%
-      margin-left: 0.6em
 
 .chat-tabs
   background: $theme-color
