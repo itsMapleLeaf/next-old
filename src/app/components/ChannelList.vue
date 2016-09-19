@@ -23,7 +23,7 @@
         </div>
       </fieldset>
       <fieldset>
-        <div class='icon-input'>
+        <div class='form-icon-input'>
           <i class='mdi mdi-magnify'></i>
           <input type='text' placeholder='Search...' v-model='searchText'>
         </div>
@@ -89,7 +89,7 @@ form
 
 .form-selection-list
   text-align: left
-  width: 18em
+  width: 22em
   height: calc(100vh - 14em)
 
 .channel-user-count
