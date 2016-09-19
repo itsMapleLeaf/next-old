@@ -70,11 +70,9 @@ export default {
 @require 'mixins/theme'
 @require 'mixins/highlight'
 
-.message-type-lfrp
-  highlight($green)
-
 .message
-  padding: 0.5em 0.8em
+  padding: 0.3em 0.6em
+  border-bottom: 1px solid theme-darker(45%)
 
 .avatar
   margin: 0.2em 0.5em 0.2em 0
@@ -82,11 +80,17 @@ export default {
 .sender
   margin-right: 0.25em
 
-.message-action
-  font-style: italic
-
 .timestamp
   font-size: 70%
   opacity: 0.5
   float: right
+
+.message-action
+  font-style: italic
+
+.message-type-lfrp
+  highlight($green)
+
+.message-type-self
+  background: theme-darker(40%)
 </style>
