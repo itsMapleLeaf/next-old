@@ -1,59 +1,71 @@
 <template>
-  <div class='chat flex-row' @click='checkData($event)'>
-    <div class='option-bar flex-fixed flex-column'>
-      <a href='#' v-for='option in sidebarOptions' class='tooltip-right'
-        :data-tooltip='option.info' @click='option.action && option.action()'>
-        <i :class="'mdi mdi-' + option.icon"></i>
-      </a>
-    </div>
-    <Resizable right class='chat-tabs flex-fixed'>
-      <ChatTab v-for='(tab, index) in chatTabs' :tab='tab' :active='tab === currentTab'
-        @selected='currentTabIndex = index' @closed='closeTab(tab)'>
-      </ChatTab>
-    </Resizable>
+  <div class='chat flex-column' @click='checkData($event)'>
+    <header class='flex-fixed flex-row'>
+      <div class='flex-fixed'>
+        <span>F-Chat Next</span>
+        <span>v0.5.0</span>
+        <a href='#' class='link'>
+          <i class='mdi mdi-information'></i>
+        </a>
+      </div>
+      <nav class='flex-grow'>
+        <a href='#' v-for='option in sidebarOptions' class='tooltip-bottom'
+          :data-tooltip='option.info' @click='option.action && option.action()'>
+          <i :class="'mdi mdi-' + option.icon"></i>
+        </a>
+      </nav>
+    </header>
     <div class='divider'></div>
-    <div class='flex-grow flex-column'>
-      <template v-if='isChannel'>
-        <div class='room-filters flex-fixed'>
-          <template v-for='label in filterLabels'>
-            <Toggle v-if='isFilterDisabled(label.filter)' class='filter tooltip-bottom' :data-tooltip='label.info' disabled value>
-              {{ label.label }}
-            </Toggle>
-            <Toggle v-else class='filter tooltip-bottom' :data-tooltip='label.info' v-model='filters[label.filter]'>
-              {{ label.label }}
-            </Toggle>
-          </template>
+    <div class='flex-grow flex-row'>
+      <Resizable right class='chat-tabs flex-fixed'>
+        <ChatTab v-for='(tab, index) in chatTabs' :tab='tab' :active='tab === currentTab'
+          @selected='currentTabIndex = index' @closed='closeTab(tab)'>
+        </ChatTab>
+      </Resizable>
+      <div class='divider'></div>
+      <div class='flex-grow flex-column'>
+        <template v-if='isChannel'>
+          <div class='room-filters flex-fixed'>
+            <template v-for='label in filterLabels'>
+              <Toggle v-if='isFilterDisabled(label.filter)' class='filter tooltip-bottom' :data-tooltip='label.info' disabled value>
+                {{ label.label }}
+              </Toggle>
+              <Toggle v-else class='filter tooltip-bottom' :data-tooltip='label.info' v-model='filters[label.filter]'>
+                {{ label.label }}
+              </Toggle>
+            </template>
+          </div>
+          <div class='divider'></div>
+        </template>
+        <div class='room-description flex-fixed' bottom>
+          <span v-if='isChannel' v-html='channelDescription'></span>
+          <span v-if='isPrivateChat'>
+            <Status :status='partner.status'
+              :statusmsg='partner.statusmsg'>
+            </Status>
+          </span>
         </div>
         <div class='divider'></div>
-      </template>
-      <div class='room-description flex-fixed' bottom>
-        <span v-if='isChannel' v-html='channelDescription'></span>
-        <span v-if='isPrivateChat'>
-          <Status :status='partner.status'
-            :statusmsg='partner.statusmsg'>
-          </Status>
-        </span>
-      </div>
-      <div class='divider'></div>
-      <div class='chat-messages flex-grow' v-bottom-scroll>
-        <div class='chat-message' v-for='msg in channelMessages'>
-          <Message :sender='msg.sender' :message='msg.message' :type='msg.type' :time='msg.time'>
-          </Message>
+        <div class='chat-messages flex-grow' v-bottom-scroll>
+          <div class='chat-message' v-for='msg in channelMessages'>
+            <Message :sender='msg.sender' :message='msg.message' :type='msg.type' :time='msg.time'>
+            </Message>
+          </div>
         </div>
+        <div class='divider'></div>
+        <Resizable class='chat-input flex-fixed' top>
+          <Chatbox :placeholder="'Chatting as ' + identity"></Chatbox>
+        </Resizable>
       </div>
       <div class='divider'></div>
-      <Resizable class='chat-input flex-fixed' top>
-        <Chatbox :placeholder="'Chatting as ' + identity"></Chatbox>
-      </Resizable>
+      <UserList v-if='isChannel' class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
+      <transition v-for='overlay in overlays' name='fade' appear>
+        <component :is='overlay' @closed='overlays.pop()'
+          @channel-toggled='toggleChannel'
+          @private-chat-opened='openPrivateChat'>
+        </component>
+      </transition>
     </div>
-    <div class='divider'></div>
-    <UserList v-if='isChannel' class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
-    <transition v-for='overlay in overlays' name='fade' appear>
-      <component :is='overlay' @closed='overlays.pop()'
-        @channel-toggled='toggleChannel'
-        @private-chat-opened='openPrivateChat'>
-      </component>
-    </transition>
   </div>
 </template>
 
@@ -206,17 +218,21 @@ export default {
   flex-shrink: 0
 
 .chat
-  size: 100%
+  fullscreen()
   background: theme-darker(50%)
 
-.option-bar
-  padding: 0.3em 0
-  background: theme-darker(30%)
+header
+  background: theme-darker(10%)
+  padding: 0.4em 0.7em
+  flex-align(center)
 
-  a
-    active-animation()
-    font-size: 130%
-    padding: 0.4em 0.5em
+  nav
+    text-align: right
+
+    a
+      active-animation()
+      font-size: 120%
+      margin-left: 0.6em
 
 .chat-tabs
   background: $theme-color
