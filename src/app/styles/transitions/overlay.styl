@@ -1,12 +1,12 @@
-@require 'fade'
-@require 'slide'
+@require 'transitions/fade'
+@require 'transitions/slide'
 
 .overlay-slide-right-enter-active
-  @extend .fade-enter-active
+  animation: fade 0.3s ease
   .overlay-panel
-    @extend .slide-right-enter-active
+    animation: slide-right 0.3s ease
 
 .overlay-slide-right-leave-active
-  @extend .fade-leave-active
+  animation: fade 0.3s ease reverse
   .overlay-panel
-    @extend .slide-right-leave-active
+    animation: slide-right 0.3s ease reverse

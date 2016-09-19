@@ -149,10 +149,11 @@ export default {
 
 <style lang='stylus' scoped>
 @require 'elements/flex'
-@require 'elements/form'
 @require 'elements/tooltip'
+@require 'mixins/layout'
 @require 'mixins/theme'
 @require 'mixins/flex'
+@require 'transitions/fade'
 
 .divider
   size: 3px

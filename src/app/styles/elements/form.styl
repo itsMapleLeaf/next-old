@@ -1,11 +1,12 @@
 @require 'mixins/theme'
+@require 'mixins/highlight'
 
-.input
+.form-input
   active-animation()
   input-styles()
   accent-border()
 
-.button
+.form-button
   active-animation()
   input-styles()
   width: min-content
@@ -16,12 +17,12 @@
   &:hover
     opacity: 1
 
-.textarea
+.form-textarea
   input-styles()
   accent-border()
   transition: 0.25s
 
-.icon-input
+.form-icon-input
   active-animation()
   position: relative
 
@@ -37,11 +38,11 @@
     transition: 0.25s
     padding-left: 2em
 
-.selection-list
+.form-selection-list
   display: inline-block
   width: 14em
   height: 20em
-  background: darken($theme-color, 20%)
+  background: theme-darker(20%)
   overflow-y: auto
 
   a
@@ -49,5 +50,5 @@
     display: block
     padding: 0.35em 0.6em
 
-  a.selection-list-active
-    background: rgba($highlight-active, 0.5)
+  a.active
+    highlight($green)

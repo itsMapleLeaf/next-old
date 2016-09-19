@@ -1,9 +1,7 @@
 <template>
   <a class='character' href='#' :data-character='name'>
-    <span :class="'character-status-' + status.toLowerCase()" v-if='status'>●</span>
-    <span :class="'character-gender-' + gender.toLowerCase()">
-      {{ name }}
-    </span>
+    <span :class='statusClass' v-if='status'>●</span>
+    <span :class='genderClass'>{{ name }}</span>
   </a>
 </template>
 
@@ -15,12 +13,20 @@ export default {
     name: { type: String, required: true },
     gender: { type: String, default: 'none' },
     status: String
+  },
+  computed: {
+    statusClass () {
+      return 'character-status-' + this.status.toLowerCase()
+    },
+    genderClass () {
+      return 'character-gender-' + this.gender.toLowerCase()
+    }
   }
 }
 </script>
 
 <style lang='stylus' scoped>
-@import 'elements/user-colors'
+@import 'elements/character'
 
 .character
   font-weight: bold

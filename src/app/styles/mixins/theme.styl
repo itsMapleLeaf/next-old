@@ -9,8 +9,8 @@ $text-color = rgb(236, 240, 241)
 
 $highlight-active = $green
 
-animate($state, $time = 0.25s)
-  transition: $time
+animate($state = hover, $duration = 0.25s, $properties = all, $easing = ease)
+  transition: $duration $easing $properties
   if block
     &:{$state}
       {block}
@@ -32,10 +32,6 @@ active-animation()
   +animate(active)
     transform: scale(0.95)
     transition-duration: 0.05s
-
-highlight($color)
-  background: rgba($color, 0.2)
-  color: lighten($color, 20%)
 
 theme-darker($amount)
   darken($theme-color, $amount)

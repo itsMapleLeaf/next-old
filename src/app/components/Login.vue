@@ -1,16 +1,16 @@
 <template>
-  <form class='login-form' @submit.prevent='submit'>
+  <form @submit.prevent='submit'>
     <fieldset>
       <h2>Hello, beautiful.</h2>
     </fieldset>
     <fieldset>
-      <div class='icon-input'>
+      <div class='form-icon-input'>
         <i class='mdi mdi-account-circle'></i>
         <input type='text' placeholder='Username' v-model='account'/>
       </div>
     </fieldset>
     <fieldset>
-      <div class='icon-input'>
+      <div class='form-icon-input'>
         <i class='mdi mdi-lock'></i>
         <input type='password' placeholder='••••••••' v-model='password'/>
       </div>
@@ -19,10 +19,10 @@
       <toggle v-model='remember'>Remember me</toggle>
     </fieldset>
     <fieldset>
-      <button class='button' action='submit'>Go</button>
+      <button class='form-button' action='submit'>Go</button>
     </fieldset>
     <fieldset>
-      <div class='login-form-status'>
+      <div class='status'>
         {{ status }}
       </div>
     </fieldset>
@@ -69,9 +69,9 @@ export default {
 <style lang='stylus' scoped>
 @require 'elements/form'
 
-.login-form
+form
   text-align: center
 
-.login-form-status
+.status
   max-width: 16em
 </style>

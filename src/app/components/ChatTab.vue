@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class='chat-tab' :class="{ 'chat-tab-active': active }" @click="$emit('selected')">
+  <a href='#' class='chat-tab' :class="active && 'chat-tab-active'" @click="$emit('selected')">
     <span v-if="tab.channel">
       <i class='mdi mdi-earth' v-if='tab.channel.name === tab.channel.id'></i>
       <i class='mdi mdi-key-variant' v-else></i>

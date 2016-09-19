@@ -2,7 +2,7 @@
   <Overlay header='Channel List' @closed="$emit('closed')">
     <form @submit.prevent>
       <fieldset>
-        <div class='selection-list'>
+        <div class='form-selection-list'>
           <div v-for='ch in publicChannels' :class='channelHighlight(ch)'>
             <a href='#' @click="$emit('channel-toggled', ch)">
               <i class='mdi mdi-earth'></i>
@@ -36,6 +36,10 @@
 import Overlay from './Overlay.vue'
 import {store, getters} from '../store'
 
+function lower (str) {
+  return str.toLocaleLowerCase()
+}
+
 export default {
   components: {
     Overlay
@@ -50,22 +54,27 @@ export default {
   },
   computed: {
     ...getters(['publicChannelList', 'privateChannelList']),
-
     publicChannels () {
       return this.publicChannelList
-        .filter(ch => ch.name.toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase()))
-        .sort((a, b) => b.userCount - a.userCount)
+        .filter(this.channelFilter)
+        .sort(this.channelOrder)
     },
     privateChannels () {
       return this.privateChannelList
-        .filter(ch => ch.name.toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase()))
-        .sort((a, b) => b.userCount - a.userCount)
+        .filter(this.channelFilter)
+        .sort(this.channelOrder)
         .slice(0, 200)
     }
   },
   methods: {
+    channelFilter (ch) {
+      return lower(ch.name).includes(lower(this.searchText))
+    },
+    channelOrder (a, b) {
+      return b.userCount - a.userCount
+    },
     channelHighlight (ch) {
-      return store.isChannelJoined(ch.id) && 'channel-list-joined'
+      return store.isChannelJoined(ch.id) && 'channel-joined'
     }
   }
 }
@@ -78,7 +87,7 @@ export default {
 form
   text-align: center
 
-.selection-list
+.form-selection-list
   text-align: left
   width: 18em
   height: calc(100vh - 14em)
@@ -90,6 +99,6 @@ form
   margin-left: 1.3rem
   color: lighten($theme-color, 25%)
 
-.channel-list-joined
+.channel-joined
   highlight($green)
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <body class='container'>
+  <body>
     <transition name='fade' mode='out-in' appear>
       <component v-if='currentView' :is='currentView' />
     </transition>
@@ -58,8 +58,9 @@ export default {
 @require 'mixins/layout'
 @require 'mixins/flex'
 @require 'mixins/theme'
+@require 'transitions/fade'
 
-.container
+body
   fullscreen()
   flex()
   flex-align(center)
@@ -68,6 +69,7 @@ export default {
 
 <style lang='stylus'>
 @require 'mixins/theme'
+@require 'mixins/layout'
 
 *
   margin: 0
@@ -114,11 +116,9 @@ ul, ol, li
   list-style: none
 
 ::-webkit-scrollbar
-  size: 8px
-
+  size(10px)
   &-track
     background: darken($theme-color, 40%)
-
   &-thumb
     background: lighten($theme-color, 10%)
 </style>

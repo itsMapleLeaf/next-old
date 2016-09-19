@@ -1,19 +1,19 @@
 <template>
-  <div class='chat-message flex-row' :class="type && 'chat-message-' + type">
+  <div class='message flex-row' :class="type && 'message-type-' + type">
     <div class='flex-fixed'>
-      <div class='chat-message-avatar'>
+      <div class='avatar'>
         <a href='#' :data-character='sender.name'>
           <Avatar :name='sender.name' size='2.25em'></Avatar>
         </a>
       </div>
     </div>
     <div class='flex-grow'>
-      <span class='chat-message-timestamp'>{{ parsedTime }}</span>
+      <span class='timestamp'>{{ parsedTime }}</span>
       <span :class='actionClass'>
-        <span class='chat-message-sender'>
+        <span class='sender'>
           <Character :name='sender.name' :gender='sender.gender' :status='sender.status'></Character>
         </span>
-        <span class='chat-message-text' v-html='parsedMessage'></span>
+        <span class='message-text' v-html='parsedMessage'></span>
       </span>
     </div>
   </div>
@@ -48,7 +48,7 @@ export default {
       return this.message.substring(0, 3) === '/me'
     },
     actionClass () {
-      return { 'chat-message-action': this.isAction }
+      return { 'message-action': this.isAction }
     },
     parsedMessage () {
       return this.isAction
@@ -58,7 +58,7 @@ export default {
     parsedTime () {
       if (this.time) {
         const time = new Date(this.time)
-        return `[${time.toLocaleTimeString()}]`
+        return time.toLocaleTimeString()
       }
     }
   }
@@ -68,23 +68,24 @@ export default {
 <style lang='stylus' scoped>
 @require 'elements/flex'
 @require 'mixins/theme'
+@require 'mixins/highlight'
 
-.chat-message-lfrp
+.message-type-lfrp
   highlight($green)
 
-.chat-message
+.message
   padding: 0.5em 0.8em
 
-.chat-message-avatar
+.avatar
   margin: 0.2em 0.5em 0.2em 0
 
-.chat-message-sender
+.sender
   margin-right: 0.25em
 
-.chat-message-action
+.message-action
   font-style: italic
 
-.chat-message-timestamp
+.timestamp
   font-size: 70%
   opacity: 0.5
   float: right

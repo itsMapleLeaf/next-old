@@ -1,10 +1,10 @@
 <template>
-  <div class='loading-shade'>
-    <div class='loading-icon'>
+  <div class='shade'>
+    <div class='icon'>
       <i class='mdi mdi-paw'></i>
     </div>
-    <h3 class='loading-text'>
-      <i><slot></slot></i>
+    <h3 class='text'>
+      <slot></slot>
     </h3>
   </div>
 </template>
@@ -15,16 +15,21 @@ export default {}
 
 <style lang='stylus' scoped>
 @require 'mixins/theme'
+@require 'mixins/layout'
+@require 'mixins/flex'
 
-.loading-shade
+.shade
   fullscreen()
   flex(column)
   flex-align(center)
   background: rgba(black, 0.5)
 
-.loading-icon
+.icon
   font-size: 500%
   animation: loading-animation 3s infinite
+
+.text
+  font-style: italic
 
 @keyframes loading-animation
   0%   { transform: perspective(120px) rotateX(0) rotateY(0) }

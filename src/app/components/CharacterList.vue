@@ -7,15 +7,15 @@
       <div class='character-list-avatar' :style="{ 'background-image': 'url(' + avatarURL + ')' }"></div>
     </fieldset>
     <fieldset>
-      <div class='selection-list'>
-        <a href='#' v-for='name in characters' :class="name === current && 'selection-list-active'"
+      <div class='form-selection-list'>
+        <a href='#' v-for='name in characters' :class="name === current && 'active'"
           @click.prevent='select(name)' @focus='select(name)'>
           {{ name }}
         </a>
       </div>
     </fieldset>
     <fieldset>
-      <button class='button' action='submit'>Go</button>
+      <button class='form-button' action='submit'>Go</button>
     </fieldset>
   </form>
 </template>
@@ -69,6 +69,6 @@ export default {
   display: inline-block
   filter: drop-shadow(0px 2px 4px rgba(black, 0.5))
 
-.selection-list
+.form-selection-list
   width: 12em
 </style>
