@@ -3,7 +3,7 @@ dist = dist
 dist_web = $(dist)/web
 dist_electron = $(dist)/electron
 
-build_webpack_web = webpack $(app_main) $(dist_web)/bundle.js -p
+build_webpack_web = webpack $(app_main) $(dist_web)/bundle.js
 build_pug_web = pug src/web -o $(dist_web) --pretty
 copy_assets_web = cp -r src/assets dist/web
 

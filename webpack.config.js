@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const {join} = require('path')
+// const {join} = require('path')
 
 module.exports = {
   module: {
@@ -11,9 +11,7 @@ module.exports = {
   },
   vue: {
     loaders: {
-      stylus: {
-        include: join(__dirname, 'src/app/styles')
-      }
+      stylus: 'style!css!stylus?paths=src/app/styles'
     }
   },
   plugins: [

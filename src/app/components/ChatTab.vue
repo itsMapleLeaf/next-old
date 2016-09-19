@@ -27,10 +27,9 @@ export default {
   display: block
   padding: 0.4em 0.4em
   opacity: 0.5
-  animate()
   accent-border(left)
 
-  &:hover
+  +animate(hover)
     background: darken($theme-color, 20%)
 
 .chat-tab-active

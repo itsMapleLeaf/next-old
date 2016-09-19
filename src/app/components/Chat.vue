@@ -161,11 +161,11 @@ export default {
 
 .chat
   size: 100%
-  background: darken($theme-color, 50%)
+  background: theme-darker(50%)
 
 .option-bar
   padding: 0.3em 0
-  background: darken($theme-color, 30%)
+  background: theme-darker(30%)
 
   a
     active-animation()
@@ -186,7 +186,7 @@ export default {
 
 .room-settings
   flex-align(center)
-  background: darken($theme-color, 30%)
+  background: theme-darker(30%)
 
   .room-filter
     margin: 0.4em 0 0.4em 0.7em
@@ -195,28 +195,26 @@ export default {
     padding: 0.3em
     font-size: 130%
     opacity: 0.5
-    animate()
-
-    &:hover
+    +animate(hover)
       opacity: 1
 
 .chat-messages
-  background: darken($theme-color, 30%)
+  background: theme-darker(30%)
   overflow-y: auto
   min-height: 0
 
   .chat-message
     &:nth-child(2n)
-      background: darken($theme-color, 20%)
+      background: theme-darker(20%)
 
 .room-description
-  background: darken($theme-color, 10%)
+  background: theme-darker(10%)
   height: 5em
   padding: 0.3em 0.6em
   overflow-y: auto
 
 .chat-input
-  background: darken($theme-color, 10%)
+  background: theme-darker(10%)
   height: 5em
 
   textarea
@@ -224,5 +222,5 @@ export default {
     size: 100%
 
     &:focus
-      background: darken($theme-color, 40%)
+      background: theme-darker(40%)
 </style>
