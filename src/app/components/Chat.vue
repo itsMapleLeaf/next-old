@@ -15,9 +15,9 @@
     <div class='flex-grow flex-column'>
       <div class='room-settings flex-fixed flex-row'>
         <div class='room-filters flex-grow'>
-          <Toggle v-for='filter in filters' class='room-filter tooltip-bottom'
-            :data-tooltip='filter.info' v-model='filter.enabled'>
-            {{ filter.label }}
+          <Toggle v-for='label in filterLabels' class='room-filter tooltip-bottom'
+            :data-tooltip='label.info' v-model='filters[label.filter]'>
+            {{ label.label }}
           </Toggle>
         </div>
         <a href='#' class='room-settings-button tooltip-bottom' data-tooltip='Room Settings'>
@@ -81,9 +81,21 @@ export default {
   directives: {
     bottomScroll
   },
+  data () {
+    return {
+      currentTabIndex: 0,
+      overlays: [],
+      filters: {
+        chat: true,
+        lfrp: true,
+        admin: true,
+        friend: true,
+        self: true
+      }
+    }
+  },
   computed: {
     ...getters(['identity', 'chatTabs', 'characterMenuFocus']),
-
     currentTab () {
       const index = clamp(this.currentTabIndex, 0, this.chatTabs.length)
       return this.chatTabs[index] || {}
@@ -103,25 +115,23 @@ export default {
     channelOps () {
       const {channel} = this.currentTab
       return channel ? channel.ops : []
-    }
-  },
-  data () {
-    const openOverlay = which => () => this.overlays.push(which)
-    return {
-      currentTabIndex: 0,
-      overlays: [],
-      sidebarOptions: [
+    },
+    sidebarOptions () {
+      const openOverlay = which => () => this.overlays.push(which)
+      return [
         { info: 'Join a Channel', icon: 'forum', action: openOverlay(ChannelList) },
         { info: 'Browse Online Characters', icon: 'heart' },
         { info: 'Update Your Status', icon: 'account-settings' },
         { info: 'Settings', icon: 'settings' }
-      ],
-      filters: [
-        { label: 'Chat', info: 'Normal Messages', enabled: true },
-        { label: 'LFRP', info: 'RP Ads', enabled: true },
-        { label: 'Admin', info: 'Red Admin Messages', enabled: true },
-        { label: 'Friend', info: 'Friend and Bookmark Messages', enabled: true },
-        { label: 'Self', info: 'Your Messages', enabled: true }
+      ]
+    },
+    filterLabels () {
+      return [
+        { label: 'Chat', info: 'Normal Messages', filter: 'chat' },
+        { label: 'LFRP', info: 'RP Ads', filter: 'lfrp' },
+        { label: 'Admin', info: 'Red Admin Messages', filter: 'admin' },
+        { label: 'Friend', info: 'Friend and Bookmark Messages', filter: 'friend' },
+        { label: 'Self', info: 'Your Messages', filter: 'self' }
       ]
     }
   },
