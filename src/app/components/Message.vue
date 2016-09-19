@@ -84,6 +84,7 @@ export default {
   font-size: 70%
   opacity: 0.5
   float: right
+  padding-left: 1em
 
 .message-action
   font-style: italic
