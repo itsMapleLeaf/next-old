@@ -4,10 +4,10 @@
       <a href='#' class='overlay-close' @click="$emit('closed')">
         <i class='mdi mdi-close'></i>
       </a>
-      <div class='overlay-header'>
+      <div class='header'>
         <h2>{{ header }}</h2>
       </div>
-      <div class='overlay-content'>
+      <div class='content'>
         <slot></slot>
       </div>
     </div>
@@ -25,4 +25,19 @@ export default {
 <style lang='stylus' scoped>
 @require 'elements/overlay'
 @require 'transitions/overlay'
+@require 'mixins/theme'
+
+.header
+  background: darken($theme-color, 10%)
+  padding: 0.5em 1em
+  text-align: center
+  accent-border(bottom)
+
+.overlay-close
+  padding: 0.3em 0.5em
+  opacity: 0.3
+  anchor(top right)
+
+  +animate(hover)
+    opacity: 0.7
 </style>
