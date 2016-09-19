@@ -3,7 +3,7 @@
 
 import * as store from './store'
 import {state} from './state'
-import {mapToObject} from '../lib/util'
+import {mapToObject, values} from '../lib/util'
 import {newCharacter, newChannelInfo, newMessage} from '../lib/constructors'
 
 type Params = { [key: string]: any }
@@ -68,7 +68,7 @@ export function NLN ({ identity, gender }: Params) {
 }
 
 export function FLN ({ character: name }: Params) {
-  for (const ch of state.channels) {
+  for (const ch of values(state.channels)) {
     ch.users = ch.users.filter(u => u.name !== name)
   }
   delete state.onlineCharacters[name]
