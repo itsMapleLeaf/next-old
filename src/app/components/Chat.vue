@@ -15,10 +15,14 @@
     <div class='flex-grow flex-column'>
       <template v-if='filterLabels.length > 0'>
         <div class='room-filters flex-fixed'>
-          <Toggle v-for='label in filterLabels' class='filter tooltip-bottom'
-            :data-tooltip='label.info' v-model='filters[label.filter]'>
-            {{ label.label }}
-          </Toggle>
+          <template v-for='label in filterLabels'>
+            <Toggle v-if='isFilterDisabled(label.filter)' class='filter tooltip-bottom' :data-tooltip='label.info' disabled value>
+              {{ label.label }}
+            </Toggle>
+            <Toggle v-else class='filter tooltip-bottom' :data-tooltip='label.info' v-model='filters[label.filter]'>
+              {{ label.label }}
+            </Toggle>
+          </template>
         </div>
         <div class='divider'></div>
       </template>
@@ -133,32 +137,17 @@ export default {
       ]
     },
     filterLabels () {
-      const {channel} = this.currentTab
-      if (channel) {
-        switch (channel.mode) {
-          case 'both':
-            return [
-              { label: 'Chat', info: 'Normal Messages', filter: 'chat' },
-              { label: 'LFRP', info: 'RP Ads', filter: 'lfrp' },
-              { label: 'Admin', info: 'Red Admin Messages', filter: 'admin' },
-              { label: 'Friend', info: 'Friend and Bookmark Messages', filter: 'friend' },
-              { label: 'Self', info: 'Your Messages', filter: 'self' }
-            ]
-          case 'ads':
-            return []
-          case 'chat':
-            return [
-              { label: 'Chat', info: 'Normal Messages', filter: 'chat' },
-              { label: 'Admin', info: 'Red Admin Messages', filter: 'admin' },
-              { label: 'Friend', info: 'Friend and Bookmark Messages', filter: 'friend' },
-              { label: 'Self', info: 'Your Messages', filter: 'self' }
-            ]
-        }
-      }
-      return []
+      return [
+        { filter: 'chat', label: 'Chat', info: 'Normal Messages' },
+        { filter: 'lfrp', label: 'LFRP', info: 'RP Ads' },
+        { filter: 'admin', label: 'Admin', info: 'Red Admin Messages' },
+        { filter: 'friend', label: 'Friend', info: 'Friend and Bookmark Messages' },
+        { filter: 'self', label: 'Self', info: 'Your Messages' }
+      ]
     }
   },
   methods: {
+    setCharacterFocus: store.setCharacterFocus,
     toggleChannel (ch) {
       store.joinChannel(ch.id, ch.name)
     },
@@ -183,7 +172,16 @@ export default {
       store.setCharacterFocus(null)
       this.currentTabIndex = this.chatTabs.length - 1
     },
-    setCharacterFocus: store.setCharacterFocus
+    isFilterDisabled (filter) {
+      const {channel} = this.currentTab
+      if (channel) {
+        switch (channel.mode) {
+          case 'both': return false
+          case 'ads': return true
+          case 'chat': return filter === 'lfrp'
+        }
+      }
+    }
   }
 }
 </script>
