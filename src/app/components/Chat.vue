@@ -13,7 +13,7 @@
     </Resizable>
     <div class='divider'></div>
     <div class='flex-grow flex-column'>
-      <template v-if='filterLabels.length > 0'>
+      <template v-if='isChannel'>
         <div class='room-filters flex-fixed'>
           <template v-for='label in filterLabels'>
             <Toggle v-if='isFilterDisabled(label.filter)' class='filter tooltip-bottom' :data-tooltip='label.info' disabled value>
@@ -27,8 +27,8 @@
         <div class='divider'></div>
       </template>
       <div class='room-description flex-fixed' bottom>
-        <span v-if='currentTab.channel' v-html='channelDescription'></span>
-        <span v-if='currentTab.privateChat'>
+        <span v-if='isChannel' v-html='channelDescription'></span>
+        <span v-if='isPrivateChat'>
           <Status :status='partner.status'
             :statusmsg='partner.statusmsg'>
           </Status>
@@ -47,7 +47,7 @@
       </Resizable>
     </div>
     <div class='divider'></div>
-    <UserList v-if='currentTab.channel' class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
+    <UserList v-if='isChannel' class='user-list flex-fixed' :users='channelUsers' :ops='channelOps'></UserList>
     <transition v-for='overlay in overlays' name='fade' appear>
       <component :is='overlay' @closed='overlays.pop()'
         @channel-toggled='toggleChannel'
@@ -103,6 +103,12 @@ export default {
   },
   computed: {
     ...getters(['identity', 'chatTabs', 'characterMenuFocus']),
+    isChannel () {
+      return this.currentTab.channel != null
+    },
+    isPrivateChat () {
+      return this.currentTab.privateChat != null
+    },
     currentTab () {
       const index = clamp(this.currentTabIndex, 0, this.chatTabs.length - 1)
       return this.chatTabs[index] || {}
