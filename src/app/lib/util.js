@@ -45,6 +45,8 @@ export function mapToObject <T> (array: T[], func: (item: T) => [string, any]) {
   return result
 }
 
-export function pairs (obj: { [key: any]: any }) {
-  return Object.keys(obj).map(key => [key, obj[key]])
+export function * pairs (obj: { [key: any]: any }): Generator<*, *, *> {
+  for (const key in obj) {
+    yield [ key, obj[key] ]
+  }
 }
