@@ -1,17 +1,13 @@
 // @flow
-import type {
-  Name, CharacterBatchEntry, ChatTab, Relationship
-} from '../lib/types'
-
+import type {Name, CharacterBatchEntry, ChatTab, Relationship} from '../lib/types'
 import {newCharacter, newChannel} from '../lib/constructors'
-
-import Vue from 'vue'
-import storage from 'localforage'
 import {state} from './state'
 import {assign, mapToObject} from '../lib/util'
 import * as serverCommands from './server-commands'
 import * as flist from '../lib/f-list'
 import * as meta from '../../../package.json'
+import Vue from 'vue'
+import storage from 'localforage'
 
 function mapFriends (friends: Relationship[]) {
   const map = {}
