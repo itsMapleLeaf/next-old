@@ -16,8 +16,8 @@ run-electron: build-electron
 dev-web:
 	mkdir -p $(dist_web)
 	$(copy_assets_web)
-	$(build_webpack_web) --watch &
 	$(build_pug_web) --watch &
+	$(build_webpack_web) --watch &
 	webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web)
 
 build: clean build-web build-electron
@@ -27,9 +27,9 @@ clean:
 
 build-web:
 	mkdir -p $(dist_web)
-	$(build_webpack_web)
-	$(build_pug_web)
 	$(copy_assets_web)
+	$(build_pug_web)
+	$(build_webpack_web)
 
 build-electron:
 	mkdir -p $(dist_electron)
