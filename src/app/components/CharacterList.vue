@@ -26,33 +26,33 @@ import {store, getters} from '../store'
 import * as storage from 'localforage'
 
 export default {
-  data () {
+  data() {
     return {
-      current: ''
+      current: '',
     }
   },
-  mounted () {
+  mounted() {
     storage.getItem('character').then(value => {
       if (value) this.current = value
     })
   },
   methods: {
-    select (name) {
+    select(name) {
       this.current = name
       storage.setItem('character', name)
     },
-    submit () {
+    submit() {
       store.chooseCharacter(this.current)
-    }
+    },
   },
   computed: {
     ...getters({
-      characters: 'userCharacters'
+      characters: 'userCharacters',
     }),
-    avatarURL () {
+    avatarURL() {
       return this.current && getAvatarURL(this.current)
-    }
-  }
+    },
+  },
 }
 </script>
 

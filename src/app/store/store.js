@@ -9,7 +9,7 @@ import meta from '../../../package.json'
 import Vue from 'vue'
 import storage from 'localforage'
 
-function mapFriends (friends: Relationship[]) {
+function mapFriends(friends: Relationship[]) {
   const map = {}
   for (const {you, them} of friends) {
     map[them] = map[them] || []
@@ -18,16 +18,16 @@ function mapFriends (friends: Relationship[]) {
   return map
 }
 
-export function init () {
+export function init() {
   state.appState = 'setup'
   storage.getItem('auth')
   .then(auth => {
     return auth || Promise.reject()
   })
   .then(auth => {
-    return fetchUserData(auth.account, auth.ticket).then(() => auth)
+    return fetchUserData(auth.account, auth.ticket)
   })
-  .then(auth => {
+  .then(() => {
     state.appState = 'character-select'
   })
   .catch(() => {
@@ -35,11 +35,11 @@ export function init () {
   })
 }
 
-export function fetchUserData (account: string, ticket: string) {
+export function fetchUserData(account: string, ticket: string) {
   return Promise.all([
     flist.getCharacters(account, ticket),
     flist.getFriends(account, ticket),
-    flist.getBookmarks(account, ticket)
+    flist.getBookmarks(account, ticket),
   ])
   .then(([ characters, friends, bookmarks ]) => {
     setAuthInfo(account, ticket)
@@ -49,7 +49,7 @@ export function fetchUserData (account: string, ticket: string) {
   })
 }
 
-export function login (account: string, password: string, remember: boolean): Promise<void> {
+export function login(account: string, password: string, remember: boolean): Promise<void> {
   state.appState = 'logging-in'
 
   return flist.getTicket(account, password)
@@ -73,17 +73,17 @@ export function login (account: string, password: string, remember: boolean): Pr
   })
 }
 
-export function setAuthInfo (account: string, ticket: string) {
+export function setAuthInfo(account: string, ticket: string) {
   state.account = account
   state.ticket = ticket
 }
 
-export function chooseCharacter (name: Name) {
+export function chooseCharacter(name: Name) {
   state.identity = name
   connectToChatServer()
 }
 
-export function saveChatTabs (identity: Name) {
+export function saveChatTabs(identity: Name) {
   const data = state.chatTabs.map(tab => {
     if (tab.channel) {
       return { channel: tab.channel.id, name: tab.channel.name }
@@ -94,7 +94,7 @@ export function saveChatTabs (identity: Name) {
   storage.setItem(`tabs:${identity}`, data)
 }
 
-export function loadChatTabs (identity: Name) {
+export function loadChatTabs(identity: Name) {
   state.chatTabs = []
   storage.getItem(`tabs:${identity}`).then(tabs => {
     if (!tabs) return
@@ -106,7 +106,7 @@ export function loadChatTabs (identity: Name) {
   })
 }
 
-export function connectToChatServer () {
+export function connectToChatServer() {
   if (state.socket) {
     state.socket.onclose = () => {}
     state.socket.close()
@@ -125,7 +125,7 @@ export function connectToChatServer () {
       ticket: state.ticket,
       character: state.identity,
       cname: meta.name,
-      cversion: meta.version
+      cversion: meta.version,
     })
   }
 
@@ -148,12 +148,12 @@ export function connectToChatServer () {
   state.socket = socket
 }
 
-export function handleServerCommand (cmd: string, params: Object) {
+export function handleServerCommand(cmd: string, params: Object) {
   const handler = serverCommands[cmd]
   handler ? handler(params) : console.info('Unknown socket command', cmd, params)
 }
 
-export function sendCommand (cmd: string, params?: Object) {
+export function sendCommand(cmd: string, params?: Object) {
   if (state.socket) {
     if (params) {
       state.socket.send(`${cmd} ${JSON.stringify(params)}`)
@@ -163,7 +163,7 @@ export function sendCommand (cmd: string, params?: Object) {
   }
 }
 
-export function addCharacterBatch (batch: CharacterBatchEntry[]) {
+export function addCharacterBatch(batch: CharacterBatchEntry[]) {
   const map = {}
   for (const [name, gender, status, statusmsg] of batch) {
     map[name] = newCharacter(name, gender, status, statusmsg)
@@ -171,19 +171,19 @@ export function addCharacterBatch (batch: CharacterBatchEntry[]) {
   state.onlineCharacters = assign({}, state.onlineCharacters, map)
 }
 
-export function fetchChannelList () {
+export function fetchChannelList() {
   this.sendCommand('CHA')
   this.sendCommand('ORS')
 }
 
-export function joinChannel (id: string, name: string) {
+export function joinChannel(id: string, name: string) {
   const channel = state.channels[id] || Vue.set(state.channels, id, newChannel(id, name))
   state.chatTabs.push({ channel })
   this.saveChatTabs(state.identity)
   this.sendCommand('JCH', { channel: id })
 }
 
-export function leaveChannel (id: string) {
+export function leaveChannel(id: string) {
   state.chatTabs = state.chatTabs.filter((tab: ChatTab) => {
     return !(tab.channel && tab.channel.id === id)
   })
@@ -191,30 +191,30 @@ export function leaveChannel (id: string) {
   this.sendCommand('LCH', { channel: id })
 }
 
-export function isChannelJoined (id: string) {
+export function isChannelJoined(id: string) {
   return state.chatTabs.some(tab => tab.channel && tab.channel.id === id)
 }
 
-export function openPrivateChat (partner: Name) {
+export function openPrivateChat(partner: Name) {
   const char = state.onlineCharacters[partner]
   const privateChat = state.privateChats[partner] || Vue.set(state.privateChats, partner, newPrivateChat(char))
   state.chatTabs.push({ privateChat })
   return privateChat
 }
 
-export function closePrivateChat (partner: Name) {
+export function closePrivateChat(partner: Name) {
   const filter = tab => !(tab.privateChat && tab.privateChat.partner.name === partner)
   state.chatTabs = state.chatTabs.filter(filter)
 }
 
-export function isPrivateChatOpened (partner: Name) {
+export function isPrivateChatOpened(partner: Name) {
   return state.chatTabs.some(tab => tab.privateChat && tab.privateChat.partner.name === partner)
 }
 
-export function isFriend (name: Name) { return state.friends[name] != null }
-export function isBookmark (name: Name) { return state.bookmarks[name] != null }
-export function isAdmin (name: Name) { return state.admins[name] != null }
+export function isFriend(name: Name) { return state.friends[name] != null }
+export function isBookmark(name: Name) { return state.bookmarks[name] != null }
+export function isAdmin(name: Name) { return state.admins[name] != null }
 
-export function setCharacterFocus (name?: Name) {
+export function setCharacterFocus(name?: Name) {
   state.characterMenuFocus = name ? state.onlineCharacters[name] : null
 }

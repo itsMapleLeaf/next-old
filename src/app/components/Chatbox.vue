@@ -4,15 +4,15 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return { message: '' }
   },
   methods: {
-    submit () {
+    submit() {
       this.$emit('submit', this.message)
       this.message = ''
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -11,11 +11,11 @@ export default {
   props: {
     value: Boolean,
     disabled: Boolean,
-    tooltip: String
+    tooltip: String,
   },
   components: {
-    Toggle
-  }
+    Toggle,
+  },
 }
 </script>
 

@@ -31,37 +31,37 @@ export default {
     sender: Object,
     message: String,
     type: String,
-    time: Number
+    time: Number,
   },
   components: {
     Character,
-    Avatar
+    Avatar,
   },
   computed: {
-    avatar () {
+    avatar() {
       return getAvatarURL(this.sender.name)
     },
-    avatarStyle () {
+    avatarStyle() {
       return { 'background-image': `url(${this.avatar})` }
     },
-    isAction () {
+    isAction() {
       return this.message.substring(0, 3) === '/me'
     },
-    actionClass () {
+    actionClass() {
       return { 'message-action': this.isAction }
     },
-    parsedMessage () {
+    parsedMessage() {
       return this.isAction
         ? parse(this.message.substring(4))
         : parse(this.message)
     },
-    parsedTime () {
+    parsedTime() {
       if (this.time) {
         const time = new Date(this.time)
         return time.toLocaleTimeString()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

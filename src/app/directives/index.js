@@ -1,23 +1,23 @@
 // @flow
 
-function scrollToBottom (event) {
+function scrollToBottom(event) {
   const el = event.target
-  el.dataset.bottomScrollEnabled = el.scrollHeight - el.scrollTop === el.clientHeight
+  el.dataset.bottomScrollEnabled = el.scrollHeight - el.scrollTop === el.clientHeight ? 'true' : 'false'
 }
 
 export const bottomScroll = {
-  bind (el: any, binding: any) {
-    el.dataset.bottomScrollEnabled = true
+  bind(el: any) {
+    el.dataset.bottomScrollEnabled = 'true'
     el.addEventListener('scroll', scrollToBottom)
   },
-  update (el: any, binding: any) {
-    if (el.dataset.bottomScrollEnabled) {
+  update(el: any) {
+    if (el.dataset.bottomScrollEnabled === 'true') {
       window.requestAnimationFrame(() => {
         el.scrollTop = el.scrollHeight
       })
     }
   },
-  unbind (el: any, binding: any) {
+  unbind(el: any) {
     el.removeEventListener('scroll', scrollToBottom)
-  }
+  },
 }

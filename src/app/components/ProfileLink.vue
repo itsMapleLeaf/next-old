@@ -9,12 +9,12 @@ import {getProfileURL} from '../lib/f-list'
 
 export default {
   props: {
-    name: String
+    name: String,
   },
   computed: {
-    href () {
+    href() {
       return getProfileURL(this.name)
-    }
-  }
+    },
+  },
 }
 </script>

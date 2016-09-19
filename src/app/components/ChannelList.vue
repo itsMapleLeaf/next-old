@@ -36,7 +36,7 @@
 import Overlay from './Overlay.vue'
 import {store, getters} from '../store'
 
-function lower (str) {
+function lower(str) {
   return str.toLocaleLowerCase()
 }
 
@@ -44,39 +44,39 @@ export default {
   components: {
     Overlay
   },
-  created () {
+  created() {
     store.fetchChannelList()
   },
-  data () {
+  data() {
     return {
-      searchText: ''
+      searchText: '',
     }
   },
   computed: {
     ...getters(['publicChannelList', 'privateChannelList']),
-    publicChannels () {
+    publicChannels() {
       return this.publicChannelList
         .filter(this.channelFilter)
         .sort(this.channelOrder)
     },
-    privateChannels () {
+    privateChannels() {
       return this.privateChannelList
         .filter(this.channelFilter)
         .sort(this.channelOrder)
         .slice(0, 200)
-    }
+    },
   },
   methods: {
-    channelFilter (ch) {
+    channelFilter(ch) {
       return lower(ch.name).includes(lower(this.searchText))
     },
-    channelOrder (a, b) {
+    channelOrder(a, b) {
       return b.userCount - a.userCount
     },
-    channelHighlight (ch) {
+    channelHighlight(ch) {
       return store.isChannelJoined(ch.id) && 'channel-joined'
-    }
-  }
+    },
+  },
 }
 </script>
 

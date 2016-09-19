@@ -8,21 +8,21 @@
 export default {
   props: {
     value: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
   },
   computed: {
-    iconClass () {
+    iconClass() {
       return this.value
         ? 'mdi-checkbox-marked-outline'
         : 'mdi-checkbox-blank-outline'
     },
-    toggleClass () {
+    toggleClass() {
       return {
         checked: this.value,
-        disabled: this.disabled
+        disabled: this.disabled,
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

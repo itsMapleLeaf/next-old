@@ -6,22 +6,20 @@
 </template>
 
 <script>
-import {store} from '../store'
-
 export default {
   props: {
     name: { type: String, required: true },
     gender: { type: String, default: 'none' },
-    status: String
+    status: String,
   },
   computed: {
-    statusClass () {
+    statusClass() {
       return 'character-status-' + this.status.toLowerCase()
     },
-    genderClass () {
+    genderClass() {
       return 'character-gender-' + this.gender.toLowerCase()
-    }
-  }
+    },
+  },
 }
 </script>
 

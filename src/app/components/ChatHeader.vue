@@ -19,8 +19,8 @@
 <script>
 export default {
   props: {
-    options: Array
-  }
+    options: Array,
+  },
 }
 </script>
 

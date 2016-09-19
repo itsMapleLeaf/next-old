@@ -15,14 +15,14 @@ import {parse} from '../lib/bbc'
 export default {
   props: {
     channel: Object,
-    privateChat: Object
+    privateChat: Object,
   },
   components: {
-    Status
+    Status,
   },
   methods: {
-    parse
-  }
+    parse,
+  },
 }
 </script>
 

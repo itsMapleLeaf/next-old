@@ -8,7 +8,7 @@ const extensionFolder = path.join(appDataFolder, '/Google/Chrome/User Data/Defau
 
 let win
 
-function createWindow () {
+function createWindow() {
   win = new BrowserWindow({ title: 'F-Chat Next' })
 
   const index = path.join(__dirname, 'app.html')

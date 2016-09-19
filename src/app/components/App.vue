@@ -15,18 +15,16 @@ import CharacterList from './CharacterList.vue'
 import Chat from './Chat.vue'
 import Loading from './Loading.vue'
 
-import * as flist from '../lib/f-list'
-import * as storage from 'localforage'
-import {store, getters} from '../store'
+import {getters} from '../store'
 
 export default {
   components: {
-    Loading
+    Loading,
   },
   computed: {
     ...getters(['appState']),
 
-    currentView () {
+    currentView() {
       switch (this.appState) {
         case 'login':
           return Login
@@ -36,7 +34,7 @@ export default {
           return Chat
       }
     },
-    loadingMessage () {
+    loadingMessage() {
       switch (this.appState) {
         case 'setup':
           return 'Setting things up...'
@@ -49,8 +47,8 @@ export default {
         default:
           return ''
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

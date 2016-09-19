@@ -1,6 +1,6 @@
 // @flow
 import type {
-  Name, Character, ChannelInfo, Channel, PrivateChat, ChatTab
+  Name, Character, ChannelInfo, Channel, PrivateChat, ChatTab,
 } from '../lib/types'
 
 type CharacterMap = { [name: Name]: Character }
@@ -45,5 +45,5 @@ export const state = {
   chatTabs: ([]: ChatTab[]),
   characterMenuFocus: (null: ?Character),
 
-  notifications: []
+  notifications: [],
 }

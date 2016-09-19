@@ -8,18 +8,18 @@ import {getAvatarURL} from '../lib/f-list'
 export default {
   props: {
     name: String,
-    size: String
+    size: String,
   },
   computed: {
-    style () {
+    style() {
       return `
         width: ${this.size || '100px'};
         height: ${this.size || '100px'};
         background-image: url(${getAvatarURL(this.name)});
         background-size: cover;
       `
-    }
-  }
+    },
+  },
 }
 </script>
 

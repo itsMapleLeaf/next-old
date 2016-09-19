@@ -6,21 +6,21 @@ module.exports = {
     loaders: [
       { test: /\.vue$/, loader: 'vue' },
       { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
-      { test: /\.json$/, loader: 'json' }
-    ]
+      { test: /\.json$/, loader: 'json' },
+    ],
   },
   vue: {
     loaders: {
-      stylus: 'style!css!stylus?paths=src/app/styles'
-    }
+      stylus: 'style!css!stylus?paths=src/app/styles',
+    },
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
+      compress: { warnings: false },
     }),
     new webpack.NamedModulesPlugin({
-      context: 'src/app'
-    })
+      context: 'src/app',
+    }),
   ],
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
 }

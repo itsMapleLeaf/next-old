@@ -21,11 +21,11 @@ import Avatar from './Avatar.vue'
 export default {
   props: {
     tab: Object,
-    active: Boolean
+    active: Boolean,
   },
   components: {
-    Avatar
-  }
+    Avatar,
+  },
 }
 </script>
 

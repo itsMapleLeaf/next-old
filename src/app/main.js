@@ -7,7 +7,7 @@ import {store, state} from './store'
 // configure keycodes
 Vue.config.keyCodes = {
   enter: 13,
-  space: 32
+  space: 32,
 }
 
 // configure vue resource
@@ -18,9 +18,9 @@ Vue.http.options.emulateJSON = true
 store.init()
 
 // create vue instance
-/* eslint no-new: 0 */
+/* eslint no-new: off */
 new Vue({
   el: 'body',
   render: h => h(App),
-  data: {state}
+  data: {state},
 })

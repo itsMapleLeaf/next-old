@@ -6,7 +6,7 @@ import path from 'path'
 const bbcExpression = /\[(\w+?)=?([^\]]*)\]([\s\S]+?)\[\/\1\]|(https?:\/\/[^\[\]\(\)\s]+)/gi // lol
 const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.gif']
 
-export function parse (input: string) {
+export function parse(input: string) {
   return input.replace(bbcExpression, (match, tag, value, text, url) => {
     if (url) {
       tag = 'url'
@@ -36,11 +36,11 @@ export function parse (input: string) {
   })
 }
 
-function formatColor (color, text) {
+function formatColor(color, text) {
   return `<span class="chat-color-${color}">${text}</span>`
 }
 
-function formatURL (url, text) {
+function formatURL(url, text) {
   const href = url || text
   const {hostname, pathname} = (parseURL(url): Object)
   const ext = path.extname(pathname)
@@ -48,27 +48,27 @@ function formatURL (url, text) {
   return (
     `<a class="link" href="${href}" target="_blank" title="${hostname}">` +
       `<i class='mdi mdi-${icon}'></i> ${text}` +
-    `</a>`
+    '</a>'
   )
 }
 
-function formatPublicChannelLink (channel) {
+function formatPublicChannelLink(channel) {
   return (
     `<a href='#' class='link' data-join-channel='${channel}'>` +
       `<i class='mdi mdi-earth'></i> ${channel}` +
-    `</a>`
+    '</a>'
   )
 }
 
-function formatPrivateChannelLink (id, name) {
+function formatPrivateChannelLink(id, name) {
   return (
     `<a href='#' class='link' data-join-channel="${id}">` +
       `<i class='mdi mdi-key-variant'></i> ${name}` +
-    `</a>`
+    '</a>'
   )
 }
 
-function formatUserIcon (name) {
+function formatUserIcon(name) {
   const href = getProfileURL(name)
   const avatar = getAvatarURL(name)
   const style = `background-image: url(${avatar})`
@@ -77,7 +77,7 @@ function formatUserIcon (name) {
   )
 }
 
-function formatExtendedIcon (icon) {
+function formatExtendedIcon(icon) {
   const iconURL = getExtendedIcon(icon)
   return (
     `<div class='chat-icon link' style='background-image: url(${iconURL})'></div>`

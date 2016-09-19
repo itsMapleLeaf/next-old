@@ -67,7 +67,7 @@ import ChatDescription from './ChatDescription.vue'
 
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
-import {parse} from '../lib/bbc'
+// import {parse} from '../lib/bbc'
 import {bottomScroll} from '../directives'
 
 export default {
@@ -82,12 +82,12 @@ export default {
     Status,
     ChatHeader,
     ChatFilter,
-    ChatDescription
+    ChatDescription,
   },
   directives: {
-    bottomScroll
+    bottomScroll,
   },
-  data () {
+  data() {
     return {
       currentTabIndex: 0,
       overlays: [],
@@ -96,58 +96,58 @@ export default {
         lfrp: true,
         admin: true,
         friend: true,
-        self: true
-      }
+        self: true,
+      },
     }
   },
   computed: {
     ...getters({ identity: 'identity', tabs: 'chatTabs' }),
-    currentTab () {
+    currentTab() {
       const index = clamp(this.currentTabIndex, 0, this.tabs.length)
       return this.tabs[index] || {}
     },
-    channel () {
+    channel() {
       return this.currentTab.channel
     },
-    privateChat () {
+    privateChat() {
       return this.currentTab.privateChat
     },
-    messages () {
+    messages() {
       const tab = this.channel || this.privateChat || {}
       return tab.messages || []
     },
-    headerOptions () {
+    headerOptions() {
       const openOverlay = which => () => this.overlays.push(which)
       return [
         { info: 'Join a Channel', icon: 'forum', action: openOverlay(ChannelList) },
         { info: 'Browse Online Characters', icon: 'heart' },
         { info: 'Update Your Status', icon: 'account-settings' },
-        { info: 'Settings', icon: 'settings' }
+        { info: 'Settings', icon: 'settings' },
       ]
     },
-    filterLabels () {
+    filterLabels() {
       return [
         { filter: 'chat', label: 'Chat', tooltip: 'Normal Messages' },
         { filter: 'lfrp', label: 'LFRP', tooltip: 'RP Ads' },
         { filter: 'admin', label: 'Admin', tooltip: 'Red Admin Messages' },
         { filter: 'friend', label: 'Friend', tooltip: 'Friend and Bookmark Messages' },
-        { filter: 'self', label: 'Self', tooltip: 'Your Messages' }
+        { filter: 'self', label: 'Self', tooltip: 'Your Messages' },
       ]
-    }
+    },
   },
   methods: {
     setCharacterFocus: store.setCharacterFocus,
-    toggleChannel (ch) {
+    toggleChannel(ch) {
       store.joinChannel(ch.id, ch.name)
     },
-    closeTab (tab) {
+    closeTab(tab) {
       if (tab.channel) {
         store.leaveChannel(tab.channel.id)
       } else if (tab.privateChat) {
         store.closePrivateChat(tab.privateChat.partner.name)
       }
     },
-    checkData (event) {
+    checkData(event) {
       for (const el of event.path) {
         if (el.dataset && el.dataset.character) {
           store.setCharacterFocus(el.dataset.character)
@@ -156,12 +156,12 @@ export default {
         }
       }
     },
-    openPrivateChat (name) {
+    openPrivateChat(name) {
       store.openPrivateChat(name)
       store.setCharacterFocus(null)
       this.currentTabIndex = this.tabs.length - 1
     },
-    isFilterDisabled (filter) {
+    isFilterDisabled(filter) {
       const {channel} = this.currentTab
       if (channel) {
         switch (channel.mode) {
@@ -170,8 +170,8 @@ export default {
           case 'chat': return filter === 'lfrp'
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

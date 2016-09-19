@@ -11,13 +11,13 @@ import {parse} from '../lib/bbc'
 export default {
   props: {
     status: String,
-    statusmsg: String
+    statusmsg: String,
   },
   computed: {
-    parsedStatus () {
+    parsedStatus() {
       return this.statusmsg ? parse(this.statusmsg) : ''
-    }
-  }
+    },
+  },
 }
 </script>
 

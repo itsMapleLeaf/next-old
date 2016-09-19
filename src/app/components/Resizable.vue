@@ -10,25 +10,25 @@ export default {
     left: Boolean,
     right: Boolean,
     top: Boolean,
-    bottom: Boolean
+    bottom: Boolean,
   },
-  data () {
+  data() {
     return {
-      dragging: ''
+      dragging: '',
     }
   },
-  mounted () {
+  mounted() {
     window.addEventListener('mouseup', this.mouseup)
     window.addEventListener('mousedown', this.mousedown)
     window.addEventListener('mousemove', this.mousemove)
   },
-  destroyed () {
+  destroyed() {
     window.removeEventListener('mouseup', this.mouseup)
     window.removeEventListener('mousedown', this.mousedown)
     window.removeEventListener('mousemove', this.mousemove)
   },
   methods: {
-    getSide (x, y) {
+    getSide(x, y) {
       const {top, right, bottom, left} = this.$el.getBoundingClientRect()
       switch (true) {
         case this.left && left < x && x < left - 10:
@@ -43,7 +43,7 @@ export default {
           return ''
       }
     },
-    getCursor (side) {
+    getCursor(side) {
       switch (side) {
         case 'top': return 'ns-resize'
         case 'bottom': return 'ns-resize'
@@ -52,7 +52,7 @@ export default {
         default: return 'initial'
       }
     },
-    getDraggedSize (x, y) {
+    getDraggedSize(x, y) {
       const {top, right, bottom, left, width, height} = this.$el.getBoundingClientRect()
       switch (this.dragging) {
         case 'left':
@@ -67,11 +67,11 @@ export default {
           return [width, height]
       }
     },
-    checkBounds (x, y) {
+    checkBounds(x, y) {
       const {top, right, bottom, left} = this.$el.getBoundingClientRect()
       return left - 10 < x && x < right + 10 && top - 10 < y && y < bottom + 10
     },
-    mousedown (event) {
+    mousedown(event) {
       const {clientX, clientY} = event
       this.dragging = this.getSide(clientX, clientY)
       if (this.dragging) {
@@ -79,13 +79,13 @@ export default {
         event.stopPropagation()
       }
     },
-    mouseup (event) {
+    mouseup() {
       this.dragging = ''
     },
-    mousemove (event) {
+    mousemove(event) {
       const el = this.$el
       const {clientX, clientY} = event
-      const {top, right, bottom, left} = el.getBoundingClientRect()
+      // const {top, right, bottom, left} = el.getBoundingClientRect()
 
       const cursor = this.getCursor(this.dragging || this.getSide(clientX, clientY))
       const [width, height] = this.getDraggedSize(clientX, clientY)
@@ -101,9 +101,9 @@ export default {
         document.body.style.cursor = cursor
       }
     },
-    mouseleave () {
+    mouseleave() {
       // document.body.style.cursor = 'initial'
-    }
-  }
+    },
+  },
 }
 </script>

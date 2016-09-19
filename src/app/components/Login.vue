@@ -37,17 +37,17 @@ import {store} from '../store'
 
 export default {
   components: {
-    Toggle
+    Toggle,
   },
-  data () {
+  data() {
     return {
       account: '',
       password: '',
       remember: false,
-      status: ''
+      status: '',
     }
   },
-  created () {
+  created() {
     storage.getItem('auth').then(value => {
       if (value) {
         this.account = value.account
@@ -56,13 +56,13 @@ export default {
     })
   },
   methods: {
-    submit () {
+    submit() {
       this.status = ''
       store.login(this.account, this.password, this.remember).catch(err => {
         this.status = err
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

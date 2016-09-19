@@ -17,13 +17,13 @@ import {store} from '../store'
 export default {
   props: {
     users: Array,
-    ops: Array
+    ops: Array,
   },
   components: {
-    Character
+    Character,
   },
   methods: {
-    getSortWeight (char) {
+    getSortWeight(char) {
       const {name, status} = char
       switch (true) {
         case store.isFriend(name):
@@ -40,29 +40,29 @@ export default {
           return 5
       }
     },
-    getHighlight (char) {
+    getHighlight(char) {
       const highlights = [
         'user-list-friend',
         'user-list-bookmark',
         'user-list-admin',
-        'user-list-op'
+        'user-list-op',
       ]
       return highlights[this.getSortWeight(char)]
     },
-    getIcon (char) {
+    getIcon(char) {
       const icons = ['heart', 'star']
       return icons[this.getSortWeight(char)]
-    }
+    },
   },
   computed: {
-    sortedUsers () {
+    sortedUsers() {
       return this.users.slice()
         .sort((a, b) => {
           const diff = this.getSortWeight(a) - this.getSortWeight(b)
           return diff !== 0 ? diff : a.name.localeCompare(b.name)
         })
     },
-  }
+  },
 }
 </script>
 

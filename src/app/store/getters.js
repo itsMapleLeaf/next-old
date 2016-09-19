@@ -1,7 +1,7 @@
 // @flow
 import {state} from './state'
 
-export function getters (props: any): Object {
+export function getters(props: any): Object {
   const result = {}
   if (Array.isArray(props)) {
     for (const name of props) {
