@@ -44,7 +44,16 @@ export default {
   data() {
     return {
       searchText: '',
+      characters: [],
     }
+  },
+  mounted() {
+    let timeout
+    this.$watch('searchText', () => {
+      if (timeout) window.clearTimeout(timeout)
+      timeout = window.setTimeout(this.getCharacterList, 1000)
+    })
+    this.getCharacterList()
   },
   methods: {
     getSortWeight(char) {
@@ -84,10 +93,8 @@ export default {
         store.isBookmark(char.name) ? 'bookmarks' : '',
       ].join(' ').toLowerCase()
     },
-  },
-  computed: {
-    characters() {
-      return Object.values(state.onlineCharacters)
+    getCharacterList() {
+      this.characters = Object.values(state.onlineCharacters)
         .filter(char => this.getSearchQuery(char).includes(this.searchText.toLowerCase()))
         .sort(this.compareCharacters)
         .slice(0, 200)
