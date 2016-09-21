@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import Resizable from './Resizable.vue'
 import Toggle from './Toggle.vue'
 import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
@@ -71,7 +70,6 @@ import {bottomScroll} from '../directives'
 
 export default {
   components: {
-    Resizable,
     Toggle,
     Character,
     Chatbox,
