@@ -5,11 +5,11 @@
     </div>
     <div class='divider'></div>
     <div class='flex-grow flex-row'>
-      <Resizable right class='chat-tabs flex-fixed'>
+      <div class='chat-tabs flex-fixed'>
         <ChatTab v-for='(tab, index) in tabs' :tab='tab' :active='tab === currentTab'
           @selected='currentTabIndex = index' @closed='closeTab(tab)'>
         </ChatTab>
-      </Resizable>
+      </div>
       <div class='divider'></div>
       <div class='flex-grow flex-column'>
         <template v-if='channel'>
@@ -32,9 +32,9 @@
           </div>
         </div>
         <div class='divider'></div>
-        <Resizable class='chat-input flex-fixed' top>
+        <div class='chat-input flex-fixed'>
           <Chatbox :placeholder="'Chatting as ' + identity" @submit='chatboxSubmit'></Chatbox>
-        </Resizable>
+        </div>
       </div>
       <template v-if='channel'>
         <div class='divider'></div>
