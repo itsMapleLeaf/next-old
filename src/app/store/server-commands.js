@@ -2,10 +2,11 @@
 // reference: https://wiki.f-list.net/F-Chat_Server_Commands
 /* eslint no-unused-vars: off */
 
-import * as store from './store'
+import type {ChannelInfo} from '../lib/types'
 import {state} from './state'
 import {mapToObject, values} from '../lib/util'
 import {newCharacter, newChannelInfo, newMessage} from '../lib/constructors'
+import * as store from './store'
 
 type Params = { [key: string]: any }
 
@@ -81,14 +82,16 @@ export function STA({ character, status, statusmsg }: Params) {
   char.statusmsg = statusmsg
 }
 
+function mapChannelInfo(channels: any[]): ChannelInfo[] {
+  return channels.map(ch => newChannelInfo(ch.name, ch.title || ch.name, ch.characters, ch.mode))
+}
+
 export function CHA({ channels }: Params) {
-  const list = channels.map(ch => newChannelInfo(ch.name, ch.name, ch.characters, ch.mode))
-  state.publicChannelList = list
+  state.publicChannelList = mapChannelInfo(channels)
 }
 
 export function ORS({ channels }: Params) {
-  const list = channels.map(ch => newChannelInfo(ch.name, ch.title, ch.characters, ch.mode))
-  state.privateChannelList = list
+  state.privateChannelList = mapChannelInfo(channels)
 }
 
 export function JCH({ channel: id, title, character: { identity: name } }: Params) {
