@@ -24,7 +24,7 @@ import Character from './Character.vue'
 import Avatar from './Avatar.vue'
 
 import {getAvatarURL} from '../lib/f-list'
-import {parse} from '../lib/bbc'
+import {parseBBC} from '../lib/bbc'
 
 export default {
   props: {
@@ -52,8 +52,8 @@ export default {
     },
     parsedMessage() {
       return this.isAction
-        ? parse(this.message.substring(4))
-        : parse(this.message)
+        ? parseBBC(this.message.substring(4))
+        : parseBBC(this.message)
     },
     parsedTime() {
       if (this.time) {

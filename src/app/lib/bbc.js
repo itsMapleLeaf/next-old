@@ -6,7 +6,7 @@ import path from 'path'
 const bbcExpression = /\[(\w+?)=?([^\]]*)\]([\s\S]+?)\[\/\1\]|(https?:\/\/[^\[\]\(\)\s]+)/gi // lol
 const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.gif']
 
-export function parse(input: string) {
+export function parseBBC(input: string) {
   return input.replace(bbcExpression, (match, tag, value, text, url) => {
     if (url) {
       tag = 'url'
@@ -14,7 +14,7 @@ export function parse(input: string) {
     } else if (tag === 'noparse') {
       return text
     } else if (tag !== 'url') {
-      text = parse(text)
+      text = parseBBC(text)
     }
 
     switch (tag) {

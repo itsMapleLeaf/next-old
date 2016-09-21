@@ -67,7 +67,6 @@ import ChatDescription from './ChatDescription.vue'
 
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
-// import {parse} from '../lib/bbc'
 import {bottomScroll} from '../directives'
 
 export default {

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {parse} from '../lib/bbc'
+import {parseBBC} from '../lib/bbc'
 
 export default {
   props: {
@@ -14,8 +14,8 @@ export default {
     statusmsg: String,
   },
   computed: {
-    parsedStatus() {
-      return this.statusmsg ? parse(this.statusmsg) : ''
+    parse() {
+      return this.statusmsg ? parseBBC(this.statusmsg) : ''
     },
   },
 }

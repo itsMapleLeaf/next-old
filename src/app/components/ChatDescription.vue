@@ -1,6 +1,6 @@
 <template>
   <span class='description'>
-    <span v-if='channel' v-html='parse(channel.description)'></span>
+    <span v-if='channel' v-html='parseBBC(channel.description)'></span>
     <span v-if='privateChat'>
       <Status :status='privateChat.partner.status' :statusmsg='privateChat.partner.statusmsg'>
       </Status>
@@ -10,7 +10,7 @@
 
 <script>
 import Status from './Status.vue'
-import {parse} from '../lib/bbc'
+import {parseBBC} from '../lib/bbc'
 
 export default {
   props: {
@@ -21,7 +21,7 @@ export default {
     Status,
   },
   methods: {
-    parse,
+    parseBBC,
   },
 }
 </script>
