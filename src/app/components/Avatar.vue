@@ -1,5 +1,5 @@
 <template>
-  <span :style='style'></span>
+  <span class='avatar' :class="shadow && 'shadow'" :style='style'></span>
 </template>
 
 <script>
@@ -9,6 +9,7 @@ export default {
   props: {
     name: String,
     size: String,
+    shadow: Boolean,
   },
   computed: {
     style() {
@@ -26,11 +27,13 @@ export default {
 <style lang='stylus' scoped>
 @require 'mixins/theme'
 
-span
+.avatar
   display: inline-block
-  filter: drop-shadow(0em 0.1em 0.15em rgba(black, 0.5))
   opacity: 1
 
   +animate(hover, $properties: opacity)
     opacity: 0.7
+
+.shadow
+  filter: drop-shadow(0em 0.1em 0.15em rgba(black, 0.5))
 </style>
