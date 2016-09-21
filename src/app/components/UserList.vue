@@ -40,18 +40,15 @@ export default {
           return 5
       }
     },
-    getHighlight(char) {
-      const highlights = [
-        'user-list-friend',
-        'user-list-bookmark',
-        'user-list-admin',
-        'user-list-op',
-      ]
-      return highlights[this.getSortWeight(char)]
+    getHighlight({ name }) {
+      return store.isFriend(name) ? 'user-list-friend' :
+        store.isBookmark(name) ? 'user-list-bookmark' :
+        store.isAdmin(name) ? 'user-list-admin' :
+        this.ops.includes(name) ? 'user-list-op' : ''
     },
-    getIcon(char) {
-      const icons = ['heart', 'star']
-      return icons[this.getSortWeight(char)]
+    getIcon({ name }) {
+      return store.isFriend(name) ? 'heart' :
+        store.isBookmark(name) ? 'star' : ''
     },
   },
   computed: {
