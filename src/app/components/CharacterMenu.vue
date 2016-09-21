@@ -4,23 +4,23 @@
       <form class='info'>
         <fieldset>
           <h3>
-            <ProfileLink :name='character.name'></ProfileLink>
+            <ProfileLink :name='name'></ProfileLink>
           </h3>
-          <small :class="'character-gender-' + character.gender.toLowerCase()">
-            {{ character.gender }}
+          <small :class="'character-gender-' + gender.toLowerCase()">
+            {{ gender }}
           </small>
         </fieldset>
         <fieldset>
-          <ProfileLink :name='character.name'>
-            <Avatar :name='character.name'></Avatar>
+          <ProfileLink :name='name'>
+            <Avatar :name='name'></Avatar>
           </ProfileLink>
         </fieldset>
         <fieldset>
           <div class='status'>
-            <Status :status='character.status' :statusmsg='character.statusmsg'></Status>
+            <Status :status='status' :statusmsg='statusmsg'></Status>
           </div>
         </fieldset>
-        <fieldset v-for='friend in friends[character.name] || []'>
+        <fieldset v-for='friend in friends[name] || []'>
           <ProfileLink :name='friend'>
             <div class='friend'>
               <i class='mdi mdi-heart'></i>
@@ -63,6 +63,10 @@ export default {
         { label: 'View Profile', icon: 'link-variant' },
       ]
     },
+    name() { return this.character.name },
+    gender() { return this.character.gender },
+    status() { return this.character.status },
+    statusmsg() { return this.character.statusmsg },
   },
   methods: {
     openPrivateChat() {
