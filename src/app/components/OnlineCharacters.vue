@@ -4,8 +4,8 @@
       <div class='flex-row'>
         <Avatar :name='char.name' size='6em'></Avatar>
         <div class='user-info flex-column'>
-          <div class='name flex-fixed' :class='characterClass(char)'>
-            <h4>
+          <div class='name flex-fixed'>
+            <h4 class='name-text' :class='nameHighlight(char)'>
               <span class='name-icon'>
                 <i v-if='characterIcon(char)' :class="'mdi mdi-' + characterIcon(char)"></i>
               </span>
@@ -21,14 +21,9 @@
       </div>
     </a>
     <div class='header'>
-      <div>
-        <Toggle class='filter'>Friends</Toggle>
-        <Toggle class='filter'>Bookmarks</Toggle>
-        <Toggle class='filter'>Looking</Toggle>
-      </div>
       <div class='search form-icon-input'>
         <i class='mdi mdi-magnify'></i>
-        <input placeholder='search'>
+        <input placeholder='Search...' v-model='searchText'>
       </div>
     </div>
   </div>
@@ -45,6 +40,11 @@ export default {
     Avatar,
     Status,
     Toggle,
+  },
+  data() {
+    return {
+      searchText: '',
+    }
   },
   methods: {
     getSortWeight(char) {
@@ -64,7 +64,7 @@ export default {
       const diff = this.getSortWeight(a) - this.getSortWeight(b)
       return diff !== 0 ? diff : a.name.localeCompare(b.name)
     },
-    characterClass(char) {
+    nameHighlight(char) {
       return store.isFriend(char.name) ? 'name-highlight-friend'
         : store.isBookmark(char.name) ? 'name-highlight-bookmark'
         : ''
@@ -74,10 +74,21 @@ export default {
         : store.isBookmark(char.name) ? 'star'
         : ''
     },
+    getSearchQuery(char) {
+      return [
+        char.name,
+        char.gender,
+        char.status,
+        char.statusmsg,
+        store.isFriend(char.name) ? 'friends' : '',
+        store.isBookmark(char.name) ? 'bookmarks' : '',
+      ].join(' ').toLowerCase()
+    },
   },
   computed: {
     characters() {
       return Object.values(state.onlineCharacters)
+        .filter(char => this.getSearchQuery(char).includes(this.searchText.toLowerCase()))
         .sort(this.compareCharacters)
         .slice(0, 200)
     },
@@ -89,6 +100,7 @@ export default {
 @require 'elements/flex'
 @require 'elements/character'
 @require 'elements/form'
+@require 'elements/link'
 @require 'mixins/flex'
 @require 'mixins/layout'
 @require 'mixins/theme'
@@ -101,16 +113,16 @@ export default {
   flex-wrap: wrap
   overflow-y: auto
   padding: 1em 1em 4em
+  align-content: flex-start
 
 .header
-  flex-align(space-between, center)
   anchor(bottom left right)
   position: fixed
   background: $theme-color
   padding: 0.5em 1em
 
-.filter
-  margin-right: 0.5em
+.category
+  margin-right: 0.8em
 
 .search
   float: right
@@ -128,8 +140,10 @@ export default {
   size(10em, 6em)
 
 .name
-  padding: 0.3em 0.6em
   background: theme-darker(30%)
+
+.name-text
+  padding: 0.3em 0.6em
 
 .name-icon
   float: right
