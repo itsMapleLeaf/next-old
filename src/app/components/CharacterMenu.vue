@@ -42,7 +42,7 @@
 import Avatar from './Avatar.vue'
 import Status from './Status.vue'
 import ProfileLink from './ProfileLink.vue'
-import {getters} from '../store'
+import {store, getters} from '../store'
 
 export default {
   components: {
@@ -58,7 +58,11 @@ export default {
     menuOptions() {
       return [
         { label: 'Send Message', icon: 'comment', action: this.openPrivateChat },
-        { label: 'Bookmark', icon: 'bookmark-outline' },
+        {
+          label: this.isBookmark ? 'Unbookmark' : 'Bookmark',
+          icon: this.isBookmark ? 'bookmark' : 'bookmark-outline',
+          action: this.toggleBookmark,
+        },
         { label: 'Ignore', icon: 'minus-circle-outline' },
         { label: 'View Profile', icon: 'link-variant' },
       ]
@@ -67,11 +71,20 @@ export default {
     gender() { return this.character.gender },
     status() { return this.character.status },
     statusmsg() { return this.character.statusmsg },
+    isBookmark() { return store.isBookmark(this.name) },
+    isIgnored() { return store.isIgnored(this.name) },
   },
   methods: {
     openPrivateChat() {
       this.$emit('private-chat-opened', this.character.name)
       this.$emit('closed')
+    },
+    toggleBookmark() {
+      if (this.isBookmark) {
+        store.removeBookmark(this.name)
+      } else {
+        store.addBookmark(this.name)
+      }
     },
   },
 }

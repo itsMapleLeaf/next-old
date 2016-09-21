@@ -230,3 +230,13 @@ export function isAdmin(name: Name) { return state.admins[name] != null }
 export function setCharacterFocus(name?: Name) {
   state.characterMenuFocus = name ? state.onlineCharacters[name] : null
 }
+
+export function addBookmark(name: Name) {
+  Vue.set(state.bookmarks, name, true)
+  flist.addBookmark(state.account, state.ticket, name)
+}
+
+export function removeBookmark(name: Name) {
+  Vue.delete(state.bookmarks, name)
+  flist.removeBookmark(state.account, state.ticket, name)
+}
