@@ -1,12 +1,17 @@
 <template>
-  <div class='container' @click.self="$emit('closed')">
+  <div class='shade' @click.self="$emit('closed')">
     <a href='#' class='character' v-for='char in characters' :data-character='char.name'>
       <div class='flex-row'>
         <Avatar :name='char.name' size='6em'></Avatar>
         <div class='user-info flex-column'>
-          <div class='name flex-fixed'>
-            <h4 :class="'character-gender-' + char.gender.toLowerCase()">
-              {{ char.name }}
+          <div class='name flex-fixed' :class='characterClass(char)'>
+            <h4>
+              <span class='name-icon'>
+                <i v-if='characterIcon(char)' :class="'mdi mdi-' + characterIcon(char)"></i>
+              </span>
+              <span :class="'character-gender-' + char.gender.toLowerCase()">
+                {{ char.name }}
+              </span>
             </h4>
           </div>
           <div class='status flex-grow'>
@@ -15,48 +20,109 @@
         </div>
       </div>
     </a>
+    <div class='header'>
+      <div>
+        <Toggle class='filter'>Friends</Toggle>
+        <Toggle class='filter'>Bookmarks</Toggle>
+        <Toggle class='filter'>Looking</Toggle>
+      </div>
+      <div class='search form-icon-input'>
+        <i class='mdi mdi-magnify'></i>
+        <input placeholder='search'>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Avatar from './Avatar.vue'
 import Status from './Status.vue'
-import {state} from '../store'
+import Toggle from './Toggle.vue'
+import {store, state} from '../store'
 
 export default {
   components: {
     Avatar,
     Status,
+    Toggle,
+  },
+  methods: {
+    getSortWeight(char) {
+      const {name, status} = char
+      switch (true) {
+        case store.isFriend(name):
+          return 0
+        case store.isBookmark(name):
+          return 1
+        case status === 'looking':
+          return 2
+        default:
+          return 3
+      }
+    },
+    compareCharacters(a, b) {
+      const diff = this.getSortWeight(a) - this.getSortWeight(b)
+      return diff !== 0 ? diff : a.name.localeCompare(b.name)
+    },
+    characterClass(char) {
+      return store.isFriend(char.name) ? 'name-highlight-friend'
+        : store.isBookmark(char.name) ? 'name-highlight-bookmark'
+        : ''
+    },
+    characterIcon(char) {
+      return store.isFriend(char.name) ? 'heart'
+        : store.isBookmark(char.name) ? 'star'
+        : ''
+    },
   },
   computed: {
     characters() {
-      return Object.values(state.onlineCharacters).slice(0, 200)
+      return Object.values(state.onlineCharacters)
+        .sort(this.compareCharacters)
+        .slice(0, 200)
     },
   },
 }
 </script>
 
 <style lang='stylus' scoped>
-@require 'elements/overlay'
 @require 'elements/flex'
 @require 'elements/character'
+@require 'elements/form'
 @require 'mixins/flex'
 @require 'mixins/layout'
 @require 'mixins/theme'
+@require 'mixins/highlight'
 
-.container
+.shade
   fullscreen()
   flex-align(center, flex-start)
   background: rgba(black, 0.8)
   flex-wrap: wrap
   overflow-y: auto
-  padding: 1em
+  padding: 1em 1em 4em
+
+.header
+  flex-align(space-between, center)
+  anchor(bottom left right)
+  position: fixed
+  background: $theme-color
+  padding: 0.5em 1em
+
+.filter
+  margin-right: 0.5em
+
+.search
+  float: right
 
 .character
   background: $theme-color
-  margin: 0.8em
+  margin: 0.7em
   box-sizing: content-box
   accent-border(bottom)
+
+  +animate(hover)
+    transform: translateY(-0.3em)
 
 .user-info
   size(10em, 6em)
@@ -64,6 +130,15 @@ export default {
 .name
   padding: 0.3em 0.6em
   background: theme-darker(30%)
+
+.name-icon
+  float: right
+
+.name-highlight-friend
+  highlight($green)
+
+.name-highlight-bookmark
+  highlight($blue)
 
 .status
   padding: 0.3em 0.6em
