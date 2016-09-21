@@ -1,7 +1,7 @@
 <template>
   <span>
     <span :class="'character-status-' + status">{{ status }}</span>
-    <span v-if='parsedStatus' v-html="' - ' + parsedStatus"></span>
+    <span v-if='parsedStatus' v-html="parsedStatus"></span>
   </span>
 </template>
 
@@ -14,8 +14,8 @@ export default {
     statusmsg: String,
   },
   computed: {
-    parse() {
-      return this.statusmsg ? parseBBC(this.statusmsg) : ''
+    parsedStatus() {
+      return this.statusmsg ? `- ${parseBBC(this.statusmsg)}` : ''
     },
   },
 }
