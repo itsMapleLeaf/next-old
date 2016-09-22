@@ -3,7 +3,7 @@
     <div class='flex-fixed'>
       <div class='avatar'>
         <a href='#' :data-character='sender.name'>
-          <Avatar :name='sender.name' size='2.25em'></Avatar>
+          <Avatar :name='sender.name' size='2.25em' shadow></Avatar>
         </a>
       </div>
     </div>

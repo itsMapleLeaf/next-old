@@ -12,7 +12,7 @@
         </fieldset>
         <fieldset>
           <ProfileLink :name='name'>
-            <Avatar :name='name'></Avatar>
+            <Avatar :name='name' shadow></Avatar>
           </ProfileLink>
         </fieldset>
         <fieldset>
