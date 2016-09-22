@@ -2,9 +2,9 @@
 // reference: https://wiki.f-list.net/F-Chat_Server_Commands
 /* eslint no-unused-vars: off */
 
-import type {ChannelInfo} from '../lib/types'
+import type {Channel, ChannelInfo} from '../lib/types'
 import {state} from './state'
-import {mapToObject, values} from '../lib/util'
+import {mapToObject} from '../lib/util'
 import {newCharacter, newChannelInfo, newMessage} from '../lib/constructors'
 import * as store from './store'
 
@@ -70,8 +70,8 @@ export function NLN({ identity, gender }: Params) {
 }
 
 export function FLN({ character: name }: Params) {
-  for (const ch of values(state.channels)) {
-    ch.users = ch.users.filter(u => u.name !== name)
+  for (const ch of Object.values(state.channels)) {
+    if (ch instanceof Object) ch.users = ch.users.filter(u => u.name !== name)
   }
   delete state.onlineCharacters[name]
 }

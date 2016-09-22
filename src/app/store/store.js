@@ -2,7 +2,7 @@
 import type {Name, CharacterBatchEntry, ChatTab, Relationship} from '../lib/types'
 import {newCharacter, newChannel, newPrivateChat, newMessage} from '../lib/constructors'
 import {state} from './state'
-import {assign, mapToObject} from '../lib/util'
+import {mapToObject} from '../lib/util'
 import * as serverCommands from './server-commands'
 import * as flist from '../lib/f-list'
 import meta from '../../../package.json'
@@ -168,7 +168,7 @@ export function addCharacterBatch(batch: CharacterBatchEntry[]) {
   for (const [name, gender, status, statusmsg] of batch) {
     map[name] = newCharacter(name, gender, status, statusmsg)
   }
-  state.onlineCharacters = assign({}, state.onlineCharacters, map)
+  state.onlineCharacters = { ...state.onlineCharacters, ...map }
 }
 
 export function fetchChannelList() {
