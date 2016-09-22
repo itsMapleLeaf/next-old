@@ -93,9 +93,12 @@ export default {
         store.isBookmark(char.name) ? 'bookmarks' : '',
       ].join(' ').toLowerCase()
     },
+    filterCharacter(char) {
+      return this.getSearchQuery(char).includes(this.searchText.toLowerCase())
+    },
     getCharacterList() {
       this.characters = Object.values(state.onlineCharacters)
-        .filter(char => this.getSearchQuery(char).includes(this.searchText.toLowerCase()))
+        .filter(this.filterCharacter)
         .sort(this.compareCharacters)
         .slice(0, 200)
     },
