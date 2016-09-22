@@ -77,11 +77,11 @@ export function NLN({ identity, gender }: Params) {
 }
 
 export function FLN({ character: name }: Params) {
-  values(state.channels).forEach(ch => {
+  for (const ch of values(state.channels)) {
     if (ch instanceof Object) {
-      ch.users = ch.users.filter(u => u.name !== name)
+      ch.users = ch.users.filter(u => u != null && u.name !== name)
     }
-  })
+  }
   delete state.onlineCharacters[name]
 }
 
