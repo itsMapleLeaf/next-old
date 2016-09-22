@@ -155,22 +155,19 @@ export function TPN({ character: name, status }: Params) {
   }
 }
 
+const rolltypes = {
+  dice({ name, results, rolls, endresult }) {
+    return `${name} rolled ${rolls.join(', ')}: ${endresult} (${results.join(', ')})`
+  },
+  bottle({ name, target }) {
+    return `${name} spun the bottle. It landed on: ${target}`
+  },
+}
+
 export function RLL(params: Params) {
   const {type, channel: id, character: name} = params
   const char = state.onlineCharacters[name]
-
-  const rolltypes = {
-    dice() {
-      const {results, rolls, endresult} = params
-      return `${name} rolled ${rolls.join(', ')}: ${endresult} (${results.join(', ')})`
-    },
-    bottle() {
-      const {target} = params
-      return `${name} spun the bottle. It landed on: ${target}`
-    },
-  }
-
-  const message = rolltypes[type]()
+  const message = rolltypes[type](params)
   state.channels[id].messages.push(newMessage(char, message, type))
 }
 
