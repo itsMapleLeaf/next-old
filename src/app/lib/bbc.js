@@ -3,39 +3,6 @@ import {getProfileURL, getAvatarURL, getExtendedIcon} from '../lib/f-list'
 import {parse as parseURL} from 'url'
 import path from 'path'
 
-// const bbcExpression = /\[(\w+?)=?([^\]]*)\]([\s\S]+?)\[\/\1\]|(https?:\/\/[^\[\]\(\)\s]+)/gi // lol
-//
-// export function parseBBC(input: string) {
-//   return input.replace(bbcExpression, (match, tag, value, text, url) => {
-//     if (url) {
-//       tag = 'url'
-//       value = text = url
-//     } else if (tag === 'noparse') {
-//       return text
-//     } else if (tag !== 'url') {
-//       text = parseBBC(text)
-//     }
-//
-//     const tags = {
-//       i: () => `<em>${text}</em>`,
-//       b: () => `<strong>${text}</strong>`,
-//       u: () => `<u>${text}</u>`,
-//       s: () => `<del>${text}</del>`,
-//       sup: () => `<sup>${text}</sup>`,
-//       sub: () => `<small>${text}</small>`,
-//       color: () => formatColor(value, text),
-//       url: () => formatURL(value, text),
-//       channel: () => formatPublicChannelLink(text),
-//       session: () => formatPrivateChannelLink(text, value),
-//       icon: () => formatUserIcon(text),
-//       user: () => formatUserIcon(text),
-//       eicon: () => formatExtendedIcon(text),
-//     }
-//
-//     return tags[tag] ? tags[tag]() : match
-//   })
-// }
-
 export function parseBBC(input: string): string {
   input = input.replace(/\b((?:http)(?:s)?(?::\/\/)[^\s\}\]\)]+)/gi, (match, url, offset) => {
     const behind = input.substring(offset - 5, offset)
