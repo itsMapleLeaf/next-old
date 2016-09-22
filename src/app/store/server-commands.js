@@ -36,21 +36,27 @@ export function CON() {}
 export function FRL() {}
 
 export function IGN({ action, character: name, characters }: Params) {
-  switch (action) {
-    case 'init':
-    case 'list':
-    case 'notify':
-      state.ignored = mapToObject(characters, name => [name, true])
-      break
-
-    case 'add':
-      state.ignored[name] = true
-      break
-
-    case 'delete':
-      delete state.ignored[name]
-      break
+  function initIgnoredList() {
+    state.ignored = mapToObject(characters, name => [name, true])
   }
+
+  function addIgnored() {
+    state.ignored[name] = true
+  }
+
+  function deleteIgnored() {
+    delete state.ignored[name]
+  }
+
+  const actions = {
+    init: initIgnoredList,
+    list: initIgnoredList,
+    notify: initIgnoredList,
+    add: addIgnored,
+    delete: deleteIgnored,
+  }
+
+  actions[action]()
 }
 
 export function ADL(params: Params) {
@@ -71,7 +77,9 @@ export function NLN({ identity, gender }: Params) {
 
 export function FLN({ character: name }: Params) {
   for (const ch of Object.values(state.channels)) {
-    if (ch instanceof Object) ch.users = ch.users.filter(u => u.name !== name)
+    if (ch instanceof Object) {
+      ch.users = ch.users.filter(u => u.name !== name)
+    }
   }
   delete state.onlineCharacters[name]
 }
@@ -149,16 +157,19 @@ export function TPN({ character: name, status }: Params) {
 export function RLL(params: Params) {
   const {type, channel: id, character: name} = params
   const char = state.onlineCharacters[name]
-  let message = ''
 
-  if (type === 'dice') {
-    const {results, rolls, endresult} = params
-    message = `${name} rolled ${rolls.join(', ')}: ${endresult} (${results.join(', ')})`
-  } else if (type === 'bottle') {
-    const {target} = params
-    message = `${name} spun the bottle. It landed on: ${target}`
+  const rolltypes = {
+    dice() {
+      const {results, rolls, endresult} = params
+      return `${name} rolled ${rolls.join(', ')}: ${endresult} (${results.join(', ')})`
+    },
+    bottle() {
+      const {target} = params
+      return `${name} spun the bottle. It landed on: ${target}`
+    },
   }
 
+  const message = rolltypes[type]()
   state.channels[id].messages.push(newMessage(char, message, type))
 }
 

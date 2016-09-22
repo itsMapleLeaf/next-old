@@ -58,16 +58,10 @@ export default {
   methods: {
     getSortWeight(char) {
       const {name, status} = char
-      switch (true) {
-        case store.isFriend(name):
-          return 0
-        case store.isBookmark(name):
-          return 1
-        case status === 'looking':
-          return 2
-        default:
-          return 3
-      }
+      return store.isFriend(name) ? 0
+        : store.isBookmark(name) ? 1
+        : status === 'looking' ? 2
+        : 3
     },
     compareCharacters(a, b) {
       const diff = this.getSortWeight(a) - this.getSortWeight(b)

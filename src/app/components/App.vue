@@ -25,28 +25,21 @@ export default {
     ...getters(['appState']),
 
     currentView() {
-      switch (this.appState) {
-        case 'login':
-          return Login
-        case 'character-select':
-          return CharacterList
-        case 'online':
-          return Chat
+      const views = {
+        'login': Login,
+        'character-select': CharacterList,
+        'online': Chat,
       }
+      return views[this.appState]
     },
     loadingMessage() {
-      switch (this.appState) {
-        case 'setup':
-          return 'Setting things up...'
-        case 'logging-in':
-          return 'Logging in...'
-        case 'connecting':
-          return 'Connecting...'
-        case 'identifying':
-          return 'Identifying...'
-        default:
-          return ''
+      const messages = {
+        'setup': 'Setting things up...',
+        'logging-in': 'Logging in...',
+        'connecting': 'Connecting...',
+        'identifying': 'Identifying...',
       }
+      return messages[this.appState]
     },
   },
 }

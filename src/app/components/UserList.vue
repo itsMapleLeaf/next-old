@@ -25,20 +25,12 @@ export default {
   methods: {
     getSortWeight(char) {
       const {name, status} = char
-      switch (true) {
-        case store.isFriend(name):
-          return 0
-        case store.isBookmark(name):
-          return 1
-        case store.isAdmin(name):
-          return 2
-        case this.ops.includes(name):
-          return 3
-        case status === 'looking':
-          return 4
-        default:
-          return 5
-      }
+
+      return store.isFriend(name) ? 0 :
+        store.isBookmark(name) ? 1 :
+        store.isAdmin(name) ? 2 :
+        this.ops.includes(name) ? 3 :
+        status === 'looking' ? 4 : 5
     },
     getHighlight({ name }) {
       return store.isFriend(name) ? 'user-list-friend' :

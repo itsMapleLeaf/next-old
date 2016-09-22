@@ -163,12 +163,12 @@ export default {
     isFilterDisabled(filter) {
       const {channel} = this.currentTab
       if (channel) {
-        switch (channel.mode) {
-          case 'both': return false
-          case 'ads': return true
-          case 'chat': return filter === 'lfrp'
-          default: return false
+        const modes = {
+          both: false,
+          ads: true,
+          chat: filter === 'lfrp',
         }
+        return modes[channel.mode] || false
       }
     },
     chatboxSubmit(message) {
