@@ -16,20 +16,19 @@
     pointer-events: none
     opacity: 0
     z-index: 9999
+    transition: 0.3s
 
-  +animate(hover)
-    &::after
-      opacity: 1
-      transition-delay: 0.3s
+  &:hover::after
+    opacity: 1
+    transition-delay: 0.3s
 
   &.tooltip-right
     &::after
       top: 50%
       transform: translateY(-50%)
 
-    +animate(hover)
-      &::after
-        transform: translateY(-50%) translateX(0.5em)
+    &:hover::after
+      transform: translateY(-50%) translateX(0.5em)
 
   &.tooltip-bottom
     &::after
@@ -37,6 +36,5 @@
       left: 50%
       transform: translateX(-50%)
 
-    +animate(hover)
-      &::after
-        transform: translateX(-50%) translateY(0.3em)
+    &:hover::after
+      transform: translateX(-50%) translateY(0.3em)

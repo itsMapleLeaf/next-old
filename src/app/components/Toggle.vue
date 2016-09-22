@@ -30,7 +30,6 @@ export default {
 @require 'mixins/theme'
 
 .toggle
-  active-animation()
   font-size: 90%
   opacity: 0.7
   border-bottom: 1px solid transparent
@@ -38,6 +37,8 @@ export default {
   +animate()
     opacity: 1
     border-bottom-color: rgba($text-color, 0.3)
+  
+  active-animation()
 
   &.checked
     opacity: 0.8

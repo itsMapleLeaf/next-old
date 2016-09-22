@@ -28,11 +28,12 @@ accent-border($side = 'bottom')
     border-{$side}-color: lighten($accent-color, 30%)
 
 active-animation()
-  display: inline-block
   transform: scale(1)
+  display: inline-block
+
   +animate(active)
     transform: scale(0.95)
-    transition-duration: 0.05s
+    transition-duration: 0s
 
 theme-darker($amount)
   darken($theme-color, $amount)
