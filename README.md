@@ -1,7 +1,7 @@
 # F-Chat Next
 > An alternative F-Chat client with modern, intuitive, and responsive design in mind.
 
-[Live Demo](http://kingdaro.net/fchat)
+[Live Demo](http://kingdaro.github.io/fchat)
 
 ## Note: Incomplete!
 This client is in no way close to finished, but is in a usable state, so feel free to test for bugs and such.
