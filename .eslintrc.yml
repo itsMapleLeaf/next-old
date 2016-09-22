@@ -17,8 +17,7 @@ rules:
     - warn
     - unix
   quotes:
-    - warn
-    - single
+    - off
   semi:
     - error
     - never

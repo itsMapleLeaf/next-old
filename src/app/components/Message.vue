@@ -71,14 +71,17 @@ export default {
 @require 'mixins/highlight'
 
 .message
-  padding: 0.3em 0.6em
+  padding: 0.4em 0.5em
   border-bottom: 1px solid theme-darker(40%)
 
 .avatar
-  margin: 0.2em 0.5em 0.2em 0
+  margin: 0.1em 0.3em 0.1em 0
 
 .sender
   margin-right: 0.25em
+
+.message-text
+  white-space: pre-wrap
 
 .timestamp
   font-size: 70%

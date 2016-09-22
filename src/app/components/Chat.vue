@@ -183,6 +183,10 @@ export default {
 }
 </script>
 
+<style lang='stylus'>
+@require 'bbc'
+</style>
+
 <style lang='stylus' scoped>
 @require 'elements/flex'
 @require 'elements/tooltip'

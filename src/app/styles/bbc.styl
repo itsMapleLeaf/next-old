@@ -1,0 +1,63 @@
+@require 'mixins/theme'
+
+.bbc-italic
+  font-style: italic
+
+.bbc-bold
+  font-weight: bold
+
+.bbc-underline
+  text-decoration: underline
+
+.bbc-strike
+  text-decoration: line-through
+
+.bbc-sub
+  font-size: 80%
+
+.bbc-super
+  font-size: 80%
+  vertical-align: super
+
+.bbc-icon
+  display: inline-block
+  width: 2em
+  height: 2em
+  background-size: contain
+  vertical-align: text-top
+
+.bbc-link
+  border-bottom: 1px solid rgba($text-color, 0.3)
+  text-shadow: 0px 1px 2px rgba(black, 0.6)
+  color: lighten($theme-color, 80%)
+  display: inline-block
+
+  +animate(hover)
+    border-color: rgba($text-color, 0.8)
+
+  +animate(active, 0.2s)
+    transform: translateY(0.1em)
+    transition-duration: 0s
+
+.bbc-channel
+  @extend .bbc-link
+
+$colors = {
+  white: rgb(236, 240, 241)
+  black: rgb(52, 73, 94)
+  red: rgb(231, 76, 60)
+  blue: rgb(52, 152, 219)
+  yellow: rgb(241, 196, 15)
+  green: rgb(46, 204, 113)
+  pink: rgb(255,164,156)
+  gray: rgb(149, 165, 166)
+  orange: rgb(230, 126, 34)
+  purple: rgb(201,135,228)
+  brown: rgb(211, 84, 0)
+  cyan: rgb(85,175,236)
+}
+
+for $name, $color in $colors
+  .bbc-color-{$name}
+    color: $color
+    text-shadow: 0px 1px 2px rgba(black, 0.6)
