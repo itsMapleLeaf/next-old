@@ -4,9 +4,10 @@
 
 import type {Channel, ChannelInfo} from '../lib/types'
 import {state} from './state'
-import {mapToObject} from '../lib/util'
+import {mapToObject, values} from '../lib/util'
 import {newCharacter, newChannelInfo, newMessage} from '../lib/constructors'
 import * as store from './store'
+import Vue from 'vue'
 
 type Params = { [key: string]: any }
 
@@ -41,11 +42,11 @@ export function IGN({ action, character: name, characters }: Params) {
   }
 
   function addIgnored() {
-    state.ignored[name] = true
+    Vue.set(state.ignored, name, true)
   }
 
   function deleteIgnored() {
-    delete state.ignored[name]
+    Vue.delete(state.ignored, name)
   }
 
   const actions = {
@@ -64,7 +65,7 @@ export function ADL(params: Params) {
 }
 
 export function AOP({ character }: Params) {
-  state.admins[character] = true
+  Vue.set(state.admins, character, true)
 }
 
 export function LIS(params: Params) {
@@ -72,15 +73,15 @@ export function LIS(params: Params) {
 }
 
 export function NLN({ identity, gender }: Params) {
-  state.onlineCharacters[identity] = newCharacter(identity, gender)
+  Vue.set(state.onlineCharacters, identity, newCharacter(identity, gender))
 }
 
 export function FLN({ character: name }: Params) {
-  for (const ch of Object.values(state.channels)) {
+  values(state.channels).forEach(ch => {
     if (ch instanceof Object) {
       ch.users = ch.users.filter(u => u.name !== name)
     }
-  }
+  })
   delete state.onlineCharacters[name]
 }
 

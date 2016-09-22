@@ -34,6 +34,7 @@ import Avatar from './Avatar.vue'
 import Status from './Status.vue'
 import Toggle from './Toggle.vue'
 import {store, state} from '../store'
+import {values} from '../lib/util'
 
 export default {
   components: {
@@ -91,7 +92,7 @@ export default {
       return this.getSearchQuery(char).includes(this.searchText.toLowerCase())
     },
     getCharacterList() {
-      this.characters = Object.values(state.onlineCharacters)
+      this.characters = values(state.onlineCharacters)
         .filter(this.filterCharacter)
         .sort(this.compareCharacters)
         .slice(0, 200)

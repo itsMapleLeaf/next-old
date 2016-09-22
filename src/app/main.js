@@ -1,5 +1,5 @@
 // @flow
-import 'babel-polyfill'
+import 'regenerator-runtime/runtime'
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './components/App.vue'

@@ -1,4 +1,20 @@
 // @flow
+export const assign = Object.assign || function assign(base, ...rest) {
+  for (const obj of rest) {
+    for (const field in obj) {
+      base[field] = obj[field]
+    }
+  }
+  return base
+}
+
+export const values = Object.values || function values(obj) {
+  let result = []
+  for (const field in obj) {
+    result.push(obj[field])
+  }
+  return result
+}
 
 // uppercase the first letter of a string and lowercase the rest
 export function capitalize(text: string) {
