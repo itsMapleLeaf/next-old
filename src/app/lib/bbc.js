@@ -17,22 +17,23 @@ export function parseBBC(input: string) {
       text = parseBBC(text)
     }
 
-    switch (tag) {
-      case 'i': return `<em>${text}</em>`
-      case 'b': return `<strong>${text}</strong>`
-      case 'u': return `<u>${text}</u>`
-      case 's': return `<del>${text}</del>`
-      case 'sup': return `<sup>${text}</sup>`
-      case 'sub': return `<small>${text}</small>`
-      case 'color': return formatColor(value, text)
-      case 'url': return formatURL(value, text)
-      case 'channel': return formatPublicChannelLink(text)
-      case 'session': return formatPrivateChannelLink(text, value)
-      case 'icon':
-      case 'user': return formatUserIcon(text)
-      case 'eicon': return formatExtendedIcon(text)
-      default: return match
+    const tags = {
+      i: () => `<em>${text}</em>`,
+      b: () => `<strong>${text}</strong>`,
+      u: () => `<u>${text}</u>`,
+      s: () => `<del>${text}</del>`,
+      sup: () => `<sup>${text}</sup>`,
+      sub: () => `<small>${text}</small>`,
+      color: () => formatColor(value, text),
+      url: () => formatURL(value, text),
+      channel: () => formatPublicChannelLink(text),
+      session: () => formatPrivateChannelLink(text, value),
+      icon: () => formatUserIcon(text),
+      user: () => formatUserIcon(text),
+      eicon: () => formatExtendedIcon(text),
     }
+
+    return tags[tag] ? tags[tag]() : match
   })
 }
 
