@@ -4,7 +4,7 @@
       <a href='#' class='overlay-close' @click="$emit('closed')">
         <i class='mdi mdi-close'></i>
       </a>
-      <div class='header'>
+      <div class='header' v-if='header'>
         <h2>{{ header }}</h2>
       </div>
       <div class='content'>

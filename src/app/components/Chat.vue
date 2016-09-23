@@ -64,6 +64,7 @@ import ChatHeader from './ChatHeader.vue'
 import ChatFilter from './ChatFilter.vue'
 import ChatDescription from './ChatDescription.vue'
 import OnlineCharacters from './OnlineCharacters.vue'
+import StatusOverlay from './StatusOverlay.vue'
 
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
@@ -118,9 +119,21 @@ export default {
     headerOptions() {
       const openOverlay = which => () => this.overlays.push(which)
       return [
-        { info: 'Join a Channel', icon: 'forum', action: openOverlay(ChannelList) },
-        { info: 'Browse Online Characters', icon: 'heart', action: openOverlay(OnlineCharacters) },
-        { info: 'Update Your Status', icon: 'account-settings' },
+        {
+          info: 'Join a Channel',
+          icon: 'forum',
+          action: openOverlay(ChannelList),
+        },
+        {
+          info: 'Browse Online Characters',
+          icon: 'heart',
+          action: openOverlay(OnlineCharacters),
+        },
+        {
+          info: 'Update Your Status',
+          icon: 'account-settings',
+          action: openOverlay(StatusOverlay),
+        },
         // { info: 'Settings', icon: 'settings' },
       ]
     },
