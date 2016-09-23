@@ -1,6 +1,7 @@
 // @flow
 import {getProfileURL, getAvatarURL, getExtendedIcon} from '../lib/f-list'
 import {parse as parseURL} from 'url'
+import {jwerty} from 'jwerty'
 import path from 'path'
 
 export function parseBBC(input: string): string {
@@ -53,6 +54,28 @@ export function parseBBC(input: string): string {
   }
 
   return input
+}
+
+export function doBBCShortcut(text: string, event: Object) {
+  const tag
+    = jwerty.is('ctrl+alt+h', event) ? 'sub'
+    : jwerty.is('ctrl+alt+b', event) ? 'b'
+    : jwerty.is('ctrl+alt+i', event) ? 'i'
+    : jwerty.is('ctrl+alt+u', event) ? 'u'
+    : ''
+
+  if (tag !== '') {
+    event.preventDefault()
+
+    const {selectionStart: start, selectionEnd: end} = event.target
+
+    const before = text.substring(0, start)
+    const between = text.substring(start, end)
+    const after = text.substring(end)
+
+    return `${before}[${tag}]${between}[/${tag}]${after}`
+  }
+  return text
 }
 
 function formatUserIcon(name) {

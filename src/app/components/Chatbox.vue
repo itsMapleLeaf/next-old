@@ -1,8 +1,11 @@
 <template>
-  <textarea v-model='message' @keydown.enter.prevent='submit'></textarea>
+  <textarea v-model='message' @keydown.enter.prevent='submit' @keydown='bbcShortcut($event)'>
+  </textarea>
 </template>
 
 <script>
+import {doBBCShortcut} from '../lib/bbc'
+
 export default {
   data() {
     return { message: '' }
@@ -11,6 +14,9 @@ export default {
     submit() {
       this.$emit('submit', this.message)
       this.message = ''
+    },
+    bbcShortcut(event) {
+      this.message = doBBCShortcut(this.message, event)
     },
   },
 }
