@@ -1,5 +1,5 @@
 // @flow
-import type {Name, CharacterBatchEntry, ChatTab, Relationship} from '../lib/types'
+import type {Name, CharacterBatchEntry, ChatTab, Relationship, Status} from '../lib/types'
 import {newCharacter, newChannel, newPrivateChat, newMessage} from '../lib/constructors'
 import {state} from './state'
 import {mapToObject} from '../lib/util'
@@ -223,14 +223,6 @@ export function sendPrivateMessage(partner: Name, message: string) {
   sendCommand('PRI', { recipient: partner, message })
 }
 
-export function isFriend(name: Name) { return state.friends[name] != null }
-export function isBookmark(name: Name) { return state.bookmarks[name] != null }
-export function isAdmin(name: Name) { return state.admins[name] != null }
-
-export function setCharacterFocus(name?: Name) {
-  state.characterMenuFocus = name ? state.onlineCharacters[name] : null
-}
-
 export function addBookmark(name: Name) {
   Vue.set(state.bookmarks, name, true)
   flist.addBookmark(state.account, state.ticket, name)
@@ -240,3 +232,15 @@ export function removeBookmark(name: Name) {
   Vue.delete(state.bookmarks, name)
   flist.removeBookmark(state.account, state.ticket, name)
 }
+
+export function updateStatus(status: Status, statusmsg: string) {
+  sendCommand('STA', { status, statusmsg })
+}
+
+export function setCharacterFocus(name?: Name) {
+  state.characterMenuFocus = name ? state.onlineCharacters[name] : null
+}
+
+export function isFriend(name: Name) { return state.friends[name] != null }
+export function isBookmark(name: Name) { return state.bookmarks[name] != null }
+export function isAdmin(name: Name) { return state.admins[name] != null }

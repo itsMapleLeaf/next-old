@@ -11,14 +11,14 @@
             <Avatar :name='identity' shadow></Avatar>
           </ProfileLink>
         </div>
-        <form class='flex-fixed form-container' @submit.prevent>
+        <form class='flex-fixed form-container' @submit.prevent='submit'>
           <fieldset>
             <Dropdown :options='statusOptions' v-model='status'></Dropdown>
           </fieldset>
           <fieldset>
             <div class='form-icon-input'>
               <i class='mdi mdi-pencil'></i>
-              <textarea class='status-message'></textarea>
+              <textarea class='status-message' v-model='statusmsg'></textarea>
             </div>
           </fieldset>
           <fieldset>
@@ -64,7 +64,7 @@ import Overlay from './Overlay.vue'
 import Avatar from './Avatar.vue'
 import ProfileLink from './ProfileLink.vue'
 import Dropdown from './Dropdown.vue'
-import {getters} from '../store/getters'
+import {store, getters} from '../store'
 
 export default {
   components: {
@@ -76,10 +76,16 @@ export default {
   data() {
     return {
       status: 'online',
+      statusmsg: '',
     }
   },
+  created() {
+    const char = this.onlineCharacters[this.identity]
+    this.status = char.status
+    this.statusmsg = char.statusmsg
+  },
   computed: {
-    ...getters(['identity']),
+    ...getters(['onlineCharacters', 'identity']),
     statusOptions() {
       return [
         { value: 'online', label: 'Online' },
@@ -91,6 +97,11 @@ export default {
     },
     greeting() {
       return `Hi, ${this.identity.split(' ')[0]}!`
+    },
+  },
+  methods: {
+    submit() {
+      store.updateStatus(this.status, this.statusmsg)
     },
   },
 }
