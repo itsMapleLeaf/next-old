@@ -9,11 +9,17 @@ const config = {
       { test: /\.json$/, loader: 'json' },
     ],
   },
-  vue: {
-    loaders: {
-      stylus: 'style!css!stylus?paths=src/app/styles',
-    },
-  },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        vue: {
+          loaders: {
+            stylus: 'style!css!stylus?paths=src/app/styles',
+          },
+        },
+      },
+    }),
+  ],
 }
 
 if (process.env.NODE_ENV !== 'production') {

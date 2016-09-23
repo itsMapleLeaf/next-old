@@ -5,16 +5,8 @@
     }]
   ],
   "plugins": [
-    "transform-flow-strip-types",
     "transform-object-rest-spread",
-    "transform-export-extensions"
-  ],
-  "env": {
-    "production": {
-      "presets": ["babili"],
-      "plugins": [
-        "transform-remove-console"
-      ]
-    }
-  }
+    "transform-export-extensions",
+    "transform-flow-strip-types"
+  ]
 }
