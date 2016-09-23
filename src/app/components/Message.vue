@@ -51,7 +51,7 @@ export default {
       return { 'message-action': this.isAction }
     },
     parsedMessage() {
-      return parseBBC(this.isAction.replace(/^\/me/, ''))
+      return parseBBC(this.message.replace(/^\/me/, ''))
     },
     parsedTime() {
       if (this.time) {
