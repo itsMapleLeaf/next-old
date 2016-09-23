@@ -8,6 +8,8 @@ copy_assets_web = sh -c 'cp -r src/assets $(dist_web)'
 build_webpack_web = webpack $(app_main) $(dist_web)/bundle.js
 build_pug_web = pug src/web -o $(dist_web) --pretty
 
+default: dev-web
+
 run-web: build-web
 	start ./dist/web/index.html
 
