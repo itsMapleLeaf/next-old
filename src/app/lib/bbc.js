@@ -6,7 +6,6 @@ import path from 'path'
 export function parseBBC(input: string): string {
   input = input.replace(/\b((?:http)(?:s)?(?::\/\/)[^\s\}\]\)]+)/gi, (match, url, offset) => {
     const behind = input.substring(offset - 5, offset)
-    console.log(behind)
     if (behind !== '[url]' && behind !== '[url=') {
       return formatLink(url, url)
     }
