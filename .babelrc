@@ -11,7 +11,10 @@
   ],
   "env": {
     "production": {
-      "presets": ["babili"]
+      "presets": ["babili"],
+      "plugins": [
+        "transform-remove-console"
+      ]
     }
   }
 }
