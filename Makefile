@@ -19,8 +19,8 @@ run-electron: build-electron
 dev-web:
 	$(mkdir_web)
 	$(copy_assets_web)
-	$(build_pug_web) --watch
-	$(build_webpack_web) --watch
+	$(build_pug_web) --watch &
+	$(build_webpack_web) --watch &
 	NODE_ENV=development webpack-dev-server src/app/main.js --inline --hot --content-base=$(dist_web)
 
 build: clean build-web build-electron
