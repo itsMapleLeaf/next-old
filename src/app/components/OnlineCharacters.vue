@@ -125,12 +125,11 @@ export default {
   position: fixed
   background: $theme-color
   padding: 0.5em 1em
+  box-shadow: 0px 0px 8px rgba(black, 0.8)
+  text-align: center
 
 .category
   margin-right: 0.8em
-
-.search
-  float: right
 
 .character
   background: $theme-color
@@ -145,7 +144,7 @@ export default {
   size(10em, 6em)
 
 .name
-  background: theme-darker(30%)
+  background: theme-darker(50%)
 
 .name-text
   padding: 0.3em 0.6em
