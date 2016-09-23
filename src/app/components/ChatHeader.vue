@@ -2,7 +2,7 @@
   <header class='flex-row'>
     <div class='flex-fixed'>
       <span>F-Chat Next</span>
-      <span>v0.5.0</span>
+      <span>v{{ version }}</span>
       <!-- <a href='#' class='link'>
         <i class='mdi mdi-information'></i>
       </a> -->
@@ -17,9 +17,14 @@
 </template>
 
 <script>
+import {version} from '../../../package.json'
+
 export default {
   props: {
     options: Array,
+  },
+  data() {
+    return { version }
   },
 }
 </script>
