@@ -1,13 +1,13 @@
-@require 'mixins/theme'
-@require 'mixins/highlight'
+@require 'theme'
+@require 'highlight'
 
 .form-input
-  active-animation()
+  theme-click-animation()
   input-styles()
   accent-border()
 
 .form-button
-  active-animation()
+  theme-click-animation()
   input-styles()
   width: min-content
   min-width: 4em
@@ -23,7 +23,7 @@
   transition: 0.25s
 
 .form-icon-input
-  active-animation()
+  theme-click-animation()
   position: relative
 
   i
@@ -46,7 +46,7 @@
   overflow-y: auto
 
   a
-    active-animation()
+    theme-click-animation()
     display: block
     padding: 0.35em 0.6em
 

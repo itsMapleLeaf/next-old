@@ -30,7 +30,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'mixins/theme'
+@require 'theme'
+@require 'animate'
 
 .chat-tab
   display: block

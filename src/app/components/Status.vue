@@ -22,5 +22,5 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'elements/character'
+@require 'character'
 </style>

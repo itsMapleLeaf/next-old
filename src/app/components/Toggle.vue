@@ -27,7 +27,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'mixins/theme'
+@require 'theme'
+@require 'animate'
 
 .toggle
   font-size: 90%
@@ -37,8 +38,8 @@ export default {
   +animate()
     opacity: 1
     border-bottom-color: rgba($text-color, 0.3)
-  
-  active-animation()
+
+  theme-click-animation()
 
   &.checked
     opacity: 0.8

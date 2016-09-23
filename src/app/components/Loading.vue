@@ -14,9 +14,9 @@ export default {}
 </script>
 
 <style lang='stylus' scoped>
-@require 'mixins/theme'
-@require 'mixins/layout'
-@require 'mixins/flex'
+@require 'theme'
+@require 'layout'
+@require 'flex'
 
 .shade
   fullscreen()

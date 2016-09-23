@@ -25,17 +25,16 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'elements/tooltip'
-@require 'elements/flex'
-@require 'mixins/theme'
-@require 'mixins/flex'
+@require 'tooltip'
+@require 'flex'
+@require 'theme'
 
 header
   flex-align(center)
   nav
     text-align: right
     a
-      active-animation()
+      theme-click-animation()
       font-size: 130%
       margin-left: 0.6em
 </style>

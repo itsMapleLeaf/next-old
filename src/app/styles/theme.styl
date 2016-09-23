@@ -1,3 +1,5 @@
+@require 'animate'
+
 $red = rgb(231, 76, 60)
 $blue = rgb(52, 152, 219)
 $green = rgb(39, 174, 96)
@@ -10,12 +12,6 @@ $text-color = rgb(236, 240, 241)
 
 $highlight-active = $green
 
-animate($state = hover, $duration = 0.25s, $properties = all, $easing = ease)
-  transition: $duration $easing $properties
-  if block
-    &:{$state}
-      {block}
-
 input-styles()
   width: 10em
   background: darken($theme-color, 25%)
@@ -27,7 +23,7 @@ accent-border($side = 'bottom')
   &:focus
     border-{$side}-color: lighten($accent-color, 30%)
 
-active-animation()
+theme-click-animation()
   transform: scale(1)
   display: inline-block
 

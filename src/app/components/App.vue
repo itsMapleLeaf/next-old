@@ -46,10 +46,10 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'mixins/layout'
-@require 'mixins/flex'
-@require 'mixins/theme'
-@require 'transitions/fade'
+@require 'layout'
+@require 'flex'
+@require 'theme'
+@require 'fade'
 
 body
   fullscreen()
@@ -59,9 +59,9 @@ body
 </style>
 
 <style lang='stylus'>
-@require 'mixins/theme'
-@require 'mixins/layout'
-@require 'elements/link'
+@require 'theme'
+@require 'layout'
+@require 'link'
 
 *
   margin: 0

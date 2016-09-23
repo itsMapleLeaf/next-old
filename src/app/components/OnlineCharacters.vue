@@ -102,14 +102,14 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'elements/flex'
-@require 'elements/character'
-@require 'elements/form'
-@require 'elements/link'
-@require 'mixins/flex'
-@require 'mixins/layout'
-@require 'mixins/theme'
-@require 'mixins/highlight'
+@require 'flex'
+@require 'character'
+@require 'form'
+@require 'link'
+@require 'layout'
+@require 'theme'
+@require 'highlight'
+@require 'animate'
 
 .shade
   fullscreen()

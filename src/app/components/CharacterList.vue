@@ -57,8 +57,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'elements/form'
-@require 'mixins/layout'
+@require 'form'
+@require 'layout'
 
 .character-list
   text-align: center

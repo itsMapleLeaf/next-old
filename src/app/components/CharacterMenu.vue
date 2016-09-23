@@ -91,12 +91,12 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'elements/character'
-@require 'elements/overlay'
-@require 'mixins/layout'
-@require 'mixins/theme'
-@require 'mixins/highlight'
-@require 'transitions/overlay'
+@require 'character'
+@require 'overlay'
+@require 'layout'
+@require 'theme'
+@require 'highlight'
+@require 'animate'
 
 .overlay-panel
   background: theme-darker(20%)

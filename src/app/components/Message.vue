@@ -66,9 +66,9 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'elements/flex'
-@require 'mixins/theme'
-@require 'mixins/highlight'
+@require 'flex'
+@require 'theme'
+@require 'highlight'
 
 .message
   padding: 0.4em 0.5em

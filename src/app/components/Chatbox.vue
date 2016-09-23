@@ -17,7 +17,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'mixins/theme'
+@require 'theme'
+@require 'animate'
 
 textarea
   padding: 0.3em 0.6em

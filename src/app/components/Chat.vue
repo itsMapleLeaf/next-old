@@ -120,7 +120,7 @@ export default {
       return [
         { info: 'Join a Channel', icon: 'forum', action: openOverlay(ChannelList) },
         { info: 'Browse Online Characters', icon: 'heart', action: openOverlay(OnlineCharacters) },
-        // { info: 'Update Your Status', icon: 'account-settings' },
+        { info: 'Update Your Status', icon: 'account-settings' },
         // { info: 'Settings', icon: 'settings' },
       ]
     },
@@ -188,12 +188,11 @@ export default {
 </style>
 
 <style lang='stylus' scoped>
-@require 'elements/flex'
-@require 'elements/tooltip'
-@require 'mixins/layout'
-@require 'mixins/theme'
-@require 'mixins/flex'
-@require 'transitions/overlay'
+@require 'flex'
+@require 'tooltip'
+@require 'layout'
+@require 'theme'
+@require 'overlay'
 
 .divider
   size: 3px
