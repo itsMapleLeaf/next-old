@@ -1,15 +1,14 @@
 <template>
-  <textarea v-model='message' @keydown.enter.prevent='submit' @keydown='shortcut($event)'>
+  <textarea @keydown.enter.prevent='submit' @keydown='shortcut($event)' v-model='message'>
   </textarea>
 </template>
 
 <script>
 import {doBBCShortcut} from '../lib/bbc'
-import {jwerty} from 'jwerty'
 
 export default {
   data() {
-    return { message: '', undos: [], redos: [] }
+    return { message: '' }
   },
   methods: {
     submit() {
@@ -17,32 +16,7 @@ export default {
       this.message = ''
     },
     shortcut(event) {
-      if (jwerty.is('ctrl+z')) {
-        event.preventDefault()
-
-        const undo = this.undos.pop()
-        if (undo) {
-          this.message = undo
-          this.redos.push(undo)
-        }
-      }
-      else if (jwerty.is('ctrl+y')) {
-        event.preventDefault()
-
-        const redo = this.redos.pop()
-        if (redo) {
-          this.message = redo
-          this.undos.push(redo)
-        }
-      }
-      else {
-        this.message = doBBCShortcut(this.message, event)
-      }
-    },
-  },
-  watch: {
-    message(value) {
-      this.undos.push(value)
+      this.message = doBBCShortcut(this.message, event)
     },
   },
 }
