@@ -16,10 +16,7 @@
             <Dropdown :options='statusOptions' v-model='status'></Dropdown>
           </fieldset>
           <fieldset>
-            <div class='form-icon-input'>
-              <i class='mdi mdi-pencil'></i>
-              <textarea class='status-message' v-model='statusmsg'></textarea>
-            </div>
+            <BBCEditor class='status-message' v-model='statusmsg'></BBCEditor>
           </fieldset>
           <fieldset>
             <button class='form-button'>Update</button>
@@ -64,6 +61,7 @@ import Overlay from './Overlay.vue'
 import Avatar from './Avatar.vue'
 import ProfileLink from './ProfileLink.vue'
 import Dropdown from './Dropdown.vue'
+import BBCEditor from './BBCEditor.vue'
 import {store, getters} from '../store'
 
 export default {
@@ -72,6 +70,7 @@ export default {
     Avatar,
     Dropdown,
     ProfileLink,
+    BBCEditor,
   },
   data() {
     return {

@@ -3,14 +3,15 @@
 @import 'tooltip'
 @import 'layout'
 @import 'animate'
+@import 'form'
 
 .container
   position: relative
 
 .shortcut-info
   font-size: 110%
-  opacity: 0.5
-  padding: 0.2em
+  opacity: 0.3
+  padding: 0 0.2em
   anchor(top right)
   +animate(hover)
     opacity: 1
@@ -19,18 +20,16 @@
   display: block
   padding: 0.3em 0.6em
   size(100%)
-  +animate(focus)
-    background: theme-darker(40%)
 </style>
 
 <template>
   <div class='container'>
-    <textarea class='textarea' :value='value' :placeholder='placeholder'
+    <textarea class='textarea form-textarea' :value='value' :placeholder='placeholder'
       @input="$emit('input', $event.target.value)" @keydown='keydown($event)'>
     </textarea>
-    <a class='shortcut-info tooltip-top' :data-tooltip='keyboardShortcuts' href='#'>
+    <div class='shortcut-info tooltip-top' :data-tooltip='keyboardShortcuts'>
       <i class='mdi mdi-keyboard'></i>
-    </a>
+    </div>
   </div>
 </template>
 
