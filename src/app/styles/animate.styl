@@ -1,25 +1,8 @@
 @require 'theme'
 
-animate-hover()
-  &:hover
-    transform: translateY(-0.1rem)
-
-animate-press()
-  &:active
-    transform: translateY(0rem)
-    transition-duration: 0s
-
-animate-focus()
-  outline: 2px solid transparent
-  &:focus, textarea:focus, input:focus, a:focus
-    outline-color: rgba(theme-lighter(50%), 0.3)
-
-animate($states = hover press focus, $display = inline-block)
+animate-press($display = inline-block)
   transition: 0.2s
   display: $display
-  if hover in $states
-    animate-hover()
-  if press in $states
-    animate-press()
-  if focus in $states
-    animate-focus()
+  &:active
+    transform: translateY(0.2rem)
+    transition-duration: 0s

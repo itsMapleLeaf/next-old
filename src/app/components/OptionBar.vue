@@ -20,7 +20,7 @@ export default {
 @require 'tooltip'
 
 .option
-  animate()
+  animate-press()
   font-size: 150%
   padding: 0.5rem 0.5rem 0
 </style>

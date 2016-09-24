@@ -36,7 +36,7 @@ export default {
   border-bottom: 1px solid transparent
   transition: 0.2s
 
-  animate()
+  animate-press()
 
   &:hover
     opacity: 1

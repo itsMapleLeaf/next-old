@@ -46,7 +46,7 @@ export default {
 @require 'animate'
 
 .current
-  animate()
+  animate-press()
   theme-input-styles()
   accent-border(bottom)
 
@@ -59,7 +59,7 @@ export default {
   width: min-content
 
 .option
-  animate()
+  animate-press()
   theme-input-styles()
   font-size: 100%
   display: block

@@ -2,19 +2,16 @@
 @require 'highlight'
 
 .form-input
-  animate()
+  animate-press()
   theme-input-styles()
   accent-border()
 
 .form-button
   theme-input-styles()
-  animate()
+  animate-press()
   width: min-content
   min-width: 4em
   cursor: pointer
-
-  &:hover
-    transform: translateY(-0.2em)
 
 .form-textarea
   theme-input-styles()
@@ -22,7 +19,7 @@
   transition: 0.25s
 
 .form-icon-input
-  animate()
+  animate-press()
   position: relative
 
   i
@@ -47,7 +44,7 @@
   overflow-y: auto
 
   a
-    animate()
+    animate-press()
     display: block
     padding: 0.35em 0.6em
 
