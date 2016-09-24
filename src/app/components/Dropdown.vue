@@ -43,10 +43,11 @@ export default {
 <style lang='stylus' scoped>
 @require 'theme'
 @require 'fade'
+@require 'animate'
 
 .current
+  animate()
   theme-input-styles()
-  theme-click-animation()
   accent-border(bottom)
 
 .option-list
@@ -58,8 +59,8 @@ export default {
   width: min-content
 
 .option
+  animate()
   theme-input-styles()
-  theme-click-animation()
   font-size: 100%
   display: block
 </style>
