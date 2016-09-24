@@ -32,14 +32,7 @@
           </div>
         </div>
         <div class='divider'></div>
-        <div class='chatbox-container flex-fixed'>
-          <Chatbox class='chatbox' :placeholder="'Chatting as ' + identity"
-            @submit='chatboxSubmit'>
-          </Chatbox>
-          <a href='#' class='keyboard-shortcuts-link tooltip-top' :data-tooltip='keyboardShortcuts'>
-            <i class='mdi mdi-keyboard'></i>
-          </a>
-        </div>
+        <Chatbox class='chatbox flex-fixed' @submit='chatboxSubmit'></Chatbox>
       </div>
       <template v-if='channel'>
         <div class='divider'></div>
@@ -106,7 +99,10 @@ export default {
     }
   },
   computed: {
-    ...getters({ identity: 'identity', tabs: 'chatTabs' }),
+    ...getters({
+      identity: 'identity',
+      tabs: 'chatTabs',
+    }),
     currentTab() {
       const index = clamp(this.currentTabIndex, 0, this.tabs.length)
       return this.tabs[index] || {}
@@ -150,14 +146,6 @@ export default {
         { filter: 'friend', label: 'Friend', tooltip: 'Friend and Bookmark Messages' },
         { filter: 'self', label: 'Self', tooltip: 'Your Messages' },
       ]
-    },
-    keyboardShortcuts() {
-      return `
-        Ctrl + Alt + H - [sub][/sub]
-        Ctrl + Alt + B - [b][/b]
-        Ctrl + Alt + I - [i][/i]
-        Ctrl + Alt + U - [u][/u]
-      `.trim()
     },
   },
   methods: {
@@ -267,22 +255,9 @@ export default {
   padding: 0.3em 0.6em
   overflow-y: auto
 
-.chatbox-container
-  background: theme-darker(10%)
+.chatbox
+  background: theme-darker(20%)
   height: 5em
   position: relative
-
-.chatbox
   display: block
-  size(100%)
-
-.keyboard-shortcuts-link
-  font-size: 110%
-  opacity: 0.5
-  padding: 0.2em
-
-  anchor(top right)
-
-  +animate(hover)
-    opacity: 1
 </style>
