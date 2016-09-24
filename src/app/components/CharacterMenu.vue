@@ -128,7 +128,9 @@ nav
     display: block
     padding: 0.5em 0.6em
     background: theme-darker(30%)
-    +animate()
+    transition: 0.2s
+
+    &:hover
       background: theme-darker(45%)
 
   i

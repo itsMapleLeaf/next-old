@@ -34,13 +34,14 @@ export default {
 @require 'animate'
 
 .chat-tab
+  accent-border(left)
   display: block
   padding: 0.4em 0.4em
   opacity: 0.5
-  accent-border(left)
+  transition: 0.2s
 
-  +animate(hover)
-    background: darken($theme-color, 20%)
+  &:hover
+    background: theme-darker(20%)
 
 .chat-tab-active
   opacity: 1

@@ -34,12 +34,13 @@ export default {
   font-size: 90%
   opacity: 0.7
   border-bottom: 1px solid transparent
+  transition: 0.2s
 
-  +animate()
+  animate()
+
+  &:hover
     opacity: 1
     border-bottom-color: rgba($text-color, 0.3)
-
-  theme-click-animation()
 
   &.checked
     opacity: 0.8

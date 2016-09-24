@@ -9,11 +9,13 @@
   position: relative
 
 .shortcut-info
+  anchor(top right)
   font-size: 110%
   opacity: 0.3
   padding: 0 0.2em
-  anchor(top right)
-  +animate(hover)
+  transition: 0.2s
+
+  &:hover
     opacity: 1
 
 .textarea

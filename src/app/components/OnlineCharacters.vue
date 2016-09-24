@@ -132,12 +132,13 @@ export default {
   margin-right: 0.8em
 
 .character
+  accent-border(bottom)
   background: $theme-color
   margin: 0.7em
   box-sizing: content-box
-  accent-border(bottom)
+  transition: 0.2s
 
-  +animate(hover)
+  &:hover
     transform: translateY(-0.3em)
 
 .user-info

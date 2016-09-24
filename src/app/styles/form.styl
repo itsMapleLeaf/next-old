@@ -2,12 +2,13 @@
 @require 'highlight'
 
 .form-input
-  theme-click-animation()
+  animate()
   theme-input-styles()
   accent-border()
 
 .form-button
   theme-input-styles()
+  animate()
   width: min-content
   min-width: 4em
   cursor: pointer
@@ -15,15 +16,13 @@
   &:hover
     transform: translateY(-0.2em)
 
-  theme-click-animation()
-
 .form-textarea
   theme-input-styles()
   accent-border()
   transition: 0.25s
 
 .form-icon-input
-  theme-click-animation()
+  animate()
   position: relative
 
   i
@@ -31,12 +30,14 @@
     padding: 0.3em 0.5em
     pointer-events: none
     opacity: 0.5
+    z-index: 20
 
   input, textarea
     theme-input-styles()
     accent-border()
     transition: 0.25s
     padding-left: 2em
+    z-index: 19
 
 .form-selection-list
   display: inline-block
@@ -46,7 +47,7 @@
   overflow-y: auto
 
   a
-    theme-click-animation()
+    animate()
     display: block
     padding: 0.35em 0.6em
 

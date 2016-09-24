@@ -34,10 +34,11 @@ export default {
   accent-border(bottom)
 
 .overlay-close
+  anchor(top right)
   padding: 0.3em 0.5em
   opacity: 0.3
-  anchor(top right)
+  transition: 0.2s
 
-  +animate(hover)
+  &:hover
     opacity: 0.7
 </style>
