@@ -55,10 +55,11 @@ export default {
   padding: 0
   position: absolute
   z-index: 9999
-  transform: translateY(-50%)
+  width: min-content
 
 .option
   theme-input-styles()
   theme-click-animation()
+  font-size: 100%
   display: block
 </style>
