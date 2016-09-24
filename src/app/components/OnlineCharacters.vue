@@ -166,4 +166,5 @@ export default {
   font-style: italic
   overflow-y: auto
   min-height: 0
+  word-break: break-word
 </style>
