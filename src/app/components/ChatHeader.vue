@@ -1,5 +1,11 @@
 <template>
-  <header class='flex-row'>
+  <header class='container flex-row'>
+    <nav class='option-row flex-fixed'>
+      <a href='#' v-for='option in options' class='option tooltip-bottom'
+        :data-tooltip='option.info' @click='option.action && option.action()'>
+        <i :class="'mdi mdi-' + option.icon"></i>
+      </a>
+    </nav>
     <div class='flex-fixed'>
       <span>F-Chat Next</span>
       <span>v{{ version }}</span>
@@ -7,12 +13,6 @@
         <i class='mdi mdi-information'></i>
       </a> -->
     </div>
-    <nav class='flex-grow'>
-      <a href='#' v-for='option in options' class='tooltip-bottom'
-        :data-tooltip='option.info' @click='option.action && option.action()'>
-        <i :class="'mdi mdi-' + option.icon"></i>
-      </a>
-    </nav>
   </header>
 </template>
 
@@ -34,12 +34,6 @@ export default {
 @require 'flex'
 @require 'theme'
 
-header
-  flex-align(center)
-  nav
-    text-align: right
-    a
-      theme-click-animation()
-      font-size: 130%
-      margin-left: 0.6em
+.container
+  flex-align(space-between, center)
 </style>

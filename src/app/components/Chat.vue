@@ -1,10 +1,11 @@
 <template>
   <div class='chat flex-column' @click='checkData($event)'>
-    <div class='flex-fixed'>
+    <!-- <div class='flex-fixed'>
       <ChatHeader class='header' :options='headerOptions'></ChatHeader>
-    </div>
-    <div class='divider'></div>
+    </div> -->
+    <!-- <div class='divider'></div> -->
     <div class='flex-grow flex-row'>
+      <OptionBar class='option-bar flex-fixed' :options='headerOptions'></OptionBar>
       <div class='chat-tabs flex-fixed'>
         <ChatTab v-for='(tab, index) in tabs' :tab='tab' :active='tab === currentTab'
           @selected='currentTabIndex = index' @closed='closeTab(tab)'>
@@ -58,11 +59,12 @@ import UserList from './UserList.vue'
 import ChannelList from './ChannelList.vue'
 import CharacterMenu from './CharacterMenu.vue'
 import Status from './Status.vue'
-import ChatHeader from './ChatHeader.vue'
+// import ChatHeader from './ChatHeader.vue'
 import ChatFilter from './ChatFilter.vue'
 import ChatDescription from './ChatDescription.vue'
 import OnlineCharacters from './OnlineCharacters.vue'
 import StatusOverlay from './StatusOverlay.vue'
+import OptionBar from './OptionBar.vue'
 
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
@@ -77,10 +79,11 @@ export default {
     ChatTab,
     UserList,
     Status,
-    ChatHeader,
+    // ChatHeader,
     ChatFilter,
     ChatDescription,
     OnlineCharacters,
+    OptionBar,
   },
   directives: {
     bottomScroll,
@@ -260,4 +263,7 @@ export default {
   height: 5em
   position: relative
   display: block
+
+.option-bar
+  flex(column)
 </style>
