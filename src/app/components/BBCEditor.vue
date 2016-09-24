@@ -51,10 +51,12 @@ export default {
   computed: {
     keyboardShortcuts() {
       return `
-        Ctrl + Alt + H - [sub][/sub]
-        Ctrl + Alt + B - [b][/b]
-        Ctrl + Alt + I - [i][/i]
-        Ctrl + Alt + U - [u][/u]
+        Ctrl + Shift + H - [sub][/sub]
+        Ctrl + Shift + J - [sup][/sup]
+        Ctrl + Shift + B - [b][/b]
+        Ctrl + Shift + I - [i][/i]
+        Ctrl + Shift + U - [u][/u]
+        Ctrl + Shift + S - [s][/s]
       `.trim()
     },
   },

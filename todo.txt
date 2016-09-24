@@ -1,2 +1,1 @@
-- add more shortcuts + change to use shift instead
 - remove "bookmark" from the user menu - tickets expire too quickly for it to be useful

@@ -58,10 +58,12 @@ export function parseBBC(input: string): string {
 
 export function doBBCShortcut(text: string, event: Object) {
   const tag
-    = jwerty.is('ctrl+alt+h', event) ? 'sub'
-    : jwerty.is('ctrl+alt+b', event) ? 'b'
-    : jwerty.is('ctrl+alt+i', event) ? 'i'
-    : jwerty.is('ctrl+alt+u', event) ? 'u'
+    = jwerty.is('ctrl+shift+h', event) ? 'sub'
+    : jwerty.is('ctrl+shift+j', event) ? 'sup'
+    : jwerty.is('ctrl+shift+b', event) ? 'b'
+    : jwerty.is('ctrl+shift+i', event) ? 'i'
+    : jwerty.is('ctrl+shift+u', event) ? 'u'
+    : jwerty.is('ctrl+shift+s', event) ? 's'
     : ''
 
   if (tag !== '') {
