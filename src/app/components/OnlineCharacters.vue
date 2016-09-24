@@ -26,6 +26,9 @@
         <input placeholder='Search...' v-model='searchText'>
       </div>
     </div>
+    <a href='#' class='close-button' @click="$emit('closed')">
+      <i class='mdi mdi-close'></i>
+    </a>
   </div>
 </template>
 
@@ -167,4 +170,14 @@ export default {
   overflow-y: auto
   min-height: 0
   word-break: break-word
+
+.close-button
+  anchor(top right)
+  padding: 0.5rem
+  opacity: 0.5
+  transition: 0.2s
+  font-size: 120%
+
+  &:hover
+    opacity: 1
 </style>
