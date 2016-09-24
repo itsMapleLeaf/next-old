@@ -29,9 +29,9 @@
           </ProfileLink>
         </fieldset>
       </form>
-      <nav>
-        <a href='#' v-for='opt in menuOptions' @click='opt.action && opt.action()'>
-          <i :class="'mdi mdi-' + opt.icon"></i> {{ opt.label }}
+      <nav class='options'>
+        <a href='#' @click='openPrivateChat'>
+          <i class='mdi mdi-comment'></i> Send Message
         </a>
       </nav>
     </div>
@@ -55,18 +55,6 @@ export default {
       friends: 'friends',
       character: 'characterMenuFocus',
     }),
-    menuOptions() {
-      return [
-        { label: 'Send Message', icon: 'comment', action: this.openPrivateChat },
-        {
-          label: this.isBookmark ? 'Unbookmark' : 'Bookmark',
-          icon: this.isBookmark ? 'bookmark' : 'bookmark-outline',
-          action: this.toggleBookmark,
-        },
-        { label: 'Ignore', icon: 'minus-circle-outline' },
-        { label: 'View Profile', icon: 'link-variant' },
-      ]
-    },
     name() { return this.character.name },
     gender() { return this.character.gender },
     status() { return this.character.status },
@@ -123,7 +111,7 @@ export default {
   i
     opacity: 0.7
 
-nav
+.options
   a
     display: block
     padding: 0.5em 0.6em
