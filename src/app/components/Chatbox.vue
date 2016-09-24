@@ -1,5 +1,5 @@
 <template>
-  <BBCEditor v-model='message' @keydown.enter.prevent='submit' :placeholder='placeholder'>
+  <BBCEditor v-model='message' @keydown.enter='submit($event)' :placeholder='placeholder'>
   </BBCEditor>
 </template>
 
@@ -18,9 +18,12 @@ export default {
     return { message: '' }
   },
   methods: {
-    submit() {
-      this.$emit('submit', this.message)
-      this.message = ''
+    submit(event) {
+      if (!event.ctrlKey && !event.shiftKey) {
+        this.$emit('submit', this.message)
+        this.message = ''
+        event.preventDefault()
+      }
     },
     shortcut(event) {
       this.message = doBBCShortcut(this.message, event)
