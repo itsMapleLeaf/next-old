@@ -1,2 +1,3 @@
+- create shortcut overlay
 - put animations all in animate, name appropriately (animate-raise, animate-press)
 - add shift+enter functionality to the chatbox

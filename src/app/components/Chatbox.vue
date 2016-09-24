@@ -1,5 +1,6 @@
 <template>
-  <textarea @keydown.enter.prevent='submit' @keydown='shortcut($event)' v-model='message'>
+  <textarea class='textarea' v-model='message'
+    @keydown.enter.prevent='submit' @keydown='shortcut($event)'>
   </textarea>
 </template>
 
@@ -25,8 +26,9 @@ export default {
 <style lang='stylus' scoped>
 @require 'theme'
 @require 'animate'
+@require 'layout'
 
-textarea
+.textarea
   padding: 0.3em 0.6em
   +animate(focus)
     background: theme-darker(40%)

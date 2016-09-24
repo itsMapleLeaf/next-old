@@ -32,8 +32,13 @@
           </div>
         </div>
         <div class='divider'></div>
-        <div class='chat-input flex-fixed'>
-          <Chatbox :placeholder="'Chatting as ' + identity" @submit='chatboxSubmit'></Chatbox>
+        <div class='chatbox-container flex-fixed'>
+          <Chatbox class='chatbox' :placeholder="'Chatting as ' + identity"
+            @submit='chatboxSubmit'>
+          </Chatbox>
+          <a href='#' class='keyboard-shortcuts-link tooltip-top' :data-tooltip='keyboardShortcuts'>
+            <i class='mdi mdi-keyboard'></i>
+          </a>
         </div>
       </div>
       <template v-if='channel'>
@@ -146,6 +151,14 @@ export default {
         { filter: 'self', label: 'Self', tooltip: 'Your Messages' },
       ]
     },
+    keyboardShortcuts() {
+      return `
+        Ctrl + Alt + H - [sub][/sub]
+        Ctrl + Alt + B - [b][/b]
+        Ctrl + Alt + I - [i][/i]
+        Ctrl + Alt + U - [u][/u]
+      `.trim()
+    },
   },
   methods: {
     setCharacterFocus: store.setCharacterFocus,
@@ -235,17 +248,18 @@ export default {
 
 .room-filters
   background: theme-darker(30%)
-  .filter
-    margin: 0.4em 0 0.4em 0.7em
+
+.filter
+  margin: 0.4em 0 0.4em 0.7em
 
 .chat-messages
   background: theme-darker(30%)
   overflow-y: auto
   min-height: 0
 
-  .chat-message
-    &:nth-child(2n)
-      background: theme-darker(20%)
+.chat-message
+  &:nth-child(2n)
+    background: theme-darker(20%)
 
 .description
   background: theme-darker(10%)
@@ -253,11 +267,22 @@ export default {
   padding: 0.3em 0.6em
   overflow-y: auto
 
-.chat-input
+.chatbox-container
   background: theme-darker(10%)
   height: 5em
+  position: relative
 
-  textarea
-    display: block
-    size: 100%
+.chatbox
+  display: block
+  size(100%)
+
+.keyboard-shortcuts-link
+  font-size: 110%
+  opacity: 0.5
+  padding: 0.2em
+
+  anchor(top right)
+
+  +animate(hover)
+    opacity: 1
 </style>
