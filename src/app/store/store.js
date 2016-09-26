@@ -148,6 +148,10 @@ export function connectToChatServer() {
   state.socket = socket
 }
 
+export function disconnectFromChatServer() {
+  if (state.socket) state.socket.close()
+}
+
 export function handleServerCommand(cmd: string, params: Object) {
   const handler = serverCommands[cmd]
   handler ? handler(params) : console.info('Unknown socket command', cmd, params)

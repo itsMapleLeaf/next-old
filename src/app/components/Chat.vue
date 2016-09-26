@@ -1,11 +1,7 @@
 <template>
   <div class='chat flex-column' @click='checkData($event)'>
-    <!-- <div class='flex-fixed'>
-      <ChatHeader class='header' :options='headerOptions'></ChatHeader>
-    </div> -->
-    <!-- <div class='divider'></div> -->
     <div class='flex-grow flex-row'>
-      <OptionBar class='option-bar flex-fixed' :options='headerOptions'></OptionBar>
+      <OptionBar class='option-bar flex-fixed' :options='options'></OptionBar>
       <div class='chat-tabs flex-fixed'>
         <ChatTab v-for='(tab, index) in tabs' :tab='tab' :active='tab === currentTab'
           @selected='currentTabIndex = index' @closed='closeTab(tab)'>
@@ -120,23 +116,28 @@ export default {
       const tab = this.channel || this.privateChat || {}
       return tab.messages || []
     },
-    headerOptions() {
+    options() {
       const openOverlay = which => () => this.overlays.push(which)
       return [
         {
-          info: 'Join a Channel',
           icon: 'forum',
+          info: 'Join a Channel',
           action: openOverlay(ChannelList),
         },
         {
-          info: 'Browse Online Characters',
           icon: 'heart',
+          info: 'Browse Online Characters',
           action: openOverlay(OnlineCharacters),
         },
         {
-          info: 'Update Your Status',
           icon: 'account-settings',
+          info: 'Update Your Status',
           action: openOverlay(StatusOverlay),
+        },
+        {
+          icon: 'logout',
+          info: 'Log Out / Change Character',
+          action: () => store.disconnectFromChatServer(),
         },
         // { info: 'Settings', icon: 'settings' },
       ]
