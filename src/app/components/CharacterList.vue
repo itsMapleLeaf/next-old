@@ -17,6 +17,9 @@
     <fieldset>
       <button class='form-button' action='submit'>Go</button>
     </fieldset>
+    <fieldset>
+      <a class='link' href='#' @click='back'>Back</a>
+    </fieldset>
   </form>
 </template>
 
@@ -43,6 +46,9 @@ export default {
     },
     submit() {
       store.chooseCharacter(this.current)
+    },
+    back() {
+      store.showLogin()
     },
   },
   computed: {

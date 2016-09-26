@@ -49,6 +49,10 @@ export function fetchUserData(account: string, ticket: string) {
   })
 }
 
+export function showLogin() {
+  state.appState = 'login'
+}
+
 export function login(account: string, password: string, remember: boolean): Promise<void> {
   state.appState = 'logging-in'
 
