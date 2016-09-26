@@ -1,6 +1,7 @@
 # 0.9.0
 - Added logout button
 - Added button on character select to return to login
+- Channel links should work for the most part
 
 # 0.6.0
 - Complete client redesign

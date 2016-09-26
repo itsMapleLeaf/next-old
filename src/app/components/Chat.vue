@@ -155,7 +155,11 @@ export default {
   methods: {
     setCharacterFocus: store.setCharacterFocus,
     toggleChannel(ch) {
-      store.joinChannel(ch.id, ch.name)
+      if (!store.isChannelJoined(ch.id)) {
+        store.joinChannel(ch.id, ch.name)
+      } else {
+        store.leaveChannel(ch.id)
+      }
     },
     closeTab(tab) {
       if (tab.channel) {
@@ -166,10 +170,22 @@ export default {
     },
     checkData(event) {
       for (const el of event.path) {
-        if (el.dataset && el.dataset.character) {
-          store.setCharacterFocus(el.dataset.character)
-          this.overlays.push(CharacterMenu)
-          break
+        if (el.dataset) {
+          if (el.dataset.character) {
+            store.setCharacterFocus(el.dataset.character)
+            this.overlays.push(CharacterMenu)
+            return
+          }
+          if (el.dataset.channel) {
+            const id = el.dataset.channel
+            if (store.isChannelJoined(id)) {
+              const index = this.tabs.findIndex(tab => tab.channel && tab.channel.id === id)
+              if (index > -1) this.currentTabIndex = index
+            }
+            else {
+              store.joinChannel(id)
+            }
+          }
         }
       }
     },
