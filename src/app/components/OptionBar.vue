@@ -19,8 +19,11 @@ export default {
 @require 'animate'
 @require 'tooltip'
 
+$size = 1.3rem
+$spacing = 0.7rem
+
 .option
   animate-press()
-  font-size: 150%
-  padding: 0.5rem 0.5rem 0
+  font-size: $size
+  padding: $spacing $spacing 0
 </style>
