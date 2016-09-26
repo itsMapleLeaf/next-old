@@ -1,3 +1,14 @@
+# 0.9.0
+
+# 0.8.0
+- ???
+
+# 0.7.0
+- ???
+
+# 0.6.0
+- Complete client redesign
+
 # 0.5.0
 - Fixed scrolling not working in some cases
 
