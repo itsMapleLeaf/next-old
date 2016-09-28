@@ -25,10 +25,16 @@
         <i class='mdi mdi-magnify'></i>
         <input placeholder='Search...' v-model='searchText'>
       </div>
+      <a href='#' @click='showStats = true'>
+        <i class='mdi mdi-chart-bar'></i>
+      </a>
     </div>
     <a href='#' class='close-button' @click="$emit('closed')">
       <i class='mdi mdi-close'></i>
     </a>
+    <transition name='fade'>
+      <CharacterStats v-if='showStats' @closed='showStats = false' />
+    </transition>
   </div>
 </template>
 
@@ -36,6 +42,7 @@
 import Avatar from './Avatar.vue'
 import Status from './Status.vue'
 import Toggle from './Toggle.vue'
+import CharacterStats from './CharacterStats.vue'
 import {store, state} from '../store'
 import {values} from '../lib/util'
 
@@ -44,11 +51,13 @@ export default {
     Avatar,
     Status,
     Toggle,
+    CharacterStats,
   },
   data() {
     return {
       searchText: '',
       characters: [],
+      showStats: false,
     }
   },
   mounted() {
@@ -113,6 +122,7 @@ export default {
 @require 'theme'
 @require 'highlight'
 @require 'animate'
+@require 'fade'
 
 .shade
   fullscreen()

@@ -9,6 +9,23 @@
   </body>
 </template>
 
+<style lang='stylus' scoped>
+@require 'layout'
+@require 'flex'
+@require 'theme'
+@require 'fade'
+
+body
+  fullscreen()
+  flex()
+  flex-align(center)
+  background: $theme-color
+</style>
+
+<style lang='stylus'>
+@require 'global'
+</style>
+
 <script>
 import Login from './Login.vue'
 import CharacterList from './CharacterList.vue'
@@ -44,20 +61,3 @@ export default {
   },
 }
 </script>
-
-<style lang='stylus' scoped>
-@require 'layout'
-@require 'flex'
-@require 'theme'
-@require 'fade'
-
-body
-  fullscreen()
-  flex()
-  flex-align(center)
-  background: $theme-color
-</style>
-
-<style lang='stylus'>
-@require 'global'
-</style>

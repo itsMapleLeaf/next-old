@@ -1,6 +1,7 @@
 // @flow
-// reference: https://wiki.f-list.net/F-Chat_Server_Commands
 /* eslint no-unused-vars: off */
+
+// reference: https://wiki.f-list.net/F-Chat_Server_Commands
 
 import type {Channel, ChannelInfo} from '../lib/types'
 import {state} from './state'
