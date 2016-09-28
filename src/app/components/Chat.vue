@@ -58,7 +58,7 @@ import Status from './Status.vue'
 // import ChatHeader from './ChatHeader.vue'
 import ChatFilter from './ChatFilter.vue'
 import ChatDescription from './ChatDescription.vue'
-import OnlineCharacters from './OnlineCharacters.vue'
+import CharacterBrowser from './CharacterBrowser.vue'
 import StatusOverlay from './StatusOverlay.vue'
 import OptionBar from './OptionBar.vue'
 
@@ -78,7 +78,7 @@ export default {
     // ChatHeader,
     ChatFilter,
     ChatDescription,
-    OnlineCharacters,
+    CharacterBrowser,
     OptionBar,
   },
   directives: {
@@ -127,7 +127,7 @@ export default {
         {
           icon: 'heart',
           info: 'Browse Online Characters',
-          action: openOverlay(OnlineCharacters),
+          action: openOverlay(CharacterBrowser),
         },
         {
           icon: 'account-settings',
