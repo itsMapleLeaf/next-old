@@ -46,6 +46,10 @@ import CharacterStats from './CharacterStats.vue'
 import {store, state} from '../store'
 import {values} from '../lib/util'
 
+function lower(str) {
+  return str.toLocaleLowerCase()
+}
+
 export default {
   components: {
     Avatar,
@@ -90,18 +94,16 @@ export default {
         : store.isBookmark(char.name) ? 'star'
         : ''
     },
-    getSearchQuery(char) {
-      return [
-        char.name,
-        char.gender,
-        char.status,
-        char.statusmsg,
-        store.isFriend(char.name) ? 'friends' : '',
-        store.isBookmark(char.name) ? 'bookmarks' : '',
-      ].join(' ').toLowerCase()
-    },
     filterCharacter(char) {
-      return this.getSearchQuery(char).includes(this.searchText.toLowerCase())
+      const search = lower(this.searchText)
+      const isFriendSearch = search === 'friend' || search === 'friends'
+      const isBookmarkSearch = search === 'bookmark' || search === 'bookmarks'
+      return lower(char.name).includes(search)
+        || lower(char.gender) === search
+        || lower(char.status) === search
+        || lower(char.statusmsg).includes(search)
+        || isFriendSearch && store.isFriend(char.name)
+        || isBookmarkSearch && store.isBookmark(char.name)
     },
     getCharacterList() {
       this.characters = values(state.onlineCharacters)
