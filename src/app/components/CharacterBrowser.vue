@@ -46,8 +46,32 @@ import CharacterStats from './CharacterStats.vue'
 import {store, state} from '../store'
 import {values} from '../lib/util'
 
+const weights = { friend: 0, bookmark: 1, looking: 2 }
+const highlights = { friend: 'name-highlight-friend', bookmark: 'name-highlight-bookmark' }
+const icons = { friend: 'heart', bookmark: 'star' }
+
 function lower(str) {
   return str.toLocaleLowerCase()
+}
+
+function kindof(char) {
+  return store.isFriend(char.name) ? 'friend'
+    : store.isBookmark(char.name) ? 'bookmark'
+    : char.status === 'looking' ? 'looking'
+    : 'none'
+}
+
+function getSortWeight(char) {
+  return weights[kindof(char)] || 3
+}
+
+function compareField(a, b, field) {
+  return a[field].localeCompare(b[field])
+}
+
+function compareCharacters(a, b) {
+  const diff = getSortWeight(a) - getSortWeight(b)
+  return diff !== 0 ? diff : compareField(a, b, 'name')
 }
 
 export default {
@@ -73,26 +97,11 @@ export default {
     this.getCharacterList()
   },
   methods: {
-    getSortWeight(char) {
-      const {name, status} = char
-      return store.isFriend(name) ? 0
-        : store.isBookmark(name) ? 1
-        : status === 'looking' ? 2
-        : 3
-    },
-    compareCharacters(a, b) {
-      const diff = this.getSortWeight(a) - this.getSortWeight(b)
-      return diff !== 0 ? diff : a.name.localeCompare(b.name)
-    },
     nameHighlight(char) {
-      return store.isFriend(char.name) ? 'name-highlight-friend'
-        : store.isBookmark(char.name) ? 'name-highlight-bookmark'
-        : ''
+      return highlights[kindof(char)] || ''
     },
     characterIcon(char) {
-      return store.isFriend(char.name) ? 'heart'
-        : store.isBookmark(char.name) ? 'star'
-        : ''
+      return icons[kindof(char)] || ''
     },
     filterCharacter(char) {
       const search = lower(this.searchText)
@@ -108,7 +117,7 @@ export default {
     getCharacterList() {
       this.characters = values(state.onlineCharacters)
         .filter(this.filterCharacter)
-        .sort(this.compareCharacters)
+        .sort(compareCharacters)
         .slice(0, 200)
     },
   },
