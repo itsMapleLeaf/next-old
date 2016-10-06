@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <body class='container'>
     <transition name='fade' mode='out-in' appear>
       <component v-if='currentView' :is='currentView' />
     </transition>
@@ -15,7 +15,7 @@
 @require 'theme'
 @require 'fade'
 
-body
+.container
   fullscreen()
   flex()
   flex-align(center)
