@@ -23,7 +23,7 @@ const parser = createParser({
   icon: { render: name => formatUserIcon(name) },
   eicon: { render: name => formatExtendedIcon(name) },
   user: { render: name => formatUserIcon(name) },
-  session: { render: (name, id) => formatPrivateChannel(id, name) },
+  session: { render: (id, name) => formatPrivateChannel(id, name) },
   channel: { render: name => formatPublicChannel(name) },
 })
 
