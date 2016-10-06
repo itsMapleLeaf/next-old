@@ -55,7 +55,6 @@ import UserList from './UserList.vue'
 import ChannelList from './ChannelList.vue'
 import CharacterMenu from './CharacterMenu.vue'
 import Status from './Status.vue'
-// import ChatHeader from './ChatHeader.vue'
 import ChatFilter from './ChatFilter.vue'
 import ChatDescription from './ChatDescription.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
@@ -252,7 +251,6 @@ export default {
   background: $theme-color
   width: 12em
   width-limit: 6em 20em
-  overflow-y: auto
 
 .room-filters
   background: theme-darker(30%)

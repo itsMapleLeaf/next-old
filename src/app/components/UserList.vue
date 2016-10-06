@@ -1,14 +1,49 @@
 <template>
-  <div>
-    <div class='user-list-count'>Users: {{ users.length }}</div>
-    <div class='user-list-user' :class='getHighlight(user)' v-for='user in sortedUsers'>
-      <span class='user-list-user-icon'>
-        <i :class="'mdi mdi-' + getIcon(user)"></i>
-      </span>
-      <Character :name='user.name' :gender='user.gender' :status='user.status' />
+  <div class='flex-column'>
+    <div class='user-list-count flex-fixed'>Users: {{ users.length }}</div>
+    <div class='user-list flex-grow'>
+      <div class='user-list-user' :class='getHighlight(user)' v-for='user in sortedUsers'>
+        <span class='user-list-user-icon'>
+          <i :class="'mdi mdi-' + getIcon(user)"></i>
+        </span>
+        <Character :name='user.name' :gender='user.gender' :status='user.status' />
+      </div>
     </div>
   </div>
 </template>
+
+<style lang='stylus' scoped>
+@require 'theme'
+@require 'highlight'
+@require 'flex'
+
+.user-list
+  min-height: 0
+  overflow-y: auto
+
+.user-list-friend
+  highlight($green)
+
+.user-list-bookmark
+  highlight($blue)
+
+.user-list-admin
+  highlight($red)
+
+.user-list-op
+  highlight($yellow)
+
+.user-list-count
+  background: darken($theme-color, 20%)
+  padding: 0.3em 0.6em
+
+.user-list-user
+  padding: 0.15em 0.3em 0.15em
+
+.user-list-user-icon
+  opacity: 0.8
+  float: right
+</style>
 
 <script>
 import Character from './Character.vue'
@@ -54,31 +89,3 @@ export default {
   },
 }
 </script>
-
-<style lang='stylus' scoped>
-@require 'theme'
-@require 'highlight'
-
-.user-list-friend
-  highlight($green)
-
-.user-list-bookmark
-  highlight($blue)
-
-.user-list-admin
-  highlight($red)
-
-.user-list-op
-  highlight($yellow)
-
-.user-list-count
-  background: darken($theme-color, 20%)
-  padding: 0.3em 0.6em
-
-.user-list-user
-  padding: 0.15em 0.3em 0.15em
-
-.user-list-user-icon
-  opacity: 0.8
-  float: right
-</style>
