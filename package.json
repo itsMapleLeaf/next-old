@@ -15,6 +15,7 @@
     "babel-plugin-transform-remove-console": "^6.8.0",
     "babel-preset-babili": "0.0.3",
     "babel-preset-latest": "^6.14.0",
+    "bbc.js": "^0.1.1",
     "css-loader": "^0.23.1",
     "eslint": "^3.5.0",
     "eslint-plugin-flowtype": "^2.19.0",
