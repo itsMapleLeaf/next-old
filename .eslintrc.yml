@@ -22,8 +22,7 @@ rules:
     - error
     - never
   comma-dangle:
-    - warn
-    - always-multiline
+    - off
   space-before-function-paren:
     - warn
     - never
