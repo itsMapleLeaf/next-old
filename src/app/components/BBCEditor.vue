@@ -1,7 +1,6 @@
 <style lang='stylus' scoped>
 @require 'vars'
 
-
 .container
   position: relative
 

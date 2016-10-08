@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class='divider'></div>
-        <Chatbox class='chatbox flex-fixed' @submit='chatboxSubmit'></Chatbox>
+        <Chatbox class='chatbox flex-fixed' @submit='chatboxSubmit' :identity='identity'></Chatbox>
       </div>
       <template v-if='channel'>
         <div class='divider'></div>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import Avatar from './Avatar.vue'
 import Toggle from './Toggle.vue'
 import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
@@ -67,6 +68,7 @@ import {bottomScroll} from '../directives'
 
 export default {
   components: {
+    Avatar,
     Toggle,
     Character,
     Chatbox,
@@ -270,8 +272,6 @@ export default {
 .chatbox
   background: theme-darker(20%)
   height: 5em
-  position: relative
-  display: block
 
 .option-bar
   flex(column)
