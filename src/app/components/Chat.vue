@@ -216,16 +216,10 @@ export default {
 }
 </script>
 
-<style lang='stylus'>
-@require 'bbc'
-</style>
+<style lang='stylus'></style>
 
 <style lang='stylus' scoped>
-@require 'flex'
-@require 'tooltip'
-@require 'layout'
-@require 'theme'
-@require 'overlay'
+@require 'vars'
 
 .divider
   size: 3px

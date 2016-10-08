@@ -21,7 +21,7 @@
 </template>
 
 <style lang='stylus' scoped>
-@import 'theme'
+@require 'vars'
 
 td
   padding: 0.2rem 0.6rem

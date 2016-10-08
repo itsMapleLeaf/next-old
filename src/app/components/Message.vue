@@ -64,9 +64,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'flex'
-@require 'theme'
-@require 'highlight'
+@require 'vars'
 
 .message
   padding: 0.4em 0.5em

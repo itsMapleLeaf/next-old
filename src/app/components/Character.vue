@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'character'
+@require 'vars'
 
 .character
   font-weight: bold

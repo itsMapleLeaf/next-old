@@ -9,21 +9,18 @@
   </body>
 </template>
 
+<style lang='stylus'>
+@import '../styles/main'
+</style>
+
 <style lang='stylus' scoped>
-@require 'layout'
-@require 'flex'
-@require 'theme'
-@require 'fade'
+@require 'vars'
 
 .container
   fullscreen()
   flex()
   flex-align(center)
   background: $theme-color
-</style>
-
-<style lang='stylus'>
-@require 'global'
 </style>
 
 <script>

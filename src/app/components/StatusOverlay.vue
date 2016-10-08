@@ -28,9 +28,7 @@
 </template>
 
 <style lang='stylus' scoped>
-@require 'overlay'
-@require 'form'
-@require 'flex'
+@require 'vars'
 
 $spacing = 1em
 

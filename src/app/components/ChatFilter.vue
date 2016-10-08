@@ -20,5 +20,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'tooltip'
+@require 'vars'
+
 </style>

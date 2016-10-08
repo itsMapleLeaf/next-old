@@ -1,14 +1,4 @@
-@require 'theme'
-@require 'layout'
-@require 'link'
-
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700')
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300')
-
-*
-  margin: 0
-  padding: 0
-  box-sizing: border-box
+@import 'vars'
 
 :root
   color: $text-color
@@ -52,12 +42,6 @@ ul, ol, li
 ::-webkit-scrollbar
   size(10px)
   &-track
-    background: darken($theme-color, 40%)
+    background: theme-darker(40%)
   &-thumb
-    background: lighten($theme-color, 10%)
-
-.chat-icon
-  size(40px)
-  display: inline-block
-  background-size: contain
-  vertical-align: text-top
+    background: theme-lighter(10%)

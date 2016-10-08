@@ -30,8 +30,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'theme'
-@require 'animate'
+@require 'vars'
 
 .chat-tab
   accent-border(left)

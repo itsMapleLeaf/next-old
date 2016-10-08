@@ -23,9 +23,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'overlay'
-@require 'theme'
-@require 'animate'
+@require 'vars'
 
 .header
   background: darken($theme-color, 10%)

@@ -1,9 +1,6 @@
 <style lang='stylus' scoped>
-@import 'theme'
-@import 'tooltip'
-@import 'layout'
-@import 'animate'
-@import 'form'
+@require 'vars'
+
 
 .container
   position: relative

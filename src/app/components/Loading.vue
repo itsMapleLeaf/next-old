@@ -14,9 +14,7 @@ export default {}
 </script>
 
 <style lang='stylus' scoped>
-@require 'theme'
-@require 'layout'
-@require 'flex'
+@require 'vars'
 
 .shade
   fullscreen()

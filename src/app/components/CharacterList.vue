@@ -63,8 +63,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'form'
-@require 'layout'
+@require 'vars'
 
 .character-list
   text-align: center

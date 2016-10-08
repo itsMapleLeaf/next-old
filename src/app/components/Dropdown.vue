@@ -41,9 +41,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'theme'
-@require 'fade'
-@require 'animate'
+@require 'vars'
 
 .current
   animate-press()

@@ -16,8 +16,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'animate'
-@require 'tooltip'
+@require 'vars'
 
 $size = 1.3rem
 $spacing = 0.7rem

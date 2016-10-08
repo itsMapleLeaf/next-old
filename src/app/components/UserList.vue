@@ -13,9 +13,7 @@
 </template>
 
 <style lang='stylus' scoped>
-@require 'theme'
-@require 'highlight'
-@require 'flex'
+@require 'vars'
 
 .user-list
   min-height: 0

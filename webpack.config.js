@@ -14,7 +14,7 @@ const config = {
       options: {
         vue: {
           loaders: {
-            stylus: 'style!css!stylus?paths=src/app/styles',
+            stylus: 'style!css!stylus?paths=./src/app/styles',
           },
         },
       },

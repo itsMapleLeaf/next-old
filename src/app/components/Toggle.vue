@@ -27,8 +27,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@require 'theme'
-@require 'animate'
+@require 'vars'
+
 
 .toggle
   font-size: 90%

@@ -27,6 +27,9 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+@require 'vars'
+
+
 .description
   white-space: pre-wrap
 </style>
