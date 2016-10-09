@@ -1,3 +1,8 @@
+# 0.10.0
+- Added an avatar next to the chatbox
+- Some nice BBC editors with shortcuts
+- A better BBC parser
+
 # 0.9.0
 - Added logout button
 - Added button on character select to return to login
