@@ -255,7 +255,7 @@ export default {
   overflow-y: auto
 
 .chatbox
-  background: theme-darker(20%)
+  background: theme-darker(10%)
   height: 5em
 
 .option-bar
