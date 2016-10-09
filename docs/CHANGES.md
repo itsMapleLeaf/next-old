@@ -2,6 +2,7 @@
 - Added an avatar next to the chatbox
 - Some nice BBC editors with shortcuts
 - A better BBC parser
+- Added more consistent functionality when left-clicking or right-clicking names and avatars
 
 # 0.9.0
 - Added logout button
