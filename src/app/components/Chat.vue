@@ -180,8 +180,10 @@ export default {
           if (el.dataset.character === this.identity) {
             this.overlays.push(StatusOverlay)
           } else {
-            store.setCharacterFocus(el.dataset.character)
-            this.overlays.push(CharacterMenu)
+            if (!this.overlays.includes(CharacterMenu)) {
+              store.setCharacterFocus(el.dataset.character)
+              this.overlays.push(CharacterMenu)
+            }
           }
           event.preventDefault()
           break
