@@ -42,17 +42,15 @@
 
 <script>
 import Avatar from './Avatar.vue'
-import Toggle from './Toggle.vue'
-import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
 import MessageList from './MessageList.vue'
 import ChatTab from './ChatTab.vue'
 import UserList from './UserList.vue'
-import ChannelList from './ChannelList.vue'
 import CharacterMenu from './CharacterMenu.vue'
-import Status from './Status.vue'
 import ChatFilter from './ChatFilter.vue'
 import ChatDescription from './ChatDescription.vue'
+
+import ChannelList from './ChannelList.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import StatusOverlay from './StatusOverlay.vue'
 import OptionBar from './OptionBar.vue'
@@ -64,14 +62,10 @@ import {bottomScroll} from '../directives'
 export default {
   components: {
     Avatar,
-    Toggle,
-    Character,
     Chatbox,
     MessageList,
     ChatTab,
     UserList,
-    Status,
-    // ChatHeader,
     ChatFilter,
     ChatDescription,
     CharacterBrowser,
