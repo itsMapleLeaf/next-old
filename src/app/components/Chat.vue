@@ -18,16 +18,11 @@
           </div>
           <div class='divider'></div>
         </template>
-        <ChatDescription class='description flex-fixed'
-          :channel='channel' :private-chat='privateChat'>
+        <ChatDescription class='description flex-fixed' :channel='channel'
+          :private-chat='privateChat'>
         </ChatDescription>
         <div class='divider'></div>
-        <div class='chat-messages flex-grow' v-bottom-scroll>
-          <div class='chat-message' v-for='msg in messages'>
-            <Message :sender='msg.sender' :message='msg.message' :type='msg.type' :time='msg.time'>
-            </Message>
-          </div>
-        </div>
+        <MessageList class='chat-messages flex-grow' :messages='messages'></MessageList>
         <div class='divider'></div>
         <Chatbox class='chatbox flex-fixed' @submit='chatboxSubmit' :identity='identity'></Chatbox>
       </div>
@@ -50,7 +45,7 @@ import Avatar from './Avatar.vue'
 import Toggle from './Toggle.vue'
 import Character from './Character.vue'
 import Chatbox from './Chatbox.vue'
-import Message from './Message.vue'
+import MessageList from './MessageList.vue'
 import ChatTab from './ChatTab.vue'
 import UserList from './UserList.vue'
 import ChannelList from './ChannelList.vue'
@@ -72,7 +67,7 @@ export default {
     Toggle,
     Character,
     Chatbox,
-    Message,
+    MessageList,
     ChatTab,
     UserList,
     Status,
@@ -258,10 +253,6 @@ export default {
   background: theme-darker(30%)
   overflow-y: auto
   min-height: 0
-
-.chat-message
-  &:nth-child(2n)
-    background: theme-darker(20%)
 
 .description
   background: theme-darker(10%)
