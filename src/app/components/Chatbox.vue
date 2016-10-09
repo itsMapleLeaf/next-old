@@ -1,6 +1,10 @@
 <template>
   <div class='chatbox flex-row'>
-    <Avatar :name='identity' size='4em'></Avatar>
+    <div class='flex-fixed'>
+      <ProfileLink :name='identity'>
+        <Avatar :name='identity' size='4em' shadow></Avatar>
+      </ProfileLink>
+    </div>
     <BBCEditor class='editor flex-grow' v-model='message' @keydown.enter='submit($event)' :placeholder='placeholder'>
     </BBCEditor>
   </div>
@@ -19,12 +23,14 @@
 <script>
 import BBCEditor from './BBCEditor.vue'
 import Avatar from './Avatar.vue'
+import ProfileLink from './ProfileLink.vue'
 import {doBBCShortcut} from '../lib/bbc'
 
 export default {
   components: {
     BBCEditor,
     Avatar,
+    ProfileLink,
   },
   props: {
     identity: String,
