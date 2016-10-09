@@ -1,9 +1,7 @@
 <template>
   <div class='chatbox flex-row'>
     <div class='flex-fixed'>
-      <ProfileLink :name='identity'>
-        <Avatar :name='identity' size='4em' shadow></Avatar>
-      </ProfileLink>
+      <Avatar :name='identity' size='4em' shadow></Avatar>
     </div>
     <BBCEditor class='editor flex-grow' v-model='message' @keydown.enter='submit($event)' :placeholder='placeholder'>
     </BBCEditor>

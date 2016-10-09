@@ -1,9 +1,11 @@
 <template>
-  <span class='avatar' :class="shadow && 'shadow'" :style='style'></span>
+  <a class='avatar' :href='href' target='_blank' :class="shadow && 'shadow'" :style='style'
+    :data-character='name'>
+  </a>
 </template>
 
 <script>
-import {getAvatarURL} from '../lib/f-list'
+import {getAvatarURL, getProfileURL} from '../lib/f-list'
 
 export default {
   props: {
@@ -12,6 +14,9 @@ export default {
     shadow: Boolean,
   },
   computed: {
+    href() {
+      return getProfileURL(this.name)
+    },
     style() {
       return `
         width: ${this.size || '100px'};

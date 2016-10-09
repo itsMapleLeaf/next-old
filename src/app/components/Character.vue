@@ -1,12 +1,17 @@
 <template>
-  <a class='character' href='#' :data-character='name'>
+  <ProfileLink class='character' :name='name' :data-character='name'>
     <span :class='statusClass' v-if='status'>●</span>
     <span :class='genderClass'>{{ name }}</span>
-  </a>
+  </ProfileLink>
 </template>
 
 <script>
+import ProfileLink from './ProfileLink.vue'
+
 export default {
+  components: {
+    ProfileLink
+  },
   props: {
     name: { type: String, required: true },
     gender: { type: String, default: 'none' },

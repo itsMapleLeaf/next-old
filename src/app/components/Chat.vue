@@ -1,5 +1,5 @@
 <template>
-  <div class='chat flex-column' @click='checkData($event)'>
+  <div class='chat flex-column' @click='checkChannelData($event)' @contextmenu='checkCharacterData($event)'>
     <div class='flex-grow flex-row'>
       <OptionBar class='option-bar flex-fixed' :options='options'></OptionBar>
       <div class='chat-tabs flex-fixed'>
@@ -158,24 +158,33 @@ export default {
         store.closePrivateChat(tab.privateChat.partner.name)
       }
     },
-    checkData(event) {
+    checkChannelData(event) {
       for (const el of event.path) {
-        if (el.dataset) {
-          if (el.dataset.character) {
+        if (el.dataset && el.dataset.channel) {
+          const id = el.dataset.channel
+          if (store.isChannelJoined(id)) {
+            const index = this.tabs.findIndex(tab => tab.channel && tab.channel.id === id)
+            if (index > -1) this.currentTabIndex = index
+          }
+          else {
+            store.joinChannel(id)
+          }
+          event.preventDefault()
+          break
+        }
+      }
+    },
+    checkCharacterData(event) {
+      for (const el of event.path) {
+        if (el.dataset && el.dataset.character) {
+          if (el.dataset.character === this.identity) {
+            this.overlays.push(StatusOverlay)
+          } else {
             store.setCharacterFocus(el.dataset.character)
             this.overlays.push(CharacterMenu)
-            return
           }
-          if (el.dataset.channel) {
-            const id = el.dataset.channel
-            if (store.isChannelJoined(id)) {
-              const index = this.tabs.findIndex(tab => tab.channel && tab.channel.id === id)
-              if (index > -1) this.currentTabIndex = index
-            }
-            else {
-              store.joinChannel(id)
-            }
-          }
+          event.preventDefault()
+          break
         }
       }
     },

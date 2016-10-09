@@ -2,9 +2,7 @@
   <div class='message flex-row' :class="type && 'message-type-' + type">
     <div class='flex-fixed'>
       <div class='avatar'>
-        <a href='#' :data-character='sender.name'>
-          <Avatar :name='sender.name' size='2.25em' shadow></Avatar>
-        </a>
+        <Avatar :name='sender.name' size='2.25em' shadow></Avatar>
       </div>
     </div>
     <div class='flex-grow'>
