@@ -5,22 +5,26 @@
   "author": "Kingdaro <kingdaro@gmail.com>",
   "license": "MIT",
   "repository": "http://github.com/Kingdaro/fchat",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress"
+  },
   "dependencies": {
     "babel-core": "^6.14.0",
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-export-extensions": "^6.8.0",
     "babel-plugin-transform-flow-strip-types": "^6.14.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-plugin-transform-remove-console": "^6.8.0",
-    "babel-preset-babili": "0.0.3",
+    "babel-preset-babili": "^0.0.5",
     "babel-preset-latest": "^6.14.0",
     "bbc.js": "^0.1.1",
-    "css-loader": "^0.23.1",
+    "cross-env": "^3.1.2",
+    "css-loader": "^0.25.0",
     "eslint": "^3.5.0",
     "eslint-plugin-flowtype": "^2.19.0",
     "eslint-plugin-html": "^1.5.2",
-    "flow-bin": "^0.32.0",
     "howler": "^2.0.0",
     "json-loader": "^0.5.4",
     "jwerty": "^0.3.2",
@@ -30,9 +34,9 @@
     "stylus-loader": "^2.3.1",
     "vue": "^2.0.0-rc.6",
     "vue-loader": "^9.5.0",
-    "vue-resource": "^0.9.3",
+    "vue-resource": "^1.0.3",
     "vue-template-compiler": "^2.0.0-rc.6",
     "webpack": "^2.1.0-beta.25",
-    "webpack-dev-server": "^2.1.0-beta.5"
+    "webpack-dev-server": "^2.1.0-beta.9"
   }
 }

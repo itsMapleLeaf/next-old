@@ -5,7 +5,7 @@ import {state} from './state'
 import {mapToObject} from '../lib/util'
 import * as serverCommands from './server-commands'
 import * as flist from '../lib/f-list'
-import meta from '../../../package.json'
+import meta from '../../package.json'
 import Vue from 'vue'
 import storage from 'localforage'
 

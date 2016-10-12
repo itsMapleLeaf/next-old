@@ -5,8 +5,13 @@
     }]
   ],
   "plugins": [
+    "transform-flow-strip-types",
     "transform-object-rest-spread",
-    "transform-export-extensions",
-    "transform-flow-strip-types"
-  ]
+    "transform-export-extensions"
+  ],
+  "env": {
+    "production": {
+      "presets": ["babili"]
+    }
+  }
 }

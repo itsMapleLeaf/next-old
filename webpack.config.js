@@ -18,21 +18,21 @@ const config = {
       options: {
         vue: {
           loaders: {
-            stylus: 'style!css!stylus?paths=./src/app/styles',
-          },
-        },
-      },
-    }),
+            stylus: 'style!css!stylus?paths=./app/styles'
+          }
+        }
+      }
+    })
   ],
 }
 
 if (process.env.NODE_ENV !== 'production') {
   config.plugins = (config.plugins || []).concat([
     new webpack.NamedModulesPlugin({
-      context: 'src/app',
+      context: 'app',
     }),
   ])
-  config.devtool = '#eval-source-map'
+  config.devtool = '#inline-source-map'
 }
 
 module.exports = config
