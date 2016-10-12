@@ -41,6 +41,7 @@
 </template>
 
 <script>
+// components
 import Avatar from './Avatar.vue'
 import Chatbox from './Chatbox.vue'
 import MessageList from './MessageList.vue'
@@ -50,11 +51,13 @@ import CharacterMenu from './CharacterMenu.vue'
 import ChatFilter from './ChatFilter.vue'
 import ChatDescription from './ChatDescription.vue'
 
+// views
 import ChannelList from './ChannelList.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import StatusOverlay from './StatusOverlay.vue'
 import OptionBar from './OptionBar.vue'
 
+// etc.
 import {store, getters} from '../store'
 import {clamp} from '../lib/util'
 import {bottomScroll} from '../directives'
