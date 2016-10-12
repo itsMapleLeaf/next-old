@@ -47,13 +47,12 @@ export default {
       status: '',
     }
   },
-  created() {
-    storage.getItem('auth').then(value => {
-      if (value) {
-        this.account = value.account
-        this.remember = true
-      }
-    })
+  async created() {
+    const auth = await storage.getItem('auth')
+    if (auth) {
+      this.account = auth.account
+      this.remember = true
+    }
   },
   methods: {
     submit() {

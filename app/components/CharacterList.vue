@@ -34,10 +34,9 @@ export default {
       current: '',
     }
   },
-  mounted() {
-    storage.getItem('character').then(value => {
-      if (value) this.current = value
-    })
+  async mounted() {
+    const char = await storage.getItem('character')
+    if (char) this.current = char
   },
   methods: {
     select(name) {
