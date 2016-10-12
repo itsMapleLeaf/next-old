@@ -65,11 +65,11 @@ export async function login(account: string, password: string, remember: boolean
     state.appState = 'character-select'
   }
   catch (err) {
-    return Promise.reject(err || `
-      Could not connect to the F-list website.
-      Either they're doing maintenance,
-      or someone spilled coke on the servers again.
-    `)
+    return Promise.reject(err ||
+      "Could not connect to the F-list website. " +
+      "Either they're doing maintenance, " +
+      "or someone spilled coke on the servers again."
+    )
   }
 }
 
