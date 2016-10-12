@@ -34,46 +34,43 @@ export async function initialize() {
   }
 }
 
-export function fetchUserData(account: string, ticket: string) {
-  return Promise.all([
+export async function fetchUserData(account: string, ticket: string) {
+  const [ characters, friends, bookmarks ] = await Promise.all([
     flist.getCharacters(account, ticket),
     flist.getFriends(account, ticket),
     flist.getBookmarks(account, ticket),
   ])
-  .then(([ characters, friends, bookmarks ]) => {
-    setAuthInfo(account, ticket)
-    state.userCharacters = characters
-    state.friends = mapFriends(friends)
-    state.bookmarks = mapToObject(bookmarks, name => [name, true])
-  })
+  setAuthInfo(account, ticket)
+  state.userCharacters = characters
+  state.friends = mapFriends(friends)
+  state.bookmarks = mapToObject(bookmarks, name => [name, true])
 }
 
 export function showLogin() {
   state.appState = 'login'
 }
 
-export function login(account: string, password: string, remember: boolean): Promise<void> {
+export async function login(account: string, password: string, remember: boolean): Promise<void> {
   state.appState = 'logging-in'
 
-  return flist.getTicket(account, password)
-  .then(ticket => {
+  try {
+    const ticket = await flist.getTicket(account, password)
     if (remember) {
       storage.setItem('auth', { account, ticket })
     } else {
       storage.clear()
     }
-    return this.fetchUserData(account, ticket)
-  })
-  .then(() => {
+
+    await this.fetchUserData(account, ticket)
     state.appState = 'character-select'
-  })
-  .catch(err => {
+  }
+  catch (err) {
     return Promise.reject(err || `
       Could not connect to the F-list website.
       Either they're doing maintenance,
       or someone spilled coke on the servers again.
     `)
-  })
+  }
 }
 
 export function setAuthInfo(account: string, ticket: string) {
