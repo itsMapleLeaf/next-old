@@ -1,7 +1,11 @@
 const webpack = require('webpack')
-// const {join} = require('path')
 
 const config = {
+  entry: './app/main.js',
+  output: {
+    path: __dirname,
+    filename: 'bundle.js',
+  },
   module: {
     loaders: [
       { test: /\.vue$/, loader: 'vue' },

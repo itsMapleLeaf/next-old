@@ -23,9 +23,6 @@ rules:
     - never
   comma-dangle:
     - off
-  space-before-function-paren:
-    - warn
-    - never
   no-console:
     - off
   no-unused-vars:
