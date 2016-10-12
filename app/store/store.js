@@ -249,3 +249,4 @@ export function setCharacterFocus(name?: Name) {
 export function isFriend(name: Name) { return state.friends[name] != null }
 export function isBookmark(name: Name) { return state.bookmarks[name] != null }
 export function isAdmin(name: Name) { return state.admins[name] != null }
+export function isIgnored(name: Name) { return state.ignored[name] != null }
