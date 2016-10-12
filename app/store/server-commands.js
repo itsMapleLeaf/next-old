@@ -219,8 +219,11 @@ export function KID() {
   // probably just set state.onlineCharacters[name].kinks or something
 }
 
-export function PRD() {
-  // *definitely* do something with this
+export function PRD({ character: name, key, value }: Params) {
+  if (key && value) {
+    const char = state.onlineCharacters[name]
+    Vue.set(char.info, key, value)
+  }
 }
 
 export function RTB() {

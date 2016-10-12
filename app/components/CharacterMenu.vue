@@ -20,6 +20,16 @@
             <Status :status='status' :statusmsg='statusmsg'></Status>
           </div>
         </fieldset>
+        <fieldset>
+          <div class='profile-info'>
+            <div class='profile-info-row' v-for='field in info'>
+              <div class='profile-info-field'>
+                <strong>{{ field.label }}</strong>
+              </div>
+              <div class='profile-info-value' v-html='field.value'></div>
+            </div>
+          </div>
+        </fieldset>
         <fieldset v-for='friend in friends[name] || []'>
           <ProfileLink :name='friend'>
             <div class='friend'>
@@ -55,10 +65,68 @@ export default {
       friends: 'friends',
       character: 'characterMenuFocus',
     }),
-    name() { return this.character.name },
-    gender() { return this.character.gender },
-    status() { return this.character.status },
-    statusmsg() { return this.character.statusmsg },
+    name () { return this.character.name },
+    gender () { return this.character.gender },
+    status () { return this.character.status },
+    statusmsg () { return this.character.statusmsg },
+    info () {
+      const fields = [
+        // general details
+        'Age',
+        'Apparent Age',
+        'Body modifications',
+        'Body type',
+        'Build',
+        'Eye color',
+        'Fur/scale/skin color',
+        'Gender',
+        'Hair',
+        'Height/Length',
+        'Location',
+        'Occupation',
+        'Orientation',
+        'Personality',
+        'Relationship',
+        'Species',
+        'Weight',
+
+        // sexual details
+        'Ball size',
+        'Barbed',
+        'Breast size',
+        'Cock color',
+        'Cock diameter (inches)',
+        'Cock length (inches)',
+        'Cock shape',
+        'Cumshot size',
+        'Dom/Sub Role',
+        'Knot Diameter (Inches)',
+        'Knotted',
+        'Measurements',
+        'Nipple color',
+        'Position',
+        'Pubic hair',
+        'Sheath',
+        'Uncut',
+        'Vulva type',
+
+        // RP prefs
+        'Currently looking for',
+        'Desired RP method',
+        'Desired RP length',
+        'Desired post length',
+        'Furry preference',
+        'Grammar competence',
+        'Grammar competence required',
+        'Post Perspective',
+        'Language preference',
+      ]
+
+      const {info} = this.character
+      return fields
+        .filter(field => info[field] != null)
+        .map(field => ({ label: field, value: info[field] }))
+    },
     isBookmark() { return store.isBookmark(this.name) },
     isIgnored() { return store.isIgnored(this.name) },
   },
@@ -82,10 +150,11 @@ export default {
 @require 'vars'
 
 .overlay-panel
-  background: theme-darker(20%)
   anchor(top right bottom)
+  background: theme-darker(20%)
   position: fixed
-  width: 12em
+  width: 13em
+  overflow-y: auto
 
 .info
   background: $theme-color
@@ -96,6 +165,30 @@ export default {
   font-size: 80%
   font-style: italic
   padding: 0.3rem 0.6rem
+  word-break: break-word
+
+.profile-info
+  font-size: 80%
+  background: theme-darker(20%)
+  font-style: italic
+
+.profile-info-row
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  line-height: 1.3
+  padding: 0.3rem
+
+.profile-info-row:nth-child(2n)
+  background: theme-darker(30%)
+
+.profile-info-field
+  margin: 0 0.3rem
+  flex-grow: 1
+
+.profile-info-value
+  margin: 0 0.3rem
+  word-break: break-word
 
 .friend
   font-size: 80%

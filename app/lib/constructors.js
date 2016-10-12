@@ -11,7 +11,7 @@ import {parseBBC} from './bbc'
 export function newCharacter(
   name: Name, gender: Gender, status?: Status = 'online', statusmsg?: string = ''
 ): Character {
-  return { name, gender, status, statusmsg }
+  return { name, gender, status, statusmsg, info: {} }
 }
 
 export function newMessage(

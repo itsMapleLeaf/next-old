@@ -61,7 +61,8 @@ export type Character = {
   name: Name,
   gender: Gender,
   status: Status,
-  statusmsg: string
+  statusmsg: string,
+  info: { [field: string]: string },
 }
 
 export type Message = {
