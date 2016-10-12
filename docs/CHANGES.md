@@ -1,6 +1,8 @@
 # 0.11.0
 - Moved option bar to the top (because I'm an indecisive person)
 - Working Chat/Ads filter switcher thing
+- Reverted behavior on clicking names: left-click to open menu
+- Show profile fields in character menu
 
 # 0.10.0
 - Added an avatar next to the chatbox
