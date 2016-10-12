@@ -18,21 +18,20 @@ function mapFriends(friends: Relationship[]) {
   return map
 }
 
-export function initialize() {
+export async function initialize() {
   state.appState = 'setup'
-  storage.getItem('auth')
-  .then(auth => {
-    return auth || Promise.reject()
-  })
-  .then(auth => {
-    return fetchUserData(auth.account, auth.ticket)
-  })
-  .then(() => {
-    state.appState = 'character-select'
-  })
-  .catch(() => {
-    state.appState = 'login'
-  })
+
+  const auth = await storage.getItem('auth')
+  if (auth) {
+    try {
+      await fetchUserData(auth.account, auth.ticket)
+      state.appState = 'character-select'
+    }
+    catch (err) {
+      console.info(`Couldn't fetch userdata: ${err}`)
+      state.appState = 'login'
+    }
+  }
 }
 
 export function fetchUserData(account: string, ticket: string) {

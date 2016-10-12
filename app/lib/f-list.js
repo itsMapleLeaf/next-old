@@ -11,35 +11,30 @@ const endpoints = {
   bookmarkRemove: 'https://www.f-list.net/json/api/bookmark-remove.php',
 }
 
-function endpointAction(url: string, data: Object): Promise<any> {
-  return Vue.http.post(url, data).then(res => {
-    const data = JSON.parse(res.data)
-    return data.error ? Promise.reject(data.error) : Promise.resolve(data)
-  })
+async function endpointAction(url: string, params: Object): Promise<any> {
+  const res = await Vue.http.post(url, params)
+  const data = JSON.parse(res.data)
+  return data.error ? Promise.reject(data.error) : data
 }
 
-export function getTicket(account: string, password: string): Promise<string> {
-  return endpointAction(endpoints.login, { account, password }).then(data => {
-    return data.ticket
-  })
+export async function getTicket(account: string, password: string): Promise<string> {
+  const data = await endpointAction(endpoints.login, { account, password })
+  return data.ticket
 }
 
-export function getCharacters(account: string, ticket: string): Promise<Name[]> {
-  return endpointAction(endpoints.characterList, { account, ticket }).then(data => {
-    return data.characters
-  })
+export async function getCharacters(account: string, ticket: string): Promise<Name[]> {
+  const data = await endpointAction(endpoints.characterList, { account, ticket })
+  return data.characters
 }
 
-export function getFriends(account: string, ticket: string): Promise<Relationship[]> {
-  return endpointAction(endpoints.friendList, { account, ticket }).then(data => {
-    return data.friends.map(entry => ({ you: entry.source, them: entry.dest }))
-  })
+export async function getFriends(account: string, ticket: string): Promise<Relationship[]> {
+  const data = await endpointAction(endpoints.friendList, { account, ticket })
+  return data.friends.map(entry => ({ you: entry.source, them: entry.dest }))
 }
 
-export function getBookmarks(account: string, ticket: string): Promise<Name[]> {
-  return endpointAction(endpoints.bookmarkList, { account, ticket }).then(data => {
-    return data.characters
-  })
+export async function getBookmarks(account: string, ticket: string): Promise<Name[]> {
+  const data = await endpointAction(endpoints.bookmarkList, { account, ticket })
+  return data.characters
 }
 
 export function addBookmark(account: string, ticket: string, name: Name): Promise<?string> {
