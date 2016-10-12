@@ -67,6 +67,7 @@ export type Character = {
 export type Message = {
   sender: Character,
   message: string,
+  parsedMessage: string,
   type: MessageType,
   time: number
 }

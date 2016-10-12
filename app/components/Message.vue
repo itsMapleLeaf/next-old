@@ -9,9 +9,9 @@
       <span class='timestamp'>{{ parsedTime }}</span>
       <span :class='actionClass'>
         <span class='sender'>
-          <Character :name='sender.name' :gender='sender.gender' :status='sender.status'></Character>
+          <Character v-bind='sender'></Character>
         </span>
-        <span class='message-text' v-html='parsedMessage'></span>
+        <span class='message-text' v-html='isAction ? parsedMessage.slice(3) : parsedMessage'></span>
       </span>
     </div>
   </div>
@@ -20,14 +20,13 @@
 <script>
 import Character from './Character.vue'
 import Avatar from './Avatar.vue'
-
 import {getAvatarURL} from '../lib/f-list'
-import {parseBBC} from '../lib/bbc'
 
 export default {
   props: {
     sender: Object,
     message: String,
+    parsedMessage: String,
     type: String,
     time: Number,
   },
@@ -47,9 +46,6 @@ export default {
     },
     actionClass() {
       return { 'message-action': this.isAction }
-    },
-    parsedMessage() {
-      return parseBBC(this.message.replace(/^\/me/, ''))
     },
     parsedTime() {
       if (this.time) {

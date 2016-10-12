@@ -6,6 +6,8 @@ import type {
   Message, MessageType,
 } from './types'
 
+import {parseBBC} from './bbc'
+
 export function newCharacter(
   name: Name, gender: Gender, status?: Status = 'online', statusmsg?: string = ''
 ): Character {
@@ -15,13 +17,16 @@ export function newCharacter(
 export function newMessage(
   sender: Character, message: string, type: MessageType
 ): Message {
-  return { sender, type, message, time: Date.now() }
+  return {
+    sender, type, message,
+    parsedMessage: parseBBC(message),
+    time: Date.now(),
+  }
 }
 
 export function newChannel(id: string, name: string): Channel {
   return {
-    id,
-    name,
+    id, name,
     description: '',
     mode: 'both', // either 'both', 'chat', or 'ads'
     users: [],

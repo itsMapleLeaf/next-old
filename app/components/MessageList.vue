@@ -1,8 +1,7 @@
 <template>
   <div v-bottom-scroll>
     <div class='chat-message' v-for='msg in messages'>
-      <Message :sender='msg.sender' :message='msg.message' :type='msg.type' :time='msg.time'>
-      </Message>
+      <Message v-bind='msg'></Message>
     </div>
   </div>
 </template>
