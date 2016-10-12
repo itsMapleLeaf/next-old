@@ -1,5 +1,5 @@
 <template>
-  <div class='chat flex-column' @click='checkChannelData($event)' @contextmenu='checkCharacterData($event)'>
+  <div class='chat flex-column' @click='checkData($event)'>
     <div class='option-bar flex-fixed flex-row'>
       <ChatOption class='chat-option' v-for='option in options' v-bind='option'></ChatOption>
     </div>
@@ -165,6 +165,10 @@ export default {
       } else if (tab.privateChat) {
         store.closePrivateChat(tab.privateChat.partner.name)
       }
+    },
+    checkData(event) {
+      this.checkChannelData(event)
+      this.checkCharacterData(event)
     },
     checkChannelData(event) {
       for (const el of event.path) {
