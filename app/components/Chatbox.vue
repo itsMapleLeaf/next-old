@@ -1,3 +1,5 @@
+<!-- TODO: fix this -->
+
 <template>
   <div class='chatbox flex-row'>
     <div class='flex-fixed'>
