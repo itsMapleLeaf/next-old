@@ -12,8 +12,7 @@ const endpoints = {
 }
 
 async function endpointAction(url: string, params: Object): Promise<any> {
-  const res = await Vue.http.post(url, params)
-  const data = JSON.parse(res.data)
+  const {data} = await Vue.http.post(url, params)
   return data.error ? Promise.reject(data.error) : data
 }
 

@@ -21,16 +21,16 @@ function mapFriends(friends: Relationship[]) {
 export async function initialize() {
   state.appState = 'setup'
 
-  const auth = await storage.getItem('auth')
-  if (auth) {
-    try {
+  try {
+    const auth = await storage.getItem('auth')
+    if (auth) {
       await fetchUserData(auth.account, auth.ticket)
       state.appState = 'character-select'
     }
-    catch (err) {
-      console.info(`Couldn't fetch userdata: ${err}`)
-      state.appState = 'login'
-    }
+  }
+  catch (err) {
+    console.info(`Couldn't fetch userdata: ${err}`)
+    state.appState = 'login'
   }
 }
 
@@ -65,7 +65,7 @@ export async function login(account: string, password: string, remember: boolean
     state.appState = 'character-select'
   }
   catch (err) {
-    return Promise.reject(err ||
+    throw (err ||
       "Could not connect to the F-list website. " +
       "Either they're doing maintenance, " +
       "or someone spilled coke on the servers again."
