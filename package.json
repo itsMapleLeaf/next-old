@@ -10,6 +10,14 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress"
   },
   "dependencies": {
+    "bbc.js": "^0.1.1",
+    "howler": "^2.0.0",
+    "jwerty": "^0.3.2",
+    "localforage": "^1.4.2",
+    "vue": "^2.0.1",
+    "vue-resource": "^1.0.3"
+  },
+  "devDependencies": {
     "babel-core": "^6.14.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
@@ -19,23 +27,16 @@
     "babel-plugin-transform-remove-console": "^6.8.0",
     "babel-preset-babili": "^0.0.5",
     "babel-preset-latest": "^6.14.0",
-    "bbc.js": "^0.1.1",
     "cross-env": "^3.1.2",
     "css-loader": "^0.25.0",
     "eslint": "^3.5.0",
     "eslint-plugin-flowtype": "^2.19.0",
     "eslint-plugin-html": "^1.5.2",
-    "howler": "^2.0.0",
     "json-loader": "^0.5.4",
-    "jwerty": "^0.3.2",
-    "localforage": "^1.4.2",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.3.1",
-    "vue": "^2.0.0-rc.6",
     "vue-loader": "^9.5.0",
-    "vue-resource": "^1.0.3",
-    "vue-template-compiler": "^2.0.0-rc.6",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^2.1.0-beta.9"
   }
