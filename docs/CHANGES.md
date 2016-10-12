@@ -1,3 +1,7 @@
+# 0.11.0
+- Moved option bar to the top (because I'm an indecisive person)
+- Working Chat/Ads filter switcher thing
+
 # 0.10.0
 - Added an avatar next to the chatbox
 - Some nice BBC editors with shortcuts

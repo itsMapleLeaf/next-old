@@ -1,7 +1,10 @@
 <template>
   <div class='chat flex-column' @click='checkChannelData($event)' @contextmenu='checkCharacterData($event)'>
+    <div class='option-bar flex-fixed flex-row'>
+      <ChatOption class='chat-option' v-for='option in options' v-bind='option'></ChatOption>
+    </div>
+    <div class='divider'></div>
     <div class='flex-grow flex-row'>
-      <OptionBar class='option-bar flex-fixed' :options='options'></OptionBar>
       <div class='chat-tabs flex-fixed'>
         <ChatTab v-for='(tab, index) in tabs' :tab='tab' :active='tab === currentTab'
           @selected='currentTabIndex = index' @closed='closeTab(tab)'>
@@ -9,19 +12,21 @@
       </div>
       <div class='divider'></div>
       <div class='flex-grow flex-column'>
-        <template v-if='channel'>
-          <div class='room-filters flex-fixed'>
-            <ChatFilter class='filter' v-for='label in filterLabels' v-model='filters[label.filter]'
-              :disabled='isFilterDisabled(label.filter)' :tooltip='label.tooltip'>
-              {{ label.label }}
-            </ChatFilter>
-          </div>
-          <div class='divider'></div>
-        </template>
         <ChatDescription class='description flex-fixed' :channel='channel'
           :private-chat='privateChat'>
         </ChatDescription>
         <div class='divider'></div>
+        <template v-if="channel && channel.mode === 'both'">
+          <div class='message-tabs flex-fixed flex-row'>
+            <a href='#' class='message-tab' :class="currentMode === 'chat' && 'message-tab-active'"
+              @click="currentMode = 'chat'"> Chat
+            </a>
+            <a href='#' class='message-tab' :class="currentMode === 'ads' && 'message-tab-active'"
+              @click="currentMode = 'ads'"> Ads
+            </a>
+          </div>
+          <div class='divider'></div>
+        </template>
         <MessageList class='chat-messages flex-grow' :messages='messages'></MessageList>
         <div class='divider'></div>
         <Chatbox class='chatbox flex-fixed' @submit='chatboxSubmit' :identity='identity'></Chatbox>
@@ -48,14 +53,14 @@ import MessageList from './MessageList.vue'
 import ChatTab from './ChatTab.vue'
 import UserList from './UserList.vue'
 import CharacterMenu from './CharacterMenu.vue'
-import ChatFilter from './ChatFilter.vue'
 import ChatDescription from './ChatDescription.vue'
 
 // views
 import ChannelList from './ChannelList.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import StatusOverlay from './StatusOverlay.vue'
-import OptionBar from './OptionBar.vue'
+// import OptionBar from './OptionBar.vue'
+import ChatOption from './ChatOption.vue'
 
 // etc.
 import {store, getters} from '../store'
@@ -69,10 +74,9 @@ export default {
     MessageList,
     ChatTab,
     UserList,
-    ChatFilter,
     ChatDescription,
     CharacterBrowser,
-    OptionBar,
+    ChatOption,
   },
   directives: {
     bottomScroll,
@@ -88,6 +92,7 @@ export default {
         friend: true,
         self: true,
       },
+      currentMode: 'chat',
     }
   },
   computed: {
@@ -107,7 +112,16 @@ export default {
     },
     messages() {
       const tab = this.channel || this.privateChat || {}
-      return tab.messages || []
+      const { messages = [] } = tab
+      if (this.channel && this.channel.mode === 'both') {
+        if (this.currentMode === 'chat') {
+          return messages.filter(msg => msg.type !== 'lfrp')
+        } else {
+          return messages.filter(msg => msg.type === 'lfrp')
+        }
+      } else {
+        return messages
+      }
     },
     options() {
       const openOverlay = which => () => this.overlays.push(which)
@@ -133,15 +147,6 @@ export default {
           action: () => store.disconnectFromChatServer(),
         },
         // { info: 'Settings', icon: 'settings' },
-      ]
-    },
-    filterLabels() {
-      return [
-        { filter: 'chat', label: 'Chat', tooltip: 'Normal Messages' },
-        { filter: 'lfrp', label: 'LFRP', tooltip: 'RP Ads' },
-        { filter: 'admin', label: 'Admin', tooltip: 'Red Admin Messages' },
-        { filter: 'friend', label: 'Friend', tooltip: 'Friend and Bookmark Messages' },
-        { filter: 'self', label: 'Self', tooltip: 'Your Messages' },
       ]
     },
   },
@@ -198,17 +203,6 @@ export default {
       store.setCharacterFocus(null)
       this.currentTabIndex = this.tabs.length - 1
     },
-    isFilterDisabled(filter) {
-      const {channel} = this.currentTab
-      if (channel) {
-        const modes = {
-          both: false,
-          ads: true,
-          chat: filter === 'lfrp',
-        }
-        return modes[channel.mode] || false
-      }
-    },
     chatboxSubmit(message) {
       const {channel, privateChat} = this.currentTab
       if (channel) {
@@ -234,7 +228,7 @@ export default {
 .chat
   fullscreen()
   position: fixed
-  background: theme-darker(50%)
+  background: theme-darker(40%)
 
 .header
   background: theme-darker(10%)
@@ -262,6 +256,18 @@ export default {
   overflow-y: auto
   min-height: 0
 
+.message-tabs
+  background: theme-darker(30%)
+
+.message-tab
+  background: theme-darker(0%)
+  padding: 0.3em 0.8em
+  opacity: 0.5
+  accent-border(bottom)
+
+.message-tab-active
+  opacity: 1
+
 .description
   background: theme-darker(10%)
   max-height: 5em
@@ -273,5 +279,8 @@ export default {
   height: 5em
 
 .option-bar
-  flex(column)
+  background: theme-darker(30%)
+
+.chat-option
+  padding: 0.5em
 </style>
