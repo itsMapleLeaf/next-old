@@ -40,10 +40,3 @@ export function mapToObject <T>(array: T[], func: (item: T) => [string, any]) {
   }
   return result
 }
-
-/* eslint no-undef: off */
-export function* pairs(obj: { [key: any]: any }): Generator<*, *, *> {
-  for (const key in obj) {
-    yield [ key, obj[key] ]
-  }
-}
