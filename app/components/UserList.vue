@@ -16,7 +16,6 @@
 @require 'vars'
 
 .user-list
-  min-height: 0
   overflow-y: auto
 
 .user-list-friend
