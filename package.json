@@ -7,7 +7,9 @@
   "repository": "http://github.com/Kingdaro/fchat",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress"
+    "build:watch": "cross-env NODE_ENV=production webpack --watch",
+    "dev:server": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
+    "dev": "run-p build:watch dev:server"
   },
   "dependencies": {
     "bbc.js": "^0.1.1",
@@ -34,6 +36,7 @@
     "eslint-plugin-html": "^1.5.2",
     "file-loader": "^0.9.0",
     "json-loader": "^0.5.4",
+    "npm-run-all": "^3.1.0",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.3.1",
