@@ -1,7 +1,5 @@
 <template>
-  <a class='avatar' :href='href' target='_blank' :class="shadow && 'shadow'" :style='style'
-    :data-character='name'>
-  </a>
+  <a class='avatar' :href='href' target='_blank' :class="shadow && 'shadow'" :style='style'></a>
 </template>
 
 <script>

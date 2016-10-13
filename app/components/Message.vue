@@ -2,16 +2,16 @@
   <div class='message flex-row' :class="type && 'message-type-' + type">
     <div class='flex-fixed'>
       <div class='avatar'>
-        <Avatar :name='sender.name' size='2.25em' shadow></Avatar>
+        <Avatar :name='sender.name' size='2.25em' shadow :data-character='sender.name'></Avatar>
       </div>
     </div>
     <div class='flex-grow'>
       <span class='timestamp'>{{ parsedTime }}</span>
       <span :class='actionClass'>
-        <span class='sender'>
-          <Character v-bind='sender'></Character>
+        <Character class='sender' v-bind='sender' :data-character='sender.name'></Character>
+        <span class='message-text'
+          v-html='isAction ? parsedMessage.slice(3) : parsedMessage'>
         </span>
-        <span class='message-text' v-html='isAction ? parsedMessage.slice(3) : parsedMessage'></span>
       </span>
     </div>
   </div>

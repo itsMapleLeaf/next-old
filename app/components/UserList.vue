@@ -6,7 +6,7 @@
         <span class='user-list-user-icon'>
           <i :class="'mdi mdi-' + getIcon(user)"></i>
         </span>
-        <Character v-bind='user' />
+        <Character v-bind='user' :data-character='user.name' />
       </div>
     </div>
   </div>

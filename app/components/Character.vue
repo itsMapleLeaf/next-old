@@ -1,5 +1,5 @@
 <template>
-  <ProfileLink class='character' :name='name' :data-character='name'>
+  <ProfileLink class='character' :name='name'>
     <span :class='statusClass' v-if='status'>●</span>
     <span :class='genderClass'>{{ name }}</span>
   </ProfileLink>
