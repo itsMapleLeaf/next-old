@@ -21,14 +21,7 @@
           </div>
         </fieldset>
         <fieldset>
-          <div class='profile-info'>
-            <div class='profile-info-row' v-for='field in info'>
-              <div class='profile-info-field'>
-                <strong>{{ field.label }}</strong>
-              </div>
-              <div class='profile-info-value' v-html='field.value'></div>
-            </div>
-          </div>
+          <CharacterInfo :info='info'></CharacterInfo>
         </fieldset>
         <fieldset v-for='friend in friends[name] || []'>
           <ProfileLink :name='friend'>
@@ -52,6 +45,7 @@
 import Avatar from './Avatar.vue'
 import Status from './Status.vue'
 import ProfileLink from './ProfileLink.vue'
+import CharacterInfo from './CharacterInfo.vue'
 import {store, getters} from '../store'
 
 export default {
@@ -59,6 +53,7 @@ export default {
     Avatar,
     Status,
     ProfileLink,
+    CharacterInfo,
   },
   computed: {
     ...getters({
@@ -169,26 +164,6 @@ export default {
 
 .profile-info
   font-size: 80%
-  background: theme-darker(20%)
-  font-style: italic
-
-.profile-info-row
-  display: flex
-  justify-content: space-between
-  flex-wrap: wrap
-  line-height: 1.3
-  padding: 0.3rem
-
-.profile-info-row:nth-child(2n)
-  background: theme-darker(30%)
-
-.profile-info-field
-  margin: 0 0.3rem
-  flex-grow: 1
-
-.profile-info-value
-  margin: 0 0.3rem
-  word-break: break-word
 
 .friend
   font-size: 80%
