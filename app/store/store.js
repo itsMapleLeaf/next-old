@@ -211,7 +211,7 @@ export function isChannelJoined(id: string) {
 }
 
 export function openPrivateChat(partner: Name) {
-  const char = state.onlineCharacters[partner]
+  const char = getCharacter(partner)
   const privateChat = state.privateChats[partner] || Vue.set(state.privateChats, partner, newPrivateChat(char))
   state.chatTabs.push({ privateChat })
   return privateChat
@@ -227,13 +227,13 @@ export function isPrivateChatOpened(partner: Name) {
 }
 
 export function sendChannelMessage(id: string, message: string) {
-  const char = state.onlineCharacters[state.identity]
+  const char = getCharacter(state.identity)
   state.channels[id].messages.push(newMessage(char, message, 'self'))
   sendCommand('MSG', { channel: id, message })
 }
 
 export function sendPrivateMessage(partner: Name, message: string) {
-  const char = state.onlineCharacters[state.identity]
+  const char = getCharacter(state.identity)
   state.privateChats[partner].messages.push(newMessage(char, message, 'self'))
   sendCommand('PRI', { recipient: partner, message })
 }
@@ -253,7 +253,7 @@ export function updateStatus(status: Status, statusmsg: string) {
 }
 
 export function setCharacterFocus(name?: Name) {
-  state.characterMenuFocus = name ? state.onlineCharacters[name] : null
+  state.characterMenuFocus = name ? getCharacter(name) : null
   sendCommand('PRO', { character: name })
 }
 
@@ -261,6 +261,10 @@ export function playNotifySound() {
   if (!document.hasFocus()) {
     notifySound.play()
   }
+}
+
+export function getCharacter(name: Name) {
+  return state.onlineCharacters[name] || newCharacter(name, 'None')
 }
 
 export function isFriend(name: Name) { return state.friends[name] != null }

@@ -82,11 +82,11 @@ export function FLN({ character: name }: Params) {
       ch.users = ch.users.filter(u => u != null && u.name !== name)
     }
   }
-  delete state.onlineCharacters[name]
+  Vue.delete(state.onlineCharacters, name)
 }
 
 export function STA({ character, status, statusmsg }: Params) {
-  const char = state.onlineCharacters[character]
+  const char = store.getCharacter(character)
   char.status = status
   char.statusmsg = statusmsg
 }
@@ -105,7 +105,7 @@ export function ORS({ channels }: Params) {
 
 export function JCH({ channel: id, title, character: { identity: name } }: Params) {
   state.channels[id].name = title
-  state.channels[id].users.push(state.onlineCharacters[name])
+  state.channels[id].users.push(store.getCharacter(name))
 }
 
 export function LCH({ channel: id, character: name }: Params) {
@@ -119,7 +119,7 @@ export function COL({ channel: id, oplist }: Params) {
 
 export function ICH({ channel: id, mode, users }: Params) {
   const channel = state.channels[id]
-  const userlist = users.map(({ identity }) => state.onlineCharacters[identity])
+  const userlist = users.map(({ identity }) => store.getCharacter(identity))
   channel.mode = mode
   channel.users = userlist
 }
@@ -133,18 +133,18 @@ export function RMO({ mode, channel: id }: Params) {
 }
 
 export function MSG({ channel: id, character: name, message }: Params) {
-  const char = state.onlineCharacters[name]
+  const char = store.getCharacter(name)
   state.channels[id].messages.push(newMessage(char, message, 'chat'))
 }
 
 export function LRP({ channel: id, character: name, message }: Params) {
-  const char = state.onlineCharacters[name]
+  const char = store.getCharacter(name)
   state.channels[id].messages.push(newMessage(char, message, 'lfrp'))
 }
 
 export function PRI({ character: name, message }: Params) {
   const chat = state.privateChats[name] || store.openPrivateChat(name)
-  const char = state.onlineCharacters[name]
+  const char = store.getCharacter(name)
   chat.messages.push(newMessage(char, message, 'chat'))
   store.playNotifySound()
 }
@@ -171,7 +171,7 @@ const rolltypes = {
 
 export function RLL(params: Params) {
   const {type, channel: id, character: name} = params
-  const char = state.onlineCharacters[name]
+  const char = store.getCharacter(name)
   const message = rolltypes[type](name, params)
   state.channels[id].messages.push(newMessage(char, message, type))
 }
@@ -216,12 +216,12 @@ export function FKS() {
 }
 
 export function KID() {
-  // probably just set state.onlineCharacters[name].kinks or something
+  // probably just set store.getCharacter(name).kinks or something
 }
 
 export function PRD({ character: name, key, value }: Params) {
   if (key && value) {
-    const char = state.onlineCharacters[name]
+    const char = store.getCharacter(name)
     Vue.set(char.info, key, value)
   }
 }
