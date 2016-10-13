@@ -4,7 +4,7 @@
 - Break up lines that exceed 100 characters
 
 ## JavaScript
-- Follow Standard
+- Make sure it lints.
 
 ## Vue Templates
 - Elements should always have semantic meaning whenever possible
