@@ -1,3 +1,12 @@
+<template>
+  <div class='container'>
+    <slot></slot>
+    <div class='shortcut-info tooltip-top' :data-tooltip='keyboardShortcuts'>
+      <i class='mdi mdi-keyboard'></i>
+    </div>
+  </div>
+</template>
+
 <style lang='stylus' scoped>
 @require 'vars'
 
@@ -19,15 +28,6 @@
   padding: 0.3em 0.6em
   size(100%)
 </style>
-
-<template>
-  <div class='container'>
-    <slot></slot>
-    <div class='shortcut-info tooltip-top' :data-tooltip='keyboardShortcuts'>
-      <i class='mdi mdi-keyboard'></i>
-    </div>
-  </div>
-</template>
 
 <script>
 import {doBBCShortcut} from '../lib/bbc'
