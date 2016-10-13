@@ -1,9 +1,11 @@
 const webpack = require('webpack')
+const {join} = require('path')
 
 const config = {
   entry: './app/main.js',
   output: {
-    path: __dirname,
+    path: join(__dirname, 'dist'),
+    publicPath: 'dist/',
     filename: 'bundle.js',
   },
   module: {
@@ -11,6 +13,7 @@ const config = {
       { test: /\.vue$/, loader: 'vue' },
       { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
       { test: /\.json$/, loader: 'json' },
+      { test: /\.mp3$|.ogg$/, loader: 'file' },
     ],
   },
   plugins: [

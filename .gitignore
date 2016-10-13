@@ -3,4 +3,4 @@ node_modules
 *.map
 yarn.lock
 todo.txt
-bundle.js
+dist
