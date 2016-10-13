@@ -4,10 +4,9 @@
 // reference: https://wiki.f-list.net/F-Chat_Server_Commands
 
 import type {Channel, ChannelInfo} from '../lib/types'
-import {state} from './state'
 import {mapToObject, values} from '../lib/util'
 import {newCharacter, newChannelInfo, newMessage} from '../lib/constructors'
-import * as store from './store'
+import {store, state} from './index'
 import Vue from 'vue'
 
 type Params = { [key: string]: any }
@@ -147,6 +146,7 @@ export function PRI({ character: name, message }: Params) {
   const chat = state.privateChats[name] || store.openPrivateChat(name)
   const char = state.onlineCharacters[name]
   chat.messages.push(newMessage(char, message, 'chat'))
+  store.playNotifySound()
 }
 
 export function TPN({ character: name, status }: Params) {

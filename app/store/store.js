@@ -8,6 +8,14 @@ import * as flist from '../lib/f-list'
 import meta from '../../package.json'
 import Vue from 'vue'
 import storage from 'localforage'
+import {Howl} from 'howler'
+
+const notifySound = new Howl({
+  src: [
+    require('../assets/notify.mp3'),
+    require('../assets/notify.ogg'),
+  ]
+})
 
 function mapFriends(friends: Relationship[]) {
   const map = {}
@@ -26,6 +34,8 @@ export async function initialize() {
     if (auth) {
       await fetchUserData(auth.account, auth.ticket)
       state.appState = 'character-select'
+    } else {
+      state.appState = 'login'
     }
   }
   catch (err) {
@@ -94,6 +104,7 @@ export function saveChatTabs(identity: Name) {
   storage.setItem(`tabs:${identity}`, data)
 }
 
+// TODO: use async function
 export function loadChatTabs(identity: Name) {
   state.chatTabs = []
   storage.getItem(`tabs:${identity}`).then(tabs => {
@@ -244,6 +255,12 @@ export function updateStatus(status: Status, statusmsg: string) {
 export function setCharacterFocus(name?: Name) {
   state.characterMenuFocus = name ? state.onlineCharacters[name] : null
   sendCommand('PRO', { character: name })
+}
+
+export function playNotifySound() {
+  if (!document.hasFocus()) {
+    notifySound.play()
+  }
 }
 
 export function isFriend(name: Name) { return state.friends[name] != null }
