@@ -33,7 +33,7 @@
       </div>
       <template v-if='channel'>
         <div class='divider'></div>
-        <UserList class='user-list flex-fixed' :users='channel.users' :ops='channel.ops'></UserList>
+        <UserList class='user-list flex-fixed' v-bind='channel'></UserList>
       </template>
       <transition v-for='overlay in overlays' name='overlay' appear>
         <component :is='overlay' @closed='overlays.pop()'
