@@ -16,7 +16,9 @@
             <Dropdown :options='statusOptions' v-model='status'></Dropdown>
           </fieldset>
           <fieldset>
-            <BBCEditor class='status-message' v-model='statusmsg'></BBCEditor>
+            <BBCEditor class='status-message'>
+              <textarea class='form-textarea' v-model='statusmsg'></textarea>
+            </BBCEditor>
           </fieldset>
           <fieldset>
             <button class='form-button'>Update</button>

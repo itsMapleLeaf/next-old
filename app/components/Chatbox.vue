@@ -5,12 +5,16 @@
     <div class='flex-fixed'>
       <Avatar :name='identity' size='4em' shadow></Avatar>
     </div>
-    <BBCEditor class='editor flex-grow' v-model='message' @keydown.enter='submit($event)' :placeholder='placeholder'>
+    <BBCEditor class='editor flex-grow'>
+      <textarea class='form-textarea' v-model='message' @keydown.enter='submit($event)' :placeholder='placeholder'>
+      </textarea>
     </BBCEditor>
   </div>
 </template>
 
 <style lang='stylus' scoped>
+@import 'vars'
+
 .chatbox
   align-items: center
   padding: 0.5em

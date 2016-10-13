@@ -22,9 +22,7 @@
 
 <template>
   <div class='container'>
-    <textarea class='textarea form-textarea' :value='value' :placeholder='placeholder'
-      @input="$emit('input', $event.target.value)" @keydown='keydown($event)'>
-    </textarea>
+    <slot></slot>
     <div class='shortcut-info tooltip-top' :data-tooltip='keyboardShortcuts'>
       <i class='mdi mdi-keyboard'></i>
     </div>
@@ -39,13 +37,20 @@ export default {
     value: String,
     placeholder: String,
   },
+  mounted () {
+    this.$nextTick(() => {
+      const [{ elm }] = this.$slots.default
+      elm.style.width = '100%'
+      elm.style.height = '100%'
+    })
+  },
   methods: {
-    keydown(event) {
+    keydown (event) {
       this.$emit('input', doBBCShortcut(this.value, event))
     },
   },
   computed: {
-    keyboardShortcuts() {
+    keyboardShortcuts () {
       return `
         Ctrl + Shift + H - [sub][/sub]
         Ctrl + Shift + J - [sup][/sup]
