@@ -1,6 +1,5 @@
 node_modules
 *.log
 *.map
-yarn.lock
 todo.txt
 dist
