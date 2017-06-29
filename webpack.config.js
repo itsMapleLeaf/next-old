@@ -1,15 +1,15 @@
 const webpack = require('webpack')
 const { join } = require('path')
+const HtmlPlugin = require('html-webpack-plugin')
 
 const config = {
   entry: './src/main',
   output: {
-    path: join(__dirname, 'dist'),
-    publicPath: 'dist/',
+    path: join(__dirname, 'build'),
     filename: 'bundle.js',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -24,7 +24,7 @@ const config = {
       { test: /\.mp3$|.ogg$/, loader: 'file-loader' },
     ],
   },
-  plugins: [new webpack.NamedModulesPlugin()],
+  plugins: [new webpack.NamedModulesPlugin(), new HtmlPlugin({ template: './src/index.html' })],
   devtool: 'source-map',
 }
 

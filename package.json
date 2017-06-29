@@ -35,6 +35,7 @@
     "eslint-plugin-flowtype": "latest",
     "eslint-plugin-html": "latest",
     "file-loader": "latest",
+    "html-webpack-plugin": "^2.29.0",
     "json-loader": "latest",
     "npm-run-all": "latest",
     "style-loader": "latest",
