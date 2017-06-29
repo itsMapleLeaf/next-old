@@ -2,7 +2,7 @@
   "name": "fchat-next",
   "version": "0.11.0",
   "description": "a modernized f-chat client",
-  "author": "Kingdaro <kingdaro@gmail.com>",
+  "author": "Kingdaro",
   "license": "MIT",
   "repository": "http://github.com/Kingdaro/fchat",
   "scripts": {
