@@ -1,0 +1,71 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font: 16px Roboto, sans-serif;
+  color: hsl(0, 0%, 95%);
+  background: hsl(0, 0%, 20%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: lighter;
+}
+
+fieldset {
+  border: none;
+}
+
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.input,
+.button {
+  font: inherit;
+  color: inherit;
+  background-color: hsl(0, 0%, 13%);
+  border: none;
+  padding: 0.4em 0.75em;
+  transition: 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  background-color: hsl(0, 0%, 8%);
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: hsl(0, 0%, 8%);
+}
+
+.button:focus {
+  outline: none;
+  background-color: hsl(0, 0%, 8%);
+}

@@ -12,9 +12,14 @@
   "dependencies": {
     "bbc.js": "^0.1.1",
     "howler": "^2.0.4",
-    "localforage": "^1.5.0"
+    "localforage": "^1.5.0",
+    "normalize.css": "^7.0.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "devDependencies": {
+    "@types/react": "^15.0.33",
+    "@types/react-dom": "^15.5.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
     "file-loader": "^0.11.2",
