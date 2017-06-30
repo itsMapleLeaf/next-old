@@ -62,7 +62,7 @@ export default class Chat extends React.Component {
 
         {this.channelListOpen &&
           <Overlay onClose={this.closeChannelList}>
-            <ChannelList channels={store.channelList} />
+            <ChannelList channels={store.channelList} onClose={this.closeChannelList} />
           </Overlay>}
       </div>
     )

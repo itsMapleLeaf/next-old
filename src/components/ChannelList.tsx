@@ -15,6 +15,7 @@ const channelListStyle: React.CSSProperties = {
 export default class ChannelList extends React.Component {
   props: {
     channels: ChannelInfo[]
+    onClose?: () => any
   }
 
   @observable searchText = ''
@@ -52,14 +53,17 @@ export default class ChannelList extends React.Component {
         <div className="bg-2 scroll-v" style={channelListStyle}>
           {this.processedChannels.map(renderChannel)}
         </div>
-        <div style={{ padding: '0.5em' }}>
+        <div className="flex-row" style={{ padding: '0.5em' }}>
           <input
-            style={{ width: '100%' }}
-            className="input"
+            className="input flex-grow"
+            style={{ marginRight: '0.5em' }}
             type="text"
             placeholder="Search..."
             onInput={e => this.updateSearchText(e.currentTarget.value)}
           />
+          <button className="button" onClick={this.props.onClose}>
+            Done
+          </button>
         </div>
       </div>
     )
