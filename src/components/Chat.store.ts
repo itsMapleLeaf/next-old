@@ -55,12 +55,16 @@ export default class ChatStore {
       PIN() {
         this.sendCommand('PIN')
       },
+      LIS() {},
+      NLN() {},
+      FLN() {},
+      STA() {},
     }
 
     if (handlers[cmd]) {
       handlers[cmd].call(this)
     } else {
-      // console.log(cmd, params)
+      console.log(cmd, params)
     }
   }
 }
