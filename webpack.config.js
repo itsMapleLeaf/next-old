@@ -3,17 +3,17 @@ const { join } = require('path')
 const HtmlPlugin = require('html-webpack-plugin')
 
 const config = {
-  entry: './src/main',
+  entry: ['react-hot-loader/patch', './src/main'],
   output: {
     path: join(__dirname, 'build'),
     filename: 'bundle.js',
   },
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader' },
-      { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.(mp3|ogg)$/, loader: 'file-loader' },
+      { test: /\.tsx?$/, use: ['react-hot-loader/webpack', 'ts-loader'] },
+      { test: /\.json$/, use: 'json-loader' },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      { test: /\.(mp3|ogg)$/, use: 'file-loader' },
     ],
   },
   resolve: {
