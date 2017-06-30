@@ -84,15 +84,23 @@ export default class ChatStore {
   handleSocketCommand(cmd: string, params: any) {
     const handlers: { [cmd: string]: (this: ChatStore) => any } = {
       PIN() {
+        console.log('ping')
         this.sendCommand('PIN')
       },
 
       IDN() {
+        console.info('Successfully connected to server.')
         this.restoreChannels()
       },
 
-      HLO() {},
-      CON() {},
+      HLO() {
+        console.info(params.message)
+      },
+
+      CON() {
+        console.info(`There are ${params.count} characters online.`)
+      },
+
       VAR() {},
       LIS() {},
       NLN() {},
