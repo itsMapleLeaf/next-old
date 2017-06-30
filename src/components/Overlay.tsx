@@ -11,7 +11,7 @@ export default class Overlay extends React.Component {
   shade: HTMLElement | null
 
   handleClick = (event: MouseEvent) => {
-    if (event.currentTarget === this.shade && this.props.onClose != null) {
+    if (event.target === this.shade && this.props.onClose != null) {
       this.props.onClose()
     }
   }
