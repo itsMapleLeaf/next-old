@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import ChatStore from '../chat-store'
@@ -17,14 +17,12 @@ export default class Chat extends React.Component {
 
   @observable channelListOpen = false
 
-  @action.bound
-  openChannelList() {
+  openChannelList = () => {
     this.props.store.requestChannelList()
     this.channelListOpen = true
   }
 
-  @action.bound
-  closeChannelList() {
+  closeChannelList = () => {
     this.channelListOpen = false
   }
 
