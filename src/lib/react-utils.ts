@@ -6,6 +6,8 @@ export type InputEvent = React.SyntheticEvent<
   HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 >
 
+export type MouseEvent = React.MouseEvent<HTMLElement>
+
 export function linkState(component: React.Component, field: string) {
   return (event: InputEvent) => {
     const { value } = event.currentTarget
