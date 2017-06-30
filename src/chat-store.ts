@@ -165,7 +165,7 @@ export default class ChatStore {
   requestChannelList() {
     this.clearChannelList()
     this.sendCommand('CHA')
-    // this.sendCommand('ORS')
+    this.sendCommand('ORS')
   }
 
   joinChannel(id: string) {

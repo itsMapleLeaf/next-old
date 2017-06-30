@@ -41,7 +41,7 @@ export default class ChannelList extends React.Component {
       const onClick = preventDefault(() => this.props.onChannelInput(ch.id))
       const joinedClass = this.props.joinedChannels.includes(ch.id) ? 'bg-1' : ''
       return (
-        <a className={`flex-row ${joinedClass}`} href="#" key={ch.id} onClick={onClick}>
+        <a className={`flex-row ${joinedClass}`} href="#" key={ch.id} onMouseDown={onClick}>
           <div
             style={channelStyle}
             className="flex-grow"
@@ -67,7 +67,7 @@ export default class ChannelList extends React.Component {
             placeholder="Search..."
             onInput={e => this.updateSearchText(e.currentTarget.value)}
           />
-          <button className="button" onClick={this.props.onClose}>
+          <button className="button" onMouseDown={this.props.onClose}>
             Done
           </button>
         </div>
