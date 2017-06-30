@@ -68,7 +68,10 @@ export default class ChatStore {
   }
 
   disconnect() {
-    if (this.socket) this.socket.close()
+    if (this.socket) {
+      this.socket.onclose = this.socket.onerror = () => {}
+      this.socket.close()
+    }
   }
 
   sendCommand(cmd: string, params?: object) {

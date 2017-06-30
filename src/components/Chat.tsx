@@ -11,27 +11,20 @@ import './Chat.css'
 @observer
 export default class Chat extends React.Component {
   props: {
-    account: string
-    ticket: string
     store: ChatStore
-    onDisconnect: () => any
   }
 
   @observable channelListOpen = false
 
   @action.bound
-  channelListAction() {
+  openChannelList() {
     this.channelListOpen = true
     this.props.store.requestChannelList()
   }
 
-  componentDidMount() {
-    this.props.store.connect(this.props.account, this.props.ticket, this.props.store.identity)
-    this.props.store.onDisconnect = this.props.onDisconnect
-  }
-
-  componentWillUnmount() {
-    this.props.store.disconnect()
+  @action.bound
+  closeChannelList() {
+    this.channelListOpen = false
   }
 
   render() {
@@ -41,7 +34,7 @@ export default class Chat extends React.Component {
       <div className="bg-3 fullscreen flex-row">
         <div className="flex-column">
           <div className="flex-grow">
-            <a className="chat-action" href="#" onClick={preventDefault(this.channelListAction)}>
+            <a className="chat-action" href="#" onClick={preventDefault(this.openChannelList)}>
               <Icon>forum</Icon>
             </a>
             <a className="chat-action" href="#">
@@ -57,8 +50,11 @@ export default class Chat extends React.Component {
             </a>
           </div>
         </div>
+
         <div className="bg-2">tabs</div>
+
         <div className="bg-1 flex-grow">chat</div>
+
         {this.channelListOpen && <ChannelList channels={store.channelList} />}
       </div>
     )

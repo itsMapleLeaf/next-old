@@ -29,10 +29,8 @@ export default class App extends React.Component {
     const { store } = this.props
     store.setIdentity(identity)
     store.setView(AppView.chat)
-  }
-
-  handleDisconnect = () => {
-    this.props.store.init()
+    store.chat.onDisconnect = () => store.init()
+    store.chat.connect(store.account, store.ticket, store.chat.identity)
   }
 
   render() {
@@ -60,14 +58,7 @@ export default class App extends React.Component {
           </div>
         )
       case AppView.chat:
-        return (
-          <Chat
-            account={store.account}
-            ticket={store.ticket}
-            store={store.chat}
-            onDisconnect={this.handleDisconnect}
-          />
-        )
+        return <Chat store={store.chat} />
     }
   }
 }
