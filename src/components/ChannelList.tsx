@@ -2,7 +2,7 @@ import sortBy = require('lodash/sortBy')
 import { computed } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
-import { ChannelInfo } from './Chat.store'
+import { ChannelInfo } from '../chat-store'
 import Overlay from './Overlay'
 
 import './ChannelList.css'

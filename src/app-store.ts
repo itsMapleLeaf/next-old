@@ -1,4 +1,5 @@
 import { action, observable } from 'mobx'
+import ChatStore from './chat-store'
 import * as flist from './lib/f-list'
 
 export enum AppView {
@@ -8,13 +9,14 @@ export enum AppView {
   chat,
 }
 
-export class AppStore {
+export default class AppStore {
   account = ''
   ticket = ''
   @observable characters = [] as string[]
-  @observable identity = ''
   @observable loginStatus = ''
   @observable view = AppView.loading
+
+  chat = new ChatStore()
 
   @action
   loadUserData() {
@@ -51,7 +53,7 @@ export class AppStore {
 
   @action
   setIdentity(identity: string) {
-    this.identity = identity
+    this.chat.identity = identity
   }
 
   async init() {

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import * as React from 'react'
-import { AppStore, AppView } from '../app-store'
+import AppStore, { AppView } from '../app-store'
 import CharacterSelect from './CharacterSelect'
 import Chat from './Chat'
 import Login from './Login'
@@ -64,7 +64,7 @@ export default class App extends React.Component {
           <Chat
             account={store.account}
             ticket={store.ticket}
-            identity={store.identity}
+            store={store.chat}
             onDisconnect={this.handleDisconnect}
           />
         )

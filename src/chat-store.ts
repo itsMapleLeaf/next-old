@@ -19,7 +19,7 @@ export enum ChannelType {
 }
 
 export default class ChatStore {
-  socket = new WebSocket(serverURL)
+  socket: WebSocket | void
 
   @observable identity = ''
   @observable channelList = [] as ChannelInfo[]
@@ -41,8 +41,10 @@ export default class ChatStore {
     this.channelList.push(...channels)
   }
 
-  init(account: string, ticket: string, identity: string) {
+  connect(account: string, ticket: string, identity: string) {
     this.setIdentity(identity)
+
+    this.socket = new WebSocket(serverURL)
 
     this.socket.onopen = () => {
       this.sendCommand('IDN', {
@@ -66,14 +68,16 @@ export default class ChatStore {
   }
 
   disconnect() {
-    this.socket.close()
+    if (this.socket) this.socket.close()
   }
 
   sendCommand(cmd: string, params?: object) {
-    if (params) {
-      this.socket.send(cmd + ' ' + JSON.stringify(params))
-    } else {
-      this.socket.send(cmd)
+    if (this.socket) {
+      if (params) {
+        this.socket.send(cmd + ' ' + JSON.stringify(params))
+      } else {
+        this.socket.send(cmd)
+      }
     }
   }
 

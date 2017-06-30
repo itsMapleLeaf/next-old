@@ -1,9 +1,9 @@
 import { action, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
+import ChatStore from '../chat-store'
 import { preventDefault } from '../lib/react-utils'
 import ChannelList from './ChannelList'
-import ChatStore from './Chat.store'
 import Icon from './Icon'
 
 import './Chat.css'
@@ -13,30 +13,30 @@ export default class Chat extends React.Component {
   props: {
     account: string
     ticket: string
-    identity: string
+    store: ChatStore
     onDisconnect: () => any
   }
-
-  store = new ChatStore()
 
   @observable channelListOpen = false
 
   @action.bound
   channelListAction() {
     this.channelListOpen = true
-    this.store.requestChannelList()
+    this.props.store.requestChannelList()
   }
 
   componentDidMount() {
-    this.store.init(this.props.account, this.props.ticket, this.props.identity)
-    this.store.onDisconnect = this.props.onDisconnect
+    this.props.store.connect(this.props.account, this.props.ticket, this.props.store.identity)
+    this.props.store.onDisconnect = this.props.onDisconnect
   }
 
   componentWillUnmount() {
-    this.store.disconnect()
+    this.props.store.disconnect()
   }
 
   render() {
+    const { store } = this.props
+
     return (
       <div className="bg-3 fullscreen flex-row">
         <div className="flex-column">
@@ -59,7 +59,7 @@ export default class Chat extends React.Component {
         </div>
         <div className="bg-2">tabs</div>
         <div className="bg-1 flex-grow">chat</div>
-        {this.channelListOpen && <ChannelList channels={this.store.channelList} />}
+        {this.channelListOpen && <ChannelList channels={store.channelList} />}
       </div>
     )
   }
