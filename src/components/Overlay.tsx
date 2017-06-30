@@ -21,7 +21,7 @@ export default class Overlay extends React.Component {
       <div
         className="overlay-shade fullscreen flex-column"
         ref={el => (this.shade = el)}
-        onClick={this.handleClick}
+        onMouseDown={this.handleClick}
       >
         <div className="overlay-content-container bg-1">
           {this.props.children}

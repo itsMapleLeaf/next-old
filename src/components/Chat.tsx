@@ -46,7 +46,7 @@ export default class Chat extends React.Component {
       <div className="bg-3 fullscreen flex-row">
         <div className="flex-column">
           <div className="flex-grow">
-            <a className="chat-action" href="#" onClick={preventDefault(this.openChannelList)}>
+            <a className="chat-action" href="#" onMouseDown={preventDefault(this.openChannelList)}>
               <Icon>forum</Icon>
             </a>
             <a className="chat-action" href="#">
