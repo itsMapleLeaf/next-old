@@ -15,9 +15,13 @@
     "localforage": "^1.5.0",
     "normalize.css": "^7.0.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "lodash": "^4.17.4",
+    "mobx": "^3.1.16",
+    "mobx-react": "^4.2.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.67",
     "@types/react": "^15.0.33",
     "@types/react-dom": "^15.5.1",
     "@types/react-hot-loader": "^3.0.2",
@@ -27,8 +31,6 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.29.0",
     "json-loader": "^0.5.4",
-    "mobx": "^3.1.16",
-    "mobx-react": "^4.2.1",
     "react-hot-loader": "^3.0.0-beta.7",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.2.1",
