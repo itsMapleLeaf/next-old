@@ -165,23 +165,20 @@ export default class ChatStore {
   requestChannelList() {
     this.clearChannelList()
     this.sendCommand('CHA')
-    this.sendCommand('ORS')
+    // this.sendCommand('ORS')
   }
 
   joinChannel(id: string) {
+    this.createChannel(id)
     this.sendCommand('JCH', { channel: id })
   }
 
   leaveChannel(id: string) {
+    this.removeChannel(id)
     this.sendCommand('LCH', { channel: id })
   }
 
   isChannelJoined(id: string) {
     return this.channels.has(id)
-  }
-
-  @computed
-  get joinedChannels() {
-    return Array.from(this.channels.keys())
   }
 }
