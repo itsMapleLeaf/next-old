@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import * as React from 'react'
-import ChatStore from '../lib/chat-store'
 import './Chat.css'
+import ChatStore from './Chat.store'
 import Icon from './Icon'
 
 @observer
