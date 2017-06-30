@@ -1,14 +1,40 @@
-import { observable } from 'mobx'
+import { observable, action } from 'mobx'
 import meta from '../../package.json'
 
 const serverURL = 'wss://chat.f-list.net:9799'
+
+export class ChannelInfo {
+  constructor(
+    public id: string,
+    public title: string,
+    public userCount: number,
+    public mode: 'ads' | 'chat' | 'both',
+    public type: ChannelType
+  ) {}
+}
+
+export enum ChannelType {
+  public,
+  private,
+}
 
 export default class ChatStore {
   socket = new WebSocket(serverURL)
 
   @observable identity = ''
+  @observable channelList = [] as ChannelInfo[]
 
   onDisconnect = () => {}
+
+  @action
+  clearChannelList() {
+    this.channelList.splice(0)
+  }
+
+  @action
+  updateChannelList(channels: ChannelInfo[]) {
+    this.channelList.push(...channels)
+  }
 
   init(account: string, ticket: string, identity: string) {
     this.identity = identity
@@ -48,17 +74,34 @@ export default class ChatStore {
 
   handleSocketCommand(cmd: string, params: any) {
     const handlers: { [cmd: string]: (this: ChatStore) => any } = {
+      PIN() {
+        this.sendCommand('PIN')
+      },
+
       IDN() {},
       HLO() {},
       CON() {},
       VAR() {},
-      PIN() {
-        this.sendCommand('PIN')
-      },
       LIS() {},
       NLN() {},
       FLN() {},
       STA() {},
+
+      CHA() {
+        const channels = []
+        for (const { name, mode, characters } of params.channels) {
+          channels.push(new ChannelInfo(name, name, characters, mode, ChannelType.public))
+        }
+        this.updateChannelList(channels)
+      },
+
+      ORS() {
+        const channels = []
+        for (const { name, title, mode, characters } of params.channels) {
+          channels.push(new ChannelInfo(name, title, characters, mode, ChannelType.private))
+        }
+        this.updateChannelList(channels)
+      },
     }
 
     if (handlers[cmd]) {
@@ -66,5 +109,11 @@ export default class ChatStore {
     } else {
       console.log(cmd, params)
     }
+  }
+
+  requestChannelList() {
+    this.clearChannelList()
+    this.sendCommand('CHA')
+    this.sendCommand('ORS')
   }
 }

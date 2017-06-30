@@ -3,16 +3,11 @@ import './styles.css'
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
+// import { AppContainer } from 'react-hot-loader'
 import App from './components/App'
 
 function render() {
-  ReactDOM.render(
-    <AppContainer>
-      <App />
-    </AppContainer>,
-    document.getElementById('app')
-  )
+  ReactDOM.render(<App />, document.getElementById('app'))
 }
 
 render()

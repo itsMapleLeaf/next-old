@@ -16,7 +16,7 @@ export default class App extends React.Component {
 
   loginView = () => {
     return (
-      <div className='fullscreen text-center flex-column flex-center'>
+      <div className="fullscreen text-center flex-column flex-center">
         <h1>Hello, beautiful.</h1>
         <Login onSubmit={this.handleLoginSubmit} />
         <p>
@@ -28,7 +28,7 @@ export default class App extends React.Component {
 
   characterSelectView = () => {
     return (
-      <div className='fullscreen text-center flex-column flex-center'>
+      <div className="fullscreen text-center flex-column flex-center">
         <h1>Choose your identity.</h1>
         <CharacterSelect characters={this.state.characters} onSubmit={this.handleCharacterSubmit} />
       </div>
