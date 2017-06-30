@@ -4,8 +4,6 @@ import { computed, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelInfo } from '../chat-store'
-// import { InputEvent } from '../lib/react-utils'
-import Overlay from './Overlay'
 
 const channelListStyle: React.CSSProperties = {
   height: 'calc(100vh - 10em)',
@@ -50,7 +48,7 @@ export default class ChannelList extends React.Component {
     }
 
     return (
-      <Overlay>
+      <div>
         <div className="bg-2 scroll-v" style={channelListStyle}>
           {this.processedChannels.map(renderChannel)}
         </div>
@@ -63,7 +61,7 @@ export default class ChannelList extends React.Component {
             onInput={e => this.updateSearchText(e.currentTarget.value)}
           />
         </div>
-      </Overlay>
+      </div>
     )
   }
 }

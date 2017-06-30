@@ -5,6 +5,7 @@ import ChatStore from '../chat-store'
 import { preventDefault } from '../lib/react-utils'
 import ChannelList from './ChannelList'
 import Icon from './Icon'
+import Overlay from './Overlay'
 
 import './Chat.css'
 
@@ -18,8 +19,8 @@ export default class Chat extends React.Component {
 
   @action.bound
   openChannelList() {
-    this.channelListOpen = true
     this.props.store.requestChannelList()
+    this.channelListOpen = true
   }
 
   @action.bound
@@ -59,7 +60,10 @@ export default class Chat extends React.Component {
 
         <div className="bg-1 flex-grow">chat</div>
 
-        {this.channelListOpen && <ChannelList channels={store.channelList} />}
+        {this.channelListOpen &&
+          <Overlay onClose={this.closeChannelList}>
+            <ChannelList channels={store.channelList} />
+          </Overlay>}
       </div>
     )
   }
