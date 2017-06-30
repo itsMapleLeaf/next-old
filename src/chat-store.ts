@@ -1,3 +1,4 @@
+import * as forage from 'localforage'
 import { action, computed, observable } from 'mobx'
 
 const serverURL = 'wss://chat.f-list.net:9799'
@@ -35,35 +36,6 @@ export default class ChatStore {
   @action
   setIdentity(identity: string) {
     this.identity = identity
-  }
-
-  @action
-  clearChannelList() {
-    this.channelList.splice(0)
-  }
-
-  @action
-  updateChannelList(channels: ChannelInfo[]) {
-    this.channelList.push(...channels)
-  }
-
-  @action
-  createChannel(id: string) {
-    if (!this.channels.has(id)) {
-      this.channels.set(id, new Channel(id))
-    }
-  }
-
-  @action
-  removeChannel(id: string) {
-    if (this.channels.has(id)) {
-      this.channels.delete(id)
-    }
-  }
-
-  @computed
-  get joinedChannels() {
-    return Array.from(this.channels.keys())
   }
 
   connect(account: string, ticket: string, identity: string) {
@@ -115,7 +87,10 @@ export default class ChatStore {
         this.sendCommand('PIN')
       },
 
-      IDN() {},
+      IDN() {
+        this.restoreChannels()
+      },
+
       HLO() {},
       CON() {},
       VAR() {},
@@ -162,17 +137,64 @@ export default class ChatStore {
     }
   }
 
+  @action
+  clearChannelList() {
+    this.channelList.splice(0)
+  }
+
+  @action
+  updateChannelList(channels: ChannelInfo[]) {
+    this.channelList.push(...channels)
+  }
+
+  @action
+  createChannel(id: string) {
+    if (!this.channels.has(id)) {
+      this.channels.set(id, new Channel(id))
+      this.saveChannels()
+    }
+  }
+
+  @action
+  removeChannel(id: string) {
+    if (this.channels.has(id)) {
+      this.channels.delete(id)
+      this.saveChannels()
+    }
+  }
+
+  @computed
+  get joinedChannels() {
+    return Array.from(this.channels.keys())
+  }
+
+  @action
+  saveChannels() {
+    forage.setItem('joinedChannels:' + this.identity, this.joinedChannels)
+  }
+
+  @action
+  async restoreChannels() {
+    const channels = (await forage.getItem('joinedChannels:' + this.identity)) as string[] | null
+    for (const id of channels || []) {
+      this.joinChannel(id)
+    }
+  }
+
+  @action
   requestChannelList() {
     this.clearChannelList()
     this.sendCommand('CHA')
     this.sendCommand('ORS')
   }
 
+  @action
   joinChannel(id: string) {
     this.createChannel(id)
     this.sendCommand('JCH', { channel: id })
   }
 
+  @action
   leaveChannel(id: string) {
     this.removeChannel(id)
     this.sendCommand('LCH', { channel: id })
