@@ -27,6 +27,11 @@ export default class ChatStore {
   onDisconnect = () => {}
 
   @action
+  setIdentity(identity: string) {
+    this.identity = identity
+  }
+
+  @action
   clearChannelList() {
     this.channelList.splice(0)
   }
@@ -37,7 +42,7 @@ export default class ChatStore {
   }
 
   init(account: string, ticket: string, identity: string) {
-    this.identity = identity
+    this.setIdentity(identity)
 
     this.socket.onopen = () => {
       this.sendCommand('IDN', {
