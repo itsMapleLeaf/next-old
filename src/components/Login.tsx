@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { preventDefault, linkState } from '../lib/react-utils'
-import Icon from './Icon'
+import { linkState, preventDefault } from '../lib/react-utils'
 
 export default class Login extends React.Component {
   props: {
@@ -21,24 +20,24 @@ export default class Login extends React.Component {
       <form onSubmit={preventDefault(this.handleSubmit)}>
         <fieldset>
           <input
-            className="input"
-            type="text"
-            placeholder="Username"
+            className='input'
+            type='text'
+            placeholder='Username'
             value={this.state.username}
             onInput={linkState(this, 'username')}
           />
         </fieldset>
         <fieldset>
           <input
-            className="input"
-            type="password"
-            placeholder="Password"
+            className='input'
+            type='password'
+            placeholder='Password'
             value={this.state.password}
             onInput={linkState(this, 'password')}
           />
         </fieldset>
         <fieldset>
-          <button className="button" action="submit">
+          <button className='button' action='submit'>
             Submit
           </button>
         </fieldset>

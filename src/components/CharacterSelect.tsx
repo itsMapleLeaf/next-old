@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { preventDefault, linkState, InputEvent } from '../lib/react-utils'
 import { getAvatarURL } from '../lib/f-list'
+import { InputEvent, preventDefault } from '../lib/react-utils'
 
 const avatarStyle: React.CSSProperties = {
   width: '100px',
@@ -39,7 +39,7 @@ export default class CharacterSelect extends React.Component {
           <img src={getAvatarURL(current)} alt={`Avatar for ` + current} style={avatarStyle} />
         </fieldset>
         <fieldset>
-          <select className="input" value={current} onChange={this.handleChange}>
+          <select className='input' value={current} onChange={this.handleChange}>
             {this.props.characters.map(name =>
               <option key={name}>
                 {name}
@@ -48,7 +48,7 @@ export default class CharacterSelect extends React.Component {
           </select>
         </fieldset>
         <fieldset>
-          <button className="button" action="submit">
+          <button className='button' action='submit'>
             Confirm
           </button>
         </fieldset>
