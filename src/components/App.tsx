@@ -11,32 +11,33 @@ export default class App extends React.Component {
     store: AppStore
   }
 
-  store = this.props.store
-
   handleLoginSubmit = async (account: string, password: string) => {
-    this.store.setLoginStatus('')
+    const { store } = this.props
+    store.setLoginStatus('')
     try {
-      await this.store.fetchTicket(account, password)
-      await this.store.fetchCharacters()
-      this.store.setView(AppView.characterSelect)
-      this.store.saveUserData()
+      await store.fetchTicket(account, password)
+      await store.fetchCharacters()
+      store.setView(AppView.characterSelect)
+      store.saveUserData()
     } catch (error) {
-      this.store.setView(AppView.login)
-      this.store.setLoginStatus(error.toString())
+      store.setView(AppView.login)
+      store.setLoginStatus(error.toString())
     }
   }
 
   handleCharacterSubmit = (identity: string) => {
-    this.store.setIdentity(identity)
-    this.store.setView(AppView.chat)
+    const { store } = this.props
+    store.setIdentity(identity)
+    store.setView(AppView.chat)
   }
 
   handleDisconnect = () => {
-    this.store.init()
+    this.props.store.init()
   }
 
   render() {
-    switch (this.store.view) {
+    const { store } = this.props
+    switch (store.view) {
       case AppView.loading:
         return <div>Loading...</div>
 
@@ -46,7 +47,7 @@ export default class App extends React.Component {
             <h1>Hello, beautiful.</h1>
             <Login onSubmit={this.handleLoginSubmit} />
             <p>
-              {this.store.loginStatus}
+              {store.loginStatus}
             </p>
           </div>
         )
@@ -55,18 +56,15 @@ export default class App extends React.Component {
         return (
           <div className="fullscreen text-center flex-column flex-center">
             <h1>Choose your identity.</h1>
-            <CharacterSelect
-              characters={this.store.characters}
-              onSubmit={this.handleCharacterSubmit}
-            />
+            <CharacterSelect characters={store.characters} onSubmit={this.handleCharacterSubmit} />
           </div>
         )
       case AppView.chat:
         return (
           <Chat
-            account={this.store.account}
-            ticket={this.store.ticket}
-            identity={this.store.identity}
+            account={store.account}
+            ticket={store.ticket}
+            identity={store.identity}
             onDisconnect={this.handleDisconnect}
           />
         )
