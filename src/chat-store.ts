@@ -47,6 +47,25 @@ export default class ChatStore {
     this.channelList.push(...channels)
   }
 
+  @action
+  createChannel(id: string) {
+    if (!this.channels.has(id)) {
+      this.channels.set(id, new Channel(id))
+    }
+  }
+
+  @action
+  removeChannel(id: string) {
+    if (this.channels.has(id)) {
+      this.channels.delete(id)
+    }
+  }
+
+  @computed
+  get joinedChannels() {
+    return Array.from(this.channels.keys())
+  }
+
   connect(account: string, ticket: string, identity: string) {
     this.setIdentity(identity)
 
@@ -124,14 +143,14 @@ export default class ChatStore {
       JCH() {
         const character = params.character.identity as string
         if (character === this.identity) {
-          this.channels.set(params.channel, new Channel(params.channel))
+          this.createChannel(params.channel)
         }
       },
 
       LCH() {
-        const { character } = params
+        const { character, channel } = params
         if (character === this.identity) {
-          this.channels.delete(params.channel)
+          this.removeChannel(channel)
         }
       },
     }
