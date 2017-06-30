@@ -12,6 +12,8 @@ const channelListStyle: React.CSSProperties = {
   maxWidth: '30em',
 }
 
+const channelStyle: React.CSSProperties = { padding: '0.4em 0.6em' }
+
 @observer
 export default class ChannelList extends React.Component {
   props: {
@@ -36,17 +38,16 @@ export default class ChannelList extends React.Component {
 
   render() {
     const renderChannel = (ch: ChannelInfo) => {
-      const padding = { padding: '0.3em 0.6em' }
       const onClick = preventDefault(() => this.props.onChannelInput(ch.id))
       const joinedClass = this.props.joinedChannels.includes(ch.id) ? 'bg-1' : ''
       return (
         <a className={`flex-row ${joinedClass}`} href="#" key={ch.id} onClick={onClick}>
           <div
-            style={padding}
+            style={channelStyle}
             className="flex-grow"
             dangerouslySetInnerHTML={{ __html: ch.title }}
           />
-          <div style={padding}>
+          <div style={channelStyle}>
             {ch.userCount}
           </div>
         </a>
