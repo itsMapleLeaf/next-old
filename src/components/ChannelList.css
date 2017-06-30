@@ -1,0 +1,22 @@
+.channel-list {
+  height: calc(100vh - 4em);
+  max-width: calc(100vw - 4em);
+  overflow-y: auto;
+}
+
+.channel-list-channel {
+  display: flex;
+}
+
+.channel-list-channel-title,
+.channel-list-channel-users {
+  padding: 0.3em 0.6em;
+}
+
+.channel-list-channel-users {
+  width: 4em;
+}
+
+.channel-list-channel-title {
+  flex-grow: 1;
+}

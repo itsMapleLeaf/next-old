@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { action, observable } from 'mobx'
 import meta from '../../package.json'
 
 const serverURL = 'wss://chat.f-list.net:9799'
@@ -8,7 +8,6 @@ export class ChannelInfo {
     public id: string,
     public title: string,
     public userCount: number,
-    public mode: 'ads' | 'chat' | 'both',
     public type: ChannelType
   ) {}
 }
@@ -94,16 +93,16 @@ export default class ChatStore {
 
       CHA() {
         const channels = []
-        for (const { name, mode, characters } of params.channels) {
-          channels.push(new ChannelInfo(name, name, characters, mode, ChannelType.public))
+        for (const { name, characters } of params.channels) {
+          channels.push(new ChannelInfo(name, name, characters, ChannelType.public))
         }
         this.updateChannelList(channels)
       },
 
       ORS() {
         const channels = []
-        for (const { name, title, mode, characters } of params.channels) {
-          channels.push(new ChannelInfo(name, title, characters, mode, ChannelType.private))
+        for (const { name, title, characters } of params.channels) {
+          channels.push(new ChannelInfo(name, title, characters, ChannelType.private))
         }
         this.updateChannelList(channels)
       },
