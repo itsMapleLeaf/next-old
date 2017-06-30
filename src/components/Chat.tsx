@@ -26,8 +26,17 @@ export default class Chat extends React.Component {
     this.channelListOpen = false
   }
 
+  handleChannelListInput = (id: string) => {
+    const { store } = this.props
+    if (store.isChannelJoined(id)) {
+      store.leaveChannel(id)
+    } else {
+      store.joinChannel(id)
+    }
+  }
+
   componentDidMount() {
-    this.openChannelList()
+    // this.openChannelList()
   }
 
   render() {
@@ -60,7 +69,12 @@ export default class Chat extends React.Component {
 
         {this.channelListOpen &&
           <Overlay onClose={this.closeChannelList}>
-            <ChannelList channels={store.channelList} onClose={this.closeChannelList} />
+            <ChannelList
+              channels={store.channelList}
+              joinedChannels={store.joinedChannels}
+              onClose={this.closeChannelList}
+              onChannelInput={this.handleChannelListInput}
+            />
           </Overlay>}
       </div>
     )

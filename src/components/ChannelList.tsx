@@ -4,6 +4,7 @@ import { computed, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelInfo } from '../chat-store'
+import { preventDefault } from '../lib/react-utils'
 
 const channelListStyle: React.CSSProperties = {
   height: 'calc(100vh - 10em)',
@@ -15,7 +16,9 @@ const channelListStyle: React.CSSProperties = {
 export default class ChannelList extends React.Component {
   props: {
     channels: ChannelInfo[]
+    joinedChannels: string[]
     onClose?: () => any
+    onChannelInput: (id: string) => any
   }
 
   @observable searchText = ''
@@ -34,8 +37,10 @@ export default class ChannelList extends React.Component {
   render() {
     const renderChannel = (ch: ChannelInfo) => {
       const padding = { padding: '0.3em 0.6em' }
+      const onClick = preventDefault(() => this.props.onChannelInput(ch.id))
+      const joinedClass = this.props.joinedChannels.includes(ch.id) ? 'bg-1' : ''
       return (
-        <a className="flex-row" href="#" key={ch.id}>
+        <a className={`flex-row ${joinedClass}`} href="#" key={ch.id} onClick={onClick}>
           <div
             style={padding}
             className="flex-grow"

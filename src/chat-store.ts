@@ -1,8 +1,13 @@
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 const serverURL = 'wss://chat.f-list.net:9799'
 const clientName = 'next'
 const clientVersion = '0.12.0'
+
+export enum ChannelType {
+  public,
+  private,
+}
 
 export class ChannelInfo {
   constructor(
@@ -13,9 +18,9 @@ export class ChannelInfo {
   ) {}
 }
 
-export enum ChannelType {
-  public,
-  private,
+export class Channel {
+  @observable title = this.id
+  constructor(public id: string) {}
 }
 
 export default class ChatStore {
@@ -23,6 +28,7 @@ export default class ChatStore {
 
   @observable identity = ''
   @observable channelList = [] as ChannelInfo[]
+  @observable channels = new Map<string, Channel>()
 
   onDisconnect = () => {}
 
@@ -114,6 +120,20 @@ export default class ChatStore {
         }
         this.updateChannelList(channels)
       },
+
+      JCH() {
+        const character = params.character.identity as string
+        if (character === this.identity) {
+          this.channels.set(params.channel, new Channel(params.channel))
+        }
+      },
+
+      LCH() {
+        const { character } = params
+        if (character === this.identity) {
+          this.channels.delete(params.channel)
+        }
+      },
     }
 
     if (handlers[cmd]) {
@@ -127,5 +147,22 @@ export default class ChatStore {
     this.clearChannelList()
     this.sendCommand('CHA')
     this.sendCommand('ORS')
+  }
+
+  joinChannel(id: string) {
+    this.sendCommand('JCH', { channel: id })
+  }
+
+  leaveChannel(id: string) {
+    this.sendCommand('LCH', { channel: id })
+  }
+
+  isChannelJoined(id: string) {
+    return this.channels.has(id)
+  }
+
+  @computed
+  get joinedChannels() {
+    return Array.from(this.channels.keys())
   }
 }
