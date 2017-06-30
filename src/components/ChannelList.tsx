@@ -1,4 +1,4 @@
-import sortBy from 'lodash/sortBy'
+import sortBy = require('lodash/sortBy')
 import { computed } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'

@@ -4,12 +4,13 @@ import './styles.css'
 import { useStrict } from 'mobx'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import App from './components/App'
+// import App from './components/App'
 
 useStrict(true)
 
 function render() {
-  ReactDOM.render(<App />, document.getElementById('app'))
+  const Root = require('./components/App').default
+  ReactDOM.render(<Root />, document.getElementById('root'))
 }
 
 render()

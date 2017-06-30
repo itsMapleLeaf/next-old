@@ -1,7 +1,8 @@
 import { action, observable } from 'mobx'
-import meta from '../../package.json'
 
 const serverURL = 'wss://chat.f-list.net:9799'
+const clientName = 'next'
+const clientVersion = '0.12.0'
 
 export class ChannelInfo {
   constructor(
@@ -48,8 +49,8 @@ export default class ChatStore {
         account,
         ticket,
         character: identity,
-        cname: meta.name,
-        cversion: meta.version,
+        cname: clientName,
+        cversion: clientVersion,
         method: 'ticket',
       })
     }
