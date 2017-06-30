@@ -27,6 +27,10 @@ export default class Chat extends React.Component {
     this.channelListOpen = false
   }
 
+  componentDidMount() {
+    this.openChannelList()
+  }
+
   render() {
     const { store } = this.props
 

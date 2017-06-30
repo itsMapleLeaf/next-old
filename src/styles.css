@@ -6,6 +6,9 @@
   font: 16px Roboto, sans-serif;
   color: hsl(0, 0%, 95%);
   background: hsl(0, 0%, 20%);
+  --bg-1: hsl(0, 0%, 20%);
+  --bg-2: hsl(0, 0%, 13%);
+  --bg-3: hsl(0, 0%, 8%);
 }
 
 h1,
@@ -36,6 +39,10 @@ a {
   text-align: center;
 }
 
+.scroll-v {
+  overflow-y: auto;
+}
+
 .flex-row {
   display: flex;
 }
@@ -47,6 +54,7 @@ a {
 
 .flex-grow {
   flex-grow: 1;
+  min-height: 0; /* fix flex overflow bug in non-chrome browsers */
 }
 
 .flex-center {
@@ -55,20 +63,20 @@ a {
 }
 
 .bg-1 {
-  background: hsl(0, 0%, 20%);
+  background: var(--bg-1);
 }
 .bg-2 {
-  background: hsl(0, 0%, 13%);
+  background: var(--bg-2);
 }
 .bg-3 {
-  background: hsl(0, 0%, 8%);
+  background: var(--bg-3);
 }
 
 .input,
 .button {
   font: inherit;
   color: inherit;
-  background-color: hsl(0, 0%, 13%);
+  background-color: var(--bg-2);
   border: none;
   padding: 0.4em 0.75em;
   transition: 0.2s;
@@ -76,15 +84,28 @@ a {
 
 .input:focus {
   outline: none;
-  background-color: hsl(0, 0%, 8%);
+  background-color: var(--bg-3);
 }
 
 .button:hover {
   cursor: pointer;
-  background-color: hsl(0, 0%, 8%);
+  background-color: var(--bg-3);
 }
 
 .button:focus {
   outline: none;
-  background-color: hsl(0, 0%, 8%);
+  background-color: var(--bg-3);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background-color: var(--bg-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--bg-1);
 }
