@@ -1,5 +1,5 @@
 import { observable } from 'mobx'
-import meta from '../../../package.json'
+import meta from '../../package.json'
 
 const serverURL = 'wss://chat.f-list.net:9799'
 
@@ -60,7 +60,7 @@ export default class ChatStore {
     if (handlers[cmd]) {
       handlers[cmd].call(this)
     } else {
-      console.log(cmd, params)
+      // console.log(cmd, params)
     }
   }
 }

@@ -22,6 +22,11 @@ fieldset {
   border: none;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .fullscreen {
   width: 100vw;
   height: 100vh;
@@ -40,9 +45,23 @@ fieldset {
   flex-direction: column;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .flex-center {
   align-items: center;
   justify-content: center;
+}
+
+.bg-1 {
+  background: hsl(0, 0%, 20%);
+}
+.bg-2 {
+  background: hsl(0, 0%, 13%);
+}
+.bg-3 {
+  background: hsl(0, 0%, 8%);
 }
 
 .input,
