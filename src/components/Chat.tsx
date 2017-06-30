@@ -68,7 +68,7 @@ export default class Chat extends React.Component {
         <div className="bg-1 flex-grow">chat</div>
 
         {this.channelListOpen &&
-          <Overlay onClose={this.closeChannelList}>
+          <Overlay onShadeClick={this.closeChannelList}>
             <ChannelList
               channels={store.channelList}
               joinedChannels={store.joinedChannels}

@@ -4,15 +4,15 @@ import './Overlay.css'
 
 export default class Overlay extends React.Component {
   props: {
-    onClose?: () => any
+    onShadeClick?: () => any
     children?: React.ReactNode
   }
 
   shade: HTMLElement | null
 
   handleClick = (event: MouseEvent) => {
-    if (event.target === this.shade && this.props.onClose != null) {
-      this.props.onClose()
+    if (event.target === this.shade && this.props.onShadeClick != null) {
+      this.props.onShadeClick()
     }
   }
 
