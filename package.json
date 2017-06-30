@@ -11,11 +11,13 @@
     "react-dom": "^15.6.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.67",
     "@types/jest": "^20.0.2",
+    "@types/lodash": "^4.14.67",
     "@types/node": "^8.0.6",
     "@types/react": "^15.0.33",
     "@types/react-dom": "^15.5.1",
+    "fsevents": "^1.1.2",
+    "mobx-react-devtools": "^4.2.15",
     "react-scripts-ts": "2.3.2",
     "typescript": "^2.4.1"
   },
