@@ -1,7 +1,8 @@
 import * as React from 'react'
 import * as flist from '../lib/f-list'
-import Login from './Login'
 import CharacterSelect from './CharacterSelect'
+import Chat from './Chat'
+import Login from './Login'
 
 export default class App extends React.Component {
   state = {
@@ -15,7 +16,7 @@ export default class App extends React.Component {
 
   loginView = () => {
     return (
-      <div className="fullscreen text-center flex-column flex-center">
+      <div className='fullscreen text-center flex-column flex-center'>
         <h1>Hello, beautiful.</h1>
         <Login onSubmit={this.handleLoginSubmit} />
         <p>
@@ -27,7 +28,7 @@ export default class App extends React.Component {
 
   characterSelectView = () => {
     return (
-      <div className="fullscreen text-center flex-column flex-center">
+      <div className='fullscreen text-center flex-column flex-center'>
         <h1>Choose your identity.</h1>
         <CharacterSelect characters={this.state.characters} onSubmit={this.handleCharacterSubmit} />
       </div>
@@ -35,7 +36,14 @@ export default class App extends React.Component {
   }
 
   chatView = () => {
-    return <div />
+    return (
+      <Chat
+        account={this.state.account}
+        ticket={this.state.ticket}
+        identity={this.state.identity}
+        onDisconnect={this.handleDisconnect}
+      />
+    )
   }
 
   handleLoginSubmit = async (account: string, password: string) => {
@@ -55,7 +63,14 @@ export default class App extends React.Component {
     this.setState({ identity, view: this.chatView })
   }
 
-  async componentDidMount() {
+  handleDisconnect = () => {
+    this.setState({
+      loginStatus: 'Disconnected from server.',
+    })
+    this.init()
+  }
+
+  async init() {
     try {
       const account = localStorage.getItem('account') || ''
       const ticket = localStorage.getItem('ticket') || ''
@@ -64,6 +79,10 @@ export default class App extends React.Component {
     } catch (err) {
       this.setState({ view: this.loginView })
     }
+  }
+
+  componentDidMount() {
+    this.init()
   }
 
   render() {
