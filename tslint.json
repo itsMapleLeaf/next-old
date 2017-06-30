@@ -34,7 +34,8 @@
     ],
     "trailing-comma": [
       false
-    ]
+    ],
+    "curly": false
   },
   "rulesDirectory": []
 }
