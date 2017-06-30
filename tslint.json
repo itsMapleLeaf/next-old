@@ -11,7 +11,8 @@
     ],
     "quotemark": [
       true,
-      "single"
+      "single",
+      "jsx-double"
     ],
     "ordered-imports": [
       true
