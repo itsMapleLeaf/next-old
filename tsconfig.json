@@ -13,7 +13,8 @@
     "noUnusedLocals": true,
     "downlevelIteration": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "./src/**/*"
