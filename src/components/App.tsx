@@ -1,6 +1,7 @@
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
+import { bound } from '../lib/util'
 import { Store } from '../stores'
 import CharacterSelect from './CharacterSelect'
 import Chat from './Chat'
@@ -22,9 +23,10 @@ export default class App extends React.Component {
   @observable view = AppView.loading
   @observable loginStatus = ''
 
-  handleLoginSubmit = async (account: string, password: string) => {
+  @bound
+  async handleLoginSubmit(account: string, password: string) {
     const { store } = this.props
-    this.loginStatus = ''
+    this.loginStatus = 'Logging in...'
     try {
       await store.user.fetchTicket(account, password)
       await store.user.fetchCharacters()
@@ -36,7 +38,8 @@ export default class App extends React.Component {
     }
   }
 
-  handleCharacterSubmit = (identity: string) => {
+  @bound
+  handleCharacterSubmit(identity: string) {
     const { store } = this.props
     store.chat.setIdentity(identity)
     store.chat.onDisconnect = () => this.init()
@@ -54,6 +57,10 @@ export default class App extends React.Component {
     } catch (err) {
       this.view = AppView.login
     }
+  }
+
+  componentDidMount() {
+    this.init()
   }
 
   render() {

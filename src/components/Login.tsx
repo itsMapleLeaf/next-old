@@ -2,6 +2,7 @@ import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { preventDefault } from '../lib/react-utils'
+import { bound } from '../lib/util'
 
 @observer
 export default class Login extends React.Component {
@@ -12,7 +13,8 @@ export default class Login extends React.Component {
   @observable username = ''
   @observable password = ''
 
-  handleSubmit = () => {
+  @bound
+  handleSubmit() {
     this.props.onSubmit(this.username, this.password)
   }
 
