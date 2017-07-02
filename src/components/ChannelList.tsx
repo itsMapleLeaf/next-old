@@ -1,5 +1,5 @@
 import sortBy = require('lodash/sortBy')
-import debounce = require('lodash/debounce')
+import { debounce } from 'decko'
 import { computed, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
@@ -25,9 +25,10 @@ export default class ChannelList extends React.Component {
 
   @observable searchText = ''
 
-  updateSearchText = debounce((text: string) => {
+  @debounce(500)
+  updateSearchText(text: string) {
     this.searchText = text
-  }, 500)
+  }
 
   @computed
   get processedChannels() {

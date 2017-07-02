@@ -1,9 +1,9 @@
+import { bind } from 'decko'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { getAvatarURL } from '../lib/f-list'
 import { InputEvent, preventDefault } from '../lib/react-utils'
-import { bound } from '../lib/util'
 
 const avatarStyle: React.CSSProperties = {
   width: '100px',
@@ -19,12 +19,12 @@ export default class CharacterSelect extends React.Component {
 
   @observable current = ''
 
-  @bound
+  @bind
   handleSubmit() {
     this.props.onSubmit(this.current)
   }
 
-  @bound
+  @bind
   handleChange(event: InputEvent) {
     localStorage.setItem('lastCharacter', (this.current = event.currentTarget.value))
   }

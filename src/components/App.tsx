@@ -1,7 +1,7 @@
+import { bind } from 'decko'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
-import { bound } from '../lib/util'
 import { Store } from '../stores'
 import CharacterSelect from './CharacterSelect'
 import Chat from './Chat'
@@ -23,7 +23,7 @@ export default class App extends React.Component {
   @observable view = AppView.loading
   @observable loginStatus = ''
 
-  @bound
+  @bind
   async handleLoginSubmit(account: string, password: string) {
     const { store } = this.props
     this.loginStatus = 'Logging in...'
@@ -38,7 +38,7 @@ export default class App extends React.Component {
     }
   }
 
-  @bound
+  @bind
   handleCharacterSubmit(identity: string) {
     const { store } = this.props
     store.chat.setIdentity(identity)

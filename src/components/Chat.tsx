@@ -1,3 +1,4 @@
+import { bind } from 'decko'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
@@ -7,7 +8,6 @@ import ChannelList from './ChannelList'
 import Icon from './Icon'
 import Overlay from './Overlay'
 
-import { bound } from '../lib/util'
 import './Chat.css'
 
 function ChatAction(props: { icon: string; action: () => any }) {
@@ -29,23 +29,23 @@ export default class Chat extends React.Component {
   @observable tabIndex = 0
   @observable channelListOpen = false
 
-  @bound
+  @bind
   setTabIndex(index: number) {
     this.tabIndex = index
   }
 
-  @bound
+  @bind
   openChannelList() {
     this.props.store.requestChannelList()
     this.channelListOpen = true
   }
 
-  @bound
+  @bind
   closeChannelList() {
     this.channelListOpen = false
   }
 
-  @bound
+  @bind
   handleChannelListInput(id: string) {
     const { store } = this.props
     if (store.isChannelJoined(id)) {
