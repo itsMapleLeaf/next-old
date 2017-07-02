@@ -4,11 +4,10 @@ import './styles.css'
 import DevTools from 'mobx-react-devtools'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import AppStore from './app-store'
 import App from './components/App'
+import { Store } from './stores'
 
-const store = new AppStore()
-store.init()
+const store = new Store()
 
 function render() {
   const Root = require('./components/App').default as typeof App

@@ -1,41 +1,65 @@
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
-import AppStore, { AppView } from '../app-store'
+import { Store } from '../stores'
 import CharacterSelect from './CharacterSelect'
 import Chat from './Chat'
 import Login from './Login'
 
+export enum AppView {
+  loading,
+  login,
+  characterSelect,
+  chat,
+}
+
 @observer
 export default class App extends React.Component {
   props: {
-    store: AppStore
+    store: Store
   }
+
+  @observable view = AppView.loading
+  @observable loginStatus = ''
 
   handleLoginSubmit = async (account: string, password: string) => {
     const { store } = this.props
-    store.setLoginStatus('')
+    this.loginStatus = ''
     try {
-      await store.fetchTicket(account, password)
-      await store.fetchCharacters()
-      store.setView(AppView.characterSelect)
-      store.saveUserData()
+      await store.user.fetchTicket(account, password)
+      await store.user.fetchCharacters()
+      store.user.saveUserData()
+      this.view = AppView.characterSelect
     } catch (error) {
-      store.setView(AppView.login)
-      store.setLoginStatus(error.toString())
+      this.view = AppView.login
+      this.loginStatus = error.toString()
     }
   }
 
   handleCharacterSubmit = (identity: string) => {
     const { store } = this.props
-    store.setIdentity(identity)
-    store.setView(AppView.chat)
-    store.chat.onDisconnect = () => store.init()
-    store.chat.connect(store.account, store.ticket, store.chat.identity)
+    store.chat.setIdentity(identity)
+    store.chat.onDisconnect = () => this.init()
+    store.chat.connect(store.user.account, store.user.ticket)
+    this.view = AppView.chat
+  }
+
+  async init() {
+    const { store } = this.props
+    this.view = AppView.loading
+    try {
+      store.user.loadUserData()
+      await store.user.fetchCharacters()
+      this.view = AppView.characterSelect
+    } catch (err) {
+      this.view = AppView.login
+    }
   }
 
   render() {
     const { store } = this.props
-    switch (store.view) {
+
+    switch (this.view) {
       case AppView.loading:
         return <div>Loading...</div>
 
@@ -45,7 +69,7 @@ export default class App extends React.Component {
             <h1>Hello, beautiful.</h1>
             <Login onSubmit={this.handleLoginSubmit} />
             <p>
-              {store.loginStatus}
+              {this.loginStatus}
             </p>
           </div>
         )
@@ -54,9 +78,13 @@ export default class App extends React.Component {
         return (
           <div className="fullscreen text-center flex-column flex-center">
             <h1>Choose your identity.</h1>
-            <CharacterSelect characters={store.characters} onSubmit={this.handleCharacterSubmit} />
+            <CharacterSelect
+              characters={store.user.characters}
+              onSubmit={this.handleCharacterSubmit}
+            />
           </div>
         )
+
       case AppView.chat:
         return <Chat store={store.chat} />
     }
