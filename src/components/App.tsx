@@ -60,7 +60,11 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.init()
+    if (this.props.store.chat.socket == null) {
+      this.init()
+    } else {
+      this.view = AppView.chat
+    }
   }
 
   render() {
