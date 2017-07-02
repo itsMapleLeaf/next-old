@@ -81,7 +81,7 @@ export default class Chat extends React.Component {
       <Overlay onShadeClick={this.closeChannelList}>
         <ChannelList
           channels={this.props.store.channelList}
-          joinedChannels={Object.keys(this.props.store.channels)}
+          joinedChannels={this.props.store.channels}
           onClose={this.closeChannelList}
           onChannelInput={this.handleChannelListInput}
         />
