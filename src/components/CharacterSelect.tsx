@@ -1,3 +1,5 @@
+import { observable } from 'mobx'
+import { observer } from 'mobx-react'
 import * as React from 'react'
 import { getAvatarURL } from '../lib/f-list'
 import { InputEvent, preventDefault } from '../lib/react-utils'
@@ -7,32 +9,29 @@ const avatarStyle: React.CSSProperties = {
   height: '100px',
 }
 
+@observer
 export default class CharacterSelect extends React.Component {
   props: {
     characters: string[]
     onSubmit: (character: string) => any
   }
 
-  state = {
-    current: '',
-  }
+  @observable current = ''
 
   handleSubmit = () => {
-    this.props.onSubmit(this.state.current)
+    this.props.onSubmit(this.current)
   }
 
   handleChange = (event: InputEvent) => {
-    const { value } = event.currentTarget
-    this.setState({ current: value })
-    localStorage.setItem('lastCharacter', value)
+    localStorage.setItem('lastCharacter', (this.current = event.currentTarget.value))
   }
 
   componentDidMount() {
-    this.setState({ current: localStorage.getItem('lastCharacter') || this.props.characters[0] })
+    this.current = localStorage.getItem('lastCharacter') || this.props.characters[0]
   }
 
   render(): JSX.Element {
-    const { current } = this.state
+    const { current } = this
     return (
       <form onSubmit={preventDefault(this.handleSubmit)}>
         <fieldset>

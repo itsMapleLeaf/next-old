@@ -1,21 +1,22 @@
+import { observable } from 'mobx'
+import { observer } from 'mobx-react'
 import * as React from 'react'
-import { linkState, preventDefault } from '../lib/react-utils'
+import { preventDefault } from '../lib/react-utils'
 
+@observer
 export default class Login extends React.Component {
   props: {
     onSubmit: (username: string, password: string) => any
   }
 
-  state = {
-    username: '',
-    password: '',
-  }
+  @observable username = ''
+  @observable password = ''
 
   handleSubmit = () => {
-    this.props.onSubmit(this.state.username, this.state.password)
+    this.props.onSubmit(this.username, this.password)
   }
 
-  render(): JSX.Element {
+  render() {
     return (
       <form onSubmit={preventDefault(this.handleSubmit)}>
         <fieldset>
@@ -23,8 +24,8 @@ export default class Login extends React.Component {
             className="input"
             type="text"
             placeholder="Username"
-            value={this.state.username}
-            onInput={linkState(this, 'username')}
+            value={this.username}
+            onInput={e => (this.username = e.currentTarget.value)}
           />
         </fieldset>
         <fieldset>
@@ -32,8 +33,8 @@ export default class Login extends React.Component {
             className="input"
             type="password"
             placeholder="Password"
-            value={this.state.password}
-            onInput={linkState(this, 'password')}
+            value={this.password}
+            onInput={e => (this.password = e.currentTarget.value)}
           />
         </fieldset>
         <fieldset>
