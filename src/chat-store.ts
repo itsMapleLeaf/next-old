@@ -1,5 +1,5 @@
 import * as forage from 'localforage'
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 const serverURL = 'wss://chat.f-list.net:9799'
 const clientName = 'next'
@@ -171,14 +171,9 @@ export default class ChatStore {
     }
   }
 
-  @computed
-  get joinedChannels() {
-    return Array.from(this.channels.keys())
-  }
-
   @action
   saveChannels() {
-    forage.setItem('joinedChannels:' + this.identity, this.joinedChannels)
+    forage.setItem('joinedChannels:' + this.identity, Object.keys(this.channels))
   }
 
   @action
