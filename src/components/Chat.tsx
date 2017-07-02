@@ -7,6 +7,7 @@ import ChannelList from './ChannelList'
 import Icon from './Icon'
 import Overlay from './Overlay'
 
+import { bound } from '../lib/util'
 import './Chat.css'
 
 function ChatAction(props: { icon: string; action: () => any }) {
@@ -25,18 +26,27 @@ export default class Chat extends React.Component {
     store: ChatStore
   }
 
+  @observable tabIndex = 0
   @observable channelListOpen = false
 
-  openChannelList = () => {
+  @bound
+  setTabIndex(index: number) {
+    this.tabIndex = index
+  }
+
+  @bound
+  openChannelList() {
     this.props.store.requestChannelList()
     this.channelListOpen = true
   }
 
-  closeChannelList = () => {
+  @bound
+  closeChannelList() {
     this.channelListOpen = false
   }
 
-  handleChannelListInput = (id: string) => {
+  @bound
+  handleChannelListInput(id: string) {
     const { store } = this.props
     if (store.isChannelJoined(id)) {
       store.leaveChannel(id)
@@ -69,7 +79,20 @@ export default class Chat extends React.Component {
   }
 
   renderTabBar() {
-    return <div className="bg-2">tabs</div>
+    const tabs = Array.from(this.props.store.channels.values()).map((ch, index) => {
+      const activeClass = index === this.tabIndex ? 'chat-tab--active' : ''
+      const onMouseDown = () => this.setTabIndex(index)
+      return (
+        <a href="#" className={`chat-tab ${activeClass}`} key={ch.id} onMouseDown={onMouseDown}>
+          {ch.title}
+        </a>
+      )
+    })
+    return (
+      <div className="bg-2">
+        {tabs}
+      </div>
+    )
   }
 
   renderChatView() {

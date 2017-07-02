@@ -9,3 +9,20 @@
 .chat-action:hover {
   opacity: 0.75;
 }
+
+.chat-tab {
+  display: block;
+  padding: 0.5em;
+  opacity: 0.5;
+  transition: 0.2s;
+  width: 12em;
+}
+
+.chat-tab:hover {
+  opacity: 0.75;
+}
+
+.chat-tab.chat-tab--active {
+  opacity: 1;
+  background-color: var(--bg-1);
+}
