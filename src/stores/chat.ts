@@ -164,7 +164,7 @@ export class ChatStore {
   }
 
   saveChannels() {
-    forage.setItem('joinedChannels:' + this.identity, Object.keys(this.channels))
+    forage.setItem('joinedChannels:' + this.identity, Array.from(this.channels.keys()))
   }
 
   async restoreChannels() {
