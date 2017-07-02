@@ -10,13 +10,41 @@ import Overlay from './Overlay'
 
 import './Chat.css'
 
-function ChatAction(props: { icon: string; action: () => any }) {
+function Action(props: { icon: string; action: () => any }) {
   return (
     <a className="chat-action" href="#" onMouseDown={preventDefault(props.action)}>
       <Icon>
         {props.icon}
       </Icon>
     </a>
+  )
+}
+
+function ActionBar(props: { channelListAction: () => any }) {
+  return (
+    <div className="flex-column">
+      <Action icon="forum" action={props.channelListAction} />
+    </div>
+  )
+}
+
+function TabBar(props: {
+  tabs: Array<{ title: string }>
+  current: number
+  onTabClicked: (tabIndex: number) => any
+}) {
+  return (
+    <div>
+      {props.tabs.map((tab, i) => {
+        const activeClass = props.current === i ? 'chat-tab--active' : ''
+        const onMouseDown = preventDefault(() => props.onTabClicked(i))
+        return (
+          <a href="#" className={`chat-tab ${activeClass}`} key={i} onMouseDown={onMouseDown}>
+            {tab.title}
+          </a>
+        )
+      })}
+    </div>
   )
 }
 
@@ -60,37 +88,20 @@ export default class Chat extends React.Component {
   }
 
   render() {
+    const channels = this.props.store.channels.values()
+
+    const tabs = Array.from(channels).map(ch => {
+      return { title: ch.title }
+    })
+
     return (
       <div className="bg-3 fullscreen flex-row">
-        {this.renderActionBar()}
-        {this.renderTabBar()}
+        <ActionBar channelListAction={this.openChannelList} />
+        <div className="bg-2">
+          <TabBar tabs={tabs} current={this.tabIndex} onTabClicked={this.setTabIndex} />
+        </div>
         {this.renderChatView()}
         {this.channelListOpen && this.renderChannelList()}
-      </div>
-    )
-  }
-
-  renderActionBar() {
-    return (
-      <div className="flex-column">
-        <ChatAction icon="forum" action={this.openChannelList} />
-      </div>
-    )
-  }
-
-  renderTabBar() {
-    const tabs = Array.from(this.props.store.channels.values()).map((ch, index) => {
-      const activeClass = index === this.tabIndex ? 'chat-tab--active' : ''
-      const onMouseDown = () => this.setTabIndex(index)
-      return (
-        <a href="#" className={`chat-tab ${activeClass}`} key={ch.id} onMouseDown={onMouseDown}>
-          {ch.title}
-        </a>
-      )
-    })
-    return (
-      <div className="bg-2">
-        {tabs}
       </div>
     )
   }
