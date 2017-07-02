@@ -9,6 +9,16 @@ import Overlay from './Overlay'
 
 import './Chat.css'
 
+function ChatAction(props: { icon: string; action: () => any }) {
+  return (
+    <a className="chat-action" href="#" onMouseDown={preventDefault(props.action)}>
+      <Icon>
+        {props.icon}
+      </Icon>
+    </a>
+  )
+}
+
 @observer
 export default class Chat extends React.Component {
   props: {
@@ -40,43 +50,42 @@ export default class Chat extends React.Component {
   }
 
   render() {
-    const { store } = this.props
-
     return (
       <div className="bg-3 fullscreen flex-row">
-        <div className="flex-column">
-          <div className="flex-grow">
-            <a className="chat-action" href="#" onMouseDown={preventDefault(this.openChannelList)}>
-              <Icon>forum</Icon>
-            </a>
-            <a className="chat-action" href="#">
-              <Icon>account_circle</Icon>
-            </a>
-            <a className="chat-action" href="#">
-              <Icon>settings</Icon>
-            </a>
-          </div>
-          <div>
-            <a className="chat-action" href="#">
-              <Icon>exit_to_app</Icon>
-            </a>
-          </div>
-        </div>
-
-        <div className="bg-2">tabs</div>
-
-        <div className="bg-1 flex-grow">chat</div>
-
-        {this.channelListOpen &&
-          <Overlay onShadeClick={this.closeChannelList}>
-            <ChannelList
-              channels={store.channelList}
-              joinedChannels={Object.keys(store.channels)}
-              onClose={this.closeChannelList}
-              onChannelInput={this.handleChannelListInput}
-            />
-          </Overlay>}
+        {this.renderActionBar()}
+        {this.renderTabBar()}
+        {this.renderChatView()}
+        {this.channelListOpen && this.renderChannelList()}
       </div>
+    )
+  }
+
+  renderActionBar() {
+    return (
+      <div className="flex-column">
+        <ChatAction icon="forum" action={this.openChannelList} />
+      </div>
+    )
+  }
+
+  renderTabBar() {
+    return <div className="bg-2">tabs</div>
+  }
+
+  renderChatView() {
+    return <div className="bg-1 flex-grow">chat</div>
+  }
+
+  renderChannelList() {
+    return (
+      <Overlay onShadeClick={this.closeChannelList}>
+        <ChannelList
+          channels={this.props.store.channelList}
+          joinedChannels={Object.keys(this.props.store.channels)}
+          onClose={this.closeChannelList}
+          onChannelInput={this.handleChannelListInput}
+        />
+      </Overlay>
     )
   }
 }
