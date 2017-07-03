@@ -1,5 +1,2 @@
-node_modules
-*.log
-*.map
-todo.txt
-build
+node_modules/
+build/
