@@ -1,12 +1,12 @@
 <template>
-  <body class='container'>
+  <main class='container'>
     <transition name='fade' mode='out-in' appear>
-      <component v-if='currentView' :is='currentView' />
+      <component v-if='currentView' :is='currentView'></component>
     </transition>
     <transition name='fade' appear>
       <Loading v-if='loadingMessage'>{{ loadingMessage }}</Loading>
     </transition>
-  </body>
+  </main>
 </template>
 
 <style lang='stylus'>
@@ -29,7 +29,7 @@ import CharacterList from './CharacterList.vue'
 import Chat from './Chat.vue'
 import Loading from './Loading.vue'
 
-import {getters} from '../store'
+import { getters } from '../store'
 
 export default {
   components: {

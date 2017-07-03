@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime'
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './components/App.vue'
-import {store, state} from './store'
+import { store, state } from './store'
 
 // configure keycodes
 Vue.config.keyCodes = {
@@ -21,7 +21,7 @@ store.initialize()
 // create vue instance
 /* eslint no-new: off */
 new Vue({
-  el: 'body',
+  el: '#app',
   render: h => h(App),
-  data: {state},
+  data: { state },
 })
