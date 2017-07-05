@@ -20,6 +20,7 @@
     "@types/react-dom": "^15.5.1",
     "mobx-react-devtools": "^4.2.15",
     "react-scripts-ts": "2.3.2",
+    "tslint-config-prettier": "^1.1.0",
     "typescript": "^2.4.1"
   },
   "scripts": {
