@@ -33,7 +33,7 @@ export default class CharacterSelect extends React.Component {
     this.current = localStorage.getItem('lastCharacter') || this.props.characters[0]
   }
 
-  render(): JSX.Element {
+  render() {
     const { current } = this
     return (
       <form onSubmit={preventDefault(this.handleSubmit)}>
