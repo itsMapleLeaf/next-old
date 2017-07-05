@@ -1,5 +1,5 @@
 import * as forage from 'localforage'
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import { ChatState } from './chat-state'
 import { fetchCharacters, fetchTicket } from './lib/f-list'
 
@@ -85,5 +85,10 @@ export default class Store {
         this.socket.send(cmd)
       }
     }
+  }
+
+  @computed
+  get isConnected() {
+    return this.socket != null
   }
 }

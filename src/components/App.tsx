@@ -83,7 +83,11 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.init()
+    if (this.store.isConnected) {
+      this.view = this.renderChat
+    } else {
+      this.init()
+    }
   }
 
   render() {
