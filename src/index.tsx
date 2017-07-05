@@ -14,4 +14,4 @@ function render() {
 render()
 
 declare var module: any
-if (module.hot) module.hot.accept(render)
+if (module.hot) module.hot.accept('./components/App', render)
