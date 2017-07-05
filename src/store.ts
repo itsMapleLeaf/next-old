@@ -62,8 +62,20 @@ export default class Store {
       const data = msg.data as string
       const cmd = data.slice(0, 3)
       const params = data.length > 3 ? JSON.parse(data.slice(4)) : {}
+
+      if (cmd === 'PIN') {
+        this.sendCommand('PIN')
+      }
+
+      if (cmd === 'IDN') {
+        this.joinChannel('Frontpage')
+        this.joinChannel('Story Driven LFRP')
+        this.joinChannel('Development')
+        this.joinChannel('Fantasy')
+        this.joinChannel('Love and Affection')
+      }
+
       this.chat.handleSocketCommand(cmd, params)
-      if (cmd === 'PIN') this.sendCommand('PIN')
     }
 
     this.socket.onclose = this.socket.onerror = () => {
@@ -74,6 +86,11 @@ export default class Store {
   @action
   disconnect() {
     if (this.socket) this.socket.close()
+  }
+
+  @computed
+  get isConnected() {
+    return this.socket != null
   }
 
   @action
@@ -87,8 +104,9 @@ export default class Store {
     }
   }
 
-  @computed
-  get isConnected() {
-    return this.socket != null
+  @action
+  joinChannel(id: string) {
+    this.chat.addChannel(id)
+    this.sendCommand('JCH', { channel: id })
   }
 }

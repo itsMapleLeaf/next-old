@@ -1,10 +1,51 @@
 import { action, observable } from 'mobx'
 
+class Character {
+  @observable status = 'online'
+  @observable statusMessage = ''
+
+  constructor(public name: string, public gender: string, status = 'online', statusMessage = '') {
+    this.setStatus(status, statusMessage)
+  }
+
+  @action
+  setStatus(status: string, statusMessage: string) {
+    this.status = status
+    this.statusMessage = statusMessage
+  }
+}
+
+class Channel {
+  @observable title = this.id
+  @observable description = ''
+  @observable users = [] as Character[]
+  @observable messages = [] as Message[]
+  constructor(public id: string) {}
+}
+
+class Message {
+  date = new Date()
+  constructor(public sender: Character, public text: string) {}
+}
+
 export class ChatState {
   @observable friends = [] as string[]
   @observable ignoredUsers = [] as string[]
   @observable admins = [] as string[]
   onlineCharacters = new Map<string, Character>()
+  channels = new Map<string, Channel>()
+
+  @action
+  addChannel(id: string) {
+    if (!this.channels.has(id)) {
+      this.channels.set(id, new Channel(id))
+    }
+  }
+
+  @action
+  removeChannel(id: string) {
+    this.channels.delete(id)
+  }
 
   @action
   handleSocketCommand(cmd: string, params: { [k: string]: any }) {
@@ -63,20 +104,5 @@ export class ChatState {
       default:
         console.log(cmd, params)
     }
-  }
-}
-
-class Character {
-  @observable status = 'online'
-  @observable statusMessage = ''
-
-  constructor(public name: string, public gender: string, status = 'online', statusMessage = '') {
-    this.setStatus(status, statusMessage)
-  }
-
-  @action
-  setStatus(status: string, statusMessage: string) {
-    this.status = status
-    this.statusMessage = statusMessage
   }
 }
