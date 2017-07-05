@@ -22,6 +22,7 @@ export default class App extends React.Component {
     try {
       await this.store.login(account, password)
       await this.store.fetchUserCharacters()
+      this.store.saveUserData()
       this.view = this.renderCharacterSelect
     } catch (err) {
       this.loginStatus = err.toString()
@@ -32,6 +33,7 @@ export default class App extends React.Component {
   handleCharacterSubmit(identity: string) {
     this.store.setIdentity(identity)
     this.store.connect()
+    this.view = this.renderChat
   }
 
   @bind
@@ -57,14 +59,31 @@ export default class App extends React.Component {
     return (
       <div className="fullscreen text-center flex-column flex-center">
         <h1>Choose your identity.</h1>
-        <CharacterSelect characters={this.store.userCharacters} onSubmit={console.log} />
+        <CharacterSelect
+          characters={this.store.userCharacters}
+          onSubmit={this.handleCharacterSubmit}
+        />
       </div>
     )
   }
 
   @bind
   renderChat() {
-    return <div>I am chat</div>
+    return <div>i am chat</div>
+  }
+
+  async init() {
+    try {
+      await this.store.loadUserData()
+      await this.store.fetchUserCharacters()
+      this.view = this.renderCharacterSelect
+    } catch (err) {
+      this.view = this.renderLogin
+    }
+  }
+
+  componentDidMount() {
+    this.init()
   }
 
   render() {
