@@ -3,10 +3,12 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 import { preventDefault } from '../lib/react-utils'
 
+export type LoginSubmitCallback = (username: string, password: string) => any
+
 @observer
 export default class Login extends React.Component {
   props: {
-    onSubmit: (username: string, password: string) => any
+    onSubmit: LoginSubmitCallback
   }
 
   @observable username = ''
