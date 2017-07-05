@@ -6,54 +6,68 @@ import Store from '../store'
 import CharacterSelect from './CharacterSelect'
 import Login from './Login'
 
-enum AppView {
-  login,
-  characterSelect,
-}
-
 @observer
 export default class App extends React.Component {
   props: {
     store: Store
   }
 
-  @observable view = AppView.login
+  store = this.props.store
+  @observable view: () => JSX.Element = this.renderLoadingView
   @observable loginStatus = ''
 
   @bind
   async handleLoginSubmit(account: string, password: string) {
-    const { store } = this.props
     this.loginStatus = 'Logging in...'
     try {
-      await store.login(account, password)
-      await store.fetchUserCharacters()
-      this.view = AppView.characterSelect
+      await this.store.login(account, password)
+      await this.store.fetchUserCharacters()
+      this.view = this.renderCharacterSelect
     } catch (err) {
       this.loginStatus = err.toString()
     }
   }
 
-  render() {
-    const { store } = this.props
-    switch (this.view) {
-      case AppView.login:
-        return (
-          <div className="fullscreen text-center flex-column flex-center">
-            <h1>Hello, beautiful.</h1>
-            <Login onSubmit={this.handleLoginSubmit} />
-            <p>
-              {this.loginStatus}
-            </p>
-          </div>
-        )
+  @bind
+  handleCharacterSubmit(identity: string) {
+    this.store.setIdentity(identity)
+    this.store.connect()
+  }
 
-      case AppView.characterSelect:
-        return (
-          <div className="fullscreen text-center flex-column flex-center">
-            <h1>Choose your identity.</h1>
-            <CharacterSelect characters={store.userCharacters} onSubmit={console.log} />
-          </div>
-        )
-    }
+  @bind
+  renderLoadingView() {
+    return <div>Loading...</div>
+  }
+
+  @bind
+  renderLogin() {
+    return (
+      <div className="fullscreen text-center flex-column flex-center">
+        <h1>Hello, beautiful.</h1>
+        <Login onSubmit={this.handleLoginSubmit} />
+        <p>
+          {this.loginStatus}
+        </p>
+      </div>
+    )
+  }
+
+  @bind
+  renderCharacterSelect() {
+    return (
+      <div className="fullscreen text-center flex-column flex-center">
+        <h1>Choose your identity.</h1>
+        <CharacterSelect characters={this.store.userCharacters} onSubmit={console.log} />
+      </div>
+    )
+  }
+
+  @bind
+  renderChat() {
+    return <div>I am chat</div>
+  }
+
+  render() {
+    return this.view()
   }
 }
