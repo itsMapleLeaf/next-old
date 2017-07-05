@@ -1,3 +1,4 @@
+import { bind } from 'decko'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
@@ -18,11 +19,13 @@ export default class CharacterSelect extends React.Component {
 
   @observable current = ''
 
-  handleSubmit = () => {
+  @bind
+  handleSubmit() {
     this.props.onSubmit(this.current)
   }
 
-  handleChange = (event: InputEvent) => {
+  @bind
+  handleChange(event: InputEvent) {
     localStorage.setItem('lastCharacter', (this.current = event.currentTarget.value))
   }
 
