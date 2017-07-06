@@ -1,6 +1,6 @@
 import * as forage from 'localforage'
 import { action, computed, observable } from 'mobx'
-import { ChatState } from './chat-state'
+import ChatState from './chat-state'
 import { fetchCharacters, fetchTicket } from './lib/f-list'
 
 const serverURL = 'wss://chat.f-list.net:9799'

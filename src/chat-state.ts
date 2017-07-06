@@ -28,7 +28,7 @@ class Message {
   constructor(public sender: Character, public text: string) {}
 }
 
-export class ChatState {
+export default class ChatState {
   @observable friends = [] as string[]
   @observable ignoredUsers = [] as string[]
   @observable admins = [] as string[]
