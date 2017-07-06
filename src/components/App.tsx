@@ -7,12 +7,12 @@ import CharacterSelect from './CharacterSelect'
 import Chat from './Chat'
 import Login from './Login'
 
-@observer
-export default class App extends React.Component {
-  props: {
-    store: Store
-  }
+interface AppProps {
+  store: Store
+}
 
+@observer
+export default class App extends React.Component<AppProps> {
   store = this.props.store
   @observable view: () => JSX.Element = this.renderLoadingView
   @observable loginStatus = ''
