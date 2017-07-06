@@ -14,7 +14,7 @@ interface AppProps {
 @observer
 export default class App extends React.Component<AppProps> {
   store = this.props.store
-  @observable view: () => JSX.Element = this.renderLoadingView
+  @observable view = this.renderLoadingView
   @observable loginStatus = ''
 
   @bind
