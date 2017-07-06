@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx'
 
-class Character {
+export class Character {
   @observable status = 'online'
   @observable statusMessage = ''
 
@@ -15,7 +15,7 @@ class Character {
   }
 }
 
-class Channel {
+export class Channel {
   @observable title = this.id
   @observable description = ''
   @observable users = [] as Character[]
@@ -23,7 +23,7 @@ class Channel {
   constructor(public id: string) {}
 }
 
-class Message {
+export class Message {
   date = new Date()
   constructor(public sender: Character, public text: string) {}
 }
