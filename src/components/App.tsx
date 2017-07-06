@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 import Store from '../store'
 import CharacterSelect from './CharacterSelect'
+import Chat from './Chat'
 import Login from './Login'
 
 @observer
@@ -69,7 +70,7 @@ export default class App extends React.Component {
 
   @bind
   renderChat() {
-    return <div>i am chat</div>
+    return <Chat store={this.store} />
   }
 
   async init() {

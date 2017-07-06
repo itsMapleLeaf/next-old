@@ -33,7 +33,7 @@ export class ChatState {
   @observable ignoredUsers = [] as string[]
   @observable admins = [] as string[]
   onlineCharacters = new Map<string, Character>()
-  channels = new Map<string, Channel>()
+  @observable channels = new Map<string, Channel>()
 
   @action
   addChannel(id: string) {
