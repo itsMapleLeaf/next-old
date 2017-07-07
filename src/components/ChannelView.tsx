@@ -2,6 +2,7 @@ import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { Channel, Character, Message } from '../store/chat-state'
+import CharacterView from './CharacterView'
 import MessageView from './MessageView'
 
 function sortUserList(users: Character[]) {
@@ -15,7 +16,7 @@ function renderMessageList(messages: Message[]) {
 function renderUserList(users: Character[]) {
   return users.map(user =>
     <div key={user.name} style={{ width: '12em', margin: '0.4em 0.5em' }}>
-      {user.name}
+      <CharacterView character={user} />
     </div>
   )
 }

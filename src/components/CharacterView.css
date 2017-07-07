@@ -1,0 +1,24 @@
+.character-gender-male {
+  color: hsl(210, 75%, 70%);
+}
+.character-gender-female {
+  color: hsl(10, 75%, 70%);
+}
+.character-gender-herm {
+  color: hsl(240, 75%, 75%);
+}
+.character-gender-shemale {
+  color: hsl(300, 75%, 75%);
+}
+.character-gender-transgender {
+  color: hsl(25, 75%, 70%);
+}
+.character-gender-cunt-boy {
+  color: hsl(110, 60%, 65%);
+}
+.character-gender-male-herm {
+  color: hsl(170, 75%, 70%);
+}
+.character-gender-none {
+  color: hsl(50, 50%, 70%);
+}
