@@ -25,7 +25,14 @@ export class Channel {
 
 export class Message {
   date = new Date()
-  constructor(public sender: Character, public text: string) {}
+  id = Math.random().toString()
+  constructor(public sender: Character, public text: string, public type: MessageType) {}
+}
+
+export enum MessageType {
+  normal,
+  lfrp,
+  admin,
 }
 
 export default class ChatState {
@@ -100,6 +107,17 @@ export default class ChatState {
         const char = this.onlineCharacters.get(params.character)
         if (char) char.setStatus(params.status, params.statusmsg)
         break
+
+      case 'MSG':
+      case 'LRP': {
+        const channel = this.channels.get(params.channel)
+        const sender = this.onlineCharacters.get(params.character)
+        if (channel && sender) {
+          const type = cmd === 'LRP' ? MessageType.lfrp : MessageType.normal
+          channel.messages.push(new Message(sender, params.message, type))
+        }
+        break
+      }
 
       default:
         console.log(cmd, params)

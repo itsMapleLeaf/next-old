@@ -10,12 +10,12 @@ const chatTabStyle: React.CSSProperties = {
   display: 'block',
 }
 
-function ChatTab(props: { title: any; active: boolean; onClick: () => any }) {
+function Tab(props: { children: any; active: boolean; onClick: () => any }) {
   const activeClass = props.active ? 'bg-1' : ''
   const onMouseDown = preventDefault(props.onClick)
   return (
     <a href="#" style={chatTabStyle} className={activeClass} onMouseDown={onMouseDown}>
-      {props.title}
+      {props.children}
     </a>
   )
 }
@@ -33,20 +33,26 @@ export default class Chat extends React.Component {
     const channels = Array.from(this.store.chat.channels.values())
 
     const tabs = channels.map((ch, index) =>
-      <ChatTab
-        key={ch.id}
-        title={ch.title}
-        active={index === this.tabIndex}
-        onClick={() => (this.tabIndex = index)}
-      />
+      <Tab key={ch.id} active={index === this.tabIndex} onClick={() => (this.tabIndex = index)}>
+        {ch.title}
+      </Tab>
     )
+
+    const currentChannel = channels[this.tabIndex]
 
     return (
       <div className="fullscreen flex-row">
         <div className="bg-2">
           {tabs}
         </div>
-        <div className="flex-grow">i am chat</div>
+        <div className="flex-grow">
+          {currentChannel &&
+            currentChannel.messages.map(msg =>
+              <div key={msg.id}>
+                {msg.sender.name}: {msg.text}
+              </div>
+            )}
+        </div>
       </div>
     )
   }
