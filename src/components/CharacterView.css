@@ -36,7 +36,8 @@
 .character-status-busy {
   color: hsl(20, 70%, 60%);
 }
-.character-status-away {
+.character-status-away,
+.character-status-idle {
   color: hsl(50, 70%, 60%);
 }
 .character-status-dnd {
