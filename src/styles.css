@@ -103,15 +103,17 @@ a {
   background-color: var(--bg-3);
 }
 
-::-webkit-scrollbar {
-  width: 12px;
-}
+@media screen {
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
 
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-corner {
-  background-color: var(--bg-2);
-}
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background-color: var(--bg-2);
+  }
 
-::-webkit-scrollbar-thumb {
-  background-color: var(--bg-1);
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--bg-1);
+  }
 }
