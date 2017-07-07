@@ -24,16 +24,16 @@ function Tab(props: { children: any; active: boolean; onClick: () => any }) {
 function ChannelView({ channel }: { channel: Channel }) {
   return (
     <div className="flex-row" style={{ width: '100%', height: '100%' }}>
-      <div className="flex-grow scroll-v">
+      <div className="flex-grow scroll-v bg-2">
         {channel.messages.map(msg =>
-          <div key={msg.id}>
+          <div key={msg.id} style={{ margin: '0.4em 0.5em' }}>
             {msg.sender.name}: {msg.text}
           </div>
         )}
       </div>
       <div className="scroll-v">
         {Array.from(channel.users.values()).map(user =>
-          <div key={user.name}>
+          <div key={user.name} style={{ width: '12em', margin: '0.4em 0.5em' }}>
             {user.name}
           </div>
         )}
