@@ -5,7 +5,7 @@ import { Channel, Character, Message } from '../store/chat-state'
 import MessageView from './MessageView'
 
 function sortUserList(users: Character[]) {
-  return sortBy(users, 'name')
+  return sortBy(users, user => user.name.toLowerCase())
 }
 
 function renderMessageList(messages: Message[]) {
