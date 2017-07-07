@@ -1,9 +1,14 @@
-import { observable } from 'mobx'
+import { computed, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import Store from '../store'
 import ChannelView from './ChannelView'
 import ChatTab from './ChatTab'
+
+interface Tab {
+  title: React.ReactNode
+  view: () => React.ReactNode
+}
 
 @observer
 export default class Chat extends React.Component {
@@ -12,18 +17,28 @@ export default class Chat extends React.Component {
   }
 
   store = this.props.store
+
   @observable tabIndex = 0
 
-  render() {
+  @computed
+  get tabs(): Tab[] {
     const channels = Array.from(this.store.chat.channels.values())
+    return channels.map(ch => {
+      return {
+        title: ch.title,
+        view: () => <ChannelView channel={ch} />,
+      }
+    })
+  }
 
-    const tabs = channels.map((ch, index) =>
-      <ChatTab key={ch.id} active={index === this.tabIndex} onClick={() => (this.tabIndex = index)}>
-        {ch.title}
+  render() {
+    const tabs = this.tabs.map((tab, index) =>
+      <ChatTab key={index} active={index === this.tabIndex} onClick={() => (this.tabIndex = index)}>
+        {tab.title}
       </ChatTab>
     )
 
-    const currentChannel = channels[this.tabIndex]
+    const currentTab = this.tabs[this.tabIndex]
 
     return (
       <div className="fullscreen flex-row">
@@ -31,7 +46,7 @@ export default class Chat extends React.Component {
           {tabs}
         </div>
         <div className="flex-grow">
-          {currentChannel && <ChannelView channel={currentChannel} />}
+          {currentTab && currentTab.view()}
         </div>
       </div>
     )
