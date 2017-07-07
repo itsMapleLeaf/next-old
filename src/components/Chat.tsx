@@ -10,15 +10,10 @@ interface Tab {
   view: () => React.ReactNode
 }
 
-@observer
-export default class Chat extends React.Component {
-  props: {
-    store: Store
-  }
-
-  store = this.props.store
-
+class ChatViewState {
   @observable tabIndex = 0
+
+  constructor(private store: Store) {}
 
   @computed
   get tabs(): Tab[] {
@@ -31,24 +26,45 @@ export default class Chat extends React.Component {
     })
   }
 
-  render() {
-    const tabs = this.tabs.map((tab, index) =>
-      <ChatTab key={index} active={index === this.tabIndex} onClick={() => (this.tabIndex = index)}>
-        {tab.title}
-      </ChatTab>
-    )
+  @computed
+  get currentTab() {
+    return this.tabs[this.tabIndex]
+  }
+}
 
-    const currentTab = this.tabs[this.tabIndex]
+@observer
+export default class Chat extends React.Component {
+  props: {
+    store: Store
+  }
+
+  store = this.props.store
+  viewState = new ChatViewState(this.store)
+
+  render() {
+    const { currentTab } = this.viewState
 
     return (
       <div className="fullscreen flex-row">
         <div className="bg-2">
-          {tabs}
+          {this.renderTabs()}
         </div>
         <div className="flex-grow">
           {currentTab && currentTab.view()}
         </div>
       </div>
     )
+  }
+
+  renderTabs() {
+    return this.viewState.tabs.map((tab, index) => {
+      const active = index === this.viewState.tabIndex
+      const onClick = () => (this.viewState.tabIndex = index)
+      return (
+        <ChatTab key={index} active={active} onClick={onClick}>
+          {tab.title}
+        </ChatTab>
+      )
+    })
   }
 }
