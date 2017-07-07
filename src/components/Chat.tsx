@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 import { preventDefault } from '../lib/react-utils'
 import Store from '../store'
-import './Chat.css'
 
 const chatTabStyle: React.CSSProperties = {
   width: '12em',
