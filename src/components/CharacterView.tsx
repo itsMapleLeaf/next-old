@@ -5,11 +5,8 @@ import './CharacterView.css'
 export default function CharacterView(props: { character: Character }) {
   const { name, gender, status } = props.character
   return (
-    <a href="#" style={{ fontWeight: 500 }}>
-      <span
-        className={`character-status-${status.toLowerCase()}`}
-        style={{ transform: 'scale(1.3)', display: 'inline-block' }}
-      >
+    <a href="#" className="character">
+      <span className={`character-status character-status-${status.toLowerCase()}`}>
         &bull;
       </span>{' '}
       <span className={`character-gender-${gender.toLowerCase()}`}>{name}</span>

@@ -1,3 +1,7 @@
+.character {
+  font-weight: 500;
+}
+
 .character-gender-male {
   color: hsl(210, 75%, 70%);
 }
@@ -37,4 +41,9 @@
 }
 .character-status-dnd {
   color: hsl(0, 70%, 60%);
+}
+
+.character-status {
+  transform: scale(1.25);
+  display: inline-block;
 }
