@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "es2015",
     "target": "es5",
     "lib": [
       "esnext",
@@ -9,6 +9,7 @@
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
