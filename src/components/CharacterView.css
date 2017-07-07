@@ -22,3 +22,19 @@
 .character-gender-none {
   color: hsl(50, 50%, 70%);
 }
+
+.character-status-online {
+  color: hsl(210, 70%, 60%);
+}
+.character-status-looking {
+  color: hsl(120, 70%, 60%);
+}
+.character-status-busy {
+  color: hsl(20, 70%, 60%);
+}
+.character-status-away {
+  color: hsl(50, 70%, 60%);
+}
+.character-status-dnd {
+  color: hsl(0, 70%, 60%);
+}
