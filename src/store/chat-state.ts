@@ -18,8 +18,9 @@ export class Character {
 export class Channel {
   @observable title = this.id
   @observable description = ''
-  @observable users = [] as Character[]
+  @observable users = new Map<string, Character>()
   @observable messages = [] as Message[]
+  @observable ops = [] as string[]
   constructor(public id: string) {}
 }
 
@@ -103,10 +104,53 @@ export default class ChatState {
         this.onlineCharacters.delete(params.character)
         break
 
-      case 'STA':
+      case 'STA': {
         const char = this.onlineCharacters.get(params.character)
         if (char) char.setStatus(params.status, params.statusmsg)
         break
+      }
+
+      case 'JCH': {
+        const channel = this.channels.get(params.channel)
+        const user = this.onlineCharacters.get(params.character.identity)
+        if (channel && user) {
+          channel.users.set(user.name, user)
+        }
+        break
+      }
+
+      case 'LCH': {
+        const channel = this.channels.get(params.channel)
+        if (channel) {
+          channel.users.delete(params.character)
+        }
+        break
+      }
+
+      case 'COL': {
+        const channel = this.channels.get(params.channel)
+        if (channel) channel.ops = params.oplist
+        break
+      }
+
+      case 'ICH': {
+        const channel = this.channels.get(params.channel)
+        if (channel) {
+          for (const { identity } of params.users) {
+            const user = this.onlineCharacters.get(identity)
+            if (user) {
+              channel.users.set(identity, user)
+            }
+          }
+        }
+        break
+      }
+
+      case 'CDS': {
+        const channel = this.channels.get(params.channel)
+        if (channel) channel.description = params.description
+        break
+      }
 
       case 'MSG':
       case 'LRP': {

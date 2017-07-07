@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 :root {
@@ -44,6 +45,7 @@ a {
 
 .scroll-v {
   overflow-y: auto;
+  word-break: break-word;
 }
 
 .flex-row {
@@ -57,6 +59,7 @@ a {
 
 .flex-grow {
   flex-grow: 1;
+  flex-shrink: 1;
   min-height: 0; /* fix flex overflow bug in non-chrome browsers */
 }
 
