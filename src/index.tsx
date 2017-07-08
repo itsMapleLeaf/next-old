@@ -10,9 +10,6 @@ import * as ReactDOM from 'react-dom'
 import App from './components/App'
 import Store from './store'
 
-declare var require: (module: string) => any
-declare var module: any
-
 const store = new Store()
 
 function render() {
