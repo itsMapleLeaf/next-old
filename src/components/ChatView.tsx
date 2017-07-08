@@ -33,7 +33,7 @@ class ChatViewState {
 }
 
 @observer
-export default class Chat extends React.Component {
+export default class ChatView extends React.Component {
   props: {
     store: Store
   }
