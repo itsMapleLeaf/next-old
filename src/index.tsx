@@ -17,7 +17,7 @@ const store = new Store()
 
 function render() {
   const Root = require('./components/App').default as typeof App
-  ReactDOM.render(React.createElement(Root, { store }), document.getElementById('root'))
+  ReactDOM.render(<Root store={store} />, document.getElementById('root'))
 }
 
 render()
