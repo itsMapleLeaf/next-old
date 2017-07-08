@@ -1,0 +1,16 @@
+.fullscreen {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.scroll-v {
+  overflow-y: auto;
+  word-break: break-word;
+}

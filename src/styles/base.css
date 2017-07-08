@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+:root {
+  font: 16px Roboto, sans-serif;
+  color: hsl(0, 0%, 90%);
+  background: hsl(0, 0%, 20%);
+  line-height: 1.4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: lighter;
+}
+
+fieldset {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

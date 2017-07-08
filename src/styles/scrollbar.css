@@ -1,0 +1,14 @@
+@media screen {
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background-color: var(--bg-2);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--bg-1);
+  }
+}

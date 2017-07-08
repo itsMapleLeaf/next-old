@@ -1,0 +1,15 @@
+:root {
+  --bg-1: hsl(0, 0%, 20%);
+  --bg-2: hsl(0, 0%, 13%);
+  --bg-3: hsl(0, 0%, 8%);
+}
+
+.bg-1 {
+  background: var(--bg-1);
+}
+.bg-2 {
+  background: var(--bg-2);
+}
+.bg-3 {
+  background: var(--bg-3);
+}
