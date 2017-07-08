@@ -10,13 +10,15 @@ import * as ReactDOM from 'react-dom'
 import App from './components/App'
 import Store from './store'
 
+declare var require: (module: string) => any
+declare var module: any
+
 const store = new Store()
 
 function render() {
   const Root = require('./components/App').default as typeof App
   ReactDOM.render(React.createElement(Root, { store }), document.getElementById('root'))
 }
-render()
 
-declare var module: any
+render()
 if (module.hot) module.hot.accept('./components/App', render)
