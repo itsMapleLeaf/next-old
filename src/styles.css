@@ -7,6 +7,8 @@
   font: 16px Roboto, sans-serif;
   color: hsl(0, 0%, 90%);
   background: hsl(0, 0%, 20%);
+  line-height: 1.4;
+
   --bg-1: hsl(0, 0%, 20%);
   --bg-2: hsl(0, 0%, 13%);
   --bg-3: hsl(0, 0%, 8%);
