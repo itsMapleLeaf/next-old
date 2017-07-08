@@ -22,16 +22,23 @@ function renderUserList(users: Character[]) {
 }
 
 function ChannelView(props: { channel: Channel }) {
-  const { messages, users } = props.channel
+  const { messages, users, description } = props.channel
   const userList = Array.from(users.values())
   const sortedUsers = sortUserList(userList)
   return (
-    <div className="flex-row" style={{ width: '100%', height: '100%' }}>
-      <div className="flex-grow scroll-v bg-2">
-        {renderMessageList(messages)}
-      </div>
-      <div className="scroll-v">
-        {renderUserList(sortedUsers)}
+    <div className="flex-column" style={{ width: '100%', height: '100%' }}>
+      <div
+        className="scroll-v"
+        style={{ padding: '0.5em', maxHeight: '5em' }}
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
+      <div className="flex-grow flex-row">
+        <div className="flex-grow scroll-v bg-2">
+          {renderMessageList(messages)}
+        </div>
+        <div className="scroll-v">
+          {renderUserList(sortedUsers)}
+        </div>
       </div>
     </div>
   )
