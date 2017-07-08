@@ -27,8 +27,13 @@ class ChatViewState {
   }
 
   @computed
-  get currentTab() {
+  get currentTab(): Tab | void {
     return this.tabs[this.tabIndex]
+  }
+
+  @computed
+  get currentView() {
+    return this.currentTab ? this.currentTab.view() : <div />
   }
 }
 
@@ -42,15 +47,13 @@ export default class ChatView extends React.Component {
   viewState = new ChatViewState(this.store)
 
   render() {
-    const { currentTab } = this.viewState
-
     return (
       <div className="fullscreen flex-row">
         <div className="bg-2">
           {this.renderTabs()}
         </div>
         <div className="flex-grow">
-          {currentTab && currentTab.view()}
+          {this.viewState.currentView}
         </div>
       </div>
     )
