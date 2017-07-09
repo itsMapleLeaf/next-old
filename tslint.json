@@ -16,7 +16,7 @@
       "jsx-double"
     ],
     "ordered-imports": [
-      true
+      false
     ],
     "object-literal-sort-keys": false,
     "member-access": [
