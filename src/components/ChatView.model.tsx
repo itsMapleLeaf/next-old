@@ -1,11 +1,24 @@
 import { computed, observable } from 'mobx'
 import * as React from 'react'
+import publicIcon from '../assets/ic_public_white_48px.svg'
 import Store from '../store'
+import { Channel } from '../store/chat-state'
 import ChannelView from './ChannelView'
 
 interface Tab {
   title: React.ReactNode
   view: () => React.ReactNode
+}
+
+function renderChannelTab(ch: Channel): Tab {
+  return {
+    title: (
+      <span>
+        <img src={publicIcon} style={{ height: '1.25em' }} /> {ch.title}
+      </span>
+    ),
+    view: () => <ChannelView channel={ch} />,
+  }
 }
 
 export class ChatViewModel {
@@ -16,12 +29,7 @@ export class ChatViewModel {
   @computed
   get tabs(): Tab[] {
     const channels = Array.from(this.store.chat.channels.values())
-    return channels.map(ch => {
-      return {
-        title: ch.title,
-        view: () => <ChannelView channel={ch} />,
-      }
-    })
+    return channels.map(renderChannelTab)
   }
 
   @computed
