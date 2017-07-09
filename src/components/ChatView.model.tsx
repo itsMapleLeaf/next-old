@@ -10,14 +10,14 @@ interface Tab {
   view: () => React.ReactNode
 }
 
-function renderChannelTab(ch: Channel): Tab {
+function renderChannelTab(channel: Channel): Tab {
   return {
     title: (
       <span>
-        <img src={publicIcon} style={{ height: '1.25em' }} /> {ch.title}
+        <img src={publicIcon} style={{ height: '1.25em' }} /> {channel.title}
       </span>
     ),
-    view: () => <ChannelView channel={ch} />,
+    view: () => <ChannelView channel={channel} />,
   }
 }
 
