@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Character } from '../store/chat-state'
+import { Character } from '../store/chat-state-models'
 import './Character.css'
 
 export default function CharacterView(props: { character: Character }) {

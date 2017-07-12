@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react'
 import * as React from 'react'
-import { Channel, Character, Message } from '../store/chat-state'
+import { Channel, Character, Message } from '../store/chat-state-models'
 import CharacterView from './Character'
 import MessageView from './Message'
 

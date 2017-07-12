@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Message } from '../store/chat-state'
+import { Message } from '../store/chat-state-models'
 import CharacterView from './Character'
 
 export default function MessageView(props: { message: Message }) {

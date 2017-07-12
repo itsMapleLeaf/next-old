@@ -6,7 +6,7 @@ import ChannelView from './Channel'
 import ChatTab from './ChatTab'
 import Store from '../store/store'
 import publicIcon from '../assets/ic_public_white_48px.svg'
-import { Channel } from '../store/chat-state'
+import { Channel } from '../store/chat-state-models'
 
 interface Room {
   title: React.ReactNode
