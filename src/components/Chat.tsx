@@ -2,7 +2,7 @@ import * as React from 'react'
 import { observable, computed, action } from 'mobx'
 import { observer } from 'mobx-react'
 
-import ChannelView from './ChannelView'
+import ChannelView from './Channel'
 import ChatTab from './ChatTab'
 import Store from '../store/store'
 import publicIcon from '../assets/ic_public_white_48px.svg'

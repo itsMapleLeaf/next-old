@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Character } from '../store/chat-state'
-import './CharacterView.css'
+import './Character.css'
 
 export default function CharacterView(props: { character: Character }) {
   const { name, gender, status } = props.character

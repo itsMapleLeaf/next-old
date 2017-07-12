@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 import Store from '../store'
 import CharacterSelect from './CharacterSelect'
-import ChatView from './ChatView'
+import ChatView from './Chat'
 import Login from './Login'
 
 interface AppProps {

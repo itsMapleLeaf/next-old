@@ -2,8 +2,8 @@ import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { Channel, Character, Message } from '../store/chat-state'
-import CharacterView from './CharacterView'
-import MessageView from './MessageView'
+import CharacterView from './Character'
+import MessageView from './Message'
 
 function sortUserList(users: Character[]) {
   return sortBy(users, user => user.name.toLowerCase())
