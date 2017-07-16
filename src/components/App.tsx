@@ -17,6 +17,24 @@ export default class App extends React.Component<AppProps> {
   @observable view = this.renderLoadingView
   @observable loginStatus = ''
 
+  async init() {
+    try {
+      await this.store.loadUserData()
+      await this.store.fetchUserCharacters()
+      this.view = this.renderCharacterSelect
+    } catch (err) {
+      this.view = this.renderLogin
+    }
+  }
+
+  componentDidMount() {
+    if (this.store.isConnected) {
+      this.view = this.renderChat
+    } else {
+      this.init()
+    }
+  }
+
   @bind
   async handleLoginSubmit(account: string, password: string) {
     this.loginStatus = 'Logging in...'
@@ -35,6 +53,10 @@ export default class App extends React.Component<AppProps> {
     this.store.setIdentity(identity)
     this.store.connect()
     this.view = this.renderChat
+  }
+
+  render() {
+    return this.view()
   }
 
   @bind
@@ -71,27 +93,5 @@ export default class App extends React.Component<AppProps> {
   @bind
   renderChat() {
     return <ChatView store={this.store} />
-  }
-
-  async init() {
-    try {
-      await this.store.loadUserData()
-      await this.store.fetchUserCharacters()
-      this.view = this.renderCharacterSelect
-    } catch (err) {
-      this.view = this.renderLogin
-    }
-  }
-
-  componentDidMount() {
-    if (this.store.isConnected) {
-      this.view = this.renderChat
-    } else {
-      this.init()
-    }
-  }
-
-  render() {
-    return this.view()
   }
 }
