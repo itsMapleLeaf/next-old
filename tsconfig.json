@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
-    "module": "es2015",
     "target": "es5",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "module": "commonjs",
+    "lib": ["esnext", "dom"],
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
@@ -17,7 +14,5 @@
     "experimentalDecorators": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["./src/**/*", "./webpack.config.ts"]
 }
