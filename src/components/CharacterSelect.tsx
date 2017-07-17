@@ -50,7 +50,7 @@ export default class CharacterSelect extends React.Component {
           </select>
         </fieldset>
         <fieldset>
-          <button className="button" action="submit">
+          <button className="button" formAction="submit">
             Confirm
           </button>
         </fieldset>

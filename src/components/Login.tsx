@@ -40,7 +40,7 @@ export default class Login extends React.Component {
           />
         </fieldset>
         <fieldset>
-          <button className="button" action="submit">
+          <button className="button" formAction="submit">
             Submit
           </button>
         </fieldset>
