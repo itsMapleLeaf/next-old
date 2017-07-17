@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "esnext",
     "strict": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
@@ -14,6 +14,6 @@
   "include": [
     "./src/**/*",
     "./src/**/*.vue",
-    "./webpack.config.ts"
+    "./types/**/*.d.ts"
   ]
 }
