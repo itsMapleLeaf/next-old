@@ -6,11 +6,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import Login from './Login.vue'
 
 @Component({
-  components: {
-    'login': require('./Login.vue').default
-  }
+  components: { Login }
 })
 export default class extends Vue {
   handleLoginSubmit(username: string, password: string) {
