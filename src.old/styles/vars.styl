@@ -1,0 +1,82 @@
+$red = rgb(231, 76, 60)
+$blue = rgb(52, 152, 219)
+$green = rgb(39, 174, 96)
+$yellow = rgb(241, 196, 15)
+$purple = rgb(155, 89, 182)
+
+$theme-color = rgb(35,81,126)
+$accent-color = rgb(83, 104, 136)
+$text-color = rgb(236, 240, 241)
+
+$highlight-active = $green
+
+$shadow = 0px 1px 2px rgba(black, 0.4)
+
+theme-darker($amount)
+  darken($theme-color, $amount)
+
+theme-lighter($amount)
+  lighten($theme-color, $amount)
+
+flex($direction = row)
+  display: flex
+  flex-direction: $direction
+
+flex-align($justify, $align = $justify)
+  display: flex
+  justify-content: $justify
+  align-items: $align
+
+animate-press($display = inline-block)
+  transition: 0.2s
+  display: $display
+  &:active
+    transform: translateY(0.2rem)
+    transition-duration: 0s
+
+highlight($color)
+  background: rgba($color, 0.2)
+  color: lighten($color, 20%)
+
+size($width, $height = $width)
+  width: $width
+  height: $height
+
+min-size($width, $height = $width)
+  min-width: $width
+  min-height: $height
+
+max-size($width, $height = $width)
+  max-width: $width
+  max-height: $height
+
+width-limit($min, $max)
+  min-width: $min
+  max-width: $max
+
+height-limit($min, $max)
+  min-height: $min
+  max-height: $max
+
+anchor($sides)
+  position: absolute
+  for $side in $sides
+    {$side}: 0
+
+fullscreen()
+  anchor(top right bottom left)
+
+theme-input-styles()
+  width: 10em
+  background: darken($theme-color, 25%)
+  padding: 0.3em 0.6em
+  // font-size: 90%
+
+  &:focus
+    background: darken($theme-color, 35%)
+
+accent-border($side = 'bottom')
+  border-{$side}: 2px solid $accent-color
+
+  &:focus
+    border-{$side}-color: lighten($accent-color, 30%)

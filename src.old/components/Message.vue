@@ -1,0 +1,91 @@
+<template>
+  <div class='message flex-row' :class="type && 'message-type-' + type">
+    <div class='flex-fixed'>
+      <div class='avatar'>
+        <Avatar :name='sender.name' size='2.25em' shadow :data-character='sender.name'></Avatar>
+      </div>
+    </div>
+    <div class='flex-grow'>
+      <span class='timestamp'>{{ parsedTime }}</span>
+      <span :class='actionClass'>
+        <Character class='sender' v-bind='sender' :data-character='sender.name'></Character>
+        <span class='message-text'
+          v-html='isAction ? parsedMessage.slice(3) : parsedMessage'>
+        </span>
+      </span>
+    </div>
+  </div>
+</template>
+
+<script>
+import Character from './Character.vue'
+import Avatar from './Avatar.vue'
+import {getAvatarURL} from '../lib/f-list'
+
+export default {
+  props: {
+    sender: Object,
+    message: String,
+    parsedMessage: String,
+    type: String,
+    time: Number,
+  },
+  components: {
+    Character,
+    Avatar,
+  },
+  computed: {
+    avatar() {
+      return getAvatarURL(this.sender.name)
+    },
+    avatarStyle() {
+      return { 'background-image': `url(${this.avatar})` }
+    },
+    isAction() {
+      return this.message.substring(0, 3) === '/me'
+    },
+    actionClass() {
+      return { 'message-action': this.isAction }
+    },
+    parsedTime() {
+      if (this.time) {
+        const time = new Date(this.time)
+        return time.toLocaleTimeString()
+      }
+    },
+  },
+}
+</script>
+
+<style lang='stylus' scoped>
+@require 'vars'
+
+.message
+  padding: 0.4em 0.5em
+  border-bottom: 1px solid theme-darker(40%)
+
+.avatar
+  margin: 0.1em 0.3em 0.1em 0
+
+.sender
+  margin-right: 0.25em
+
+.message-text
+  white-space: pre-wrap
+
+.timestamp
+  font-size: 70%
+  opacity: 0.5
+  float: right
+  padding-left: 1em
+
+.message-action
+  font-style: italic
+
+.message-type-lfrp
+  highlight($green)
+
+.message-type-self
+  background: theme-darker(40%)
+  border-bottom: 1px solid theme-darker(50%)
+</style>
