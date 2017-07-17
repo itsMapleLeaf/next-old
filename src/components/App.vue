@@ -1,6 +1,6 @@
 <template>
   <div>
-    <login @submit="handleLoginSubmit"></login>
+    <login v-if="showLogin" @submit="handleLoginSubmit"></login>
     {{ account }} {{ ticket }} {{ characters }}
   </div>
 </template>
@@ -19,10 +19,21 @@ export default class extends Vue {
   ticket = ''
   characters = [] as string[]
 
+  showLogin = false
+
+  created() {
+    this.showLogin = true
+  }
+
   async handleLoginSubmit(account: string, password: string) {
     this.account = account
-    this.ticket = await api.fetchTicket(account, password)
-    this.characters = await api.fetchCharacterList(account, this.ticket)
+    try {
+      this.ticket = await api.fetchTicket(account, password)
+      this.characters = await api.fetchCharacterList(account, this.ticket)
+      this.showLogin = false
+    } catch (err) {
+      this.showLogin = true
+    }
   }
 }
 </script>
