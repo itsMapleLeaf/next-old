@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const HtmlPlugin = require('html-webpack-plugin')
 const path = require('path')
 
-module.exports = {
+const config = {
   entry: {
     app: './src/main',
   },
@@ -39,3 +39,5 @@ module.exports = {
   ],
   devtool: 'source-map',
 }
+
+module.exports = config
