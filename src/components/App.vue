@@ -1,7 +1,7 @@
 <template>
   <div>
-    <overlay v-if="showLogin">
-      <login @submit="handleLoginSubmit" :status="loginStatus"></login>
+    <overlay v-for="(overlay, i) in overlays" :key="i">
+      <login v-if="overlay === 'login'" @submit="handleLoginSubmit" :status="loginStatus"></login>
     </overlay>
   </div>
 </template>
@@ -13,6 +13,8 @@ import Login from './Login.vue'
 import Overlay from './Overlay.vue'
 import * as api from '../lib/api'
 
+type OverlayType = 'login' | 'character-select' | ''
+
 @Component({
   components: { Login, Overlay }
 })
@@ -21,11 +23,10 @@ export default class extends Vue {
   ticket = ''
   characters = [] as string[]
   loginStatus = ''
-
-  showLogin = false
+  overlays = [] as OverlayType[]
 
   created() {
-    this.showLogin = true
+    this.overlays.push('login')
   }
 
   async handleLoginSubmit(account: string, password: string) {
@@ -34,9 +35,8 @@ export default class extends Vue {
     try {
       this.ticket = await api.fetchTicket(account, password)
       this.characters = await api.fetchCharacterList(account, this.ticket)
-      this.showLogin = false
+      this.overlays.pop()
     } catch (err) {
-      this.showLogin = true
       this.loginStatus = err.toString()
     }
   }
