@@ -36,6 +36,9 @@ const config = {
     new HtmlPlugin({ template: './src/index.html' }),
     new webpack.NamedModulesPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"',
+    }),
   ],
   devtool: 'source-map',
 }
