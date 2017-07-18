@@ -9,6 +9,7 @@
     "build": "webpack -p"
   },
   "dependencies": {
+    "localforage": "^1.5.0",
     "vue": "^2.4.1",
     "vue-class-component": "^5.0.2"
   },
