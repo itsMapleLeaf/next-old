@@ -1,7 +1,5 @@
 const ticketEndpoint = 'https://www.f-list.net/json/getApiTicket.php'
-
-const characterListEndpoint =
-  'https://www.f-list.net/json/api/character-list.php'
+const characterListEndpoint = 'https://www.f-list.net/json/api/character-list.php'
 
 export async function fetchTicket(account: string, password: string) {
   const query = `?account=${account}&password=${password}`
