@@ -3,12 +3,9 @@ import Component from 'vue-class-component'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import Overlay from './Overlay.vue'
-import * as api from '../api'
 import Store from '../store'
 
 type OverlayType = 'login' | 'characterSelect' | ''
-
-const serverURL = 'wss://chat.f-list.net:9799'
 
 @Component({
   components: { Login, Overlay, CharacterSelect },
