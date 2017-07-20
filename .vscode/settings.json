@@ -1,4 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-  "prettier.printWidth": 100
+  "prettier.printWidth": 100,
+  "vetur.format.html.wrap_attributes": "auto",
+  "vetur.format.html.wrap_line_length": 80
 }
