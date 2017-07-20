@@ -48,7 +48,7 @@ export default class App extends Vue {
 
   handleIdentitySubmit(identity: string) {
     const { account, ticket } = this.store.user
-    this.store.chat.connect(account, ticket, identity, () => this.init())
+    this.store.chat.connect(account, ticket, identity, this.init)
     this.overlays.pop()
   }
 }
