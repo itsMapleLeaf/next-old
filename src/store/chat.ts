@@ -1,34 +1,6 @@
-import * as forage from 'localforage'
-import * as api from './api'
-
 const serverURL = 'wss://chat.f-list.net:9799'
 
-class UserStore {
-  account = ''
-  ticket = ''
-  characters = [] as string[]
-
-  async authenticate(account: string, password: string) {
-    this.account = account
-    this.ticket = await api.fetchTicket(account, password)
-  }
-
-  async fetchCharacterList() {
-    this.characters = await api.fetchCharacterList(this.account, this.ticket)
-  }
-
-  async restoreAuthData() {
-    this.account = (await forage.getItem<string>('account')) || ''
-    this.ticket = (await forage.getItem<string>('ticket')) || ''
-  }
-
-  async saveAuthData() {
-    await forage.setItem('account', this.account)
-    await forage.setItem('ticket', this.ticket)
-  }
-}
-
-class ChatStore {
+export default class ChatStore {
   socket: WebSocket | void
   identity = ''
   joinedChannels = {}
@@ -99,9 +71,4 @@ class ChatStore {
         console.log(cmd, params)
     }
   }
-}
-
-export default class Store {
-  user = new UserStore()
-  chat = new ChatStore()
 }
