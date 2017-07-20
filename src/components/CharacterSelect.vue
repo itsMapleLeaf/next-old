@@ -1,14 +1,17 @@
 <template>
-  <form @submit.prevent="submit">
-    <fieldset>
-      <select v-model="selected">
-        <option v-for="name in characters" :key="name">{{ name }}</option>
-      </select>
-    </fieldset>
-    <fieldset>
-      <button formaction="submit">Enter</button>
-    </fieldset>
-  </form>
+  <div>
+    <h1>Choose your identity.</h1>
+    <form @submit.prevent="submit">
+      <fieldset>
+        <select class="input" v-model="selected">
+          <option v-for="name in characters" :key="name">{{ name }}</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <button class="button" formaction="submit">Enter</button>
+      </fieldset>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">

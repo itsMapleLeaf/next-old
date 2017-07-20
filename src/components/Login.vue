@@ -3,13 +3,13 @@
     <h1>Hello, beautiful.</h1>
     <form @submit.prevent="submit">
       <fieldset>
-        <input type="text" placeholder="Username" v-model="username">
+        <input class="input" type="text" placeholder="Username" v-model="username">
       </fieldset>
       <fieldset>
-        <input type="password" placeholder="••••••••" v-model="password">
+        <input class="input" type="password" placeholder="••••••••" v-model="password">
       </fieldset>
       <fieldset>
-        <button action="submit">Log in</button>
+        <button class="button" action="submit">Log in</button>
       </fieldset>
     </form>
     <p>{{ status }}</p>

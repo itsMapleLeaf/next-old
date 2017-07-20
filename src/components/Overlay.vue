@@ -1,6 +1,6 @@
 <template>
   <div class="overlay-shade">
-    <div class="overlay-content">
+    <div class="overlay-content bg-color-main">
       <slot></slot>
     </div>
   </div>

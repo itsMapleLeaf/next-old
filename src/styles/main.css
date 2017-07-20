@@ -1,0 +1,57 @@
+:root {
+  --text-color: hsl(0, 0%, 90%);
+  --bg-color-main: hsl(200, 30%, 20%);
+  --bg-color-darker: hsl(200, 30%, 15%);
+  --bg-color-darkest: hsl(200, 30%, 10%);
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  background-color: var(--bg-color-main);
+  color: var(--text-color);
+}
+
+:focus {
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: lighter;
+}
+
+fieldset {
+  border: none;
+}
+
+.bg-color-main {
+  background-color: var(--bg-color-main);
+}
+
+.input,
+.button {
+  border: none;
+  color: inherit;
+  font: inherit;
+  padding: 0.4em 0.75em;
+  background-color: var(--bg-color-darker);
+  transition: 0.2s;
+}
+
+.input:focus,
+.button:focus,
+.button:hover {
+  background-color: var(--bg-color-darkest);
+}
+
+.button {
+  cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
+}
