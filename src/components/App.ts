@@ -3,12 +3,13 @@ import Component from 'vue-class-component'
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
 import Overlay from './Overlay.vue'
+import Fade from './Fade.vue'
 import Store from '../store'
 
 type OverlayType = 'login' | 'characterSelect' | ''
 
 @Component({
-  components: { Login, Overlay, CharacterSelect },
+  components: { Login, Overlay, CharacterSelect, Fade },
 })
 export default class App extends Vue {
   store = new Store()

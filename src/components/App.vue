@@ -1,9 +1,11 @@
 <template>
   <div>
-    <overlay v-for="(overlay, i) in overlays" :key="i">
-      <login v-if="overlay === 'login'" @submit="handleLoginSubmit" :status="loginStatus"></login>
+    <fade v-for="(overlay, i) in overlays" :key="i">
+      <overlay>
+        <login v-if="overlay === 'login'" @submit="handleLoginSubmit" :status="loginStatus"></login>
         <character-select v-if="overlay === 'characterSelect'" :characters="store.user.characters" @submit="handleIdentitySubmit"></character-select>
-    </overlay>
+      </overlay>
+    </fade>
   </div>
 </template>
 
