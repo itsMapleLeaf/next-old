@@ -23,6 +23,14 @@ const styleLoader = {
   loader: 'style-loader!css-loader',
 }
 
+const fileLoader = {
+  test: /\.(svg|ttf|woff|woff2|eot)/,
+  loader: 'file-loader',
+  options: {
+    name: '[name].[hash:16].[ext]',
+  },
+}
+
 const config = {
   entry: {
     app: './src/main',
@@ -32,7 +40,7 @@ const config = {
     filename: '[name].bundle.js',
   },
   module: {
-    rules: [vueLoader, tsLoader, styleLoader],
+    rules: [vueLoader, tsLoader, styleLoader, fileLoader],
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.vue'],
