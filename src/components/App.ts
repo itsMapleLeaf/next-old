@@ -19,16 +19,12 @@ export default class App extends Vue {
   loginStatus = ''
   overlays = [] as OverlayType[]
 
-  socket: WebSocket | void
-  identity = ''
-  joinedChannels = {}
-
   created() {
     this.init()
   }
 
   destroyed() {
-    if (this.socket) this.socket.close()
+    this.store.chat.disconnect()
   }
 
   async init() {
@@ -54,66 +50,8 @@ export default class App extends Vue {
   }
 
   handleIdentitySubmit(identity: string) {
-    this.identity = identity
+    const { account, ticket } = this.store.user
+    this.store.chat.connect(account, ticket, identity, () => this.init())
     this.overlays.pop()
-    this.connect()
-  }
-
-  connect() {
-    const socket = (this.socket = new WebSocket(serverURL))
-
-    socket.onopen = () => {
-      this.sendCommand('IDN', {
-        account: this.store.user.account,
-        ticket: this.store.user.ticket,
-        character: this.identity,
-        cname: 'next',
-        cversion: '0.1.0',
-        method: 'ticket',
-      })
-    }
-
-    socket.onclose = socket.onerror = () => {
-      this.overlays.push('login')
-    }
-
-    socket.onmessage = msg => {
-      const data = msg.data as string
-      const cmd = data.slice(0, 3)
-      const params = data.length > 3 ? JSON.parse(data.slice(4)) : {}
-      this.handleSocketCommand(cmd, params)
-    }
-  }
-
-  sendCommand(cmd: string, params?: object) {
-    if (this.socket) {
-      if (params) {
-        this.socket.send(cmd + ' ' + JSON.stringify(params))
-      } else {
-        this.socket.send(cmd)
-      }
-    }
-  }
-
-  handleSocketCommand(cmd: string, params: any) {
-    switch (cmd) {
-      case 'IDN':
-        console.info('Successfully connected to server.')
-        break
-
-      case 'CON':
-        console.info(`There are currently ${params.count} users in chat.`)
-        break
-
-      case 'VAR':
-        break
-
-      case 'PIN':
-        this.sendCommand('PIN')
-        break
-
-      default:
-        console.log(cmd, params)
-    }
   }
 }
