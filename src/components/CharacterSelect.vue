@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>Choose your identity.</h1>
+    <p>
+      <img :src="avatarURL" :alt="`Avatar for ${selected}`" style="width: 100px; height: 100px">
+    </p>
     <form @submit.prevent="submit">
       <fieldset>
         <select class="input" v-model="selected">
@@ -17,6 +20,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { getAvatarURL } from '../api'
 
 @Component({
   props: {
@@ -29,6 +33,10 @@ export default class extends Vue {
 
   submit() {
     this.$emit('submit', this.selected)
+  }
+
+  get avatarURL() {
+    return getAvatarURL(this.selected)
   }
 }
 </script>

@@ -16,3 +16,7 @@ export async function fetchCharacterList(account: string, ticket: string) {
   if (data.error) throw data.error
   return data.characters as string[]
 }
+
+export function getAvatarURL(name: string) {
+  return `https://static.f-list.net/images/avatar/${encodeURI(name.toLowerCase())}.png`
+}
