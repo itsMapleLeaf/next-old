@@ -40,6 +40,7 @@ export default class App extends Vue {
     try {
       await this.store.user.authenticate(account, password)
       await this.store.user.fetchCharacterList()
+      this.store.user.saveAuthData()
       this.overlays.pop()
       this.overlays.push('characterSelect')
     } catch (err) {
