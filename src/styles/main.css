@@ -32,6 +32,14 @@ fieldset {
   background-color: var(--bg-color-main);
 }
 
+.bg-color-darker {
+  background-color: var(--bg-color-darker);
+}
+
+.bg-color-darkest {
+  background-color: var(--bg-color-darkest);
+}
+
 .input,
 .button {
   border: none;
