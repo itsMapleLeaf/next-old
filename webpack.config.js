@@ -2,6 +2,27 @@ const webpack = require('webpack')
 const HtmlPlugin = require('html-webpack-plugin')
 const path = require('path')
 
+const vueLoader = {
+  test: /\.vue$/,
+  loader: 'vue-loader',
+  options: {
+    esModule: true,
+  },
+}
+
+const tsLoader = {
+  test: /\.tsx?$/,
+  loader: 'ts-loader',
+  options: {
+    appendTsSuffixTo: [/\.vue$/],
+  },
+}
+
+const styleLoader = {
+  test: /\.css$/,
+  loader: 'style-loader!css-loader',
+}
+
 const config = {
   entry: {
     app: './src/main',
@@ -11,23 +32,7 @@ const config = {
     filename: '[name].bundle.js',
   },
   module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          esModule: true,
-        },
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-        },
-      },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-    ],
+    rules: [vueLoader, tsLoader, styleLoader],
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.vue'],
