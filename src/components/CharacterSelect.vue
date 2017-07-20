@@ -6,7 +6,7 @@
     </p>
     <form @submit.prevent="submit">
       <fieldset>
-        <select class="input" v-model="selected">
+        <select class="button" v-model="selected">
           <option v-for="name in characters" :key="name">{{ name }}</option>
         </select>
       </fieldset>
