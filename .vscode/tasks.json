@@ -6,7 +6,7 @@
     {
       "type": "npm",
       "script": "start",
-      "problemMatcher": [],
+      "path": "d:\\Projects\\fchat",
       "group": {
         "kind": "build",
         "isDefault": true
