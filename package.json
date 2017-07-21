@@ -12,7 +12,7 @@
     "localforage": "^1.5.0",
     "mdi": "^1.9.33",
     "normalize.css": "^7.0.0",
-    "vue": "^2.4.1",
+    "vue": "^2.4.2",
     "vue-class-component": "^5.0.2"
   },
   "devDependencies": {
@@ -22,10 +22,10 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.29.0",
     "style-loader": "^0.18.2",
-    "ts-loader": "^2.3.0",
-    "typescript": "^2.4.1",
+    "ts-loader": "^2.3.1",
+    "typescript": "^2.4.2",
     "vue-loader": "^12.2.2",
-    "vue-template-compiler": "^2.4.1",
+    "vue-template-compiler": "^2.4.2",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.1"
   }
