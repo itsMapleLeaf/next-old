@@ -7,5 +7,5 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react"
   },
-  "include": ["./src/**/*", "./typings/**/*.d.ts"]
+  "include": ["../typings/**/*.d.ts"]
 }
