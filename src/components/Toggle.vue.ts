@@ -1,7 +1,11 @@
-<script>
+import * as Vue from 'vue'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import ToggleComponent from './Toggle'
+
+interface Toggle extends Vue {
+  updateReact(): void
+}
 
 export default {
   methods: {
@@ -9,12 +13,12 @@ export default {
       ReactDOM.render(
         React.createElement(
           ToggleComponent,
-          this.$attrs,
-          this.$slots.default.map(vnode => vnode.text || '')
+          this.$attrs || {},
+          this.$slots.default.map(vnode => vnode.text || ''),
         ),
-        this.$refs.reactRoot
+        this.$refs.reactRoot as Element,
       )
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -26,6 +30,5 @@ export default {
   },
   render(h) {
     return h('div', { ref: 'reactRoot' })
-  }
-}
-</script>
+  },
+} as Vue.ComponentOptions<Toggle>
