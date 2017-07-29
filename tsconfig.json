@@ -5,5 +5,6 @@
     "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
-  }
+  },
+  "include": ["./src/**/*", "./typings/**/*.d.ts"]
 }
