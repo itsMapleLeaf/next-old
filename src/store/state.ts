@@ -22,32 +22,28 @@ type AppState =
   | 'identifying'
   | 'online'
 
-export const state = {
-  appState: 'setup' as AppState,
+class State {
+  appState = 'setup' as AppState
 
-  account: '',
-  ticket: '',
+  account = ''
+  ticket = ''
+  userCharacters = [] as string[]
 
-  userCharacters: [] as string[],
-  identity: '',
+  socket: void | WebSocket
+  identity = ''
+  onlineCharacters = {} as CharacterMap
+  friends = {} as RelationshipMap
+  bookmarks = {} as NameMap
+  ignored = {} as NameMap
+  admins = {} as NameMap
+  publicChannelList = [] as ChannelInfo[]
+  privateChannelList = [] as ChannelInfo[]
+  channels = {} as ChannelMap
+  privateChats = {} as PrivateChatMap
 
-  socket: null as null | WebSocket,
-
-  onlineCharacters: {} as CharacterMap,
-
-  friends: {} as RelationshipMap,
-  bookmarks: {} as NameMap,
-  ignored: {} as NameMap,
-  admins: {} as NameMap,
-
-  publicChannelList: [] as ChannelInfo[],
-  privateChannelList: [] as ChannelInfo[],
-
-  channels: {} as ChannelMap,
-  privateChats: {} as PrivateChatMap,
-
-  chatTabs: [] as ChatTab[],
-  characterMenuFocus: null as Character | null,
-
-  notifications: [] as any[],
+  chatTabs = [] as ChatTab[]
+  characterMenuFocus = null as Character | null
+  notifications = [] as any[]
 }
+
+export const state = new State()
