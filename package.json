@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bbc.js": "^0.1.1",
+    "glamorous": "^3.25.0",
     "howler": "^2.0.4",
     "jwerty": "^0.3.2",
     "localforage": "^1.5.0",
@@ -40,6 +41,7 @@
     "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-html": "^3.1.1",
     "file-loader": "^0.11.2",
+    "glamor": "^2.20.37",
     "html-webpack-plugin": "^2.29.0",
     "json-loader": "^0.5.7",
     "npm-run-all": "^4.0.2",
