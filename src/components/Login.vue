@@ -6,17 +6,17 @@
     <fieldset>
       <div class='form-icon-input'>
         <i class='mdi mdi-account-circle'></i>
-        <input type='text' placeholder='Username' v-model='account'/>
+        <input type='text' placeholder='Username' v-model='account' />
       </div>
     </fieldset>
     <fieldset>
       <div class='form-icon-input'>
         <i class='mdi mdi-lock'></i>
-        <input type='password' placeholder='••••••••' v-model='password'/>
+        <input type='password' placeholder='••••••••' v-model='password' />
       </div>
     </fieldset>
     <fieldset>
-      <toggle v-model='remember'>Remember me</toggle>
+      <toggle :value="remember" @pointerdown.native="remember = !remember">Remember me</toggle>
     </fieldset>
     <fieldset>
       <button class='form-button' action='submit'>Go</button>
@@ -33,7 +33,7 @@
 import Toggle from './Toggle.vue'
 import * as flist from '../lib/f-list'
 import * as storage from 'localforage'
-import {store} from '../store'
+import { store } from '../store'
 
 export default {
   components: {
