@@ -1,24 +1,37 @@
 // @flow
-import type {
-  Name, Gender, Status, Character,
-  Channel, ChannelMode, ChannelInfo,
+import {
+  Name,
+  Gender,
+  Status,
+  Character,
+  Channel,
+  ChannelMode,
+  ChannelInfo,
   PrivateChat,
-  Message, MessageType,
+  Message,
+  MessageType,
 } from './types'
 
-import {parseBBC} from './bbc'
+import { parseBBC } from './bbc'
 
 export function newCharacter(
-  name: Name, gender: Gender, status?: Status = 'online', statusmsg?: string = ''
+  name: Name,
+  gender: Gender,
+  status: Status = 'online',
+  statusmsg: string = '',
 ): Character {
   return { name, gender, status, statusmsg, info: {} }
 }
 
 export function newMessage(
-  sender: Character, message: string, type: MessageType
+  sender: Character,
+  message: string,
+  type: MessageType,
 ): Message {
   return {
-    sender, type, message,
+    sender,
+    type,
+    message,
     parsedMessage: parseBBC(message),
     time: Date.now(),
   }
@@ -26,7 +39,8 @@ export function newMessage(
 
 export function newChannel(id: string, name: string): Channel {
   return {
-    id, name,
+    id,
+    name,
     description: '',
     mode: 'both', // either 'both', 'chat', or 'ads'
     users: [],
@@ -39,7 +53,7 @@ export function newChannelInfo(
   id: string,
   name: string,
   userCount: number,
-  mode: ChannelMode
+  mode: ChannelMode,
 ): ChannelInfo {
   return { id, name, userCount, mode }
 }

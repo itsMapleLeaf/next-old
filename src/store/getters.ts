@@ -1,5 +1,4 @@
-// @flow
-import {state} from './state'
+import { state } from './state'
 
 export function getters(props: any): Object {
   const result = {}

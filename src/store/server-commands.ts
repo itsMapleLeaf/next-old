@@ -1,13 +1,10 @@
-// @flow
-/* eslint no-unused-vars: off */
+import Vue from 'vue'
+import { Channel, ChannelInfo } from '../lib/types'
+import { mapToObject, values } from '../lib/util'
+import { newCharacter, newChannelInfo, newMessage } from '../lib/constructors'
+import { store, state } from './index'
 
 // reference: https://wiki.f-list.net/F-Chat_Server_Commands
-
-import type {Channel, ChannelInfo} from '../lib/types'
-import {mapToObject, values} from '../lib/util'
-import {newCharacter, newChannelInfo, newMessage} from '../lib/constructors'
-import {store, state} from './index'
-import Vue from 'vue'
 
 type Params = { [key: string]: any }
 
@@ -38,7 +35,10 @@ export function FRL() {}
 
 export function IGN({ action, character: name, characters }: Params) {
   function initIgnoredList() {
-    state.ignored = mapToObject(characters, name => [name, true])
+    state.ignored = mapToObject<string, boolean>(characters, name => [
+      name,
+      true,
+    ])
   }
 
   function addIgnored() {
@@ -61,7 +61,7 @@ export function IGN({ action, character: name, characters }: Params) {
 }
 
 export function ADL(params: Params) {
-  state.admins = mapToObject(params.ops, name => [name, true])
+  state.admins = mapToObject<string, boolean>(params.ops, name => [name, true])
 }
 
 export function AOP({ character }: Params) {
@@ -92,7 +92,9 @@ export function STA({ character, status, statusmsg }: Params) {
 }
 
 function mapChannelInfo(channels: any[]): ChannelInfo[] {
-  return channels.map(ch => newChannelInfo(ch.name, ch.title || ch.name, ch.characters, ch.mode))
+  return channels.map(ch =>
+    newChannelInfo(ch.name, ch.title || ch.name, ch.characters, ch.mode),
+  )
 }
 
 export function CHA({ channels }: Params) {
@@ -103,7 +105,11 @@ export function ORS({ channels }: Params) {
   state.privateChannelList = mapChannelInfo(channels)
 }
 
-export function JCH({ channel: id, title, character: { identity: name } }: Params) {
+export function JCH({
+  channel: id,
+  title,
+  character: { identity: name },
+}: Params) {
   state.channels[id].name = title
   state.channels[id].users.push(store.getCharacter(name))
 }
@@ -159,7 +165,9 @@ export function TPN({ character: name, status }: Params) {
 const rolltypes = {
   dice({ results, rolls, endresult }) {
     if (results.length > 0) {
-      return `/me rolled ${rolls.join(', ')}: [b]${endresult}[/b] (${results.join(', ')})`
+      return `/me rolled ${rolls.join(
+        ', ',
+      )}: [b]${endresult}[/b] (${results.join(', ')})`
     } else {
       return `/me rolled ${rolls.join(', ')}: [b]${endresult}[/b]`
     }
@@ -170,7 +178,7 @@ const rolltypes = {
 }
 
 export function RLL(params: Params) {
-  const {type, channel: id, character: name} = params
+  const { type, channel: id, character: name } = params
   const char = store.getCharacter(name)
   const message = rolltypes[type](name, params)
   state.channels[id].messages.push(newMessage(char, message, type))

@@ -1,12 +1,10 @@
-// @flow
-
 // alias types
 export type Name = string
 export type CharacterBatchEntry = [Name, Gender, Status, string]
 
 // enum types
-export type Gender
-  = 'Male'
+export type Gender =
+  | 'Male'
   | 'Female'
   | 'Transgender'
   | 'Herm'
@@ -14,8 +12,8 @@ export type Gender
   | 'Male-herm'
   | 'None'
 
-export type Status
-  = 'online'
+export type Status =
+  | 'online'
   | 'looking'
   | 'busy'
   | 'away'
@@ -23,13 +21,10 @@ export type Status
   | 'idle'
   | 'offline'
 
-export type ChannelMode
-  = 'both'
-  | 'chat'
-  | 'ads'
+export type ChannelMode = 'both' | 'chat' | 'ads'
 
-export type MessageType
-  = 'chat'
+export type MessageType =
+  | 'chat'
   | 'lfrp'
   | 'friend'
   | 'admin'
@@ -37,81 +32,74 @@ export type MessageType
   | 'dice'
   | 'bottle'
 
-export type SocketState
-  = 'offline'
-  | 'connecting'
-  | 'connected'
-  | 'identified'
+export type SocketState = 'offline' | 'connecting' | 'connected' | 'identified'
 
-export type Category
-  = 'friend'
+export type Category =
+  | 'friend'
   | 'bookmark'
   | 'admin'
   | 'op'
   | 'looking'
   | 'none'
 
-export type TypingState
-  = 'clear'
-  | 'paused'
-  | 'typing'
+export type TypingState = 'clear' | 'paused' | 'typing'
 
 // object types
 export type Character = {
-  name: Name,
-  gender: Gender,
-  status: Status,
-  statusmsg: string,
-  info: { [field: string]: string },
+  name: Name
+  gender: Gender
+  status: Status
+  statusmsg: string
+  info: { [field: string]: string }
 }
 
 export type Message = {
-  sender: Character,
-  message: string,
-  parsedMessage: string,
-  type: MessageType,
+  sender: Character
+  message: string
+  parsedMessage: string
+  type: MessageType
   time: number
 }
 
 export type Channel = {
-  id: string,
-  name: string,
-  description: string,
-  mode: ChannelMode,
-  users: Character[],
-  ops: Name[],
+  id: string
+  name: string
+  description: string
+  mode: ChannelMode
+  users: Character[]
+  ops: Name[]
   messages: Message[]
 }
 
 export type PrivateChat = {
-  partner: Character,
-  messages: Message[],
+  partner: Character
+  messages: Message[]
   typing: TypingState
 }
 
 export type Relationship = {
-  you: Name,
+  you: Name
   them: Name
 }
 
 export type Bubble = {
-  text: string,
+  text: string
   onclick: Function
 }
 
 export type ChannelInfo = {
-  id: string,
-  name: string,
-  userCount: number,
+  id: string
+  name: string
+  userCount: number
   mode: ChannelMode
 }
 
 export type ChatTab = {
-  channel?: Channel,
+  channel?: Channel
   privateChat?: PrivateChat
 }
 
 export type Notification = {
-  text: string,
+  text: string
   time: number
 }

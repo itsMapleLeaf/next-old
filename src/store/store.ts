@@ -1,25 +1,38 @@
-// @flow
-import type {Name, CharacterBatchEntry, ChatTab, Relationship, Status} from '../lib/types'
-import {newCharacter, newChannel, newPrivateChat, newMessage} from '../lib/constructors'
-import {state} from './state'
-import {mapToObject} from '../lib/util'
+import {
+  Name,
+  CharacterBatchEntry,
+  ChatTab,
+  Relationship,
+  Status,
+} from '../lib/types'
+
+import {
+  newCharacter,
+  newChannel,
+  newPrivateChat,
+  newMessage,
+} from '../lib/constructors'
+
+import { state } from './state'
+import { mapToObject } from '../lib/util'
 import * as serverCommands from './server-commands'
 import * as flist from '../lib/f-list'
-import meta from '../../package.json'
 import Vue from 'vue'
 import storage from 'localforage'
-import {Howl} from 'howler'
+import { Howl } from 'howler'
+
+const meta = {
+  name: 'next',
+  version: '0.11.0',
+}
 
 const notifySound = new Howl({
-  src: [
-    require('../assets/notify.mp3'),
-    require('../assets/notify.ogg'),
-  ]
+  src: [require('../assets/notify.mp3'), require('../assets/notify.ogg')],
 })
 
 function mapFriends(friends: Relationship[]) {
   const map = {}
-  for (const {you, them} of friends) {
+  for (const { you, them } of friends) {
     map[them] = map[them] || []
     map[them].push(you)
   }
@@ -30,22 +43,24 @@ export async function initialize() {
   state.appState = 'setup'
 
   try {
-    const auth = await storage.getItem('auth')
+    const auth = (await storage.getItem('auth')) as {
+      account: string
+      ticket: string
+    }
     if (auth) {
       await fetchUserData(auth.account, auth.ticket)
       state.appState = 'character-select'
     } else {
       state.appState = 'login'
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.info(`Couldn't fetch userdata: ${err}`)
     state.appState = 'login'
   }
 }
 
 export async function fetchUserData(account: string, ticket: string) {
-  const [ characters, friends, bookmarks ] = await Promise.all([
+  const [characters, friends, bookmarks] = await Promise.all([
     flist.getCharacters(account, ticket),
     flist.getFriends(account, ticket),
     flist.getBookmarks(account, ticket),
@@ -60,7 +75,11 @@ export function showLogin() {
   state.appState = 'login'
 }
 
-export async function login(account: string, password: string, remember: boolean): Promise<void> {
+export async function login(
+  account: string,
+  password: string,
+  remember: boolean,
+): Promise<void> {
   state.appState = 'logging-in'
 
   try {
@@ -73,13 +92,11 @@ export async function login(account: string, password: string, remember: boolean
 
     await this.fetchUserData(account, ticket)
     state.appState = 'character-select'
-  }
-  catch (err) {
-    throw (err ||
-      "Could not connect to the F-list website. " +
-      "Either they're doing maintenance, " +
-      "or someone spilled coke on the servers again."
-    )
+  } catch (err) {
+    throw err ||
+      'Could not connect to the F-list website. ' +
+        "Either they're doing maintenance, " +
+        'or someone spilled coke on the servers again.'
   }
 }
 
@@ -105,16 +122,18 @@ export function saveChatTabs(identity: Name) {
 }
 
 // TODO: use async function
-export function loadChatTabs(identity: Name) {
+export async function loadChatTabs(identity: Name) {
   state.chatTabs = []
-  storage.getItem(`tabs:${identity}`).then(tabs => {
-    if (!tabs) return
-    for (const tab of tabs) {
-      if (tab.channel) {
-        this.joinChannel(tab.channel, tab.name)
-      }
+  const tabs = (await storage.getItem(`tabs:${identity}`)) as {
+    channel: string
+    name: string
+  }[]
+  if (!tabs) return
+  for (const tab of tabs) {
+    if (tab.channel) {
+      this.joinChannel(tab.channel, tab.name)
     }
-  })
+  }
 }
 
 export function connectToChatServer() {
@@ -125,7 +144,7 @@ export function connectToChatServer() {
 
   state.appState = 'connecting'
 
-  const socket = new window.WebSocket('wss://chat.f-list.net:9799')
+  const socket = new WebSocket('wss://chat.f-list.net:9799')
 
   socket.onopen = () => {
     console.log('Socket opened')
@@ -145,12 +164,12 @@ export function connectToChatServer() {
     initialize()
   }
 
-  socket.onerror = (err) => {
+  socket.onerror = err => {
     console.error('Socket error:', err)
   }
 
-  socket.onmessage = (msg) => {
-    const {data} = msg
+  socket.onmessage = msg => {
+    const { data } = msg
     const cmd = data.substring(0, 3)
     const params = data.length > 3 ? JSON.parse(data.substring(4)) : {}
     handleServerCommand(cmd, params)
@@ -165,7 +184,9 @@ export function disconnectFromChatServer() {
 
 export function handleServerCommand(cmd: string, params: Object) {
   const handler = serverCommands[cmd]
-  handler ? handler(params) : console.info('Unknown socket command', cmd, params)
+  handler
+    ? handler(params)
+    : console.info('Unknown socket command', cmd, params)
 }
 
 export function sendCommand(cmd: string, params?: Object) {
@@ -192,8 +213,9 @@ export function fetchChannelList() {
 }
 
 export function joinChannel(id: string, name: string) {
-  const channel = state.channels[id] || Vue.set(state.channels, id, newChannel(id, name))
-  state.chatTabs.push({ channel })
+  const channel =
+    state.channels[id] || Vue.set(state.channels, id, newChannel(id, name))
+  if (channel) state.chatTabs.push({ channel })
   this.saveChatTabs(state.identity)
   this.sendCommand('JCH', { channel: id })
 }
@@ -212,18 +234,23 @@ export function isChannelJoined(id: string) {
 
 export function openPrivateChat(partner: Name) {
   const char = getCharacter(partner)
-  const privateChat = state.privateChats[partner] || Vue.set(state.privateChats, partner, newPrivateChat(char))
+  const privateChat =
+    state.privateChats[partner] ||
+    Vue.set(state.privateChats, partner, newPrivateChat(char))
   state.chatTabs.push({ privateChat })
   return privateChat
 }
 
 export function closePrivateChat(partner: Name) {
-  const filter = tab => !(tab.privateChat && tab.privateChat.partner.name === partner)
+  const filter = tab =>
+    !(tab.privateChat && tab.privateChat.partner.name === partner)
   state.chatTabs = state.chatTabs.filter(filter)
 }
 
 export function isPrivateChatOpened(partner: Name) {
-  return state.chatTabs.some(tab => tab.privateChat && tab.privateChat.partner.name === partner)
+  return state.chatTabs.some(
+    tab => tab.privateChat && tab.privateChat.partner.name === partner,
+  )
 }
 
 export function sendChannelMessage(id: string, message: string) {
@@ -267,7 +294,15 @@ export function getCharacter(name: Name) {
   return state.onlineCharacters[name] || newCharacter(name, 'None')
 }
 
-export function isFriend(name: Name) { return state.friends[name] != null }
-export function isBookmark(name: Name) { return state.bookmarks[name] != null }
-export function isAdmin(name: Name) { return state.admins[name] != null }
-export function isIgnored(name: Name) { return state.ignored[name] != null }
+export function isFriend(name: Name) {
+  return state.friends[name] != null
+}
+export function isBookmark(name: Name) {
+  return state.bookmarks[name] != null
+}
+export function isAdmin(name: Name) {
+  return state.admins[name] != null
+}
+export function isIgnored(name: Name) {
+  return state.ignored[name] != null
+}

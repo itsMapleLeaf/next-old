@@ -1,24 +1,29 @@
-// @flow
-export const assign = Object.assign || function assign(base, ...rest) {
-  for (const obj of rest) {
-    for (const field in obj) {
-      base[field] = obj[field]
+export const assign =
+  Object.assign ||
+  function assign(base, ...rest) {
+    for (const obj of rest) {
+      for (const field in obj) {
+        base[field] = obj[field]
+      }
     }
+    return base
   }
-  return base
-}
 
-export const values = Object.values || function values(obj) {
-  let result = []
-  for (const field in obj) {
-    result.push(obj[field])
+export const values =
+  Object.values ||
+  function values(obj) {
+    let result = []
+    for (const field in obj) {
+      result.push(obj[field])
+    }
+    return result
   }
-  return result
-}
 
 // uppercase the first letter of a string and lowercase the rest
 export function capitalize(text: string) {
-  return text.substring(0, 1).toLocaleUpperCase() + text.substring(1).toLocaleLowerCase()
+  return (
+    text.slice(0, 1).toLocaleUpperCase() + text.slice(1).toLocaleLowerCase()
+  )
 }
 
 // remove an element from an array
@@ -32,7 +37,7 @@ export function clamp(n: number, min: number, max: number) {
 }
 
 // map an array to object keys/values
-export function mapToObject <T>(array: T[], func: (item: T) => [string, any]) {
+export function mapToObject<K, V>(array: K[], func: (item: K) => [string, V]) {
   let result = {}
   for (let item of array) {
     const [key, value] = func(item)
