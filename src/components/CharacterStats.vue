@@ -3,14 +3,20 @@
     <div class='content'>
       <table class='stats-table'>
         <thead>
-          <td><i class='mdi mdi-gender-transgender'></i></td>
-          <td><i class='mdi mdi-pound'></i></td>
-          <td><i class='mdi mdi-percent'></i></td>
+          <td>
+            <i class='mdi mdi-gender-transgender'></i>
+          </td>
+          <td>
+            <i class='mdi mdi-pound'></i>
+          </td>
+          <td>
+            <i class='mdi mdi-percent'></i>
+          </td>
         </thead>
-        <tr v-for='gender in genders'>
+        <tr v-for='gender in genders' :key="gender">
           <td>{{ labels[gender] || gender }}</td>
-          <td>{{ getCount(gender) }}</td>
-          <td>{{ getPercent(gender) }}%</td>
+          <td>{{ genderCounts[gender] || 0 }}</td>
+          <td>{{ genderPercentages[gender] }}%</td>
         </tr>
       </table>
       <div class='stats-footer'>
@@ -46,8 +52,8 @@ td
 
 <script>
 import Overlay from './Overlay.vue'
-import {getters} from '../store'
-import {values} from '../lib/util'
+import { getters } from '../store'
+import { values } from '../lib/util'
 
 export default {
   components: {
@@ -76,16 +82,22 @@ export default {
       return {
         'None': 'Genderless',
       }
+    },
+    genderCounts() {
+      const counts = {}
+      for (const char of values(this.characters)) {
+        counts[char.gender] = counts[char.gender] || 0
+        counts[char.gender] += 1
+      }
+      return counts
+    },
+    genderPercentages() {
+      const percentages = {}
+      for (const gender of this.genders) {
+        percentages[gender] = Math.round(this.genderCounts[gender] / this.totalCharacters * 100)
+      }
+      return percentages
     }
-  },
-  methods: {
-    getCount(gender) {
-      return values(this.characters)
-        .reduce((count, char) => char.gender === gender ? count + 1 : count, 0)
-    },
-    getPercent(gender) {
-      return Math.round(this.getCount(gender) / this.totalCharacters * 100)
-    },
   },
 }
 </script>
