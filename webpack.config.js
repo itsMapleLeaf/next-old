@@ -2,6 +2,17 @@ const webpack = require('webpack')
 const { join } = require('path')
 const HtmlPlugin = require('html-webpack-plugin')
 
+const styleLoader = [
+  'style-loader',
+  'css-loader',
+  {
+    loader: 'stylus-loader',
+    options: {
+      paths: './src/styles',
+    },
+  },
+]
+
 const config = {
   entry: './src/main',
   output: {
@@ -15,17 +26,20 @@ const config = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            stylus: 'style-loader!css-loader!stylus-loader?paths=./src/styles',
+            stylus: styleLoader,
           },
         },
       },
-      // { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
       },
       { test: /\.json$/, loader: 'json-loader' },
       { test: /\.mp3$|.ogg$/, loader: 'file-loader' },
+      {
+        test: /\.styl$/,
+        use: styleLoader,
+      },
     ],
   },
   resolve: {

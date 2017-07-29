@@ -1,51 +1,19 @@
 <template>
-  <a class='toggle' href='#' :class='toggleClass' @click.prevent="$emit('input', !value)">
-    <i class='mdi' :class='iconClass'></i> <slot></slot>
-  </a>
+  <div ref="reactRoot">
+  </div>
 </template>
 
 <script>
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import ToggleComponent from './Toggle'
+
 export default {
-  props: {
-    value: Boolean,
-    disabled: Boolean,
-  },
-  computed: {
-    iconClass() {
-      return this.value
-        ? 'mdi-checkbox-marked-outline'
-        : 'mdi-checkbox-blank-outline'
-    },
-    toggleClass() {
-      return {
-        checked: this.value,
-        disabled: this.disabled,
-      }
-    },
-  },
+  updated() {
+    ReactDOM.render(
+      React.createElement(ToggleComponent, {}, this.$slots.default.map(vnode => vnode.text || '')),
+      this.$refs.reactRoot
+    )
+  }
 }
 </script>
-
-<style lang='stylus' scoped>
-@require 'vars'
-
-
-.toggle
-  font-size: 90%
-  opacity: 0.7
-  border-bottom: 1px solid transparent
-  transition: 0.2s
-
-  animate-press()
-
-  &:hover
-    opacity: 1
-    border-bottom-color: rgba($text-color, 0.3)
-
-  &.checked
-    opacity: 0.8
-
-  &.disabled
-    opacity: 0.3
-    pointer-events: none
-</style>
