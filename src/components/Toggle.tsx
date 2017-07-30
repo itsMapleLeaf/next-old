@@ -24,9 +24,9 @@ const styles = {
 
 export default class Toggle extends React.Component {
   props: {
-    value: boolean
-    disabled: boolean
-    children: React.ReactNode
+    value?: boolean
+    disabled?: boolean
+    children?: React.ReactNode
   }
 
   render() {
