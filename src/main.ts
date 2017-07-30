@@ -1,12 +1,15 @@
-import 'regenerator-runtime/runtime'
-import Vue from 'vue'
-import App from './components.old/App.vue'
-import { store, state } from './store'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import App from './components/App'
+import './styles/main.styl'
 
-new Vue({
-  el: '#app',
-  render: h => h(App),
-  data: { state },
-})
+function render() {
+  ReactDOM.render(React.createElement(App), document.getElementById('app'))
+}
 
-store.initialize()
+render()
+
+declare const module: NodeModule & { hot: any }
+if (module.hot) {
+  module.hot.accept(render)
+}
