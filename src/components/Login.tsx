@@ -1,12 +1,20 @@
 import * as React from 'react'
 import Toggle from './Toggle'
 
-export type LoginSubmitCallback = (username: string, password: string) => any
+export type LoginSubmitCallback = (
+  username: string,
+  password: string,
+  remember: boolean,
+) => any
 
 export default class Login extends React.Component {
   props: { status: string; onSubmit: LoginSubmitCallback }
 
-  state = { username: '', password: '' }
+  state = {
+    username: '',
+    password: '',
+    remember: false,
+  }
 
   updateUsername = (event: React.SyntheticEvent<HTMLInputElement>) => {
     this.setState({
@@ -21,8 +29,9 @@ export default class Login extends React.Component {
   }
 
   handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
-    const { username, password } = this.state
-    this.props.onSubmit(username, password)
+    const { username, password, remember } = this.state
+    this.props.onSubmit(username, password, remember)
+    event.preventDefault()
   }
 
   render() {
@@ -49,7 +58,12 @@ export default class Login extends React.Component {
             />
           </fieldset>
           <fieldset>
-            <Toggle value={false}>Remember</Toggle>
+            <Toggle
+              value={this.state.remember}
+              onClick={value => this.setState({ remember: value })}
+            >
+              Remember Username
+            </Toggle>
           </fieldset>
           <fieldset>
             <button className="form-button" formAction="submit">
