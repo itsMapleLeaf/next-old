@@ -27,6 +27,7 @@ export default class Toggle extends React.Component {
     value?: boolean
     disabled?: boolean
     children?: React.ReactNode
+    onClick?: (value: boolean) => any
   }
 
   render() {
@@ -39,8 +40,10 @@ export default class Toggle extends React.Component {
 
     const classes = `${styles.toggle} ${checkedClass} ${disabledClass}`
 
+    const onMouseDown = this.props.onClick.bind(null, !this.props.value)
+
     return (
-      <a className={classes} href="#">
+      <a href="#" className={classes} onMouseDown={onMouseDown}>
         <i className={`mdi ${iconClass}`} /> {this.props.children}
       </a>
     )
