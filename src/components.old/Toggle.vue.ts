@@ -1,7 +1,7 @@
 import * as Vue from 'vue'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import ToggleComponent from './Toggle'
+import ToggleComponent from '../components/Toggle'
 
 interface Toggle extends Vue {
   updateReact(): void

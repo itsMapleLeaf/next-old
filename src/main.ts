@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime'
 import Vue from 'vue'
-import App from './components/App.vue'
+import App from './components.old/App.vue'
 import { store, state } from './store'
 
 new Vue({
