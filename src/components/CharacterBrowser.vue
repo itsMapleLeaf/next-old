@@ -41,10 +41,9 @@
 <script>
 import Avatar from './Avatar.vue'
 import Status from './Status.vue'
-import Toggle from './Toggle.vue'
 import CharacterStats from './CharacterStats.vue'
-import {store, state} from '../store'
-import {values} from '../lib/util'
+import { store, state } from '../store'
+import { values } from '../lib/util'
 
 const weights = { friend: 0, bookmark: 1, looking: 2 }
 const highlights = { friend: 'name-highlight-friend', bookmark: 'name-highlight-bookmark' }
@@ -57,8 +56,8 @@ function lower(str) {
 function kindof(char) {
   return store.isFriend(char.name) ? 'friend'
     : store.isBookmark(char.name) ? 'bookmark'
-    : char.status === 'looking' ? 'looking'
-    : 'none'
+      : char.status === 'looking' ? 'looking'
+        : 'none'
 }
 
 function getSortWeight(char) {
@@ -78,7 +77,6 @@ export default {
   components: {
     Avatar,
     Status,
-    Toggle,
     CharacterStats,
   },
   data() {

@@ -1,19 +1,18 @@
 <template>
   <div class='chat flex-column' @click='checkData($event)'>
     <div class='option-bar flex-fixed flex-row'>
-      <ChatOption class='chat-option' v-for='option in options' v-bind='option'></ChatOption>
+      <ChatOption class='chat-option' v-for='(option, i) in options' v-bind='option' :key='i'></ChatOption>
     </div>
     <div class='divider'></div>
     <div class='flex-grow flex-row'>
       <div class='chat-tabs flex-fixed'>
-        <ChatTab v-for='(tab, index) in tabs' :tab='tab' :active='tab === currentTab'
+        <ChatTab v-for='(tab, index) in tabs' :key='index' :tab='tab' :active='tab === currentTab'
           @selected='currentTabIndex = index' @closed='closeTab(tab)'>
         </ChatTab>
       </div>
       <div class='divider'></div>
       <div class='flex-grow flex-column'>
-        <ChatDescription class='description flex-fixed' :channel='channel'
-          :private-chat='privateChat'>
+        <ChatDescription class='description flex-fixed' :channel='channel' :private-chat='privateChat'>
         </ChatDescription>
         <div class='divider'></div>
         <template v-if="channel && channel.mode === 'both'">
@@ -35,9 +34,8 @@
         <div class='divider'></div>
         <UserList class='user-list flex-fixed' v-bind='channel'></UserList>
       </template>
-      <transition v-for='overlay in overlays' name='overlay' appear>
-        <component :is='overlay' @closed='overlays.pop()'
-          @channel-toggled='toggleChannel'
+      <transition v-for='(overlay, i) in overlays' name='overlay' appear :key='i'>
+        <component :is='overlay' @closed='overlays.pop()' @channel-toggled='toggleChannel'
           @private-chat-opened='openPrivateChat'>
         </component>
       </transition>
@@ -63,9 +61,9 @@ import StatusOverlay from './StatusOverlay.vue'
 import ChatOption from './ChatOption.vue'
 
 // etc.
-import {store, getters} from '../store'
-import {clamp} from '../lib/util'
-import {bottomScroll} from '../directives'
+import { store, getters } from '../store'
+import { clamp } from '../lib/util'
+import { bottomScroll } from '../directives'
 
 export default {
   components: {
@@ -208,7 +206,7 @@ export default {
       this.currentTabIndex = this.tabs.length - 1
     },
     chatboxSubmit(message) {
-      const {channel, privateChat} = this.currentTab
+      const { channel, privateChat } = this.currentTab
       if (channel) {
         store.sendChannelMessage(channel.id, message)
       } else if (privateChat) {

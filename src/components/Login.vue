@@ -16,7 +16,8 @@
       </div>
     </fieldset>
     <fieldset>
-      <toggle :value="remember" @pointerdown.native="remember = !remember">Remember me</toggle>
+      <input type="checkbox" v-model="remember">
+      <label>Remember Username</label>
     </fieldset>
     <fieldset>
       <button class='form-button' action='submit'>Go</button>
@@ -30,15 +31,11 @@
 </template>
 
 <script>
-import Toggle from './Toggle.vue'
 import * as flist from '../lib/f-list'
 import * as storage from 'localforage'
 import { store } from '../store'
 
 export default {
-  components: {
-    Toggle,
-  },
   data() {
     return {
       account: '',
