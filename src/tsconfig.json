@@ -4,8 +4,7 @@
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react"
+    "allowSyntheticDefaultImports": true
   },
   "include": ["../typings/**/*.d.ts", "./components/**/*.vue"]
 }
