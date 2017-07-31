@@ -7,5 +7,5 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react"
   },
-  "include": ["../typings/**/*.d.ts"]
+  "include": ["../typings/**/*.d.ts", "./components/**/*.vue"]
 }
