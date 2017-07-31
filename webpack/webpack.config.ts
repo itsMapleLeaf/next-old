@@ -58,6 +58,7 @@ const config: webpack.Configuration = {
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlPlugin({ template: './src/index.html' }),
   ],
   devtool: 'source-map',
