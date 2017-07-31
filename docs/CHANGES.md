@@ -1,3 +1,5 @@
+# 0.12.0
+
 # 0.11.0
 - Moved option bar to the top (because I'm an indecisive person)
 - Working Chat/Ads filter switcher thing
