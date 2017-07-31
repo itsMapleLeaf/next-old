@@ -55,6 +55,9 @@ const config: webpack.Configuration = {
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
+    alias: {
+      vue: 'vue/dist/vue.runtime.esm.js',
+    },
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
