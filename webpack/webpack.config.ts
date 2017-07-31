@@ -2,6 +2,15 @@ import * as webpack from 'webpack'
 import * as HtmlPlugin from 'html-webpack-plugin'
 import { resolve } from 'path'
 
+const tsLoader = {
+  test: /\.tsx?$/,
+  loader: 'ts-loader',
+  options: {
+    appendTsSuffixTo: [/\.vue$/],
+    transpileOnly: true,
+  },
+}
+
 const styleLoader = {
   test: /\.styl$/,
   use: [
@@ -22,7 +31,9 @@ const vueLoader = {
   options: {
     loaders: {
       stylus: styleLoader.use,
+      js: 'ts-loader',
     },
+    esModule: true,
   },
 }
 
@@ -36,8 +47,8 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       vueLoader,
+      tsLoader,
       styleLoader,
-      { test: /\.tsx?$/, loader: 'ts-loader' },
       { test: /\.json$/, loader: 'json-loader' },
       { test: /\.mp3$|.ogg$/, loader: 'file-loader' },
     ],
