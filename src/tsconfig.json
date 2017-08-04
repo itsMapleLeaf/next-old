@@ -6,5 +6,5 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./**/*", "../typings/**/*.d.ts", "./components/**/*.vue"]
+  "include": ["./**/*", "./**/*.vue", "../typings/**/*.d.ts"]
 }
