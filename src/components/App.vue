@@ -9,10 +9,6 @@
   </main>
 </template>
 
-<style lang='stylus'>
-@import '../styles/main'
-</style>
-
 <style lang='stylus' scoped>
 @require 'vars'
 
