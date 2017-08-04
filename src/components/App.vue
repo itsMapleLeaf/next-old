@@ -19,38 +19,40 @@
   background: $theme-color
 </style>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
 import Login from './Login.vue'
 import CharacterList from './CharacterList.vue'
 import Chat from './Chat.vue'
 import Loading from './Loading.vue'
+import { state } from '../store'
 
-import { getters } from '../store'
+@Component({
+  components: { Loading }
+})
+export default class App extends Vue {
+  get appState() {
+    return state.appState
+  }
 
-export default {
-  components: {
-    Loading,
-  },
-  computed: {
-    ...getters(['appState']),
+  get currentView() {
+    const views = {
+      'login': Login,
+      'character-select': CharacterList,
+      'online': Chat,
+    }
+    return views[this.appState]
+  }
 
-    currentView() {
-      const views = {
-        'login': Login,
-        'character-select': CharacterList,
-        'online': Chat,
-      }
-      return views[this.appState]
-    },
-    loadingMessage() {
-      const messages = {
-        'setup': 'Setting things up...',
-        'logging-in': 'Logging in...',
-        'connecting': 'Connecting...',
-        'identifying': 'Identifying...',
-      }
-      return messages[this.appState]
-    },
-  },
+  get loadingMessage() {
+    const messages = {
+      'setup': 'Setting things up...',
+      'logging-in': 'Logging in...',
+      'connecting': 'Connecting...',
+      'identifying': 'Identifying...',
+    }
+    return messages[this.appState]
+  }
 }
 </script>
