@@ -21,12 +21,8 @@
 
     <section class="bg-color-darken-0 flex-grow">
       <template v-if="currentTab">
-        <template v-if="currentTab.type === 'channel'">
-          <channel-view v-bind="currentTab.channel" class="fill-area"></channel-view>
-        </template>
-        <template v-if="currentTab.type === 'privateChat'">
-          <private-chat-view v-bind="currentTab.privateChat" class="fill-area"></private-chat-view>
-        </template>
+        <channel-view v-if="currentTab.type === 'channel'" v-bind="currentTab.channel" class="fill-area"></channel-view>
+        <private-chat-view v-if="currentTab.type === 'privateChat'" v-bind="currentTab.privateChat" class="fill-area"></private-chat-view>
       </template>
     </section>
 
