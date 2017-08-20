@@ -1,0 +1,17 @@
+.fullscreen {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.scroll-v {
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.fill-area {
+  width: 100%;
+  height: 100%;
+}

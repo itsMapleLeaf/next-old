@@ -1,73 +1,43 @@
 <template>
-  <form @submit.prevent='submit'>
-    <fieldset>
-      <h2>Hello, beautiful.</h2>
-    </fieldset>
-    <fieldset>
-      <div class='form-icon-input'>
-        <i class='mdi mdi-account-circle'></i>
-        <input type='text' placeholder='Username' v-model='account' />
-      </div>
-    </fieldset>
-    <fieldset>
-      <div class='form-icon-input'>
-        <i class='mdi mdi-lock'></i>
-        <input type='password' placeholder='••••••••' v-model='password' />
-      </div>
-    </fieldset>
-    <fieldset>
-      <input type="checkbox" v-model="remember">
-      <label>Remember Username</label>
-    </fieldset>
-    <fieldset>
-      <button class='form-button' action='submit'>Go</button>
-    </fieldset>
-    <fieldset>
-      <div class='status'>
-        {{ status }}
-      </div>
-    </fieldset>
-  </form>
+  <overlay>
+    <div style="text-align: center">
+      <h1>hi</h1>
+      <form @submit.prevent="submit">
+        <fieldset>
+          <input type="text" placeholder="Username" v-model="username">
+        </fieldset>
+        <fieldset>
+          <input type="password" placeholder="Password" v-model="password">
+        </fieldset>
+        <fieldset>
+          <button type="submit">Submit</button>
+        </fieldset>
+      </form>
+    </div>
+  </overlay>
 </template>
 
 <script>
-import * as flist from '../lib/f-list'
-import * as storage from 'localforage'
-import { store } from '../store'
+import forage from 'localforage'
 
 export default {
+  components: {
+    overlay: require('./Overlay.vue')
+  },
   data() {
     return {
-      account: '',
-      password: '',
-      remember: false,
-      status: '',
+      username: '',
+      password: ''
     }
   },
   async created() {
-    const auth = await storage.getItem('auth')
-    if (auth) {
-      this.account = auth.account
-      this.remember = true
-    }
+    const auth = await forage.getItem('auth') || {}
+    this.username = auth.account || ''
   },
   methods: {
     submit() {
-      this.status = ''
-      store.login(this.account, this.password, this.remember).catch(err => {
-        this.status = err
-      })
-    },
-  },
+      this.$emit('submit', this.username, this.password)
+    }
+  }
 }
 </script>
-
-<style lang='stylus' scoped>
-@require 'vars'
-
-form
-  text-align: center
-
-.status
-  max-width: 16em
-</style>

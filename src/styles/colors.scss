@@ -1,0 +1,13 @@
+$bg-color: hsl(210, 40%, 27%);
+$bg-color-darken-1: darken($bg-color, 6%);
+$bg-color-darken-2: darken($bg-color, 12%);
+$bg-color-darken-3: darken($bg-color, 18%);
+
+$text-color: hsl(192, 15%, 93%);
+
+.bg-color-main { background-color: $bg-color }
+.bg-color-darken-1 { background-color: $bg-color-darken-1 }
+.bg-color-darken-2 { background-color: $bg-color-darken-2 }
+.bg-color-darken-3 { background-color: $bg-color-darken-3 }
+
+.text-color-main { color: $text-color }

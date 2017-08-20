@@ -1,58 +1,72 @@
 <template>
-  <main class='container'>
-    <transition name='fade' mode='out-in' appear>
-      <component v-if='currentView' :is='currentView'></component>
-    </transition>
-    <transition name='fade' appear>
-      <Loading v-if='loadingMessage'>{{ loadingMessage }}</Loading>
-    </transition>
+  <main class="fullscreen bg-color-main text-color-main">
+    <chat></chat>
+    <component v-if="view" :is="view.component" v-on="view.events || {}" v-bind="view.props || {}">
+    </component>
   </main>
 </template>
 
-<style lang='stylus' scoped>
-@require 'vars'
+<script>
+import Login from './Login'
+import CharacterSelect from './CharacterSelect'
+import Chat from './chat/Chat'
 
-.container
-  fullscreen()
-  flex()
-  flex-align(center)
-  background: $theme-color
-</style>
-
-<script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import Login from './Login.vue'
-import CharacterList from './CharacterList.vue'
-import Chat from './Chat.vue'
-import Loading from './Loading.vue'
-import { state } from '../store'
-
-@Component({
-  components: { Loading }
-})
-export default class App extends Vue {
-  get appState() {
-    return state.appState
-  }
-
-  get currentView() {
-    const views = {
-      'login': Login,
-      'character-select': CharacterList,
-      'online': Chat,
+export default {
+  components: {
+    Chat
+  },
+  data() {
+    return {
+      view: null
     }
-    return views[this.appState]
-  }
+  },
+  created() {
+    this.createViews()
+    this.init()
+  },
+  methods: {
+    createViews() {
+      this.loginView = {
+        component: Login,
+        events: {
+          submit: this.handleLoginSubmit
+        }
+      }
 
-  get loadingMessage() {
-    const messages = {
-      'setup': 'Setting things up...',
-      'logging-in': 'Logging in...',
-      'connecting': 'Connecting...',
-      'identifying': 'Identifying...',
+      this.characterSelectView = {
+        component: CharacterSelect,
+        events: {
+          submit: this.handleCharacterSubmit
+        }
+      }
+    },
+
+    async init() {
+      try {
+        await this.$store.dispatch('loadAuthData')
+        await this.$store.dispatch('fetchCharacters')
+        this.view = this.characterSelectView
+      } catch (error) {
+        this.view = this.loginView
+      }
+    },
+
+    async handleLoginSubmit(account, password) {
+      try {
+        await this.$store.dispatch('fetchTicket', { account, password })
+        await this.$store.dispatch('fetchCharacters')
+        this.view = this.characterSelectView
+        this.$store.dispatch('saveAuthData')
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    handleCharacterSubmit(character) {
+      this.$store.commit('SET_IDENTITY', character)
+      this.$store.dispatch('connectToServer', this.$store.state.user)
+      this.view = null
     }
-    return messages[this.appState]
-  }
+  },
 }
 </script>

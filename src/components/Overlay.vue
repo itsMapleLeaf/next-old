@@ -1,42 +1,61 @@
 <template>
-  <div class='overlay-shade' @click.self="$emit('closed')">
-    <div class='overlay-panel overlay-ease-down'>
-      <a href='#' class='overlay-close' @click="$emit('closed')">
-        <i class='mdi mdi-close'></i>
-      </a>
-      <div class='header' v-if='header'>
-        <h2>{{ header }}</h2>
-      </div>
-      <div class='content'>
+  <transition name="overlay" mode="in-out" appear>
+    <div class="shade" @click.self="$emit('shadeclick')">
+      <div class="panel bg-color-main">
         <slot></slot>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
-<script>
-export default {
-  props: {
-    header: String,
-  },
+<style lang="scss" scoped>
+.shade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-</script>
 
-<style lang='stylus' scoped>
-@require 'vars'
+.panel {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-.header
-  background: darken($theme-color, 10%)
-  padding: 0.5em 1em
-  text-align: center
-  accent-border(bottom)
+@keyframes fade-in {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
 
-.overlay-close
-  anchor(top right)
-  padding: 0.3em 0.5em
-  opacity: 0.3
-  transition: 0.2s
+@keyframes slide-down {
+  from {
+    transform: translateY(-30px)
+  }
+  to {
+    transform: translateY(0)
+  }
+}
 
-  &:hover
-    opacity: 0.7
+.overlay-enter-active {
+  animation: fade-in 0.35s;
+  .panel {
+    animation: slide-down 0.35s;
+  }
+}
+
+.overlay-leave-active {
+  animation: fade-in 0.35s reverse;
+  .panel {
+    animation: slide-down 0.35s reverse;
+  }
+}
 </style>
