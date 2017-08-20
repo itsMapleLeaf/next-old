@@ -1,9 +1,7 @@
 <template>
   <main class="flex-row fullscreen">
     <section class="bg-color-darken-2 scroll-v">
-      <a href='#' class="action-icon" @pointerdown.prevent="openChannelList">
-        <i class="mdi mdi-forum"></i>
-      </a>
+      <chat-action icon='forum' @click.native.prevent="openChannelList"></chat-action>
     </section>
 
     <section class="bg-color-darken-1 flex-column scroll-v">
@@ -24,6 +22,7 @@
 </template>
 
 <script>
+import ChatAction from './ChatAction'
 import ChannelList from './ChannelList'
 import ChatTab from './ChatTab'
 import ChatTabContent from './ChatTabContent'
@@ -32,6 +31,7 @@ import PrivateChatView from './PrivateChatView'
 
 export default {
   components: {
+    ChatAction,
     ChannelList,
     ChatTab,
     ChatTabContent,
