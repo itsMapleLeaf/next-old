@@ -13,6 +13,8 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+Vue.component('overlay', require('./components/common/Overlay'))
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

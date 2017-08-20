@@ -24,9 +24,6 @@ import forage from 'localforage'
 import { getAvatarURL } from '../api'
 
 export default {
-  components: {
-    overlay: require('./Overlay.vue'),
-  },
   computed: {
     characters() {
       return this.$store.state.user.characters

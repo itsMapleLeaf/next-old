@@ -18,9 +18,6 @@ import sortBy from 'lodash/sortBy'
 import debounce from 'lodash/debounce'
 
 export default {
-  components: {
-    overlay: require('../Overlay')
-  },
   data() {
     return {
       searchText: ''

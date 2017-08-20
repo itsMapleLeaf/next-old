@@ -21,9 +21,6 @@
 import forage from 'localforage'
 
 export default {
-  components: {
-    overlay: require('./Overlay.vue')
-  },
   data() {
     return {
       username: '',
