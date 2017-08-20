@@ -98,7 +98,7 @@ export default {
       for (const [name, gender, status, statusMessage] of batch) {
         map[name] = Character(name, gender, status, statusMessage)
       }
-      state.characters = { ...state.characters, ...map }
+      state.characters = Object.assign(state.characters, map)
     },
 
     REMOVE_CHARACTER(state, name) {
