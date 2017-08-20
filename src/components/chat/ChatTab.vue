@@ -1,9 +1,9 @@
 <template>
   <div :class="['chat-tab flex-row', active && 'chat-tab--active bg-color-main']">
-    <a href="#" class="chat-tab-title flex-grow" @pointerdown.prevent="$emit('activate')">
+    <a href="#" class="chat-tab-title flex-grow" @click.prevent="$emit('activate')">
       <slot></slot>
     </a>
-    <a href="#" class="chat-tab-close" @pointerdown.prevent="$emit('close')">
+    <a href="#" class="chat-tab-close" @click.prevent="$emit('close')">
       <i class="mdi mdi-close"></i>
     </a>
   </div>
