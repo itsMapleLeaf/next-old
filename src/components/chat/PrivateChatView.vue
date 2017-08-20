@@ -4,7 +4,7 @@
       <character-name v-bind="character"></character-name>
       <span v-if="character.statusMessage" v-html="' - ' + parseBBC(character.statusMessage)"></span>
     </section>
-    <section class="flex-grow bg-color-darken-1 scroll-v">
+    <section class="flex-grow bg-color-darken-1 scroll-v" v-auto-scroll>
       <message v-for="(message, i) in messages" v-bind="message" :key="i"></message>
     </section>
     <section class="bg-color-main flex-row" style="height: 5rem; padding: 0.3rem;">

@@ -10,10 +10,13 @@ import './styles/helpers.scss'
 import Vue from 'vue'
 import App from './components/App'
 import store from './store'
+import * as directives from './directives'
 
 Vue.config.productionTip = false
 
 Vue.component('overlay', require('./components/common/Overlay'))
+
+Vue.directive('autoScroll', directives.autoScroll)
 
 /* eslint-disable no-new */
 new Vue({

@@ -4,7 +4,7 @@
       <span v-html="parseBBC(description)"></span>
     </section>
     <div class="flex-grow flex-row">
-      <section class="flex-grow bg-color-darken-1 scroll-v">
+      <section class="flex-grow bg-color-darken-1 scroll-v" v-auto-scroll>
         <message v-for="(message, i) in messages" v-bind="message" :key="i"></message>
       </section>
       <section class="scroll-v" style="width: 12rem">
