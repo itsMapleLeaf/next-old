@@ -21,3 +21,7 @@ export function Character(name, gender, status, statusMessage = '') {
 export function Message(sender, text, type) {
   return { sender, text, type, date: new Date() }
 }
+
+export function PrivateChat(partner) {
+  return { partner, messages: [] }
+}

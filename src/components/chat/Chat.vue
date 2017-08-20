@@ -5,14 +5,29 @@
         <i class="mdi mdi-forum"></i>
       </a>
     </section>
+
     <section class="bg-color-darken-1 flex-column scroll-v">
-      <chat-tab v-for="({ id, title }, index) in joinedChannels" :key="id" :active="index === tabIndex" @activate="tabIndex = index">
-        <i :class="'mdi mdi-' + (id === title ? 'earth' : 'key-variant')"></i>
-        <span v-html="title"></span>
+      <chat-tab v-for="(tab, index) in tabs" :key="index" :active="index === tabIndex" @activate="tabIndex = index">
+        <template v-if="tab.type === 'channel'">
+          <i :class="'mdi mdi-' + (tab.channel.id === tab.channel.title ? 'earth' : 'key-variant')"></i>
+          <span v-html="tab.channel.title"></span>
+        </template>
+        <template v-if="tab.type === 'privateChat'">
+          <i class="mdi mdi-account"></i>
+          <span v-html="tab.privateChat.partner"></span>
+        </template>
       </chat-tab>
     </section>
+
     <section class="bg-color-darken-0 flex-grow">
-      <channel-view v-if="joinedChannels[tabIndex]" v-bind="joinedChannels[tabIndex]" style="width: 100%; height: 100%"></channel-view>
+      <template v-if="currentTab">
+        <template v-if="currentTab.type === 'channel'">
+          <channel-view v-bind="currentTab.channel" class="fill-area"></channel-view>
+        </template>
+        <template v-if="currentTab.type === 'privateChat'">
+          <private-chat-view v-bind="currentTab.privateChat" class="fill-area"></private-chat-view>
+        </template>
+      </template>
     </section>
 
     <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}"></component>
@@ -23,12 +38,14 @@
 import ChannelList from './ChannelList'
 import ChatTab from './ChatTab'
 import ChannelView from './ChannelView'
+import PrivateChatView from './PrivateChatView'
 
 export default {
   components: {
     ChannelList,
     ChatTab,
     ChannelView,
+    PrivateChatView,
   },
   data() {
     return {
@@ -41,6 +58,24 @@ export default {
       const { chat } = this.$store.state
       return Object.keys(chat.joinedChannels).map(id => chat.channels[id])
     },
+    privateChats() {
+      const { chat } = this.$store.state
+      return Object.values(chat.privateChats)
+    },
+    tabs() {
+      const channelTabs = this.joinedChannels.map(channel => {
+        return { type: 'channel', channel }
+      })
+
+      const privateChatTabs = this.privateChats.map(privateChat => {
+        return { type: 'privateChat', privateChat }
+      })
+
+      return channelTabs.concat(privateChatTabs)
+    },
+    currentTab() {
+      return this.tabs[this.tabIndex]
+    }
   },
   created() {
     this.createViews()
@@ -66,10 +101,6 @@ export default {
     openChannelList() {
       this.openOverlay(this.channelListView)
       this.$store.dispatch('fetchChannelList')
-    },
-
-    showChannel(channel) {
-      // TODO
     },
   },
 }

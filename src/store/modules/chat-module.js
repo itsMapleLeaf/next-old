@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import forage from 'localforage'
-import { Channel, ChannelInfo, Character, Message } from '../models'
+import {
+  Channel,
+  ChannelInfo,
+  Character,
+  Message,
+  PrivateChat,
+} from '../models'
 import fromPairs from 'lodash/fromPairs'
 
 let socket
@@ -15,6 +21,7 @@ export default {
     channelList: [],
     joinedChannels: {},
     channels: {},
+    privateChats: {},
   },
   mutations: {
     SET_IDENTITY(state, identity) {
@@ -115,6 +122,20 @@ export default {
         char.statusMessage = statusMessage
       }
     },
+
+    ADD_PRIVATE_CHAT(state, name) {
+      if (state.privateChats[name] == null) {
+        Vue.set(state.privateChats, name, PrivateChat(name))
+      }
+    },
+
+    REMOVE_PRIVATE_CHAT(state, name) {
+      Vue.delete(state.privateChats, name)
+    },
+
+    ADD_PRIVATE_CHAT_MESSAGE(state, { partner, sender, text }) {
+      state.privateChats[partner].messages.push(Message(sender, text, 'normal'))
+    },
   },
   actions: {
     connectToServer({ state, dispatch }, { account, ticket }) {
@@ -200,6 +221,18 @@ export default {
       for (const id of channels || []) {
         dispatch('joinChannel', id)
       }
+    },
+
+    sendPrivateMessage({ dispatch, commit, state }, { recipient, message }) {
+      dispatch('sendSocketCommand', {
+        cmd: 'PRI',
+        params: { recipient, message },
+      })
+      commit('ADD_PRIVATE_CHAT_MESSAGE', {
+        partner: recipient,
+        sender: state.identity,
+        text: message,
+      })
     },
 
     handleSocketCommand({ state, commit, dispatch }, { cmd, params }) {
@@ -330,6 +363,15 @@ export default {
             sender: params.character,
             text: params.message,
             type: 'lfrp',
+          })
+        },
+
+        PRI() {
+          commit('ADD_PRIVATE_CHAT', params.character)
+          commit('ADD_PRIVATE_CHAT_MESSAGE', {
+            partner: params.character,
+            sender: params.character,
+            text: params.message,
           })
         },
 
