@@ -8,14 +8,7 @@
 
     <section class="bg-color-darken-1 flex-column scroll-v">
       <chat-tab v-for="(tab, index) in tabs" :key="index" :active="index === tabIndex" @activate="tabIndex = index">
-        <template v-if="tab.type === 'channel'">
-          <i :class="'mdi mdi-' + (tab.channel.id === tab.channel.title ? 'earth' : 'key-variant')"></i>
-          <span v-html="tab.channel.title"></span>
-        </template>
-        <template v-if="tab.type === 'privateChat'">
-          <i class="mdi mdi-account"></i>
-          <span v-html="tab.privateChat.partner"></span>
-        </template>
+        <chat-tab-content v-bind="tab"></chat-tab-content>
       </chat-tab>
     </section>
 
@@ -33,6 +26,7 @@
 <script>
 import ChannelList from './ChannelList'
 import ChatTab from './ChatTab'
+import ChatTabContent from './ChatTabContent'
 import ChannelView from './ChannelView'
 import PrivateChatView from './PrivateChatView'
 
@@ -40,6 +34,7 @@ export default {
   components: {
     ChannelList,
     ChatTab,
+    ChatTabContent,
     ChannelView,
     PrivateChatView,
   },
