@@ -2,6 +2,7 @@
   <main class="flex-row fullscreen">
     <section class="bg-color-darken-2 scroll-v">
       <chat-action icon='forum' @click.native.prevent="openChannelList"></chat-action>
+      <chat-action icon='account-multiple' @click.native.prevent="openCharacterBrowser"></chat-action>
     </section>
 
     <section class="bg-color-darken-1 flex-column scroll-v">
@@ -17,17 +18,18 @@
       </template>
     </section>
 
-    <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}"></component>
+    <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}" @close="closeOverlay"></component>
   </main>
 </template>
 
 <script>
 import ChatAction from './ChatAction'
-import ChannelList from './ChannelList'
 import ChatTab from './ChatTab'
 import ChatTabContent from './ChatTabContent'
 import ChannelView from './ChannelView'
 import PrivateChatView from './PrivateChatView'
+import ChannelList from './ChannelList'
+import CharacterBrowser from './CharacterBrowser'
 
 export default {
   components: {
@@ -75,9 +77,10 @@ export default {
     createViews() {
       this.channelListView = {
         component: ChannelList,
-        events: {
-          close: this.closeOverlay,
-        },
+      }
+
+      this.characterBrowserView = {
+        component: CharacterBrowser
       }
     },
 
@@ -93,6 +96,10 @@ export default {
       this.openOverlay(this.channelListView)
       this.$store.dispatch('fetchChannelList')
     },
+
+    openCharacterBrowser() {
+      this.openOverlay(this.characterBrowserView)
+    }
   },
 }
 </script>
