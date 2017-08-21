@@ -235,6 +235,20 @@ export default {
       })
     },
 
+    async savePrivateChats({ state }) {
+      await forage.setItem(
+        'privateChats:' + state.identity,
+        Object.keys(state.privateChats),
+      )
+    },
+
+    async restorePrivateChats({ commit, state }) {
+      const partners = await forage.getItem('privateChats:' + state.identity)
+      for (const name of partners || []) {
+        commit('ADD_PRIVATE_CHAT', name)
+      }
+    },
+
     handleSocketCommand({ state, commit, dispatch }, { cmd, params }) {
       const handlers = {
         PIN() {
@@ -244,6 +258,7 @@ export default {
         IDN() {
           console.info('Successfully connected to server')
           dispatch('restoreJoinedChannels')
+          dispatch('restorePrivateChats')
         },
 
         VAR() {},
@@ -373,6 +388,7 @@ export default {
             sender: params.character,
             text: params.message,
           })
+          dispatch('savePrivateChats')
         },
 
         RTB() {
