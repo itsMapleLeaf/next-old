@@ -1,6 +1,6 @@
 <template>
   <a href='#' class="action-icon">
-    <i :class="'mdi mdi-' + icon"></i>
+    <icon>{{ icon }}</icon>
   </a>
 </template>
 

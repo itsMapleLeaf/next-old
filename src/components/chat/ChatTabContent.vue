@@ -1,11 +1,11 @@
 <template>
   <span>
     <template v-if="type === 'channel'">
-      <i :class="'mdi mdi-' + (channel.id === channel.title ? 'earth' : 'key-variant')"></i>
+      <icon>{{ channel.id === channel.title ? 'earth' : 'key-variant' }}</icon>
       <span v-html="channel.title"></span>
     </template>
     <template v-if="type === 'privateChat'">
-      <i class="mdi mdi-account"></i>
+      <icon>account</icon>
       <span v-html="privateChat.partner"></span>
     </template>
   </span>

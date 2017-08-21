@@ -7,7 +7,7 @@
       <character-name v-bind="{ name, gender, status }"></character-name>
     </div>
     <div class="card-icon">
-      <i class="mdi mdi-heart"></i>
+      <icon>heart</icon>
     </div>
   </div>
 </template>

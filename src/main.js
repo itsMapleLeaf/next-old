@@ -15,6 +15,7 @@ import * as directives from './directives'
 Vue.config.productionTip = false
 
 Vue.component('overlay', require('./components/common/Overlay'))
+Vue.component('icon', require('./components/common/Icon'))
 
 Vue.directive('autoScroll', directives.autoScroll)
 
