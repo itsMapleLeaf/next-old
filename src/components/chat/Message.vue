@@ -59,8 +59,9 @@ export default {
 
 <style lang="scss" scoped>
 .avatar {
-  width: 2.5em;
-  height: 2.5em;
+  width: 2rem;
+  height: 2rem;
+  display: block;
 }
 
 .message-type-lfrp {
