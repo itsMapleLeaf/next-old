@@ -7,9 +7,7 @@
       <section class="flex-grow bg-color-darken-1 scroll-v" v-auto-scroll>
         <message v-for="(message, i) in messages" v-bind="message" :key="i"></message>
       </section>
-      <section class="scroll-v" style="width: 12rem">
-        <user-list :users="users"></user-list>
-      </section>
+      <user-list class="scroll-v" style="width: 12rem" :users="users"></user-list>
     </div>
     <section class="bg-color-main flex-row" style="height: 5rem; padding: 0.3rem;">
       <chatbox class="flex-grow" @submit="sendMessage"></chatbox>
