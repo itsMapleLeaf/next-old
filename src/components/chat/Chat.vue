@@ -1,5 +1,5 @@
 <template>
-  <main class="flex-row fullscreen" @click.prevent="closeCharacterMenu" @contextmenu.prevent="toggleCharacterMenu">
+  <main class="flex-row fullscreen" @click.prevent="closeCharacterMenu" @contextmenu="toggleCharacterMenu">
     <section class="bg-color-darken-2 scroll-v">
       <chat-action icon='forum' @click.native.prevent="openChannelList"></chat-action>
       <chat-action icon='account-multiple' @click.native.prevent="openCharacterBrowser"></chat-action>
@@ -138,7 +138,8 @@ export default {
                 y: event.clientY,
               }
             }
-            break
+            event.preventDefault()
+            return
           }
         }
       }
