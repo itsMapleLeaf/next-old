@@ -1,15 +1,20 @@
+import querystring from 'querystring'
+
+function fetchJSON(url, params) {
+  const request = url + '?' + querystring.stringify(params)
+  return fetch(request).then(res => res.json())
+}
+
 export async function fetchTicket(account, password) {
-  const url = `https://www.f-list.net/json/getApiTicket.php`
-  const query = `?account=${account}&password=${password}`
-  const data = await fetch(url + query).then(res => res.json())
+  const url = 'https://www.f-list.net/json/getApiTicket.php'
+  const data = await fetchJSON(url, { account, password })
   if (data.error) throw new Error(data.error)
   return data.ticket
 }
 
 export async function fetchCharacterList(account, ticket) {
-  const url = `https://www.f-list.net/json/api/character-list.php`
-  const query = `?account=${account}&ticket=${ticket}`
-  const data = await fetch(url + query).then(res => res.json())
+  const url = 'https://www.f-list.net/json/api/character-list.php'
+  const data = await fetchJSON(url, { account, ticket })
   if (data.error) throw new Error(data.error)
   return data.characters
 }
