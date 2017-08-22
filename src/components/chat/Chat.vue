@@ -6,14 +6,14 @@
     </section>
 
     <section class="bg-color-darken-1 flex-column scroll-v">
-      <component v-for="(tab, index) in tabs" :key="index" :is="tab.tabContent.component" v-bind="tab.tabContent.props" :active="index === tabIndex" @activate="tabIndex = index" @close="tab.onClose"></component>
+      <renderer v-for="(tab, index) in tabs" :key="index" v-bind="tab.tabContent" :active="index === tabIndex" @activate="tabIndex = index" @close="tab.onClose"></renderer>
     </section>
 
     <section class="bg-color-darken-0 flex-grow">
-      <component v-if="currentTab" :is="currentTab.tabView.component" v-bind="currentTab.tabView.props" class="fill-area"></component>
+      <renderer v-if="currentTab" v-bind="currentTab.tabView" class="fill-area"></renderer>
     </section>
 
-    <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}" @close="closeOverlay"></component>
+    <renderer v-if="overlay" v-bind="overlay" @close="closeOverlay"></renderer>
 
     <transition name="fade-in">
       <character-menu v-if="characterMenu" v-bind="characterMenu" @sendmessage="openPrivateChat"></character-menu>

@@ -1,8 +1,7 @@
 <template>
   <main class="fullscreen bg-color-main text-color-main">
     <chat></chat>
-    <component v-if="view" :is="view.component" v-on="view.events || {}" v-bind="view.props || {}">
-    </component>
+    <renderer v-if="view" v-bind="view"></renderer>
   </main>
 </template>
 
