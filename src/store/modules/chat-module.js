@@ -235,6 +235,12 @@ export default {
       })
     },
 
+    openPrivateChat({ state, commit }, partner) {
+      if (state.privateChats[partner] == null) {
+        commit('ADD_PRIVATE_CHAT', partner)
+      }
+    },
+
     async savePrivateChats({ state }) {
       await forage.setItem(
         'privateChats:' + state.identity,

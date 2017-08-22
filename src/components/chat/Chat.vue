@@ -21,7 +21,7 @@
     <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}" @close="closeOverlay"></component>
 
     <transition name="fade-in">
-      <character-menu v-if="characterMenu" v-bind="characterMenu.props"></character-menu>
+      <character-menu v-if="characterMenu" v-bind="characterMenu" @sendmessage="openPrivateChat"></character-menu>
     </transition>
   </main>
 </template>
@@ -119,11 +119,26 @@ export default {
       if (characterElement) {
         this.characterMenu = {
           character: characterElement.dataset.character,
-          props: { x: event.clientX, y: event.clientY }
+          x: event.clientX,
+          y: event.clientY,
         }
         event.preventDefault()
       }
     },
+
+    openPrivateChat(partner) {
+      this.$store.dispatch('openPrivateChat', partner)
+
+      this.$nextTick(() => {
+        const index = this.tabs.findIndex(tab =>
+          tab.type === 'privateChat' && tab.privateChat.partner === partner
+        )
+        console.log(this.tabs)
+        if (index > -1) {
+          this.tabIndex = index
+        }
+      })
+    }
   },
 }
 </script>
