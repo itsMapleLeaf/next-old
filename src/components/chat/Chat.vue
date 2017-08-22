@@ -58,8 +58,6 @@ export default {
     tabs() {
       const channelTabs = this.joinedChannels.map(channel => {
         return {
-          type: 'channel',
-          channel,
           tabContent: {
             component: require('./ChannelTab'),
             props: { channel }
@@ -76,8 +74,6 @@ export default {
 
       const privateChatTabs = this.privateChats.map(privateChat => {
         return {
-          type: 'privateChat',
-          privateChat,
           tabContent: {
             component: require('./PrivateChatTab'),
             props: { privateChat }
