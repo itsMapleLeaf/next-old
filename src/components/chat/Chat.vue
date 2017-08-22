@@ -6,7 +6,7 @@
     </section>
 
     <section class="bg-color-darken-1 flex-column scroll-v">
-      <chat-tab v-for="(tab, index) in tabs" :key="index" :active="index === tabIndex" @activate="tabIndex = index">
+      <chat-tab v-for="(tab, index) in tabs" :key="index" :active="index === tabIndex" @activate="tabIndex = index" @close="handleTabClose(tab)">
         <chat-tab-content v-bind="tab"></chat-tab-content>
       </chat-tab>
     </section>
@@ -138,6 +138,14 @@ export default {
           this.tabIndex = index
         }
       })
+    },
+
+    handleTabClose(tab) {
+      if (tab.type === 'channel') {
+        this.$store.dispatch('leaveChannel', tab.channel.id)
+      } else if (tab.type === 'privateChat') {
+        this.$store.commit('REMOVE_PRIVATE_CHAT', tab.privateChat.partner)
+      }
     }
   },
 }
