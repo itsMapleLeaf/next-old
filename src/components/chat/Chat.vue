@@ -21,20 +21,7 @@
     <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}" @close="closeOverlay"></component>
 
     <fade in>
-      <context-menu v-if="characterMenu" v-bind="characterMenu.props">
-        <context-menu-item>
-          <icon>message</icon> Send Message
-        </context-menu-item>
-        <context-menu-item>
-          <icon>link-variant</icon> View Profile
-        </context-menu-item>
-        <context-menu-item>
-          <icon>heart</icon> Add Friend
-        </context-menu-item>
-        <context-menu-item>
-          <icon>minus-circle</icon> Ignore
-        </context-menu-item>
-      </context-menu>
+      <character-menu v-if="characterMenu" v-bind="characterMenu.props"></character-menu>
     </fade>
   </main>
 </template>
@@ -47,8 +34,7 @@ import ChannelView from './ChannelView'
 import PrivateChatView from './PrivateChatView'
 import ChannelList from './ChannelList'
 import CharacterBrowser from './CharacterBrowser'
-import ContextMenu from './ContextMenu'
-import ContextMenuItem from './ContextMenuItem'
+import CharacterMenu from './CharacterMenu'
 
 export default {
   components: {
@@ -58,8 +44,7 @@ export default {
     ChatTabContent,
     ChannelView,
     PrivateChatView,
-    ContextMenu,
-    ContextMenuItem,
+    CharacterMenu,
   },
   data() {
     return {
