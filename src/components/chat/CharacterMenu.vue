@@ -7,10 +7,7 @@
       <icon>link-variant</icon> View Profile
     </context-menu-item>
     <context-menu-item>
-      <icon>heart</icon> Add Friend
-    </context-menu-item>
-    <context-menu-item>
-      <icon>minus-circle</icon> Ignore
+      <icon>minus-circle</icon> Ignore (not working)
     </context-menu-item>
   </context-menu>
 </template>
