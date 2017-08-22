@@ -1,5 +1,5 @@
 <template>
-  <main class="flex-row fullscreen" @click.prevent="closeCharacterMenu" @contextmenu="toggleCharacterMenu">
+  <main class="flex-row fullscreen" @click.prevent="closeCharacterMenu" @contextmenu="activateCharacterMenu">
     <section class="bg-color-darken-2 scroll-v">
       <chat-action icon='forum' @click.native.prevent="openChannelList"></chat-action>
       <chat-action icon='account-multiple' @click.native.prevent="openCharacterBrowser"></chat-action>
@@ -125,18 +125,16 @@ export default {
       this.characterMenu = null
     },
 
-    toggleCharacterMenu(event) {
-      if (this.characterMenu) {
-        this.characterMenu = null
-      } else {
-        const characterElement = event.path.find(el => el.dataset && el.dataset.character != null)
-        if (characterElement) {
-          this.characterMenu = {
-            character: characterElement.dataset.character,
-            props: { x: event.clientX, y: event.clientY }
-          }
-          event.preventDefault()
+    activateCharacterMenu(event) {
+      this.characterMenu = null
+
+      const characterElement = event.path.find(el => el.dataset && el.dataset.character != null)
+      if (characterElement) {
+        this.characterMenu = {
+          character: characterElement.dataset.character,
+          props: { x: event.clientX, y: event.clientY }
         }
+        event.preventDefault()
       }
     },
   },
