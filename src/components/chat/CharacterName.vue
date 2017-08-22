@@ -1,5 +1,5 @@
 <template>
-  <a href='#' class='character' :name='name' :href="profileURL" target="_blank">
+  <a href='#' class='character' :name='name' :href="profileURL" target="_blank" :data-character="name">
     <span :class='statusClass' v-if='status'>•</span>
     <span :class='genderClass'>{{ name }}</span>
   </a>

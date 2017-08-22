@@ -1,5 +1,5 @@
 <template>
-  <main class="flex-row fullscreen">
+  <main class="flex-row fullscreen" @click.prevent="closeCharacterMenu" @contextmenu.prevent="toggleCharacterMenu">
     <section class="bg-color-darken-2 scroll-v">
       <chat-action icon='forum' @click.native.prevent="openChannelList"></chat-action>
       <chat-action icon='account-multiple' @click.native.prevent="openCharacterBrowser"></chat-action>
@@ -19,6 +19,21 @@
     </section>
 
     <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}" @close="closeOverlay"></component>
+
+    <context-menu v-if="characterMenu" v-bind="characterMenu.props">
+      <context-menu-item>
+        <icon>message</icon> Send Message
+      </context-menu-item>
+      <context-menu-item>
+        <icon>link-variant</icon> View Profile
+      </context-menu-item>
+      <context-menu-item>
+        <icon>heart</icon> Add Friend
+      </context-menu-item>
+      <context-menu-item>
+        <icon>minus-circle</icon> Ignore
+      </context-menu-item>
+    </context-menu>
   </main>
 </template>
 
@@ -30,6 +45,8 @@ import ChannelView from './ChannelView'
 import PrivateChatView from './PrivateChatView'
 import ChannelList from './ChannelList'
 import CharacterBrowser from './CharacterBrowser'
+import ContextMenu from './ContextMenu'
+import ContextMenuItem from './ContextMenuItem'
 
 export default {
   components: {
@@ -39,11 +56,14 @@ export default {
     ChatTabContent,
     ChannelView,
     PrivateChatView,
+    ContextMenu,
+    ContextMenuItem,
   },
   data() {
     return {
       overlay: null,
       tabIndex: 0,
+      characterMenu: null,
     }
   },
   computed: {
@@ -99,7 +119,30 @@ export default {
 
     openCharacterBrowser() {
       this.openOverlay(this.characterBrowserView)
-    }
+    },
+
+    closeCharacterMenu() {
+      this.characterMenu = null
+    },
+
+    toggleCharacterMenu(event) {
+      if (this.characterMenu) {
+        this.characterMenu = null
+      } else {
+        for (const el of event.path) {
+          if (el.dataset.character) {
+            this.characterMenu = {
+              character: el.dataset.character,
+              props: {
+                x: event.clientX,
+                y: event.clientY,
+              }
+            }
+            break
+          }
+        }
+      }
+    },
   },
 }
 </script>
