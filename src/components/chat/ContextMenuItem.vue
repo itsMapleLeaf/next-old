@@ -1,5 +1,5 @@
 <template>
-  <a class="context-menu-item bg-color-main" href="#" @click.prevent>
+  <a class="context-menu-item bg-color-main" href="#">
     <slot></slot>
   </a>
 </template>

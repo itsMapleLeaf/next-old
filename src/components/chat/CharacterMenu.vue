@@ -3,7 +3,7 @@
     <context-menu-item @click.prevent.native="sendMessage">
       <icon>message</icon> Send Message
     </context-menu-item>
-    <context-menu-item>
+    <context-menu-item :href="getProfileURL(character)" target="_blank">
       <icon>link-variant</icon> View Profile
     </context-menu-item>
     <context-menu-item>
@@ -18,6 +18,7 @@
 <script>
 import ContextMenu from './ContextMenu'
 import ContextMenuItem from './ContextMenuItem'
+import { getProfileURL } from '../../api'
 
 export default {
   props: {
@@ -30,6 +31,7 @@ export default {
     ContextMenuItem,
   },
   methods: {
+    getProfileURL,
     sendMessage() {
       this.$emit('sendmessage', this.character)
     }
