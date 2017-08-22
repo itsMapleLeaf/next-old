@@ -129,18 +129,13 @@ export default {
       if (this.characterMenu) {
         this.characterMenu = null
       } else {
-        for (const el of event.path) {
-          if (el.dataset.character) {
-            this.characterMenu = {
-              character: el.dataset.character,
-              props: {
-                x: event.clientX,
-                y: event.clientY,
-              }
-            }
-            event.preventDefault()
-            return
+        const characterElement = event.path.find(el => el.dataset && el.dataset.character != null)
+        if (characterElement) {
+          this.characterMenu = {
+            character: characterElement.dataset.character,
+            props: { x: event.clientX, y: event.clientY }
           }
+          event.preventDefault()
         }
       }
     },
