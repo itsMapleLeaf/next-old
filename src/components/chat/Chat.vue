@@ -1,5 +1,5 @@
 <template>
-  <main class="flex-row fullscreen" @click.prevent="closeCharacterMenu" @contextmenu="activateCharacterMenu">
+  <main class="flex-row fullscreen" @click="closeCharacterMenu" @contextmenu="activateCharacterMenu">
     <section class="bg-color-darken-2 scroll-v">
       <chat-action icon='forum' @click.native.prevent="openChannelList"></chat-action>
       <chat-action icon='account-multiple' @click.native.prevent="openCharacterBrowser"></chat-action>
