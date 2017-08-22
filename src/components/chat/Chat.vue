@@ -20,9 +20,9 @@
 
     <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}" @close="closeOverlay"></component>
 
-    <fade in>
+    <transition name="fade-in">
       <character-menu v-if="characterMenu" v-bind="characterMenu.props"></character-menu>
-    </fade>
+    </transition>
   </main>
 </template>
 

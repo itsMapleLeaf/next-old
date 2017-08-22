@@ -3,6 +3,7 @@ import 'mdi/css/materialdesignicons.min.css'
 import './styles/bbc.scss'
 import './styles/character-colors.scss'
 import './styles/colors.scss'
+import './styles/fade-transition.scss'
 import './styles/flex.scss'
 import './styles/global.scss'
 import './styles/helpers.scss'
@@ -16,7 +17,6 @@ Vue.config.productionTip = false
 
 Vue.component('overlay', require('./components/common/Overlay'))
 Vue.component('icon', require('./components/common/Icon'))
-Vue.component('fade', require('./components/common/Fade'))
 
 Vue.directive('autoScroll', directives.autoScroll)
 
