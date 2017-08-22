@@ -1,8 +1,7 @@
 <template>
   <main class="flex-column">
     <section class="scroll-v" style="height: 5rem; padding: 0.3rem 0.6rem">
-      <character-name v-bind="character"></character-name>
-      <span v-if="character.statusMessage" v-html="' - ' + parseBBC(character.statusMessage)"></span>
+      <character-status v-bind="character"></character-status>
     </section>
     <section class="flex-grow bg-color-darken-1 scroll-v" v-auto-scroll>
       <message v-for="(message, i) in messages" v-bind="message" :key="i"></message>
@@ -18,7 +17,7 @@ import { parseBBC } from '../../bbc'
 
 export default {
   components: {
-    CharacterName: require('./CharacterName.vue'),
+    CharacterStatus: require('./CharacterStatus'),
     Message: require('./Message.vue'),
     Chatbox: require('./Chatbox.vue'),
   },
