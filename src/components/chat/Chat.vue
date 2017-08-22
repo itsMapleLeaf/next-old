@@ -6,11 +6,11 @@
     </section>
 
     <section class="bg-color-darken-1 flex-column scroll-v">
-      <renderer v-for="(tab, index) in tabs" :key="index" v-bind="tab.tabContent" :active="index === tabIndex" @activate="tabIndex = index" @close="tab.onClose"></renderer>
+      <renderer v-for="(tab, index) in tabs" :key="index" v-bind="tab.tab" :active="index === tabIndex" @activate="tabIndex = index" @close="tab.onClose"></renderer>
     </section>
 
     <section class="bg-color-darken-0 flex-grow">
-      <renderer v-if="currentTab" v-bind="currentTab.tabView" class="fill-area"></renderer>
+      <renderer v-if="currentTab" v-bind="currentTab.view" class="fill-area"></renderer>
     </section>
 
     <renderer v-if="overlay" v-bind="overlay" @close="closeOverlay"></renderer>
@@ -58,11 +58,11 @@ export default {
     tabs() {
       const channelTabs = this.joinedChannels.map(channel => {
         return {
-          tabContent: {
+          tab: {
             component: require('./ChannelTab'),
             props: { channel }
           },
-          tabView: {
+          view: {
             component: require('./ChannelView'),
             props: channel
           },
@@ -74,11 +74,11 @@ export default {
 
       const privateChatTabs = this.privateChats.map(privateChat => {
         return {
-          tabContent: {
+          tab: {
             component: require('./PrivateChatTab'),
             props: { privateChat }
           },
-          tabView: {
+          view: {
             component: require('./PrivateChatView'),
             props: privateChat
           },
@@ -150,7 +150,6 @@ export default {
         const index = this.tabs.findIndex(tab =>
           tab.type === 'privateChat' && tab.privateChat.partner === partner
         )
-        console.log(this.tabs)
         if (index > -1) {
           this.tabIndex = index
         }
