@@ -6,16 +6,11 @@
     </section>
 
     <section class="bg-color-darken-1 flex-column scroll-v">
-      <chat-tab v-for="(tab, index) in tabs" :key="index" :active="index === tabIndex" @activate="tabIndex = index" @close="handleTabClose(tab)">
-        <chat-tab-content v-bind="tab"></chat-tab-content>
-      </chat-tab>
+      <component v-for="(tab, index) in tabs" :key="index" :is="tab.tabContent.component" v-bind="tab.tabContent.props" :active="index === tabIndex" @activate="tabIndex = index" @close="tab.onClose"></component>
     </section>
 
     <section class="bg-color-darken-0 flex-grow">
-      <template v-if="currentTab">
-        <channel-view v-if="currentTab.type === 'channel'" v-bind="currentTab.channel" class="fill-area"></channel-view>
-        <private-chat-view v-if="currentTab.type === 'privateChat'" v-bind="currentTab.privateChat" class="fill-area"></private-chat-view>
-      </template>
+      <component v-if="currentTab" :is="currentTab.tabView.component" v-bind="currentTab.tabView.props" class="fill-area"></component>
     </section>
 
     <component v-if="overlay" :is="overlay.component" v-on="overlay.events || {}" v-bind="overlay.props || {}" @close="closeOverlay"></component>
@@ -29,7 +24,6 @@
 <script>
 import ChatAction from './ChatAction'
 import ChatTab from './ChatTab'
-import ChatTabContent from './ChatTabContent'
 import ChannelView from './ChannelView'
 import PrivateChatView from './PrivateChatView'
 import ChannelList from './ChannelList'
@@ -41,7 +35,6 @@ export default {
     ChatAction,
     ChannelList,
     ChatTab,
-    ChatTabContent,
     ChannelView,
     PrivateChatView,
     CharacterMenu,
@@ -64,11 +57,39 @@ export default {
     },
     tabs() {
       const channelTabs = this.joinedChannels.map(channel => {
-        return { type: 'channel', channel }
+        return {
+          type: 'channel',
+          channel,
+          tabContent: {
+            component: require('./ChannelTab'),
+            props: { channel }
+          },
+          tabView: {
+            component: require('./ChannelView'),
+            props: channel
+          },
+          onClose: () => {
+            this.$store.dispatch('leaveChannel', channel.id)
+          }
+        }
       })
 
       const privateChatTabs = this.privateChats.map(privateChat => {
-        return { type: 'privateChat', privateChat }
+        return {
+          type: 'privateChat',
+          privateChat,
+          tabContent: {
+            component: require('./PrivateChatTab'),
+            props: { privateChat }
+          },
+          tabView: {
+            component: require('./PrivateChatView'),
+            props: privateChat
+          },
+          onClose: () => {
+            this.$store.commit('REMOVE_PRIVATE_CHAT', privateChat.partner)
+          }
+        }
       })
 
       return channelTabs.concat(privateChatTabs)
@@ -138,14 +159,6 @@ export default {
           this.tabIndex = index
         }
       })
-    },
-
-    handleTabClose(tab) {
-      if (tab.type === 'channel') {
-        this.$store.dispatch('leaveChannel', tab.channel.id)
-      } else if (tab.type === 'privateChat') {
-        this.$store.commit('REMOVE_PRIVATE_CHAT', tab.privateChat.partner)
-      }
     }
   },
 }

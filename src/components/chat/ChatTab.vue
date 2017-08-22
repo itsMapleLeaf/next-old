@@ -1,7 +1,13 @@
 <template>
   <div :class="['chat-tab flex-row', active && 'chat-tab--active bg-color-main']">
-    <a href="#" class="chat-tab-title flex-grow" @click.prevent="$emit('activate')">
+    <a href="#" class="chat-tab-title flex-grow flex-row flex-align-center" @click.prevent="$emit('activate')">
       <slot></slot>
+      <span class="chat-tab-title-icon">
+        <slot name="icon"></slot>
+      </span>
+      <span class="chat-tab-title-text">
+        <slot name="title"></slot>
+      </span>
     </a>
     <a href="#" class="chat-tab-close" @click.prevent="$emit('close')">
       <i class="mdi mdi-close"></i>
@@ -43,5 +49,16 @@ export default {
 
 .chat-tab--active {
   opacity: 1;
+}
+
+.chat-tab-title-text {
+  margin-left: 0.3rem;
+}
+
+.chat-tab-title-icon {
+  img,
+  i {
+    display: block;
+  }
 }
 </style>
