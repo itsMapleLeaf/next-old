@@ -2,7 +2,7 @@ import querystring from 'querystring'
 
 function fetchJSON(url, params) {
   const request = url + '?' + querystring.stringify(params)
-  return fetch(request).then(res => res.json())
+  return fetch(request, { method: 'POST' }).then(res => res.json())
 }
 
 export async function fetchTicket(account, password) {
