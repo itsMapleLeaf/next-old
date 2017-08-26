@@ -50,13 +50,20 @@ export default {
 
     ADD_JOINED_CHANNEL(state, id) {
       Vue.set(state.joinedChannels, id, true)
+    },
+
+    REMOVE_JOINED_CHANNEL(state, id) {
+      Vue.delete(state.joinedChannels, id, false)
+    },
+
+    ADD_CHANNEL(state, { id }) {
       if (state.channels[id] == null) {
         Vue.set(state.channels, id, Channel(id))
       }
     },
 
-    REMOVE_JOINED_CHANNEL(state, id) {
-      Vue.delete(state.joinedChannels, id, false)
+    REMOVE_CHANNEL(state, { id }) {
+      Vue.delete(state.channels, id)
     },
 
     SET_CHANNEL_TITLE(state, { id, title }) {
@@ -187,6 +194,7 @@ export default {
     },
 
     joinChannel({ commit, dispatch }, id) {
+      commit('ADD_CHANNEL', { id })
       commit('ADD_JOINED_CHANNEL', id)
       dispatch('sendSocketCommand', { cmd: 'JCH', params: { channel: id } })
       dispatch('saveJoinedChannels')
