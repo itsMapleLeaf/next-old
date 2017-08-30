@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { parseBBC } from '../../bbc'
+
 export default {
   props: {
     status: String,
@@ -13,6 +15,9 @@ export default {
   },
   components: {
     CharacterName: require('./CharacterName.vue'),
+  },
+  methods: {
+    parseBBC
   }
 }
 </script>
