@@ -29,5 +29,6 @@ new Vue({
 })
 
 if (process.env.NODE_ENV !== 'production') {
+  console.log('env:', process.env)
   window.localforage = require('localforage')
 }
