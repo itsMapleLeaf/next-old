@@ -1,15 +1,15 @@
 <template>
-  <main class="flex-row fullscreen" @click="closeCharacterMenu" @contextmenu="activateCharacterMenu">
-    <section class="bg-color-darken-2 scroll-v">
+  <main class="grid fullscreen bg-color-darken-2" @click="closeCharacterMenu" @contextmenu="activateCharacterMenu">
+    <section class="actions bg-color-darken-2 scroll-v">
       <chat-action icon='forum' @click.native.prevent="openChannelList"></chat-action>
       <chat-action icon='account-multiple' @click.native.prevent="openCharacterBrowser"></chat-action>
     </section>
 
-    <section class="bg-color-darken-1 flex-column scroll-v">
+    <section class="tabs bg-color-darken-1 flex-column scroll-v">
       <renderer v-for="(tab, index) in tabs" :key="index" v-bind="tab.tab" :active="index === tabIndex" @activate="tabIndex = index" @close="tab.onClose"></renderer>
     </section>
 
-    <section class="bg-color-darken-0 flex-grow">
+    <section class="chat-view bg-color-darken-0 flex-grow">
       <renderer v-if="currentTab" v-bind="currentTab.view" class="fill-area"></renderer>
     </section>
 
@@ -169,5 +169,13 @@ export default {
   &:hover {
     opacity: 0.75;
   }
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: max-content 12rem auto;
+  grid-gap: 4px;
+  padding-left: 4px;
 }
 </style>
