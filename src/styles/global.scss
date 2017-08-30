@@ -11,7 +11,10 @@ a {
   text-decoration: none;
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   color: inherit;
   font: inherit;
   padding: 0.5rem 0.75rem;
@@ -19,7 +22,8 @@ button, input, textarea, select {
   border: none;
 }
 
-button, select {
+button,
+select {
   cursor: pointer;
   transition: 0.25s background-color;
 
@@ -33,7 +37,8 @@ button, select {
   }
 }
 
-input, textarea {
+input,
+textarea {
   transition: 0.25s background-color;
 
   &:focus {
@@ -46,7 +51,12 @@ fieldset {
   border: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Roboto Condensed';
   font-weight: 300;
 }
@@ -57,10 +67,10 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   ::-webkit-scrollbar-thumb {
-    background: $bg-color;
+    background: lighten($bg-color, 5%);
   }
 
   ::-webkit-scrollbar-track {
-    background: $bg-color-darken-1;
+    background: darken($bg-color-darken-1, 5%);
   }
 }
