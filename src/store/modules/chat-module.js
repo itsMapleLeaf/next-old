@@ -1,12 +1,6 @@
 import Vue from 'vue'
 import forage from 'localforage'
-import {
-  Channel,
-  ChannelInfo,
-  Character,
-  Message,
-  PrivateChat,
-} from '../models'
+import { Channel, ChannelInfo, Character, Message, PrivateChat } from '../models'
 import fromPairs from 'lodash/fromPairs'
 
 let socket
@@ -30,6 +24,14 @@ export default {
 
     SET_FRIENDS(state, friends) {
       state.friends = fromPairs(friends.map(name => [name, true]))
+    },
+
+    ADD_FRIEND(state, name) {
+      Vue.set(state.friends, name, true)
+    },
+
+    REMOVE_FRIEND(state, name) {
+      Vue.delete(state.friends, name)
     },
 
     SET_IGNORED(state, ignored) {
@@ -100,11 +102,7 @@ export default {
     },
 
     ADD_CHARACTER(state, { name, gender, status, statusMessage = '' }) {
-      Vue.set(
-        state.characters,
-        name,
-        Character(name, gender, status, statusMessage),
-      )
+      Vue.set(state.characters, name, Character(name, gender, status, statusMessage))
     },
 
     ADD_CHARACTER_BATCH(state, batch) {
@@ -250,10 +248,7 @@ export default {
     },
 
     async savePrivateChats({ state }) {
-      await forage.setItem(
-        'privateChats:' + state.identity,
-        Object.keys(state.privateChats),
-      )
+      await forage.setItem('privateChats:' + state.identity, Object.keys(state.privateChats))
     },
 
     async restorePrivateChats({ commit, state }) {
@@ -408,8 +403,13 @@ export default {
         RTB() {
           // TODO
           // Friend Request: {type: 'friendadd', name: '...'}
-          // Friend Request accepted: {type: 'trackrem', name: '...'}
-          console.log('RTB', params)
+          // Friend Request accepted: {type: 'trackrem(?)', name: '...'}
+
+          // bookmark added
+          if (params.type === 'trackadd') commit('ADD_FRIEND', params.name)
+
+          // bookmark removed
+          if (params.type === 'trackrem') commit('REMOVE_FRIEND', params.name)
         },
       }
 
@@ -421,7 +421,6 @@ export default {
     },
   },
   getters: {
-    getCharacter: state => name =>
-      state.characters[name] || Character(name, 'none', 'offline'),
+    getCharacter: state => name => state.characters[name] || Character(name, 'none', 'offline'),
   },
 }
