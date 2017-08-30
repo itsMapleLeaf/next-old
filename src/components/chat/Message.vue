@@ -1,16 +1,9 @@
 <template>
-  <div style="padding: 0.4rem 0.6rem" :class="['flex-row', 'message-type-' + type, isAction && 'message-action']">
-    <div>
-      <a :href="getProfileURL(sender)" target="_blank">
-        <img class="avatar" :src="getAvatarURL(sender)" :key="sender" />
-      </a>
-    </div>
-    <div style="margin-left: 0.6rem" class="flex-grow">
-      <span style="margin-right: 0.2rem">
-        <character-name v-bind="getCharacter(sender)"></character-name>
-        <span class="time" style="margin-left: 0.5rem">{{ parsedDate }}</span>
-      </span>
-      <span v-html="parseBBC(parsedText)" style="white-space: pre-wrap; word-break: break-word"></span>
+  <div :class="['message', isAction && 'message-action']">
+    <div style="padding: 0.4rem 0.6rem" :class="'message-type-' + type">
+      <span class="message-time">{{ parsedDate }}</span>
+      <character-name v-bind="getCharacter(sender)"></character-name>
+      <span class="message-text" v-html="parseBBC(parsedText)"></span>
     </div>
   </div>
 </template>
@@ -58,26 +51,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.avatar {
-  width: 2rem;
-  height: 2rem;
-  display: block;
-}
-
 .message-type-lfrp {
   background-color: rgba(46, 204, 113, 0.1);
 }
 
-.padded-section {
-  padding: 0.3rem;
-  margin-top: -0.2rem;
+.message:nth-child(2n) {
+  background-color: rgba(black, 0.1);
 }
 
 .message-action {
   font-style: italic;
 }
 
-.time {
+.message-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-left: 0.3rem;
+}
+
+.message-time {
   opacity: 0.3;
   float: right;
   font-size: 75%;
