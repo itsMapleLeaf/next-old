@@ -1,6 +1,6 @@
 <template>
   <a href='#' class='character' :name='name' :href="profileURL" target="_blank" :data-character="name">
-    <span :class='statusClass' v-if='status'>•</span>
+    <span v-if='status' :class='statusClass' :title="status">•</span>
     <span :class='genderClass'>{{ name }}</span>
   </a>
 </template>
