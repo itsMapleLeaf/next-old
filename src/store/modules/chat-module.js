@@ -146,8 +146,8 @@ export default {
           account,
           ticket,
           character: state.identity,
-          cname: 'next',
-          cversion: '0.12.0',
+          cname: process.env.APP_NAME,
+          cversion: process.env.APP_VERSION,
           method: 'ticket',
         }
         dispatch('sendSocketCommand', { cmd: 'IDN', params })
