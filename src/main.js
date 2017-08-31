@@ -16,6 +16,8 @@ import * as directives from './directives'
 Vue.component('overlay', require('./components/common/Overlay'))
 Vue.component('icon', require('./components/common/Icon'))
 Vue.component('renderer', require('./components/common/Renderer'))
+Vue.component('context-menu', require('./components/common/ContextMenu'))
+Vue.component('context-menu-item', require('./components/common/ContextMenuItem'))
 
 Vue.directive('autoScroll', directives.autoScroll)
 

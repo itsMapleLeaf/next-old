@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import ContextMenu from './ContextMenu'
-import ContextMenuItem from './ContextMenuItem'
 import { getProfileURL } from '../../api'
 
 export default {
@@ -22,10 +20,6 @@ export default {
     x: Number,
     y: Number,
     character: String,
-  },
-  components: {
-    ContextMenu,
-    ContextMenuItem,
   },
   methods: {
     getProfileURL,
