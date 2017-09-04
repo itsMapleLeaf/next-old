@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import Login from './Login'
-import CharacterSelect from './CharacterSelect'
-import Chat from './chat/Chat'
+import Login from './Login.vue'
+import CharacterSelect from './CharacterSelect.vue'
+import Chat from '../Chat'
 
 export default {
   components: {

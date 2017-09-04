@@ -9,9 +9,9 @@ import './styles/global.scss'
 import './styles/helpers.scss'
 
 import Vue from 'vue'
-import App from './components/App'
-import store from './store'
-import * as directives from './directives'
+import App from '@/components/App'
+import store from '@/store'
+import * as directives from '@/directives'
 
 Vue.component('overlay', require('./components/common/Overlay'))
 Vue.component('icon', require('./components/common/Icon'))

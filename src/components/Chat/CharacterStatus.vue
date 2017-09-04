@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { parseBBC } from '../../bbc'
+import { parseBBC } from '@/bbc'
 
 export default {
   props: {

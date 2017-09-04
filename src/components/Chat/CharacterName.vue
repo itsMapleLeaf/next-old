@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { getProfileURL } from '../../api'
+import { getProfileURL } from '@/api'
 
 export default {
   props: {
