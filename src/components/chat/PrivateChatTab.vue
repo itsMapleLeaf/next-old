@@ -8,7 +8,7 @@
 
 <script>
 import ChatTab from './ChatTab'
-import { getAvatarURL } from '@/api'
+import { getAvatarURL } from '../../api'
 
 export default {
   components: {

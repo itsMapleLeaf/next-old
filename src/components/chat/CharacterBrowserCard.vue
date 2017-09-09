@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import { getAvatarURL, getProfileURL } from '@/api'
-import { parseBBC } from '@/bbc'
-import CharacterName from '@/components/Chat/CharacterName.vue'
+import { getAvatarURL, getProfileURL } from '../../api'
+import { parseBBC } from '../../bbc'
+import CharacterName from './CharacterName'
 
 export default {
   props: {
