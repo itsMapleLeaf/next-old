@@ -9,6 +9,7 @@
 .scroll-v {
   overflow-y: auto;
   min-height: 0;
+  transform: translateZ(0); // for accelerated GPU rendering
 }
 
 .fill-area {
