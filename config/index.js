@@ -2,6 +2,7 @@
 var path = require('path')
 
 module.exports = {
+  indexTemplate: path.resolve(__dirname, '../src/index.html'),
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../build/index.html'),
