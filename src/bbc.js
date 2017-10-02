@@ -12,8 +12,7 @@ const parser = createParser({
   sub: { render: text => `<span class="bbc-sub">${text}</span>` },
   url: { render: (text, url) => formatLink(url, text) },
   color: {
-    render: (text, color) =>
-      color ? `<span class="bbc-color-${color}">${text}</span>` : text,
+    render: (text, color) => (color ? `<span class="bbc-color-${color}">${text}</span>` : text),
   },
   noparse: {
     render: text => text,
@@ -46,14 +45,15 @@ function formatPublicChannel(id) {
   return (
     `<a href='#' class='bbc-channel' data-channel='${id}'>` +
     `<i class='mdi mdi-earth'></i> ${id}` +
-    '</a>'
+    `</a>`
   )
 }
 
 function formatPrivateChannel(id, name) {
   return (
     `<a href='#' class='bbc-channel' data-channel='${id}'>` +
-    `<i class='mdi mdi-key-variant'></i> ${name}</a>`
+    `<i class='mdi mdi-key-variant'></i> ${name}` +
+    `</a>`
   )
 }
 
@@ -65,6 +65,7 @@ function formatLink(url, text) {
 
   return (
     `<a class='bbc-link' href='${url}' target='_blank'>` +
-    `<i class='mdi mdi-${icon}'></i> ${text}</a>`
+    `<i class='mdi mdi-${icon}'></i> ${text}` +
+    `</a>`
   )
 }
