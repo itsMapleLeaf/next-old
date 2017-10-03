@@ -15,6 +15,8 @@ import App from './app/components/App.vue'
 import * as directives from './common/directives'
 import store from './store'
 
+type ComponentModule = { default: Vue.ComponentOptions<any> }
+
 // All components in ./common/components are registered globally under a kebab-cased name
 // Example:
 // Icon -> icon
@@ -22,7 +24,7 @@ import store from './store'
 function registerGlobalComponents() {
   const context = require.context('./common/components/')
   context.keys().forEach(componentFile => {
-    const component = context<{ default: any }>(componentFile).default
+    const component = context<ComponentModule>(componentFile).default
     const nameMatch = componentFile.match(/\.\/(\w+)\.vue$/) || []
     const name = nameMatch[1]
     if (name) {
