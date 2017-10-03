@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { parseBBC } from '@/bbc'
+import { parseBBC } from '@/chat/bbc'
 
 export default {
   components: {

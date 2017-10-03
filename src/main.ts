@@ -12,8 +12,8 @@ import './chat/styles/character-colors.scss'
 
 import Vue from 'vue'
 import App from './app/components/App.vue'
+import * as directives from './common/directives'
 import store from './store'
-import * as directives from './directives'
 
 // All components in ./common/components are registered globally under a kebab-cased name
 // Example:
