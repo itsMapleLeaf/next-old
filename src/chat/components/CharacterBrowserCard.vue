@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { getAvatarURL, getProfileURL } from '@/api'
+import { getAvatarURL, getProfileURL } from '@/chat/helpers'
 import { parseBBC } from '@/bbc'
 import CharacterName from './CharacterName.vue'
 

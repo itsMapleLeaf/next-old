@@ -8,13 +8,13 @@ type AuthData = {
   ticket: string
 }
 
-export type UserState = {
+export type AuthState = {
   account: string
   ticket: string
   characters: string[]
 }
 
-export const userModule: Vuex.Module<UserState, RootState> = {
+export const authModule: Vuex.Module<AuthState, RootState> = {
   state: {
     account: '',
     ticket: '',
