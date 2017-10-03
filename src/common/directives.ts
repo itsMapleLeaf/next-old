@@ -9,3 +9,9 @@ export const autoScroll: Vue.DirectiveOptions = {
     }
   },
 }
+
+export const focus: Vue.DirectiveOptions = {
+  inserted(el) {
+    el.focus()
+  },
+}
