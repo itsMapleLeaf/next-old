@@ -17,7 +17,7 @@ export default {
     ops: Array,
   },
   components: {
-    CharacterName: require('./CharacterName.vue'),
+    CharacterName: require('./CharacterName.vue').default,
   },
   computed: {
     characters() {

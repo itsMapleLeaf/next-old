@@ -17,9 +17,9 @@ import { parseBBC } from '@/bbc'
 
 export default {
   components: {
-    CharacterStatus: require('./CharacterStatus.vue'),
-    Message: require('./Message.vue'),
-    Chatbox: require('./Chatbox.vue'),
+    CharacterStatus: require('./CharacterStatus.vue').default,
+    Message: require('./Message.vue').default,
+    Chatbox: require('./Chatbox.vue').default,
   },
   props: {
     partner: String,

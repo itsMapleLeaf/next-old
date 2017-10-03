@@ -18,10 +18,10 @@ import { parseBBC } from '@/bbc'
 
 export default {
   components: {
-    CharacterName: require('./CharacterName.vue'),
-    UserList: require('./UserList.vue'),
-    Message: require('./Message.vue'),
-    Chatbox: require('./Chatbox.vue'),
+    CharacterName: require('./CharacterName.vue').default,
+    UserList: require('./UserList.vue').default,
+    Message: require('./Message.vue').default,
+    Chatbox: require('./Chatbox.vue').default,
   },
   props: {
     id: String,

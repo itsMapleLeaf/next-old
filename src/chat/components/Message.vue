@@ -20,7 +20,7 @@ export default {
     date: Date,
   },
   components: {
-    CharacterName: require('./CharacterName.vue'),
+    CharacterName: require('./CharacterName.vue').default,
   },
   methods: {
     getAvatarURL,

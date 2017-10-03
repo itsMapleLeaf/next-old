@@ -59,11 +59,11 @@ export default {
       const channelTabs = this.joinedChannels.map(channel => {
         return {
           tab: {
-            component: require('./ChannelTab.vue'),
+            component: require('./ChannelTab.vue').default,
             props: { channel }
           },
           view: {
-            component: require('./ChannelView.vue'),
+            component: require('./ChannelView.vue').default,
             props: channel
           },
           onClose: () => {
@@ -75,11 +75,11 @@ export default {
       const privateChatTabs = this.privateChats.map(privateChat => {
         return {
           tab: {
-            component: require('./PrivateChatTab.vue'),
+            component: require('./PrivateChatTab.vue').default,
             props: { privateChat }
           },
           view: {
-            component: require('./PrivateChatView.vue'),
+            component: require('./PrivateChatView.vue').default,
             props: privateChat
           },
           onClose: () => {
