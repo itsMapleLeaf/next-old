@@ -22,6 +22,7 @@
     "vuex": "^2.4.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.76",
     "@types/node": "^8.0.32",
     "@types/webpack": "^3.0.12",
     "@types/webpack-env": "^1.13.1",
@@ -67,6 +68,8 @@
     }
   },
   "ava": {
-    "require": ["babel-register"]
+    "require": [
+      "babel-register"
+    ]
   }
 }
