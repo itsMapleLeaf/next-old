@@ -1,11 +1,26 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import forage from 'localforage'
 import fromPairs from 'lodash/fromPairs'
-import { Channel, ChannelInfo, Character, Message, PrivateChat } from '../models'
+import { Dictionary } from '@/common/util-types'
+import { Channel, ChannelInfo, Character, Message, PrivateChat } from '@/chat/models'
+import { RootState } from '@/store'
 
-let socket
+let socket: WebSocket | void
 
-export default {
+export type ChatState = {
+  identity: string
+  friends: Dictionary<boolean>
+  ignored: Dictionary<boolean>
+  admins: Dictionary<boolean>
+  characters: Dictionary<Character>
+  channelList: ChannelInfo[]
+  joinedChannels: Dictionary<boolean>
+  channels: Dictionary<Channel>
+  privateChats: Dictionary<PrivateChat>
+}
+
+export const chatModule: Vuex.Module<ChatState, RootState> = {
   state: {
     identity: '',
     friends: {},
@@ -22,7 +37,7 @@ export default {
       state.identity = identity
     },
 
-    SET_FRIENDS(state, friends) {
+    SET_FRIENDS(state, friends: string[]) {
       state.friends = fromPairs(friends.map(name => [name, true]))
     },
 
@@ -34,11 +49,11 @@ export default {
       Vue.delete(state.friends, name)
     },
 
-    SET_IGNORED(state, ignored) {
+    SET_IGNORED(state, ignored: string[]) {
       state.ignored = fromPairs(ignored.map(name => [name, true]))
     },
 
-    SET_ADMINS(state, admins) {
+    SET_ADMINS(state, admins: string[]) {
       state.admins = fromPairs(admins.map(name => [name, true]))
     },
 
@@ -55,12 +70,12 @@ export default {
     },
 
     REMOVE_JOINED_CHANNEL(state, id) {
-      Vue.delete(state.joinedChannels, id, false)
+      Vue.delete(state.joinedChannels, id)
     },
 
     ADD_CHANNEL(state, { id }) {
       if (state.channels[id] == null) {
-        Vue.set(state.channels, id, Channel(id))
+        Vue.set(state.channels, id, new Channel(id))
       }
     },
 
@@ -98,17 +113,17 @@ export default {
     },
 
     ADD_CHANNEL_MESSAGE(state, { id, sender, text, type }) {
-      state.channels[id].messages.push(Message(sender, text, type))
+      state.channels[id].messages.push(new Message(sender, text, type))
     },
 
     ADD_CHARACTER(state, { name, gender, status, statusMessage = '' }) {
-      Vue.set(state.characters, name, Character(name, gender, status, statusMessage))
+      Vue.set(state.characters, name, new Character(name, gender, status, statusMessage))
     },
 
     ADD_CHARACTER_BATCH(state, batch) {
-      const map = {}
+      const map = {} as Dictionary<Character>
       for (const [name, gender, status, statusMessage] of batch) {
-        map[name] = Character(name, gender, status, statusMessage)
+        map[name] = new Character(name, gender, status, statusMessage)
       }
       state.characters = Object.assign(state.characters, map)
     },
@@ -130,7 +145,7 @@ export default {
 
     ADD_PRIVATE_CHAT(state, name) {
       if (state.privateChats[name] == null) {
-        Vue.set(state.privateChats, name, PrivateChat(name))
+        Vue.set(state.privateChats, name, new PrivateChat(name))
       }
     },
 
@@ -139,7 +154,7 @@ export default {
     },
 
     ADD_PRIVATE_CHAT_MESSAGE(state, { partner, sender, text }) {
-      state.privateChats[partner].messages.push(Message(sender, text, 'normal'))
+      state.privateChats[partner].messages.push(new Message(sender, text, 'normal'))
     },
   },
   actions: {
@@ -223,7 +238,7 @@ export default {
     },
 
     async restoreJoinedChannels({ dispatch, state }) {
-      const channels = await forage.getItem('joinedChannels:' + state.identity)
+      const channels = await forage.getItem<string[]>('joinedChannels:' + state.identity)
       for (const id of channels || []) {
         dispatch('joinChannel', id)
       }
@@ -252,14 +267,14 @@ export default {
     },
 
     async restorePrivateChats({ commit, state }) {
-      const partners = await forage.getItem('privateChats:' + state.identity)
+      const partners = await forage.getItem<string[]>('privateChats:' + state.identity)
       for (const name of partners || []) {
         commit('ADD_PRIVATE_CHAT', name)
       }
     },
 
     handleSocketCommand({ state, commit, dispatch }, { cmd, params }) {
-      const handlers = {
+      const handlers: { [command: string]: () => void } = {
         PIN() {
           dispatch('sendSocketCommand', { cmd: 'PIN' })
         },
@@ -319,15 +334,17 @@ export default {
         },
 
         CHA() {
-          const channels = params.channels.map(ch => {
-            return ChannelInfo('public', ch.name, ch.name, ch.characters)
+          const channels = params.channels.map((ch: { name: string; characters: number }) => {
+            return new ChannelInfo('public', ch.name, ch.name, ch.characters)
           })
           commit('UPDATE_CHANNEL_LIST', channels)
         },
         ORS() {
-          const channels = params.channels.map(ch => {
-            return ChannelInfo('private', ch.name, ch.title, ch.characters)
-          })
+          const channels = params.channels.map(
+            (ch: { name: string; title: string; characters: number }) => {
+              return new ChannelInfo('private', ch.name, ch.title, ch.characters)
+            },
+          )
           commit('UPDATE_CHANNEL_LIST', channels)
         },
 
@@ -357,7 +374,7 @@ export default {
           commit('SET_CHANNEL_MODE', { id: params.channel, mode: params.mode })
           commit('SET_CHANNEL_USERS', {
             id: params.channel,
-            users: params.users.map(user => user.identity),
+            users: params.users.map((user: { identity: string }) => user.identity),
           })
         },
 
@@ -421,6 +438,7 @@ export default {
     },
   },
   getters: {
-    getCharacter: state => name => state.characters[name] || Character(name, 'none', 'offline'),
+    getCharacter: state => (name: string) =>
+      state.characters[name] || new Character(name, 'none', 'offline'),
   },
 }

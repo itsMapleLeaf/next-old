@@ -1,7 +1,20 @@
-import * as api from '../../api'
 import forage from 'localforage'
+import Vuex from 'vuex'
+import * as api from '@/api'
+import { RootState } from '@/store'
 
-export default {
+type AuthData = {
+  account: string
+  ticket: string
+}
+
+export type UserState = {
+  account: string
+  ticket: string
+  characters: string[]
+}
+
+export const userModule: Vuex.Module<UserState, RootState> = {
   state: {
     account: '',
     ticket: '',
@@ -34,9 +47,11 @@ export default {
     },
 
     async loadAuthData({ commit }) {
-      const auth = (await forage.getItem('auth')) || {}
-      commit('SET_ACCOUNT', auth.account || '')
-      commit('SET_TICKET', auth.ticket || '')
+      const auth = await forage.getItem<AuthData>('auth')
+      if (auth) {
+        commit('SET_ACCOUNT', auth.account)
+        commit('SET_TICKET', auth.ticket)
+      }
     },
 
     async saveAuthData({ state }) {

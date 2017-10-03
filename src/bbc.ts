@@ -25,23 +25,23 @@ const parser = createParser({
   channel: { render: name => formatPublicChannel(name) },
 })
 
-export function parseBBC(input) {
+export function parseBBC(input: string) {
   return parser.parse(input)
 }
 
-function formatUserIcon(name) {
+function formatUserIcon(name: string) {
   const href = getProfileURL(name)
   const avatar = getAvatarURL(name)
   const style = `background-image: url(${avatar})`
   return `<a class='bbc-icon' href='${href}' target='_blank' style='${style}'></a>`
 }
 
-function formatExtendedIcon(icon) {
+function formatExtendedIcon(icon: string) {
   const iconURL = getExtendedIcon(icon)
   return `<div class='bbc-icon' style='background-image: url(${iconURL})'></div>`
 }
 
-function formatPublicChannel(id) {
+function formatPublicChannel(id: string) {
   return (
     `<a href='#' class='bbc-channel' data-channel='${id}'>` +
     `<i class='mdi mdi-earth'></i> ${id}` +
@@ -49,7 +49,7 @@ function formatPublicChannel(id) {
   )
 }
 
-function formatPrivateChannel(id, name) {
+function formatPrivateChannel(id: string, name: string) {
   return (
     `<a href='#' class='bbc-channel' data-channel='${id}'>` +
     `<i class='mdi mdi-key-variant'></i> ${name}` +
@@ -57,7 +57,7 @@ function formatPrivateChannel(id, name) {
   )
 }
 
-function formatLink(url, text) {
+function formatLink(url: string, text: string) {
   const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.gif']
   const { pathname } = parseURL(url)
   const ext = pathname ? path.extname(pathname) : ''
