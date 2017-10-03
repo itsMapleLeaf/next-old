@@ -1,0 +1,69 @@
+$text-shadow: 0px 1px 2px rgba(black, 0.4);
+
+.bbc-italic {
+  font-style: italic;
+}
+
+.bbc-bold {
+  font-weight: 500;
+}
+
+.bbc-underline {
+  // border-bottom: 1px solid rgba(white, 0.2);
+  text-decoration: underline;
+}
+
+.bbc-strike {
+  text-decoration: line-through;
+}
+
+.bbc-sub {
+  font-size: 80%;
+}
+
+.bbc-super {
+  font-size: 80%;
+  vertical-align: super;
+}
+
+.bbc-icon {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  background-size: contain;
+  vertical-align: text-top;
+}
+
+.bbc-link,
+.bbc-channel {
+  text-shadow: $text-shadow;
+  display: inline-block;
+  border-bottom: 1px solid rgba(white, 0.2);
+  transition: 0.2s opacity;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+$bbc-colors: (
+  white: rgb(236, 240, 241),
+  black: rgb(52, 73, 94),
+  red: rgb(236, 93, 93),
+  blue: rgb(52, 152, 219),
+  yellow: rgb(241, 196, 15),
+  green: rgb(46, 204, 113),
+  pink: rgb(255,164,156),
+  gray: rgb(149, 165, 166),
+  orange: rgb(230, 126, 34),
+  purple: rgb(201,135,228),
+  brown: rgb(211, 84, 0),
+  cyan: rgb(85, 175, 236)
+);
+
+@each $color-name, $color in $bbc-colors {
+  .bbc-color-#{$color-name} {
+    color: $color;
+    text-shadow: $text-shadow;
+  }
+}

@@ -1,0 +1,36 @@
+$bg-color: hsl(210, 60%, 28%);
+$bg-color-darken-1: darken($bg-color, 6%);
+$bg-color-darken-2: darken($bg-color, 12%);
+$bg-color-darken-3: darken($bg-color, 18%);
+
+$text-color: hsl(192, 15%, 93%);
+
+.bg-color-main {
+  background-color: $bg-color;
+}
+.bg-color-darken-1 {
+  background-color: $bg-color-darken-1;
+}
+.bg-color-darken-2 {
+  background-color: $bg-color-darken-2;
+}
+.bg-color-darken-3 {
+  background-color: $bg-color-darken-3;
+}
+
+.text-color-main {
+  color: $text-color;
+}
+
+.highlight-green {
+  background-color: rgba(46, 204, 113, 0.15);
+}
+.highlight-red {
+  background-color: rgba(231, 76, 60, 0.2);
+}
+.highlight-blue {
+  background-color: rgba(52, 152, 219, 0.2);
+}
+.highlight-yellow {
+  background-color: rgba(241, 196, 15, 0.15);
+}
