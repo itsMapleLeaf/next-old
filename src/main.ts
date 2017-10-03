@@ -26,8 +26,8 @@ function registerGlobalComponents() {
     const nameMatch = componentFile.match(/\.\/(\w+)\.vue$/) || []
     const name = nameMatch[1]
     if (name) {
-      // TODO: log each global component
       Vue.component(name, component)
+      console.log('Registered component:', name)
     }
   })
 }
@@ -37,8 +37,8 @@ function registerGlobalComponents() {
 // etc.
 function registerGlobalDirectives() {
   Object.keys(directives).forEach(name => {
-    // TODO: log each global directive
     Vue.directive(name, directives[name as keyof typeof directives])
+    console.log('Registered directive:', name)
   })
 }
 
