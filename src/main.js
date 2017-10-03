@@ -14,18 +14,39 @@ import Vue from 'vue'
 import App from './app/components/App.vue'
 import store from './store'
 import * as directives from './directives'
+import kebabCase from 'lodash/kebabCase'
 
-Vue.component('overlay', require('./common/components/Overlay.vue').default)
-Vue.component('icon', require('./common/components/Icon.vue').default)
-Vue.component('renderer', require('./common/components/Renderer.vue').default)
-Vue.component('context-menu', require('./common/components/ContextMenu.vue').default)
-Vue.component('context-menu-item', require('./common/components/ContextMenuItem.vue').default)
+// All components in ./common/components are registered globally under a kebab-cased name
+// Example:
+// Icon -> icon
+// MyHeaderComponent -> my-header-component
+function registerGlobalComponents() {
+  const context = require.context('./common/components/')
+  context.keys().forEach(name => {
+    const component = context(name).default
+    Vue.component(kebabCase(name), component)
+  })
+}
 
-Vue.directive('autoScroll', directives.autoScroll)
+// All directives are registered globally under their exported name
+// autoScroll -> auto-scroll
+// etc.
+function registerGlobalDirectives() {
+  Object.keys(directives).forEach(name => {
+    Vue.directive(name, directives[name])
+  })
+}
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  render: h => h(App),
-  store,
-})
+function main() {
+  registerGlobalComponents()
+  registerGlobalDirectives()
+
+  const app = new Vue({
+    render: h => h(App),
+    store,
+  })
+
+  app.$mount('#app')
+}
+
+main()
