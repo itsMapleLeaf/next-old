@@ -14,7 +14,6 @@ import Vue from 'vue'
 import App from './app/components/App.vue'
 import store from './store'
 import * as directives from './directives'
-import kebabCase from 'lodash/kebabCase'
 
 // All components in ./common/components are registered globally under a kebab-cased name
 // Example:
@@ -22,9 +21,13 @@ import kebabCase from 'lodash/kebabCase'
 // MyHeaderComponent -> my-header-component
 function registerGlobalComponents() {
   const context = require.context('./common/components/')
-  context.keys().forEach(name => {
-    const component = context(name).default
-    Vue.component(kebabCase(name), component)
+  context.keys().forEach(componentFile => {
+    const component = context(componentFile).default
+    const nameMatch = componentFile.match(/\.\/(\w+)\.vue$/) || []
+    const name = nameMatch[1]
+    if (name) {
+      Vue.component(name, component)
+    }
   })
 }
 
