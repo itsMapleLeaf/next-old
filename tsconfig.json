@@ -13,5 +13,5 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true
   },
-  "include": ["src/**/*", "src/**/*.js", "src/**/*.vue"]
+  "include": ["src/**/*", "src/**/*.js", "src/**/*.vue", "typings/**/*"]
 }
