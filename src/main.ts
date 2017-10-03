@@ -22,10 +22,11 @@ import * as directives from './directives'
 function registerGlobalComponents() {
   const context = require.context('./common/components/')
   context.keys().forEach(componentFile => {
-    const component = context(componentFile).default
+    const component = context<{ default: any }>(componentFile).default
     const nameMatch = componentFile.match(/\.\/(\w+)\.vue$/) || []
     const name = nameMatch[1]
     if (name) {
+      // TODO: log each global component
       Vue.component(name, component)
     }
   })
@@ -36,7 +37,8 @@ function registerGlobalComponents() {
 // etc.
 function registerGlobalDirectives() {
   Object.keys(directives).forEach(name => {
-    Vue.directive(name, directives[name])
+    // TODO: log each global directive
+    Vue.directive(name, directives[name as keyof typeof directives])
   })
 }
 
