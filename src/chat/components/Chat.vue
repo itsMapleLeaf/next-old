@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import ChatAction from './ChatAction'
-import ChatTab from './ChatTab'
-import ChannelView from './ChannelView'
-import PrivateChatView from './PrivateChatView'
-import ChannelList from './ChannelList'
-import CharacterBrowser from './CharacterBrowser'
-import CharacterMenu from './CharacterMenu'
+import ChatAction from './ChatAction.vue'
+import ChatTab from './ChatTab.vue'
+import ChannelView from './ChannelView.vue'
+import PrivateChatView from './PrivateChatView.vue'
+import ChannelList from './ChannelList.vue'
+import CharacterBrowser from './CharacterBrowser.vue'
+import CharacterMenu from './CharacterMenu.vue'
 
 export default {
   components: {
@@ -59,11 +59,11 @@ export default {
       const channelTabs = this.joinedChannels.map(channel => {
         return {
           tab: {
-            component: require('./ChannelTab'),
+            component: require('./ChannelTab.vue'),
             props: { channel }
           },
           view: {
-            component: require('./ChannelView'),
+            component: require('./ChannelView.vue'),
             props: channel
           },
           onClose: () => {
@@ -75,11 +75,11 @@ export default {
       const privateChatTabs = this.privateChats.map(privateChat => {
         return {
           tab: {
-            component: require('./PrivateChatTab'),
+            component: require('./PrivateChatTab.vue'),
             props: { privateChat }
           },
           view: {
-            component: require('./PrivateChatView'),
+            component: require('./PrivateChatView.vue'),
             props: privateChat
           },
           onClose: () => {
