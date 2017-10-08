@@ -13,7 +13,15 @@ const config: webpack.Configuration = {
   },
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: 'ts-loader' },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          compilerOptions: {
+            module: 'esnext'
+          }
+        }
+      },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.svg$/, loader: 'file-loader' },
     ],
