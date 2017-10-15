@@ -1,6 +1,6 @@
-import Vue from 'vue'
+import Vue, { DirectiveOptions } from 'vue'
 
-export const autoScroll: Vue.DirectiveOptions = {
+export const autoScroll: DirectiveOptions = {
   update(el) {
     if (el.scrollTop + el.clientHeight === el.scrollHeight) {
       Vue.nextTick(() => {
@@ -10,7 +10,7 @@ export const autoScroll: Vue.DirectiveOptions = {
   },
 }
 
-export const focus: Vue.DirectiveOptions = {
+export const focus: DirectiveOptions = {
   inserted(el) {
     el.focus()
   },

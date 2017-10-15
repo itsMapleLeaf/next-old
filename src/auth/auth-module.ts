@@ -1,5 +1,5 @@
 import forage from 'localforage'
-import Vuex from 'vuex'
+import Vuex, { Module } from 'vuex'
 import * as api from '@/auth/api'
 import { RootState } from '@/store'
 
@@ -14,7 +14,7 @@ export type AuthState = {
   characters: string[]
 }
 
-export const authModule: Vuex.Module<AuthState, RootState> = {
+export const authModule: Module<AuthState, RootState> = {
   state: {
     account: '',
     ticket: '',

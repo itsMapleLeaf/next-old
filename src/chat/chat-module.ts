@@ -1,10 +1,17 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import { Module } from 'vuex'
 import forage from 'localforage'
 import fromPairs from 'lodash/fromPairs'
 import { Dictionary } from '@/common/util-types'
-import { Channel, ChannelInfo, Character, Message, PrivateChat } from '@/chat/models'
 import { RootState } from '@/store'
+
+import {
+  Channel,
+  ChannelInfo,
+  Character,
+  Message,
+  PrivateChat,
+} from '@/chat/models'
 
 let socket: WebSocket | void
 
@@ -20,7 +27,7 @@ export type ChatState = {
   privateChats: Dictionary<PrivateChat>
 }
 
-export const chatModule: Vuex.Module<ChatState, RootState> = {
+export const chatModule: Module<ChatState, RootState> = {
   state: {
     identity: '',
     friends: {},
@@ -117,7 +124,11 @@ export const chatModule: Vuex.Module<ChatState, RootState> = {
     },
 
     ADD_CHARACTER(state, { name, gender, status, statusMessage = '' }) {
-      Vue.set(state.characters, name, new Character(name, gender, status, statusMessage))
+      Vue.set(
+        state.characters,
+        name,
+        new Character(name, gender, status, statusMessage),
+      )
     },
 
     ADD_CHARACTER_BATCH(state, batch) {
@@ -154,7 +165,9 @@ export const chatModule: Vuex.Module<ChatState, RootState> = {
     },
 
     ADD_PRIVATE_CHAT_MESSAGE(state, { partner, sender, text }) {
-      state.privateChats[partner].messages.push(new Message(sender, text, 'normal'))
+      state.privateChats[partner].messages.push(
+        new Message(sender, text, 'normal'),
+      )
     },
   },
   actions: {
@@ -238,7 +251,9 @@ export const chatModule: Vuex.Module<ChatState, RootState> = {
     },
 
     async restoreJoinedChannels({ dispatch, state }) {
-      const channels = await forage.getItem<string[]>('joinedChannels:' + state.identity)
+      const channels = await forage.getItem<string[]>(
+        'joinedChannels:' + state.identity,
+      )
       for (const id of channels || []) {
         dispatch('joinChannel', id)
       }
@@ -263,11 +278,16 @@ export const chatModule: Vuex.Module<ChatState, RootState> = {
     },
 
     async savePrivateChats({ state }) {
-      await forage.setItem('privateChats:' + state.identity, Object.keys(state.privateChats))
+      await forage.setItem(
+        'privateChats:' + state.identity,
+        Object.keys(state.privateChats),
+      )
     },
 
     async restorePrivateChats({ commit, state }) {
-      const partners = await forage.getItem<string[]>('privateChats:' + state.identity)
+      const partners = await forage.getItem<string[]>(
+        'privateChats:' + state.identity,
+      )
       for (const name of partners || []) {
         commit('ADD_PRIVATE_CHAT', name)
       }
@@ -334,15 +354,22 @@ export const chatModule: Vuex.Module<ChatState, RootState> = {
         },
 
         CHA() {
-          const channels = params.channels.map((ch: { name: string; characters: number }) => {
-            return new ChannelInfo('public', ch.name, ch.name, ch.characters)
-          })
+          const channels = params.channels.map(
+            (ch: { name: string; characters: number }) => {
+              return new ChannelInfo('public', ch.name, ch.name, ch.characters)
+            },
+          )
           commit('UPDATE_CHANNEL_LIST', channels)
         },
         ORS() {
           const channels = params.channels.map(
             (ch: { name: string; title: string; characters: number }) => {
-              return new ChannelInfo('private', ch.name, ch.title, ch.characters)
+              return new ChannelInfo(
+                'private',
+                ch.name,
+                ch.title,
+                ch.characters,
+              )
             },
           )
           commit('UPDATE_CHANNEL_LIST', channels)
@@ -374,7 +401,9 @@ export const chatModule: Vuex.Module<ChatState, RootState> = {
           commit('SET_CHANNEL_MODE', { id: params.channel, mode: params.mode })
           commit('SET_CHANNEL_USERS', {
             id: params.channel,
-            users: params.users.map((user: { identity: string }) => user.identity),
+            users: params.users.map(
+              (user: { identity: string }) => user.identity,
+            ),
           })
         },
 
