@@ -10,12 +10,12 @@ import './app/styles/helpers.scss'
 import './chat/styles/bbc.scss'
 import './chat/styles/character-colors.scss'
 
-import Vue from 'vue'
+import Vue, { ComponentOptions } from 'vue'
 import App from './app/components/App.vue'
 import * as directives from './common/directives'
 import store from './store'
 
-type ComponentModule = { default: Vue.ComponentOptions<any> }
+type ComponentModule = { default: ComponentOptions<Vue> }
 
 // All components in ./common/components are registered globally under a kebab-cased name
 // Example:
