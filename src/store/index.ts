@@ -5,14 +5,19 @@ import { chatModule, ChatState } from './chat-module'
 
 Vue.use(Vuex)
 
-export type RootState = {
+type RootState = {
   user: AuthState
   chat: ChatState
 }
 
-export default new Vuex.Store({
+const store = new Vuex.Store<RootState>({
   modules: {
     user: authModule,
     chat: chatModule,
   },
 })
+
+type Store = typeof store
+
+export { Store, RootState }
+export default store
