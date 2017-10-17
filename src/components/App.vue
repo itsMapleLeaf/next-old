@@ -8,54 +8,55 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
-
 import Login from '@/components/Login.vue'
 import CharacterSelect from '@/components/CharacterSelect.vue'
 import Chat from '@/components/chat/Chat.vue'
 import { Store } from '@/store'
 
-@Component({
+export default Vue.extend({
   components: {
-    Chat,
     Login,
     CharacterSelect,
+    Chat,
   },
-})
-export default class App extends Vue {
-  $store: Store
 
-  view = ''
+  data() {
+    return {
+      view: '',
+    }
+  },
 
   created() {
     this.init()
-  }
+  },
 
-  async init() {
-    try {
-      await this.$store.dispatch('loadAuthData')
-      await this.$store.dispatch('fetchCharacters')
-      this.view = 'characterSelect'
-    } catch (error) {
-      this.view = 'login'
-    }
-  }
+  methods: {
+    async init() {
+      try {
+        await this.$store.dispatch('loadAuthData')
+        await this.$store.dispatch('fetchCharacters')
+        this.view = 'characterSelect'
+      } catch (error) {
+        this.view = 'login'
+      }
+    },
 
-  async handleLoginSubmit(account: string, password: string) {
-    try {
-      await this.$store.dispatch('fetchTicket', { account, password })
-      await this.$store.dispatch('fetchCharacters')
-      this.view = 'characterSelect'
-      this.$store.dispatch('saveAuthData')
-    } catch (error) {
-      console.log(error)
-    }
-  }
+    async handleLoginSubmit(account: string, password: string) {
+      try {
+        await this.$store.dispatch('fetchTicket', { account, password })
+        await this.$store.dispatch('fetchCharacters')
+        this.view = 'characterSelect'
+        this.$store.dispatch('saveAuthData')
+      } catch (error) {
+        console.log(error)
+      }
+    },
 
-  handleCharacterSubmit(character: string) {
-    this.$store.commit('SET_IDENTITY', character)
-    this.$store.dispatch('connectToServer', this.$store.state.user)
-    this.view = ''
+    handleCharacterSubmit(character: string) {
+      this.$store.commit('SET_IDENTITY', character)
+      this.$store.dispatch('connectToServer', this.$store.state.user)
+      this.view = ''
+    },
   }
-}
+})
 </script>
