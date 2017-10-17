@@ -1,7 +1,8 @@
 <template>
   <main class="fullscreen bg-color-main text-color-main">
-    <chat></chat>
-    <renderer v-if="view" v-bind="view"></renderer>
+    <Chat />
+    <Login v-if="view === 'login'" @submit="handleLoginSubmit" />
+    <CharacterSelect v-if="view === 'characterSelect'" @submit="handleCharacterSubmit" />
   </main>
 </template>
 
