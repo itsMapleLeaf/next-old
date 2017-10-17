@@ -19,27 +19,28 @@
   </overlay>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import forage from 'localforage'
 import { getAvatarURL } from '@/api'
 
-export default {
-  computed: {
-    characters() {
-      return this.$store.state.user.characters
-    },
-    avatarURL() {
-      return getAvatarURL(this.selected)
-    },
-  },
+export default Vue.extend({
   data() {
     return {
       selected: '',
     }
   },
+  computed: {
+    characters(): string[] {
+      return this.$store.state.user.characters
+    },
+    avatarURL(): string {
+      return getAvatarURL(this.selected)
+    },
+  },
   async created() {
     this.selected =
-      (await forage.getItem('lastCharacter')) || this.characters[0] || ''
+      (await forage.getItem<string>('lastCharacter')) || this.characters[0] || ''
   },
   methods: {
     submit() {
@@ -51,5 +52,5 @@ export default {
       forage.setItem('lastCharacter', value)
     },
   },
-}
+})
 </script>

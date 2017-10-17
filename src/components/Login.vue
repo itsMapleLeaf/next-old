@@ -17,10 +17,11 @@
   </overlay>
 </template>
 
-<script>
+<script lang="ts">
 import forage from 'localforage'
+import Vue from 'vue'
 
-export default {
+export default Vue.extend({
   data() {
     return {
       username: '',
@@ -28,7 +29,7 @@ export default {
     }
   },
   async created() {
-    const auth = await forage.getItem('auth') || {}
+    const auth = await forage.getItem<{ account: string }>('auth') || {}
     this.username = auth.account || ''
   },
   methods: {
@@ -36,5 +37,5 @@ export default {
       this.$emit('submit', this.username, this.password)
     }
   }
-}
+})
 </script>
