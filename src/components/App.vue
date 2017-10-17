@@ -9,8 +9,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import Login from './Login.vue'
-import CharacterSelect from './CharacterSelect.vue'
+
+import Login from '@/components/Login.vue'
+import CharacterSelect from '@/components/CharacterSelect.vue'
 import Chat from '@/components/chat/Chat.vue'
 import { Store } from '@/store'
 
