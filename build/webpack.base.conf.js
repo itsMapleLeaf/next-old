@@ -41,6 +41,7 @@ module.exports = {
           compilerOptions: {
             module: 'esnext',
           },
+          appendTsSuffixTo: [/\.vue$/],
         },
       },
       {
