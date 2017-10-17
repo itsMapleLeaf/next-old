@@ -20,7 +20,7 @@ module.exports = {
         : config.dev.assetsPublicPath,
   },
   resolve: {
-    extensions: ['.js', '.json', '.ts', '.tsx'],
+    extensions: ['.js', '.ts', '.tsx', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src'),
@@ -34,12 +34,13 @@ module.exports = {
         options: vueLoaderConfig,
       },
       {
-        test: /\.(j|t)sx?$/,
+        test: /\.ts$/,
         loader: 'ts-loader',
-        include: [resolve('src')],
+        include: [resolve('src'), resolve('test')],
         options: {
-          entryFileIsJs: true,
-          transpileOnly: true,
+          compilerOptions: {
+            module: 'esnext',
+          },
         },
       },
       {

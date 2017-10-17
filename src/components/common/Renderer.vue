@@ -12,10 +12,10 @@ export default {
   },
   computed: {
     bindProps() {
-      return { ...this.props, ...this.$attrs }
+      return Object.assign({}, this.props, this.$attrs)
     },
     bindEvents() {
-      return { ...this.events, ...this.$listeners }
+      return Object.assign({}, this.events, this.$listeners)
     }
   }
 }
