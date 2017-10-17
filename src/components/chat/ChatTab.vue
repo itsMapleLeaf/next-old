@@ -9,8 +9,8 @@
         <slot name="title"></slot>
       </span>
     </a>
-    <a href="#" class="chat-tab-close" @click.prevent="$emit('close')">
-      <i class="mdi mdi-close"></i>
+    <a href="#" class="chat-tab-close flex-center" @click.prevent="$emit('close')">
+      <icon>close</icon>
     </a>
   </div>
 </template>

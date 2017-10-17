@@ -4,10 +4,10 @@
       <icon>message</icon> Send Message
     </context-menu-item>
     <context-menu-item :href="getProfileURL(character)" target="_blank">
-      <icon>link-variant</icon> View Profile
+      <icon>link</icon> View Profile
     </context-menu-item>
     <context-menu-item>
-      <icon>minus-circle</icon> Ignore (not working)
+      <icon>remove-circle</icon> Ignore (not working)
     </context-menu-item>
   </context-menu>
 </template>

@@ -1,5 +1,4 @@
 import 'normalize.css/normalize.css'
-import 'mdi/css/materialdesignicons.min.css'
 
 import './styles/colors.scss'
 import './styles/fade-transition.scss'

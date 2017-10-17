@@ -1,6 +1,6 @@
 <template>
   <a href='#' class="action-icon">
-    <icon>{{ icon }}</icon>
+    <icon :size="32">{{ icon }}</icon>
   </a>
 </template>
 
@@ -15,7 +15,6 @@ export default {
 
 <style lang="scss" scoped>
 .action-icon {
-  font-size: 200%;
   margin: 0.5rem;
   display: block;
   opacity: 0.5;
