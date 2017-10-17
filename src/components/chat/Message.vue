@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import { parseBBC } from '@/chat/bbc'
-import { getAvatarURL, getProfileURL } from '@/chat/helpers'
+import { parseBBC } from '@/bbc'
+import { getAvatarURL, getProfileURL } from '@/api'
 
 export default {
   props: {

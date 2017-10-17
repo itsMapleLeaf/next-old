@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { authModule, AuthState } from './auth/auth-module'
-import { chatModule, ChatState } from './chat/chat-module'
+import { authModule, AuthState } from './auth-module'
+import { chatModule, ChatState } from './chat-module'
 
 Vue.use(Vuex)
 

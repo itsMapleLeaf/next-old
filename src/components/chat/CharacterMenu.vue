@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { getProfileURL } from '@/chat/helpers'
+import { getProfileURL } from '@/api'
 
 export default {
   props: {

@@ -1,18 +1,18 @@
 import 'normalize.css/normalize.css'
 import 'mdi/css/materialdesignicons.min.css'
 
-import './app/styles/colors.scss'
-import './app/styles/fade-transition.scss'
-import './app/styles/flex.scss'
-import './app/styles/global.scss'
-import './app/styles/helpers.scss'
+import './styles/colors.scss'
+import './styles/fade-transition.scss'
+import './styles/flex.scss'
+import './styles/global.scss'
+import './styles/helpers.scss'
 
-import './chat/styles/bbc.scss'
-import './chat/styles/character-colors.scss'
+import './styles/bbc.scss'
+import './styles/character-colors.scss'
 
 import Vue, { ComponentOptions } from 'vue'
-import App from './app/components/App.vue'
-import * as directives from './common/directives'
+import App from './components/App.vue'
+import * as directives from './directives'
 import store from './store'
 
 type ComponentModule = { default: ComponentOptions<Vue> }
@@ -22,7 +22,7 @@ type ComponentModule = { default: ComponentOptions<Vue> }
 // Icon -> icon
 // MyHeaderComponent -> my-header-component
 function registerGlobalComponents() {
-  const context = require.context('./common/components/')
+  const context = require.context('./components/common')
   context.keys().forEach(componentFile => {
     const component = context<ComponentModule>(componentFile).default
     const nameMatch = componentFile.match(/\.\/(\w+)\.vue$/) || []

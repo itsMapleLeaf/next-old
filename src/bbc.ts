@@ -1,7 +1,7 @@
 import { parse as parseURL } from 'url'
 import { createParser } from 'bbc.js'
 import path from 'path'
-import { getProfileURL, getAvatarURL, getExtendedIcon } from '@/chat/helpers'
+import { getProfileURL, getAvatarURL, getExtendedIcon } from '@/api'
 
 const parser = createParser({
   b: { render: text => `<span class="bbc-bold">${text}</span>` },
@@ -12,7 +12,8 @@ const parser = createParser({
   sub: { render: text => `<span class="bbc-sub">${text}</span>` },
   url: { render: (text, url) => formatLink(url, text) },
   color: {
-    render: (text, color) => (color ? `<span class="bbc-color-${color}">${text}</span>` : text),
+    render: (text, color) =>
+      color ? `<span class="bbc-color-${color}">${text}</span>` : text,
   },
   noparse: {
     render: text => text,

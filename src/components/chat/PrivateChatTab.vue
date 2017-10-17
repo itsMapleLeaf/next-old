@@ -8,7 +8,7 @@
 
 <script>
 import ChatTab from './ChatTab.vue'
-import { getAvatarURL } from '@/chat/helpers'
+import { getAvatarURL } from '@/api'
 
 export default {
   components: {

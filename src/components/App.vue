@@ -8,7 +8,7 @@
 <script>
 import Login from './Login.vue'
 import CharacterSelect from './CharacterSelect.vue'
-import Chat from '@/chat/components/Chat.vue'
+import Chat from '@/components/chat/Chat.vue'
 
 export default {
   components: {

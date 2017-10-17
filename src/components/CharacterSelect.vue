@@ -21,7 +21,7 @@
 
 <script>
 import forage from 'localforage'
-import { getAvatarURL } from '@/chat/helpers'
+import { getAvatarURL } from '@/api'
 
 export default {
   computed: {

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Module } from 'vuex'
 import forage from 'localforage'
 import fromPairs from 'lodash/fromPairs'
-import { Dictionary } from '@/common/util-types'
+import { Dictionary } from '@/util-types'
 import { RootState } from '@/store'
 
 import {
@@ -11,7 +11,7 @@ import {
   Character,
   Message,
   PrivateChat,
-} from '@/chat/models'
+} from '@/store/models'
 
 let socket: WebSocket | void
 

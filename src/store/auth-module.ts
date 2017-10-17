@@ -1,6 +1,6 @@
 import forage from 'localforage'
 import Vuex, { Module } from 'vuex'
-import * as api from '@/auth/api'
+import * as api from '@/api'
 import { RootState } from '@/store'
 
 type AuthData = {
