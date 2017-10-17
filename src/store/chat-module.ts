@@ -2,7 +2,6 @@ import Vue from 'vue'
 import { Module } from 'vuex'
 import forage from 'localforage'
 import fromPairs from 'lodash/fromPairs'
-import { Dictionary } from '@/util-types'
 import { RootState } from '@/store'
 
 import {
