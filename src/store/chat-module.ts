@@ -15,30 +15,22 @@ import {
 
 let socket: WebSocket | void
 
-export type ChatState = {
-  identity: string
-  friends: Dictionary<boolean>
-  ignored: Dictionary<boolean>
-  admins: Dictionary<boolean>
-  characters: Dictionary<Character>
-  channelList: ChannelInfo[]
-  joinedChannels: Dictionary<boolean>
-  channels: Dictionary<Channel>
-  privateChats: Dictionary<PrivateChat>
+const state = {
+  identity: '',
+  friends: {} as Dictionary<boolean>,
+  ignored: {} as Dictionary<boolean>,
+  admins: {} as Dictionary<boolean>,
+  characters: {} as Dictionary<Character>,
+  channelList: [] as ChannelInfo[],
+  joinedChannels: {} as Dictionary<boolean>,
+  channels: {} as Dictionary<Channel>,
+  privateChats: {} as Dictionary<PrivateChat>,
 }
 
+export type ChatState = typeof state
+
 export const chatModule: Module<ChatState, RootState> = {
-  state: {
-    identity: '',
-    friends: {},
-    ignored: {},
-    admins: {},
-    characters: {},
-    channelList: [],
-    joinedChannels: {},
-    channels: {},
-    privateChats: {},
-  },
+  state,
   mutations: {
     SET_IDENTITY(state, identity) {
       state.identity = identity
