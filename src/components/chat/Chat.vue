@@ -24,8 +24,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import store from '@/store.new'
-import { Channel, PrivateChat } from '@/store.new/models'
+import store from '@/store'
+import { Channel, PrivateChat } from '@/store/models'
 
 import ChatAction from './ChatAction.vue'
 import ChatTab from './ChatTab.vue'

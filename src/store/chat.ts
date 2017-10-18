@@ -8,7 +8,7 @@ import {
   ChannelInfo,
   PrivateChat,
   Message,
-} from '@/store.new/models'
+} from '@/store/models'
 
 export class ChatStore {
   socket: WebSocket | void

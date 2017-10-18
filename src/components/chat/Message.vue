@@ -11,7 +11,7 @@
 <script>
 import { parseBBC } from '@/bbc'
 import { getAvatarURL, getProfileURL } from '@/api'
-import store from '@/store.new'
+import store from '@/store'
 
 export default {
   props: {

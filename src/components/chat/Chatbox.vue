@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import store from '@/store.new'
+import store from '@/store'
 
 export default {
   data() {

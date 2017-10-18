@@ -11,7 +11,7 @@ import Vue from 'vue'
 import Login from '@/components/Login.vue'
 import CharacterSelect from '@/components/CharacterSelect.vue'
 import Chat from '@/components/chat/Chat.vue'
-import store from '@/store.new'
+import store from '@/store'
 
 export default Vue.extend({
   components: {

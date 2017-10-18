@@ -12,7 +12,7 @@ import './styles/character-colors.scss'
 import Vue, { ComponentOptions } from 'vue'
 import App from './components/App.vue'
 import * as directives from './directives'
-import store from './store.new'
+import store from './store'
 
 type ComponentModule = { default: ComponentOptions<Vue> }
 

@@ -16,7 +16,7 @@
 <script>
 import sortBy from 'lodash/sortBy'
 import debounce from 'lodash/debounce'
-import store from '@/store.new'
+import store from '@/store'
 
 export default {
   data() {

@@ -9,7 +9,7 @@
 <script>
 // import sortBy from 'lodash/sortBy'
 import Card from './CharacterBrowserCard.vue'
-import store from '@/store.new'
+import store from '@/store'
 
 export default {
   components: {
