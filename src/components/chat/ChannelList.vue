@@ -31,7 +31,7 @@ export default {
     },
 
     joinedChannels() {
-      return store.chat.joinedChannels
+      return store.chat.channels
     },
 
     sortedChannels() {

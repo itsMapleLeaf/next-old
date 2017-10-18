@@ -17,7 +17,6 @@ export class ChatStore {
   friends = {} as Dictionary<boolean>
   ignored = {} as Dictionary<boolean>
   admins = {} as Dictionary<boolean>
-  joinedChannels = {} as Dictionary<boolean>
   characters = {} as Dictionary<Character>
   channelList = [] as ChannelInfo[]
   channels = {} as Dictionary<Channel>
@@ -156,23 +155,24 @@ export class ChatStore {
       },
 
       JCH() {
+        const channel =
+          this.channels[params.channel] ||
+          Vue.set(this.channels, params.channel, new Channel(params.channel))
+
         const name = params.character.identity
-        const channel = this.channels[params.channel]
-        if (name === this.identity) {
-          Vue.set(this.joinedChannels, params.channel, true)
-          channel.title = params.title
-        }
+        channel.title = params.title
         channel.users.push(this.characters[name])
       },
 
       LCH() {
         if (params.character === this.identity) {
-          Vue.delete(this.joinedChannels, params.channel)
+          Vue.delete(this.channels, params.channel)
+        } else {
+          const channel = this.channels[params.channel]
+          channel.users = channel.users.filter(
+            user => user.name !== params.character,
+          )
         }
-        const channel = this.channels[params.channel]
-        channel.users = channel.users.filter(
-          user => user.name !== params.character,
-        )
       },
 
       ICH() {
@@ -254,17 +254,11 @@ export class ChatStore {
   }
 
   joinChannel(id: string) {
-    if (!this.channels[id]) {
-      Vue.set(this.channels, id, new Channel(id))
-    }
-    Vue.set(this.joinedChannels, id, true)
-
     this.sendSocketCommand('JCH', { channel: id })
     this.saveJoinedChannels()
   }
 
   leaveChannel(id: string) {
-    Vue.delete(this.channels, id)
     this.sendSocketCommand('LCH', { channel: id })
     this.saveJoinedChannels()
   }
@@ -281,7 +275,7 @@ export class ChatStore {
   }
 
   async saveJoinedChannels() {
-    const channels = Object.keys(this.joinedChannels)
+    const channels = Object.keys(this.channels)
     await forage.setItem('joinedChannels:' + this.identity, channels)
   }
 

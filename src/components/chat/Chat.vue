@@ -56,7 +56,7 @@ export default Vue.extend({
   computed: {
     joinedChannels(): Channel[] {
       const { chat } = store
-      return Object.keys(chat.joinedChannels).map(id => chat.channels[id])
+      return Object.values(chat.channels)
     },
 
     privateChats(): PrivateChat[] {
