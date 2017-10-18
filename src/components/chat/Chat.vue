@@ -21,7 +21,8 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import ChatAction from './ChatAction.vue'
 import ChatTab from './ChatTab.vue'
 import ChannelView from './ChannelView.vue'
@@ -29,8 +30,9 @@ import PrivateChatView from './PrivateChatView.vue'
 import ChannelList from './ChannelList.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import CharacterMenu from './CharacterMenu.vue'
+import { Channel, PrivateChat } from '@/store/models'
 
-export default {
+export default Vue.extend({
   components: {
     ChatAction,
     ChannelList,
@@ -39,32 +41,36 @@ export default {
     PrivateChatView,
     CharacterMenu,
   },
+
   data() {
     return {
-      overlay: null,
+      overlay: null as any,
       tabIndex: 0,
-      characterMenu: null,
+      characterMenu: null as null | { character: string, x: number, y: number },
     }
   },
+
   computed: {
-    joinedChannels() {
+    joinedChannels(): Channel[] {
       const { chat } = this.$store.state
       return Object.keys(chat.joinedChannels).map(id => chat.channels[id])
     },
-    privateChats() {
+
+    privateChats(): PrivateChat[] {
       const { chat } = this.$store.state
       return Object.values(chat.privateChats)
     },
-    tabs() {
+
+    tabs(): any[] {
       const channelTabs = this.joinedChannels.map(channel => {
         return {
           tab: {
             component: require('./ChannelTab.vue').default,
-            props: { channel }
+            props: { channel } as any
           },
           view: {
             component: require('./ChannelView.vue').default,
-            props: channel
+            props: channel as any
           },
           onClose: () => {
             this.$store.dispatch('leaveChannel', channel.id)
@@ -76,11 +82,11 @@ export default {
         return {
           tab: {
             component: require('./PrivateChatTab.vue').default,
-            props: { privateChat }
+            props: { privateChat } as any
           },
           view: {
             component: require('./PrivateChatView.vue').default,
-            props: privateChat
+            props: privateChat as any
           },
           onClose: () => {
             this.$store.commit('REMOVE_PRIVATE_CHAT', privateChat.partner)
@@ -90,13 +96,16 @@ export default {
 
       return channelTabs.concat(privateChatTabs)
     },
-    currentTab() {
+
+    currentTab(): any {
       return this.tabs[this.tabIndex]
     }
   },
+
   created() {
     this.createViews()
   },
+
   methods: {
     createViews() {
       this.channelListView = {
@@ -108,7 +117,7 @@ export default {
       }
     },
 
-    openOverlay(overlay) {
+    openOverlay(overlay: any) {
       this.overlay = overlay
     },
 
@@ -129,21 +138,21 @@ export default {
       this.characterMenu = null
     },
 
-    activateCharacterMenu(event) {
-      this.characterMenu = null
+    activateCharacterMenu(event: MouseEvent) {
+      // this.characterMenu = null
 
-      const characterElement = event.path.find(el => el.dataset && el.dataset.character != null)
-      if (characterElement) {
-        this.characterMenu = {
-          character: characterElement.dataset.character,
-          x: event.clientX,
-          y: event.clientY,
-        }
-        event.preventDefault()
-      }
+      // const characterElement = event.path.find(el => el.dataset && el.dataset.character != null)
+      // if (characterElement) {
+      //   this.characterMenu = {
+      //     character: characterElement.dataset.character,
+      //     x: event.clientX,
+      //     y: event.clientY,
+      //   }
+      //   event.preventDefault()
+      // }
     },
 
-    openPrivateChat(partner) {
+    openPrivateChat(partner: string) {
       this.$store.dispatch('openPrivateChat', partner)
 
       this.$nextTick(() => {
@@ -156,7 +165,7 @@ export default {
       })
     }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>
