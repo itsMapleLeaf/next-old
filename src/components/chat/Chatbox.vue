@@ -1,12 +1,16 @@
 <template>
-  <textarea style="resize: none" :placeholder="`Chatting as ${identity}...`" v-model="message" @keydown.enter.prevent="handleEnter"></textarea>
+  <textarea style="resize: none" :placeholder="`Chatting as ${identity}...`" v-model="message" @keydown.enter.prevent="handleEnter">
+  </textarea>
 </template>
 
 <script>
+import store from '@/store.new'
+
 export default {
   data() {
     return { message: '' }
   },
+
   methods: {
     handleEnter(event) {
       const message = this.message.trim()
@@ -16,9 +20,10 @@ export default {
       this.message = ''
     },
   },
+
   computed: {
     identity() {
-      return this.$store.state.chat.identity
+      return store.chat.identity
     },
   },
 }

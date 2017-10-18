@@ -10,6 +10,7 @@
 
 <script>
 import sortBy from 'lodash/sortBy'
+import store from '@/store.new'
 
 export default {
   props: {
@@ -21,11 +22,10 @@ export default {
   },
   computed: {
     characters() {
-      const { characters } = this.$store.state.chat
-      return this.users.map(name => characters[name])
+      return this.users
     },
     sortedUsers() {
-      const { chat } = this.$store.state
+      const { chat } = store
       return sortBy(this.characters,
         char => {
           if (chat.admins[char.name]) return 0
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getHighlight(char) {
-      const { chat } = this.$store.state
+      const { chat } = store
       if (chat.friends[char.name]) return 'highlight-green'
       if (chat.admins[char.name]) return 'highlight-red'
       if (this.ops.includes(char.name)) return 'highlight-yellow'

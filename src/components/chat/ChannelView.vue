@@ -15,6 +15,7 @@
 
 <script>
 import { parseBBC } from '@/bbc'
+import store from '@/store.new'
 
 export default {
   components: {
@@ -34,7 +35,7 @@ export default {
   methods: {
     parseBBC,
     sendMessage(message) {
-      this.$store.dispatch('sendChannelMessage', { id: this.id, message })
+      store.chat.sendChannelMessage(this.id, message)
     },
   },
 }

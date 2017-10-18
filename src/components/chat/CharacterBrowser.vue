@@ -9,6 +9,7 @@
 <script>
 // import sortBy from 'lodash/sortBy'
 import Card from './CharacterBrowserCard.vue'
+import store from '@/store.new'
 
 export default {
   components: {
@@ -16,15 +17,16 @@ export default {
   },
   computed: {
     friends() {
-      const { chat } = this.$store.state
+      const { chat } = store
       const { friends, characters } = chat
       return Object.keys(friends)
         .sort()
         .map(friend => characters[friend])
         .filter(char => char != null)
     },
+
     characters() {
-      return Object.values(this.$store.state.chat.characters).slice(0, 100)
+      return Object.values(store.chat.characters).slice(0, 100)
     }
   }
 }

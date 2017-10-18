@@ -11,11 +11,9 @@ import Vue from 'vue'
 import Login from '@/components/Login.vue'
 import CharacterSelect from '@/components/CharacterSelect.vue'
 import Chat from '@/components/chat/Chat.vue'
-import { Store } from '@/store.new/store'
+import store from '@/store.new'
 
 export default Vue.extend({
-  inject: ['store'],
-
   components: {
     Login,
     CharacterSelect,
@@ -25,7 +23,12 @@ export default Vue.extend({
   data() {
     return {
       view: '',
-      store: this.store as Store
+    }
+  },
+
+  computed: {
+    store() {
+      return store
     }
   },
 
@@ -36,8 +39,8 @@ export default Vue.extend({
   methods: {
     async init() {
       try {
-        await this.store.auth.loadAuthData()
-        await this.store.auth.fetchCharacters()
+        await store.auth.loadAuthData()
+        await store.auth.fetchCharacters()
         this.view = 'characterSelect'
       } catch (error) {
         this.view = 'login'
@@ -46,9 +49,9 @@ export default Vue.extend({
 
     async handleLoginSubmit(account: string, password: string) {
       try {
-        await this.store.auth.fetchTicket(account, password)
-        await this.store.auth.fetchCharacters()
-        this.store.auth.saveAuthData()
+        await store.auth.fetchTicket(account, password)
+        await store.auth.fetchCharacters()
+        store.auth.saveAuthData()
         this.view = 'characterSelect'
       } catch (error) {
         console.log(error)
@@ -56,8 +59,7 @@ export default Vue.extend({
     },
 
     handleCharacterSubmit(character: string) {
-      this.$store.commit('SET_IDENTITY', character)
-      this.$store.dispatch('connectToServer', this.store.auth)
+      store.chat.connectToServer(store.auth.account, store.auth.ticket, character)
       this.view = ''
     },
   }

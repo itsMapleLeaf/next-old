@@ -14,6 +14,7 @@
 
 <script>
 import { parseBBC } from '@/bbc'
+import store from '@/store.new'
 
 export default {
   components: {
@@ -28,12 +29,13 @@ export default {
   methods: {
     parseBBC,
     sendMessage(message) {
-      this.$store.dispatch('sendPrivateMessage', { recipient: this.partner, message })
+      store.chat.sendPrivateMessage(this.partner, message)
     },
   },
   computed: {
     character() {
-      return this.$store.getters.getCharacter(this.partner)
+      return store.chat.characters[this.partner]
+      // return this.$store.getters.getCharacter(this.partner)
     }
   }
 }

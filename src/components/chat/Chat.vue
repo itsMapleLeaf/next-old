@@ -23,6 +23,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
+
+import store from '@/store.new'
+import { Channel, PrivateChat } from '@/store.new/models'
+
 import ChatAction from './ChatAction.vue'
 import ChatTab from './ChatTab.vue'
 import ChannelView from './ChannelView.vue'
@@ -30,7 +34,6 @@ import PrivateChatView from './PrivateChatView.vue'
 import ChannelList from './ChannelList.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import CharacterMenu from './CharacterMenu.vue'
-import { Channel, PrivateChat } from '@/store/models'
 
 export default Vue.extend({
   components: {
@@ -52,12 +55,12 @@ export default Vue.extend({
 
   computed: {
     joinedChannels(): Channel[] {
-      const { chat } = this.$store.state
+      const { chat } = store
       return Object.keys(chat.joinedChannels).map(id => chat.channels[id])
     },
 
     privateChats(): PrivateChat[] {
-      const { chat } = this.$store.state
+      const { chat } = store
       return Object.values(chat.privateChats)
     },
 
@@ -73,7 +76,7 @@ export default Vue.extend({
             props: channel as any
           },
           onClose: () => {
-            this.$store.dispatch('leaveChannel', channel.id)
+            store.chat.leaveChannel(channel.id)
           }
         }
       })
@@ -89,7 +92,7 @@ export default Vue.extend({
             props: privateChat as any
           },
           onClose: () => {
-            this.$store.commit('REMOVE_PRIVATE_CHAT', privateChat.partner)
+            store.chat.removePrivateChat(privateChat.partner.name)
           }
         }
       })
@@ -127,7 +130,7 @@ export default Vue.extend({
 
     openChannelList() {
       this.openOverlay(this.channelListView)
-      this.$store.dispatch('fetchChannelList')
+      store.chat.fetchChannelList()
     },
 
     openCharacterBrowser() {
@@ -153,7 +156,7 @@ export default Vue.extend({
     },
 
     openPrivateChat(partner: string) {
-      this.$store.dispatch('openPrivateChat', partner)
+      store.chat.openPrivateChat(partner)
 
       this.$nextTick(() => {
         const index = this.tabs.findIndex(tab =>

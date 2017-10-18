@@ -16,6 +16,7 @@
 <script>
 import sortBy from 'lodash/sortBy'
 import debounce from 'lodash/debounce'
+import store from '@/store.new'
 
 export default {
   data() {
@@ -23,19 +24,23 @@ export default {
       searchText: ''
     }
   },
+
   computed: {
     channels() {
-      return this.$store.state.chat.channelList
+      return store.chat.channelList
     },
+
     joinedChannels() {
-      return this.$store.state.chat.joinedChannels
+      return store.chat.joinedChannels
     },
+
     sortedChannels() {
       return sortBy(this.channels, [
         ch => ch.type === 'public' ? 0 : 1,
         ch => ch.title.toLowerCase(),
       ])
     },
+
     filteredChannels() {
       const searchText = this.searchText.trim().toLowerCase()
       const channels = this.sortedChannels
@@ -45,15 +50,17 @@ export default {
       return channels.filter(ch => ch.title.toLowerCase().includes(searchText))
     }
   },
+
   methods: {
     toggleChannel(id) {
       if (this.joinedChannels[id]) {
-        this.$store.dispatch('leaveChannel', id)
+        store.chat.leaveChannel(id)
       } else {
-        this.$store.dispatch('joinChannel', id)
+        store.chat.joinChannel(id)
       }
     },
-    updateSearchText: debounce(function (text) {
+
+    updateSearchText: debounce(function(text) {
       this.searchText = text
     }, 500)
   }
