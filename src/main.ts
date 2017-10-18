@@ -13,6 +13,7 @@ import Vue, { ComponentOptions } from 'vue'
 import App from './components/App.vue'
 import * as directives from './directives'
 import store from './store'
+import { Store } from './store.new/store'
 
 type ComponentModule = { default: ComponentOptions<Vue> }
 
@@ -50,6 +51,9 @@ function main() {
   const app = new Vue({
     render: h => h(App),
     store,
+    provide: {
+      store: new Store(),
+    },
   })
 
   app.$mount('#app')

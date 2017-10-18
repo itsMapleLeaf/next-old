@@ -9,14 +9,14 @@ export async function fetchTicket(account: string, password: string) {
   const url = 'https://www.f-list.net/json/getApiTicket.php'
   const data = await fetchJSON(url, { account, password })
   if (data.error) throw new Error(data.error)
-  return data.ticket
+  return data.ticket as string
 }
 
 export async function fetchCharacterList(account: string, ticket: string) {
   const url = 'https://www.f-list.net/json/api/character-list.php'
   const data = await fetchJSON(url, { account, ticket })
   if (data.error) throw new Error(data.error)
-  return data.characters
+  return data.characters as string[]
 }
 
 function encodeLower(str: string) {

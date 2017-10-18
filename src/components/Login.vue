@@ -21,6 +21,8 @@
 import forage from 'localforage'
 import Vue from 'vue'
 
+const storageKey = 'Login_username'
+
 export default Vue.extend({
   data() {
     return {
@@ -28,13 +30,21 @@ export default Vue.extend({
       password: ''
     }
   },
+
   async created() {
-    const auth = await forage.getItem<{ account: string }>('auth') || {}
-    this.username = auth.account || ''
+    const initialUsername = await forage.getItem<string>(storageKey)
+    this.username = initialUsername || ''
   },
+
   methods: {
     submit() {
       this.$emit('submit', this.username, this.password)
+    }
+  },
+
+  watch: {
+    username() {
+      forage.setItem(storageKey, this.username)
     }
   }
 })

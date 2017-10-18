@@ -24,32 +24,39 @@ import Vue from 'vue'
 import forage from 'localforage'
 import { getAvatarURL } from '@/api'
 
+const storageKey = 'CharacterSelect_lastCharacter'
+
 export default Vue.extend({
+  props: {
+    characters: Array
+  },
+
   data() {
     return {
-      selected: '',
+      selected: ''
     }
   },
+
   computed: {
-    characters(): string[] {
-      return this.$store.state.user.characters
-    },
     avatarURL(): string {
       return getAvatarURL(this.selected)
     },
   },
+
   async created() {
     this.selected =
-      (await forage.getItem<string>('lastCharacter')) || this.characters[0] || ''
+      (await forage.getItem<string>(storageKey)) || this.characters[0] || ''
   },
+
   methods: {
     submit() {
       this.$emit('submit', this.selected)
     },
   },
+
   watch: {
     selected(value) {
-      forage.setItem('lastCharacter', value)
+      forage.setItem(storageKey, value)
     },
   },
 })
