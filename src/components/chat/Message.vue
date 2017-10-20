@@ -2,7 +2,7 @@
   <div :class="['message', isAction && 'message-action']">
     <div style="padding: 0.4rem 0.6rem" :class="'message-type-' + type">
       <span class="message-time">{{ parsedDate }}</span>
-      <character-name v-bind="getCharacter(sender.name)"></character-name>
+      <character-name v-bind="sender"></character-name>
       <span class="message-text" v-html="parseBBC(parsedText)"></span>
     </div>
   </div>
@@ -29,12 +29,6 @@ export default {
     parseBBC,
   },
   computed: {
-    characters() {
-      return store.chat.characters
-    },
-    getCharacter() {
-      return name => store.chat.characters[name]
-    },
     isAction() {
       return this.text.startsWith('/me')
     },
@@ -46,7 +40,7 @@ export default {
     },
     parsedDate() {
       return this.date.toLocaleTimeString()
-    }
+    },
   },
 }
 </script>

@@ -1,20 +1,21 @@
-import Vue from 'vue'
-import * as forage from 'localforage'
 import fromPairs from 'lodash/fromPairs'
+import * as forage from 'localforage'
+import Vue from 'vue'
 import { ChannelListStore } from './ChannelListStore'
 import { ChannelStore } from './ChannelStore'
-import { Character, PrivateChat, Message } from './models'
+import { CharacterStore } from './CharacterStore'
+import { PrivateChat, Message } from './models'
 
 export class ChatStore {
   identity = ''
   friends = {} as Dictionary<boolean>
   ignored = {} as Dictionary<boolean>
   admins = {} as Dictionary<boolean>
-  characters = {} as Dictionary<Character>
   privateChats = {} as Dictionary<PrivateChat>
 
   channels = new ChannelStore()
   channelList = new ChannelListStore()
+  characters = new CharacterStore()
 
   private socket: WebSocket | void
 
@@ -42,6 +43,7 @@ export class ChatStore {
 
       this.handleSocketCommand(cmd, params)
       this.channelList.handleSocketCommand(cmd, params)
+      this.characters.handleSocketCommand(cmd, params)
     }
 
     this.socket.onclose = this.socket.onerror = () => {
@@ -66,6 +68,11 @@ export class ChatStore {
 
   handleSocketCommand(cmd: string, params: any) {
     const handlers: { [command: string]: (this: ChatStore) => void } = {
+      VAR() {},
+      LIS() {},
+      NLN() {},
+      STA() {},
+
       PIN() {
         // dispatch('sendSocketCommand', { cmd: 'PIN' })
         this.sendSocketCommand('PIN')
@@ -76,8 +83,6 @@ export class ChatStore {
         this.restoreJoinedChannels()
         this.restorePrivateChats()
       },
-
-      VAR() {},
 
       HLO() {
         console.info(params.message)
@@ -104,41 +109,15 @@ export class ChatStore {
         this.admins = fromPairs(characters.map(name => [name, true]))
       },
 
-      LIS() {
-        type CharacterBatch = Array<[string, string, string, string]>
-        const batch = params.characters as CharacterBatch
-        const map = {} as Dictionary<Character>
-        for (const [name, gender, status, statusMessage] of batch) {
-          map[name] = new Character(name, gender, status, statusMessage)
-        }
-        this.characters = Object.assign(this.characters, map)
-      },
-
-      NLN() {
-        Vue.set(
-          this.characters,
-          params.identity,
-          new Character(params.identity, params.gender, 'online'),
-        )
-      },
-
       FLN() {
-        Vue.delete(this.characters, params.character)
-      },
-
-      STA() {
-        const char = this.characters[params.character]
-        if (char) {
-          char.status = params.status
-          char.statusMessage = params.statusmsg
-        }
+        // TODO: remove from channels
       },
 
       JCH() {
         const channel = this.channels.getChannel(params.channel)
         const name = params.character.identity
         channel.title = params.title
-        channel.users.push(this.characters[name])
+        channel.users.push(this.characters.getCharacter(name))
 
         if (name === this.identity) {
           this.channels.addJoinedChannel(params.channel)
@@ -160,7 +139,7 @@ export class ChatStore {
         const channel = this.channels.getChannel(params.channel)
         channel.mode = params.mode
         channel.users = params.users.map((user: { identity: string }) => {
-          return this.characters[user.identity]
+          return this.characters.getCharacter(user.identity)
         })
       },
 
@@ -178,7 +157,7 @@ export class ChatStore {
         const channel = this.channels.getChannel(params.channel)
         channel.messages.push(
           new Message(
-            this.characters[params.character],
+            this.characters.getCharacter(params.character),
             params.message,
             'normal',
           ),
@@ -189,7 +168,7 @@ export class ChatStore {
         const channel = this.channels.getChannel(params.channel)
         channel.messages.push(
           new Message(
-            this.characters[params.character],
+            this.characters.getCharacter(params.character),
             params.message,
             'lfrp',
           ),
@@ -201,7 +180,7 @@ export class ChatStore {
 
         this.privateChats[params.character].messages.push(
           new Message(
-            this.characters[params.character],
+            this.characters.getCharacter(params.character),
             params.message,
             'normal',
           ),
@@ -249,7 +228,11 @@ export class ChatStore {
     const channel = this.channels.getChannel(id)
     if (channel) {
       channel.messages.push(
-        new Message(this.characters[this.identity], message, 'normal'),
+        new Message(
+          this.characters.getCharacter(this.identity),
+          message,
+          'normal',
+        ),
       )
     }
   }
@@ -270,7 +253,7 @@ export class ChatStore {
       Vue.set(
         this.privateChats,
         partner,
-        new PrivateChat(this.characters[partner]),
+        new PrivateChat(this.characters.getCharacter(partner)),
       )
     }
   }
@@ -282,7 +265,11 @@ export class ChatStore {
   sendPrivateMessage(recipient: string, message: string) {
     this.sendSocketCommand('PRI', { recipient, message })
     this.privateChats[recipient].messages.push(
-      new Message(this.characters[this.identity], message, 'normal'),
+      new Message(
+        this.characters.getCharacter(this.identity),
+        message,
+        'normal',
+      ),
     )
   }
 
@@ -301,7 +288,7 @@ export class ChatStore {
       Vue.set(
         this.privateChats,
         partner,
-        new PrivateChat(this.characters[partner]),
+        new PrivateChat(this.characters.getCharacter(partner)),
       )
     })
   }

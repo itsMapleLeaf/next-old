@@ -21,14 +21,10 @@ export default {
       const { friends, characters } = chat
       return Object.keys(friends)
         .sort()
-        .map(friend => characters[friend])
-        .filter(char => char != null)
+        .map(friend => characters.getCharacter(friend))
+        .filter(char => char.status === 'online')
     },
-
-    characters() {
-      return Object.values(store.chat.characters).slice(0, 100)
-    }
-  }
+  },
 }
 </script>
 

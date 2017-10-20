@@ -34,9 +34,9 @@ export default {
   },
   computed: {
     character() {
-      return store.chat.characters[this.partner]
+      return store.chat.characters.getCharacter(this.partner)
       // return this.$store.getters.getCharacter(this.partner)
-    }
-  }
+    },
+  },
 }
 </script>
