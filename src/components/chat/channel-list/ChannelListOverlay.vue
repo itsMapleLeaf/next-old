@@ -85,10 +85,6 @@ export default Vue.extend({
       this.searchText = text
     }, 500),
 
-    // updateSearchText(text: string) {
-    //   console.log(text)
-    // },
-
     sortChannels(channels: ChannelInfo[]) {
       return sortBy(channels, ch => ch.title.toLowerCase())
     },
