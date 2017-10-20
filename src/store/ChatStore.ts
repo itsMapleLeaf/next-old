@@ -3,8 +3,7 @@ import * as forage from 'localforage'
 import fromPairs from 'lodash/fromPairs'
 import { ChannelListStore } from './ChannelListStore'
 import { ChannelStore } from './ChannelStore'
-
-import { Character, ChannelInfo, PrivateChat, Message } from '@/store/models'
+import { Character, PrivateChat, Message } from './models'
 
 export class ChatStore {
   private socket: WebSocket | void
@@ -64,6 +63,8 @@ export class ChatStore {
   }
 
   handleSocketCommand(cmd: string, params: any) {
+    this.channelList.handleSocketCommand(cmd, params)
+
     const handlers: { [command: string]: (this: ChatStore) => void } = {
       PIN() {
         // dispatch('sendSocketCommand', { cmd: 'PIN' })
@@ -131,24 +132,6 @@ export class ChatStore {
           char.status = params.status
           char.statusMessage = params.statusmsg
         }
-      },
-
-      CHA() {
-        const channels = params.channels.map(
-          (ch: { name: string; characters: number }) => {
-            return new ChannelInfo('public', ch.name, ch.name, ch.characters)
-          },
-        )
-        this.channelList.setPublicChannels(channels)
-      },
-
-      ORS() {
-        const channels = params.channels.map(
-          (ch: { name: string; title: string; characters: number }) => {
-            return new ChannelInfo('private', ch.name, ch.title, ch.characters)
-          },
-        )
-        this.channelList.setPrivateChannels(channels)
       },
 
       JCH() {
@@ -268,7 +251,7 @@ export class ChatStore {
   }
 
   async saveJoinedChannels() {
-    const channels = Object.keys(this.channels)
+    const channels = this.channels.getJoinedChannels()
     await forage.setItem('joinedChannels:' + this.identity, channels)
   }
 
