@@ -1,9 +1,12 @@
 import fromPairs from 'lodash/fromPairs'
 import * as forage from 'localforage'
 import Vue from 'vue'
+
 import { ChannelListStore } from './ChannelListStore'
 import { ChannelStore } from './ChannelStore'
 import { CharacterStore } from './CharacterStore'
+import { PrivateChatStore } from './PrivateChatStore'
+
 import { PrivateChat, Message } from './models'
 
 export class ChatStore {
@@ -11,11 +14,11 @@ export class ChatStore {
   friends = {} as Dictionary<boolean>
   ignored = {} as Dictionary<boolean>
   admins = {} as Dictionary<boolean>
-  privateChats = {} as Dictionary<PrivateChat>
 
   channels = new ChannelStore()
-  channelList = new ChannelListStore()
+  privateChats = new PrivateChatStore()
   characters = new CharacterStore()
+  channelList = new ChannelListStore()
 
   private socket: WebSocket | void
 
@@ -44,6 +47,7 @@ export class ChatStore {
       this.channelList.handleSocketCommand(cmd, params)
       this.characters.handleSocketCommand(cmd, params)
       this.channels.handleSocketCommand(cmd, params, this.characters)
+      this.privateChats.handleSocketCommand(cmd, params, this.characters)
       this.handleSocketCommand(cmd, params)
     }
 
@@ -79,6 +83,7 @@ export class ChatStore {
       COL() {},
       MSG() {},
       LRP() {},
+      PRI() {},
 
       PIN() {
         // dispatch('sendSocketCommand', { cmd: 'PIN' })
@@ -126,20 +131,6 @@ export class ChatStore {
         if (params.character === this.identity) {
           this.channels.removeJoinedChannel(params.channel)
         }
-      },
-
-      PRI() {
-        this.openPrivateChat(params.character)
-
-        this.privateChats[params.character].messages.push(
-          new Message(
-            this.characters.getCharacter(params.character),
-            params.message,
-            'normal',
-          ),
-        )
-
-        this.savePrivateChats()
       },
 
       RTB() {
@@ -200,22 +191,18 @@ export class ChatStore {
   }
 
   openPrivateChat(partner: string) {
-    if (!this.privateChats[partner]) {
-      Vue.set(
-        this.privateChats,
-        partner,
-        new PrivateChat(this.characters.getCharacter(partner)),
-      )
-    }
+    this.privateChats.openPrivateChat(partner)
   }
 
   removePrivateChat(partner: string) {
-    Vue.delete(this.privateChats, partner)
+    this.privateChats.closePrivateChat(partner)
   }
 
   sendPrivateMessage(recipient: string, message: string) {
     this.sendSocketCommand('PRI', { recipient, message })
-    this.privateChats[recipient].messages.push(
+
+    const privateChat = this.privateChats.getPrivateChat(recipient)
+    privateChat.messages.push(
       new Message(
         this.characters.getCharacter(this.identity),
         message,
@@ -236,11 +223,7 @@ export class ChatStore {
       (await forage.getItem<string[]>('privateChats:' + this.identity)) || []
 
     partners.forEach(partner => {
-      Vue.set(
-        this.privateChats,
-        partner,
-        new PrivateChat(this.characters.getCharacter(partner)),
-      )
+      Vue.set(this.privateChats, partner, new PrivateChat(partner))
     })
   }
 }

@@ -40,5 +40,5 @@ export class Message {
 export class PrivateChat {
   messages = [] as Message[]
 
-  constructor(public partner: Character) {}
+  constructor(public partner: string) {}
 }

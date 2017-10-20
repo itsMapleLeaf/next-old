@@ -66,8 +66,10 @@ export default Vue.extend({
     },
 
     privateChats(): PrivateChat[] {
-      const { chat } = store
-      return Object.values(chat.privateChats)
+      const privateChatStore = store.chat.privateChats
+      return privateChatStore
+        .getOpenPrivateChats()
+        .map(partner => privateChatStore.getPrivateChat(partner))
     },
 
     tabs(): any[] {
@@ -98,7 +100,7 @@ export default Vue.extend({
             props: privateChat as any,
           },
           onClose: () => {
-            store.chat.removePrivateChat(privateChat.partner.name)
+            store.chat.removePrivateChat(privateChat.partner)
           },
         }
       })
