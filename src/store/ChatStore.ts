@@ -6,8 +6,6 @@ import { ChannelStore } from './ChannelStore'
 import { Character, PrivateChat, Message } from './models'
 
 export class ChatStore {
-  private socket: WebSocket | void
-
   identity = ''
   friends = {} as Dictionary<boolean>
   ignored = {} as Dictionary<boolean>
@@ -17,6 +15,8 @@ export class ChatStore {
 
   channels = new ChannelStore()
   channelList = new ChannelListStore()
+
+  private socket: WebSocket | void
 
   connectToServer(account: string, ticket: string, character: string) {
     this.identity = character
@@ -39,7 +39,9 @@ export class ChatStore {
       const data = msg.data
       const cmd = data.slice(0, 3)
       const params = data.length > 3 ? JSON.parse(data.slice(4)) : {}
+
       this.handleSocketCommand(cmd, params)
+      this.channelList.handleSocketCommand(cmd, params)
     }
 
     this.socket.onclose = this.socket.onerror = () => {
@@ -63,8 +65,6 @@ export class ChatStore {
   }
 
   handleSocketCommand(cmd: string, params: any) {
-    this.channelList.handleSocketCommand(cmd, params)
-
     const handlers: { [command: string]: (this: ChatStore) => void } = {
       PIN() {
         // dispatch('sendSocketCommand', { cmd: 'PIN' })
