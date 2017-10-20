@@ -23,7 +23,7 @@ export class ChannelStore {
   }
 
   getJoinedChannels() {
-    return Object.keys(this.joinedChannels)
+    return Object.keys(this.joinedChannels).map(id => this.getChannel(id))
   }
 
   async saveJoinedChannels() {

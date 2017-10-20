@@ -22,7 +22,9 @@ export class PrivateChatStore {
   }
 
   getOpenPrivateChats() {
-    return Object.keys(this.openPrivateChats)
+    return Object.keys(this.openPrivateChats).map(name =>
+      this.getPrivateChat(name),
+    )
   }
 
   handleSocketCommand(cmd: string, params: any) {
