@@ -9,6 +9,10 @@ import { PrivateChatStore } from './PrivateChatStore'
 
 import { PrivateChat, Message } from './models'
 
+interface CommandHandler {
+  handleSocketCommand(cmd: string, params: any): void
+}
+
 export class ChatStore {
   identity = ''
   friends = {} as Dictionary<boolean>
@@ -21,6 +25,14 @@ export class ChatStore {
   channelList = new ChannelListStore()
 
   private socket: WebSocket | void
+
+  private commandHandlers: CommandHandler[] = [
+    this,
+    this.channels,
+    this.privateChats,
+    this.characters,
+    this.channelList,
+  ]
 
   connectToServer(account: string, ticket: string, character: string) {
     this.identity = character
@@ -44,11 +56,9 @@ export class ChatStore {
       const cmd = data.slice(0, 3)
       const params = data.length > 3 ? JSON.parse(data.slice(4)) : {}
 
-      this.channelList.handleSocketCommand(cmd, params)
-      this.characters.handleSocketCommand(cmd, params)
-      this.channels.handleSocketCommand(cmd, params)
-      this.privateChats.handleSocketCommand(cmd, params)
-      this.handleSocketCommand(cmd, params)
+      this.commandHandlers.forEach(handler => {
+        handler.handleSocketCommand(cmd, params)
+      })
     }
 
     this.socket.onclose = this.socket.onerror = () => {
