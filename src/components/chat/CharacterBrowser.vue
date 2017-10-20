@@ -17,9 +17,7 @@ export default {
   },
   computed: {
     friends() {
-      const { chat } = store
-      const { friends, characters } = chat
-      return Object.keys(friends).sort()
+      return Object.keys(store.chat.friends).sort()
     },
   },
 }
