@@ -41,9 +41,10 @@ export class ChatStore {
       const cmd = data.slice(0, 3)
       const params = data.length > 3 ? JSON.parse(data.slice(4)) : {}
 
-      this.handleSocketCommand(cmd, params)
       this.channelList.handleSocketCommand(cmd, params)
       this.characters.handleSocketCommand(cmd, params)
+      this.channels.handleSocketCommand(cmd, params, this.characters)
+      this.handleSocketCommand(cmd, params)
     }
 
     this.socket.onclose = this.socket.onerror = () => {
@@ -72,6 +73,12 @@ export class ChatStore {
       LIS() {},
       NLN() {},
       STA() {},
+      FLN() {},
+      ICH() {},
+      CDS() {},
+      COL() {},
+      MSG() {},
+      LRP() {},
 
       PIN() {
         // dispatch('sendSocketCommand', { cmd: 'PIN' })
@@ -109,70 +116,16 @@ export class ChatStore {
         this.admins = fromPairs(characters.map(name => [name, true]))
       },
 
-      FLN() {
-        // TODO: remove from channels
-      },
-
       JCH() {
-        const channel = this.channels.getChannel(params.channel)
-        const name = params.character.identity
-        channel.title = params.title
-        channel.users.push(this.characters.getCharacter(name))
-
-        if (name === this.identity) {
+        if (params.character.identity === this.identity) {
           this.channels.addJoinedChannel(params.channel)
         }
       },
 
       LCH() {
-        const channel = this.channels.getChannel(params.channel)
-        channel.users = channel.users.filter(
-          user => user.name !== params.character,
-        )
-
         if (params.character === this.identity) {
           this.channels.removeJoinedChannel(params.channel)
         }
-      },
-
-      ICH() {
-        const channel = this.channels.getChannel(params.channel)
-        channel.mode = params.mode
-        channel.users = params.users.map((user: { identity: string }) => {
-          return this.characters.getCharacter(user.identity)
-        })
-      },
-
-      CDS() {
-        const channel = this.channels.getChannel(params.channel)
-        channel.description = params.description
-      },
-
-      COL() {
-        const channel = this.channels.getChannel(params.channel)
-        channel.description = params.oplist
-      },
-
-      MSG() {
-        const channel = this.channels.getChannel(params.channel)
-        channel.messages.push(
-          new Message(
-            this.characters.getCharacter(params.character),
-            params.message,
-            'normal',
-          ),
-        )
-      },
-
-      LRP() {
-        const channel = this.channels.getChannel(params.channel)
-        channel.messages.push(
-          new Message(
-            this.characters.getCharacter(params.character),
-            params.message,
-            'lfrp',
-          ),
-        )
       },
 
       PRI() {
@@ -214,12 +167,10 @@ export class ChatStore {
 
   joinChannel(id: string) {
     this.sendSocketCommand('JCH', { channel: id })
-    this.saveJoinedChannels()
   }
 
   leaveChannel(id: string) {
     this.sendSocketCommand('LCH', { channel: id })
-    this.saveJoinedChannels()
   }
 
   sendChannelMessage(id: string, message: string) {
