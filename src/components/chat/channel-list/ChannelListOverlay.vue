@@ -68,7 +68,7 @@ export default Vue.extend({
     },
 
     joinedChannels(): string[] {
-      return Object.keys(store.chat.channels)
+      return store.chat.channels.getJoinedChannels()
     },
   },
 

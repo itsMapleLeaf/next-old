@@ -2,14 +2,9 @@ import Vue from 'vue'
 import * as forage from 'localforage'
 import fromPairs from 'lodash/fromPairs'
 import { ChannelListStore } from './ChannelListStore'
+import { ChannelStore } from './ChannelStore'
 
-import {
-  Character,
-  Channel,
-  ChannelInfo,
-  PrivateChat,
-  Message,
-} from '@/store/models'
+import { Character, ChannelInfo, PrivateChat, Message } from '@/store/models'
 
 export class ChatStore {
   private socket: WebSocket | void
@@ -19,9 +14,9 @@ export class ChatStore {
   ignored = {} as Dictionary<boolean>
   admins = {} as Dictionary<boolean>
   characters = {} as Dictionary<Character>
-  channels = {} as Dictionary<Channel>
   privateChats = {} as Dictionary<PrivateChat>
 
+  channels = new ChannelStore()
   channelList = new ChannelListStore()
 
   connectToServer(account: string, ticket: string, character: string) {
@@ -157,10 +152,7 @@ export class ChatStore {
       },
 
       JCH() {
-        const channel =
-          this.channels[params.channel] ||
-          Vue.set(this.channels, params.channel, new Channel(params.channel))
-
+        const channel = this.channels.getChannel(params.channel)
         const name = params.character.identity
         channel.title = params.title
         channel.users.push(this.characters[name])
@@ -168,9 +160,9 @@ export class ChatStore {
 
       LCH() {
         if (params.character === this.identity) {
-          Vue.delete(this.channels, params.channel)
+          this.channels.removeChannel(params.channel)
         } else {
-          const channel = this.channels[params.channel]
+          const channel = this.channels.getChannel(params.channel)
           channel.users = channel.users.filter(
             user => user.name !== params.character,
           )
@@ -178,7 +170,7 @@ export class ChatStore {
       },
 
       ICH() {
-        const channel = this.channels[params.channel]
+        const channel = this.channels.getChannel(params.channel)
         channel.mode = params.mode
         channel.users = params.users.map((user: { identity: string }) => {
           return this.characters[user.identity]
@@ -186,17 +178,17 @@ export class ChatStore {
       },
 
       CDS() {
-        const channel = this.channels[params.channel]
+        const channel = this.channels.getChannel(params.channel)
         channel.description = params.description
       },
 
       COL() {
-        const channel = this.channels[params.channel]
+        const channel = this.channels.getChannel(params.channel)
         channel.description = params.oplist
       },
 
       MSG() {
-        const channel = this.channels[params.channel]
+        const channel = this.channels.getChannel(params.channel)
         channel.messages.push(
           new Message(
             this.characters[params.character],
@@ -207,7 +199,7 @@ export class ChatStore {
       },
 
       LRP() {
-        const channel = this.channels[params.channel]
+        const channel = this.channels.getChannel(params.channel)
         channel.messages.push(
           new Message(
             this.characters[params.character],
@@ -267,7 +259,7 @@ export class ChatStore {
   sendChannelMessage(id: string, message: string) {
     this.sendSocketCommand('MSG', { channel: id, message })
 
-    const channel = this.channels[id]
+    const channel = this.channels.getChannel(id)
     if (channel) {
       channel.messages.push(
         new Message(this.characters[this.identity], message, 'normal'),
