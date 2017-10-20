@@ -17,7 +17,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .tab {
   padding: 0.5rem;
 }

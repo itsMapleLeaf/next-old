@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .channel-title {
   padding: 0.4rem;
 }

@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .channel-list {
   height: 30rem;
   width: 24rem;
