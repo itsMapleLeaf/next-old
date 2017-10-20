@@ -15,6 +15,8 @@
 
     <renderer v-if="overlay" v-bind="overlay" @close="closeOverlay"></renderer>
 
+    <channel-list-overlay v-if="isChannelListOpen" @close="isChannelListOpen = false" />
+
     <transition name="fade-in">
       <character-menu v-if="characterMenu" v-bind="characterMenu" @sendmessage="openPrivateChat"></character-menu>
     </transition>
@@ -31,14 +33,14 @@ import ChatAction from './ChatAction.vue'
 import ChatTab from './ChatTab.vue'
 import ChannelView from './ChannelView.vue'
 import PrivateChatView from './PrivateChatView.vue'
-import ChannelList from './ChannelList.vue'
+import ChannelListOverlay from './channel-list/ChannelListOverlay.vue'
 import CharacterBrowser from './CharacterBrowser.vue'
 import CharacterMenu from './CharacterMenu.vue'
 
 export default Vue.extend({
   components: {
     ChatAction,
-    ChannelList,
+    ChannelListOverlay,
     ChatTab,
     ChannelView,
     PrivateChatView,
@@ -49,7 +51,9 @@ export default Vue.extend({
     return {
       overlay: null as any,
       tabIndex: 0,
-      characterMenu: null as null | { character: string, x: number, y: number },
+      characterMenu: null as null | { character: string; x: number; y: number },
+
+      isChannelListOpen: false,
     }
   },
 
@@ -69,15 +73,15 @@ export default Vue.extend({
         return {
           tab: {
             component: require('./ChannelTab.vue').default,
-            props: { channel } as any
+            props: { channel } as any,
           },
           view: {
             component: require('./ChannelView.vue').default,
-            props: channel as any
+            props: channel as any,
           },
           onClose: () => {
             store.chat.leaveChannel(channel.id)
-          }
+          },
         }
       })
 
@@ -85,15 +89,15 @@ export default Vue.extend({
         return {
           tab: {
             component: require('./PrivateChatTab.vue').default,
-            props: { privateChat } as any
+            props: { privateChat } as any,
           },
           view: {
             component: require('./PrivateChatView.vue').default,
-            props: privateChat as any
+            props: privateChat as any,
           },
           onClose: () => {
             store.chat.removePrivateChat(privateChat.partner.name)
-          }
+          },
         }
       })
 
@@ -102,7 +106,7 @@ export default Vue.extend({
 
     currentTab(): any {
       return this.tabs[this.tabIndex]
-    }
+    },
   },
 
   created() {
@@ -111,12 +115,8 @@ export default Vue.extend({
 
   methods: {
     createViews() {
-      this.channelListView = {
-        component: ChannelList,
-      }
-
       this.characterBrowserView = {
-        component: CharacterBrowser
+        component: CharacterBrowser,
       }
     },
 
@@ -129,7 +129,7 @@ export default Vue.extend({
     },
 
     openChannelList() {
-      this.openOverlay(this.channelListView)
+      this.isChannelListOpen = true
       store.chat.fetchChannelList()
     },
 
@@ -143,7 +143,6 @@ export default Vue.extend({
 
     activateCharacterMenu(event: MouseEvent) {
       // this.characterMenu = null
-
       // const characterElement = event.path.find(el => el.dataset && el.dataset.character != null)
       // if (characterElement) {
       //   this.characterMenu = {
@@ -159,14 +158,15 @@ export default Vue.extend({
       store.chat.openPrivateChat(partner)
 
       this.$nextTick(() => {
-        const index = this.tabs.findIndex(tab =>
-          tab.type === 'privateChat' && tab.privateChat.partner === partner
+        const index = this.tabs.findIndex(
+          tab =>
+            tab.type === 'privateChat' && tab.privateChat.partner === partner,
         )
         if (index > -1) {
           this.tabIndex = index
         }
       })
-    }
+    },
   },
 })
 </script>
