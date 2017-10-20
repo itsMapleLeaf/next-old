@@ -10,7 +10,8 @@
       "@/*": ["./src/*"]
     },
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true
   },
   "include": ["src/**/*", "src/**/*.vue", "typings/**/*"]
 }
