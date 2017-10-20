@@ -38,15 +38,10 @@ export class ChannelListStore {
   }
 
   handleSocketCommand(cmd: string, params: any) {
-    switch (cmd) {
-      case 'CHA': {
-        this.setPublicChannels(resolveChannelInfoData(params.channels))
-        break
-      }
-      case 'ORS': {
-        this.setPrivateChannels(resolveChannelInfoData(params.channels))
-        break
-      }
+    if (cmd === 'CHA') {
+      this.setPublicChannels(resolveChannelInfoData(params.channels))
+    } else if (cmd === 'ORS') {
+      this.setPrivateChannels(resolveChannelInfoData(params.channels))
     }
   }
 }
