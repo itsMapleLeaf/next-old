@@ -2,7 +2,7 @@
   <div :class="['message', isAction && 'message-action']">
     <div style="padding: 0.4rem 0.6rem" :class="'message-type-' + type">
       <span class="message-time">{{ parsedDate }}</span>
-      <character-name v-bind="sender"></character-name>
+      <character-name :name="sender"></character-name>
       <span class="message-text" v-html="parseBBC(parsedText)"></span>
     </div>
   </div>
@@ -11,11 +11,10 @@
 <script>
 import { parseBBC } from '@/bbc'
 import { getAvatarURL, getProfileURL } from '@/api'
-import store from '@/store'
 
 export default {
   props: {
-    sender: Object,
+    sender: String,
     text: String,
     type: String,
     date: Date,

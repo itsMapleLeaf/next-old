@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import * as forage from 'localforage'
-import { CharacterStore } from './CharacterStore'
 import { Channel, Message } from './models'
 
 const storageKeyChannels = 'ChannelStore_joinedChannels'
@@ -36,12 +35,10 @@ export class ChannelStore {
     return restoredChannels || []
   }
 
-  handleSocketCommand(cmd: string, params: any, characters: CharacterStore) {
+  handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'FLN') {
       Object.values(this.channels).forEach(channel => {
-        channel.users = channel.users.filter(
-          user => user.name !== params.character,
-        )
+        channel.users = channel.users.filter(name => name !== params.character)
       })
     }
 
@@ -49,22 +46,20 @@ export class ChannelStore {
       const channel = this.getChannel(params.channel)
       const name = params.character.identity
       channel.title = params.title
-      channel.users.push(characters.getCharacter(name))
+      channel.users.push(name)
     }
 
     if (cmd === 'LCH') {
       const channel = this.getChannel(params.channel)
-      channel.users = channel.users.filter(
-        user => user.name !== params.character,
-      )
+      channel.users = channel.users.filter(name => name !== params.character)
     }
 
     if (cmd === 'ICH') {
       const channel = this.getChannel(params.channel)
       channel.mode = params.mode
-      channel.users = params.users.map((user: { identity: string }) => {
-        return characters.getCharacter(user.identity)
-      })
+      channel.users = params.users.map(
+        (user: { identity: string }) => user.identity,
+      )
     }
 
     if (cmd === 'CDS') {
@@ -80,22 +75,14 @@ export class ChannelStore {
     if (cmd === 'MSG') {
       const channel = this.getChannel(params.channel)
       channel.messages.push(
-        new Message(
-          characters.getCharacter(params.character),
-          params.message,
-          'normal',
-        ),
+        new Message(params.character, params.message, 'normal'),
       )
     }
 
     if (cmd === 'LRP') {
       const channel = this.getChannel(params.channel)
       channel.messages.push(
-        new Message(
-          characters.getCharacter(params.character),
-          params.message,
-          'lfrp',
-        ),
+        new Message(params.character, params.message, 'lfrp'),
       )
     }
   }

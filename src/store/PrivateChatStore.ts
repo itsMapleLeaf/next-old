@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import { CharacterStore } from './CharacterStore'
 import { PrivateChat, Message } from './models'
 
 export class PrivateChatStore {
@@ -26,16 +25,11 @@ export class PrivateChatStore {
     return Object.keys(this.openPrivateChats)
   }
 
-  handleSocketCommand(cmd: string, params: any, characters: CharacterStore) {
+  handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'PRI') {
       const privateChat = this.openPrivateChat(params.character)
-
       privateChat.messages.push(
-        new Message(
-          characters.getCharacter(params.character),
-          params.message,
-          'normal',
-        ),
+        new Message(params.character, params.message, 'normal'),
       )
     }
   }

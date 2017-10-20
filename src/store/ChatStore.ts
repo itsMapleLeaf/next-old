@@ -46,8 +46,8 @@ export class ChatStore {
 
       this.channelList.handleSocketCommand(cmd, params)
       this.characters.handleSocketCommand(cmd, params)
-      this.channels.handleSocketCommand(cmd, params, this.characters)
-      this.privateChats.handleSocketCommand(cmd, params, this.characters)
+      this.channels.handleSocketCommand(cmd, params)
+      this.privateChats.handleSocketCommand(cmd, params)
       this.handleSocketCommand(cmd, params)
     }
 
@@ -169,13 +169,7 @@ export class ChatStore {
 
     const channel = this.channels.getChannel(id)
     if (channel) {
-      channel.messages.push(
-        new Message(
-          this.characters.getCharacter(this.identity),
-          message,
-          'normal',
-        ),
-      )
+      channel.messages.push(new Message(this.identity, message, 'normal'))
     }
   }
 
@@ -202,13 +196,7 @@ export class ChatStore {
     this.sendSocketCommand('PRI', { recipient, message })
 
     const privateChat = this.privateChats.getPrivateChat(recipient)
-    privateChat.messages.push(
-      new Message(
-        this.characters.getCharacter(this.identity),
-        message,
-        'normal',
-      ),
-    )
+    privateChat.messages.push(new Message(this.identity, message, 'normal'))
   }
 
   async savePrivateChats() {

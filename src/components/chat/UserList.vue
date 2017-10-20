@@ -2,7 +2,7 @@
   <div>
     <div v-for="char in sortedUsers" :key="char.name">
       <div :class="getHighlight(char)" style="padding: 0.2rem 0.3rem">
-        <character-name v-bind="char"></character-name>
+        <character-name :name="char.name"></character-name>
       </div>
     </div>
   </div>
@@ -21,12 +21,13 @@ export default {
     CharacterName: require('./CharacterName.vue').default,
   },
   computed: {
-    characters() {
-      return this.users
+    userCharacters() {
+      return this.users.map(name => store.chat.characters.getCharacter(name))
     },
     sortedUsers() {
       const { chat } = store
-      return sortBy(this.characters,
+      return sortBy(
+        this.userCharacters,
         char => {
           if (chat.admins[char.name]) return 0
           if (this.ops.includes(char.name)) return 1
@@ -36,7 +37,7 @@ export default {
         },
         char => char.name.toLowerCase(),
       )
-    }
+    },
   },
   methods: {
     getHighlight(char) {
@@ -45,7 +46,7 @@ export default {
       if (chat.admins[char.name]) return 'highlight-red'
       if (this.ops.includes(char.name)) return 'highlight-yellow'
       return ''
-    }
-  }
+    },
+  },
 }
 </script>

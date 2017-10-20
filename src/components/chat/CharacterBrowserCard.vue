@@ -4,7 +4,7 @@
       <img class="card-avatar-image block" :src="getAvatarURL(name)">
     </div>
     <div class="card-name flex-grow">
-      <character-name v-bind="{ name, gender, status }"></character-name>
+      <character-name :name="name"></character-name>
     </div>
     <div class="card-icon">
       <icon>heart</icon>
@@ -13,24 +13,18 @@
 </template>
 
 <script>
-import { parseBBC } from '@/bbc'
-import { getAvatarURL, getProfileURL } from '@/api'
+import { getAvatarURL } from '@/api'
 import CharacterName from './CharacterName.vue'
 
 export default {
   props: {
     name: String,
-    gender: String,
-    status: String,
-    statusMessage: String,
   },
   components: {
-    CharacterName
+    CharacterName,
   },
   methods: {
     getAvatarURL,
-    getProfileURL,
-    parseBBC
   },
 }
 </script>
@@ -42,7 +36,7 @@ export default {
 
   align-items: center;
 
-  &>* {
+  & > * {
     padding: 0.2rem;
   }
 }

@@ -7,19 +7,27 @@
 
 <script>
 import { getProfileURL } from '@/api'
+import store from '@/store'
 
 export default {
   props: {
     name: { type: String, required: true },
-    gender: { type: String, default: 'none' },
-    status: String,
   },
   computed: {
-    statusClass() {
-      return 'character-status-' + this.status.toLowerCase()
+    character() {
+      return store.chat.characters.getCharacter(this.name)
+    },
+    gender() {
+      return this.character.gender
+    },
+    status() {
+      return this.character.status
     },
     genderClass() {
       return 'character-gender-' + this.gender.toLowerCase()
+    },
+    statusClass() {
+      return 'character-status-' + this.status.toLowerCase()
     },
     profileURL() {
       return getProfileURL(this.name)

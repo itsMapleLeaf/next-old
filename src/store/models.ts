@@ -10,7 +10,7 @@ export class ChannelInfo {
 export class Channel {
   title = this.id
   description = ''
-  users = [] as Character[]
+  users = [] as string[]
   messages = [] as Message[]
   ops = [] as string[]
   mode = 'both'
@@ -31,7 +31,7 @@ export class Message {
   date = new Date()
 
   constructor(
-    public sender: Character,
+    public sender: string,
     public text: string,
     public type: 'normal' | 'lfrp' | 'admin' | 'system',
   ) {}

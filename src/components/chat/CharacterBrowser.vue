@@ -1,7 +1,7 @@
 <template>
   <overlay @shadeclick="$emit('close')">
     <div class="content flex-row scroll-v">
-      <card class="card" v-for="char in friends" :key="char.name" v-bind="char"></card>
+      <card class="card" v-for="name in friends" :key="name" :name="name"></card>
     </div>
   </overlay>
 </template>
@@ -19,10 +19,7 @@ export default {
     friends() {
       const { chat } = store
       const { friends, characters } = chat
-      return Object.keys(friends)
-        .sort()
-        .map(friend => characters.getCharacter(friend))
-        .filter(char => char.status === 'online')
+      return Object.keys(friends).sort()
     },
   },
 }
