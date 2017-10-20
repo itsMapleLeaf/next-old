@@ -1,5 +1,5 @@
-import { AuthStore } from './auth'
-import { ChatStore } from './chat'
+import { AuthStore } from './AuthStore'
+import { ChatStore } from './ChatStore'
 
 export class Store {
   auth = new AuthStore()

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import * as forage from 'localforage'
 import fromPairs from 'lodash/fromPairs'
+import { ChannelListStore } from './ChannelListStore'
 
 import {
   Character,
@@ -11,16 +12,17 @@ import {
 } from '@/store/models'
 
 export class ChatStore {
-  socket: WebSocket | void
+  private socket: WebSocket | void
 
   identity = ''
   friends = {} as Dictionary<boolean>
   ignored = {} as Dictionary<boolean>
   admins = {} as Dictionary<boolean>
   characters = {} as Dictionary<Character>
-  channelList = [] as ChannelInfo[]
   channels = {} as Dictionary<Channel>
   privateChats = {} as Dictionary<PrivateChat>
+
+  channelList = new ChannelListStore()
 
   connectToServer(account: string, ticket: string, character: string) {
     this.identity = character
@@ -142,7 +144,7 @@ export class ChatStore {
             return new ChannelInfo('public', ch.name, ch.name, ch.characters)
           },
         )
-        this.channelList.push(...channels)
+        this.channelList.setPublicChannels(channels)
       },
 
       ORS() {
@@ -151,7 +153,7 @@ export class ChatStore {
             return new ChannelInfo('private', ch.name, ch.title, ch.characters)
           },
         )
-        this.channelList.push(...channels)
+        this.channelList.setPrivateChannels(channels)
       },
 
       JCH() {
@@ -248,7 +250,6 @@ export class ChatStore {
   }
 
   fetchChannelList() {
-    this.channelList = []
     this.sendSocketCommand('CHA')
     this.sendSocketCommand('ORS')
   }
