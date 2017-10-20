@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { ChannelInfo } from '@/store/models'
+import { ChannelInfo } from '@/store/chat/models'
 
 export default {
   props: {

@@ -27,7 +27,7 @@
 import Vue from 'vue'
 
 import store from '@/store'
-import { Channel, PrivateChat } from '@/store/models'
+import { Channel, PrivateChat } from '@/store/chat/models'
 
 import ChatAction from './ChatAction.vue'
 import ChatTab from './ChatTab.vue'

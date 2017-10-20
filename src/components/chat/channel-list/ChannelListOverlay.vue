@@ -37,7 +37,7 @@ import Vue from 'vue'
 import sortBy from 'lodash/sortBy'
 import debounce from 'lodash/debounce'
 import store from '@/store'
-import { ChannelInfo } from '@/store/models'
+import { ChannelInfo } from '@/store/chat/models'
 import ChannelListTab from './ChannelListTab.vue'
 import ChannelList from './ChannelList.vue'
 
