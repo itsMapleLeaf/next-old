@@ -139,16 +139,20 @@ export class ChatStore {
         const name = params.character.identity
         channel.title = params.title
         channel.users.push(this.characters[name])
+
+        if (name === this.identity) {
+          this.channels.addJoinedChannel(params.channel)
+        }
       },
 
       LCH() {
+        const channel = this.channels.getChannel(params.channel)
+        channel.users = channel.users.filter(
+          user => user.name !== params.character,
+        )
+
         if (params.character === this.identity) {
-          this.channels.removeChannel(params.channel)
-        } else {
-          const channel = this.channels.getChannel(params.channel)
-          channel.users = channel.users.filter(
-            user => user.name !== params.character,
-          )
+          this.channels.removeJoinedChannel(params.channel)
         }
       },
 
@@ -251,17 +255,14 @@ export class ChatStore {
   }
 
   async saveJoinedChannels() {
-    const channels = this.channels.getJoinedChannels()
-    await forage.setItem('joinedChannels:' + this.identity, channels)
+    await this.channels.saveJoinedChannels()
   }
 
   async restoreJoinedChannels() {
-    const channels = await forage.getItem<string[]>(
-      'joinedChannels:' + this.identity,
-    )
-    for (const id of channels || []) {
+    const channels = await this.channels.restoreJoinedChannels()
+    channels.forEach(id => {
       this.joinChannel(id)
-    }
+    })
   }
 
   openPrivateChat(partner: string) {
