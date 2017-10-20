@@ -94,6 +94,8 @@ export class ChatStore {
       MSG() {},
       LRP() {},
       PRI() {},
+      CHA() {},
+      ORS() {},
 
       PIN() {
         // dispatch('sendSocketCommand', { cmd: 'PIN' })
