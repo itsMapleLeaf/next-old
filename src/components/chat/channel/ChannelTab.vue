@@ -1,5 +1,5 @@
 <template>
-  <chat-tab @activate="$emit('activate')" @close="$emit('close')" :active="active">
+  <chat-tab class="channel-tab" @activate="$emit('activate')" @close="$emit('close')" :active="active">
     <icon slot="icon">{{ channel.id === channel.title ? 'earth' : 'key-variant' }}</icon>
     <span slot="title" class="title" v-html="channel.title"></span>
   </chat-tab>

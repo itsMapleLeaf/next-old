@@ -18,8 +18,8 @@
 <script>
 export default {
   props: {
-    active: Boolean
-  }
+    active: Boolean,
+  },
 }
 </script>
 
@@ -27,6 +27,11 @@ export default {
 <style lang="scss" scoped>
 .chat-tab {
   opacity: 0.5;
+  transition: 0.2s opacity;
+
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
 .chat-tab-title {

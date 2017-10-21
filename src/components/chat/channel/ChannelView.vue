@@ -1,12 +1,12 @@
 <template>
   <main class="wrapper bg-color-darken-2">
     <section class="description bg-color-main scroll-v" style="padding: 0.3rem 0.6rem">
-      <span v-html="parseBBC(description)"></span>
+      <span v-html="parseBBC(channel.description)"></span>
     </section>
     <section class="messages flex-grow bg-color-darken-1 scroll-v" v-auto-scroll>
-      <message v-for="(message, i) in messages" v-bind="message" :key="i"></message>
+      <message v-for="(message, i) in channel.messages" v-bind="message" :key="i"></message>
     </section>
-    <user-list class="users bg-color-main scroll-v" :users="users" :ops="ops"></user-list>
+    <user-list class="users bg-color-main scroll-v" :users="channel.users" :ops="channel.ops"></user-list>
     <section class="chatbox bg-color-main flex-row" style="padding: 0.3rem;">
       <chatbox class="flex-grow" @submit="sendMessage"></chatbox>
     </section>
@@ -19,6 +19,7 @@ import store from '@/store'
 import Message from '@/components/chat/Message.vue'
 import Chatbox from '@/components/chat/Chatbox.vue'
 import UserList from './ChannelUserList.vue'
+import { Channel } from '@/store/chat/models'
 
 export default {
   components: {
@@ -26,18 +27,15 @@ export default {
     Message,
     Chatbox,
   },
+
   props: {
-    id: String,
-    title: String,
-    description: String,
-    users: Array,
-    messages: Array,
-    ops: Array,
+    channel: Channel,
   },
+
   methods: {
     parseBBC,
     sendMessage(message) {
-      store.chat.sendChannelMessage(this.id, message)
+      store.chat.sendChannelMessage(this.channel.id, message)
     },
   },
 }
