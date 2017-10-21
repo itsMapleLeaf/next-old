@@ -17,7 +17,12 @@ export default {
   },
   computed: {
     friends() {
-      return Object.keys(store.chat.friends).sort()
+      return Object.keys(store.chat.friends)
+        .filter(name => {
+          const char = store.chat.characters.getCharacter(name)
+          return char.status === 'online'
+        })
+        .sort()
     },
   },
 }

@@ -1,14 +1,12 @@
 <template>
-  <div class="card bg-color-darken-1 flex-row">
+  <div class="card bg-color-darken-1 flex-row flex-align-center">
     <div class="card-avatar">
       <img class="card-avatar-image block" :src="getAvatarURL(name)">
     </div>
     <div class="card-name flex-grow">
       <character-name :name="name"></character-name>
     </div>
-    <div class="card-icon">
-      <icon>heart</icon>
-    </div>
+    <icon class="faded">heart</icon>
   </div>
 </template>
 
@@ -44,12 +42,6 @@ export default {
 .card-avatar-image {
   width: 2em;
   height: 2em;
-}
-
-.card-icon {
-  font-size: 1.5rem;
-  opacity: 0.5;
-  color: rgb(46, 204, 113);
 }
 </style>
 
