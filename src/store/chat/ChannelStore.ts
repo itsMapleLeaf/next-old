@@ -1,24 +1,29 @@
-import Vue from 'vue'
-import * as forage from 'localforage'
 import { Channel, Message } from './models'
+import { StoredValue } from '@/stored-value'
 
-const storageKeyChannels = 'ChannelStore_joinedChannels'
+export type ChannelID = string
 
 export class ChannelStore {
-  private channels = {} as Dictionary<Channel>
-  private joinedChannels = {} as Dictionary<true>
+  private channels = new Map<ChannelID, Channel>()
+  private joinedChannels = new Map<ChannelID, true>()
+  private storedChannels = new StoredValue<string[]>('ChannelStore_joinedChannels')
 
-  getChannel(id: string) {
-    return this.channels[id] || Vue.set(this.channels, id, new Channel(id))
+  getChannel(id: ChannelID) {
+    let channel = this.channels.get(id)
+    if (!channel) {
+      channel = new Channel(id)
+      this.channels.set(id, channel)
+    }
+    return channel
   }
 
-  addJoinedChannel(id: string) {
-    Vue.set(this.joinedChannels, id, true)
+  addJoinedChannel(id: ChannelID) {
+    this.joinedChannels.set(id, true)
     this.saveJoinedChannels()
   }
 
-  removeJoinedChannel(id: string) {
-    Vue.delete(this.joinedChannels, id)
+  removeJoinedChannel(id: ChannelID) {
+    this.joinedChannels.delete(id)
     this.saveJoinedChannels()
   }
 
@@ -27,20 +32,18 @@ export class ChannelStore {
   }
 
   async saveJoinedChannels() {
-    await forage.setItem<string[]>(
-      storageKeyChannels,
-      this.getJoinedChannels().map(ch => ch.id),
-    )
+    const channelIDs = this.getJoinedChannels().map(ch => ch.id)
+    await this.storedChannels.save(channelIDs)
   }
 
   async restoreJoinedChannels() {
-    const restoredChannels = await forage.getItem<string[]>(storageKeyChannels)
+    const restoredChannels = await this.storedChannels.restore()
     return restoredChannels || []
   }
 
   handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'FLN') {
-      Object.values(this.channels).forEach(channel => {
+      this.channels.forEach(channel => {
         channel.users = channel.users.filter(name => name !== params.character)
       })
     }
@@ -60,9 +63,7 @@ export class ChannelStore {
     if (cmd === 'ICH') {
       const channel = this.getChannel(params.channel)
       channel.mode = params.mode
-      channel.users = params.users.map(
-        (user: { identity: string }) => user.identity,
-      )
+      channel.users = params.users.map((user: { identity: string }) => user.identity)
     }
 
     if (cmd === 'CDS') {
@@ -77,16 +78,12 @@ export class ChannelStore {
 
     if (cmd === 'MSG') {
       const channel = this.getChannel(params.channel)
-      channel.messages.push(
-        new Message(params.character, params.message, 'normal'),
-      )
+      channel.messages.push(new Message(params.character, params.message, 'normal'))
     }
 
     if (cmd === 'LRP') {
       const channel = this.getChannel(params.channel)
-      channel.messages.push(
-        new Message(params.character, params.message, 'lfrp'),
-      )
+      channel.messages.push(new Message(params.character, params.message, 'lfrp'))
     }
   }
 }
