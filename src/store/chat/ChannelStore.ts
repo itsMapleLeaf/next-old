@@ -27,7 +27,10 @@ export class ChannelStore {
   }
 
   async saveJoinedChannels() {
-    await forage.setItem(storageKeyChannels, this.getJoinedChannels())
+    await forage.setItem<string[]>(
+      storageKeyChannels,
+      this.getJoinedChannels().map(ch => ch.id),
+    )
   }
 
   async restoreJoinedChannels() {
