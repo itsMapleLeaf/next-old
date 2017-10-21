@@ -13,10 +13,6 @@ export class AuthStore {
   ticket = ''
   characters = [] as string[]
 
-  setCharacters(characters: string[]) {
-    this.characters = characters
-  }
-
   async fetchTicket(account: string, password: string) {
     const ticket = await api.fetchTicket(account, password)
     this.account = account
