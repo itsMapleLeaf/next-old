@@ -24,7 +24,7 @@ export class ChatStore {
   characters = new CharacterStore()
   channelList = new ChannelListStore()
 
-  private socket: WebSocket | void
+  socket: WebSocket | void
 
   private commandHandlers: CommandHandler[] = [
     this,
@@ -34,12 +34,18 @@ export class ChatStore {
     this.channelList,
   ]
 
-  connectToServer(account: string, ticket: string, character: string) {
+  connectToServer(
+    account: string,
+    ticket: string,
+    character: string,
+    connectedCallback: () => void,
+    closedCallback: () => void,
+  ) {
     this.identity = character
 
     this.socket = new WebSocket('wss://chat.f-list.net:9799')
 
-    this.socket.onopen = () => {
+    const handleOpen = () => {
       const params = {
         account,
         ticket,
@@ -51,19 +57,27 @@ export class ChatStore {
       this.sendSocketCommand('IDN', params)
     }
 
-    this.socket.onmessage = msg => {
+    const handleMessage = (msg: MessageEvent) => {
       const data = msg.data
       const cmd = data.slice(0, 3)
       const params = data.length > 3 ? JSON.parse(data.slice(4)) : {}
+
+      if (cmd === 'IDN') connectedCallback()
 
       this.commandHandlers.forEach(handler => {
         handler.handleSocketCommand(cmd, params)
       })
     }
 
-    this.socket.onclose = this.socket.onerror = () => {
+    const handleClose = () => {
       this.disconnectFromServer()
+      closedCallback()
     }
+
+    this.socket.addEventListener('open', handleOpen)
+    this.socket.addEventListener('message', handleMessage)
+    this.socket.addEventListener('close', handleClose)
+    this.socket.addEventListener('error', handleClose)
   }
 
   disconnectFromServer() {
