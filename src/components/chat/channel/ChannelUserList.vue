@@ -10,6 +10,7 @@
 
 <script>
 import sortBy from 'lodash/sortBy'
+import CharacterName from '@/components/chat/character/CharacterName.vue'
 import store from '@/store'
 
 export default {
@@ -18,7 +19,7 @@ export default {
     ops: Array,
   },
   components: {
-    CharacterName: require('./CharacterName.vue').default,
+    CharacterName,
   },
   computed: {
     userCharacters() {

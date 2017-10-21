@@ -16,13 +16,15 @@
 <script>
 import { parseBBC } from '@/bbc'
 import store from '@/store'
+import Message from '@/components/chat/Message.vue'
+import Chatbox from '@/components/chat/Chatbox.vue'
+import UserList from './ChannelUserList.vue'
 
 export default {
   components: {
-    CharacterName: require('./CharacterName.vue').default,
-    UserList: require('./UserList.vue').default,
-    Message: require('./Message.vue').default,
-    Chatbox: require('./Chatbox.vue').default,
+    UserList,
+    Message,
+    Chatbox,
   },
   props: {
     id: String,
@@ -49,23 +51,24 @@ export default {
   display: grid;
   grid-template-rows: 6rem auto 6rem;
   grid-template-columns: auto 12rem;
-  grid-template-areas: 'description description' 'messages users' 'chatbox chatbox';
+  grid-template-areas: 'description description' 'messages users'
+    'chatbox chatbox';
   grid-gap: 4px;
 }
 
 .description {
-  grid-area: description
+  grid-area: description;
 }
 
 .messages {
-  grid-area: messages
+  grid-area: messages;
 }
 
 .users {
-  grid-area: users
+  grid-area: users;
 }
 
 .chatbox {
-  grid-area: chatbox
+  grid-area: chatbox;
 }
 </style>

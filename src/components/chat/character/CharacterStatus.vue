@@ -13,11 +13,8 @@ export default {
     status: String,
     statusMessage: String,
   },
-  components: {
-    CharacterName: require('./CharacterName.vue'),
-  },
   methods: {
-    parseBBC
-  }
+    parseBBC,
+  },
 }
 </script>

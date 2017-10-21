@@ -12,7 +12,7 @@
 
 <script>
 import { getAvatarURL } from '@/api'
-import CharacterName from './CharacterName.vue'
+import CharacterName from '@/components/chat/character/CharacterName.vue'
 
 export default {
   props: {

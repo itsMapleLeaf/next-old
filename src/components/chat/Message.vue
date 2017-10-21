@@ -11,6 +11,7 @@
 <script>
 import { parseBBC } from '@/bbc'
 import { getAvatarURL, getProfileURL } from '@/api'
+import CharacterName from '@/components/chat/character/CharacterName.vue'
 
 export default {
   props: {
@@ -20,7 +21,7 @@ export default {
     date: Date,
   },
   components: {
-    CharacterName: require('./CharacterName.vue').default,
+    CharacterName,
   },
   methods: {
     getAvatarURL,

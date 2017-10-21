@@ -29,21 +29,19 @@ import Vue from 'vue'
 import store from '@/store'
 import { Channel, PrivateChat } from '@/store/chat/models'
 
-import ChatAction from './ChatAction.vue'
-import ChatTab from './ChatTab.vue'
-import ChannelView from './ChannelView.vue'
-import PrivateChatView from './PrivateChatView.vue'
 import ChannelListOverlay from './channel-list/ChannelListOverlay.vue'
-import CharacterBrowser from './CharacterBrowser.vue'
-import CharacterMenu from './CharacterMenu.vue'
+import ChannelTab from './channel/ChannelTab.vue'
+import ChannelView from './channel/ChannelView.vue'
+import CharacterBrowser from './character-browser/CharacterBrowser.vue'
+import CharacterMenu from './character/CharacterMenu.vue'
+import ChatAction from './ChatAction.vue'
+import PrivateChatTab from './private-chat/PrivateChatTab.vue'
+import PrivateChatView from './private-chat/PrivateChatView.vue'
 
 export default Vue.extend({
   components: {
     ChatAction,
     ChannelListOverlay,
-    ChatTab,
-    ChannelView,
-    PrivateChatView,
     CharacterMenu,
   },
 
@@ -70,12 +68,12 @@ export default Vue.extend({
       const channelTabs = this.joinedChannels.map(channel => {
         return {
           tab: {
-            component: require('./ChannelTab.vue').default,
-            props: { channel } as any,
+            component: ChannelTab,
+            props: { channel },
           },
           view: {
-            component: require('./ChannelView.vue').default,
-            props: channel as any,
+            component: ChannelView,
+            props: channel,
           },
           onClose: () => {
             store.chat.leaveChannel(channel.id)
@@ -86,12 +84,12 @@ export default Vue.extend({
       const privateChatTabs = this.privateChats.map(privateChat => {
         return {
           tab: {
-            component: require('./PrivateChatTab.vue').default,
-            props: { privateChat } as any,
+            component: PrivateChatTab,
+            props: { privateChat },
           },
           view: {
-            component: require('./PrivateChatView.vue').default,
-            props: privateChat as any,
+            component: PrivateChatView,
+            props: privateChat,
           },
           onClose: () => {
             store.chat.removePrivateChat(privateChat.partner)
@@ -99,7 +97,7 @@ export default Vue.extend({
         }
       })
 
-      return channelTabs.concat(privateChatTabs)
+      return channelTabs.concat(privateChatTabs as any[])
     },
 
     currentTab(): any {

@@ -15,12 +15,15 @@
 <script>
 import { parseBBC } from '@/bbc'
 import store from '@/store'
+import CharacterStatus from '@/components/chat/character/CharacterStatus.vue'
+import Message from '@/components/chat/Message.vue'
+import Chatbox from '@/components/chat/Chatbox.vue'
 
 export default {
   components: {
-    CharacterStatus: require('./CharacterStatus.vue').default,
-    Message: require('./Message.vue').default,
-    Chatbox: require('./Chatbox.vue').default,
+    CharacterStatus,
+    Message,
+    Chatbox,
   },
   props: {
     partner: String,

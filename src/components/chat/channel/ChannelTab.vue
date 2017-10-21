@@ -7,15 +7,15 @@
 
 
 <script>
-import ChatTab from './ChatTab.vue'
+import ChatTab from '@/components/chat/ChatTab.vue'
 
 export default {
   components: {
-    ChatTab
+    ChatTab,
   },
   props: {
     channel: Object,
     active: Boolean,
-  }
+  },
 }
 </script>
