@@ -1,38 +1,36 @@
-import Vue from 'vue'
 import { PrivateChat, Message } from './models'
+import { observable } from 'mobx'
 
 export class PrivateChatStore {
-  private privateChats = {} as Dictionary<PrivateChat>
-  private openPrivateChats = {} as Dictionary<true>
+  @observable privateChats = new Map<string, PrivateChat>()
+  @observable openPrivateChats = new Map<string, true>()
 
   getPrivateChat(partner: string) {
-    return (
-      this.privateChats[partner] ||
-      Vue.set(this.privateChats, partner, new PrivateChat(partner))
-    )
+    let privateChat = this.privateChats.get(name)
+    if (!privateChat) {
+      privateChat = new PrivateChat(partner)
+      this.privateChats.set(name, privateChat)
+    }
+    return privateChat
   }
 
   openPrivateChat(partner: string) {
-    Vue.set(this.openPrivateChats, partner, true)
-    return this.privateChats[partner]
+    this.openPrivateChats.set(partner, true)
+    return this.getPrivateChat(partner)
   }
 
   closePrivateChat(partner: string) {
-    Vue.delete(this.openPrivateChats, partner)
+    this.openPrivateChats.delete(partner)
   }
 
   getOpenPrivateChats() {
-    return Object.keys(this.openPrivateChats).map(name =>
-      this.getPrivateChat(name),
-    )
+    return Object.keys(this.openPrivateChats).map(name => this.getPrivateChat(name))
   }
 
   handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'PRI') {
       const privateChat = this.openPrivateChat(params.character)
-      privateChat.messages.push(
-        new Message(params.character, params.message, 'normal'),
-      )
+      privateChat.messages.push(new Message(params.character, params.message, 'normal'))
     }
   }
 }

@@ -1,24 +1,26 @@
-import Vue from 'vue'
 import { Character } from './models'
+import { observable } from 'mobx'
 
 type CharacterBatch = [string, string, string, string][]
 
 export class CharacterStore {
-  private characters = {} as Dictionary<Character>
+  characters = observable.map<Character>()
 
   getCharacter(name: string) {
-    return (
-      this.characters[name] ||
-      Vue.set(this.characters, name, new Character(name, 'None', 'offline'))
-    )
+    let char = this.characters.get(name)
+    if (!char) {
+      char = new Character(name, 'None', 'offline')
+      this.characters.set(name, char)
+    }
+    return char
   }
 
   handleCharacterBatch(batch: CharacterBatch) {
-    const map = {} as Dictionary<Character>
+    const newCharacters = {} as Dictionary<Character>
     batch.forEach(([name, gender, status, statusMessage]) => {
-      map[name] = new Character(name, gender, status, statusMessage)
+      newCharacters[name] = new Character(name, gender, status, statusMessage)
     })
-    this.characters = Object.assign(this.characters, map)
+    this.characters.merge(newCharacters)
   }
 
   handleSocketCommand(cmd: string, params: any) {

@@ -1,30 +1,27 @@
 import fromPairs from 'lodash/fromPairs'
-import * as forage from 'localforage'
-import Vue from 'vue'
-
 import { ChannelListStore } from './ChannelListStore'
 import { ChannelStore } from './ChannelStore'
 import { CharacterStore } from './CharacterStore'
 import { PrivateChatStore } from './PrivateChatStore'
-
-import { PrivateChat, Message } from './models'
+import { Message } from './models'
+import { observable } from 'mobx'
 
 interface CommandHandler {
   handleSocketCommand(cmd: string, params: any): void
 }
 
 export class ChatStore {
-  identity = ''
-  friends = {} as Dictionary<boolean>
-  ignored = {} as Dictionary<boolean>
-  admins = {} as Dictionary<boolean>
+  @observable identity = ''
+  @observable friends = {} as Dictionary<boolean>
+  @observable ignored = {} as Dictionary<boolean>
+  @observable admins = {} as Dictionary<boolean>
 
   channels = new ChannelStore()
   privateChats = new PrivateChatStore()
   characters = new CharacterStore()
   channelList = new ChannelListStore()
 
-  socket: WebSocket | void
+  private socket: WebSocket | void
 
   private commandHandlers: CommandHandler[] = [
     this,
@@ -62,7 +59,9 @@ export class ChatStore {
       const cmd = data.slice(0, 3)
       const params = data.length > 3 ? JSON.parse(data.slice(4)) : {}
 
-      if (cmd === 'IDN') connectedCallback()
+      if (cmd === 'IDN') {
+        connectedCallback()
+      }
 
       this.commandHandlers.forEach(handler => {
         handler.handleSocketCommand(cmd, params)
@@ -226,18 +225,17 @@ export class ChatStore {
   }
 
   async savePrivateChats() {
-    await forage.setItem(
-      'privateChats:' + this.identity,
-      Object.keys(this.privateChats),
-    )
+    // await forage.setItem(
+    //   'privateChats:' + this.identity,
+    //   Object.keys(this.privateChats),
+    // )
   }
 
   async restorePrivateChats() {
-    const partners =
-      (await forage.getItem<string[]>('privateChats:' + this.identity)) || []
-
-    partners.forEach(partner => {
-      Vue.set(this.privateChats, partner, new PrivateChat(partner))
-    })
+    // const partners =
+    //   (await forage.getItem<string[]>('privateChats:' + this.identity)) || []
+    // partners.forEach(partner => {
+    //   Vue.set(this.privateChats, partner, new PrivateChat(partner))
+    // })
   }
 }

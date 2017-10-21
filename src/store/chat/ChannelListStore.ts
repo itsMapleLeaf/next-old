@@ -1,5 +1,7 @@
 import { ChannelInfo } from './models'
+import { observable } from 'mobx'
 
+// TODO: please think of a better name for this
 type ChannelInfoData = {
   name: string
   title?: string
@@ -8,29 +10,16 @@ type ChannelInfoData = {
 
 function resolveChannelInfoData(channelData: ChannelInfoData[]) {
   return channelData.map(ch => {
-    return new ChannelInfo(
-      'public',
-      ch.name,
-      ch.title || ch.name,
-      ch.characters,
-    )
+    return new ChannelInfo('public', ch.name, ch.title || ch.name, ch.characters)
   })
 }
 
 export class ChannelListStore {
-  private publicChannels = [] as ChannelInfo[]
-  private privateChannels = [] as ChannelInfo[]
-
-  getPublicChannels() {
-    return this.publicChannels
-  }
+  @observable publicChannels = [] as ChannelInfo[]
+  @observable privateChannels = [] as ChannelInfo[]
 
   setPublicChannels(channels: ChannelInfo[]) {
     this.publicChannels = channels
-  }
-
-  getPrivateChannels() {
-    return this.privateChannels
   }
 
   setPrivateChannels(channels: ChannelInfo[]) {

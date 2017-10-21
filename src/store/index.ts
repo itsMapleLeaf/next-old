@@ -5,5 +5,3 @@ export class Store {
   auth = new AuthStore()
   chat = new ChatStore()
 }
-
-export default new Store()

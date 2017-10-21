@@ -10,5 +10,17 @@ import './styles/character-colors.scss'
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { Provider } from 'mobx-react'
+import { Store } from './store/index'
 
-ReactDOM.render(<h1>hello world</h1>, document.getElementById('root'))
+const store = new Store()
+
+function Root() {
+  return (
+    <Provider store={store}>
+      <h1>render app here</h1>
+    </Provider>
+  )
+}
+
+ReactDOM.render(<Root />, document.getElementById('root'))
