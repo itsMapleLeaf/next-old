@@ -1,33 +1,37 @@
 <template>
   <main class="fullscreen bg-color-main text-color-main">
-    <div v-if="appState === 'setup'">Setting things up...</div>
+    <Loading v-if="appState === 'setup'">Setting things up...</Loading>
     <Login
       v-if="appState === 'login'"
       @submit="handleLoginSubmit"
     />
-    <div v-if="appState === 'loggingIn'">Logging in...</div>
+    <Loading v-if="appState === 'loggingIn'">Logging in...</Loading>
     <CharacterSelect
       v-if="appState === 'characterSelect'"
       :characters="characters"
       @submit="handleCharacterSubmit"
     />
-    <div v-if="appState === 'connecting'">Connecting...</div>
+    <Loading v-if="appState === 'connecting'">Connecting...</Loading>
     <Chat v-if="appState === 'online'" />
   </main>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Login from '@/components/Login.vue'
-import CharacterSelect from '@/components/CharacterSelect.vue'
-import Chat from '@/components/chat/Chat.vue'
+
+import CharacterSelect from './CharacterSelect.vue'
+import Chat from './chat/Chat.vue'
+import Loading from './Loading.vue'
+import Login from './Login.vue'
+
 import store from '@/store'
 
 export default Vue.extend({
   components: {
-    Login,
     CharacterSelect,
     Chat,
+    Loading,
+    Login,
   },
 
   data() {
