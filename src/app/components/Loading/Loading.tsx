@@ -8,9 +8,7 @@ export function Loading(props: LoadingProps) {
   return (
     <div className="Loading-shade fullscreen flex-column flex-center">
       <div>
-        <Icon className="Loading-icon" size={100}>
-          paw
-        </Icon>
+        <Icon name="paw" size={100} className="Loading-icon" />
       </div>
       <h2 className="Loading-text">{props.text}</h2>
     </div>
