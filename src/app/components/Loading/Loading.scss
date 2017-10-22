@@ -1,18 +1,18 @@
-.loading-shade {
+.Loading-shade {
   background: rgba(black, 0.5);
 }
 
-.loading-icon {
+.Loading-icon {
   animation: 4s infinite;
-  animation-name: loading-icon-animation;
+  animation-name: Loading-icon-animation;
   opacity: 0.3;
 }
 
-.loading-text {
+.Loading-text {
   font-style: italic;
 }
 
-@keyframes loading-icon-animation {
+@keyframes Loading-icon-animation {
   0% { transform: perspective(180px) rotateX(0) rotateY(0); }
   25% { transform: perspective(180px) rotateX(0.5turn) rotateY(0); }
   50% { transform: perspective(180px) rotateX(0.5turn) rotateY(0.5turn); }

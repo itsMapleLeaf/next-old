@@ -6,13 +6,13 @@ type LoadingProps = { children: React.ReactNode }
 
 export function Loading(props: LoadingProps) {
   return (
-    <div className="loading-shade fullscreen flex-column flex-center">
+    <div className="Loading-shade fullscreen flex-column flex-center">
       <div>
-        <Icon className="loading-icon" size={100}>
+        <Icon className="Loading-icon" size={100}>
           paw
         </Icon>
       </div>
-      <h2 className="loading-text">{props.children}</h2>
+      <h2 className="Loading-text">{props.children}</h2>
     </div>
   )
 }
