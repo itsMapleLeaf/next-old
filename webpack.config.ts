@@ -1,9 +1,9 @@
-import * as webpack from 'webpack'
-import * as HTMLPlugin from 'html-webpack-plugin'
 import * as CopyPlugin from 'copy-webpack-plugin'
 import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
-import * as merge from 'webpack-merge'
+import * as HTMLPlugin from 'html-webpack-plugin'
 import { resolve } from 'path'
+import * as webpack from 'webpack'
+import * as merge from 'webpack-merge'
 
 const CleanPlugin = require('clean-webpack-plugin')
 const UglifyPlugin = require('uglifyjs-webpack-plugin')

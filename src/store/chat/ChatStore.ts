@@ -1,10 +1,10 @@
 import fromPairs from 'lodash/fromPairs'
+import { observable } from 'mobx'
 import { ChannelListStore } from './ChannelListStore'
 import { ChannelStore } from './ChannelStore'
 import { CharacterStore } from './CharacterStore'
-import { PrivateChatStore } from './PrivateChatStore'
 import { Message } from './models'
-import { observable } from 'mobx'
+import { PrivateChatStore } from './PrivateChatStore'
 
 interface CommandHandler {
   handleSocketCommand(cmd: string, params: any): void
@@ -86,10 +86,10 @@ export class ChatStore {
 
   sendSocketCommand(cmd: string, params?: object) {
     if (this.socket) {
-      if (params == null) {
-        this.socket.send(cmd)
-      } else {
+      if (params) {
         this.socket.send(cmd + ' ' + JSON.stringify(params))
+      } else {
+        this.socket.send(cmd)
       }
     }
   }
@@ -117,8 +117,8 @@ export class ChatStore {
 
       IDN() {
         console.info('Successfully connected to server')
-        this.restoreJoinedChannels()
-        this.restorePrivateChats()
+        this.restoreJoinedChannels().catch(console.error)
+        this.restorePrivateChats().catch(console.error)
       },
 
       HLO() {

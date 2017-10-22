@@ -1,7 +1,7 @@
-import { parse as parseURL } from 'url'
+import { getAvatarURL, getExtendedIcon, getProfileURL } from '@/api'
 import { createParser } from 'bbc.js'
 import path from 'path'
-import { getProfileURL, getAvatarURL, getExtendedIcon } from '@/api'
+import { parse as parseURL } from 'url'
 
 const parser = createParser({
   b: { render: text => `<span class="bbc-bold">${text}</span>` },

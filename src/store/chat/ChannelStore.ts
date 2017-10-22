@@ -1,5 +1,5 @@
-import { Channel, Message } from './models'
 import { StoredValue } from '@/stored-value'
+import { Channel, Message } from './models'
 
 export type ChannelID = string
 
@@ -19,12 +19,12 @@ export class ChannelStore {
 
   addJoinedChannel(id: ChannelID) {
     this.joinedChannels.set(id, true)
-    this.saveJoinedChannels()
+    this.saveJoinedChannels().catch(console.error)
   }
 
   removeJoinedChannel(id: ChannelID) {
     this.joinedChannels.delete(id)
-    this.saveJoinedChannels()
+    this.saveJoinedChannels().catch(console.error)
   }
 
   getJoinedChannels() {

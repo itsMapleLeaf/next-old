@@ -1,5 +1,5 @@
-import { PrivateChat, Message } from './models'
 import { observable } from 'mobx'
+import { Message, PrivateChat } from './models'
 
 export class PrivateChatStore {
   @observable privateChats = new Map<string, PrivateChat>()

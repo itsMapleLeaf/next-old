@@ -1,5 +1,5 @@
-import { ChannelInfo } from './models'
 import { observable } from 'mobx'
+import { ChannelInfo } from './models'
 
 // TODO: please think of a better name for this
 type ChannelInfoData = {
