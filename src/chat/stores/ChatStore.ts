@@ -1,6 +1,6 @@
 import fromPairs from 'lodash/fromPairs'
 import { observable } from 'mobx'
-import { ChannelListStore } from 'src/channel-browser/stores/ChannelListStore'
+import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
 import { Message } from 'src/message/models/Message'
@@ -19,7 +19,7 @@ export class ChatStore {
   channels = new ChannelStore()
   privateChats = new PrivateChatStore()
   characters = new CharacterStore()
-  channelList = new ChannelListStore()
+  channelList = new ChannelBrowserStore()
 
   private socket: WebSocket | void
 

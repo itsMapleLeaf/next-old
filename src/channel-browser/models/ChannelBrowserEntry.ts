@@ -1,4 +1,4 @@
-export class ChannelInfo {
+export class ChannelBrowserEntry {
   constructor(
     public type: 'public' | 'private',
     public id: string,
