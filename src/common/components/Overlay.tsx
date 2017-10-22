@@ -1,6 +1,6 @@
 import * as React from 'react'
-
 import { preventDefault } from 'src/common/util/react'
+import './Overlay.scss'
 
 type OverlayProps = {
   children: React.ReactNode
@@ -12,8 +12,8 @@ export function Overlay(props: OverlayProps) {
     if (props.onShadeClick) props.onShadeClick()
   })
   return (
-    <div className="overlay-shade" onClick={handleClick}>
-      <div className="overlay-panel">{props.children}</div>
+    <div className="Overlay-shade" onClick={handleClick}>
+      <div className="Overlay-panel">{props.children}</div>
     </div>
   )
 }
