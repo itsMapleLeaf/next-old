@@ -9,6 +9,8 @@ const CleanPlugin = require('clean-webpack-plugin')
 const UglifyPlugin = require('uglifyjs-webpack-plugin')
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin')
 
+const pkg = require('./package.json')
+
 const root = resolve(__dirname)
 const sourcePath = resolve(root, 'src')
 const outputPath = resolve(root, 'build')
@@ -50,13 +52,16 @@ export = (env = {} as ConfigEnvironment) => {
     }),
   }
 
+  const dependencies = Object.keys(pkg.dependencies)
+
   const baseConfig: webpack.Configuration = {
     entry: {
       app: resolve(sourcePath, 'main'),
-      lib: ['react', 'react-dom', 'mobx', 'mobx-react', 'localforage', 'bbc.js'],
+      react: dependencies.filter(dep => dep.includes('react')),
+      lib: dependencies.filter(dep => !dep.includes('react')),
     },
     output: {
-      filename: '[name].js',
+      filename: 'js/[name].js',
       path: outputPath,
     },
     module: {
@@ -72,7 +77,7 @@ export = (env = {} as ConfigEnvironment) => {
       }),
       new CleanPlugin(['build'], { verbose: false }),
       new ExtractTextPlugin({
-        filename: '[name].css',
+        filename: 'css/[name].css',
         disable: !env.production,
       }),
     ],
@@ -102,7 +107,7 @@ export = (env = {} as ConfigEnvironment) => {
       new UglifyPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
-        names: ['lib'],
+        names: ['lib', 'react'],
       }),
     ],
   }
