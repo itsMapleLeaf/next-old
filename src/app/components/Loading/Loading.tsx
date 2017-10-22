@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Icon } from 'src/common/components/Icon'
+import { Icon } from 'src/app/components/Icon'
+import './Loading.scss'
 
 type LoadingProps = { children: React.ReactNode }
 
