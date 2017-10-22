@@ -5,7 +5,7 @@
   "author": "kingdaro",
   "private": true,
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --env.production",
     "start": "webpack-dev-server --inline --hot --progress --open"
   },
   "dependencies": {
@@ -16,10 +16,12 @@
     "mobx-react": "^4.3.3",
     "normalize.css": "^7.0.0",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "tslib": "^1.8.0"
   },
   "devDependencies": {
     "@types/copy-webpack-plugin": "^4.0.1",
+    "@types/extract-text-webpack-plugin": "^3.0.0",
     "@types/html-webpack-plugin": "^2.28.0",
     "@types/lodash": "^4.14.78",
     "@types/node": "^8.0.46",
@@ -29,17 +31,23 @@
     "@types/webpack": "^3.0.13",
     "@types/webpack-dev-server": "^2.9.0",
     "@types/webpack-env": "^1.13.2",
+    "@types/webpack-merge": "^4.1.0",
+    "clean-webpack-plugin": "^0.1.17",
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.1",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
+    "script-ext-html-webpack-plugin": "^1.8.5",
     "style-loader": "^0.19.0",
     "ts-loader": "^3.0.5",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.3",
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.3"
+    "webpack-dev-server": "^2.9.3",
+    "webpack-merge": "^4.1.0"
   },
   "engines": {
     "node": ">= 8.0.0",

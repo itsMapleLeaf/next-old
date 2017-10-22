@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "strict": true,
-    "lib": ["dom", "esnext"],
-    "baseUrl": ".",
+    "noEmitHelpers": true,
+    "noUnusedLocals": true,
     "paths": {
       "@/*": ["./src/*"]
     },
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "noUnusedLocals": true,
-    "jsx": "react"
+    "strict": true,
+    "target": "es6"
   },
   "include": ["src/**/*", "typings/**/*", "webpack.config.ts"]
 }
