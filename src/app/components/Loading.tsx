@@ -1,6 +1,5 @@
 import * as React from 'react'
-
-import { Icon } from '@/components/common/Icon'
+import { Icon } from 'src/common/components/Icon'
 
 type LoadingProps = { children: React.ReactNode }
 

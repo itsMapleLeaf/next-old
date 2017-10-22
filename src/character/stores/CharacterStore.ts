@@ -1,5 +1,5 @@
 import { observable } from 'mobx'
-import { Character } from './models'
+import { Character } from 'src/character/models/Character'
 
 type CharacterBatch = [string, string, string, string][]
 

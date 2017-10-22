@@ -9,9 +9,6 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "noUnusedLocals": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "strict": true,
     "target": "es6"
   },

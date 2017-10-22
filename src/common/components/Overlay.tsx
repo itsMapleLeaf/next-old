@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { preventDefault } from '@/util/react'
+import { preventDefault } from 'src/common/util/react'
 
 type OverlayProps = {
   children: React.ReactNode

@@ -1,5 +1,6 @@
-import { StoredValue } from '@/stored-value'
-import { Channel, Message } from './models'
+import { Channel } from 'src/channel/models/Channel'
+import { StoredValue } from 'src/common/util/stored-value'
+import { Message } from 'src/message/models/Message'
 
 export type ChannelID = string
 

@@ -1,13 +1,12 @@
 import 'normalize.css/normalize.css'
-import './styles/index.scss'
 
 import { Provider } from 'mobx-react'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App } from './components/app/App'
-import { Store } from './store/index'
+import { App } from './app/components/App'
+import { AppStore } from './app/stores/AppStore'
 
-const store = new Store()
+const store = new AppStore()
 
 function Root() {
   return (

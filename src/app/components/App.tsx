@@ -1,12 +1,10 @@
 import { inject } from 'mobx-react'
 import * as React from 'react'
-
-// import { Loading } from '@/components/app/Loading'
-import { Overlay } from '@/components/common/Overlay'
-import { Store } from '@/store'
+import { AppStore } from 'src/app/stores/AppStore'
+import { Overlay } from 'src/common/components/Overlay'
 
 type AppProps = {
-  store?: Store
+  store?: AppStore
 }
 
 @inject('store')

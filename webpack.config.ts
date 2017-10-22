@@ -84,7 +84,7 @@ export = (env = {} as ConfigEnvironment) => {
     resolve: {
       extensions: ['.js', '.json', '.ts', '.tsx'],
       alias: {
-        '@': sourcePath,
+        src: sourcePath,
       },
     },
   }

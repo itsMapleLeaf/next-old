@@ -1,4 +1,4 @@
-import querystring from 'querystring'
+import * as querystring from 'querystring'
 
 function fetchJSON(url: string, params: object = {}) {
   const request = url + '?' + querystring.stringify(params)

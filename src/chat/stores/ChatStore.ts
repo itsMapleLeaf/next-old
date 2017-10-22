@@ -1,10 +1,10 @@
 import fromPairs from 'lodash/fromPairs'
 import { observable } from 'mobx'
-import { ChannelListStore } from './ChannelListStore'
-import { ChannelStore } from './ChannelStore'
-import { CharacterStore } from './CharacterStore'
-import { Message } from './models'
-import { PrivateChatStore } from './PrivateChatStore'
+import { ChannelListStore } from 'src/channel-browser/stores/ChannelListStore'
+import { ChannelStore } from 'src/channel/stores/ChannelStore'
+import { CharacterStore } from 'src/character/stores/CharacterStore'
+import { Message } from 'src/message/models/Message'
+import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 
 interface CommandHandler {
   handleSocketCommand(cmd: string, params: any): void
