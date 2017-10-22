@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
 import './Loading.scss'
 
-type LoadingProps = { children: React.ReactNode }
+type LoadingProps = { text: string }
 
 export function Loading(props: LoadingProps) {
   return (
@@ -12,7 +12,7 @@ export function Loading(props: LoadingProps) {
           paw
         </Icon>
       </div>
-      <h2 className="Loading-text">{props.children}</h2>
+      <h2 className="Loading-text">{props.text}</h2>
     </div>
   )
 }
