@@ -2,8 +2,7 @@ import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Loading } from 'src/app/components/Loading'
-import { AppStore } from 'src/app/stores/AppStore'
-import { Transition } from 'src/common/components/Transition'
+import { AppState, AppStore } from 'src/app/stores/AppStore'
 import { CharacterSelect } from './CharacterSelect'
 import { Login } from './Login'
 
@@ -14,35 +13,34 @@ type AppProps = {
 @inject('store')
 @observer
 export class App extends React.Component<AppProps> {
-  @observable view = 'setup'
   @observable loginStatus = ''
 
   @action.bound
   async init() {
+    const store = this.props.store!
     try {
-      const store = this.props.store!
-
       await store.auth.loadAuthData()
       await store.auth.fetchCharacters()
-
-      this.view = 'characterSelect'
+      store.setState(AppState.characterSelect)
     } catch {
-      this.view = 'login'
+      store.setState(AppState.login)
     }
   }
 
   @action.bound
   async handleLoginSubmit(username: string, password: string) {
+    const store = this.props.store!
+
     try {
       this.loginStatus = 'Logging in...'
 
-      const store = this.props.store!
       await store.auth.fetchTicket(username, password)
       await store.auth.fetchCharacters()
-      await store.auth.saveAuthData()
+
+      store.auth.saveAuthData().catch(console.error)
+      store.setState(AppState.characterSelect)
 
       this.loginStatus = ''
-      this.view = 'characterSelect'
     } catch (error) {
       this.loginStatus = error.message || error.toString()
     }
@@ -53,7 +51,7 @@ export class App extends React.Component<AppProps> {
     const store = this.props.store!
     const { account, ticket } = store.auth
 
-    this.view = 'connecting'
+    store.setState(AppState.connecting)
 
     store.chat.connectToServer(
       account,
@@ -66,7 +64,7 @@ export class App extends React.Component<AppProps> {
 
   @action.bound
   handleConnect() {
-    this.view = 'chat'
+    this.props.store!.setState(AppState.online)
   }
 
   @action.bound
@@ -74,42 +72,34 @@ export class App extends React.Component<AppProps> {
     this.init()
   }
 
-  componentDidMount() {
-    this.init()
+  async componentDidMount() {
+    await this.init()
   }
 
   renderCurrentView() {
     const store = this.props.store!
 
-    switch (this.view) {
-      case 'setup':
+    switch (store.state) {
+      case AppState.setup:
         return <Loading text="Setting things up..." />
 
-      case 'login':
+      case AppState.login:
+        return <Login statusText={this.loginStatus} onSubmit={this.handleLoginSubmit} />
+
+      case AppState.characterSelect:
         return (
-          <Transition name="fade">
-            <Login statusText={this.loginStatus} onSubmit={this.handleLoginSubmit} />
-          </Transition>
+          <CharacterSelect
+            characters={store.auth.characters}
+            onSubmit={this.handleCharacterSubmit}
+          />
         )
 
-      case 'characterSelect':
-        return (
-          <Transition name="fade">
-            <CharacterSelect
-              characters={store.auth.characters}
-              onSubmit={this.handleCharacterSubmit}
-            />
-          </Transition>
-        )
-
-      case 'connecting':
+      case AppState.connecting:
         return <Loading text="Connecting..." />
 
-      case 'chat':
+      case AppState.online:
         return <div>am chat</div>
     }
-
-    return `View not found: ${this.view}`
   }
 
   render() {
