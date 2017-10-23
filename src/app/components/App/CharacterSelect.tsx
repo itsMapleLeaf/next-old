@@ -6,6 +6,11 @@ import { getAvatarURL } from 'src/api'
 import { preventDefault } from 'src/common/util/react'
 import { StoredValue } from 'src/common/util/stored-value'
 
+const avatarStyle = {
+  width: '100px',
+  height: '100px',
+}
+
 type CharacterSelectProps = {
   characters: string[]
   onSubmit: (character: string) => void
@@ -37,7 +42,11 @@ export class CharacterSelect extends React.Component<CharacterSelectProps> {
       <section className="text-center">
         <h1>Choose your identity.</h1>
         <p>
-          <img src={getAvatarURL(this.character)} alt={`Avatar for ${this.character}`} />
+          <img
+            style={avatarStyle}
+            src={getAvatarURL(this.character)}
+            alt={`Avatar for ${this.character}`}
+          />
         </p>
         <form onSubmit={preventDefault(this.handleSubmit)}>
           <fieldset>
