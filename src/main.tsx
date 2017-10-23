@@ -1,4 +1,5 @@
 import 'normalize.css/normalize.css'
+import './index.scss'
 
 import { Provider } from 'mobx-react'
 import * as React from 'react'
