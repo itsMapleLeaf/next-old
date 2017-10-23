@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Loading } from 'src/app/components/Loading'
 import { AppStore } from 'src/app/stores/AppStore'
+import { Transition } from 'src/common/components/Transition'
 import { CharacterSelect } from './CharacterSelect'
 import { Login } from './Login'
 
@@ -85,14 +86,20 @@ export class App extends React.Component<AppProps> {
         return <Loading text="Setting things up..." />
 
       case 'login':
-        return <Login statusText={this.loginStatus} onSubmit={this.handleLoginSubmit} />
+        return (
+          <Transition name="fade">
+            <Login statusText={this.loginStatus} onSubmit={this.handleLoginSubmit} />
+          </Transition>
+        )
 
       case 'characterSelect':
         return (
-          <CharacterSelect
-            characters={store.auth.characters}
-            onSubmit={this.handleCharacterSubmit}
-          />
+          <Transition name="fade">
+            <CharacterSelect
+              characters={store.auth.characters}
+              onSubmit={this.handleCharacterSubmit}
+            />
+          </Transition>
         )
 
       case 'connecting':
