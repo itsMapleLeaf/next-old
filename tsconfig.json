@@ -10,7 +10,8 @@
     "importHelpers": true,
     "noUnusedLocals": true,
     "strict": true,
-    "target": "es6"
+    "target": "es6",
+    "plugins": [{ "name": "typescript-styled-plugin" }]
   },
   "include": ["src/**/*", "typings/**/*", "webpack.config.ts"]
 }
