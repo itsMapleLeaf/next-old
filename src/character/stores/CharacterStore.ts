@@ -35,7 +35,7 @@ export class CharacterStore {
     }
 
     if (cmd === 'FLN') {
-      const char = this.getCharacter(params.identity)
+      const char = this.getCharacter(params.character)
       char.status = 'offline'
     }
 
