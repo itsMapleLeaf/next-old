@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Loading } from 'src/app/components/Loading'
 import { AppStore } from 'src/app/stores/AppStore'
+// import { Overlay } from 'src/common/components/Overlay'
 import { CharacterSelect } from './CharacterSelect'
 import { Login } from './Login'
 

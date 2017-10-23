@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Transition } from 'src/common/components/Transition'
 import { preventDefault } from 'src/common/util/react'
 import './Overlay.scss'
 
@@ -12,8 +13,10 @@ export function Overlay(props: OverlayProps) {
     if (props.onShadeClick) props.onShadeClick()
   })
   return (
-    <div className="Overlay-shade" onClick={handleClick}>
-      <div className="Overlay-panel">{props.children}</div>
-    </div>
+    <Transition name="fade">
+      <div className="Overlay-shade" onClick={handleClick}>
+        <div className="Overlay-panel">{props.children}</div>
+      </div>
+    </Transition>
   )
 }

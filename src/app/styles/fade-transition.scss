@@ -8,23 +8,23 @@
 }
 
 .fade {
-  &-enter-active {
+  &-enter {
     animation: 0.2s fade-in;
   }
 
-  &-leave-active {
+  &-leave {
     animation: 0.2s fade-in reverse;
   }
 }
 
 .fade-in {
-  &-enter-active {
+  &-enter {
     animation: 0.2s fade-in;
   }
 }
 
 .fade-out {
-  &-leave-active {
+  &-leave {
     animation: 0.2s fade-in reverse;
   }
 }
