@@ -6,12 +6,14 @@ type IconProps = {
 }
 
 export function Icon(props: IconProps & JSX.IntrinsicElements['object']) {
-  const { size = 18, name, style, ...otherProps } = props
+  const { size = 16, name, style, ...otherProps } = props
   const iconPath = `public/icons/${name}.svg`
 
-  const iconStyle = {
+  const iconStyle: React.CSSProperties = {
     width: size + 'px',
     height: size + 'px',
+    display: 'inline-block',
+    lineHeight: 1,
     ...style,
   }
 
