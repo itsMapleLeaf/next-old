@@ -6,7 +6,7 @@ type TransitionProps = {
 }
 
 export class Transition extends React.Component<TransitionProps> {
-  componentDidMount() {
+  transitionEnter() {
     const el = ReactDOM.findDOMNode(this) as HTMLElement
     const activeClass = `${this.props.name}-enter`
 
@@ -17,7 +17,7 @@ export class Transition extends React.Component<TransitionProps> {
     el.classList.add(activeClass)
   }
 
-  componentWillUnmount() {
+  transitionLeave() {
     const el = ReactDOM.findDOMNode(this)
     const { parentNode } = el
     if (parentNode) {
@@ -32,6 +32,14 @@ export class Transition extends React.Component<TransitionProps> {
 
       cloned.classList.add(leaveClass)
     }
+  }
+
+  componentDidMount() {
+    this.transitionEnter()
+  }
+
+  componentWillUnmount() {
+    this.transitionLeave()
   }
 
   render() {

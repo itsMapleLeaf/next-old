@@ -9,22 +9,22 @@
 
 .fade {
   &-enter {
-    animation: 0.2s fade-in;
+    animation: 0.3s fade-in;
   }
 
   &-leave {
-    animation: 0.2s fade-in reverse;
+    animation: 0.3s fade-in reverse;
   }
 }
 
 .fade-in {
   &-enter {
-    animation: 0.2s fade-in;
+    animation: 0.3s fade-in;
   }
 }
 
 .fade-out {
   &-leave {
-    animation: 0.2s fade-in reverse;
+    animation: 0.3s fade-in reverse;
   }
 }
