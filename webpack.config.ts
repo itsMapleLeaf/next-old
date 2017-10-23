@@ -80,6 +80,9 @@ export = (env = {} as ConfigEnvironment) => {
         filename: 'css/[name].css',
         disable: !env.production,
       }),
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ['lib', 'react'],
+      }),
     ],
     resolve: {
       extensions: ['.js', '.json', '.ts', '.tsx'],
@@ -106,9 +109,6 @@ export = (env = {} as ConfigEnvironment) => {
       ]),
       new UglifyPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
-      new webpack.optimize.CommonsChunkPlugin({
-        names: ['lib', 'react'],
-      }),
     ],
   }
 
