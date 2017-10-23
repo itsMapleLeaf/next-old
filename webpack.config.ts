@@ -9,8 +9,6 @@ const CleanPlugin = require('clean-webpack-plugin')
 const UglifyPlugin = require('uglifyjs-webpack-plugin')
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin')
 
-const pkg = require('./package.json')
-
 const root = resolve(__dirname)
 const sourcePath = resolve(root, 'src')
 const outputPath = resolve(root, 'build')
@@ -52,13 +50,9 @@ export = (env = {} as ConfigEnvironment) => {
     }),
   }
 
-  const dependencies = Object.keys(pkg.dependencies)
-
   const baseConfig: webpack.Configuration = {
     entry: {
       app: resolve(sourcePath, 'main'),
-      react: dependencies.filter(dep => dep.includes('react')),
-      lib: dependencies.filter(dep => !dep.includes('react')),
     },
     output: {
       filename: 'js/[name].js',
@@ -79,9 +73,6 @@ export = (env = {} as ConfigEnvironment) => {
       new ExtractTextPlugin({
         filename: 'css/[name].css',
         disable: !env.production,
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        names: ['lib', 'react'],
       }),
     ],
     resolve: {
