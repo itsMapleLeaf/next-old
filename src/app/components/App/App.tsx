@@ -1,9 +1,9 @@
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { Loading } from 'src/app/components/Loading'
 import { AppStore } from 'src/app/stores/AppStore'
 import { CharacterSelect } from './CharacterSelect'
-import { Loading } from './Loading'
 import { Login } from './Login'
 
 type AppProps = {
