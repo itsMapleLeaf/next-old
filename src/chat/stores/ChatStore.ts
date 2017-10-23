@@ -38,6 +38,8 @@ export class ChatStore {
     connectedCallback: () => void,
     closedCallback: () => void,
   ) {
+    this.disconnectFromServer()
+
     this.identity = character
 
     this.socket = new WebSocket('wss://chat.f-list.net:9799')
