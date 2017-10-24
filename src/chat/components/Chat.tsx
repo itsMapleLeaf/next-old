@@ -6,7 +6,7 @@ import { observer } from 'mobx-react'
 import { Drawer } from 'src/common/components/Drawer'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 
-import { ChatSidebar } from './ChatSidebar'
+import { ChatMenu } from './ChatMenu'
 import { ChannelView } from './ChatView'
 
 type ChatProps = {}
@@ -24,12 +24,12 @@ export class Chat extends React.Component<ChatProps> {
     return (
       <main className="bg-color-darken-3 fullscreen flex-row">
         <ShowOnDesktop className="flex-row">
-          <ChatSidebar />
+          <ChatMenu />
           <div style={{ width: '4px' }} />
         </ShowOnDesktop>
 
         <Drawer side="left" visible={this.isMenuOpen} onShadeClicked={this.toggleMenu}>
-          <ChatSidebar />
+          <ChatMenu />
         </Drawer>
 
         <section className="flex-grow flex-column">

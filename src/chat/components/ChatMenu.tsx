@@ -28,7 +28,7 @@ const Avatar = styled.img`
   height: 100px;
 `
 
-export function ChatSidebar() {
+export function ChatMenu() {
   return (
     <Wrapper className="bg-color-main flex-row full-height">
       <ActionContainer className="bg-color-darken-2 flex-column">
