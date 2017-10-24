@@ -39,11 +39,14 @@ export function ChatMenu() {
         </div>
         <div className="bg-color-darken-2 divider-v" />
         <div className="bg-color-darken-1 flex-grow flex-column scroll-v">
-          <ChannelTab title="Frontpage" type="public" />
+          <h3 className="margin faded">Channels</h3>
+          <ChannelTab title="Frontpage" type="public" active />
           <ChannelTab title="RP Bar" type="public" />
-          <ChannelTab title="RP Dark City" type="public" active />
+          <ChannelTab title="RP Dark City" type="public" />
           <ChannelTab title="Fantasy" type="public" />
           <ChannelTab title="Development" type="public" />
+
+          <h3 className="margin faded">Private Chats</h3>
         </div>
       </div>
     </div>
