@@ -1,5 +1,9 @@
 @import './colors';
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   font: 16px 'Roboto', sans-serif;
   font-weight: 400;
