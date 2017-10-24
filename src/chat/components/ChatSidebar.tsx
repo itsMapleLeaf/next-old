@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { Icon } from 'src/app/components/Icon'
 import { ChatAction } from 'src/chat/components/ChatAction'
-import { ChannelTab } from './ChannelTab'
+import { ChatTab } from './ChannelTab'
 
 const Wrapper = styled.div`width: 240px;`
 
@@ -50,37 +50,34 @@ export function ChatSidebar() {
             alt="avatar for lily"
           />
         </ProfileInfo>
-        <div className="bg-color-darken-1 flex-grow flex-column">
-          <ChannelTab active={true}>
-            <div style={{ paddingRight: '8px' }}>
-              <Icon name="earth" />
+        <div className="bg-color-darken-2" style={{ height: '4px' }} />
+        <div className="bg-color-darken-1 flex-grow flex-column scroll-v">
+          <ChatTab>
+            <div className="flex-row flex-align-center">
+              <Icon name="earth" style={{ marginRight: '8px' }} /> <span>Frontpage</span>
             </div>
-            <div>RP Bar</div>
-          </ChannelTab>
-          <ChannelTab>
-            <div style={{ paddingRight: '8px' }}>
-              <Icon name="earth" />
+          </ChatTab>
+          <ChatTab active={true}>
+            <div className="flex-row flex-align-center">
+              <Icon name="earth" style={{ marginRight: '8px' }} /> <span>RP Bar</span>
             </div>
-            <div>Frontpage</div>
-          </ChannelTab>
-          <ChannelTab>
-            <div style={{ paddingRight: '8px' }}>
-              <Icon name="earth" />
+          </ChatTab>
+          <ChatTab>
+            <div className="flex-row flex-align-center">
+              <Icon name="earth" style={{ marginRight: '8px' }} /> <span>RP Dark City</span>
             </div>
-            <div>RP Dark City</div>
-          </ChannelTab>
-          <ChannelTab>
-            <div style={{ paddingRight: '8px' }}>
-              <Icon name="earth" />
+          </ChatTab>
+          <ChatTab>
+            <div className="flex-row flex-align-center">
+              <Icon name="earth" style={{ marginRight: '8px' }} /> <span>Fantasy</span>
             </div>
-            <div>Fantasy</div>
-          </ChannelTab>
-          <ChannelTab>
-            <div style={{ paddingRight: '8px' }}>
-              <Icon name="earth" />
+          </ChatTab>
+          <ChatTab>
+            <div className="flex-row flex-align-center">
+              <Icon name="key" style={{ marginRight: '8px' }} />{' '}
+              <span className="flex-grow">Really really really long channel name</span>
             </div>
-            <div>Story Driven LFRP</div>
-          </ChannelTab>
+          </ChatTab>
         </div>
       </ContentContainer>
     </Wrapper>

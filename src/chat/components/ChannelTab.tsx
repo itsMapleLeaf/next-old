@@ -16,15 +16,10 @@ const Wrapper = styled.a`
   opacity: ${(props: ChannelTabProps) => (props.active ? 1 : 0.5)};
 `
 
-export function ChannelTab(props: ChannelTabProps) {
+export function ChatTab(props: ChannelTabProps) {
   const activeClass = props.active ? 'bg-color-main' : ''
   return (
-    <Wrapper
-      href="#"
-      style={{ padding: '8px' }}
-      className={`${activeClass} flex-row flex-align-center`}
-      active={props.active}
-    >
+    <Wrapper href="#" style={{ padding: '8px' }} className={`${activeClass}`} active={props.active}>
       {props.children}
     </Wrapper>
   )
