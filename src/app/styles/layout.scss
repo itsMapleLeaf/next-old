@@ -1,0 +1,21 @@
+$spacing: 8px;
+
+.padding { padding: $spacing }
+.padding-left { padding-left: $spacing }
+.padding-right { padding-right: $spacing }
+.padding-top { padding-top: $spacing }
+.padding-bottom { padding-bottom: $spacing }
+
+.margin { margin: $spacing }
+.margin-left { margin-left: $spacing }
+.margin-right { margin-right: $spacing }
+.margin-top { margin-top: $spacing }
+.margin-bottom { margin-bottom: $spacing }
+
+.spacer { width: $spacing; height: $spacing }
+.spacer-v { height: $spacing; width: 100% }
+.spacer-h { width: $spacing; height: 100% }
+
+.divider { width: $spacing / 2; height: $spacing / 2 }
+.divider-v { height: $spacing / 2; width: 100% }
+.divider-h { width: $spacing / 2; height: 100% }

@@ -1,9 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { ShowOnDesktop, ShowOnMobile } from 'src/common/components/responsive-utils'
-
 import { Icon } from 'src/app/components/Icon'
+import { ShowOnDesktop, ShowOnMobile } from 'src/common/components/responsive-utils'
+import { lipsumText } from 'src/common/util/lipsum'
+
 import { ChatInput } from './ChatInput'
 import { ChatMessage } from './ChatMessage'
 
@@ -28,7 +29,6 @@ const Container = styled.div`
 
 const Header = styled(ShowOnMobile)`
   grid-area: header;
-  padding: 8px;
   line-height: 0;
 
   > :not(:last-child) {
@@ -41,13 +41,9 @@ const MessageList = styled.div`grid-area: message-list;`
 const Description = styled(ShowOnDesktop)`
   grid-area: description;
   height: 80px;
-  padding: 8px;
 `
 
-const UserList = styled(ShowOnDesktop)`
-  grid-area: user-list;
-  padding: 8px;
-`
+const UserList = styled(ShowOnDesktop)`grid-area: user-list;`
 
 const UserListEntry = styled.div`
   font-weight: 500;
@@ -57,10 +53,7 @@ const UserListEntry = styled.div`
   }
 `
 
-const ChatInputWrapper = styled.div`
-  grid-area: chat-input;
-  padding: 4px;
-`
+const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
 type ChatViewProps = {
   onMenuClicked: () => void
@@ -71,7 +64,7 @@ export function ChannelView(props: ChatViewProps & JSX.IntrinsicElements['div'])
   const { className } = props
   return (
     <Container className={`${className} fill-area`}>
-      <Header className="bg-color-darken-2 flex-row flex-align-center">
+      <Header className="bg-color-darken-2 flex-row flex-align-center padding">
         <a href="#" onClick={props.onMenuClicked}>
           <Icon name="menu" size={24} />
         </a>
@@ -80,7 +73,9 @@ export function ChannelView(props: ChatViewProps & JSX.IntrinsicElements['div'])
           <Icon name="more-vert" size={24} />
         </a>
       </Header>
-      <Description className="bg-color-darken-1 scroll-v">description here</Description>
+      <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
+        {lipsumText}
+      </Description>
       <MessageList className="bg-color-main flex-grow scroll-v">
         <ChatMessage />
         <ChatMessage />
@@ -90,7 +85,7 @@ export function ChannelView(props: ChatViewProps & JSX.IntrinsicElements['div'])
         <ChatMessage />
         <ChatMessage />
       </MessageList>
-      <UserList className="bg-color-darken-1 scroll-v">
+      <UserList className="bg-color-darken-1 scroll-v padding">
         <UserListEntry>some character</UserListEntry>
         <UserListEntry>some character</UserListEntry>
         <UserListEntry>some character</UserListEntry>

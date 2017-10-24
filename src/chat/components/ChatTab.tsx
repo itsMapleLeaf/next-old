@@ -16,12 +16,7 @@ const Wrapper = styled.div`
   opacity: ${(props: ChannelTabProps) => (props.active ? 1 : 0.5)};
 `
 
-const ContentWrapper = styled.a`padding: 8px;`
-
 const CloseIcon = styled.a`
-  padding: 8px;
-  line-height: 0;
-
   opacity: 0.3;
 
   &:hover {
@@ -33,10 +28,10 @@ export function ChatTab(props: ChannelTabProps) {
   const activeClass = props.active ? 'bg-color-main' : ''
   return (
     <Wrapper className={`${activeClass} flex-row flex-align-stretch`} active={props.active}>
-      <ContentWrapper href="#" className="flex-grow">
+      <a href="#" className="flex-grow padding">
         {props.children}
-      </ContentWrapper>
-      <CloseIcon href="#" className="flex-center">
+      </a>
+      <CloseIcon href="#" className="flex-center padding no-line-height">
         <Icon name="close" />
       </CloseIcon>
     </Wrapper>

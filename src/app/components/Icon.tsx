@@ -13,7 +13,7 @@ export function Icon(props: IconProps & JSX.IntrinsicElements['img']) {
     width: size + 'px',
     height: size + 'px',
     display: 'inline-block',
-    lineHeight: 1,
+    lineHeight: 0,
     cursor: 'inherit',
     ...style,
   }

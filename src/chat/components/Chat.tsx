@@ -25,7 +25,7 @@ export class Chat extends React.Component<ChatProps> {
       <main className="bg-color-darken-3 fullscreen flex-row">
         <ShowOnDesktop className="flex-row">
           <ChatMenu />
-          <div style={{ width: '4px' }} />
+          <div className="divider-h" />
         </ShowOnDesktop>
 
         <Drawer side="left" visible={this.isMenuOpen} onShadeClicked={this.toggleMenu}>

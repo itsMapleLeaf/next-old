@@ -4,9 +4,7 @@ import styled from 'styled-components'
 import { Icon } from 'src/app/components/Icon'
 
 const Wrapper = styled.a`
-  padding: 8px;
   opacity: 0.5;
-  cursor: pointer;
 
   &:hover {
     opacity: 1;
@@ -15,7 +13,7 @@ const Wrapper = styled.a`
 
 export function ChatAction(props: { icon: string }) {
   return (
-    <Wrapper href="#">
+    <Wrapper href="#" className="padding block no-line-height">
       <Icon name={props.icon} size={32} />
     </Wrapper>
   )
