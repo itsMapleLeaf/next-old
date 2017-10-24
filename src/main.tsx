@@ -2,6 +2,7 @@ import 'normalize.css/normalize.css'
 import './index.scss'
 
 import { Provider } from 'mobx-react'
+import DevTools from 'mobx-react-devtools'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { App } from './app/components/App'
@@ -11,9 +12,12 @@ const store = new AppStore()
 
 function Root() {
   return (
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <div>
+      <Provider store={store}>
+        <App />
+      </Provider>
+      <DevTools />
+    </div>
   )
 }
 
