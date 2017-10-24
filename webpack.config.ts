@@ -53,6 +53,7 @@ export = (env = {} as ConfigEnvironment) => {
   const baseConfig: webpack.Configuration = {
     entry: {
       app: resolve(sourcePath, 'main'),
+      lib: ['react', 'react-dom'],
     },
     output: {
       filename: 'js/[name].js',
@@ -100,6 +101,7 @@ export = (env = {} as ConfigEnvironment) => {
       ]),
       new UglifyPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
+      new webpack.optimize.CommonsChunkPlugin({ name: 'lib' }),
     ],
   }
 
