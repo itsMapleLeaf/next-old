@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import { observable, computed } from 'mobx'
+import { computed, observable } from 'mobx'
 import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
