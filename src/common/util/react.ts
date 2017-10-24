@@ -14,16 +14,16 @@ export type RenderResult =
   | null
   | false
 
-export function preventDefault<E extends React.SyntheticEvent<any>>(next: (event: E) => void) {
+export function preventDefault<E extends React.SyntheticEvent<any>>(next?: (event: E) => void) {
   return (event: E) => {
     event.preventDefault()
-    next(event)
+    if (next) next(event)
   }
 }
 
-export function stopPropagation<E extends React.SyntheticEvent<any>>(next: (event: E) => void) {
+export function stopPropagation<E extends React.SyntheticEvent<any>>(next?: (event: E) => void) {
   return (event: E) => {
     event.stopPropagation()
-    next(event)
+    if (next) next(event)
   }
 }
