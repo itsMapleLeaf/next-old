@@ -3,10 +3,10 @@ import * as React from 'react'
 import { action, observable } from 'mobx'
 import { observer } from 'mobx-react'
 
+import { ChannelView } from 'src/channel/components/ChannelView'
 import { Drawer } from 'src/common/components/Drawer'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 
-import { ChannelView } from './ChannelView'
 import { ChatMenu } from './ChatMenu'
 
 type ChatProps = {}

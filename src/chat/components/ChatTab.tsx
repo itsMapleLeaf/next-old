@@ -3,17 +3,17 @@ import styled from 'styled-components'
 
 import { Icon } from 'src/app/components/Icon'
 
-type ChannelTabProps = {
-  children: React.ReactNode
+export type ChatTabProps = {
+  children?: React.ReactNode
   active?: boolean
 }
 
 const Wrapper = styled.div`
   &:hover {
-    opacity: ${(props: ChannelTabProps) => (props.active ? 1 : 0.75)};
+    opacity: ${(props: ChatTabProps) => (props.active ? 1 : 0.75)};
   }
 
-  opacity: ${(props: ChannelTabProps) => (props.active ? 1 : 0.5)};
+  opacity: ${(props: ChatTabProps) => (props.active ? 1 : 0.5)};
 `
 
 const CloseIcon = styled.a`
@@ -24,7 +24,7 @@ const CloseIcon = styled.a`
   }
 `
 
-export function ChatTab(props: ChannelTabProps) {
+export function ChatTab(props: ChatTabProps) {
   const activeClass = props.active ? 'bg-color-main' : ''
   return (
     <Wrapper className={`${activeClass} flex-row flex-align-stretch`} active={props.active}>

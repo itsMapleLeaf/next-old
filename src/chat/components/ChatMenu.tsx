@@ -1,9 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { Icon } from 'src/app/components/Icon'
+import { ChannelTab } from 'src/channel/components/ChannelTab'
 import { ChatAction } from 'src/chat/components/ChatAction'
-import { ChatTab } from './ChatTab'
 
 const Avatar = styled.img`
   width: 100px;
@@ -40,32 +39,11 @@ export function ChatMenu() {
         </div>
         <div className="bg-color-darken-2 divider-v" />
         <div className="bg-color-darken-1 flex-grow flex-column scroll-v">
-          <ChatTab>
-            <div className="flex-row flex-align-center">
-              <Icon name="earth" className="margin-right" /> <span>Frontpage</span>
-            </div>
-          </ChatTab>
-          <ChatTab active={true}>
-            <div className="flex-row flex-align-center">
-              <Icon name="earth" className="margin-right" /> <span>RP Bar</span>
-            </div>
-          </ChatTab>
-          <ChatTab>
-            <div className="flex-row flex-align-center">
-              <Icon name="earth" className="margin-right" /> <span>RP Dark City</span>
-            </div>
-          </ChatTab>
-          <ChatTab>
-            <div className="flex-row flex-align-center">
-              <Icon name="earth" className="margin-right" /> <span>Fantasy</span>
-            </div>
-          </ChatTab>
-          <ChatTab>
-            <div className="flex-row flex-align-center">
-              <Icon name="key" className="margin-right" />{' '}
-              <span className="flex-grow">Really really really long channel name</span>
-            </div>
-          </ChatTab>
+          <ChannelTab title="Frontpage" type="public" />
+          <ChannelTab title="RP Bar" type="public" />
+          <ChannelTab title="RP Dark City" type="public" active />
+          <ChannelTab title="Fantasy" type="public" />
+          <ChannelTab title="Development" type="public" />
         </div>
       </div>
     </div>

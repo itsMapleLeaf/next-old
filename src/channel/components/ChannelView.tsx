@@ -2,11 +2,10 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import { Icon } from 'src/app/components/Icon'
+import { ChatInput } from 'src/chat/components/ChatInput'
+import { ChatMessage } from 'src/chat/components/ChatMessage'
 import { ShowOnDesktop, ShowOnMobile } from 'src/common/components/responsive-utils'
 import { lipsumText } from 'src/common/util/lipsum'
-
-import { ChatInput } from './ChatInput'
-import { ChatMessage } from './ChatMessage'
 
 const Container = styled.div`
   display: grid;
@@ -93,8 +92,8 @@ export function ChannelView(props: ChatViewProps & JSX.IntrinsicElements['div'])
         <UserListEntry>some character</UserListEntry>
         <UserListEntry>some character</UserListEntry>
       </UserList>
-      <ChatInputWrapper className="bg-color-main">
-        <ChatInput />
+      <ChatInputWrapper className="bg-color-main flex-row">
+        <ChatInput className="flex-grow" />
       </ChatInputWrapper>
     </Container>
   )

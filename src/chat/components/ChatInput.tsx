@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-export function ChatInput() {
+export function ChatInput(props: JSX.IntrinsicElements['textarea']) {
   return (
     <textarea
-      className="padding fill-area"
-      rows={3}
+      className="padding"
       placeholder="Say something..."
       style={{ resize: 'none' }}
+      {...props}
     />
   )
 }
