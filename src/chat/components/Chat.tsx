@@ -19,13 +19,17 @@ export class Chat extends React.Component<ChatProps> {
   }
 
   @action.bound
-  setCurrentChannel(channel: string) {
+  handleChannelActivate(channel: string) {
     this.currentChannel = channel
+    this.isMenuOpen = false
   }
 
   renderMenu() {
     return (
-      <ChatMenu activeChannel={this.currentChannel} onChannelActivate={this.setCurrentChannel} />
+      <ChatMenu
+        activeChannel={this.currentChannel}
+        onChannelActivate={this.handleChannelActivate}
+      />
     )
   }
 
