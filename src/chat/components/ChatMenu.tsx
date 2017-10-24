@@ -1,15 +1,9 @@
 import * as React from 'react'
-import styled from 'styled-components'
 
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
+import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import { ChatAction } from 'src/chat/components/ChatAction'
 import { ChatTab } from 'src/chat/components/ChatTab'
-
-const Avatar = styled.img`
-  width: 100px;
-  height: 100px;
-  display: block;
-`
 
 export class ChatMenu extends React.Component {
   renderChannelTab(title: string, type: 'public' | 'private', active: boolean) {
@@ -37,22 +31,7 @@ export class ChatMenu extends React.Component {
         </div>
 
         <div className="flex-grow flex-column flex-align-stretch">
-          <div className="padding">
-            <h2 style={{ margin: 0 }}>Lily Makoto</h2>
-
-            <div className="spacer" />
-
-            <Avatar
-              src="https://static.f-list.net/images/avatar/lily%20makoto.png"
-              alt="avatar for lily"
-            />
-
-            <div className="spacer" />
-
-            <div className="bg-color-darken-1 padding text-italic text-small">
-              Online - Around, maybe...
-            </div>
-          </div>
+          <CharacterDetails name="Lily Makoto" />
 
           <div className="bg-color-darken-2 divider-v" />
 
