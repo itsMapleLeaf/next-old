@@ -5,7 +5,7 @@ type IconProps = {
   name: string
 }
 
-export function Icon(props: IconProps & JSX.IntrinsicElements['object']) {
+export function Icon(props: IconProps & JSX.IntrinsicElements['img']) {
   const { size = 16, name, style, ...otherProps } = props
   const iconPath = `public/icons/${name}.svg`
 
@@ -14,8 +14,9 @@ export function Icon(props: IconProps & JSX.IntrinsicElements['object']) {
     height: size + 'px',
     display: 'inline-block',
     lineHeight: 1,
+    cursor: 'inherit',
     ...style,
   }
 
-  return <object type="image/svg+xml" data={iconPath} style={iconStyle} {...otherProps} />
+  return <img src={iconPath} style={iconStyle} {...otherProps} />
 }
