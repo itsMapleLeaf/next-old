@@ -1,8 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { ChannelTab } from 'src/channel/components/ChannelTab'
+import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { ChatAction } from 'src/chat/components/ChatAction'
+import { ChatTab } from 'src/chat/components/ChatTab'
 
 const Avatar = styled.img`
   width: 100px;
@@ -40,11 +41,21 @@ export function ChatMenu() {
         <div className="bg-color-darken-2 divider-v" />
         <div className="bg-color-darken-1 flex-grow flex-column scroll-v">
           <h3 className="margin faded">Channels</h3>
-          <ChannelTab title="Frontpage" type="public" active />
-          <ChannelTab title="RP Bar" type="public" />
-          <ChannelTab title="RP Dark City" type="public" />
-          <ChannelTab title="Fantasy" type="public" />
-          <ChannelTab title="Development" type="public" />
+          <ChatTab>
+            <ChannelTabContent title="Frontpage" type="public" />
+          </ChatTab>
+          <ChatTab>
+            <ChannelTabContent title="RP Bar" type="public" />
+          </ChatTab>
+          <ChatTab>
+            <ChannelTabContent title="RP Dark City" type="public" />
+          </ChatTab>
+          <ChatTab>
+            <ChannelTabContent title="Fantasy" type="public" />
+          </ChatTab>
+          <ChatTab>
+            <ChannelTabContent title="Development" type="public" />
+          </ChatTab>
 
           <h3 className="margin faded">Private Chats</h3>
         </div>
