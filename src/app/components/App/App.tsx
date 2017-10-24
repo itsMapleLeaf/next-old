@@ -17,19 +17,8 @@ type AppProps = {
 @inject('store')
 @observer
 export class App extends React.Component<AppProps> {
+  store = this.props.store!
   @observable loginStatus = ''
-
-  @action.bound
-  async init() {
-    const store = this.props.store!
-    try {
-      await store.auth.loadAuthData()
-      await store.auth.fetchCharacters()
-      store.setState(AppState.characterSelect)
-    } catch {
-      store.setState(AppState.login)
-    }
-  }
 
   @action.bound
   async handleLoginSubmit(username: string, password: string) {
@@ -73,11 +62,7 @@ export class App extends React.Component<AppProps> {
 
   @action.bound
   handleDisconnect() {
-    this.init()
-  }
-
-  async componentDidMount() {
-    await this.init()
+    this.store.init()
   }
 
   renderCurrentView() {
@@ -102,15 +87,14 @@ export class App extends React.Component<AppProps> {
         return <Loading text="Connecting..." />
 
       case AppState.online:
-        return <div>am chat</div>
+        return <Chat />
     }
   }
 
   render() {
     return (
       <main className="fullscreen flex-center bg-color-main text-color-main">
-        {/* this.renderCurrentView() */}
-        <Chat />
+        {this.renderCurrentView()}
       </main>
     )
   }
