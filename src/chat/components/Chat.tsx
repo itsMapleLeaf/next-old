@@ -6,8 +6,8 @@ import { observer } from 'mobx-react'
 import { Drawer } from 'src/common/components/Drawer'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 
+import { ChannelView } from './ChannelView'
 import { ChatMenu } from './ChatMenu'
-import { ChannelView } from './ChatView'
 
 type ChatProps = {}
 
