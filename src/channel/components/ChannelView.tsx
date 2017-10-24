@@ -5,7 +5,7 @@ import { Icon } from 'src/app/components/Icon'
 import { AppStore } from 'src/app/stores/AppStore'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { ChatMessage } from 'src/chat/components/ChatMessage'
-import { ShowOnDesktop } from 'src/common/components/responsive-utils'
+import { ShowOnDesktop, ShowOnMobile } from 'src/common/components/responsive-utils'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -75,13 +75,17 @@ export class ChannelView extends React.Component<ChannelViewProps> {
     return (
       <Container className={`${className} fill-area`}>
         <Header className="bg-color-darken-2 flex-row flex-align-center padding">
-          <a href="#" onClick={this.props.onMenuClicked}>
-            <Icon name="menu" size={24} />
-          </a>
-          <div className="flex-grow">{this.channel.title}</div>
-          <a href="#" onClick={this.props.onMoreClicked}>
-            <Icon name="more-vert" size={24} />
-          </a>
+          <ShowOnMobile>
+            <a href="#" onClick={this.props.onMenuClicked}>
+              <Icon name="menu" size={24} />
+            </a>
+          </ShowOnMobile>
+          <h3 className="flex-grow">{this.channel.title}</h3>
+          <ShowOnMobile>
+            <a href="#" onClick={this.props.onMoreClicked}>
+              <Icon name="more-vert" size={24} />
+            </a>
+          </ShowOnMobile>
         </Header>
         <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
           {this.channel.description}
