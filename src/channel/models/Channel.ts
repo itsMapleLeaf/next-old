@@ -1,12 +1,13 @@
+import { observable } from 'mobx'
 import { Message } from 'src/message/models/Message'
 
 export class Channel {
-  title = this.id
-  description = ''
-  users = [] as string[]
-  messages = [] as Message[]
-  ops = [] as string[]
-  mode = 'both'
+  @observable title = this.id
+  @observable description = ''
+  @observable users = [] as string[]
+  @observable messages = [] as Message[]
+  @observable ops = [] as string[]
+  @observable mode = 'both'
 
   constructor(public id: string) {}
 }
