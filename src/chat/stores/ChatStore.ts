@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import { observable } from 'mobx'
+import { observable, computed } from 'mobx'
 import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
@@ -239,5 +239,10 @@ export class ChatStore {
     // partners.forEach(partner => {
     //   Vue.set(this.privateChats, partner, new PrivateChat(partner))
     // })
+  }
+
+  @computed
+  get identityCharacter() {
+    return this.characters.getCharacter(this.identity)
   }
 }

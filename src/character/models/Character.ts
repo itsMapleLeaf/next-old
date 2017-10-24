@@ -1,8 +1,11 @@
+import { observable } from 'mobx'
+
 export class Character {
-  constructor(
-    public name: string,
-    public gender: string,
-    public status: string,
-    public statusMessage = '',
-  ) {}
+  @observable status = ''
+  @observable statusMessage = ''
+
+  constructor(public name: string, public gender: string, status: string, statusMessage = '') {
+    this.status = status
+    this.statusMessage = statusMessage
+  }
 }

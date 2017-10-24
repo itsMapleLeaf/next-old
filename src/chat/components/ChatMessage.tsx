@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Message } from 'src/message/models/Message'
 import styled from 'styled-components'
 
 const ChatMessageWrapper = styled.div`
@@ -7,11 +8,11 @@ const ChatMessageWrapper = styled.div`
   }
 `
 
-export function ChatMessage() {
+export function ChatMessage(props: { message: Message }) {
   return (
-    <ChatMessageWrapper className="flex-row padding">
-      <div className="margin-right text-bold">sender</div>
-      <div>message</div>
+    <ChatMessageWrapper className="padding">
+      <span className="margin-right text-bold">{props.message.sender}</span>
+      <span>{props.message.text}</span>
     </ChatMessageWrapper>
   )
 }

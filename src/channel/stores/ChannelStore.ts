@@ -1,3 +1,5 @@
+import { observable } from 'mobx'
+
 import { Channel } from 'src/channel/models/Channel'
 import { StoredValue } from 'src/common/util/stored-value'
 import { Message } from 'src/message/models/Message'
@@ -5,8 +7,8 @@ import { Message } from 'src/message/models/Message'
 export type ChannelID = string
 
 export class ChannelStore {
-  private channels = new Map<ChannelID, Channel>()
-  private joinedChannels = new Map<ChannelID, true>()
+  @observable private channels = new Map<ChannelID, Channel>()
+  @observable private joinedChannels = new Map<ChannelID, true>()
   private storedChannels = new StoredValue<string[]>('ChannelStore_joinedChannels')
 
   getChannel(id: ChannelID) {
@@ -29,7 +31,7 @@ export class ChannelStore {
   }
 
   getJoinedChannels() {
-    return Object.keys(this.joinedChannels).map(id => this.getChannel(id))
+    return Array.from(this.joinedChannels.keys()).map(id => this.getChannel(id))
   }
 
   async saveJoinedChannels() {

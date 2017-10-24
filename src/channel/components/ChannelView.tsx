@@ -1,11 +1,12 @@
+import { computed } from 'mobx'
+import { inject } from 'mobx-react'
 import * as React from 'react'
-import styled from 'styled-components'
-
 import { Icon } from 'src/app/components/Icon'
+import { AppStore } from 'src/app/stores/AppStore'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { ChatMessage } from 'src/chat/components/ChatMessage'
-import { ShowOnDesktop, ShowOnMobile } from 'src/common/components/responsive-utils'
-import { lipsumText } from 'src/common/util/lipsum'
+import { ShowOnDesktop } from 'src/common/components/responsive-utils'
+import styled from 'styled-components'
 
 const Container = styled.div`
   display: grid;
@@ -20,13 +21,14 @@ const Container = styled.div`
 
   // on desktop
   @media (min-width: 750px) {
-    grid-template-rows: 80px 1fr 80px;
+    grid-template-rows: 40px 80px 1fr 80px;
     grid-template-columns: 1fr 200px;
-    grid-template-areas: 'description description' 'message-list user-list' 'chat-input chat-input';
+    grid-template-areas: 'header header' 'description description' 'message-list user-list'
+      'chat-input chat-input';
   }
 `
 
-const Header = styled(ShowOnMobile)`
+const Header = styled.div`
   grid-area: header;
   line-height: 0;
 
@@ -54,47 +56,46 @@ const UserListEntry = styled.div`
 
 const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
-type ChatViewProps = {
+type ChannelViewProps = JSX.IntrinsicElements['div'] & {
+  store?: AppStore
+  channelID: string
   onMenuClicked: () => void
   onMoreClicked: () => void
 }
 
-export function ChannelView(props: ChatViewProps & JSX.IntrinsicElements['div']) {
-  const { className } = props
-  return (
-    <Container className={`${className} fill-area`}>
-      <Header className="bg-color-darken-2 flex-row flex-align-center padding">
-        <a href="#" onClick={props.onMenuClicked}>
-          <Icon name="menu" size={24} />
-        </a>
-        <div className="flex-grow">Frontpage</div>
-        <a href="#" onClick={props.onMoreClicked}>
-          <Icon name="more-vert" size={24} />
-        </a>
-      </Header>
-      <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
-        {lipsumText}
-      </Description>
-      <MessageList className="bg-color-main flex-grow scroll-v">
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-      </MessageList>
-      <UserList className="bg-color-darken-1 scroll-v padding">
-        <UserListEntry>some character</UserListEntry>
-        <UserListEntry>some character</UserListEntry>
-        <UserListEntry>some character</UserListEntry>
-        <UserListEntry>some character</UserListEntry>
-        <UserListEntry>some character</UserListEntry>
-        <UserListEntry>some character</UserListEntry>
-      </UserList>
-      <ChatInputWrapper className="bg-color-main flex-row">
-        <ChatInput className="flex-grow" />
-      </ChatInputWrapper>
-    </Container>
-  )
+@inject('store')
+export class ChannelView extends React.Component<ChannelViewProps> {
+  @computed
+  get channel() {
+    return this.props.store!.chat.channels.getChannel(this.props.channelID)
+  }
+
+  render() {
+    const { className } = this.props
+    return (
+      <Container className={`${className} fill-area`}>
+        <Header className="bg-color-darken-2 flex-row flex-align-center padding">
+          <a href="#" onClick={this.props.onMenuClicked}>
+            <Icon name="menu" size={24} />
+          </a>
+          <div className="flex-grow">{this.channel.title}</div>
+          <a href="#" onClick={this.props.onMoreClicked}>
+            <Icon name="more-vert" size={24} />
+          </a>
+        </Header>
+        <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
+          {this.channel.description}
+        </Description>
+        <MessageList className="bg-color-main flex-grow scroll-v">
+          {this.channel.messages.map((message, i) => <ChatMessage key={i} message={message} />)}
+        </MessageList>
+        <UserList className="bg-color-darken-1 scroll-v padding">
+          {this.channel.users.map(name => <UserListEntry key={name}>{name}</UserListEntry>)}
+        </UserList>
+        <ChatInputWrapper className="bg-color-main flex-row">
+          <ChatInput className="flex-grow" />
+        </ChatInputWrapper>
+      </Container>
+    )
+  }
 }

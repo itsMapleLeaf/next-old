@@ -2,10 +2,13 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import { Icon } from 'src/app/components/Icon'
+import { preventDefault } from '../../common/util/react'
 
 export type ChatTabProps = {
   children?: React.ReactNode
   active?: boolean
+  onActivate?: () => void
+  onClose?: () => void
 }
 
 const Wrapper = styled.div`
@@ -28,11 +31,11 @@ export function ChatTab(props: ChatTabProps) {
   const activeClass = props.active ? 'bg-color-main' : ''
   return (
     <Wrapper className={`${activeClass} flex-row flex-align-stretch`} active={props.active}>
-      <a href="#" className="flex-grow padding">
+      <a href="#" className="flex-grow padding" onClick={preventDefault(props.onActivate)}>
         {props.children}
       </a>
       <CloseIcon href="#" className="flex-center padding no-line-height">
-        <Icon name="close" />
+        <Icon name="close" onClick={preventDefault(props.onClose)} />
       </CloseIcon>
     </Wrapper>
   )
