@@ -49,8 +49,11 @@ export function ChatMenu() {
             src="https://static.f-list.net/images/avatar/lily%20makoto.png"
             alt="avatar for lily"
           />
-          <div className="bg-color-darken-1" style={{ padding: '8px' }}>
-            <i>Online - Around, maybe...</i>
+          <div
+            className="bg-color-darken-1"
+            style={{ padding: '8px', fontStyle: 'italic', fontSize: '75%' }}
+          >
+            Online - Around, maybe...
           </div>
         </ProfileInfo>
         <div className="bg-color-darken-2" style={{ height: '4px' }} />
