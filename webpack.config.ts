@@ -53,7 +53,7 @@ export = (env = {} as ConfigEnvironment) => {
   const baseConfig: webpack.Configuration = {
     entry: {
       app: resolve(sourcePath, 'main'),
-      lib: ['react', 'react-dom'],
+      lib: ['react', 'react-dom', 'mobx', 'mobx-react', 'styled-components'],
     },
     output: {
       filename: 'js/[name].js',
@@ -81,6 +81,7 @@ export = (env = {} as ConfigEnvironment) => {
       extensions: ['.js', '.json', '.ts', '.tsx'],
       alias: {
         src: sourcePath,
+        tslib$: 'tslib/tslib.es6.js',
       },
     },
   }
