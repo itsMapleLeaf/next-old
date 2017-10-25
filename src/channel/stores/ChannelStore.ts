@@ -34,6 +34,10 @@ export class ChannelStore {
     return Array.from(this.joinedChannels.keys()).map(id => this.getChannel(id))
   }
 
+  isJoined(id: string) {
+    return this.joinedChannels.has(id)
+  }
+
   async saveJoinedChannels() {
     const channelIDs = this.getJoinedChannels().map(ch => ch.id)
     await this.storedChannels.save(channelIDs)

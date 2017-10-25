@@ -1,3 +1,4 @@
+import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
@@ -5,7 +6,9 @@ import { ChatInput } from 'src/chat/components/ChatInput'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { MessageComponent } from 'src/message/components/MessageComponent'
+import { Message } from 'src/message/models/Message'
 import styled from 'styled-components'
+import { ChannelUsers } from './ChannelUsers'
 
 const Container = styled.div`
   display: grid;
@@ -33,15 +36,7 @@ const Description = styled(ShowOnDesktop)`
   height: 80px;
 `
 
-const UserList = styled(ShowOnDesktop)`grid-area: user-list;`
-
-const UserListEntry = styled.div`
-  font-weight: 500;
-
-  :not(:last-child) {
-    margin-bottom: 8px;
-  }
-`
+const UserListContainer = styled(ShowOnDesktop)`grid-area: user-list;`
 
 const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
@@ -55,9 +50,15 @@ type ChannelViewProps = JSX.IntrinsicElements['div'] & {
 @inject('channelStore')
 @observer
 export class ChannelView extends React.Component<ChannelViewProps> {
+  @computed
+  get channel() {
+    return this.props.channelStore!.getChannel(this.props.channelID)
+  }
+
   render() {
     const { className } = this.props
-    const channel = this.props.channelStore!.getChannel(this.props.channelID)
+    const { channel } = this
+
     return (
       <Container className={`${className} fill-area`}>
         <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
@@ -65,16 +66,20 @@ export class ChannelView extends React.Component<ChannelViewProps> {
         </Description>
         <AutoScroller>
           <MessageList className="bg-color-main flex-grow scroll-v">
-            {channel.messages.map((message, i) => <MessageComponent key={i} message={message} />)}
+            {channel.messages.map(this.renderMessage)}
           </MessageList>
         </AutoScroller>
-        <UserList className="bg-color-darken-1 scroll-v padding">
-          {channel.users.map(name => <UserListEntry key={name}>{name}</UserListEntry>)}
-        </UserList>
+        <UserListContainer className="bg-color-darken-1 scroll-v">
+          <ChannelUsers users={channel.users} ops={channel.ops} />
+        </UserListContainer>
         <ChatInputWrapper className="bg-color-main flex-row">
           <ChatInput className="flex-grow" />
         </ChatInputWrapper>
       </Container>
     )
+  }
+
+  renderMessage = (message: Message, i: number) => {
+    return <MessageComponent key={i} message={message} />
   }
 }

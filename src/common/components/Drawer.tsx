@@ -13,7 +13,6 @@ type Props = {
 const Shade = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   transition: 0.3s;
-  z-index: 1;
 
   > .overlay-panel {
     transition: 0.3s;
