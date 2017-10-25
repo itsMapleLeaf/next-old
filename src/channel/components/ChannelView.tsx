@@ -2,9 +2,9 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { AppStore } from 'src/app/stores/AppStore'
 import { ChatInput } from 'src/chat/components/ChatInput'
-import { ChatMessage } from 'src/chat/components/ChatMessage'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
+import { MessageComponent } from 'src/message/components/MessageComponent'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -65,7 +65,7 @@ export class ChannelView extends React.Component<ChannelViewProps> {
         </Description>
         <AutoScroller>
           <MessageList className="bg-color-main flex-grow scroll-v">
-            {channel.messages.map((message, i) => <ChatMessage key={i} message={message} />)}
+            {channel.messages.map((message, i) => <MessageComponent key={i} message={message} />)}
           </MessageList>
         </AutoScroller>
         <UserList className="bg-color-darken-1 scroll-v padding">
