@@ -36,7 +36,7 @@ const Description = styled(ShowOnDesktop)`
   height: 80px;
 `
 
-const UserListContainer = styled.div`grid-area: user-list;`
+const UserListContainer = styled(ShowOnDesktop)`grid-area: user-list;`
 
 const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
