@@ -8,11 +8,11 @@
 - [x] Character colors
 - [x] Dots next to each character name for status
 - [x] User list sorting
-- [ ] Message filtering in channels
-- [ ] Private chats
 - [ ] Channel browser screen
-- [ ] Status update screen
+- [ ] Message filtering in channels
 - [ ] Character context menu
+- [ ] Private chats
+- [ ] Status update screen
 - [ ] Make saved channels per-character
 - [ ] Different colors for different message types (ads, system, admin)
 - [ ] Timestamps on messages
