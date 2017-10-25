@@ -1,10 +1,10 @@
-import { computed } from 'mobx'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
 import { AppStore } from 'src/app/stores/AppStore'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { ChatMessage } from 'src/chat/components/ChatMessage'
+import { AutoScroller } from 'src/common/components/AutoScroller'
 import { ShowOnDesktop, ShowOnMobile } from 'src/common/components/responsive-utils'
 import styled from 'styled-components'
 
@@ -64,14 +64,16 @@ type ChannelViewProps = JSX.IntrinsicElements['div'] & {
 }
 
 @inject('store')
+@observer
 export class ChannelView extends React.Component<ChannelViewProps> {
-  @computed
-  get channel() {
-    return this.props.store!.chat.channels.getChannel(this.props.channelID)
-  }
+  // @computed
+  // get channel() {
+  //   return this.props.store!.chat.channels.getChannel(this.props.channelID)
+  // }
 
   render() {
-    const { className } = this.props
+    const { store, className } = this.props
+    const channel = store!.chat.channels.getChannel(this.props.channelID)
     return (
       <Container className={`${className} fill-area`}>
         <Header className="bg-color-darken-2 flex-row flex-align-center padding">
@@ -80,7 +82,7 @@ export class ChannelView extends React.Component<ChannelViewProps> {
               <Icon name="menu" size={24} />
             </a>
           </ShowOnMobile>
-          <h3 className="flex-grow">{this.channel.title}</h3>
+          <h3 className="flex-grow">{channel.title}</h3>
           <ShowOnMobile>
             <a href="#" onClick={this.props.onMoreClicked}>
               <Icon name="more-vert" size={24} />
@@ -88,13 +90,15 @@ export class ChannelView extends React.Component<ChannelViewProps> {
           </ShowOnMobile>
         </Header>
         <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
-          {this.channel.description}
+          {channel.description}
         </Description>
-        <MessageList className="bg-color-main flex-grow scroll-v">
-          {this.channel.messages.map((message, i) => <ChatMessage key={i} message={message} />)}
-        </MessageList>
+        <AutoScroller>
+          <MessageList className="bg-color-main flex-grow scroll-v">
+            {channel.messages.map((message, i) => <ChatMessage key={i} message={message} />)}
+          </MessageList>
+        </AutoScroller>
         <UserList className="bg-color-darken-1 scroll-v padding">
-          {this.channel.users.map(name => <UserListEntry key={name}>{name}</UserListEntry>)}
+          {channel.users.map(name => <UserListEntry key={name}>{name}</UserListEntry>)}
         </UserList>
         <ChatInputWrapper className="bg-color-main flex-row">
           <ChatInput className="flex-grow" />
