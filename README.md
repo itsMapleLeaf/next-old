@@ -8,7 +8,7 @@
 - [x] Character colors
 - [x] Dots next to each character name for status
 - [x] User list sorting
-- [ ] Channel browser screen
+- [x] Channel browser screen
 - [ ] Message filtering in channels
 - [ ] Character context menu
 - [ ] Private chats
@@ -17,6 +17,7 @@
 - [ ] Different colors for different message types (ads, system, admin)
 - [ ] Timestamps on messages
 - [ ] BBC parsing
+- [ ] Proper transitions wherever missing
 
 ### 0.13.0
 - [ ] Notifications for when friends/bookmarks log on/off
@@ -25,3 +26,4 @@
 
 - A favorites list in the channel browser
 - Channel specific notification settings
+- BBC Shortcuts

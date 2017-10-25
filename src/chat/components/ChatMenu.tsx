@@ -15,6 +15,7 @@ type ChatMenuProps = {
   channelStore?: ChannelStore
   chatStore?: ChatStore
   activeChannel: string
+  channelBrowserAction: () => void
   onChannelActivate: (channel: string) => void
 }
 
@@ -40,7 +41,7 @@ export class ChatMenu extends React.Component<ChatMenuProps> {
       <div className="bg-color-main flex-row full-height" style={{ width: '240px' }}>
         <div className="bg-color-darken-2 flex-column">
           <section className="flex-grow flex-column">
-            <ChatAction icon="forum" />
+            <ChatAction icon="forum" onClick={this.props.channelBrowserAction} />
             <ChatAction icon="account-circle" />
             <ChatAction icon="account-multiple" />
             <ChatAction icon="settings" />
