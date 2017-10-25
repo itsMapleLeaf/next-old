@@ -55,7 +55,6 @@ export = (env = {} as ConfigEnvironment) => {
   const baseConfig: webpack.Configuration = {
     entry: {
       app: resolve(sourcePath, 'main'),
-      lib: ['react', 'react-dom', 'mobx', 'mobx-react', 'styled-components'],
     },
     output: {
       filename: 'js/[name].js',
@@ -77,7 +76,6 @@ export = (env = {} as ConfigEnvironment) => {
         filename: 'css/[name].css',
         disable: !env.production,
       }),
-      new webpack.optimize.CommonsChunkPlugin({ name: 'lib' }),
       new webpack.DefinePlugin({
         APP_NAME: JSON.stringify(name),
         APP_VERSION: JSON.stringify(version),
@@ -99,15 +97,24 @@ export = (env = {} as ConfigEnvironment) => {
 
   const prodConfig: webpack.Configuration = {
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"production"',
-      }),
       new CopyPlugin([
         {
           from: 'public',
           to: 'public',
         },
       ]),
+
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': '"production"',
+      }),
+
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'lib',
+        minChunks: ({ resource }) => {
+          return resource && resource.includes('node_modules')
+        },
+      }),
+
       new UglifyPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
     ],
