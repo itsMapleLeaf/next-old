@@ -27,10 +27,10 @@ export class ChatStore {
   ]
 
   constructor(
-    public channels: ChannelStore,
-    public privateChats: PrivateChatStore,
-    public characters: CharacterStore,
-    public channelList: ChannelBrowserStore,
+    private channels: ChannelStore,
+    private privateChats: PrivateChatStore,
+    private characters: CharacterStore,
+    private channelList: ChannelBrowserStore,
   ) {}
 
   connectToServer(

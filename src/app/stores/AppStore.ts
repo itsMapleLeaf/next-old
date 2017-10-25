@@ -1,6 +1,5 @@
 import { action, observable } from 'mobx'
 import { AuthStore } from 'src/auth/stores/AuthStore'
-import { ChatStore } from 'src/chat/stores/ChatStore'
 
 export enum AppState {
   setup,
@@ -13,7 +12,7 @@ export enum AppState {
 export class AppStore {
   @observable state = AppState.setup
 
-  constructor(public auth: AuthStore, public chat: ChatStore) {}
+  constructor(private auth: AuthStore) {}
 
   @action
   setState(state: AppState) {

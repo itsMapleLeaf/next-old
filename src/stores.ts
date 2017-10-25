@@ -11,10 +11,8 @@ const privateChats = new PrivateChatStore()
 const characterStore = new CharacterStore()
 const channelBrowserStore = new ChannelBrowserStore()
 const chatStore = new ChatStore(channelStore, privateChats, characterStore, channelBrowserStore)
-
 const authStore = new AuthStore()
-
-const appStore = new AppStore(authStore, chatStore)
+const appStore = new AppStore(authStore)
 
 const stores = {
   appStore,
