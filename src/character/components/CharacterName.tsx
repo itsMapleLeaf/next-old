@@ -8,15 +8,26 @@ type Props = {
   characterStore?: CharacterStore
 }
 
+const statusDotStyle: React.CSSProperties = {
+  lineHeight: 0,
+  fontSize: '120%',
+  verticalAlign: 'middle',
+}
+
 @inject('characterStore')
 @observer
 export class CharacterName extends React.Component<Props> {
   render() {
     const { name } = this.props
-    const character = this.props.characterStore!.getCharacter(name)
-    const genderClass = 'character-gender-' + character.gender.toLowerCase()
+    const { gender, status } = this.props.characterStore!.getCharacter(name)
+    const genderClass = 'character-gender-' + gender.toLowerCase()
+    const statusClass = 'character-status-' + status.toLowerCase()
+
     return (
       <a href={getProfileURL(name)} target="_blank" className={`${genderClass} text-bold`}>
+        <span className={statusClass} title={status} style={statusDotStyle}>
+          &bull;
+        </span>{' '}
         {name}
       </a>
     )
