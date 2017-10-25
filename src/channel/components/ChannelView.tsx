@@ -1,11 +1,10 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { Icon } from 'src/app/components/Icon'
 import { AppStore } from 'src/app/stores/AppStore'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { ChatMessage } from 'src/chat/components/ChatMessage'
 import { AutoScroller } from 'src/common/components/AutoScroller'
-import { ShowOnDesktop, ShowOnMobile } from 'src/common/components/responsive-utils'
+import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -14,26 +13,16 @@ const Container = styled.div`
 
   // on mobile
   @media (max-width: 750px) {
-    grid-template-rows: 40px 1fr 80px;
+    grid-template-rows: 1fr 80px;
     grid-template-columns: 1fr;
-    grid-template-areas: 'header' 'message-list' 'chat-input';
+    grid-template-areas: 'message-list' 'chat-input';
   }
 
   // on desktop
   @media (min-width: 750px) {
-    grid-template-rows: 40px 80px 1fr 80px;
+    grid-template-rows: 80px 1fr 80px;
     grid-template-columns: 1fr 200px;
-    grid-template-areas: 'header header' 'description description' 'message-list user-list'
-      'chat-input chat-input';
-  }
-`
-
-const Header = styled.div`
-  grid-area: header;
-  line-height: 0;
-
-  > :not(:last-child) {
-    margin-right: 8px;
+    grid-template-areas: 'description description' 'message-list user-list' 'chat-input chat-input';
   }
 `
 
@@ -66,29 +55,11 @@ type ChannelViewProps = JSX.IntrinsicElements['div'] & {
 @inject('store')
 @observer
 export class ChannelView extends React.Component<ChannelViewProps> {
-  // @computed
-  // get channel() {
-  //   return this.props.store!.chat.channels.getChannel(this.props.channelID)
-  // }
-
   render() {
     const { store, className } = this.props
     const channel = store!.chat.channels.getChannel(this.props.channelID)
     return (
       <Container className={`${className} fill-area`}>
-        <Header className="bg-color-darken-2 flex-row flex-align-center padding">
-          <ShowOnMobile>
-            <a href="#" onClick={this.props.onMenuClicked}>
-              <Icon name="menu" size={24} />
-            </a>
-          </ShowOnMobile>
-          <h3 className="flex-grow">{channel.title}</h3>
-          <ShowOnMobile>
-            <a href="#" onClick={this.props.onMoreClicked}>
-              <Icon name="more-vert" size={24} />
-            </a>
-          </ShowOnMobile>
-        </Header>
         <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
           {channel.description}
         </Description>

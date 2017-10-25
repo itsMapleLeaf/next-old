@@ -1,15 +1,22 @@
 import { action, observable } from 'mobx'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import * as React from 'react'
 import { ChannelView } from 'src/channel/components/ChannelView'
 import { Drawer } from 'src/common/components/Drawer'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { ChatMenu } from './ChatMenu'
+import { ChatHeader } from './ChatHeader'
+import { AppStore } from 'src/app/stores/AppStore'
 
-type ChatProps = {}
+type ChatProps = {
+  store?: AppStore
+}
 
+@inject('store')
 @observer
 export class ChatView extends React.Component<ChatProps> {
+  store = this.props.store!
+
   @observable isMenuOpen = false
   @observable currentChannel = ''
 
@@ -44,6 +51,13 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
+  renderHeaderTitle() {
+    if (this.currentChannel) {
+      return this.store.chat.channels.getChannel(this.currentChannel).title
+    }
+    return 'next'
+  }
+
   render() {
     return (
       <main className="bg-color-darken-3 fullscreen flex-row">
@@ -57,6 +71,11 @@ export class ChatView extends React.Component<ChatProps> {
         </Drawer>
 
         <section className="flex-grow flex-column">
+          <ChatHeader
+            title={this.renderHeaderTitle()}
+            onMenuClicked={this.toggleMenu}
+            onMoreClicked={console.log}
+          />
           {this.currentChannel && this.renderChannelView()}
         </section>
       </main>
