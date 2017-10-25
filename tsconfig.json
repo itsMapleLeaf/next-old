@@ -3,15 +3,16 @@
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
-    "strict": true,
     "lib": ["dom", "esnext"],
+    "strict": true,
+    "jsx": "react",
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "noUnusedLocals": true
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "noUnusedLocals": true,
+    "sourceMap": true,
+    "plugins": [{ "name": "typescript-styled-plugin" }]
   },
-  "include": ["src/**/*", "src/**/*.vue", "typings/**/*"]
+  "include": ["src/**/*", "typings/**/*", "webpack.config.ts"]
 }

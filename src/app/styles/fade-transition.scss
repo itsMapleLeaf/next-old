@@ -1,0 +1,30 @@
+@keyframes fade-in {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
+
+.fade {
+  &-enter {
+    animation: 0.3s fade-in;
+  }
+
+  &-leave {
+    animation: 0.3s fade-in reverse;
+  }
+}
+
+.fade-in {
+  &-enter {
+    animation: 0.3s fade-in;
+  }
+}
+
+.fade-out {
+  &-leave {
+    animation: 0.3s fade-in reverse;
+  }
+}
