@@ -7,7 +7,7 @@
 ### 0.12.0
 - [x] Character colors
 - [x] Dots next to each character name for status
-- [ ] User list sorting
+- [x] User list sorting
 - [ ] Message filtering in channels
 - [ ] Private chats
 - [ ] Channel browser screen

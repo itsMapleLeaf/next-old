@@ -2,13 +2,13 @@ import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
-import { CharacterName } from 'src/character/components/CharacterName'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { MessageComponent } from 'src/message/components/MessageComponent'
-import styled from 'styled-components'
 import { Message } from 'src/message/models/Message'
+import styled from 'styled-components'
+import { ChannelUsers } from './ChannelUsers'
 
 const Container = styled.div`
   display: grid;
@@ -36,15 +36,7 @@ const Description = styled(ShowOnDesktop)`
   height: 80px;
 `
 
-const UserList = styled(ShowOnDesktop)`grid-area: user-list;`
-
-const UserListEntry = styled.div`
-  font-weight: 500;
-
-  :not(:last-child) {
-    margin-bottom: 8px;
-  }
-`
+const UserListContainer = styled.div`grid-area: user-list;`
 
 const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
@@ -66,6 +58,7 @@ export class ChannelView extends React.Component<ChannelViewProps> {
   render() {
     const { className } = this.props
     const { channel } = this
+
     return (
       <Container className={`${className} fill-area`}>
         <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
@@ -76,21 +69,13 @@ export class ChannelView extends React.Component<ChannelViewProps> {
             {channel.messages.map(this.renderMessage)}
           </MessageList>
         </AutoScroller>
-        <UserList className="bg-color-darken-1 scroll-v padding">
-          {channel.users.map(this.renderUserListEntry)}
-        </UserList>
+        <UserListContainer className="bg-color-darken-1 scroll-v">
+          <ChannelUsers users={channel.users} ops={channel.ops} />
+        </UserListContainer>
         <ChatInputWrapper className="bg-color-main flex-row">
           <ChatInput className="flex-grow" />
         </ChatInputWrapper>
       </Container>
-    )
-  }
-
-  renderUserListEntry = (name: string) => {
-    return (
-      <UserListEntry key={name}>
-        <CharacterName name={name} />
-      </UserListEntry>
     )
   }
 
