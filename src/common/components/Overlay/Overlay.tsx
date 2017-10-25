@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Transition } from 'src/common/components/Transition'
-import { preventDefault } from 'src/common/util/react'
+import { preventDefault, stopPropagation } from 'src/common/util/react'
 import './Overlay.scss'
 
 type OverlayProps = {
-  children: React.ReactNode
+  children?: React.ReactNode
+  visible?: boolean
   onShadeClick?: () => void
 }
 
@@ -13,10 +13,14 @@ export function Overlay(props: OverlayProps) {
     if (props.onShadeClick) props.onShadeClick()
   })
   return (
-    <Transition name="fade">
-      <div className="Overlay-shade" onClick={handleClick}>
-        <div className="Overlay-panel">{props.children}</div>
+    <div
+      className="Overlay-shade"
+      style={{ display: props.visible ? undefined : 'none' }}
+      onClick={handleClick}
+    >
+      <div className="Overlay-panel" onClick={stopPropagation()}>
+        {props.children}
       </div>
-    </Transition>
+    </div>
   )
 }
