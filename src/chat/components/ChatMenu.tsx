@@ -59,6 +59,7 @@ export class ChatMenu extends React.Component<ChatMenuProps> {
             {sortedChannels.map(ch => this.renderChannelTab(ch))}
 
             <h3 className="margin faded">Private Chats</h3>
+            <div className="text-italic text-small padding faded">Not working yet :(</div>
           </div>
         </div>
       </div>
