@@ -26,6 +26,11 @@ export class ChatView extends React.Component<ChatProps> {
   }
 
   @action.bound
+  setCurrentChannel(id: string) {
+    this.currentChannel = id
+  }
+
+  @action.bound
   handleChannelActivate(channel: string) {
     this.currentChannel = channel
     this.isMenuOpen = false

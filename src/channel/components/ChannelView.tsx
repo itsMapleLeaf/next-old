@@ -1,11 +1,14 @@
+import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
+import { CharacterName } from 'src/character/components/CharacterName'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { MessageComponent } from 'src/message/components/MessageComponent'
 import styled from 'styled-components'
+import { Message } from 'src/message/models/Message'
 
 const Container = styled.div`
   display: grid;
@@ -55,9 +58,14 @@ type ChannelViewProps = JSX.IntrinsicElements['div'] & {
 @inject('channelStore')
 @observer
 export class ChannelView extends React.Component<ChannelViewProps> {
+  @computed
+  get channel() {
+    return this.props.channelStore!.getChannel(this.props.channelID)
+  }
+
   render() {
     const { className } = this.props
-    const channel = this.props.channelStore!.getChannel(this.props.channelID)
+    const { channel } = this
     return (
       <Container className={`${className} fill-area`}>
         <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
@@ -65,16 +73,28 @@ export class ChannelView extends React.Component<ChannelViewProps> {
         </Description>
         <AutoScroller>
           <MessageList className="bg-color-main flex-grow scroll-v">
-            {channel.messages.map((message, i) => <MessageComponent key={i} message={message} />)}
+            {channel.messages.map(this.renderMessage)}
           </MessageList>
         </AutoScroller>
         <UserList className="bg-color-darken-1 scroll-v padding">
-          {channel.users.map(name => <UserListEntry key={name}>{name}</UserListEntry>)}
+          {channel.users.map(this.renderUserListEntry)}
         </UserList>
         <ChatInputWrapper className="bg-color-main flex-row">
           <ChatInput className="flex-grow" />
         </ChatInputWrapper>
       </Container>
     )
+  }
+
+  renderUserListEntry = (name: string) => {
+    return (
+      <UserListEntry key={name}>
+        <CharacterName name={name} />
+      </UserListEntry>
+    )
+  }
+
+  renderMessage = (message: Message, i: number) => {
+    return <MessageComponent key={i} message={message} />
   }
 }
