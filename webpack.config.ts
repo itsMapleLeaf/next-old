@@ -94,6 +94,7 @@ export = (env = {} as ConfigEnvironment) => {
 
   const devConfig: webpack.Configuration = {
     plugins: [new webpack.NamedModulesPlugin()],
+    devtool: 'eval-source-map',
   }
 
   const prodConfig: webpack.Configuration = {
@@ -110,6 +111,7 @@ export = (env = {} as ConfigEnvironment) => {
       new UglifyPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
     ],
+    devtool: 'source-map',
   }
 
   if (env.production) {

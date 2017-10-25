@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "experimentalDecorators": true,
-    "jsx": "react",
-    "lib": ["dom", "esnext"],
+    "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
+    "lib": ["dom", "esnext"],
+    "strict": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "noUnusedLocals": true,
-    "strict": true,
-    "target": "es6",
+    "sourceMap": true,
     "plugins": [{ "name": "typescript-styled-plugin" }]
   },
   "include": ["src/**/*", "typings/**/*", "webpack.config.ts"]
