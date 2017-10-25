@@ -50,6 +50,8 @@ export = (env = {} as ConfigEnvironment) => {
     }),
   }
 
+  const { name, version } = require('./package.json')
+
   const baseConfig: webpack.Configuration = {
     entry: {
       app: resolve(sourcePath, 'main'),
@@ -76,6 +78,10 @@ export = (env = {} as ConfigEnvironment) => {
         disable: !env.production,
       }),
       new webpack.optimize.CommonsChunkPlugin({ name: 'lib' }),
+      new webpack.DefinePlugin({
+        APP_NAME: JSON.stringify(name),
+        APP_VERSION: JSON.stringify(version),
+      }),
     ],
     resolve: {
       extensions: ['.js', '.json', '.ts', '.tsx'],

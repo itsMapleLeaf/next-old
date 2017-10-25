@@ -51,8 +51,8 @@ export class ChatStore {
         account,
         ticket,
         character,
-        cname: process.env.APP_NAME,
-        cversion: process.env.APP_VERSION,
+        cname: APP_NAME,
+        cversion: APP_VERSION,
         method: 'ticket',
       }
       this.sendSocketCommand('IDN', params)
