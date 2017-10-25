@@ -85,7 +85,7 @@ export = (env = {} as ConfigEnvironment) => {
       extensions: ['.js', '.json', '.ts', '.tsx'],
       alias: {
         src: sourcePath,
-        tslib$: 'tslib/tslib.es6.js',
+        tslib: 'tslib/tslib.es6.js',
       },
     },
   }
