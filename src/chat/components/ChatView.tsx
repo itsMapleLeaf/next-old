@@ -9,7 +9,7 @@ import { ChatMenu } from './ChatMenu'
 type ChatProps = {}
 
 @observer
-export class Chat extends React.Component<ChatProps> {
+export class ChatView extends React.Component<ChatProps> {
   @observable isMenuOpen = false
   @observable currentChannel = ''
 

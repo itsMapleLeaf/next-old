@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react'
 
 import { Loading } from 'src/app/components/Loading'
 import { AppState, AppStore } from 'src/app/stores/AppStore'
-import { Chat } from 'src/chat/components/Chat'
+import { ChatView } from 'src/chat/components/ChatView'
 
 import { CharacterSelect } from './CharacterSelect'
 import { Login } from './Login'
@@ -87,7 +87,7 @@ export class App extends React.Component<AppProps> {
         return <Loading text="Connecting..." />
 
       case AppState.online:
-        return <Chat />
+        return <ChatView />
     }
   }
 
