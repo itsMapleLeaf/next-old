@@ -14,7 +14,7 @@ function Root() {
       <Provider {...stores}>
         <App />
       </Provider>
-      <DevTools />
+      <DevTools position={{ right: 0, bottom: 0 }} />
     </div>
   )
 }
