@@ -46,18 +46,18 @@ const UserListEntry = styled.div`
 const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
 type ChannelViewProps = JSX.IntrinsicElements['div'] & {
-  store?: AppStore
+  appStore?: AppStore
   channelID: string
   onMenuClicked: () => void
   onMoreClicked: () => void
 }
 
-@inject('store')
+@inject('appStore')
 @observer
 export class ChannelView extends React.Component<ChannelViewProps> {
   render() {
-    const { store, className } = this.props
-    const channel = store!.chat.channels.getChannel(this.props.channelID)
+    const { appStore, className } = this.props
+    const channel = appStore!.chat.channels.getChannel(this.props.channelID)
     return (
       <Container className={`${className} fill-area`}>
         <Description className="bg-color-darken-1 scroll-v padding preserve-ws">

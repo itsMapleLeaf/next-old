@@ -9,13 +9,13 @@ import { ChatHeader } from './ChatHeader'
 import { ChatMenu } from './ChatMenu'
 
 type ChatProps = {
-  store?: AppStore
+  appStore?: AppStore
 }
 
-@inject('store')
+@inject('appStore')
 @observer
 export class ChatView extends React.Component<ChatProps> {
-  store = this.props.store!
+  store = this.props.appStore!
 
   @observable isMenuOpen = false
   @observable currentChannel = ''

@@ -9,15 +9,15 @@ import { ChatAction } from 'src/chat/components/ChatAction'
 import { ChatTab } from 'src/chat/components/ChatTab'
 
 type ChatMenuProps = {
-  store?: AppStore
+  appStore?: AppStore
   activeChannel: string
   onChannelActivate: (channel: string) => void
 }
 
-@inject('store')
+@inject('appStore')
 @observer
 export class ChatMenu extends React.Component<ChatMenuProps> {
-  store = this.props.store!
+  store = this.props.appStore!
 
   renderChannelTab(channel: Channel) {
     const handleActivate = () => this.props.onChannelActivate(channel.id)

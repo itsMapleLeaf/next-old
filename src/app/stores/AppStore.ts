@@ -11,10 +11,9 @@ export enum AppState {
 }
 
 export class AppStore {
-  auth = new AuthStore()
-  chat = new ChatStore()
-
   @observable state = AppState.setup
+
+  constructor(public auth: AuthStore, public chat: ChatStore) {}
 
   @action
   setState(state: AppState) {

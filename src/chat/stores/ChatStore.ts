@@ -16,11 +16,6 @@ export class ChatStore {
   @observable ignored = {} as Dictionary<boolean>
   @observable admins = {} as Dictionary<boolean>
 
-  channels = new ChannelStore()
-  privateChats = new PrivateChatStore()
-  characters = new CharacterStore()
-  channelList = new ChannelBrowserStore()
-
   private socket: WebSocket | void
 
   private commandHandlers: CommandHandler[] = [
@@ -30,6 +25,13 @@ export class ChatStore {
     this.characters,
     this.channelList,
   ]
+
+  constructor(
+    public channels: ChannelStore,
+    public privateChats: PrivateChatStore,
+    public characters: CharacterStore,
+    public channelList: ChannelBrowserStore,
+  ) {}
 
   connectToServer(
     account: string,

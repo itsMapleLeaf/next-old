@@ -15,15 +15,15 @@ const Avatar = styled.img`
 
 type Props = {
   name: string
-  store?: AppStore
+  appStore?: AppStore
 }
 
-@inject('store')
+@inject('appStore')
 @observer
 export class CharacterDetails extends React.Component<Props> {
   @computed
   get character() {
-    return this.props.store!.chat.characters.getCharacter(this.props.name)
+    return this.props.appStore!.chat.characters.getCharacter(this.props.name)
   }
 
   render() {

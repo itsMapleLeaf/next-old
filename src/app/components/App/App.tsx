@@ -11,27 +11,25 @@ import { CharacterSelect } from './CharacterSelect'
 import { Login } from './Login'
 
 type AppProps = {
-  store?: AppStore
+  appStore?: AppStore
 }
 
-@inject('store')
+@inject('appStore')
 @observer
 export class App extends React.Component<AppProps> {
-  store = this.props.store!
+  store = this.props.appStore!
   @observable loginStatus = ''
 
   @action.bound
   async handleLoginSubmit(username: string, password: string) {
-    const store = this.props.store!
-
     try {
       this.loginStatus = 'Logging in...'
 
-      await store.auth.fetchTicket(username, password)
-      await store.auth.fetchCharacters()
+      await this.store.auth.fetchTicket(username, password)
+      await this.store.auth.fetchCharacters()
 
-      store.auth.saveAuthData().catch(console.error)
-      store.setState(AppState.characterSelect)
+      this.store.auth.saveAuthData().catch(console.error)
+      this.store.setState(AppState.characterSelect)
 
       this.loginStatus = ''
     } catch (error) {
@@ -41,12 +39,11 @@ export class App extends React.Component<AppProps> {
 
   @action.bound
   handleCharacterSubmit(character: string) {
-    const store = this.props.store!
-    const { account, ticket } = store.auth
+    const { account, ticket } = this.store.auth
 
-    store.setState(AppState.connecting)
+    this.store.setState(AppState.connecting)
 
-    store.chat.connectToServer(
+    this.store.chat.connectToServer(
       account,
       ticket,
       character,
@@ -57,7 +54,7 @@ export class App extends React.Component<AppProps> {
 
   @action.bound
   handleConnect() {
-    this.props.store!.setState(AppState.online)
+    this.store.setState(AppState.online)
   }
 
   @action.bound
@@ -66,9 +63,7 @@ export class App extends React.Component<AppProps> {
   }
 
   renderCurrentView() {
-    const store = this.props.store!
-
-    switch (store.state) {
+    switch (this.store.state) {
       case AppState.setup:
         return <Loading text="Setting things up..." />
 
@@ -78,7 +73,7 @@ export class App extends React.Component<AppProps> {
       case AppState.characterSelect:
         return (
           <CharacterSelect
-            characters={store.auth.characters}
+            characters={this.store.auth.characters}
             onSubmit={this.handleCharacterSubmit}
           />
         )
