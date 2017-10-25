@@ -33,7 +33,7 @@ export class ChannelUsers extends React.Component<Props> {
         if (friends[name]) return 2
         if (char.status === 'looking') return 3
         if (ignored[name]) return 999999
-        return 3
+        return 4
       },
       name => name.toLowerCase(),
     )
