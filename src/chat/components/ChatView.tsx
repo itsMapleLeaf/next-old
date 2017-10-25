@@ -1,12 +1,12 @@
 import { action, observable } from 'mobx'
-import { observer, inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { AppStore } from 'src/app/stores/AppStore'
 import { ChannelView } from 'src/channel/components/ChannelView'
 import { Drawer } from 'src/common/components/Drawer'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
-import { ChatMenu } from './ChatMenu'
 import { ChatHeader } from './ChatHeader'
-import { AppStore } from 'src/app/stores/AppStore'
+import { ChatMenu } from './ChatMenu'
 
 type ChatProps = {
   store?: AppStore
