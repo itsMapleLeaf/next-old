@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { AppStore } from 'src/app/stores/AppStore'
+import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
@@ -46,18 +46,18 @@ const UserListEntry = styled.div`
 const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
 type ChannelViewProps = JSX.IntrinsicElements['div'] & {
-  appStore?: AppStore
+  channelStore?: ChannelStore
   channelID: string
   onMenuClicked: () => void
   onMoreClicked: () => void
 }
 
-@inject('appStore')
+@inject('channelStore')
 @observer
 export class ChannelView extends React.Component<ChannelViewProps> {
   render() {
-    const { appStore, className } = this.props
-    const channel = appStore!.chat.channels.getChannel(this.props.channelID)
+    const { className } = this.props
+    const channel = this.props.channelStore!.getChannel(this.props.channelID)
     return (
       <Container className={`${className} fill-area`}>
         <Description className="bg-color-darken-1 scroll-v padding preserve-ws">

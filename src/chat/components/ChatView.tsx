@@ -1,22 +1,22 @@
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { AppStore } from 'src/app/stores/AppStore'
+
 import { ChannelView } from 'src/channel/components/ChannelView'
+import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { Drawer } from 'src/common/components/Drawer'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
+
 import { ChatHeader } from './ChatHeader'
 import { ChatMenu } from './ChatMenu'
 
 type ChatProps = {
-  appStore?: AppStore
+  channelStore?: ChannelStore
 }
 
-@inject('appStore')
+@inject('channelStore')
 @observer
 export class ChatView extends React.Component<ChatProps> {
-  store = this.props.appStore!
-
   @observable isMenuOpen = false
   @observable currentChannel = ''
 
@@ -53,7 +53,7 @@ export class ChatView extends React.Component<ChatProps> {
 
   renderHeaderTitle() {
     if (this.currentChannel) {
-      return this.store.chat.channels.getChannel(this.currentChannel).title
+      return this.props.channelStore!.getChannel(this.currentChannel).title
     }
     return 'next'
   }

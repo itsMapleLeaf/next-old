@@ -5,19 +5,25 @@ import { inject, observer } from 'mobx-react'
 
 import { Loading } from 'src/app/components/Loading'
 import { AppState, AppStore } from 'src/app/stores/AppStore'
+import { AuthStore } from 'src/auth/stores/AuthStore'
 import { ChatView } from 'src/chat/components/ChatView'
-
+import { ChatStore } from 'src/chat/stores/ChatStore'
 import { CharacterSelect } from './CharacterSelect'
 import { Login } from './Login'
 
 type AppProps = {
   appStore?: AppStore
+  authStore?: AuthStore
+  chatStore?: ChatStore
 }
 
-@inject('appStore')
+@inject('appStore', 'authStore', 'chatStore')
 @observer
 export class App extends React.Component<AppProps> {
-  store = this.props.appStore!
+  appStore = this.props.appStore!
+  authStore = this.props.authStore!
+  chatStore = this.props.chatStore!
+
   @observable loginStatus = ''
 
   @action.bound
@@ -25,11 +31,11 @@ export class App extends React.Component<AppProps> {
     try {
       this.loginStatus = 'Logging in...'
 
-      await this.store.auth.fetchTicket(username, password)
-      await this.store.auth.fetchCharacters()
+      await this.authStore.fetchTicket(username, password)
+      await this.authStore.fetchCharacters()
 
-      this.store.auth.saveAuthData().catch(console.error)
-      this.store.setState(AppState.characterSelect)
+      this.authStore.saveAuthData().catch(console.error)
+      this.appStore.setState(AppState.characterSelect)
 
       this.loginStatus = ''
     } catch (error) {
@@ -39,11 +45,11 @@ export class App extends React.Component<AppProps> {
 
   @action.bound
   handleCharacterSubmit(character: string) {
-    const { account, ticket } = this.store.auth
+    const { account, ticket } = this.authStore
 
-    this.store.setState(AppState.connecting)
+    this.appStore.setState(AppState.connecting)
 
-    this.store.chat.connectToServer(
+    this.chatStore.connectToServer(
       account,
       ticket,
       character,
@@ -54,16 +60,16 @@ export class App extends React.Component<AppProps> {
 
   @action.bound
   handleConnect() {
-    this.store.setState(AppState.online)
+    this.appStore.setState(AppState.online)
   }
 
   @action.bound
   handleDisconnect() {
-    this.store.init()
+    this.appStore.init()
   }
 
   renderCurrentView() {
-    switch (this.store.state) {
+    switch (this.appStore.state) {
       case AppState.setup:
         return <Loading text="Setting things up..." />
 
@@ -73,7 +79,7 @@ export class App extends React.Component<AppProps> {
       case AppState.characterSelect:
         return (
           <CharacterSelect
-            characters={this.store.auth.characters}
+            characters={this.authStore.characters}
             onSubmit={this.handleCharacterSubmit}
           />
         )

@@ -1,24 +1,26 @@
+import * as React from 'react'
+
 import sortBy from 'lodash/sortBy'
 import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import { AppStore } from 'src/app/stores/AppStore'
+
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { Channel } from 'src/channel/models/Channel'
+import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import { ChatAction } from 'src/chat/components/ChatAction'
 import { ChatTab } from 'src/chat/components/ChatTab'
+import { ChatStore } from 'src/chat/stores/ChatStore'
 
 type ChatMenuProps = {
-  appStore?: AppStore
+  channelStore?: ChannelStore
+  chatStore?: ChatStore
   activeChannel: string
   onChannelActivate: (channel: string) => void
 }
 
-@inject('appStore')
+@inject('channelStore', 'chatStore')
 @observer
 export class ChatMenu extends React.Component<ChatMenuProps> {
-  store = this.props.appStore!
-
   renderChannelTab(channel: Channel) {
     const handleActivate = () => this.props.onChannelActivate(channel.id)
     const isActive = channel.id === this.props.activeChannel
@@ -31,7 +33,7 @@ export class ChatMenu extends React.Component<ChatMenuProps> {
   }
 
   render() {
-    const joinedChannels = this.store.chat.channels.getJoinedChannels()
+    const joinedChannels = this.props.channelStore!.getJoinedChannels()
     const sortedChannels = sortBy(joinedChannels, ch => ch.title.toLowerCase())
 
     return (
@@ -50,7 +52,7 @@ export class ChatMenu extends React.Component<ChatMenuProps> {
         </div>
 
         <div className="flex-grow flex-column flex-align-stretch">
-          <CharacterDetails name={this.store.chat.identity} />
+          <CharacterDetails name={this.props.chatStore!.identity} />
 
           <div className="bg-color-darken-2 divider-v" />
 

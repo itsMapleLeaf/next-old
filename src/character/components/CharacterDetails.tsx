@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
 
 import { getAvatarURL } from 'src/api'
-import { AppStore } from 'src/app/stores/AppStore'
+import { CharacterStore } from 'src/character/stores/CharacterStore'
 
 const Avatar = styled.img`
   width: 100px;
@@ -15,15 +15,15 @@ const Avatar = styled.img`
 
 type Props = {
   name: string
-  appStore?: AppStore
+  characterStore?: CharacterStore
 }
 
-@inject('appStore')
+@inject('characterStore')
 @observer
 export class CharacterDetails extends React.Component<Props> {
   @computed
   get character() {
-    return this.props.appStore!.chat.characters.getCharacter(this.props.name)
+    return this.props.characterStore!.getCharacter(this.props.name)
   }
 
   render() {
