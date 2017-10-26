@@ -22,7 +22,7 @@ type ChatProps = {
 @observer
 export class ChatView extends React.Component<ChatProps> {
   @observable isMenuOpen = false
-  @observable isChannelBrowserOpen = true // DEBUG: disable this when implemented
+  @observable isChannelBrowserOpen = false
   @observable currentChannel = ''
 
   @action.bound
