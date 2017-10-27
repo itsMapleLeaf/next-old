@@ -14,6 +14,7 @@ import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
 import { ChatNavigator } from './ChatNavigator'
 import { StatusMenu } from './StatusMenu'
+import { ChatHeader } from './ChatHeader'
 
 type ChatProps = {
   channelStore?: ChannelStore
@@ -63,7 +64,7 @@ export class ChatView extends React.Component<ChatProps> {
     if (route.type === 'private-chat') {
       return <PrivateChatView partner={route.partner} />
     }
-    return ''
+    return <ChatHeader title="next" />
   }
 
   renderSidebarMenu() {
