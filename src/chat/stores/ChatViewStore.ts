@@ -1,10 +1,15 @@
 import { action, observable } from 'mobx'
 import { ChatStore } from 'src/chat/stores/ChatStore'
 
+export type ChatViewRoute =
+  | { type: 'channel'; id: string }
+  | { type: 'private-chat'; partner: string }
+  | { type: 'none' }
+
 export class ChatViewStore {
   @observable isMenuOpen = false
   @observable isChannelBrowserOpen = false
-  @observable currentChannel = 'Frontpage'
+  @observable route = { type: 'none' } as ChatViewRoute
 
   @observable
   characterMenu = {
@@ -17,6 +22,11 @@ export class ChatViewStore {
   constructor(private chatStore: ChatStore) {}
 
   @action.bound
+  setRoute(route: ChatViewRoute) {
+    this.route = route
+  }
+
+  @action.bound
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen
   }
@@ -27,11 +37,6 @@ export class ChatViewStore {
     if (open) {
       this.chatStore.fetchChannelList()
     }
-  }
-
-  @action.bound
-  setCurrentChannel(id: string) {
-    this.currentChannel = id
   }
 
   @action

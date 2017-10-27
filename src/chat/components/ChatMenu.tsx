@@ -10,21 +10,23 @@ import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import { ChatAction } from 'src/chat/components/ChatAction'
 import { ChatTab } from 'src/chat/components/ChatTab'
 import { ChatStore } from 'src/chat/stores/ChatStore'
+import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 
 type ChatMenuProps = {
   channelStore?: ChannelStore
   chatStore?: ChatStore
-  activeChannel: string
+  chatViewStore?: ChatViewStore
   channelBrowserAction: () => void
   onChannelActivate: (channel: string) => void
 }
 
-@inject('channelStore', 'chatStore')
+@inject('channelStore', 'chatStore', 'chatViewStore')
 @observer
 export class ChatMenu extends React.Component<ChatMenuProps> {
   renderChannelTab(channel: Channel) {
+    const route = this.props.chatViewStore!.route
     const handleActivate = () => this.props.onChannelActivate(channel.id)
-    const isActive = channel.id === this.props.activeChannel
+    const isActive = route.type === 'channel' && route.id === channel.id
 
     return (
       <ChatTab active={isActive} key={channel.id} onActivate={handleActivate}>

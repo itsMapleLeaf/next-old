@@ -22,17 +22,17 @@ type ChatProps = {
 @inject('chatStore', 'chatViewStore', 'channelStore')
 @observer
 export class ChatView extends React.Component<ChatProps> {
-  chatViewStore = this.props.chatViewStore!
+  viewStore = this.props.chatViewStore!
 
   @action.bound
   handleChannelActivate(channel: string) {
-    this.chatViewStore.setCurrentChannel(channel)
-    this.chatViewStore.isMenuOpen = false
+    this.viewStore.setRoute({ type: 'channel', id: channel })
+    this.viewStore.isMenuOpen = false
   }
 
   @action.bound
   handleClick() {
-    this.chatViewStore.closeCharacterMenu()
+    this.viewStore.closeCharacterMenu()
   }
 
   @action.bound
@@ -40,36 +40,27 @@ export class ChatView extends React.Component<ChatProps> {
     const el = event.target
     if (el instanceof HTMLElement && el.dataset && el.dataset.character) {
       event.preventDefault()
-      this.chatViewStore.openCharacterMenu(el.dataset.character!, event.clientX, event.clientY)
+      this.viewStore.openCharacterMenu(el.dataset.character!, event.clientX, event.clientY)
     }
   }
 
   renderMenu() {
     return (
       <ChatMenu
-        activeChannel={this.chatViewStore.currentChannel}
-        channelBrowserAction={this.chatViewStore.toggleChannelBrowser}
+        channelBrowserAction={this.viewStore.toggleChannelBrowser}
         onChannelActivate={this.handleChannelActivate}
       />
     )
   }
 
-  renderChannelView() {
-    return (
-      <ChannelView
-        className="flex-grow"
-        onMenuClicked={this.chatViewStore.toggleMenu}
-        onMoreClicked={console.log}
-        channelID={this.chatViewStore.currentChannel}
-      />
-    )
-  }
-
-  renderHeaderTitle() {
-    if (this.chatViewStore.currentChannel) {
-      return this.props.channelStore!.getChannel(this.chatViewStore.currentChannel).title
+  renderRoute() {
+    const { route, toggleMenu } = this.viewStore
+    if (route.type === 'channel') {
+      return (
+        <ChannelView channelID={route.id} onMenuClicked={toggleMenu} onMoreClicked={console.log} />
+      )
     }
-    return 'next'
+    return ''
   }
 
   renderSidebarMenu() {
@@ -85,8 +76,8 @@ export class ChatView extends React.Component<ChatProps> {
     return (
       <Drawer
         side="left"
-        visible={this.chatViewStore.isMenuOpen}
-        onShadeClicked={this.chatViewStore.toggleMenu}
+        visible={this.viewStore.isMenuOpen}
+        onShadeClicked={this.viewStore.toggleMenu}
       >
         {this.renderMenu()}
       </Drawer>
@@ -96,18 +87,18 @@ export class ChatView extends React.Component<ChatProps> {
   renderChannelBrowserOverlay() {
     return (
       <Overlay
-        visible={this.chatViewStore.isChannelBrowserOpen}
-        onShadeClick={this.chatViewStore.toggleChannelBrowser}
+        visible={this.viewStore.isChannelBrowserOpen}
+        onShadeClick={this.viewStore.toggleChannelBrowser}
       >
         <div className="bg-color-main" style={{ width: '320px', height: '600px' }}>
-          <ChannelBrowser onDone={this.chatViewStore.toggleChannelBrowser} />
+          <ChannelBrowser onDone={this.viewStore.toggleChannelBrowser} />
         </div>
       </Overlay>
     )
   }
 
   renderCharacterMenu() {
-    const { open, ...props } = this.chatViewStore.characterMenu
+    const { open, ...props } = this.viewStore.characterMenu
     return open && <CharacterMenu {...props} />
   }
 
@@ -120,9 +111,7 @@ export class ChatView extends React.Component<ChatProps> {
       >
         {this.renderSidebarMenu()}
 
-        <section className="flex-grow flex-column">
-          {this.chatViewStore.currentChannel && this.renderChannelView()}
-        </section>
+        <section className="flex-grow flex-column">{this.renderRoute()}</section>
 
         {this.renderDrawerMenu()}
 
