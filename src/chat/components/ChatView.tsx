@@ -92,7 +92,11 @@ export class ChatView extends React.Component<ChatProps> {
   }
 
   renderChatHeader() {
-    return <ChatHeader title={this.renderHeaderTitle()} onMoreClicked={console.log} />
+    return (
+      <ChatHeader title={this.renderHeaderTitle()} onMoreClicked={console.log}>
+        content here
+      </ChatHeader>
+    )
   }
 
   render() {

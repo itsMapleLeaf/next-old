@@ -31,6 +31,7 @@ export class ChatHeader extends React.Component<ChatHeaderProps> {
         <div className="flex-grow">
           <h3 style={{ margin: 0 }}>{this.props.title}</h3>
         </div>
+        <div>{this.props.children}</div>
         <ShowOnMobile className="no-line-height">
           <a href="#" onClick={this.props.onMoreClicked}>
             <Icon name="more-vert" size={24} />
