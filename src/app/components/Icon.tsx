@@ -15,6 +15,7 @@ export function Icon(props: IconProps & JSX.IntrinsicElements['img']) {
     display: 'inline-block',
     lineHeight: 0,
     cursor: 'inherit',
+    verticalAlign: 'middle',
     ...style,
   }
 
