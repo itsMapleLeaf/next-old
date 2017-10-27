@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { getProfileURL } from 'src/api'
 import { Icon } from 'src/app/components/Icon'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import styled from 'styled-components'
@@ -66,7 +67,7 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
         <MenuAction className="padding" href="#">
           <Icon name="message" /> Send Message
         </MenuAction>
-        <MenuAction className="padding" href="#">
+        <MenuAction className="padding" href={getProfileURL(character)} target="_blank">
           <Icon name="link" /> Open Profile
         </MenuAction>
         <MenuAction className="padding" href="#">
