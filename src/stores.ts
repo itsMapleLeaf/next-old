@@ -4,6 +4,7 @@ import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserSt
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
 import { ChatStore } from 'src/chat/stores/ChatStore'
+import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 
 const channelStore = new ChannelStore()
@@ -11,6 +12,7 @@ const privateChats = new PrivateChatStore()
 const characterStore = new CharacterStore()
 const channelBrowserStore = new ChannelBrowserStore()
 const chatStore = new ChatStore(channelStore, privateChats, characterStore, channelBrowserStore)
+const chatViewStore = new ChatViewStore(chatStore)
 const authStore = new AuthStore()
 const appStore = new AppStore(authStore)
 
@@ -21,6 +23,7 @@ const stores = {
   channelStore,
   characterStore,
   chatStore,
+  chatViewStore,
   privateChats,
 }
 
