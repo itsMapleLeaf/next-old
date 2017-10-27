@@ -22,7 +22,12 @@ function renderCharacterName(props: Props) {
   const statusClass = 'character-status-' + status.toLowerCase()
 
   return (
-    <a href={getProfileURL(name)} target="_blank" className={`${genderClass} text-bold`}>
+    <a
+      href={getProfileURL(name)}
+      target="_blank"
+      className={`${genderClass} text-bold`}
+      data-character={name}
+    >
       <StatusDot className={statusClass} title={status}>
         &bull;
       </StatusDot>{' '}

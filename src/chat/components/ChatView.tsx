@@ -4,6 +4,7 @@ import * as React from 'react'
 import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
 import { ChannelView } from 'src/channel/components/ChannelView'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
+import { CharacterMenu } from 'src/character/components/CharacterMenu'
 import { ChatStore } from 'src/chat/stores/ChatStore'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { Drawer } from 'src/common/components/Drawer'
@@ -27,6 +28,20 @@ export class ChatView extends React.Component<ChatProps> {
   handleChannelActivate(channel: string) {
     this.chatViewStore.setCurrentChannel(channel)
     this.chatViewStore.isMenuOpen = false
+  }
+
+  @action.bound
+  handleClick() {
+    this.chatViewStore.closeCharacterMenu()
+  }
+
+  @action.bound
+  handleContextMenu(event: React.MouseEvent<HTMLElement>) {
+    const el = event.target
+    if (el instanceof HTMLElement && el.dataset && el.dataset.character) {
+      event.preventDefault()
+      this.chatViewStore.openCharacterMenu(el.dataset.character!, event.clientX, event.clientY)
+    }
   }
 
   renderMenu() {
@@ -91,9 +106,18 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
+  renderCharacterMenu() {
+    const { open, ...props } = this.chatViewStore.characterMenu
+    return open && <CharacterMenu {...props} />
+  }
+
   render() {
     return (
-      <main className="bg-color-darken-3 fullscreen flex-row">
+      <main
+        className="bg-color-darken-3 fullscreen flex-row"
+        onClick={this.handleClick}
+        onContextMenu={this.handleContextMenu}
+      >
         {this.renderSidebarMenu()}
 
         <section className="flex-grow flex-column">
@@ -103,6 +127,8 @@ export class ChatView extends React.Component<ChatProps> {
         {this.renderDrawerMenu()}
 
         {this.renderChannelBrowserOverlay()}
+
+        {this.renderCharacterMenu()}
       </main>
     )
   }

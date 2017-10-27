@@ -36,7 +36,7 @@ export class CharacterDetails extends React.Component<Props> {
 
         <div className="spacer" />
 
-        <Avatar src={getAvatarURL(name)} alt={`Avatar for ${name}`} />
+        <Avatar src={getAvatarURL(name)} alt={`Avatar for ${name}`} key={name} />
 
         <div className="spacer" />
 
