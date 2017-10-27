@@ -49,9 +49,7 @@ const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
 type ChannelViewProps = JSX.IntrinsicElements['div'] & {
   channelStore?: ChannelStore
-  channelID: string
-  onMenuClicked: () => void
-  onMoreClicked: () => void
+  id: string
 }
 
 @inject('channelStore')
@@ -66,7 +64,7 @@ export class ChannelView extends React.Component<ChannelViewProps> {
 
   @computed
   get channel() {
-    return this.props.channelStore!.getChannel(this.props.channelID)
+    return this.props.channelStore!.getChannel(this.props.id)
   }
 
   @computed

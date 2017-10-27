@@ -56,9 +56,7 @@ export class ChatView extends React.Component<ChatProps> {
   renderRoute() {
     const { route, toggleMenu } = this.viewStore
     if (route.type === 'channel') {
-      return (
-        <ChannelView channelID={route.id} onMenuClicked={toggleMenu} onMoreClicked={console.log} />
-      )
+      return <ChannelView id={route.id} />
     }
     return ''
   }
