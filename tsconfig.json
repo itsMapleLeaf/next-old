@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "noUnusedLocals": true,
+    // "noUnusedLocals": true,
     "sourceMap": true,
     "plugins": [{ "name": "typescript-styled-plugin" }]
   },
