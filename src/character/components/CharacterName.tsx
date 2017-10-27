@@ -15,22 +15,20 @@ const StatusDot = styled.span`
   vertical-align: middle;
 `
 
-@inject('characterStore')
-@observer
-export class CharacterName extends React.Component<Props> {
-  render() {
-    const { name } = this.props
-    const { gender, status } = this.props.characterStore!.getCharacter(name)
-    const genderClass = 'character-gender-' + gender.toLowerCase()
-    const statusClass = 'character-status-' + status.toLowerCase()
+function renderCharacterName(props: Props) {
+  const { name } = props
+  const { gender, status } = props.characterStore!.getCharacter(name)
+  const genderClass = 'character-gender-' + gender.toLowerCase()
+  const statusClass = 'character-status-' + status.toLowerCase()
 
-    return (
-      <a href={getProfileURL(name)} target="_blank" className={`${genderClass} text-bold`}>
-        <StatusDot className={statusClass} title={status}>
-          &bull;
-        </StatusDot>{' '}
-        {name}
-      </a>
-    )
-  }
+  return (
+    <a href={getProfileURL(name)} target="_blank" className={`${genderClass} text-bold`}>
+      <StatusDot className={statusClass} title={status}>
+        &bull;
+      </StatusDot>{' '}
+      {name}
+    </a>
+  )
 }
+
+export const CharacterName = inject('characterStore')(observer(renderCharacterName))
