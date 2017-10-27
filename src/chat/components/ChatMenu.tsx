@@ -1,7 +1,6 @@
 import sortBy from 'lodash/sortBy'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { getAvatarURL } from 'src/api'
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { Channel } from 'src/channel/models/Channel'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
@@ -10,9 +9,9 @@ import { ChatAction } from 'src/chat/components/ChatAction'
 import { ChatTab } from 'src/chat/components/ChatTab'
 import { ChatStore } from 'src/chat/stores/ChatStore'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
+import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
 import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
-import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
 
 type ChatMenuProps = {
   channelStore?: ChannelStore
