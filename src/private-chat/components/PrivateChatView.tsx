@@ -1,12 +1,12 @@
 import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { getAvatarURL } from 'src/api'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { MessageComponent } from 'src/message/components/MessageComponent'
 import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
-import { getAvatarURL } from 'src/api'
 
 type PrivateChatViewProps = {
   partner: string

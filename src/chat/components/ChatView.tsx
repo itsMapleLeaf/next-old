@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
@@ -12,7 +12,6 @@ import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
-import { ChatHeader } from './ChatHeader'
 import { ChatNavigator } from './ChatNavigator'
 
 type ChatProps = {
@@ -56,7 +55,7 @@ export class ChatView extends React.Component<ChatProps> {
   }
 
   renderRoute() {
-    const { route, toggleMenu } = this.viewStore
+    const { route } = this.viewStore
     if (route.type === 'channel') {
       return <ChannelView id={route.id} />
     }

@@ -24,7 +24,7 @@ function render() {
 }
 
 render()
-stores.appStore.init()
+stores.appStore.init().catch(console.error)
 
 if (process.env.NODE_ENV !== 'production') {
   if (module.hot) {

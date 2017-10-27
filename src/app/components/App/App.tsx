@@ -65,7 +65,7 @@ export class App extends React.Component<AppProps> {
 
   @action.bound
   handleDisconnect() {
-    this.appStore.init()
+    this.appStore.init().catch(console.error)
   }
 
   renderCurrentView() {

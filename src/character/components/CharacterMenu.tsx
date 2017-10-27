@@ -1,12 +1,12 @@
+import { action } from 'mobx'
+import { inject } from 'mobx-react'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { getProfileURL } from 'src/api'
 import { Icon } from 'src/app/components/Icon'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
-import styled from 'styled-components'
-import { action } from 'mobx'
-import { inject } from 'mobx-react'
 import { ChatStore } from 'src/chat/stores/ChatStore'
+import styled from 'styled-components'
 
 type CharacterMenuProps = {
   x: number

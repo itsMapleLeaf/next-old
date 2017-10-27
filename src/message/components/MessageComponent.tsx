@@ -21,7 +21,7 @@ export function MessageComponent(props: { message: Message }) {
   return (
     <Wrapper className={`padding ${actionClass}`}>
       <span className="margin-right">
-        <CharacterName name={props.message.sender} />
+        <CharacterName name={sender} />
       </span>
       <span className={`preserve-ws`} dangerouslySetInnerHTML={{ __html: parsedText }} />
     </Wrapper>
