@@ -33,8 +33,12 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
       this.props.onChannelActivate(channel.id)
     }
 
+    const handleClose = () => {
+      this.props.channelStore!.removeJoinedChannel(channel.id)
+    }
+
     return (
-      <ChatTab active={isActive} key={channel.id} onActivate={handleActivate}>
+      <ChatTab active={isActive} key={channel.id} onActivate={handleActivate} onClose={handleClose}>
         <ChannelTabContent title={channel.title} type={'public'} />
       </ChatTab>
     )
@@ -49,8 +53,17 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
       viewStore.setRoute({ type: 'private-chat', partner: chat.partner })
     }
 
+    const handleClose = () => {
+      this.props.privateChatStore!.closePrivateChat(chat.partner)
+    }
+
     return (
-      <ChatTab key={chat.partner} active={isActive} onActivate={handleActivate}>
+      <ChatTab
+        key={chat.partner}
+        active={isActive}
+        onActivate={handleActivate}
+        onClose={handleClose}
+      >
         <PrivateChatTabContent partner={chat.partner} />
       </ChatTab>
     )
