@@ -16,7 +16,7 @@ const chatViewStore = new ChatViewStore(chatStore)
 const authStore = new AuthStore()
 const appStore = new AppStore(authStore)
 
-const stores = {
+export const stores = {
   appStore,
   authStore,
   channelBrowserStore,
@@ -27,5 +27,4 @@ const stores = {
   privateChatStore,
 }
 
-export default stores
 export type Stores = typeof stores
