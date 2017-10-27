@@ -12,9 +12,9 @@ import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
+import { ChatHeader } from './ChatHeader'
 import { ChatNavigator } from './ChatNavigator'
 import { StatusMenu } from './StatusMenu'
-import { ChatHeader } from './ChatHeader'
 
 type ChatProps = {
   channelStore?: ChannelStore
