@@ -7,10 +7,10 @@ export class PrivateChatStore {
   @observable openPrivateChats = new Map<string, true>()
 
   getPrivateChat(partner: string) {
-    let privateChat = this.privateChats.get(name)
+    let privateChat = this.privateChats.get(partner)
     if (!privateChat) {
       privateChat = new PrivateChat(partner)
-      this.privateChats.set(name, privateChat)
+      this.privateChats.set(partner, privateChat)
     }
     return privateChat
   }
@@ -25,7 +25,7 @@ export class PrivateChatStore {
   }
 
   getOpenPrivateChats() {
-    return Object.keys(this.openPrivateChats).map(name => this.getPrivateChat(name))
+    return Array.from(this.openPrivateChats.keys()).map(name => this.getPrivateChat(name))
   }
 
   handleSocketCommand(cmd: string, params: any) {

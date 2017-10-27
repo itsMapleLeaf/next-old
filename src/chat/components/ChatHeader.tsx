@@ -1,13 +1,14 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
-import { ShowOnMobile } from 'src/common/components/responsive-utils'
-import styled from 'styled-components'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
+import { ShowOnMobile } from 'src/common/components/responsive-utils'
+import { preventDefault } from 'src/common/util/react'
+import styled from 'styled-components'
 
 type ChatHeaderProps = {
   title: string
-  onMoreClicked: () => void
+  onMoreClicked?: () => void
   chatViewStore?: ChatViewStore
 }
 
@@ -17,6 +18,7 @@ const Container = styled.div`
   }
 `
 
+// TODO: make this more flexible, just let it pass in whatever for the title
 @inject('chatViewStore')
 @observer
 export class ChatHeader extends React.Component<ChatHeaderProps> {
@@ -33,7 +35,7 @@ export class ChatHeader extends React.Component<ChatHeaderProps> {
         </div>
         <div>{this.props.children}</div>
         <ShowOnMobile className="no-line-height">
-          <a href="#" onClick={this.props.onMoreClicked}>
+          <a href="#" onClick={preventDefault(this.props.onMoreClicked)}>
             <Icon name="more-vert" size={24} />
           </a>
         </ShowOnMobile>

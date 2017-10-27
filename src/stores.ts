@@ -8,10 +8,10 @@ import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 
 const channelStore = new ChannelStore()
-const privateChats = new PrivateChatStore()
+const privateChatStore = new PrivateChatStore()
 const characterStore = new CharacterStore()
 const channelBrowserStore = new ChannelBrowserStore()
-const chatStore = new ChatStore(channelStore, privateChats, characterStore, channelBrowserStore)
+const chatStore = new ChatStore(channelStore, privateChatStore, characterStore, channelBrowserStore)
 const chatViewStore = new ChatViewStore(chatStore)
 const authStore = new AuthStore()
 const appStore = new AppStore(authStore)
@@ -24,7 +24,7 @@ const stores = {
   characterStore,
   chatStore,
   chatViewStore,
-  privateChats,
+  privateChatStore,
 }
 
 export default stores

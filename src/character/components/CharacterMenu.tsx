@@ -4,11 +4,15 @@ import { getProfileURL } from 'src/api'
 import { Icon } from 'src/app/components/Icon'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import styled from 'styled-components'
+import { action } from 'mobx'
+import { inject } from 'mobx-react'
+import { ChatStore } from 'src/chat/stores/ChatStore'
 
 type CharacterMenuProps = {
   x: number
   y: number
   character: string
+  chatStore?: ChatStore
 }
 
 const MenuWrapper = styled.div`
@@ -25,6 +29,7 @@ const MenuAction = styled.a`
   }
 `
 
+@inject('chatStore')
 export class CharacterMenu extends React.Component<CharacterMenuProps> {
   updatePosition() {
     const el = ReactDOM.findDOMNode(this) as HTMLElement
@@ -45,6 +50,11 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
     this.updatePosition()
   }
 
+  @action.bound
+  handleMessageAction() {
+    this.props.chatStore!.openPrivateChat(this.props.character)
+  }
+
   render() {
     const { character } = this.props
     return (
@@ -52,7 +62,7 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
         <div className="bg-color-main">
           <CharacterDetails name={character} />
         </div>
-        <MenuAction className="padding" href="#">
+        <MenuAction className="padding" href="#" onClick={this.handleMessageAction}>
           <Icon name="message" /> Send Message
         </MenuAction>
         <MenuAction className="padding" href={getProfileURL(character)} target="_blank">

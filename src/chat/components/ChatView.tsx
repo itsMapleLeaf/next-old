@@ -8,11 +8,12 @@ import { CharacterMenu } from 'src/character/components/CharacterMenu'
 import { ChatStore } from 'src/chat/stores/ChatStore'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { Drawer } from 'src/common/components/Drawer'
+import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
+import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
 import { ChatHeader } from './ChatHeader'
 import { ChatMenu } from './ChatMenu'
-import { FadeTransition } from 'src/common/components/FadeTransition'
 
 type ChatProps = {
   channelStore?: ChannelStore
@@ -58,6 +59,9 @@ export class ChatView extends React.Component<ChatProps> {
     const { route, toggleMenu } = this.viewStore
     if (route.type === 'channel') {
       return <ChannelView id={route.id} />
+    }
+    if (route.type === 'private-chat') {
+      return <PrivateChatView partner={route.partner} />
     }
     return ''
   }
