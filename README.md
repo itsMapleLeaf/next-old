@@ -9,7 +9,7 @@
 - [x] Dots next to each character name for status
 - [x] User list sorting
 - [x] Channel browser screen
-- [ ] Message filtering in channels
+- [x] Message filtering in channels
 - [ ] Character context menu
 - [ ] Private chats
 - [ ] Status update screen

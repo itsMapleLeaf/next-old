@@ -91,21 +91,12 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
-  renderChatHeader() {
-    return (
-      <ChatHeader title={this.renderHeaderTitle()} onMoreClicked={console.log}>
-        content here
-      </ChatHeader>
-    )
-  }
-
   render() {
     return (
       <main className="bg-color-darken-3 fullscreen flex-row">
         {this.renderSidebarMenu()}
 
         <section className="flex-grow flex-column">
-          {this.renderChatHeader()}
           {this.chatViewStore.currentChannel && this.renderChannelView()}
         </section>
 
