@@ -5,7 +5,9 @@
   "author": "kingdaro",
   "scripts": {
     "build": "webpack --env.production",
-    "start": "webpack-dev-server --inline --hot --progress --open"
+    "start": "webpack-dev-server --inline --hot --progress --open",
+    "lint": "tslint -p .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "bbc.js": "^0.1.1",
