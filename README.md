@@ -18,9 +18,14 @@
 - [ ] Timestamps on messages
 - [ ] BBC parsing
 - [x] Proper transitions wherever missing
+- [ ] Friend/bookmark list
+- [ ] Parsing /me
 
 ### 0.13.0
-- [ ] Notifications for when friends/bookmarks log on/off
+- [ ] Notifications for when friends/bookmarks log on/off (and other stuff)
+
+### ???
+- [ ] A settings screen of some kind
 
 ## Ideas
 
