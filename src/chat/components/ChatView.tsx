@@ -57,39 +57,63 @@ export class ChatView extends React.Component<ChatProps> {
     return 'next'
   }
 
+  renderSidebarMenu() {
+    return (
+      <ShowOnDesktop className="flex-row">
+        {this.renderMenu()}
+        <div className="divider-h" />
+      </ShowOnDesktop>
+    )
+  }
+
+  renderDrawerMenu() {
+    return (
+      <Drawer
+        side="left"
+        visible={this.chatViewStore.isMenuOpen}
+        onShadeClicked={this.chatViewStore.toggleMenu}
+      >
+        {this.renderMenu()}
+      </Drawer>
+    )
+  }
+
+  renderChannelBrowserOverlay() {
+    return (
+      <Overlay
+        visible={this.chatViewStore.isChannelBrowserOpen}
+        onShadeClick={this.chatViewStore.toggleChannelBrowser}
+      >
+        <div className="bg-color-main" style={{ width: '320px', height: '600px' }}>
+          <ChannelBrowser onDone={this.chatViewStore.toggleChannelBrowser} />
+        </div>
+      </Overlay>
+    )
+  }
+
+  renderChatHeader() {
+    return (
+      <ChatHeader
+        title={this.renderHeaderTitle()}
+        onMenuClicked={this.chatViewStore.toggleMenu}
+        onMoreClicked={console.log}
+      />
+    )
+  }
+
   render() {
     return (
       <main className="bg-color-darken-3 fullscreen flex-row">
-        <ShowOnDesktop className="flex-row">
-          {this.renderMenu()}
-          <div className="divider-h" />
-        </ShowOnDesktop>
+        {this.renderSidebarMenu()}
 
         <section className="flex-grow flex-column">
-          <ChatHeader
-            title={this.renderHeaderTitle()}
-            onMenuClicked={this.chatViewStore.toggleMenu}
-            onMoreClicked={console.log}
-          />
+          {this.renderChatHeader()}
           {this.chatViewStore.currentChannel && this.renderChannelView()}
         </section>
 
-        <Drawer
-          side="left"
-          visible={this.chatViewStore.isMenuOpen}
-          onShadeClicked={this.chatViewStore.toggleMenu}
-        >
-          {this.renderMenu()}
-        </Drawer>
+        {this.renderDrawerMenu()}
 
-        <Overlay
-          visible={this.chatViewStore.isChannelBrowserOpen}
-          onShadeClick={this.chatViewStore.toggleChannelBrowser}
-        >
-          <div className="bg-color-main" style={{ width: '320px', height: '600px' }}>
-            <ChannelBrowser onDone={this.chatViewStore.toggleChannelBrowser} />
-          </div>
-        </Overlay>
+        {this.renderChannelBrowserOverlay()}
       </main>
     )
   }
