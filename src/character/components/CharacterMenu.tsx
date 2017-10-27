@@ -30,14 +30,11 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
     const el = ReactDOM.findDOMNode(this) as HTMLElement
     const rect = el.getBoundingClientRect()
     const { x, y } = this.props
+    const right = x + rect.width
+    const bottom = y + rect.height
 
-    let transform = ''
-    if (x + rect.width > window.innerWidth) transform += ' translateX(-100%)'
-    if (y + rect.height > window.innerHeight) transform += ' translateY(-100%)'
-
-    el.style.left = x + 'px'
-    el.style.top = y + 'px'
-    el.style.transform = transform
+    el.style.left = x - Math.max(right - (window.innerWidth - 16), 0) + 'px'
+    el.style.top = y - Math.max(bottom - (window.innerHeight - 16), 0) + 'px'
   }
 
   componentDidMount() {
