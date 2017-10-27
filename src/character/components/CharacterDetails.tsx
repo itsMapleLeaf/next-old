@@ -45,7 +45,7 @@ export class CharacterDetails extends React.Component<Props> {
         <div className="spacer" />
 
         <div className="bg-color-darken-1 padding text-italic text-small">
-          {status}
+          <span className={`character-status-${status.toLowerCase()}`}>{status}</span>
           {statusMessage && ' - ' + statusMessage}
         </div>
       </div>
