@@ -9,6 +9,7 @@ export type ChatViewRoute =
 export class ChatViewStore {
   @observable isMenuOpen = false
   @observable isChannelBrowserOpen = false
+  @observable isStatusMenuOpen = false
   @observable route = { type: 'none' } as ChatViewRoute
 
   @observable
@@ -37,6 +38,11 @@ export class ChatViewStore {
     if (open) {
       this.chatStore.fetchChannelList()
     }
+  }
+
+  @action.bound
+  toggleStatusMenu() {
+    this.isStatusMenuOpen = !this.isStatusMenuOpen
   }
 
   @action

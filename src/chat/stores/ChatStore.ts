@@ -243,6 +243,10 @@ export class ChatStore {
     // })
   }
 
+  updateStatus(status: string, statusmsg: string) {
+    this.sendSocketCommand('STA', { status, statusmsg })
+  }
+
   @computed
   get identityCharacter() {
     return this.characters.getCharacter(this.identity)

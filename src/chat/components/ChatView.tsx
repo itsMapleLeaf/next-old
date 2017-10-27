@@ -13,6 +13,7 @@ import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
 import { ChatNavigator } from './ChatNavigator'
+import { StatusMenu } from './StatusMenu'
 
 type ChatProps = {
   channelStore?: ChannelStore
@@ -98,6 +99,16 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
+  renderStatusMenu() {
+    return (
+      <FadeTransition visible={this.viewStore.isStatusMenuOpen}>
+        <Overlay onShadeClick={this.viewStore.toggleStatusMenu}>
+          <StatusMenu />
+        </Overlay>
+      </FadeTransition>
+    )
+  }
+
   renderCharacterMenu() {
     const { open, ...props } = this.viewStore.characterMenu
     return (
@@ -121,6 +132,7 @@ export class ChatView extends React.Component<ChatProps> {
         {this.renderDrawerMenu()}
 
         {this.renderChannelBrowser()}
+        {this.renderStatusMenu()}
 
         {this.renderCharacterMenu()}
       </main>

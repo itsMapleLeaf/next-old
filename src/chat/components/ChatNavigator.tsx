@@ -79,7 +79,10 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
         <div className="bg-color-darken-2 flex-column">
           <section className="flex-grow flex-column">
             <ChatAction icon="forum" onClick={this.props.channelBrowserAction} />
-            <ChatAction icon="account-circle" />
+            <ChatAction
+              icon="account-circle"
+              onClick={this.props.chatViewStore!.toggleStatusMenu}
+            />
             <ChatAction icon="account-multiple" />
             <ChatAction icon="settings" />
           </section>

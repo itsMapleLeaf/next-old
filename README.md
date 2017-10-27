@@ -12,7 +12,7 @@
 - [x] Message filtering in channels
 - [x] Character context menu
 - [x] Private chats
-- [ ] Status update screen
+- [x] Status update screen
 - [ ] Make saved channels per-character
 - [ ] Different colors for different message types (ads, system, admin)
 - [ ] Timestamps on messages
