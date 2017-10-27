@@ -22,10 +22,9 @@ type ChatMenuProps = {
   onChannelActivate: (channel: string) => void
 }
 
-// TODO: rename to "ChatNavigator"
 @inject('channelStore', 'chatStore', 'chatViewStore', 'privateChatStore')
 @observer
-export class ChatMenu extends React.Component<ChatMenuProps> {
+export class ChatNavigator extends React.Component<ChatMenuProps> {
   renderChannelTab = (channel: Channel) => {
     const route = this.props.chatViewStore!.route
     const isActive = route.type === 'channel' && route.id === channel.id

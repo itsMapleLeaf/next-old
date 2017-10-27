@@ -13,7 +13,7 @@ import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
 import { ChatHeader } from './ChatHeader'
-import { ChatMenu } from './ChatMenu'
+import { ChatNavigator } from './ChatNavigator'
 
 type ChatProps = {
   channelStore?: ChannelStore
@@ -48,7 +48,7 @@ export class ChatView extends React.Component<ChatProps> {
 
   renderMenu() {
     return (
-      <ChatMenu
+      <ChatNavigator
         channelBrowserAction={this.viewStore.toggleChannelBrowser}
         onChannelActivate={this.handleChannelActivate}
       />
