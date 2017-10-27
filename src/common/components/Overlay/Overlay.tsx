@@ -4,7 +4,6 @@ import './Overlay.scss'
 
 type OverlayProps = {
   children?: React.ReactNode
-  visible?: boolean
   onShadeClick?: () => void
 }
 
@@ -13,11 +12,7 @@ export function Overlay(props: OverlayProps) {
     if (props.onShadeClick) props.onShadeClick()
   })
   return (
-    <div
-      className="Overlay-shade"
-      style={{ display: props.visible ? undefined : 'none' }}
-      onClick={handleClick}
-    >
+    <div className="Overlay-shade" onClick={handleClick}>
       <div className="Overlay-panel" onClick={stopPropagation()}>
         {props.children}
       </div>

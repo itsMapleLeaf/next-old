@@ -17,7 +17,7 @@
 - [ ] Different colors for different message types (ads, system, admin)
 - [ ] Timestamps on messages
 - [ ] BBC parsing
-- [ ] Proper transitions wherever missing
+- [x] Proper transitions wherever missing
 
 ### 0.13.0
 - [ ] Notifications for when friends/bookmarks log on/off

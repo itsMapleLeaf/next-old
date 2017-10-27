@@ -12,6 +12,7 @@ import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { ChatHeader } from './ChatHeader'
 import { ChatMenu } from './ChatMenu'
+import { FadeTransition } from 'src/common/components/FadeTransition'
 
 type ChatProps = {
   channelStore?: ChannelStore
@@ -82,22 +83,25 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
-  renderChannelBrowserOverlay() {
+  renderChannelBrowser() {
     return (
-      <Overlay
-        visible={this.viewStore.isChannelBrowserOpen}
-        onShadeClick={this.viewStore.toggleChannelBrowser}
-      >
-        <div className="bg-color-main" style={{ width: '320px', height: '600px' }}>
-          <ChannelBrowser onDone={this.viewStore.toggleChannelBrowser} />
-        </div>
-      </Overlay>
+      <FadeTransition visible={this.viewStore.isChannelBrowserOpen}>
+        <Overlay onShadeClick={this.viewStore.toggleChannelBrowser}>
+          <div className="bg-color-main" style={{ width: '320px', height: '600px' }}>
+            <ChannelBrowser onDone={this.viewStore.toggleChannelBrowser} />
+          </div>
+        </Overlay>
+      </FadeTransition>
     )
   }
 
   renderCharacterMenu() {
     const { open, ...props } = this.viewStore.characterMenu
-    return open && <CharacterMenu {...props} />
+    return (
+      <FadeTransition visible={open}>
+        <CharacterMenu {...props} />
+      </FadeTransition>
+    )
   }
 
   render() {
@@ -113,7 +117,7 @@ export class ChatView extends React.Component<ChatProps> {
 
         {this.renderDrawerMenu()}
 
-        {this.renderChannelBrowserOverlay()}
+        {this.renderChannelBrowser()}
 
         {this.renderCharacterMenu()}
       </main>
