@@ -4,7 +4,7 @@ import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
 
-import { getAvatarURL } from 'src/api'
+import { getAvatarURL, getProfileURL } from 'src/api'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
 
 const Avatar = styled.img`
@@ -29,14 +29,18 @@ export class CharacterDetails extends React.Component<Props> {
   render() {
     const { name } = this.props
     const { status, statusMessage } = this.character
-    console.log('character detail status:', status)
+
     return (
       <div className="padding">
-        <h2 style={{ margin: 0 }}>{name}</h2>
+        <a href={getProfileURL(name)} target="_blank">
+          <h2 style={{ margin: 0 }}>{name}</h2>
+        </a>
 
         <div className="spacer" />
 
-        <Avatar src={getAvatarURL(name)} alt={`Avatar for ${name}`} key={name} />
+        <a href={getProfileURL(name)} target="_blank">
+          <Avatar src={getAvatarURL(name)} alt={`Avatar for ${name}`} key={name} />
+        </a>
 
         <div className="spacer" />
 
