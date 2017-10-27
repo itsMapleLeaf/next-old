@@ -11,7 +11,7 @@
 - [x] Channel browser screen
 - [x] Message filtering in channels
 - [x] Character context menu
-- [ ] Private chats
+- [x] Private chats
 - [ ] Status update screen
 - [ ] Make saved channels per-character
 - [ ] Different colors for different message types (ads, system, admin)
