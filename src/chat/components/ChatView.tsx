@@ -23,7 +23,7 @@ type ChatProps = {
 export class ChatView extends React.Component<ChatProps> {
   @observable isMenuOpen = false
   @observable isChannelBrowserOpen = false
-  @observable currentChannel = ''
+  @observable currentChannel = 'Frontpage'
 
   @action.bound
   toggleMenu() {
