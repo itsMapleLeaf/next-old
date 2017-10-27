@@ -15,7 +15,7 @@ export function MessageComponent(props: { message: Message }) {
       <span className="margin-right">
         <CharacterName name={props.message.sender} />
       </span>
-      <span>{props.message.text}</span>
+      <span className="preserve-ws">{props.message.text}</span>
     </Wrapper>
   )
 }
