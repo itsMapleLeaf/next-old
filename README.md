@@ -10,7 +10,7 @@
 - [x] User list sorting
 - [x] Channel browser screen
 - [x] Message filtering in channels
-- [ ] Character context menu
+- [x] Character context menu
 - [ ] Private chats
 - [ ] Status update screen
 - [ ] Make saved channels per-character
