@@ -116,7 +116,7 @@ export class ChannelView extends React.Component<ChannelViewProps> {
         </Description>
         <AutoScroller>
           <MessageList className="bg-color-main flex-grow scroll-v">
-            {this.filteredMessages.map(this.renderMessage)}
+            {this.filteredMessages.slice(0, 300).map(this.renderMessage)}
           </MessageList>
         </AutoScroller>
         <UserListContainer className="bg-color-darken-1 scroll-v">
