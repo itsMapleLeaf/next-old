@@ -1,6 +1,7 @@
-import * as React from 'react'
 import sortBy from 'lodash/sortBy'
 import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import { getAvatarURL } from 'src/api'
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { Channel } from 'src/channel/models/Channel'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
@@ -9,9 +10,9 @@ import { ChatAction } from 'src/chat/components/ChatAction'
 import { ChatTab } from 'src/chat/components/ChatTab'
 import { ChatStore } from 'src/chat/stores/ChatStore'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
-import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 import { PrivateChat } from 'src/private-chat/models/PrivateChat'
-import { getAvatarURL } from 'src/api'
+import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
+import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
 
 type ChatMenuProps = {
   channelStore?: ChannelStore
@@ -52,14 +53,7 @@ export class ChatMenu extends React.Component<ChatMenuProps> {
 
     return (
       <ChatTab key={chat.partner} active={isActive} onActivate={handleActivate}>
-        <div className="flex-row flex-align-center">
-          <img
-            src={getAvatarURL(chat.partner)}
-            className="margin-right"
-            style={{ width: '24px', height: '24px', verticalAlign: 'middle' }}
-          />
-          {chat.partner}
-        </div>
+        <PrivateChatTabContent partner={chat.partner} />
       </ChatTab>
     )
   }
