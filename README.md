@@ -20,6 +20,7 @@
 - [x] Proper transitions wherever missing
 - [ ] Friend/bookmark list
 - [ ] Parsing /me
+- [ ] Sending messages
 
 ### 0.13.0
 - [ ] Notifications for when friends/bookmarks log on/off (and other stuff)
