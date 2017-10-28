@@ -30,7 +30,7 @@ export class ChatInput extends React.Component<ChatInputProps> {
   }
 
   render() {
-    const { className, ...divProps } = this.props
+    const { className, onMessage, ...divProps } = this.props
     return (
       <div className={`flex-row padding ${className}`} {...divProps}>
         <textarea
