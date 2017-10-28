@@ -16,7 +16,7 @@
 - [x] Make saved channels per-character
 - [x] Different colors for different message types (ads, system, admin)
 - [x] Timestamps on messages
-- [ ] BBC parsing
+- [x] BBC parsing
 - [x] Proper transitions wherever missing
 - [ ] Friend/bookmark list
 - [ ] Parsing /me

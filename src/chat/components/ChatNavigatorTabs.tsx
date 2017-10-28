@@ -31,14 +31,14 @@ function storesToProps({
     privateChats: privateChatStore.getOpenPrivateChats(),
     onChannelActivate(id) {
       chatViewStore.setRoute({ type: 'channel', id })
-      chatViewStore.toggleNavigator()
+      chatViewStore.isNavigatorOpen = false
     },
     onChannelClose(id) {
       chatStore.leaveChannel(id)
     },
     onPrivateChatActivate(partner) {
       chatViewStore.setRoute({ type: 'private-chat', partner: partner })
-      chatViewStore.toggleNavigator()
+      chatViewStore.isNavigatorOpen = false
     },
     onPrivateChatClose(partner) {
       privateChatStore.closePrivateChat(partner)

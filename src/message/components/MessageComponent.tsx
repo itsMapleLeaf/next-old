@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { CharacterName } from 'src/character/components/CharacterName'
+import { parseBBC } from 'src/chat/util/bbc'
 import { Message, MessageType } from 'src/message/models/Message'
 import styled from 'styled-components'
 
@@ -27,7 +28,7 @@ function getHighlightClass(messageType: MessageType) {
 export function MessageComponent(props: { message: Message }) {
   const { sender, text, type, date } = props.message
   const isAction = text.trim().startsWith('/me')
-  const parsedText = text.replace(actionExp, '')
+  const parsedText = parseBBC(text.replace(actionExp, ''))
 
   const actionClass = isAction ? 'text-italic' : ''
   const highlightClass = getHighlightClass(type)

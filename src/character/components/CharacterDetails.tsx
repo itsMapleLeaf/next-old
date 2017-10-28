@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import { getAvatarURL, getProfileURL } from 'src/api'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
+import { parseBBC } from 'src/chat/util/bbc'
 
 const Avatar = styled.img`
   width: 100px;
@@ -46,7 +47,9 @@ export class CharacterDetails extends React.Component<Props> {
 
         <div className="bg-color-darken-1 padding text-italic text-small">
           <span className={`character-status-${status.toLowerCase()}`}>{status}</span>
-          {statusMessage && ' - ' + statusMessage}
+          {statusMessage.trim() !== '' && (
+            <span dangerouslySetInnerHTML={{ __html: ' - ' + parseBBC(statusMessage) }} />
+          )}
         </div>
       </div>
     )

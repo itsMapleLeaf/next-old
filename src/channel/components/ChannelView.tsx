@@ -13,6 +13,7 @@ import { MessageComponent } from 'src/message/components/MessageComponent'
 import { Message } from 'src/message/models/Message'
 import styled from 'styled-components'
 import { ChannelUsers } from './ChannelUsers'
+import { parseBBC } from 'src/chat/util/bbc'
 
 const Container = styled.div`
   display: grid;
@@ -68,6 +69,11 @@ export class ChannelView extends React.Component<ChannelViewProps> {
   }
 
   @computed
+  get parsedDescription() {
+    return { __html: parseBBC(this.channel.description) }
+  }
+
+  @computed
   get filteredMessages() {
     const { messages } = this.channel
 
@@ -116,9 +122,10 @@ export class ChannelView extends React.Component<ChannelViewProps> {
             </div>
           </ChatHeader>
         </HeaderContainer>
-        <Description className="bg-color-main scroll-v padding preserve-ws">
-          {channel.description}
-        </Description>
+        <Description
+          className="bg-color-main scroll-v padding preserve-ws"
+          dangerouslySetInnerHTML={this.parsedDescription}
+        />
         <AutoScroller>
           <MessageList className="bg-color-darken-1 flex-grow scroll-v">
             {this.filteredMessages.slice(0, 300).map(this.renderMessage)}
