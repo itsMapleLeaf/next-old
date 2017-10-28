@@ -111,15 +111,15 @@ export class ChannelView extends React.Component<ChannelViewProps> {
             ]}
           </ChatHeader>
         </HeaderContainer>
-        <Description className="bg-color-darken-1 scroll-v padding preserve-ws">
+        <Description className="bg-color-main scroll-v padding preserve-ws">
           {channel.description}
         </Description>
         <AutoScroller>
-          <MessageList className="bg-color-main flex-grow scroll-v">
+          <MessageList className="bg-color-darken-1 flex-grow scroll-v">
             {this.filteredMessages.slice(0, 300).map(this.renderMessage)}
           </MessageList>
         </AutoScroller>
-        <UserListContainer className="bg-color-darken-1 scroll-v">
+        <UserListContainer className="bg-color-main scroll-v">
           <ChannelUsers users={channel.users} ops={channel.ops} />
         </UserListContainer>
         <ChatInputWrapper className="bg-color-main flex-row">
