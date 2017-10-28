@@ -1,3 +1,4 @@
+// TODO: split this shit up
 import sortBy from 'lodash/sortBy'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
@@ -12,28 +13,63 @@ import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
 import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
+import { Stores } from 'src/stores'
+import { ChatViewRoute } from '../stores/ChatViewStore'
 
-type ChatMenuProps = {
-  channelStore?: ChannelStore
-  chatStore?: ChatStore
-  chatViewStore?: ChatViewStore
-  privateChatStore?: PrivateChatStore
+type ChatNavigatorProps = {
+  currentRoute: ChatViewRoute
+  joinedChannels: Channel[]
+  privateChats: PrivateChat[]
+  identity: string
+  onChannelActivate: (id: string) => void
+  onChannelClose: (id: string) => void
+  onPrivateChatActivate: (partner: string) => void
+  onPrivateChatClose: (partner: string) => void
+  onChannelBrowser: () => void
+  onStatusMenu: () => void
 }
 
-@inject('channelStore', 'chatStore', 'chatViewStore', 'privateChatStore')
+function storesToProps({
+  chatStore,
+  chatViewStore,
+  channelStore,
+  privateChatStore,
+}: Stores): ChatNavigatorProps {
+  return {
+    currentRoute: chatViewStore.route,
+    joinedChannels: channelStore.getJoinedChannels(),
+    privateChats: privateChatStore.getOpenPrivateChats(),
+    identity: chatStore.identity,
+    onChannelActivate(id) {
+      chatViewStore.setRoute({ type: 'channel', id })
+    },
+    onChannelClose(id) {
+      chatStore.leaveChannel(id)
+    },
+    onPrivateChatActivate(partner) {
+      chatViewStore.setRoute({ type: 'private-chat', partner: partner })
+    },
+    onPrivateChatClose(partner) {
+      privateChatStore.closePrivateChat(partner)
+    },
+    onChannelBrowser: chatViewStore.toggleChannelBrowser,
+    onStatusMenu: chatViewStore.toggleStatusMenu,
+  }
+}
+
+@inject(storesToProps)
 @observer
-export class ChatNavigator extends React.Component<ChatMenuProps> {
+class ChatNavigatorComponent extends React.Component<ChatNavigatorProps> {
   renderChannelTab = (channel: Channel) => {
-    const viewStore = this.props.chatViewStore!
-    const { route } = viewStore
+    const route = this.props.currentRoute
     const isActive = route.type === 'channel' && route.id === channel.id
 
     const handleActivate = () => {
-      viewStore.setRoute({ type: 'channel', id: channel.id })
+      this.props.onChannelActivate(channel.id)
     }
 
     const handleClose = () => {
-      this.props.chatStore!.leaveChannel(channel.id)
+      this.props.onChannelClose(channel.id)
     }
 
     return (
@@ -44,16 +80,15 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
   }
 
   renderPrivateChatTab = (chat: PrivateChat) => {
-    const viewStore = this.props.chatViewStore!
-    const { route } = viewStore
+    const route = this.props.currentRoute
     const isActive = route.type === 'private-chat' && route.partner === chat.partner
 
     const handleActivate = () => {
-      viewStore.setRoute({ type: 'private-chat', partner: chat.partner })
+      this.props.onPrivateChatActivate(chat.partner)
     }
 
     const handleClose = () => {
-      this.props.privateChatStore!.closePrivateChat(chat.partner)
+      this.props.onPrivateChatClose(chat.partner)
     }
 
     return (
@@ -69,19 +104,15 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
   }
 
   render() {
-    const joinedChannels = this.props.channelStore!.getJoinedChannels()
+    const { joinedChannels, privateChats } = this.props
     const sortedChannels = sortBy(joinedChannels, ch => ch.title.toLowerCase())
-    const privateChats = this.props.privateChatStore!.getOpenPrivateChats()
 
     return (
       <div className="bg-color-main flex-row full-height" style={{ width: '240px' }}>
         <div className="bg-color-darken-2 flex-column">
           <section className="flex-grow flex-column">
-            <ChatAction icon="forum" onClick={this.props.chatViewStore!.toggleChannelBrowser} />
-            <ChatAction
-              icon="account-circle"
-              onClick={this.props.chatViewStore!.toggleStatusMenu}
-            />
+            <ChatAction icon="forum" onClick={this.props.onChannelBrowser} />
+            <ChatAction icon="account-circle" onClick={this.props.onStatusMenu} />
             <ChatAction icon="account-multiple" />
             <ChatAction icon="settings" />
           </section>
@@ -92,7 +123,7 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
         </div>
 
         <div className="flex-grow flex-column flex-align-stretch">
-          <CharacterDetails name={this.props.chatStore!.identity} />
+          <CharacterDetails name={this.props.identity} />
 
           <div className="bg-color-darken-2 divider-v" />
 
@@ -108,3 +139,5 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
     )
   }
 }
+
+export const ChatNavigator: React.ComponentClass = ChatNavigatorComponent
