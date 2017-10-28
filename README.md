@@ -25,6 +25,7 @@
 - [ ] Add a drawer for the user list and channel description on mobile
 - [ ] Save private chats between sessions
 - [ ] Ignoring functionality
+- [ ] A working "log out" button
 
 ### 0.13.0
 - [ ] Notifications for when friends/bookmarks log on/off (and other stuff)
