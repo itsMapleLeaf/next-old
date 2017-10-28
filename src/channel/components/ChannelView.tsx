@@ -2,18 +2,18 @@ import { action, computed, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelModeFilter } from 'src/channel/components/ChannelModeFilter'
-import { ChannelMode } from 'src/channel/models/Channel'
-import { ChannelStore } from 'src/channel/stores/ChannelStore'
+import { Channel, ChannelMode } from 'src/channel/models/Channel'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
+import { parseBBC } from 'src/chat/util/bbc'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { preventDefault } from 'src/common/util/react'
 import { MessageComponent } from 'src/message/components/MessageComponent'
 import { Message } from 'src/message/models/Message'
+import { Stores } from 'src/stores'
 import styled from 'styled-components'
 import { ChannelUsers } from './ChannelUsers'
-import { parseBBC } from 'src/chat/util/bbc'
 
 const Container = styled.div`
   display: grid;
@@ -48,14 +48,28 @@ const UserListContainer = styled(ShowOnDesktop)`grid-area: user-list;`
 
 const ChatInputWrapper = styled.div`grid-area: chat-input;`
 
-type ChannelViewProps = JSX.IntrinsicElements['div'] & {
-  channelStore?: ChannelStore
+type Props = JSX.IntrinsicElements['div'] & {
   id: string
 }
 
-@inject('channelStore')
+type InjectedProps = {
+  channel: Channel
+  onMessage: (message: string) => void
+}
+
+function storesToProps(stores: Stores, props: Props): InjectedProps {
+  const { channelStore, chatStore } = stores
+  return {
+    channel: channelStore.getChannel(props.id),
+    onMessage(message) {
+      chatStore.sendChannelMessage(props.id, message)
+    },
+  }
+}
+
+@inject(storesToProps)
 @observer
-export class ChannelView extends React.Component<ChannelViewProps> {
+class ChannelViewComponent extends React.Component<Props & InjectedProps> {
   @observable displayedMode = 'both' as ChannelMode
 
   @action
@@ -64,20 +78,15 @@ export class ChannelView extends React.Component<ChannelViewProps> {
   }
 
   @computed
-  get channel() {
-    return this.props.channelStore!.getChannel(this.props.id)
-  }
-
-  @computed
   get parsedDescription() {
-    return { __html: parseBBC(this.channel.description) }
+    return { __html: parseBBC(this.props.channel.description) }
   }
 
   @computed
   get filteredMessages() {
-    const { messages } = this.channel
+    const { messages } = this.props.channel
 
-    if (this.channel.mode !== 'both') {
+    if (this.props.channel.mode !== 'both') {
       return messages
     }
 
@@ -103,8 +112,7 @@ export class ChannelView extends React.Component<ChannelViewProps> {
   }
 
   render() {
-    const { className } = this.props
-    const { channel } = this
+    const { channel, className } = this.props
 
     return (
       <Container className={`${className} fill-area`}>
@@ -145,3 +153,5 @@ export class ChannelView extends React.Component<ChannelViewProps> {
     return <MessageComponent key={i} message={message} />
   }
 }
+
+export const ChannelView: React.ComponentClass<Props> = ChannelViewComponent
