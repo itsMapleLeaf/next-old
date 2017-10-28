@@ -12,9 +12,18 @@ import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
+import styled from 'styled-components'
 import { ChatHeader } from './ChatHeader'
 import { ChatNavigator } from './ChatNavigator'
 import { StatusMenu } from './StatusMenu'
+
+const ChannelBrowserWrapper = styled.div`
+  width: 400px;
+  height: 600px;
+
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+`
 
 type ChatProps = {
   channelStore?: ChannelStore
@@ -47,10 +56,6 @@ export class ChatView extends React.Component<ChatProps> {
     }
   }
 
-  renderMenu() {
-    return <ChatNavigator />
-  }
-
   renderRoute() {
     const { route } = this.viewStore
     if (route.type === 'channel') {
@@ -75,6 +80,10 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
+  renderMenu() {
+    return <ChatNavigator />
+  }
+
   renderDrawerMenu() {
     return (
       <Drawer
@@ -91,9 +100,9 @@ export class ChatView extends React.Component<ChatProps> {
     return (
       <FadeTransition visible={this.viewStore.isChannelBrowserOpen}>
         <Overlay onShadeClick={this.viewStore.toggleChannelBrowser}>
-          <div className="bg-color-main" style={{ width: '320px', height: '600px' }}>
+          <ChannelBrowserWrapper className="bg-color-main">
             <ChannelBrowser onDone={this.viewStore.toggleChannelBrowser} />
-          </div>
+          </ChannelBrowserWrapper>
         </Overlay>
       </FadeTransition>
     )
