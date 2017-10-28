@@ -143,7 +143,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
           <ChannelUsers users={channel.users} ops={channel.ops} />
         </UserListContainer>
         <ChatInputWrapper className="bg-color-main flex-row">
-          <ChatInput className="flex-grow" />
+          <ChatInput className="flex-grow" onMessage={this.props.onMessage} />
         </ChatInputWrapper>
       </Container>
     )

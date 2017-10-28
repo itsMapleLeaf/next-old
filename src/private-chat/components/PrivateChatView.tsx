@@ -1,29 +1,39 @@
-import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { getAvatarURL } from 'src/api'
+import { CharacterName } from 'src/character/components/CharacterName'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { MessageComponent } from 'src/message/components/MessageComponent'
-import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
-import { CharacterName } from 'src/character/components/CharacterName'
+import { PrivateChat } from 'src/private-chat/models/PrivateChat'
+import { Stores } from 'src/stores'
 
-type PrivateChatViewProps = {
+type Props = {
   partner: string
-  privateChatStore?: PrivateChatStore
 }
 
-@inject('privateChatStore')
-@observer
-export class PrivateChatView extends React.Component<PrivateChatViewProps> {
-  @computed
-  get privateChat() {
-    return this.props.privateChatStore!.getPrivateChat(this.props.partner)
-  }
+type InjectedProps = {
+  privateChat: PrivateChat
+  onMessage: (message: string) => void
+}
 
+function storesToProps(stores: Stores, props: Props): InjectedProps {
+  const { privateChatStore, chatStore } = stores
+
+  return {
+    privateChat: privateChatStore.getPrivateChat(props.partner),
+    onMessage(message) {
+      chatStore.sendPrivateMessage(props.partner, message)
+    },
+  }
+}
+
+@inject(storesToProps)
+@observer
+class PrivateChatViewComponent extends React.Component<Props & InjectedProps> {
   renderMessages() {
-    const { messages } = this.privateChat
+    const { messages } = this.props.privateChat
     return messages.map((message, i) => <MessageComponent key={i} message={message} />)
   }
 
@@ -52,9 +62,11 @@ export class PrivateChatView extends React.Component<PrivateChatViewProps> {
         <div className="divider-v" />
 
         <div className="bg-color-main">
-          <ChatInput />
+          <ChatInput onMessage={this.props.onMessage} />
         </div>
       </div>
     )
   }
 }
+
+export const PrivateChatView = PrivateChatViewComponent as React.ComponentClass<Props>

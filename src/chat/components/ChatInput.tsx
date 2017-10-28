@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 
 type ChatInputProps = JSX.IntrinsicElements['div'] & {
-  onMessageSent?: (message: string) => void
+  onMessage?: (message: string) => void
 }
 
 @observer
@@ -21,8 +21,8 @@ export class ChatInput extends React.Component<ChatInputProps> {
       event.preventDefault()
 
       const message = this.message.trim()
-      if (message.length > 0 && this.props.onMessageSent) {
-        this.props.onMessageSent(message)
+      if (message.length > 0 && this.props.onMessage) {
+        this.props.onMessage(message)
       }
 
       this.message = ''

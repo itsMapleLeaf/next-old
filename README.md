@@ -18,6 +18,7 @@
 - [x] Timestamps on messages
 - [x] BBC parsing
 - [x] Proper transitions wherever missing
+- [x] Message sending
 - [ ] Friend/bookmark list
 - [x] Parsing /me
 - [ ] Sending messages
