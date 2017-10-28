@@ -25,7 +25,7 @@ function getHighlightClass(messageType: MessageType) {
 }
 
 export function MessageComponent(props: { message: Message }) {
-  const { sender, text, type } = props.message
+  const { sender, text, type, date } = props.message
   const isAction = text.trim().startsWith('/me')
   const parsedText = text.replace(actionExp, '')
 
@@ -35,6 +35,9 @@ export function MessageComponent(props: { message: Message }) {
   return (
     <Wrapper className={`${actionClass}`}>
       <div className={`padding ${highlightClass}`}>
+        <span className="margin-left text-small text-italic faded float-right">
+          [{date.toLocaleTimeString()}]
+        </span>
         <span className="margin-right">
           <CharacterName name={sender} />
         </span>
