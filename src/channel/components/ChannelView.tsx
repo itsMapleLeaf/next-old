@@ -103,12 +103,17 @@ export class ChannelView extends React.Component<ChannelViewProps> {
     return (
       <Container className={`${className} fill-area`}>
         <HeaderContainer>
-          <ChatHeader title={channel.title} onMoreClicked={console.log}>
-            {channel.mode === 'both' && [
-              this.renderModeFilter('chat', 'Chat'),
-              this.renderModeFilter('ads', 'Ads'),
-              this.renderModeFilter('both', 'Both'),
-            ]}
+          <ChatHeader>
+            <div className="flex-row flex-align-center">
+              <h3 className="flex-grow">{channel.title}</h3>
+              <div className="flex-row">
+                {channel.mode === 'both' && [
+                  this.renderModeFilter('chat', 'Chat'),
+                  this.renderModeFilter('ads', 'Ads'),
+                  this.renderModeFilter('both', 'Both'),
+                ]}
+              </div>
+            </div>
           </ChatHeader>
         </HeaderContainer>
         <Description className="bg-color-main scroll-v padding preserve-ws">

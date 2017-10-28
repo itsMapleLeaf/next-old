@@ -59,7 +59,11 @@ export class ChatView extends React.Component<ChatProps> {
     if (route.type === 'private-chat') {
       return <PrivateChatView partner={route.partner} />
     }
-    return <ChatHeader title="next" />
+    return (
+      <ChatHeader>
+        <h3>next</h3>
+      </ChatHeader>
+    )
   }
 
   renderSidebarMenu() {

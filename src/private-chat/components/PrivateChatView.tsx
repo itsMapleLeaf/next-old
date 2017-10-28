@@ -7,6 +7,7 @@ import { ChatInput } from 'src/chat/components/ChatInput'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { MessageComponent } from 'src/message/components/MessageComponent'
 import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
+import { CharacterName } from 'src/character/components/CharacterName'
 
 type PrivateChatViewProps = {
   partner: string
@@ -29,12 +30,17 @@ export class PrivateChatView extends React.Component<PrivateChatViewProps> {
   render() {
     return (
       <div className="flex-column fill-area">
-        <ChatHeader title={this.props.partner}>
-          <img
-            className="block"
-            src={getAvatarURL(this.props.partner)}
-            style={{ width: '24px', height: '24px' }}
-          />
+        <ChatHeader>
+          <div className="flex-row">
+            <h3 className="flex-grow">
+              <CharacterName name={this.props.partner} />
+            </h3>
+            <img
+              className="block"
+              src={getAvatarURL(this.props.partner)}
+              style={{ width: '24px', height: '24px' }}
+            />
+          </div>
         </ChatHeader>
 
         <div className="divider-v" />
