@@ -14,13 +14,14 @@
 - [x] Private chats
 - [x] Status update screen
 - [x] Make saved channels per-character
-- [ ] Different colors for different message types (ads, system, admin)
+- [x] Different colors for different message types (ads, system, admin)
 - [ ] Timestamps on messages
 - [ ] BBC parsing
 - [x] Proper transitions wherever missing
 - [ ] Friend/bookmark list
 - [ ] Parsing /me
 - [ ] Sending messages
+- [ ] Add a drawer for the user list and channel description on mobile
 
 ### 0.13.0
 - [ ] Notifications for when friends/bookmarks log on/off (and other stuff)
