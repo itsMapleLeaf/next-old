@@ -30,7 +30,7 @@ export class ChatView extends React.Component<ChatProps> {
   @action.bound
   handleChannelActivate(channel: string) {
     this.viewStore.setRoute({ type: 'channel', id: channel })
-    this.viewStore.isMenuOpen = false
+    this.viewStore.isNavigatorOpen = false
   }
 
   @action.bound
@@ -79,8 +79,8 @@ export class ChatView extends React.Component<ChatProps> {
     return (
       <Drawer
         side="left"
-        visible={this.viewStore.isMenuOpen}
-        onShadeClicked={this.viewStore.toggleMenu}
+        visible={this.viewStore.isNavigatorOpen}
+        onShadeClicked={this.viewStore.toggleNavigator}
       >
         {this.renderMenu()}
       </Drawer>

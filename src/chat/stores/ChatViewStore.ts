@@ -7,7 +7,7 @@ export type ChatViewRoute =
   | { type: 'none' }
 
 export class ChatViewStore {
-  @observable isMenuOpen = false
+  @observable isNavigatorOpen = false
   @observable isChannelBrowserOpen = false
   @observable isStatusMenuOpen = false
   @observable route = { type: 'none' } as ChatViewRoute
@@ -28,8 +28,8 @@ export class ChatViewStore {
   }
 
   @action.bound
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen
+  toggleNavigator() {
+    this.isNavigatorOpen = !this.isNavigatorOpen
   }
 
   @action.bound
