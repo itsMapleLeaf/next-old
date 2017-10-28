@@ -153,12 +153,14 @@ export class ChatStore {
       JCH() {
         if (params.character.identity === this.identity) {
           this.channels.addJoinedChannel(params.channel)
+          this.saveJoinedChannels()
         }
       },
 
       LCH() {
         if (params.character === this.identity) {
           this.channels.removeJoinedChannel(params.channel)
+          this.saveJoinedChannels()
         }
       },
 
@@ -203,11 +205,11 @@ export class ChatStore {
   }
 
   async saveJoinedChannels() {
-    await this.channels.saveJoinedChannels()
+    await this.channels.saveJoinedChannels(this.identity)
   }
 
   async restoreJoinedChannels() {
-    const channels = await this.channels.restoreJoinedChannels()
+    const channels = await this.channels.restoreJoinedChannels(this.identity)
     channels.forEach(id => {
       this.joinChannel(id)
     })

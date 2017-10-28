@@ -6,10 +6,12 @@ import { Message } from 'src/message/models/Message'
 
 export type ChannelID = string
 
+type StoredJoinedChannels = Dictionary<string[]>
+
 export class ChannelStore {
   @observable private channels = new Map<ChannelID, Channel>()
   @observable private joinedChannels = new Map<ChannelID, true>()
-  private storedChannels = new StoredValue<string[]>('ChannelStore_joinedChannels')
+  private storedChannels = new StoredValue<StoredJoinedChannels>('ChannelStore_joinedChannels')
 
   getChannel(id: ChannelID) {
     let channel = this.channels.get(id)
@@ -22,12 +24,10 @@ export class ChannelStore {
 
   addJoinedChannel(id: ChannelID) {
     this.joinedChannels.set(id, true)
-    this.saveJoinedChannels().catch(console.error)
   }
 
   removeJoinedChannel(id: ChannelID) {
     this.joinedChannels.delete(id)
-    this.saveJoinedChannels().catch(console.error)
   }
 
   getJoinedChannels() {
@@ -38,14 +38,18 @@ export class ChannelStore {
     return this.joinedChannels.has(id)
   }
 
-  async saveJoinedChannels() {
+  async saveJoinedChannels(character: string): Promise<void> {
     const channelIDs = this.getJoinedChannels().map(ch => ch.id)
-    await this.storedChannels.save(channelIDs)
+    const joinedChannels = (await this.storedChannels.restore()) || {}
+    await this.storedChannels.save({ ...joinedChannels, [character]: channelIDs })
   }
 
-  async restoreJoinedChannels() {
+  async restoreJoinedChannels(character: string): Promise<string[]> {
     const restoredChannels = await this.storedChannels.restore()
-    return restoredChannels || []
+    if (restoredChannels) {
+      return restoredChannels[character] || []
+    }
+    return []
   }
 
   handleSocketCommand(cmd: string, params: any) {
