@@ -34,7 +34,7 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
     }
 
     const handleClose = () => {
-      this.props.channelStore!.removeJoinedChannel(channel.id)
+      this.props.chatStore!.leaveChannel(channel.id)
     }
 
     return (
