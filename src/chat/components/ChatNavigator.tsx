@@ -18,19 +18,18 @@ type ChatMenuProps = {
   chatStore?: ChatStore
   chatViewStore?: ChatViewStore
   privateChatStore?: PrivateChatStore
-  channelBrowserAction: () => void
-  onChannelActivate: (channel: string) => void
 }
 
 @inject('channelStore', 'chatStore', 'chatViewStore', 'privateChatStore')
 @observer
 export class ChatNavigator extends React.Component<ChatMenuProps> {
   renderChannelTab = (channel: Channel) => {
-    const route = this.props.chatViewStore!.route
+    const viewStore = this.props.chatViewStore!
+    const { route } = viewStore
     const isActive = route.type === 'channel' && route.id === channel.id
 
     const handleActivate = () => {
-      this.props.onChannelActivate(channel.id)
+      viewStore.setRoute({ type: 'channel', id: channel.id })
     }
 
     const handleClose = () => {
@@ -78,7 +77,7 @@ export class ChatNavigator extends React.Component<ChatMenuProps> {
       <div className="bg-color-main flex-row full-height" style={{ width: '240px' }}>
         <div className="bg-color-darken-2 flex-column">
           <section className="flex-grow flex-column">
-            <ChatAction icon="forum" onClick={this.props.channelBrowserAction} />
+            <ChatAction icon="forum" onClick={this.props.chatViewStore!.toggleChannelBrowser} />
             <ChatAction
               icon="account-circle"
               onClick={this.props.chatViewStore!.toggleStatusMenu}

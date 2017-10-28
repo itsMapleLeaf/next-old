@@ -48,12 +48,7 @@ export class ChatView extends React.Component<ChatProps> {
   }
 
   renderMenu() {
-    return (
-      <ChatNavigator
-        channelBrowserAction={this.viewStore.toggleChannelBrowser}
-        onChannelActivate={this.handleChannelActivate}
-      />
-    )
+    return <ChatNavigator />
   }
 
   renderRoute() {
