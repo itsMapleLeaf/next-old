@@ -19,10 +19,11 @@
 - [x] BBC parsing
 - [x] Proper transitions wherever missing
 - [ ] Friend/bookmark list
-- [ ] Parsing /me
+- [x] Parsing /me
 - [ ] Sending messages
 - [ ] Add a drawer for the user list and channel description on mobile
 - [ ] Save private chats between sessions
+- [ ] Ignoring functionality
 
 ### 0.13.0
 - [ ] Notifications for when friends/bookmarks log on/off (and other stuff)
