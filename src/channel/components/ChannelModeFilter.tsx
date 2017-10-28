@@ -1,6 +1,9 @@
 import * as React from 'react'
 
-type Props = { text: string; active: boolean } & JSX.IntrinsicElements['a']
+type Props = JSX.IntrinsicElements['a'] & {
+  text: string
+  active: boolean
+}
 
 export function ChannelModeFilter(props: Props) {
   const { text, active, children, ...anchorProps } = props
