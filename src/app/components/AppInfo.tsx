@@ -8,7 +8,14 @@ function renderAppInfo(props: { overlay: OverlayState }) {
   return (
     <FadeTransition visible={props.overlay.isOpen}>
       <Overlay>
-        <div className="bg-color-main text-center padding" style={{ width: '300px' }}>
+        <div
+          className="bg-color-main text-center padding scroll-v"
+          style={{
+            width: '300px',
+            maxWidth: 'calc(100vw - 40px)',
+            maxHeight: 'calc(100vh - 40px)',
+          }}
+        >
           <h2>
             {APP_NAME} v{APP_VERSION}
           </h2>
