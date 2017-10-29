@@ -8,7 +8,7 @@ import { AppState, AppStore } from 'src/app/stores/AppStore'
 import { AuthStore } from 'src/auth/stores/AuthStore'
 import { ChatView } from 'src/chat/components/ChatView'
 import { ChatStore } from 'src/chat/stores/ChatStore'
-import { AppInfo } from '../AppInfo'
+import { AppInfo } from './AppInfo'
 import { CharacterSelect } from './CharacterSelect'
 import { Login } from './Login'
 
