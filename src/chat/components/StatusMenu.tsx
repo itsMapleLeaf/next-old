@@ -29,7 +29,7 @@ export class StatusMenu extends React.Component<StatusMenuProps> {
   }
 
   @action.bound
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  handleSubmit(event: React.FormEvent<any>) {
     this.props.chatStore!.updateStatus(this.fields.status, this.fields.statusMessage)
     this.props.chatViewStore!.statusMenu.hide()
   }
@@ -43,7 +43,7 @@ export class StatusMenu extends React.Component<StatusMenuProps> {
   render() {
     return (
       <div className="bg-color-main">
-        <form onSubmit={preventDefault(this.handleSubmit)}>
+        <form onSubmit={preventDefault()}>
           <fieldset>
             <h2 style={{ margin: 0 }}>{this.props.chatStore!.identity}</h2>
           </fieldset>
@@ -64,7 +64,9 @@ export class StatusMenu extends React.Component<StatusMenuProps> {
             />
           </fieldset>
           <fieldset>
-            <button>Update</button>
+            <button type="submit" onClick={preventDefault(this.handleSubmit)}>
+              Update
+            </button>
           </fieldset>
         </form>
       </div>
