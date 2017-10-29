@@ -1,8 +1,6 @@
 import * as React from 'react'
 import styled from 'react-emotion'
 
-import { preventDefault } from 'src/common/util/react'
-
 type Props = {
   children?: React.ReactNode
   onShadeClicked?: () => void
@@ -69,10 +67,7 @@ export function Drawer(props: Props) {
   const panelClass = 'overlay-panel overlay-panel-' + props.side
 
   return (
-    <Shade
-      className={`fullscreen overlay-shade ${visibleClass}`}
-      onClick={preventDefault(handleClick)}
-    >
+    <Shade className={`fullscreen overlay-shade ${visibleClass}`} onClick={handleClick}>
       <Panel className={`${panelClass} bg-color-main flex-row`}>{props.children}</Panel>
     </Shade>
   )

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { preventDefault } from 'src/common/util/react'
 import './Overlay.scss'
 
 type OverlayProps = {
@@ -8,12 +7,14 @@ type OverlayProps = {
 }
 
 export function Overlay(props: OverlayProps) {
-  const handleClick = preventDefault((event: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const el = event.target
     if (el instanceof HTMLDivElement && el.classList.contains('Overlay-shade')) {
-      if (props.onShadeClick) props.onShadeClick()
+      if (props.onShadeClick) {
+        props.onShadeClick()
+      }
     }
-  })
+  }
 
   return (
     <div className="Overlay-shade" onClick={handleClick}>
