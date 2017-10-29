@@ -1,3 +1,4 @@
+import sortBy from 'lodash/sortBy'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'
@@ -20,7 +21,7 @@ type InjectedProps = {
 }
 
 function storesToProps(stores: Stores): InjectedProps {
-  const allFriends = Object.keys(stores.chatStore.friends)
+  const allFriends = sortBy(Object.keys(stores.chatStore.friends))
 
   // TODO: make this DRYer(?)
   const onlineFriends = allFriends.filter(name => {
