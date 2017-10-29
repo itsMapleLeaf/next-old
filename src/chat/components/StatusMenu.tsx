@@ -1,18 +1,31 @@
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { ChatStore } from 'src/chat/stores/ChatStore'
-import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { preventDefault } from 'src/common/util/react'
+import { Stores } from 'src/stores'
 
-type StatusMenuProps = {
-  chatStore?: ChatStore
-  chatViewStore?: ChatViewStore
+type InjectedProps = {
+  initialStatus: string
+  initialStatusMessage: string
+  onSubmit: (status: string, statusMessage: string) => void
 }
 
-@inject('chatStore', 'chatViewStore')
+function storesToProps(stores: Stores): InjectedProps {
+  const { chatStore, chatViewStore } = stores
+  const char = chatStore.identityCharacter
+  return {
+    initialStatus: char.status,
+    initialStatusMessage: char.statusMessage,
+    onSubmit(status: string, statusMessage: string) {
+      chatStore.updateStatus(status, statusMessage)
+      chatViewStore.statusMenu.hide()
+    },
+  }
+}
+
+@inject(storesToProps)
 @observer
-export class StatusMenu extends React.Component<StatusMenuProps> {
+class StatusMenuComponent extends React.Component<InjectedProps> {
   @observable status = ''
   @observable statusMessage = ''
 
@@ -27,15 +40,18 @@ export class StatusMenu extends React.Component<StatusMenuProps> {
   }
 
   @action.bound
-  handleSubmit(event: React.FormEvent<any>) {
-    this.props.chatStore!.updateStatus(this.status, this.statusMessage)
-    this.props.chatViewStore!.statusMenu.hide()
+  handleSubmit() {
+    this.props.onSubmit(this.status, this.statusMessage)
+  }
+
+  @action
+  init() {
+    this.status = this.props.initialStatus
+    this.statusMessage = this.props.initialStatusMessage
   }
 
   componentDidMount() {
-    const char = this.props.chatStore!.identityCharacter
-    this.status = char.status
-    this.statusMessage = char.statusMessage
+    this.init()
   }
 
   render() {
@@ -43,7 +59,7 @@ export class StatusMenu extends React.Component<StatusMenuProps> {
       <div className="bg-color-main">
         <form onSubmit={preventDefault(this.handleSubmit)}>
           <fieldset>
-            <h2 style={{ margin: 0 }}>{this.props.chatStore!.identity}</h2>
+            <h2 style={{ margin: 0 }}>Status Update</h2>
           </fieldset>
           <fieldset>
             <select value={this.status} onChange={this.updateStatus}>
@@ -69,3 +85,5 @@ export class StatusMenu extends React.Component<StatusMenuProps> {
     )
   }
 }
+
+export const StatusMenu: React.ComponentClass<{}> = StatusMenuComponent
