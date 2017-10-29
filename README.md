@@ -27,13 +27,17 @@
 - [ ] A working "log out" button
 
 ### 0.13.0
-- [ ] Notifications for when friends/bookmarks log on/off (and other stuff)
+- [ ] Notifications
+  - [ ] Channel/private messages
+  - [ ] Global broadcasts
+  - [ ] Friends logging on/off
+  - [ ] Sounds
 
 ### ???
 - [ ] A settings screen of some kind
+- [ ] Logs & log browser
 
 ## Ideas
-
 - A favorites list in the channel browser
 - Channel specific notification settings
 - BBC Shortcuts
