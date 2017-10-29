@@ -21,6 +21,7 @@
 - [ ] Functional room links
 - [ ] Working commands
 - [ ] Console screen
+- [ ] BUG: Leaving a channel while it's selected should update the view accordingly
 
 ### 0.12.1
 - [x] Fix character menu sometimes not closing when it should
