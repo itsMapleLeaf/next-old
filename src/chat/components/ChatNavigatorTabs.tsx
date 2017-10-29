@@ -44,7 +44,7 @@ function storesToProps(stores: Stores): InjectedProps {
     },
 
     onPrivateChatClose(partner) {
-      privateChatStore.closePrivateChat(partner)
+      chatStore.removePrivateChat(partner)
     },
   }
 }
