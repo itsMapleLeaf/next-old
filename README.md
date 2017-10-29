@@ -13,8 +13,11 @@
   - [ ] Global broadcasts
   - [ ] Friends logging on/off
   - [ ] Sounds
+- [ ] Reordering joined channels / private chats
+- [ ] Sorting channel list by user count
 
 ### 0.13.0
+- [ ] Show roll / bottle messages
 - [ ] Working commands
 - [ ] Console screen
 
