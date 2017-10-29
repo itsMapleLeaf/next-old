@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 import { getAvatarURL } from 'src/api'
 import { preventDefault } from 'src/common/util/react'
-import { StoredValue } from 'src/common/util/stored-value'
+import { StoredValue } from 'src/common/util/storage'
 
 const avatarStyle = {
   width: '100px',

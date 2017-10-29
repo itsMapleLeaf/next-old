@@ -3,7 +3,7 @@ import { action, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { preventDefault } from 'src/common/util/react'
-import { StoredValue } from 'src/common/util/stored-value'
+import { StoredValue } from 'src/common/util/storage'
 
 type LoginProps = {
   onSubmit: (username: string, password: string) => void

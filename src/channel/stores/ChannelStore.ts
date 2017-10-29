@@ -1,7 +1,7 @@
 import { observable } from 'mobx'
 
 import { Channel } from 'src/channel/models/Channel'
-import { StoredValue } from 'src/common/util/stored-value'
+import { StoredValue } from 'src/common/util/storage'
 import { Message } from 'src/message/models/Message'
 
 export type ChannelID = string

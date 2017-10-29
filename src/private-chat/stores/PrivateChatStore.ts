@@ -1,5 +1,5 @@
 import { observable } from 'mobx'
-import { StoredValue } from 'src/common/util/stored-value'
+import { StoredValue } from 'src/common/util/storage'
 import { Message } from 'src/message/models/Message'
 import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 
