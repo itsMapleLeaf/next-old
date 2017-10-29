@@ -21,13 +21,15 @@ type InjectedProps = {
 
 function storesToProps(stores: Stores): InjectedProps {
   const { chatStore, chatViewStore, channelStore, privateChatStore } = stores
+
+  const privateChats = privateChatStore
+    .getOpenPrivateChats()
+    .filter(chat => !chatStore.isIgnored(chat.partner))
+
   return {
     currentRoute: chatViewStore.route,
-    joinedChannels: channelStore.getJoinedChannels(),
-
-    privateChats: privateChatStore
-      .getOpenPrivateChats()
-      .filter(chat => !chatStore.isIgnored(chat.partner)),
+    joinedChannels: sortBy(channelStore.getJoinedChannels(), ch => ch.title.toLowerCase()),
+    privateChats: sortBy(privateChats, ch => ch.partner.toLowerCase()),
 
     onChannelActivate(id) {
       chatViewStore.setRoute({ type: 'channel', id })
