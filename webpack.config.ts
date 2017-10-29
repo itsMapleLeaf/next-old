@@ -129,6 +129,13 @@ export = (env = {} as ConfigEnvironment) => {
         },
       }),
 
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'react',
+        minChunks: ({ resource }) => {
+          return resource && resource.includes('react')
+        },
+      }),
+
       new UglifyPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
     ],
