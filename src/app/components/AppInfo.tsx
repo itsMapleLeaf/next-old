@@ -28,8 +28,8 @@ function renderAppInfo(props: { overlay: OverlayState }) {
           <p>
             If you find a bug or have a suggestion not listed on the project page, make an issue for
             it on GitHub, or
-            <a className="bbc-link" href="https://www.f-list.net/c/testificate/" target="_blank">
-              send a note to my testing character.
+            <a className="bbc-link" href="https://www.f-list.net/c/next-dev/" target="_blank">
+              send me a note here.
             </a>
           </p>
           <p>
