@@ -103,20 +103,6 @@ export class ChatStore {
   @action
   handleSocketCommand(cmd: string, params: any) {
     const handlers: { [command: string]: (this: ChatStore) => void } = {
-      VAR() {},
-      LIS() {},
-      NLN() {},
-      STA() {},
-      FLN() {},
-      ICH() {},
-      CDS() {},
-      COL() {},
-      MSG() {},
-      LRP() {},
-      PRI() {},
-      CHA() {},
-      ORS() {},
-
       PIN() {
         // dispatch('sendSocketCommand', { cmd: 'PIN' })
         this.sendSocketCommand('PIN')
@@ -185,9 +171,8 @@ export class ChatStore {
 
     if (handlers[cmd]) {
       handlers[cmd].call(this)
-    } else {
-      console.log(cmd, params)
     }
+    // console.log(cmd, params)
   }
 
   fetchChannelList() {
