@@ -11,14 +11,11 @@ type InjectedProps = {
   onStatusMenu: () => void
   onFriendBrowser: () => void
   onExit: () => void
+  onInfo: () => void
 }
 
-function storesToProps({
-  chatStore,
-  chatViewStore,
-  channelStore,
-  privateChatStore,
-}: Stores): InjectedProps {
+function storesToProps(stores: Stores): InjectedProps {
+  const { chatStore, chatViewStore, appStore } = stores
   return {
     identity: chatStore.identity,
     onStatusMenu: chatViewStore.statusMenu.show,
@@ -31,6 +28,10 @@ function storesToProps({
 
     onExit() {
       chatStore.disconnectFromServer()
+    },
+
+    onInfo() {
+      appStore.appInfo.toggle()
     },
   }
 }
@@ -46,6 +47,7 @@ class ChatNavigatorComponent extends React.Component<InjectedProps> {
             <ChatAction icon="forum" onClick={this.props.onChannelBrowser} />
             <ChatAction icon="account-circle" onClick={this.props.onStatusMenu} />
             <ChatAction icon="account-multiple" onClick={this.props.onFriendBrowser} />
+            <ChatAction icon="info" onClick={this.props.onInfo} />
             {/* <ChatAction icon="settings" /> */}
           </section>
 

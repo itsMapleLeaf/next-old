@@ -8,6 +8,7 @@ import { AppState, AppStore } from 'src/app/stores/AppStore'
 import { AuthStore } from 'src/auth/stores/AuthStore'
 import { ChatView } from 'src/chat/components/ChatView'
 import { ChatStore } from 'src/chat/stores/ChatStore'
+import { AppInfo } from '../AppInfo'
 import { CharacterSelect } from './CharacterSelect'
 import { Login } from './Login'
 
@@ -96,6 +97,7 @@ export class App extends React.Component<AppProps> {
     return (
       <main className="fullscreen flex-center bg-color-main text-color-main">
         {this.renderCurrentView()}
+        <AppInfo overlay={this.appStore.appInfo} />
       </main>
     )
   }
