@@ -3,7 +3,7 @@ import sortBy from 'lodash/sortBy'
 import { action, computed, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 
 import { Icon } from 'src/app/components/Icon'
 import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
@@ -19,7 +19,7 @@ type ChannelBrowserProps = {
   onDone?: () => void
 }
 
-const Tab = styled.a`
+const Tab = styled('a')`
   > * {
     vertical-align: text-bottom;
   }

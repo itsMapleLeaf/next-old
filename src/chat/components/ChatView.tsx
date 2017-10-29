@@ -1,6 +1,7 @@
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import styled from 'react-emotion'
 import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
 import { ChannelView } from 'src/channel/components/ChannelView'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
@@ -12,13 +13,12 @@ import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
-import styled from 'styled-components'
 import { ChatHeader } from './ChatHeader'
 import { ChatNavigator } from './ChatNavigator'
 import { FriendBrowser } from './FriendBrowser'
 import { StatusMenu } from './StatusMenu'
 
-const ChannelBrowserWrapper = styled.div`
+const ChannelBrowserWrapper = styled('div')`
   width: 400px;
   height: 600px;
 

@@ -1,25 +1,25 @@
 import { action, computed, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import styled from 'react-emotion'
+import { Icon } from 'src/app/components/Icon'
 import { ChannelModeFilter } from 'src/channel/components/ChannelModeFilter'
 import { Channel, ChannelMode } from 'src/channel/models/Channel'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { parseBBC } from 'src/chat/util/bbc'
 import { AutoScroller } from 'src/common/components/AutoScroller'
+import { Drawer } from 'src/common/components/Drawer'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { preventDefault } from 'src/common/util/react'
 import { MessageComponent } from 'src/message/components/MessageComponent'
 import { Message } from 'src/message/models/Message'
 import { Stores } from 'src/stores'
-import styled from 'styled-components'
-import { ChannelUsers } from './ChannelUsers'
-import { Icon } from 'src/app/components/Icon'
 import { OverlayState } from '../../chat/models/OverlayState'
-import { Drawer } from 'src/common/components/Drawer'
 import { ShowOnMobile } from '../../common/components/responsive-utils'
+import { ChannelUsers } from './ChannelUsers'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: grid;
   grid-gap: 4px;
 
@@ -39,9 +39,9 @@ const Container = styled.div`
   }
 `
 
-const HeaderContainer = styled.div`grid-area: chat-header;`
+const HeaderContainer = styled('div')`grid-area: chat-header;`
 
-const MessageList = styled.div`grid-area: message-list;`
+const MessageList = styled('div')`grid-area: message-list;`
 
 const Description = styled(ShowOnDesktop)`
   grid-area: description;
@@ -50,7 +50,7 @@ const Description = styled(ShowOnDesktop)`
 
 const UserListContainer = styled(ShowOnDesktop)`grid-area: user-list;`
 
-const ChatInputWrapper = styled.div`grid-area: chat-input;`
+const ChatInputWrapper = styled('div')`grid-area: chat-input;`
 
 type Props = JSX.IntrinsicElements['div'] & {
   id: string

@@ -2,11 +2,11 @@ import { action } from 'mobx'
 import { inject } from 'mobx-react'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import styled from 'react-emotion'
 import { getProfileURL } from 'src/api'
 import { Icon } from 'src/app/components/Icon'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import { ChatStore } from 'src/chat/stores/ChatStore'
-import styled from 'styled-components'
 
 type CharacterMenuProps = {
   x: number
@@ -15,13 +15,13 @@ type CharacterMenuProps = {
   chatStore?: ChatStore
 }
 
-const MenuWrapper = styled.div`
+const MenuWrapper = styled('div')`
   width: 200px;
   position: fixed;
   box-shadow: 0px 0px 8px black;
 `
 
-const MenuAction = styled.a`
+const MenuAction = styled('a')`
   opacity: 0.5;
 
   &:hover {

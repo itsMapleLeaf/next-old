@@ -1,11 +1,11 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import styled from 'react-emotion'
 import { getAvatarURL } from 'src/api'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { Stores } from 'src/stores'
-import styled from 'styled-components'
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   width: 400px;
   height: 600px;
 

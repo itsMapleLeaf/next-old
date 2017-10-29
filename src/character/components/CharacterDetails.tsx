@@ -2,13 +2,13 @@ import * as React from 'react'
 
 import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 
 import { getAvatarURL, getProfileURL } from 'src/api'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
 import { parseBBC } from 'src/chat/util/bbc'
 
-const Avatar = styled.img`
+const Avatar = styled('img')`
   width: 100px;
   height: 100px;
   display: block;

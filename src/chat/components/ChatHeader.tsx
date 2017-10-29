@@ -1,15 +1,15 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import styled from 'react-emotion'
 import { Icon } from 'src/app/components/Icon'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { ShowOnMobile } from 'src/common/components/responsive-utils'
-import styled from 'styled-components'
 
 type ChatHeaderProps = {
   chatViewStore?: ChatViewStore
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   > :not(:last-child) {
     margin-right: 8px;
   }

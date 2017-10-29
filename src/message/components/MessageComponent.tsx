@@ -1,12 +1,12 @@
 import * as React from 'react'
+import styled from 'react-emotion'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { parseBBC } from 'src/chat/util/bbc'
 import { Message, MessageType } from 'src/message/models/Message'
-import styled from 'styled-components'
 
 const actionExp = /^\s*\/me\s*/
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   &:nth-child(2n) {
     background-color: rgba(0, 0, 0, 0.15);
   }

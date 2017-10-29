@@ -153,14 +153,14 @@ export class ChatStore {
       JCH() {
         if (params.character.identity === this.identity) {
           this.channels.addJoinedChannel(params.channel)
-          this.saveJoinedChannels()
+          this.saveJoinedChannels().catch(console.error)
         }
       },
 
       LCH() {
         if (params.character === this.identity) {
           this.channels.removeJoinedChannel(params.channel)
-          this.saveJoinedChannels()
+          this.saveJoinedChannels().catch(console.error)
         }
       },
 

@@ -2,10 +2,10 @@ import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import styled from 'react-emotion'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
 import { ChatStore } from 'src/chat/stores/ChatStore'
-import styled from 'styled-components'
 
 type Props = {
   characterStore?: CharacterStore
@@ -14,7 +14,7 @@ type Props = {
   ops: string[]
 }
 
-const ListItem = styled.div`padding: 4px 8px;`
+const ListItem = styled('div')`padding: 4px 8px;`
 
 @inject('characterStore', 'chatStore')
 @observer

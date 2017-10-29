@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 
 import { Icon } from 'src/app/components/Icon'
 import { preventDefault } from '../../common/util/react'
@@ -11,7 +11,7 @@ export type ChatTabProps = {
   onClose?: () => void
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled<ChatTabProps, 'div'>('div')`
   &:hover {
     opacity: ${(props: ChatTabProps) => (props.active ? 1 : 0.75)};
   }
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   opacity: ${(props: ChatTabProps) => (props.active ? 1 : 0.5)};
 `
 
-const CloseIcon = styled.a`
+const CloseIcon = styled('a')`
   opacity: 0.3;
 
   &:hover {

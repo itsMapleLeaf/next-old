@@ -1,15 +1,15 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import styled from 'react-emotion'
 import { getProfileURL } from 'src/api'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
-import styled from 'styled-components'
 
 type Props = {
   name: string
   characterStore?: CharacterStore
 }
 
-const StatusDot = styled.span`
+const StatusDot = styled('span')`
   line-height: 0;
   font-size: 120%;
   vertical-align: middle;
