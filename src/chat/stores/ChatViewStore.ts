@@ -37,7 +37,7 @@ export class ChatViewStore {
     this.characterMenu.open = true
   }
 
-  @action
+  @action.bound
   closeCharacterMenu() {
     this.characterMenu.open = false
   }

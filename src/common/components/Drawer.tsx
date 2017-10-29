@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'react-emotion'
 
-import { preventDefault, stopPropagation } from 'src/common/util/react'
+import { preventDefault } from 'src/common/util/react'
 
 type Props = {
   children?: React.ReactNode
@@ -58,18 +58,22 @@ const Panel = styled('div')`
 `
 
 export function Drawer(props: Props) {
-  const handleClick = () => {
-    if (props.onShadeClicked) props.onShadeClicked()
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const el = event.target
+    if (el instanceof HTMLDivElement && el.classList.contains('overlay-shade')) {
+      if (props.onShadeClicked) props.onShadeClicked()
+    }
   }
 
   const visibleClass = props.visible ? 'overlay-visible' : 'overlay-hidden'
   const panelClass = 'overlay-panel overlay-panel-' + props.side
 
   return (
-    <Shade className={`fullscreen ${visibleClass}`} onClick={preventDefault(handleClick)}>
-      <Panel className={`${panelClass} bg-color-main flex-row`} onClick={stopPropagation()}>
-        {props.children}
-      </Panel>
+    <Shade
+      className={`fullscreen overlay-shade ${visibleClass}`}
+      onClick={preventDefault(handleClick)}
+    >
+      <Panel className={`${panelClass} bg-color-main flex-row`}>{props.children}</Panel>
     </Shade>
   )
 }
