@@ -22,8 +22,6 @@ export class ChatViewStore {
     character: '',
   }
 
-  constructor() {}
-
   @action.bound
   setRoute(route: ChatViewRoute) {
     this.route = route
