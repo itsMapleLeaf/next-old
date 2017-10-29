@@ -1,33 +1,10 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
+import { OverlayState } from '../models/OverlayState'
 
 export type ChatViewRoute =
   | { type: 'channel'; id: string }
   | { type: 'private-chat'; partner: string }
   | { type: 'none' }
-
-class OverlayState {
-  @observable private visible = false
-
-  @action.bound
-  show() {
-    this.visible = true
-  }
-
-  @action.bound
-  hide() {
-    this.visible = false
-  }
-
-  @action.bound
-  toggle() {
-    this.visible = !this.visible
-  }
-
-  @computed
-  get isOpen() {
-    return this.visible
-  }
-}
 
 export class ChatViewStore {
   navigator = new OverlayState()
