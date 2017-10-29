@@ -18,13 +18,23 @@ type ConfigEnvironment = {
 }
 
 export = (env = {} as ConfigEnvironment) => {
-  const tsLoader: webpack.Rule = {
+  const sourceRule: webpack.Rule = {
     test: /\.tsx?$/,
-    loader: 'ts-loader',
-    options: {
-      compilerOptions: { module: 'esnext' },
-    },
     include: [sourcePath],
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          plugins: ['emotion'],
+        },
+      },
+      {
+        loader: 'ts-loader',
+        options: {
+          compilerOptions: { module: 'esnext' },
+        },
+      },
+    ],
   }
 
   const cssLoader = {
@@ -61,7 +71,7 @@ export = (env = {} as ConfigEnvironment) => {
       path: outputPath,
     },
     module: {
-      rules: [tsLoader, cssLoaderRule, sassLoaderRule],
+      rules: [sourceRule, cssLoaderRule, sassLoaderRule],
     },
     plugins: [
       new HTMLPlugin({
