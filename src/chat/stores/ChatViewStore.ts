@@ -1,15 +1,38 @@
-import { action, observable } from 'mobx'
-import { ChatStore } from 'src/chat/stores/ChatStore'
+import { action, computed, observable } from 'mobx'
 
 export type ChatViewRoute =
   | { type: 'channel'; id: string }
   | { type: 'private-chat'; partner: string }
   | { type: 'none' }
 
+class OverlayState {
+  @observable private visible = false
+
+  @action.bound
+  show() {
+    this.visible = true
+  }
+
+  @action.bound
+  hide() {
+    this.visible = false
+  }
+
+  @action.bound
+  toggle() {
+    this.visible = !this.visible
+  }
+
+  @computed
+  get isOpen() {
+    return this.visible
+  }
+}
+
 export class ChatViewStore {
-  @observable isNavigatorOpen = false
-  @observable isChannelBrowserOpen = false
-  @observable isStatusMenuOpen = false
+  navigator = new OverlayState()
+  channelBrowser = new OverlayState()
+  statusMenu = new OverlayState()
   @observable route = { type: 'none' } as ChatViewRoute
 
   @observable
@@ -20,29 +43,11 @@ export class ChatViewStore {
     character: '',
   }
 
-  constructor(private chatStore: ChatStore) {}
+  constructor() {}
 
   @action.bound
   setRoute(route: ChatViewRoute) {
     this.route = route
-  }
-
-  @action.bound
-  toggleNavigator() {
-    this.isNavigatorOpen = !this.isNavigatorOpen
-  }
-
-  @action.bound
-  toggleChannelBrowser() {
-    const open = (this.isChannelBrowserOpen = !this.isChannelBrowserOpen)
-    if (open) {
-      this.chatStore.fetchChannelList()
-    }
-  }
-
-  @action.bound
-  toggleStatusMenu() {
-    this.isStatusMenuOpen = !this.isStatusMenuOpen
   }
 
   @action

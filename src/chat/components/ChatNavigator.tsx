@@ -19,8 +19,11 @@ function storesToProps({
 }: Stores): ChatNavigatorProps {
   return {
     identity: chatStore.identity,
-    onChannelBrowser: chatViewStore.toggleChannelBrowser,
-    onStatusMenu: chatViewStore.toggleStatusMenu,
+    onChannelBrowser() {
+      chatViewStore.channelBrowser.show()
+      chatStore.fetchChannelList()
+    },
+    onStatusMenu: chatViewStore.statusMenu.show,
   }
 }
 

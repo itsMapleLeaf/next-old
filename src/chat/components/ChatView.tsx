@@ -39,7 +39,7 @@ export class ChatView extends React.Component<ChatProps> {
   @action.bound
   handleChannelActivate(channel: string) {
     this.viewStore.setRoute({ type: 'channel', id: channel })
-    this.viewStore.isNavigatorOpen = false
+    this.viewStore.navigator.hide()
   }
 
   @action.bound
@@ -85,23 +85,22 @@ export class ChatView extends React.Component<ChatProps> {
   }
 
   renderDrawerMenu() {
+    const { navigator } = this.viewStore
     return (
-      <Drawer
-        side="left"
-        visible={this.viewStore.isNavigatorOpen}
-        onShadeClicked={this.viewStore.toggleNavigator}
-      >
+      <Drawer side="left" visible={navigator.isOpen} onShadeClicked={navigator.show}>
         {this.renderMenu()}
       </Drawer>
     )
   }
 
   renderChannelBrowser() {
+    const { channelBrowser } = this.viewStore
+
     return (
-      <FadeTransition visible={this.viewStore.isChannelBrowserOpen}>
-        <Overlay onShadeClick={this.viewStore.toggleChannelBrowser}>
+      <FadeTransition visible={channelBrowser.isOpen}>
+        <Overlay onShadeClick={channelBrowser.hide}>
           <ChannelBrowserWrapper className="bg-color-main">
-            <ChannelBrowser onDone={this.viewStore.toggleChannelBrowser} />
+            <ChannelBrowser onDone={channelBrowser.hide} />
           </ChannelBrowserWrapper>
         </Overlay>
       </FadeTransition>
@@ -109,9 +108,10 @@ export class ChatView extends React.Component<ChatProps> {
   }
 
   renderStatusMenu() {
+    const { statusMenu } = this.viewStore
     return (
-      <FadeTransition visible={this.viewStore.isStatusMenuOpen}>
-        <Overlay onShadeClick={this.viewStore.toggleStatusMenu}>
+      <FadeTransition visible={statusMenu.isOpen}>
+        <Overlay onShadeClick={statusMenu.hide}>
           <StatusMenu />
         </Overlay>
       </FadeTransition>
