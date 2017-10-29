@@ -13,42 +13,40 @@ type StatusMenuProps = {
 @inject('chatStore', 'chatViewStore')
 @observer
 export class StatusMenu extends React.Component<StatusMenuProps> {
-  @observable
-  fields = {
-    status: '',
-    statusMessage: '',
+  @observable status = ''
+  @observable statusMessage = ''
+
+  @action.bound
+  updateStatus(event: React.ChangeEvent<HTMLSelectElement>) {
+    this.status = event.currentTarget.value
   }
 
-  @action updateStatus = this.linkField('status')
-  @action updateStatusMessage = this.linkField('statusMessage')
-
-  linkField(field: keyof StatusMenu['fields']) {
-    return (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      this.fields[field] = event.currentTarget.value
-    }
+  @action.bound
+  updateStatusMessage(event: React.UIEvent<HTMLTextAreaElement>) {
+    this.statusMessage = event.currentTarget.value
   }
 
   @action.bound
   handleSubmit(event: React.FormEvent<any>) {
-    this.props.chatStore!.updateStatus(this.fields.status, this.fields.statusMessage)
+    this.props.chatStore!.updateStatus(this.status, this.statusMessage)
     this.props.chatViewStore!.statusMenu.hide()
   }
 
   componentDidMount() {
     const char = this.props.chatStore!.identityCharacter
-    this.fields.status = char.status
-    this.fields.statusMessage = char.statusMessage
+    this.status = char.status
+    this.statusMessage = char.statusMessage
   }
 
   render() {
     return (
       <div className="bg-color-main">
-        <form onSubmit={preventDefault()}>
+        <form onSubmit={preventDefault(this.handleSubmit)}>
           <fieldset>
             <h2 style={{ margin: 0 }}>{this.props.chatStore!.identity}</h2>
           </fieldset>
           <fieldset>
-            <select value={this.fields.status} onInput={this.updateStatus}>
+            <select value={this.status} onChange={this.updateStatus}>
               <option value="online">Online</option>
               <option value="looking">Looking</option>
               <option value="away">Away</option>
@@ -59,14 +57,12 @@ export class StatusMenu extends React.Component<StatusMenuProps> {
           <fieldset>
             <textarea
               placeholder="Status message..."
-              value={this.fields.statusMessage}
+              value={this.statusMessage}
               onInput={this.updateStatusMessage}
             />
           </fieldset>
           <fieldset>
-            <button type="submit" onClick={preventDefault(this.handleSubmit)}>
-              Update
-            </button>
+            <button type="submit">Update</button>
           </fieldset>
         </form>
       </div>
