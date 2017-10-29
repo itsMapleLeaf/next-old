@@ -7,6 +7,7 @@ import { StoredValue } from 'src/common/util/storage'
 
 type LoginProps = {
   onSubmit: (username: string, password: string) => void
+  onAbout: () => void
   statusText: string
 }
 
@@ -40,7 +41,7 @@ export class Login extends React.Component<LoginProps> {
   render() {
     return (
       <section className="text-center">
-        <h1>Hello, beautiful.</h1>
+        <h1 className="margin">Hello, beautiful.</h1>
         <form onSubmit={preventDefault(this.handleSubmit)}>
           <fieldset>
             <input
@@ -63,6 +64,11 @@ export class Login extends React.Component<LoginProps> {
           </fieldset>
         </form>
         <p>{this.props.statusText}</p>
+        <p>
+          <a className="bbc-link" href="#" onClick={this.props.onAbout}>
+            About
+          </a>
+        </p>
       </section>
     )
   }

@@ -69,19 +69,31 @@ export class App extends React.Component<AppProps> {
     this.appStore.init().catch(console.error)
   }
 
+  @action.bound
+  backToLogin() {
+    this.appStore.setState(AppState.login)
+  }
+
   renderCurrentView() {
     switch (this.appStore.state) {
       case AppState.setup:
         return <Loading text="Setting things up..." />
 
       case AppState.login:
-        return <Login statusText={this.loginStatus} onSubmit={this.handleLoginSubmit} />
+        return (
+          <Login
+            statusText={this.loginStatus}
+            onSubmit={this.handleLoginSubmit}
+            onAbout={this.appStore.appInfo.show}
+          />
+        )
 
       case AppState.characterSelect:
         return (
           <CharacterSelect
             characters={this.authStore.characters}
             onSubmit={this.handleCharacterSubmit}
+            onBack={this.backToLogin}
           />
         )
 

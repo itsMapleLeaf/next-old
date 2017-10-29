@@ -14,6 +14,7 @@ const avatarStyle = {
 type CharacterSelectProps = {
   characters: string[]
   onSubmit: (character: string) => void
+  onBack: () => void
 }
 
 @observer
@@ -58,6 +59,11 @@ export class CharacterSelect extends React.Component<CharacterSelectProps> {
             <button type="submit">Submit</button>
           </fieldset>
         </form>
+        <p>
+          <a href="#" className="bbc-link" onClick={preventDefault(this.props.onBack)}>
+            Back
+          </a>
+        </p>
       </section>
     )
   }
