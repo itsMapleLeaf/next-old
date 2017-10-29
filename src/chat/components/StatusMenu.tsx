@@ -27,15 +27,20 @@ export class StatusMenu extends React.Component<StatusMenuProps> {
   }
 
   @action.bound
-  handleSubmit(event: React.FormEvent<any>) {
+  handleSubmit() {
     this.props.chatStore!.updateStatus(this.status, this.statusMessage)
     this.props.chatViewStore!.statusMenu.hide()
   }
 
-  componentDidMount() {
+  @action
+  init() {
     const char = this.props.chatStore!.identityCharacter
     this.status = char.status
     this.statusMessage = char.statusMessage
+  }
+
+  componentDidMount() {
+    this.init()
   }
 
   render() {
