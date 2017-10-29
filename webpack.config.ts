@@ -78,14 +78,18 @@ export = (env = {} as ConfigEnvironment) => {
         template: './index.html',
         chunksSortMode: 'dependency',
       }),
+
       new ScriptExtHtmlPlugin({
         defaultAttribute: 'defer',
       }),
+
       new CleanPlugin(['build'], { verbose: false }),
+
       new ExtractTextPlugin({
         filename: 'css/[name].css',
         disable: !env.production,
       }),
+
       new webpack.DefinePlugin({
         APP_NAME: JSON.stringify(name),
         APP_VERSION: JSON.stringify(version),
