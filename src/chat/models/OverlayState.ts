@@ -1,7 +1,11 @@
 import { action, computed, observable } from 'mobx'
 
 export class OverlayState {
-  @observable private visible = false
+  @observable private visible: boolean
+
+  constructor(visible = false) {
+    this.visible = visible
+  }
 
   @action.bound
   show() {
