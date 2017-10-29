@@ -21,7 +21,7 @@ type InjectedProps = {
 }
 
 function storesToProps(stores: Stores): InjectedProps {
-  const allFriends = sortBy(Object.keys(stores.chatStore.friends))
+  const allFriends = sortBy(stores.chatStore.friends.keys())
 
   // TODO: make this DRYer(?)
   const onlineFriends = allFriends.filter(name => {
