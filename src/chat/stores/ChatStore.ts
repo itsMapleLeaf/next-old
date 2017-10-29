@@ -217,10 +217,12 @@ export class ChatStore {
 
   openPrivateChat(partner: string) {
     this.privateChats.openPrivateChat(partner)
+    this.savePrivateChats().catch(console.error)
   }
 
   removePrivateChat(partner: string) {
     this.privateChats.closePrivateChat(partner)
+    this.savePrivateChats().catch(console.error)
   }
 
   sendPrivateMessage(recipient: string, message: string) {
@@ -231,18 +233,12 @@ export class ChatStore {
   }
 
   async savePrivateChats() {
-    // await forage.setItem(
-    //   'privateChats:' + this.identity,
-    //   Object.keys(this.privateChats),
-    // )
+    await this.privateChats.savePrivateChats(this.identity)
   }
 
   async restorePrivateChats() {
-    // const partners =
-    //   (await forage.getItem<string[]>('privateChats:' + this.identity)) || []
-    // partners.forEach(partner => {
-    //   Vue.set(this.privateChats, partner, new PrivateChat(partner))
-    // })
+    const partners = await this.privateChats.restorePrivateChats(this.identity)
+    partners.forEach(this.openPrivateChat.bind(this))
   }
 
   updateStatus(status: string, statusmsg: string) {
