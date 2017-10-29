@@ -65,7 +65,10 @@ class FriendBrowserComponent extends React.Component<InjectedProps> {
   }
 
   private renderEntry = (name: string) => (
-    <div className="bg-color-darken-1 padding flex-row flex-align-center spaced-children-h">
+    <div
+      key={name}
+      className="bg-color-darken-1 padding flex-row flex-align-center spaced-children-h"
+    >
       <img src={getAvatarURL(name)} style={{ width: '24px', height: '24px' }} />
       <CharacterName name={name} />
     </div>
