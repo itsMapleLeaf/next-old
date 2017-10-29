@@ -21,8 +21,7 @@
 - [x] Message sending
 - [x] Friend/bookmark list
 - [x] Parsing /me
-- [ ] Sending messages
-- [ ] Add a drawer for the user list and channel description on mobile
+- [x] Add a drawer for the user list and channel description on mobile
 - [ ] Save private chats between sessions
 - [ ] Ignoring functionality
 - [ ] A working "log out" button
