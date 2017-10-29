@@ -41,7 +41,7 @@ function storesToProps(stores: Stores): InjectedProps {
 
 @inject(storesToProps)
 @observer
-class FriendBrowserComponent extends React.Component<InjectedProps> {
+class CharacterBrowserComponent extends React.Component<InjectedProps> {
   render() {
     const { onlineFriends, offlineFriends, ignoredUsers } = this.props
     return (
@@ -76,4 +76,4 @@ class FriendBrowserComponent extends React.Component<InjectedProps> {
   )
 }
 
-export const FriendBrowser = FriendBrowserComponent as React.ComponentClass<{}>
+export const CharacterBrowser = CharacterBrowserComponent as React.ComponentClass<{}>

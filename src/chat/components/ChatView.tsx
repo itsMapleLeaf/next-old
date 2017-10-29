@@ -13,9 +13,9 @@ import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
+import { CharacterBrowser } from './CharacterBrowser'
 import { ChatHeader } from './ChatHeader'
 import { ChatNavigator } from './ChatNavigator'
-import { FriendBrowser } from './FriendBrowser'
 import { StatusMenu } from './StatusMenu'
 
 const ChannelBrowserWrapper = styled('div')`
@@ -124,7 +124,7 @@ export class ChatView extends React.Component<ChatProps> {
     return (
       <FadeTransition visible={friendBrowser.isOpen}>
         <Overlay onShadeClick={friendBrowser.hide}>
-          <FriendBrowser />
+          <CharacterBrowser />
         </Overlay>
       </FadeTransition>
     )
