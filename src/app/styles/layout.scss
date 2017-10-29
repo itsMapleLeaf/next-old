@@ -19,3 +19,15 @@ $spacing: 8px;
 .divider { width: $spacing / 2; height: $spacing / 2 }
 .divider-v { height: $spacing / 2; width: 100% }
 .divider-h { width: $spacing / 2; height: 100% }
+
+.spaced-children-v {
+  > :not(:last-child) {
+    margin-bottom: $spacing;
+  }
+}
+
+.spaced-children-h {
+  > :not(:last-child) {
+    margin-right: $spacing;
+  }
+}
