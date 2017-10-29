@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { action, observable } from 'mobx'
 import { Character } from 'src/character/models/Character'
 
 type CharacterBatch = [string, string, string, string][]
@@ -6,6 +6,7 @@ type CharacterBatch = [string, string, string, string][]
 export class CharacterStore {
   characters = observable.map<Character>()
 
+  @action
   getCharacter(name: string) {
     let char = this.characters.get(name)
     if (!char) {
@@ -15,6 +16,7 @@ export class CharacterStore {
     return char
   }
 
+  @action
   handleCharacterBatch(batch: CharacterBatch) {
     const newCharacters = {} as Dictionary<Character>
     batch.forEach(([name, gender, status, statusMessage]) => {
@@ -23,6 +25,7 @@ export class CharacterStore {
     this.characters.merge(newCharacters)
   }
 
+  @action
   handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'LIS') {
       this.handleCharacterBatch(params.characters)

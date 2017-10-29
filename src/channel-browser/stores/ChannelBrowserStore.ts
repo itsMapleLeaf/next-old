@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { action, observable } from 'mobx'
 import { ChannelBrowserEntry } from 'src/channel-browser/models/ChannelBrowserEntry'
 
 type ChannelBrowserEntryData = {
@@ -17,14 +17,17 @@ export class ChannelBrowserStore {
   @observable publicChannels = [] as ChannelBrowserEntry[]
   @observable privateChannels = [] as ChannelBrowserEntry[]
 
+  @action
   setPublicChannels(channels: ChannelBrowserEntry[]) {
     this.publicChannels = channels
   }
 
+  @action
   setPrivateChannels(channels: ChannelBrowserEntry[]) {
     this.privateChannels = channels
   }
 
+  @action
   handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'CHA') {
       this.setPublicChannels(resolveChannelInfoData(params.channels))

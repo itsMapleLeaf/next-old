@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 import { Channel } from 'src/channel/models/Channel'
 import { StoredValue } from 'src/common/util/storage'
@@ -13,6 +13,7 @@ export class ChannelStore {
   @observable private joinedChannels = new Map<ChannelID, true>()
   private storedChannels = new StoredValue<StoredJoinedChannels>('ChannelStore_joinedChannels')
 
+  @action
   getChannel(id: ChannelID) {
     let channel = this.channels.get(id)
     if (!channel) {
@@ -22,36 +23,17 @@ export class ChannelStore {
     return channel
   }
 
+  @action
   addJoinedChannel(id: ChannelID) {
     this.joinedChannels.set(id, true)
   }
 
+  @action
   removeJoinedChannel(id: ChannelID) {
     this.joinedChannels.delete(id)
   }
 
-  getJoinedChannels() {
-    return Array.from(this.joinedChannels.keys()).map(id => this.getChannel(id))
-  }
-
-  isJoined(id: string) {
-    return this.joinedChannels.has(id)
-  }
-
-  async saveJoinedChannels(character: string): Promise<void> {
-    const channelIDs = this.getJoinedChannels().map(ch => ch.id)
-    const joinedChannels = (await this.storedChannels.restore()) || {}
-    await this.storedChannels.save({ ...joinedChannels, [character]: channelIDs })
-  }
-
-  async restoreJoinedChannels(character: string): Promise<string[]> {
-    const restoredChannels = await this.storedChannels.restore()
-    if (restoredChannels) {
-      return restoredChannels[character] || []
-    }
-    return []
-  }
-
+  @action
   handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'FLN') {
       this.channels.forEach(channel => {
@@ -97,5 +79,27 @@ export class ChannelStore {
       const channel = this.getChannel(params.channel)
       channel.messages.push(new Message(params.character, params.message, 'lfrp'))
     }
+  }
+
+  getJoinedChannels() {
+    return Array.from(this.joinedChannels.keys()).map(id => this.getChannel(id))
+  }
+
+  isJoined(id: string) {
+    return this.joinedChannels.has(id)
+  }
+
+  async saveJoinedChannels(character: string): Promise<void> {
+    const channelIDs = this.getJoinedChannels().map(ch => ch.id)
+    const joinedChannels = (await this.storedChannels.restore()) || {}
+    await this.storedChannels.save({ ...joinedChannels, [character]: channelIDs })
+  }
+
+  async restoreJoinedChannels(character: string): Promise<string[]> {
+    const restoredChannels = await this.storedChannels.restore()
+    if (restoredChannels) {
+      return restoredChannels[character] || []
+    }
+    return []
   }
 }

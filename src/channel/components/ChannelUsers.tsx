@@ -35,9 +35,9 @@ export class ChannelUsers extends React.Component<Props> {
         const char = characterStore!.getCharacter(name)
         const { friends, admins } = chatStore!
 
-        if (admins[name]) return 0
+        if (admins.has(name)) return 0
         if (this.props.ops.includes(name)) return 1
-        if (friends[name]) return 2
+        if (friends.has(name)) return 2
         if (char.status === 'looking') return 3
         return 4
       },
@@ -49,9 +49,9 @@ export class ChannelUsers extends React.Component<Props> {
     const { chatStore } = this.props
     const { friends, admins } = chatStore!
 
-    if (admins[name]) return 'highlight-red'
+    if (admins.has(name)) return 'highlight-red'
     if (this.props.ops.includes(name)) return 'highlight-yellow'
-    if (friends[name]) return 'highlight-blue'
+    if (friends.has(name)) return 'highlight-blue'
     return ''
   }
 

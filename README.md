@@ -4,17 +4,19 @@
 
 ## Roadmap
 
-### 0.14.0
+### ???
 - [ ] A settings screen of some kind
 - [ ] Logs & log browser
-
-### 0.13.0
 - [ ] Sending RP ads
 - [ ] Notifications
   - [ ] Channel/private messages
   - [ ] Global broadcasts
   - [ ] Friends logging on/off
   - [ ] Sounds
+
+### 0.13.0
+- [ ] Working commands
+- [ ] Console screen
 
 ### 0.12.0
 - [x] Character colors

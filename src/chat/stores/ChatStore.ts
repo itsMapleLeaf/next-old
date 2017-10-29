@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import { computed, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
@@ -12,8 +12,8 @@ interface CommandHandler {
 
 export class ChatStore {
   @observable identity = ''
-  @observable friends = {} as Dictionary<boolean>
-  @observable admins = {} as Dictionary<boolean>
+  @observable friends = observable.map<true>()
+  @observable admins = observable.map<true>()
   ignored = observable.map<true>()
 
   private socket: WebSocket | void
@@ -33,6 +33,7 @@ export class ChatStore {
     private channelList: ChannelBrowserStore,
   ) {}
 
+  @action
   connectToServer(
     account: string,
     ticket: string,
@@ -83,6 +84,7 @@ export class ChatStore {
     this.socket.addEventListener('error', handleClose)
   }
 
+  @action
   disconnectFromServer() {
     if (this.socket) this.socket.close()
     this.socket = undefined
@@ -98,6 +100,7 @@ export class ChatStore {
     }
   }
 
+  @action
   handleSocketCommand(cmd: string, params: any) {
     const handlers: { [command: string]: (this: ChatStore) => void } = {
       VAR() {},
@@ -135,7 +138,7 @@ export class ChatStore {
 
       FRL() {
         const characters = params.characters as string[]
-        this.friends = fromPairs(characters.map(name => [name, true]))
+        this.friends.merge(fromPairs(characters.map(name => [name, true])))
       },
 
       IGN() {
@@ -152,7 +155,7 @@ export class ChatStore {
 
       ADL() {
         const characters = params.ops as string[]
-        this.admins = fromPairs(characters.map(name => [name, true]))
+        this.admins.merge(fromPairs(characters.map(name => [name, true])))
       },
 
       JCH() {
@@ -200,6 +203,7 @@ export class ChatStore {
     this.sendSocketCommand('LCH', { channel: id })
   }
 
+  @action
   sendChannelMessage(id: string, message: string) {
     this.sendSocketCommand('MSG', { channel: id, message })
 
@@ -220,16 +224,19 @@ export class ChatStore {
     })
   }
 
+  @action
   openPrivateChat(partner: string) {
     this.privateChats.openPrivateChat(partner)
     this.savePrivateChats().catch(console.error)
   }
 
+  @action
   removePrivateChat(partner: string) {
     this.privateChats.closePrivateChat(partner)
     this.savePrivateChats().catch(console.error)
   }
 
+  @action
   sendPrivateMessage(recipient: string, message: string) {
     this.sendSocketCommand('PRI', { recipient, message })
 
