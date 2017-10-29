@@ -5,10 +5,11 @@ import { ChatAction } from 'src/chat/components/ChatAction'
 import { Stores } from 'src/stores'
 import { ChatNavigatorTabs } from './ChatNavigatorTabs'
 
-type ChatNavigatorProps = {
+type InjectedProps = {
   identity: string
   onChannelBrowser: () => void
   onStatusMenu: () => void
+  onFriendBrowser: () => void
 }
 
 function storesToProps({
@@ -16,7 +17,7 @@ function storesToProps({
   chatViewStore,
   channelStore,
   privateChatStore,
-}: Stores): ChatNavigatorProps {
+}: Stores): InjectedProps {
   return {
     identity: chatStore.identity,
     onChannelBrowser() {
@@ -24,12 +25,13 @@ function storesToProps({
       chatStore.fetchChannelList()
     },
     onStatusMenu: chatViewStore.statusMenu.show,
+    onFriendBrowser: chatViewStore.friendBrowser.show,
   }
 }
 
 @inject(storesToProps)
 @observer
-class ChatNavigatorComponent extends React.Component<ChatNavigatorProps> {
+class ChatNavigatorComponent extends React.Component<InjectedProps> {
   render() {
     return (
       <div className="bg-color-main flex-row full-height" style={{ width: '240px' }}>
@@ -37,7 +39,7 @@ class ChatNavigatorComponent extends React.Component<ChatNavigatorProps> {
           <section className="flex-grow flex-column">
             <ChatAction icon="forum" onClick={this.props.onChannelBrowser} />
             <ChatAction icon="account-circle" onClick={this.props.onStatusMenu} />
-            <ChatAction icon="account-multiple" />
+            <ChatAction icon="account-multiple" onClick={this.props.onFriendBrowser} />
             <ChatAction icon="settings" />
           </section>
 

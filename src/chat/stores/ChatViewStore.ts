@@ -33,6 +33,8 @@ export class ChatViewStore {
   navigator = new OverlayState()
   channelBrowser = new OverlayState()
   statusMenu = new OverlayState()
+  friendBrowser = new OverlayState()
+
   @observable route = { type: 'none' } as ChatViewRoute
 
   @observable

@@ -15,6 +15,7 @@ import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
 import styled from 'styled-components'
 import { ChatHeader } from './ChatHeader'
 import { ChatNavigator } from './ChatNavigator'
+import { FriendBrowser } from './FriendBrowser'
 import { StatusMenu } from './StatusMenu'
 
 const ChannelBrowserWrapper = styled.div`
@@ -118,6 +119,17 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
+  renderFriendBrowser() {
+    const { friendBrowser } = this.viewStore
+    return (
+      <FadeTransition visible={friendBrowser.isOpen}>
+        <Overlay onShadeClick={friendBrowser.hide}>
+          <FriendBrowser />
+        </Overlay>
+      </FadeTransition>
+    )
+  }
+
   renderCharacterMenu() {
     const { open, ...props } = this.viewStore.characterMenu
     return (
@@ -142,6 +154,7 @@ export class ChatView extends React.Component<ChatProps> {
 
         {this.renderChannelBrowser()}
         {this.renderStatusMenu()}
+        {this.renderFriendBrowser()}
 
         {this.renderCharacterMenu()}
       </main>

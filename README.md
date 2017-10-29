@@ -19,7 +19,7 @@
 - [x] BBC parsing
 - [x] Proper transitions wherever missing
 - [x] Message sending
-- [ ] Friend/bookmark list
+- [x] Friend/bookmark list
 - [x] Parsing /me
 - [ ] Sending messages
 - [ ] Add a drawer for the user list and channel description on mobile
