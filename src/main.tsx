@@ -7,13 +7,15 @@ import * as ReactDOM from 'react-dom'
 import { App } from './app/components/App'
 import { stores } from './stores'
 
+const devmode = process.env.NODE_ENV !== 'production'
+
 function Root() {
   return (
     <div>
       <Provider {...stores}>
         <App />
       </Provider>
-      <DevTools position={{ right: 0, bottom: 0 }} />
+      {devmode && <DevTools position={{ right: 0, bottom: 0 }} />}
     </div>
   )
 }
@@ -25,7 +27,7 @@ function render() {
 render()
 stores.appStore.init().catch(console.error)
 
-if (process.env.NODE_ENV !== 'production') {
+if (devmode) {
   if (module.hot) {
     module.hot.accept('./app/components/App', render)
   }
