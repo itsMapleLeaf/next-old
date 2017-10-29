@@ -163,9 +163,9 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
             dangerouslySetInnerHTML={this.parsedDescription}
           />
 
-          <h3 className="padding">Users ({channel.users.length})</h3>
+          <h3 className="padding">Users ({channel.getUserCount()})</h3>
           <div className="bg-color-darken-1">
-            <ChannelUsers users={channel.users} ops={channel.ops} />
+            <ChannelUsers users={channel.getUsers()} ops={channel.ops} />
           </div>
         </div>
       </Drawer>

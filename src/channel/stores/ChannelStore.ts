@@ -55,7 +55,7 @@ export class ChannelStore {
   handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'FLN') {
       this.channels.forEach(channel => {
-        channel.users = channel.users.filter(name => name !== params.character)
+        channel.removeUser(params.character)
       })
     }
 
@@ -63,18 +63,19 @@ export class ChannelStore {
       const channel = this.getChannel(params.channel)
       const name = params.character.identity
       channel.title = params.title
-      channel.users.push(name)
+      channel.addUser(name)
     }
 
     if (cmd === 'LCH') {
       const channel = this.getChannel(params.channel)
-      channel.users = channel.users.filter(name => name !== params.character)
+      channel.removeUser(params.character)
     }
 
     if (cmd === 'ICH') {
       const channel = this.getChannel(params.channel)
+      const userData = params.users as Array<{ identity: string }>
+      channel.setUsers(userData.map(user => user.identity))
       channel.mode = params.mode
-      channel.users = params.users.map((user: { identity: string }) => user.identity)
     }
 
     if (cmd === 'CDS') {
