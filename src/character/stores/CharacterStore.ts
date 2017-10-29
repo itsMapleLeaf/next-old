@@ -19,9 +19,19 @@ export class CharacterStore {
   @action
   handleCharacterBatch(batch: CharacterBatch) {
     const newCharacters = {} as Dictionary<Character>
+
     batch.forEach(([name, gender, status, statusMessage]) => {
-      newCharacters[name] = new Character(name, gender, status, statusMessage)
+      const char = this.characters.get(name)
+
+      if (char) {
+        char.gender = gender
+        char.status = status
+        char.statusMessage = statusMessage
+      } else {
+        newCharacters[name] = new Character(name, gender, status, statusMessage)
+      }
     })
+
     this.characters.merge(newCharacters)
   }
 
