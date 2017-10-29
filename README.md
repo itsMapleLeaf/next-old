@@ -18,8 +18,14 @@
 
 ### 0.13.0
 - [ ] Show roll / bottle messages
+- [ ] Functional room links
 - [ ] Working commands
 - [ ] Console screen
+
+### 0.12.1
+- [x] Fix character menu sometimes not closing when it should
+- [x] Fix status in sidebar not updating on desktop
+- [x] Fix fonts
 
 ### 0.12.0
 - [x] Character colors
@@ -39,7 +45,7 @@
 - [x] Friend/bookmark list
 - [x] Parsing /me
 - [x] Add a drawer for the user list and channel description on mobile
-- [x] Save private chats between sessions
+- [x] Save private chat tabs between sessions (not messages (yet))
 - [x] Ignoring functionality
 - [x] A working "log out" button
 - [x] Add some sort of "about" link somewhere
