@@ -88,7 +88,7 @@ export class ChatView extends React.Component<ChatProps> {
   renderDrawerMenu() {
     const { navigator } = this.viewStore
     return (
-      <Drawer side="left" visible={navigator.isOpen} onShadeClicked={navigator.show}>
+      <Drawer side="left" visible={navigator.isOpen} onShadeClicked={navigator.hide}>
         {this.renderMenu()}
       </Drawer>
     )
