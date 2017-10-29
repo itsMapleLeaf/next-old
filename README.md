@@ -2,7 +2,19 @@
 
 > an f-chat client
 
-## TODO
+## Roadmap
+
+### 0.14.0
+- [ ] A settings screen of some kind
+- [ ] Logs & log browser
+
+### 0.13.0
+- [ ] Sending RP ads
+- [ ] Notifications
+  - [ ] Channel/private messages
+  - [ ] Global broadcasts
+  - [ ] Friends logging on/off
+  - [ ] Sounds
 
 ### 0.12.0
 - [x] Character colors
@@ -22,22 +34,13 @@
 - [x] Friend/bookmark list
 - [x] Parsing /me
 - [x] Add a drawer for the user list and channel description on mobile
-- [ ] Save private chats between sessions
-- [ ] Ignoring functionality
-- [ ] A working "log out" button
+- [x] Save private chats between sessions
+- [x] Ignoring functionality
+- [x] A working "log out" button
+- [x] Add some sort of "about" link somewhere
 
-### 0.13.0
-- [ ] Notifications
-  - [ ] Channel/private messages
-  - [ ] Global broadcasts
-  - [ ] Friends logging on/off
-  - [ ] Sounds
-
-### ???
-- [ ] A settings screen of some kind
-- [ ] Logs & log browser
-
-## Ideas
+### Ideas
 - A favorites list in the channel browser
 - Channel specific notification settings
 - BBC Shortcuts
+- Timed RP ad sending
