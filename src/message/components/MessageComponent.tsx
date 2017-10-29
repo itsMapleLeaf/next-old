@@ -1,8 +1,10 @@
+import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { parseBBC } from 'src/chat/util/bbc'
 import { Message, MessageType } from 'src/message/models/Message'
+import { Stores } from 'src/stores'
 
 const actionExp = /^\s*\/me\s*/
 
@@ -11,6 +13,14 @@ const Wrapper = styled('div')`
     background-color: rgba(0, 0, 0, 0.15);
   }
 `
+
+type Props = {
+  message: Message
+}
+
+type InjectedProps = {
+  isSenderIgnored: boolean
+}
 
 function getHighlightClass(messageType: MessageType) {
   switch (messageType) {
@@ -25,7 +35,11 @@ function getHighlightClass(messageType: MessageType) {
   }
 }
 
-export function MessageComponent(props: { message: Message }) {
+function renderMessage(props: Props & InjectedProps) {
+  if (props.isSenderIgnored) {
+    return null
+  }
+
   const { sender, text, type, date } = props.message
   const isAction = text.trim().startsWith('/me')
   const parsedText = parseBBC(text.replace(actionExp, ''))
@@ -47,3 +61,14 @@ export function MessageComponent(props: { message: Message }) {
     </Wrapper>
   )
 }
+
+function storesToProps(stores: Stores, props: Props): InjectedProps {
+  const { sender } = props.message
+  return {
+    isSenderIgnored: stores.chatStore.isIgnored(sender),
+  }
+}
+
+export const MessageComponent: React.ComponentClass<Props> = inject(storesToProps)(
+  observer(renderMessage),
+)

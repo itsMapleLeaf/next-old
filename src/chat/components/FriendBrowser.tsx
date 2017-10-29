@@ -16,6 +16,7 @@ const Wrapper = styled('div')`
 type InjectedProps = {
   onlineFriends: string[]
   offlineFriends: string[]
+  ignoredUsers: string[]
 }
 
 function storesToProps(stores: Stores): InjectedProps {
@@ -32,25 +33,38 @@ function storesToProps(stores: Stores): InjectedProps {
     return char.status === 'offline'
   })
 
-  return { onlineFriends, offlineFriends }
+  const ignoredUsers = Array.from(stores.chatStore.ignored.keys())
+
+  return { onlineFriends, offlineFriends, ignoredUsers }
 }
 
 @inject(storesToProps)
 @observer
 class FriendBrowserComponent extends React.Component<InjectedProps> {
   render() {
+    const { onlineFriends, offlineFriends, ignoredUsers } = this.props
     return (
       <Wrapper className="bg-color-main padding spaced-children-v scroll-v">
-        <h2>Online</h2>
-        {this.props.onlineFriends.map(this.renderEntry)}
+        <h2>Friends / Bookmarks</h2>
+        {this.renderUserList(onlineFriends)}
 
         <h2>Offline</h2>
-        {this.props.offlineFriends.map(this.renderEntry)}
+        {this.renderUserList(offlineFriends)}
+
+        <h2>Ignored</h2>
+        {this.renderUserList(ignoredUsers)}
       </Wrapper>
     )
   }
 
-  renderEntry = (name: string) => (
+  private renderUserList(users: string[]) {
+    if (users.length > 0) {
+      return users.map(this.renderEntry)
+    }
+    return <div className="padding text-small text-italic faded">No users found.</div>
+  }
+
+  private renderEntry = (name: string) => (
     <div className="bg-color-darken-1 padding flex-row flex-align-center spaced-children-h">
       <img src={getAvatarURL(name)} style={{ width: '24px', height: '24px' }} />
       <CharacterName name={name} />

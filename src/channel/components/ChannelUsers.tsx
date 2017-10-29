@@ -16,23 +16,29 @@ type Props = {
 
 const ListItem = styled('div')`padding: 4px 8px;`
 
+// TODO: rename to ChannelUserList
 @inject('characterStore', 'chatStore')
 @observer
 export class ChannelUsers extends React.Component<Props> {
   @computed
+  get unignoredUsers() {
+    const chatStore = this.props.chatStore!
+    return this.props.users.filter(user => !chatStore.isIgnored(user))
+  }
+
+  @computed
   get sortedUsers() {
     const { characterStore, chatStore } = this.props
     return sortBy(
-      this.props.users,
+      this.unignoredUsers,
       name => {
         const char = characterStore!.getCharacter(name)
-        const { friends, admins, ignored } = chatStore!
+        const { friends, admins } = chatStore!
 
         if (admins[name]) return 0
         if (this.props.ops.includes(name)) return 1
         if (friends[name]) return 2
         if (char.status === 'looking') return 3
-        if (ignored[name]) return 999999
         return 4
       },
       name => name.toLowerCase(),

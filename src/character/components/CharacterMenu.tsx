@@ -1,5 +1,5 @@
 import { action } from 'mobx'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import styled from 'react-emotion'
@@ -30,6 +30,7 @@ const MenuAction = styled('a')`
 `
 
 @inject('chatStore')
+@observer
 export class CharacterMenu extends React.Component<CharacterMenuProps> {
   updatePosition() {
     const el = ReactDOM.findDOMNode(this) as HTMLElement
@@ -55,6 +56,22 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
     this.props.chatStore!.openPrivateChat(this.props.character)
   }
 
+  renderIgnoreAction() {
+    const { character } = this.props
+    const chatStore = this.props.chatStore!
+    const isIgnored = chatStore.ignored.has(character)
+
+    const icon = isIgnored ? 'remove-circle' : 'remove-circle-outline'
+    const text = isIgnored ? 'Unignore' : 'ignore'
+    const handleClick = isIgnored ? chatStore.unignore : chatStore.ignore
+
+    return (
+      <MenuAction className="padding" href="#" onClick={handleClick.bind(chatStore, character)}>
+        <Icon name={icon} key="ignore-action" /> {text}
+      </MenuAction>
+    )
+  }
+
   render() {
     const { character } = this.props
     return (
@@ -68,9 +85,7 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
         <MenuAction className="padding" href={getProfileURL(character)} target="_blank">
           <Icon name="link" /> Open Profile
         </MenuAction>
-        <MenuAction className="padding" href="#">
-          <Icon name="remove-circle" /> Ignore
-        </MenuAction>
+        {this.renderIgnoreAction()}
       </MenuWrapper>
     )
   }

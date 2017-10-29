@@ -13,8 +13,8 @@ interface CommandHandler {
 export class ChatStore {
   @observable identity = ''
   @observable friends = {} as Dictionary<boolean>
-  @observable ignored = {} as Dictionary<boolean>
   @observable admins = {} as Dictionary<boolean>
+  ignored = observable.map<true>()
 
   private socket: WebSocket | void
 
@@ -139,9 +139,14 @@ export class ChatStore {
       },
 
       IGN() {
-        const characters = params.characters as string[]
-        if (params.action === 'init') {
-          this.ignored = fromPairs(characters.map(name => [name, true]))
+        const { action } = params
+        if (action === 'init') {
+          const characters = params.characters as string[]
+          this.ignored.merge(fromPairs(characters.map<[string, true]>(name => [name, true])))
+        } else if (action === 'add') {
+          this.ignored.set(params.character, true)
+        } else if (action === 'delete') {
+          this.ignored.delete(params.character)
         }
       },
 
@@ -243,6 +248,18 @@ export class ChatStore {
 
   updateStatus(status: string, statusmsg: string) {
     this.sendSocketCommand('STA', { status, statusmsg })
+  }
+
+  ignore(name: string) {
+    this.sendSocketCommand('IGN', { action: 'add', character: name })
+  }
+
+  unignore(name: string) {
+    this.sendSocketCommand('IGN', { action: 'delete', character: name })
+  }
+
+  isIgnored(name: string) {
+    return this.ignored.has(name)
   }
 
   @computed

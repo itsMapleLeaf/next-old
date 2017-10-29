@@ -19,27 +19,30 @@ type InjectedProps = {
   onPrivateChatClose: (partner: string) => void
 }
 
-function storesToProps({
-  chatStore,
-  chatViewStore,
-  channelStore,
-  privateChatStore,
-}: Stores): InjectedProps {
+function storesToProps(stores: Stores): InjectedProps {
+  const { chatStore, chatViewStore, channelStore, privateChatStore } = stores
   return {
     currentRoute: chatViewStore.route,
     joinedChannels: channelStore.getJoinedChannels(),
-    privateChats: privateChatStore.getOpenPrivateChats(),
+
+    privateChats: privateChatStore
+      .getOpenPrivateChats()
+      .filter(chat => !chatStore.isIgnored(chat.partner)),
+
     onChannelActivate(id) {
       chatViewStore.setRoute({ type: 'channel', id })
       chatViewStore.navigator.hide()
     },
+
     onChannelClose(id) {
       chatStore.leaveChannel(id)
     },
+
     onPrivateChatActivate(partner) {
       chatViewStore.setRoute({ type: 'private-chat', partner: partner })
       chatViewStore.navigator.hide()
     },
+
     onPrivateChatClose(partner) {
       privateChatStore.closePrivateChat(partner)
     },
