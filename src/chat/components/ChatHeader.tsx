@@ -22,7 +22,7 @@ export class ChatHeader extends React.Component<ChatHeaderProps> {
     return (
       <Container className="bg-color-darken-2 flex-row flex-align-center padding">
         <ShowOnMobile className="no-line-height">
-          <a href="#" onClick={this.props.chatViewStore!.navigator.toggle}>
+          <a href="#" onClick={this.props.chatViewStore!.navDrawer.toggle}>
             <Icon name="menu" size={24} />
           </a>
         </ShowOnMobile>

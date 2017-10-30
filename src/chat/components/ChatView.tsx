@@ -1,22 +1,30 @@
 import { action } from 'mobx'
-import { inject, observer } from 'mobx-react'
+import { inject, observer, Observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'
 import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
+import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { ChannelView } from 'src/channel/components/ChannelView'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
+import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import { CharacterMenu } from 'src/character/components/CharacterMenu'
+import { ChatTab } from 'src/chat/components/ChatTab'
 import { ChatStore } from 'src/chat/stores/ChatStore'
-import { ChatRoute, ChatViewStore } from 'src/chat/stores/ChatViewStore'
+import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { Drawer } from 'src/common/components/Drawer'
 import { FadeTransition } from 'src/common/components/FadeTransition'
+import { Navigator, NavigatorRenderProps } from 'src/common/components/Navigator'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
+import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
 import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
+import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 import { CharacterBrowser } from './CharacterBrowser'
 import { ChatHeader } from './ChatHeader'
-import { ChatNavigator } from './ChatNavigator'
+import { ChatNavActions } from './ChatNavActions'
 import { StatusMenu } from './StatusMenu'
+
+type NavRoute = { type: 'channel'; id: string } | { type: 'private-chat'; partner: string }
 
 const ChannelBrowserWrapper = styled('div')`
   width: 400px;
@@ -28,11 +36,12 @@ const ChannelBrowserWrapper = styled('div')`
 
 type ChatProps = {
   channelStore?: ChannelStore
+  privateChatStore?: PrivateChatStore
   chatStore?: ChatStore
   chatViewStore?: ChatViewStore
 }
 
-@inject('chatStore', 'chatViewStore', 'channelStore')
+@inject('chatStore', 'chatViewStore', 'channelStore', 'privateChatStore')
 @observer
 export class ChatView extends React.Component<ChatProps> {
   viewStore = this.props.chatViewStore!
@@ -49,42 +58,6 @@ export class ChatView extends React.Component<ChatProps> {
       event.preventDefault()
       this.viewStore.openCharacterMenu(el.dataset.character!, event.clientX, event.clientY)
     }
-  }
-
-  renderRoute(route: ChatRoute) {
-    if (route.type === 'channel') {
-      return <ChannelView id={route.channel.id} />
-    }
-    if (route.type === 'private-chat') {
-      return <PrivateChatView partner={route.privateChat.partner} />
-    }
-    return (
-      <ChatHeader>
-        <h3>next</h3>
-      </ChatHeader>
-    )
-  }
-
-  renderSidebarMenu() {
-    return (
-      <ShowOnDesktop className="flex-row">
-        {this.renderMenu()}
-        <div className="divider-h" />
-      </ShowOnDesktop>
-    )
-  }
-
-  renderMenu() {
-    return <ChatNavigator />
-  }
-
-  renderDrawerMenu() {
-    const { navigator } = this.viewStore
-    return (
-      <Drawer side="left" visible={navigator.isOpen} onShadeClicked={navigator.hide}>
-        {this.renderMenu()}
-      </Drawer>
-    )
   }
 
   renderChannelBrowser() {
@@ -132,27 +105,113 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
-  render() {
+  renderChannelTabs({ route, bindRoute }: NavigatorRenderProps<NavRoute>) {
+    return this.props.channelStore!.getJoinedChannels().map(ch => {
+      const isActive = route.type === 'channel' && route.id === ch.id
+      const handleActivate = bindRoute({ type: 'channel', id: ch.id })
+      return (
+        <ChatTab key={ch.id} active={isActive} onActivate={handleActivate}>
+          <ChannelTabContent title={ch.title} type="public" />
+        </ChatTab>
+      )
+    })
+  }
+
+  renderPrivateChatTabs({ route, bindRoute }: NavigatorRenderProps<NavRoute>) {
+    return this.props.privateChatStore!.getOpenPrivateChats().map(chat => {
+      const isActive = route.type === 'private-chat' && route.partner === chat.partner
+      const handleActivate = bindRoute({ type: 'private-chat', partner: chat.partner })
+      return (
+        <ChatTab key={chat.partner} active={isActive} onActivate={handleActivate}>
+          <PrivateChatTabContent partner={chat.partner} />
+        </ChatTab>
+      )
+    })
+  }
+
+  renderNavRoute(route: NavRoute) {
+    if (route.type === 'channel') {
+      return <ChannelView id={route.id} />
+    }
+    if (route.type === 'private-chat') {
+      return <PrivateChatView partner={route.partner} />
+    }
     return (
-      <main
-        className="bg-color-darken-3 fullscreen flex-row"
-        onClick={this.handleClick}
-        onContextMenu={this.handleContextMenu}
-      >
-        {this.renderSidebarMenu()}
-
-        <section className="flex-grow flex-column">
-          {this.renderRoute(this.viewStore.router.currentRoute)}
-        </section>
-
-        {this.renderDrawerMenu()}
-
-        {this.renderChannelBrowser()}
-        {this.renderStatusMenu()}
-        {this.renderFriendBrowser()}
-
-        {this.renderCharacterMenu()}
-      </main>
+      <ChatHeader>
+        <h3>next</h3>
+      </ChatHeader>
     )
+  }
+
+  renderNavContent = (navProps: NavigatorRenderProps<NavRoute>) => {
+    return (
+      <nav className="flex-row full-height" style={{ width: '240px' }}>
+        <ChatNavActions />
+
+        <div className="divider-h" />
+
+        <div className="flex-grow flex-column">
+          <div className="bg-color-main">
+            <CharacterDetails name={this.props.chatStore!.identity} />
+          </div>
+
+          <div className="divider-v" />
+
+          <div className="bg-color-darken-1 flex-grow">
+            <h2 className="padding faded">Channels</h2>
+            {this.renderChannelTabs(navProps)}
+
+            <h2 className="padding faded">Private Chats</h2>
+            {this.renderPrivateChatTabs(navProps)}
+          </div>
+        </div>
+      </nav>
+    )
+  }
+
+  renderNavSidebar = (navProps: NavigatorRenderProps<NavRoute>) => {
+    return (
+      <ShowOnDesktop className="flex-row">
+        {this.renderNavContent(navProps)}
+        <div className="divider-h" />
+      </ShowOnDesktop>
+    )
+  }
+
+  renderNavDrawer = (navProps: NavigatorRenderProps<NavRoute>) => {
+    const { navDrawer } = this.props.chatViewStore!
+    return (
+      <Drawer side="left" visible={navDrawer.isOpen} onShadeClicked={navDrawer.hide}>
+        {this.renderNavContent(navProps)}
+      </Drawer>
+    )
+  }
+
+  renderNavigatorView = (navProps: NavigatorRenderProps<NavRoute>) => (
+    <Observer>
+      {() => (
+        <main
+          className="bg-color-darken-3 fullscreen flex-row"
+          onClick={this.handleClick}
+          onContextMenu={this.handleContextMenu}
+        >
+          {this.renderNavSidebar(navProps)}
+
+          <section className="flex-grow flex-column">{this.renderNavRoute(navProps.route)}</section>
+
+          {this.renderNavDrawer(navProps)}
+
+          {this.renderChannelBrowser()}
+          {this.renderStatusMenu()}
+          {this.renderFriendBrowser()}
+
+          {this.renderCharacterMenu()}
+        </main>
+      )}
+    </Observer>
+  )
+
+  render() {
+    return <Navigator initialRoute={{}} render={this.renderNavigatorView} />
   }
 }
