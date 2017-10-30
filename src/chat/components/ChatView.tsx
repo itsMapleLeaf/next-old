@@ -1,30 +1,22 @@
 import { action } from 'mobx'
-import { inject, observer, Observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'
 import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
-import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
-import { ChannelView } from 'src/channel/components/ChannelView'
-import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import { CharacterMenu } from 'src/character/components/CharacterMenu'
-import { ChatTab } from 'src/chat/components/ChatTab'
+import { ChatNavigationStore } from 'src/chat/stores/ChatNavigationStore'
 import { ChatStore } from 'src/chat/stores/ChatStore'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { Drawer } from 'src/common/components/Drawer'
 import { FadeTransition } from 'src/common/components/FadeTransition'
-import { Navigator, NavigatorRenderProps } from 'src/common/components/Navigator'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
 import { ShowOnDesktop } from 'src/common/components/responsive-utils'
-import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
-import { PrivateChatView } from 'src/private-chat/components/PrivateChatView'
-import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 import { CharacterBrowser } from './CharacterBrowser'
-import { ChatHeader } from './ChatHeader'
 import { ChatNavActions } from './ChatNavActions'
+import { ChatNavTabs } from './ChatNavTabs'
+import { ChatViewRoute } from './ChatViewRoute'
 import { StatusMenu } from './StatusMenu'
-
-type NavRoute = { type: 'channel'; id: string } | { type: 'private-chat'; partner: string }
 
 const ChannelBrowserWrapper = styled('div')`
   width: 400px;
@@ -35,24 +27,47 @@ const ChannelBrowserWrapper = styled('div')`
 `
 
 type ChatProps = {
-  channelStore?: ChannelStore
-  privateChatStore?: PrivateChatStore
   chatStore?: ChatStore
   chatViewStore?: ChatViewStore
+  chatNavigationStore?: ChatNavigationStore
 }
 
-@inject('chatStore', 'chatViewStore', 'channelStore', 'privateChatStore')
+@inject('chatStore', 'chatViewStore', 'chatNavigationStore')
 @observer
 export class ChatView extends React.Component<ChatProps> {
   viewStore = this.props.chatViewStore!
 
+  render() {
+    return (
+      <main
+        className="bg-color-darken-3 fullscreen flex-row"
+        onClick={this.handleClick}
+        onContextMenu={this.handleContextMenu}
+      >
+        {this.renderNavSidebar()}
+
+        <section className="flex-grow flex-column">
+          <ChatViewRoute route={this.props.chatNavigationStore!.currentRoute} />
+        </section>
+
+        {this.renderNavDrawer()}
+
+        {this.renderChannelBrowser()}
+        {this.renderStatusMenu()}
+        {this.renderFriendBrowser()}
+
+        {this.renderCharacterMenu()}
+      </main>
+    )
+  }
+
   @action.bound
-  handleClick() {
+  private handleClick() {
     this.viewStore.closeCharacterMenu()
   }
 
   @action.bound
-  handleContextMenu(event: React.MouseEvent<HTMLElement>) {
+  private handleContextMenu(event: React.MouseEvent<HTMLElement>) {
     const el = event.target
     if (el instanceof HTMLElement && el.dataset && el.dataset.character) {
       event.preventDefault()
@@ -60,7 +75,7 @@ export class ChatView extends React.Component<ChatProps> {
     }
   }
 
-  renderChannelBrowser() {
+  private renderChannelBrowser() {
     const { channelBrowser } = this.viewStore
 
     return (
@@ -74,7 +89,7 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
-  renderStatusMenu() {
+  private renderStatusMenu() {
     const { statusMenu } = this.viewStore
     return (
       <FadeTransition visible={statusMenu.isOpen}>
@@ -85,7 +100,7 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
-  renderFriendBrowser() {
+  private renderFriendBrowser() {
     const { friendBrowser } = this.viewStore
     return (
       <FadeTransition visible={friendBrowser.isOpen}>
@@ -96,7 +111,7 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
-  renderCharacterMenu() {
+  private renderCharacterMenu() {
     const { open, ...props } = this.viewStore.characterMenu
     return (
       <FadeTransition visible={open}>
@@ -105,45 +120,7 @@ export class ChatView extends React.Component<ChatProps> {
     )
   }
 
-  renderChannelTabs({ route, bindRoute }: NavigatorRenderProps<NavRoute>) {
-    return this.props.channelStore!.getJoinedChannels().map(ch => {
-      const isActive = route.type === 'channel' && route.id === ch.id
-      const handleActivate = bindRoute({ type: 'channel', id: ch.id })
-      return (
-        <ChatTab key={ch.id} active={isActive} onActivate={handleActivate}>
-          <ChannelTabContent title={ch.title} type="public" />
-        </ChatTab>
-      )
-    })
-  }
-
-  renderPrivateChatTabs({ route, bindRoute }: NavigatorRenderProps<NavRoute>) {
-    return this.props.privateChatStore!.getOpenPrivateChats().map(chat => {
-      const isActive = route.type === 'private-chat' && route.partner === chat.partner
-      const handleActivate = bindRoute({ type: 'private-chat', partner: chat.partner })
-      return (
-        <ChatTab key={chat.partner} active={isActive} onActivate={handleActivate}>
-          <PrivateChatTabContent partner={chat.partner} />
-        </ChatTab>
-      )
-    })
-  }
-
-  renderNavRoute(route: NavRoute) {
-    if (route.type === 'channel') {
-      return <ChannelView id={route.id} />
-    }
-    if (route.type === 'private-chat') {
-      return <PrivateChatView partner={route.partner} />
-    }
-    return (
-      <ChatHeader>
-        <h3>next</h3>
-      </ChatHeader>
-    )
-  }
-
-  renderNavContent = (navProps: NavigatorRenderProps<NavRoute>) => {
+  private renderNavContent() {
     return (
       <nav className="flex-row full-height" style={{ width: '240px' }}>
         <ChatNavActions />
@@ -158,60 +135,28 @@ export class ChatView extends React.Component<ChatProps> {
           <div className="divider-v" />
 
           <div className="bg-color-darken-1 flex-grow">
-            <h2 className="padding faded">Channels</h2>
-            {this.renderChannelTabs(navProps)}
-
-            <h2 className="padding faded">Private Chats</h2>
-            {this.renderPrivateChatTabs(navProps)}
+            <ChatNavTabs />
           </div>
         </div>
       </nav>
     )
   }
 
-  renderNavSidebar = (navProps: NavigatorRenderProps<NavRoute>) => {
+  private renderNavSidebar() {
     return (
       <ShowOnDesktop className="flex-row">
-        {this.renderNavContent(navProps)}
+        {this.renderNavContent()}
         <div className="divider-h" />
       </ShowOnDesktop>
     )
   }
 
-  renderNavDrawer = (navProps: NavigatorRenderProps<NavRoute>) => {
+  private renderNavDrawer() {
     const { navDrawer } = this.props.chatViewStore!
     return (
       <Drawer side="left" visible={navDrawer.isOpen} onShadeClicked={navDrawer.hide}>
-        {this.renderNavContent(navProps)}
+        {this.renderNavContent()}
       </Drawer>
     )
-  }
-
-  renderNavigatorView = (navProps: NavigatorRenderProps<NavRoute>) => (
-    <Observer>
-      {() => (
-        <main
-          className="bg-color-darken-3 fullscreen flex-row"
-          onClick={this.handleClick}
-          onContextMenu={this.handleContextMenu}
-        >
-          {this.renderNavSidebar(navProps)}
-
-          <section className="flex-grow flex-column">{this.renderNavRoute(navProps.route)}</section>
-
-          {this.renderNavDrawer(navProps)}
-
-          {this.renderChannelBrowser()}
-          {this.renderStatusMenu()}
-          {this.renderFriendBrowser()}
-
-          {this.renderCharacterMenu()}
-        </main>
-      )}
-    </Observer>
-  )
-
-  render() {
-    return <Navigator initialRoute={{}} render={this.renderNavigatorView} />
   }
 }
