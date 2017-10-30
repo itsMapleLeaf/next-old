@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "babel-plugin-lodash": "^3.2.11",
     "bbc.js": "^0.1.1",
     "decko": "^1.2.0",
     "emotion": "^8.0.9",
