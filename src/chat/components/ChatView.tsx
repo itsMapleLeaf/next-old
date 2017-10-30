@@ -7,7 +7,7 @@ import { ChannelView } from 'src/channel/components/ChannelView'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterMenu } from 'src/character/components/CharacterMenu'
 import { ChatStore } from 'src/chat/stores/ChatStore'
-import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
+import { ChatRoute, ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { Drawer } from 'src/common/components/Drawer'
 import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
@@ -38,12 +38,6 @@ export class ChatView extends React.Component<ChatProps> {
   viewStore = this.props.chatViewStore!
 
   @action.bound
-  handleChannelActivate(channel: string) {
-    this.viewStore.setRoute({ type: 'channel', id: channel })
-    this.viewStore.navigator.hide()
-  }
-
-  @action.bound
   handleClick() {
     this.viewStore.closeCharacterMenu()
   }
@@ -57,13 +51,12 @@ export class ChatView extends React.Component<ChatProps> {
     }
   }
 
-  renderRoute() {
-    const { route } = this.viewStore
+  renderRoute(route: ChatRoute) {
     if (route.type === 'channel') {
-      return <ChannelView id={route.id} />
+      return <ChannelView id={route.channel.id} />
     }
     if (route.type === 'private-chat') {
-      return <PrivateChatView partner={route.partner} />
+      return <PrivateChatView partner={route.privateChat.partner} />
     }
     return (
       <ChatHeader>
@@ -148,7 +141,9 @@ export class ChatView extends React.Component<ChatProps> {
       >
         {this.renderSidebarMenu()}
 
-        <section className="flex-grow flex-column">{this.renderRoute()}</section>
+        <section className="flex-grow flex-column">
+          {this.renderRoute(this.viewStore.router.currentRoute)}
+        </section>
 
         {this.renderDrawerMenu()}
 

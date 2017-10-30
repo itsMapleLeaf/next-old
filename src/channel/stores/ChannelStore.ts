@@ -81,8 +81,12 @@ export class ChannelStore {
     }
   }
 
+  getJoinedChannelIDs() {
+    return Array.from(this.joinedChannels.keys())
+  }
+
   getJoinedChannels() {
-    return Array.from(this.joinedChannels.keys()).map(id => this.getChannel(id))
+    return this.getJoinedChannelIDs().map(id => this.getChannel(id))
   }
 
   isJoined(id: string) {

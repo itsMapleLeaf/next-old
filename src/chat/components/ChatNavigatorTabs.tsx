@@ -1,48 +1,32 @@
-import sortBy from 'lodash/sortBy'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
-import { Channel } from 'src/channel/models/Channel'
 import { ChatTab } from 'src/chat/components/ChatTab'
-import { ChatViewRoute } from 'src/chat/stores/ChatViewStore'
+import { ChatRoute } from 'src/chat/stores/ChatViewStore'
 import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
-import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 import { Stores } from 'src/stores'
 
 type InjectedProps = {
-  currentRoute: ChatViewRoute
-  joinedChannels: Channel[]
-  privateChats: PrivateChat[]
-  onChannelActivate: (id: string) => void
+  routes: ChatRoute[]
+  currentRoute: ChatRoute
+  onRouteSelected: (index: number) => void
   onChannelClose: (id: string) => void
-  onPrivateChatActivate: (partner: string) => void
   onPrivateChatClose: (partner: string) => void
 }
 
 function storesToProps(stores: Stores): InjectedProps {
-  const { chatStore, chatViewStore, channelStore, privateChatStore } = stores
-
-  const privateChats = privateChatStore
-    .getOpenPrivateChats()
-    .filter(chat => !chatStore.isIgnored(chat.partner))
-
+  const { chatStore, chatViewStore } = stores
+  const { router } = chatViewStore
   return {
-    currentRoute: chatViewStore.route,
-    joinedChannels: sortBy(channelStore.getJoinedChannels(), ch => ch.title.toLowerCase()),
-    privateChats: sortBy(privateChats, ch => ch.partner.toLowerCase()),
+    routes: router.routes,
+    currentRoute: router.currentRoute,
 
-    onChannelActivate(id) {
-      chatViewStore.setRoute({ type: 'channel', id })
-      chatViewStore.navigator.hide()
+    onRouteSelected(index) {
+      router.setRouteIndex(index)
     },
 
     onChannelClose(id) {
       chatStore.leaveChannel(id)
-    },
-
-    onPrivateChatActivate(partner) {
-      chatViewStore.setRoute({ type: 'private-chat', partner: partner })
-      chatViewStore.navigator.hide()
     },
 
     onPrivateChatClose(partner) {
@@ -54,12 +38,29 @@ function storesToProps(stores: Stores): InjectedProps {
 @inject(storesToProps)
 @observer
 class Component extends React.Component<InjectedProps> {
-  renderChannelTab = (channel: Channel) => {
-    const route = this.props.currentRoute
-    const isActive = route.type === 'channel' && route.id === channel.id
+  render() {
+    const { routes } = this.props
+
+    return (
+      <div className="bg-color-darken-1 flex-grow flex-column scroll-v">
+        <h3 className="margin faded">Channels</h3>
+        {routes.map(this.renderChannelTab)}
+
+        <h3 className="margin faded">Private Chats</h3>
+        {routes.map(this.renderPrivateChatTab)}
+      </div>
+    )
+  }
+
+  private renderChannelTab = (route: ChatRoute, index: number) => {
+    if (route.type !== 'channel') return
+
+    const channel = route.channel
+    const currentRoute = this.props.currentRoute
+    const isActive = currentRoute.type === 'channel' && currentRoute.channel === channel
 
     const handleActivate = () => {
-      this.props.onChannelActivate(channel.id)
+      this.props.onRouteSelected(index)
     }
 
     const handleClose = () => {
@@ -73,12 +74,16 @@ class Component extends React.Component<InjectedProps> {
     )
   }
 
-  renderPrivateChatTab = (chat: PrivateChat) => {
-    const route = this.props.currentRoute
-    const isActive = route.type === 'private-chat' && route.partner === chat.partner
+  private renderPrivateChatTab = (route: ChatRoute, index: number) => {
+    if (route.type !== 'private-chat') return
+
+    const chat = route.privateChat
+    const currentRoute = this.props.currentRoute
+    const isActive =
+      currentRoute.type === 'private-chat' && currentRoute.privateChat.partner === chat.partner
 
     const handleActivate = () => {
-      this.props.onPrivateChatActivate(chat.partner)
+      this.props.onRouteSelected(index)
     }
 
     const handleClose = () => {
@@ -94,21 +99,6 @@ class Component extends React.Component<InjectedProps> {
       >
         <PrivateChatTabContent partner={chat.partner} />
       </ChatTab>
-    )
-  }
-
-  render() {
-    const { joinedChannels, privateChats } = this.props
-    const sortedChannels = sortBy(joinedChannels, ch => ch.title.toLowerCase())
-
-    return (
-      <div className="bg-color-darken-1 flex-grow flex-column scroll-v">
-        <h3 className="margin faded">Channels</h3>
-        {sortedChannels.map(this.renderChannelTab)}
-
-        <h3 className="margin faded">Private Chats</h3>
-        {privateChats.map(this.renderPrivateChatTab)}
-      </div>
     )
   }
 }

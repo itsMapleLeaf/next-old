@@ -12,7 +12,7 @@ const privateChatStore = new PrivateChatStore()
 const characterStore = new CharacterStore()
 const channelBrowserStore = new ChannelBrowserStore()
 const chatStore = new ChatStore(channelStore, privateChatStore, characterStore, channelBrowserStore)
-const chatViewStore = new ChatViewStore()
+const chatViewStore = new ChatViewStore(channelStore, privateChatStore)
 const authStore = new AuthStore()
 const appStore = new AppStore(authStore)
 
