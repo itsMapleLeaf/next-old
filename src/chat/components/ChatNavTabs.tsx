@@ -4,14 +4,21 @@ import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { ChatTab } from 'src/chat/components/ChatTab'
 import { ChatNavigationStore } from 'src/chat/stores/ChatNavigationStore'
 import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
+import { Stores } from 'src/stores'
 
-type Props = {
-  chatNavigationStore?: ChatNavigationStore
+type InjectedProps = {
+  chatNavigationStore: ChatNavigationStore
 }
 
-@inject('chatNavigationStore')
+function storesToProps(stores: Stores): InjectedProps {
+  return {
+    chatNavigationStore: stores.chatNavigationStore,
+  }
+}
+
+@inject(storesToProps)
 @observer
-export class ChatNavTabs extends React.Component<Props> {
+class ChatNavTabsComponent extends React.Component<InjectedProps> {
   renderChannelTabs() {
     const navigation = this.props.chatNavigationStore!
     const routes = navigation.channelRoutes
@@ -56,3 +63,5 @@ export class ChatNavTabs extends React.Component<Props> {
     )
   }
 }
+
+export const ChatNavTabs: React.ComponentClass<{}> = ChatNavTabsComponent
