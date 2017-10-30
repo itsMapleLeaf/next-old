@@ -1,7 +1,8 @@
-import { concat } from 'lodash'
+import { concat, sortBy } from 'lodash'
 import { action, computed, observable } from 'mobx'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { clamp } from 'src/common/util/math'
+import { toLower } from 'src/common/util/string'
 import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 
 type ChannelRoute = { type: 'channel'; id: string }
@@ -17,16 +18,15 @@ export class ChatNavigationStore {
 
   @computed
   get channelRoutes(): ChannelRoute[] {
-    return this.channelStore
-      .getJoinedChannelIDs()
-      .map<ChannelRoute>(id => ({ type: 'channel', id }))
+    const sortedIDs = sortBy(this.channelStore.getJoinedChannelIDs(), toLower)
+    return sortedIDs.map<ChannelRoute>(id => ({ type: 'channel', id }))
   }
 
   @computed
   get privateChatRoutes(): PrivateChatRoute[] {
-    return this.privateChatStore
-      .getOpenPrivateChats()
-      .map<PrivateChatRoute>(({ partner }) => ({ type: 'private-chat', partner }))
+    const names = this.privateChatStore.getOpenPrivateChats().map(chat => chat.partner)
+    const sortedNames = sortBy(names, toLower)
+    return sortedNames.map<PrivateChatRoute>(partner => ({ type: 'private-chat', partner }))
   }
 
   @computed
