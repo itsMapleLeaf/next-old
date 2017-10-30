@@ -21,6 +21,8 @@
 - [ ] Functional room links
 - [ ] Working commands
 - [ ] Console screen
+  - [x] Console tab
+  - [ ] Show welcome messages in console
 - [x] BUG: Leaving a channel while it's selected should update the view accordingly
 
 ### 0.12.1
