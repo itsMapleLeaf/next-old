@@ -34,9 +34,11 @@ export function ChatTab(props: ChatTabProps) {
       <a href="#" className="flex-grow padding" onClick={preventDefault(props.onActivate)}>
         {props.children}
       </a>
-      <CloseIcon href="#" className="flex-center padding no-line-height">
-        <Icon name="close" onClick={preventDefault(props.onClose)} />
-      </CloseIcon>
+      {props.onClose && (
+        <CloseIcon href="#" className="flex-center padding no-line-height">
+          <Icon name="close" onClick={preventDefault(props.onClose)} />
+        </CloseIcon>
+      )}
     </Wrapper>
   )
 }
