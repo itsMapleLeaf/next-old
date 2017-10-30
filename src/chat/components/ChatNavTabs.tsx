@@ -47,10 +47,10 @@ export class ChatNavTabs extends React.Component<Props> {
   render() {
     return (
       <div>
-        <h2 className="padding faded">Channels</h2>
+        <h3 className="padding faded">Channels</h3>
         {this.renderChannelTabs()}
 
-        <h2 className="padding faded">Private Chats</h2>
+        <h3 className="padding faded">Private Chats</h3>
         {this.renderPrivateChatTabs()}
       </div>
     )
