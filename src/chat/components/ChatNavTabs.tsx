@@ -1,5 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { ChatTab } from 'src/chat/components/ChatTab'
 import { ChatNavigationStore } from 'src/chat/stores/ChatNavigationStore'
 import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
@@ -21,8 +22,7 @@ export class ChatNavTabs extends React.Component<Props> {
       const handleActivate = () => navigation.setRoute(route)
       return (
         <ChatTab key={route.id} active={isActive} onActivate={handleActivate}>
-          {/* <ChannelTabContent title={ch.title} type="public" /> */}
-          {route.id}
+          <ChannelTabContent id={route.id} />
         </ChatTab>
       )
     })

@@ -1,17 +1,32 @@
+import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
+import { Stores } from 'src/stores'
 
 type Props = {
-  title: string
-  type: 'public' | 'private'
+  id: string
 }
 
-export function ChannelTabContent(props: Props) {
-  const { title, type } = props
-  const iconName = type === 'public' ? 'earth' : 'key'
+type InjectedProps = {
+  title: string
+}
+
+function storesToProps(stores: Stores, props: Props): InjectedProps {
+  const channel = stores.channelStore.getChannel(props.id)
+  return {
+    title: channel.title,
+  }
+}
+
+function renderChannelTabContent(props: Props & InjectedProps) {
+  const { title } = props
   return (
     <div className="flex-row flex-align-center">
-      <Icon name={iconName} className="margin-right" /> <span>{title}</span>
+      <Icon name="earth" className="margin-right" /> <span>{title}</span>
     </div>
   )
 }
+
+export const ChannelTabContent: React.ComponentClass<Props> = inject(storesToProps)(
+  observer(renderChannelTabContent),
+)
