@@ -3,19 +3,26 @@ import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { ChatTab } from 'src/chat/components/ChatTab'
-import { ChatNavigationStore } from 'src/chat/stores/ChatNavigationStore'
+import { ChatNavigationStore, Route } from 'src/chat/stores/ChatNavigationStore'
 import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
 import { Stores } from 'src/stores'
 
 type InjectedProps = {
   navigation: ChatNavigationStore
+  onTabActivate: (route: Route) => void
   onChannelClose: (id: string) => void
   onPrivateChatClose: (partner: string) => void
 }
 
 function storesToProps(stores: Stores): InjectedProps {
+  const navigation = stores.chatNavigationStore
   return {
-    navigation: stores.chatNavigationStore,
+    navigation,
+
+    onTabActivate(route) {
+      navigation.setRoute(route)
+      stores.chatViewStore.navDrawer.hide()
+    },
 
     onChannelClose(id) {
       stores.chatStore.leaveChannel(id)
@@ -37,8 +44,8 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
 
     return routes.map((route, index) => {
       const isActive = route === currentRoute
-      const handleActivate = () => navigation.setRoute(route)
       const handleClose = () => this.props.onChannelClose(route.id)
+      const handleActivate = () => this.props.onTabActivate(route)
 
       return (
         <ChatTab key={route.id} active={isActive} onActivate={handleActivate} onClose={handleClose}>
@@ -55,7 +62,7 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
 
     return routes.map((route, index) => {
       const isActive = route === currentRoute
-      const handleActivate = () => navigation.setRoute(route)
+      const handleActivate = () => this.props.onTabActivate(route)
       const handleClose = () => this.props.onPrivateChatClose(route.partner)
 
       return (
@@ -73,11 +80,12 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
 
   renderConsoleTab() {
     const navigation = this.props.navigation
+    const route = navigation.consoleRoute
     const currentRoute = navigation.currentRoute
-    const handleActivate = () => navigation.setRoute(navigation.consoleRoute)
+    const handleActivate = () => this.props.onTabActivate(route)
 
     return (
-      <ChatTab active={currentRoute === navigation.consoleRoute} onActivate={handleActivate}>
+      <ChatTab active={currentRoute === route} onActivate={handleActivate}>
         <Icon name="code" className="margin-right" /> Console
       </ChatTab>
     )
