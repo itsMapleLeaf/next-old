@@ -7,11 +7,14 @@ import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 
 type ChannelRoute = { type: 'channel'; id: string }
 type PrivateChatRoute = { type: 'private-chat'; partner: string }
+type ConsoleRoute = { type: 'console' }
 type EmptyRoute = { type: 'none' }
 
-export type Route = ChannelRoute | PrivateChatRoute | EmptyRoute
+export type Route = ConsoleRoute | ChannelRoute | PrivateChatRoute | EmptyRoute
 
 export class ChatNavigationStore {
+  consoleRoute = { type: 'console' } as ConsoleRoute
+
   @observable private routeIndex = 0
 
   constructor(private channelStore: ChannelStore, private privateChatStore: PrivateChatStore) {}
@@ -31,7 +34,7 @@ export class ChatNavigationStore {
 
   @computed
   get routes(): Route[] {
-    return concat<Route>(this.channelRoutes, this.privateChatRoutes)
+    return concat<Route>([this.consoleRoute], this.channelRoutes, this.privateChatRoutes)
   }
 
   @computed

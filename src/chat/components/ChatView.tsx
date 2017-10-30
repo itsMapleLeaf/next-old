@@ -122,12 +122,12 @@ export class ChatView extends React.Component<ChatProps> {
 
   private renderNavContent() {
     return (
-      <nav className="flex-row full-height" style={{ width: '240px' }}>
+      <nav className="bg-color-darken-3 flex-row full-height" style={{ width: '240px' }}>
         <ChatNavActions />
 
         <div className="divider-h" />
 
-        <div className="flex-grow flex-column">
+        <div className="flex-grow flex-column scroll-v">
           <div className="bg-color-main">
             <CharacterDetails name={this.props.chatStore!.identity} />
           </div>
