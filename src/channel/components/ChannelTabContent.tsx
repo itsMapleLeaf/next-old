@@ -22,7 +22,7 @@ function renderChannelTabContent(props: Props & InjectedProps) {
   const { title } = props
   return (
     <div className="flex-row flex-align-center">
-      <Icon name="earth" className="margin-right" /> <span>{title}</span>
+      <Icon name="earth" className="margin-right" /> {title}
     </div>
   )
 }
