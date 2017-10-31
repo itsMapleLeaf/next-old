@@ -3,6 +3,7 @@ import { action, computed, observable } from 'mobx'
 import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
+import { ConsoleStore } from 'src/console/stores/ConsoleStore'
 import { Message } from 'src/message/models/Message'
 import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
 
@@ -31,6 +32,7 @@ export class ChatStore {
     private privateChats: PrivateChatStore,
     private characters: CharacterStore,
     private channelList: ChannelBrowserStore,
+    private console: ConsoleStore,
   ) {}
 
   @action
@@ -109,17 +111,16 @@ export class ChatStore {
       },
 
       IDN() {
-        console.info('Successfully connected to server')
         this.restoreJoinedChannels().catch(console.error)
         this.restorePrivateChats().catch(console.error)
       },
 
       HLO() {
-        console.info(params.message)
+        this.console.addMessage(params.message)
       },
 
       CON() {
-        console.info(`There are ${params.count} characters in chat`)
+        this.console.addMessage(`There are ${params.count} characters in chat.`)
       },
 
       FRL() {
