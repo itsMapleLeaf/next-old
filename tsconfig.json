@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "lib": ["dom", "esnext"],
     "strict": true,
+    "strictFunctionTypes": false,
     "jsx": "react",
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
