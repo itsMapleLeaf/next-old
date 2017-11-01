@@ -17,7 +17,7 @@ type ConfigEnvironment = {
   production?: boolean
 }
 
-export = (env = {} as ConfigEnvironment) => {
+export default (env = {} as ConfigEnvironment) => {
   const babelLoader = {
     loader: 'babel-loader',
     options: {
