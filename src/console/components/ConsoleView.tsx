@@ -29,7 +29,9 @@ class ConsoleViewComponent extends React.Component<InjectedProps> {
   render() {
     return (
       <main className="flex-column fill-area">
-        <ChatHeader>Console</ChatHeader>
+        <ChatHeader>
+          <h3>Console</h3>
+        </ChatHeader>
 
         <div className="divider-v" />
 
