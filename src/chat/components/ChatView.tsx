@@ -2,6 +2,7 @@ import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'
+import MediaQuery from 'react-responsive'
 import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import { CharacterMenu } from 'src/character/components/CharacterMenu'
@@ -11,12 +12,14 @@ import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
 import { Drawer } from 'src/common/components/Drawer'
 import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay/Overlay'
-import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { CharacterBrowser } from './CharacterBrowser'
 import { ChatNavActions } from './ChatNavActions'
 import { ChatNavTabs } from './ChatNavTabs'
 import { ChatViewRoute } from './ChatViewRoute'
 import { StatusMenu } from './StatusMenu'
+
+export const mediaQueryMobile = '(max-width: 750px)'
+export const mediaQueryDesktop = '(min-width: 750px)'
 
 const ChannelBrowserWrapper = styled('div')`
   width: 400px;
@@ -144,19 +147,23 @@ export class ChatView extends React.Component<ChatProps> {
 
   private renderNavSidebar() {
     return (
-      <ShowOnDesktop className="flex-row">
-        {this.renderNavContent()}
-        <div className="divider-h" />
-      </ShowOnDesktop>
+      <MediaQuery query={mediaQueryDesktop}>
+        <div className="flex-row">
+          {this.renderNavContent()}
+          <div className="divider-h" />
+        </div>
+      </MediaQuery>
     )
   }
 
   private renderNavDrawer() {
     const { navDrawer } = this.props.chatViewStore!
     return (
-      <Drawer side="left" visible={navDrawer.isOpen} onShadeClicked={navDrawer.hide}>
-        {this.renderNavContent()}
-      </Drawer>
+      <MediaQuery query={mediaQueryMobile}>
+        <Drawer side="left" visible={navDrawer.isOpen} onShadeClicked={navDrawer.hide}>
+          {this.renderNavContent()}
+        </Drawer>
+      </MediaQuery>
     )
   }
 }

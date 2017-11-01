@@ -1,56 +1,24 @@
 import { action, computed, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import styled from 'react-emotion'
+import MediaQuery from 'react-responsive'
 import { Icon } from 'src/app/components/Icon'
 import { ChannelModeFilter } from 'src/channel/components/ChannelModeFilter'
 import { Channel, ChannelMode } from 'src/channel/models/Channel'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
+import { OverlayState } from 'src/chat/models/OverlayState'
 import { parseBBC } from 'src/chat/util/bbc'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { Drawer } from 'src/common/components/Drawer'
-import { ShowOnDesktop } from 'src/common/components/responsive-utils'
 import { preventDefault } from 'src/common/util/react'
 import { MessageComponent } from 'src/message/components/MessageComponent'
 import { Message } from 'src/message/models/Message'
 import { Stores } from 'src/stores'
-import { OverlayState } from '../../chat/models/OverlayState'
-import { ShowOnMobile } from '../../common/components/responsive-utils'
 import { ChannelUsers } from './ChannelUsers'
 
-const Container = styled('div')`
-  display: grid;
-  grid-gap: 4px;
-
-  // on mobile
-  @media (max-width: 750px) {
-    grid-template-rows: auto 1fr 80px;
-    grid-template-columns: 1fr;
-    grid-template-areas: 'chat-header' 'message-list' 'chat-input';
-  }
-
-  // on desktop
-  @media (min-width: 750px) {
-    grid-template-rows: auto 80px 1fr 80px;
-    grid-template-columns: 1fr 200px;
-    grid-template-areas: 'chat-header chat-header' 'description description'
-      'message-list user-list' 'chat-input chat-input';
-  }
-`
-
-const HeaderContainer = styled('div')`grid-area: chat-header;`
-
-const MessageList = styled('div')`grid-area: message-list;`
-
-const Description = styled(ShowOnDesktop)`
-  grid-area: description;
-  height: 80px;
-`
-
-const UserListContainer = styled(ShowOnDesktop)`grid-area: user-list;`
-
-const ChatInputWrapper = styled('div')`grid-area: chat-input;`
+const mediaShowOnDesktop = '(min-width: 900px)'
+const mediaShowOnMobile = '(max-width: 900px)'
 
 type Props = JSX.IntrinsicElements['div'] & {
   id: string
@@ -78,30 +46,47 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
   private infoDrawer = new OverlayState()
 
   render() {
-    const { channel, className = '' } = this.props
+    const { channel } = this.props
 
     return (
-      <Container className={`${className} fill-area`}>
+      <div className="flex-column fill-area">
         {this.renderHeader()}
 
-        {this.renderDescription()}
+        <div className="divider" />
 
-        <AutoScroller>
-          <MessageList className="bg-color-darken-1 flex-grow scroll-v">
-            {this.filteredMessages.slice(0, 300).map(this.renderMessage)}
-          </MessageList>
-        </AutoScroller>
+        <MediaQuery query={mediaShowOnDesktop}>
+          <div className="bg-color-main scroll-v padding" style={{ height: '80px' }}>
+            {this.renderDescription()}
+          </div>
+          <div className="divider" />
+        </MediaQuery>
 
-        <UserListContainer className="bg-color-main scroll-v">
-          <ChannelUsers users={channel.users} ops={channel.ops} />
-        </UserListContainer>
+        <div className="flex-grow flex-row">
+          <AutoScroller>
+            <div className="bg-color-darken-1 flex-grow scroll-v">
+              {this.filteredMessages.slice(0, 300).map(this.renderMessage)}
+            </div>
+          </AutoScroller>
 
-        <ChatInputWrapper className="bg-color-main flex-row">
+          <MediaQuery query={mediaShowOnDesktop}>
+            {/* the flex-row here is needed to make sure the encased divs stack horizontally */}
+            <div className="flex-row">
+              <div className="divider" />
+              <div className="bg-color-main scroll-v">
+                <ChannelUsers users={channel.users} ops={channel.ops} />
+              </div>
+            </div>
+          </MediaQuery>
+        </div>
+
+        <div className="divider" />
+
+        <div className="bg-color-main flex-row">
           <ChatInput className="flex-grow" onMessage={this.props.onMessage} />
-        </ChatInputWrapper>
+        </div>
 
-        {this.renderInfoDrawer()}
-      </Container>
+        <MediaQuery query={mediaShowOnMobile}>{this.renderInfoDrawer()}</MediaQuery>
+      </div>
     )
   }
 
@@ -148,7 +133,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
     const { channel } = this.props
 
     return (
-      <HeaderContainer>
+      <div>
         <ChatHeader>
           <div className="flex-row flex-align-center">
             <h3 className="flex-grow">{channel.title}</h3>
@@ -159,24 +144,19 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
                 this.renderModeFilter('both', 'Both'),
               ]}
             </div>
-            <ShowOnMobile>
+            <MediaQuery query={mediaShowOnMobile}>
               <a href="#" onClick={preventDefault(this.infoDrawer.show)}>
                 <Icon name="more-vert" size={24} />
               </a>
-            </ShowOnMobile>
+            </MediaQuery>
           </div>
         </ChatHeader>
-      </HeaderContainer>
+      </div>
     )
   }
 
   private renderDescription() {
-    return (
-      <Description
-        className="bg-color-main scroll-v padding preserve-ws"
-        dangerouslySetInnerHTML={this.parsedDescription}
-      />
-    )
+    return <span className="preserve-ws" dangerouslySetInnerHTML={this.parsedDescription} />
   }
 
   private renderInfoDrawer() {
