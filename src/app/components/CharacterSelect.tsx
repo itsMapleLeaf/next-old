@@ -22,20 +22,25 @@ export class CharacterSelect extends React.Component<CharacterSelectProps> {
   @observable character = ''
   storedCharacter = new StoredValue<string>('CharacterSelect_character')
 
+  @action
+  setCharacter(character: string) {
+    this.character = character
+  }
+
   @bind
   handleSubmit() {
     this.props.onSubmit(this.character)
   }
 
-  @action.bound
+  @bind
   handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    this.character = event.currentTarget.value
+    this.setCharacter(event.currentTarget.value)
     this.storedCharacter.save(this.character).catch(console.error)
   }
 
   async componentDidMount() {
     const initialCharacter = await this.storedCharacter.restore()
-    this.character = initialCharacter || ''
+    this.setCharacter(initialCharacter || '')
   }
 
   render() {

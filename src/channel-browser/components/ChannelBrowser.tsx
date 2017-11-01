@@ -1,5 +1,4 @@
-import { debounce } from 'decko'
-import sortBy from 'lodash/sortBy'
+import { debounce, sortBy } from 'lodash'
 import { action, computed, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
@@ -32,14 +31,16 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
   @observable currentList = 'publicChannels'
   @observable searchText = ''
 
+  setSearchTextDebounced = debounce(this.setSearchText, 500)
+
+  @action
+  setSearchText(text: string) {
+    this.searchText = text
+  }
+
   @action
   setCurrentList(list: string) {
     this.currentList = list
-  }
-
-  @debounce(800)
-  setSearchText(text: string) {
-    this.searchText = text
   }
 
   @action
@@ -76,7 +77,7 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
   }
 
   handleSearchInput = (event: React.UIEvent<HTMLInputElement>) => {
-    this.setSearchText(event.currentTarget.value)
+    this.setSearchTextDebounced(event.currentTarget.value)
   }
 
   render() {

@@ -17,25 +17,35 @@ export class Login extends React.Component<LoginProps> {
   @observable password = ''
   storedUsername = new StoredValue<string>('Login_username')
 
+  @action
+  setUsername(username: string) {
+    this.username = username
+  }
+
+  @action
+  setPassword(password: string) {
+    this.password = password
+  }
+
   @bind
   handleSubmit() {
     this.props.onSubmit(this.username, this.password)
   }
 
-  @action.bound
+  @bind
   handleUsernameInput(event: React.UIEvent<HTMLInputElement>) {
-    this.username = event.currentTarget.value
+    this.setUsername(event.currentTarget.value)
     this.storedUsername.save(this.username).catch(console.error)
   }
 
-  @action.bound
+  @bind
   handlePasswordInput(event: React.UIEvent<HTMLInputElement>) {
-    this.password = event.currentTarget.value
+    this.setPassword(event.currentTarget.value)
   }
 
   async componentDidMount() {
     const initialUsername = await this.storedUsername.restore()
-    this.username = initialUsername || ''
+    this.setUsername(initialUsername || '')
   }
 
   render() {
