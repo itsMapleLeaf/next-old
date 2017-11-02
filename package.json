@@ -3,6 +3,7 @@
   "version": "0.12.1",
   "description": "an f-chat client",
   "author": "kingdaro",
+  "license": "MIT",
   "scripts": {
     "build": "webpack --env.production",
     "start": "webpack-dev-server --inline --hot --progress --open",
