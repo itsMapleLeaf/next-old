@@ -1,4 +1,4 @@
-import fromPairs from 'lodash/fromPairs'
+import { fromPairs } from 'lodash'
 import { action, computed, observable } from 'mobx'
 import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'

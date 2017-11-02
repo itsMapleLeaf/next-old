@@ -1,4 +1,4 @@
-import sortBy from 'lodash/sortBy'
+import { sortBy } from 'lodash'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'

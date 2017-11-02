@@ -8,7 +8,6 @@
     "strictFunctionTypes": false,
     "jsx": "react",
     "baseUrl": ".",
-    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "noUnusedLocals": true,

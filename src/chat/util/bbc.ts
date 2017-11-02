@@ -1,5 +1,5 @@
 import { createParser } from 'bbc.js'
-import path from 'path'
+import * as path from 'path'
 import { parse as parseURL } from 'url'
 
 import { getAvatarURL, getExtendedIcon, getProfileURL } from 'src/api'

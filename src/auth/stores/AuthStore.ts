@@ -1,4 +1,4 @@
-import forage from 'localforage'
+import * as forage from 'localforage'
 import * as api from 'src/api'
 
 const storageKeyAuth = 'AuthStore_auth'
