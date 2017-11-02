@@ -4,6 +4,15 @@ import * as ReactDOM from 'react-dom'
 export class AutoScroller extends React.Component {
   shouldScroll = false
 
+  scrollToBottom() {
+    const el = ReactDOM.findDOMNode(this)
+    el.scrollTop = el.scrollHeight
+  }
+
+  componentDidMount() {
+    this.scrollToBottom()
+  }
+
   componentWillUpdate() {
     const el = ReactDOM.findDOMNode(this)
     if (el.scrollTop + el.clientHeight === el.scrollHeight) {
@@ -13,8 +22,7 @@ export class AutoScroller extends React.Component {
 
   componentDidUpdate() {
     if (this.shouldScroll) {
-      const el = ReactDOM.findDOMNode(this)
-      el.scrollTop = el.scrollHeight
+      this.scrollToBottom()
       this.shouldScroll = false
     }
   }
