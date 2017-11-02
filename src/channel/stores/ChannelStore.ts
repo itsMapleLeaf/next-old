@@ -1,8 +1,8 @@
-import { action, observable } from 'mobx'
+import { action, observable } from "mobx"
 
-import { Channel } from 'src/channel/models/Channel'
-import { StoredValue } from 'src/common/util/storage'
-import { Message } from 'src/message/models/Message'
+import { Channel } from "src/channel/models/Channel"
+import { StoredValue } from "src/common/util/storage"
+import { Message } from "src/message/models/Message"
 
 export type ChannelID = string
 
@@ -11,7 +11,7 @@ type StoredJoinedChannels = Dictionary<string[]>
 export class ChannelStore {
   @observable private channels = new Map<ChannelID, Channel>()
   @observable private joinedChannels = new Map<ChannelID, true>()
-  private storedChannels = new StoredValue<StoredJoinedChannels>('ChannelStore_joinedChannels')
+  private storedChannels = new StoredValue<StoredJoinedChannels>("ChannelStore_joinedChannels")
 
   @action
   getChannel(id: ChannelID) {
@@ -35,49 +35,49 @@ export class ChannelStore {
 
   @action
   handleSocketCommand(cmd: string, params: any) {
-    if (cmd === 'FLN') {
+    if (cmd === "FLN") {
       this.channels.forEach(channel => {
         channel.removeUser(params.character)
       })
     }
 
-    if (cmd === 'JCH') {
+    if (cmd === "JCH") {
       const channel = this.getChannel(params.channel)
       const name = params.character.identity
       channel.title = params.title
       channel.addUser(name)
     }
 
-    if (cmd === 'LCH') {
+    if (cmd === "LCH") {
       const channel = this.getChannel(params.channel)
       channel.removeUser(params.character)
     }
 
-    if (cmd === 'ICH') {
+    if (cmd === "ICH") {
       const channel = this.getChannel(params.channel)
       const userData = params.users as Array<{ identity: string }>
       channel.setUsers(userData.map(user => user.identity))
       channel.mode = params.mode
     }
 
-    if (cmd === 'CDS') {
+    if (cmd === "CDS") {
       const channel = this.getChannel(params.channel)
       channel.description = params.description
     }
 
-    if (cmd === 'COL') {
+    if (cmd === "COL") {
       const channel = this.getChannel(params.channel)
       channel.description = params.oplist
     }
 
-    if (cmd === 'MSG') {
+    if (cmd === "MSG") {
       const channel = this.getChannel(params.channel)
-      channel.messages.push(new Message(params.character, params.message, 'normal'))
+      channel.messages.push(new Message(params.character, params.message, "normal"))
     }
 
-    if (cmd === 'LRP') {
+    if (cmd === "LRP") {
       const channel = this.getChannel(params.channel)
-      channel.messages.push(new Message(params.character, params.message, 'lfrp'))
+      channel.messages.push(new Message(params.character, params.message, "lfrp"))
     }
   }
 

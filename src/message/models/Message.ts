@@ -1,4 +1,4 @@
-export type MessageType = 'normal' | 'lfrp' | 'admin' | 'system'
+export type MessageType = "normal" | "lfrp" | "admin" | "system"
 
 export class Message {
   date = new Date()

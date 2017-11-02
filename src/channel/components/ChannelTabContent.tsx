@@ -1,7 +1,7 @@
-import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import { Icon } from 'src/app/components/Icon'
-import { Stores } from 'src/stores'
+import { inject, observer } from "mobx-react"
+import * as React from "react"
+import { Icon } from "src/app/components/Icon"
+import { Stores } from "src/stores"
 
 type Props = {
   id: string

@@ -26,7 +26,7 @@ export function parseChatCommand(text: string): CommandInfo | void {
   const match = text.match(commandExp)
   if (match) {
     const [, command, paramString] = match
-    const params = paramString.split(' ')
+    const params = paramString.split(" ")
     return { command, params, paramString }
   }
 }

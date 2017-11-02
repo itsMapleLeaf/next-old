@@ -1,10 +1,10 @@
-import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import { ChatHeader } from 'src/chat/components/ChatHeader'
-import { ChatInput } from 'src/chat/components/ChatInput'
-import { CommandInfo } from 'src/chat/util/chat-command'
-import { ConsoleMessage } from 'src/console/models/ConsoleMessage'
-import { Stores } from 'src/stores'
+import { inject, observer } from "mobx-react"
+import * as React from "react"
+import { ChatHeader } from "src/chat/components/ChatHeader"
+import { ChatInput } from "src/chat/components/ChatInput"
+import { CommandInfo } from "src/chat/util/chat-command"
+import { ConsoleMessage } from "src/console/models/ConsoleMessage"
+import { Stores } from "src/stores"
 
 type InjectedProps = {
   messages: ConsoleMessage[]
@@ -16,7 +16,7 @@ function storesToProps(stores: Stores): InjectedProps {
     messages: stores.consoleStore.messages,
 
     onCommand(command) {
-      if (command.command === 'clear') {
+      if (command.command === "clear") {
         stores.consoleStore.clear()
       }
     },

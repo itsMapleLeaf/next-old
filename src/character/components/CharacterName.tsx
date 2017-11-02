@@ -1,15 +1,15 @@
-import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import styled from 'react-emotion'
-import { getProfileURL } from 'src/api'
-import { CharacterStore } from 'src/character/stores/CharacterStore'
+import { inject, observer } from "mobx-react"
+import * as React from "react"
+import styled from "react-emotion"
+import { getProfileURL } from "src/api"
+import { CharacterStore } from "src/character/stores/CharacterStore"
 
 type Props = {
   name: string
   characterStore?: CharacterStore
 }
 
-const StatusDot = styled('span')`
+const StatusDot = styled("span")`
   line-height: 0;
   font-size: 120%;
   vertical-align: middle;
@@ -18,8 +18,8 @@ const StatusDot = styled('span')`
 function renderCharacterName(props: Props) {
   const { name } = props
   const { gender, status } = props.characterStore!.getCharacter(name)
-  const genderClass = 'character-gender-' + gender.toLowerCase()
-  const statusClass = 'character-status-' + status.toLowerCase()
+  const genderClass = "character-gender-" + gender.toLowerCase()
+  const statusClass = "character-status-" + status.toLowerCase()
 
   return (
     <a
@@ -30,10 +30,10 @@ function renderCharacterName(props: Props) {
     >
       <StatusDot className={statusClass} title={status}>
         &bull;
-      </StatusDot>{' '}
+      </StatusDot>{" "}
       {name}
     </a>
   )
 }
 
-export const CharacterName = inject('characterStore')(observer(renderCharacterName))
+export const CharacterName = inject("characterStore")(observer(renderCharacterName))

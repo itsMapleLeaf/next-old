@@ -1,16 +1,16 @@
-import { action, observable } from 'mobx'
-import { observer } from 'mobx-react'
-import * as React from 'react'
-import { CommandInfo, parseChatCommand } from 'src/chat/util/chat-command'
+import { action, observable } from "mobx"
+import { observer } from "mobx-react"
+import * as React from "react"
+import { CommandInfo, parseChatCommand } from "src/chat/util/chat-command"
 
-type ChatInputProps = JSX.IntrinsicElements['div'] & {
+type ChatInputProps = JSX.IntrinsicElements["div"] & {
   onMessage?: (message: string) => void
   onCommand?: (command: CommandInfo) => void
 }
 
 @observer
 export class ChatInput extends React.Component<ChatInputProps> {
-  @observable message = ''
+  @observable message = ""
 
   @action.bound
   handleInput(event: React.UIEvent<HTMLTextAreaElement>) {
@@ -19,7 +19,7 @@ export class ChatInput extends React.Component<ChatInputProps> {
 
   @action.bound
   handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
-    if (event.key === 'Enter' && !event.ctrlKey && !event.shiftKey) {
+    if (event.key === "Enter" && !event.ctrlKey && !event.shiftKey) {
       event.preventDefault()
 
       const message = this.message.trim()
@@ -32,7 +32,7 @@ export class ChatInput extends React.Component<ChatInputProps> {
         }
       }
 
-      this.message = ''
+      this.message = ""
     }
   }
 
@@ -43,12 +43,12 @@ export class ChatInput extends React.Component<ChatInputProps> {
         <textarea
           className="flex-grow padding margin-right"
           placeholder="Say something..."
-          style={{ resize: 'none' }}
+          style={{ resize: "none" }}
           value={this.message}
           onInput={this.handleInput}
           onKeyDown={this.handleKeyDown}
         />
-        <button style={{ width: '80px' }}>Send</button>
+        <button style={{ width: "80px" }}>Send</button>
       </div>
     )
   }

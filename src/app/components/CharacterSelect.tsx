@@ -1,14 +1,14 @@
-import { bind } from 'decko'
-import { action, observable } from 'mobx'
-import { observer } from 'mobx-react'
-import * as React from 'react'
-import { getAvatarURL } from 'src/api'
-import { preventDefault } from 'src/common/util/react'
-import { StoredValue } from 'src/common/util/storage'
+import { bind } from "decko"
+import { action, observable } from "mobx"
+import { observer } from "mobx-react"
+import * as React from "react"
+import { getAvatarURL } from "src/api"
+import { preventDefault } from "src/common/util/react"
+import { StoredValue } from "src/common/util/storage"
 
 const avatarStyle = {
-  width: '100px',
-  height: '100px',
+  width: "100px",
+  height: "100px",
 }
 
 type CharacterSelectProps = {
@@ -19,8 +19,8 @@ type CharacterSelectProps = {
 
 @observer
 export class CharacterSelect extends React.Component<CharacterSelectProps> {
-  @observable character = ''
-  storedCharacter = new StoredValue<string>('CharacterSelect_character')
+  @observable character = ""
+  storedCharacter = new StoredValue<string>("CharacterSelect_character")
 
   @action
   setCharacter(character: string) {
@@ -40,7 +40,7 @@ export class CharacterSelect extends React.Component<CharacterSelectProps> {
 
   async componentDidMount() {
     const initialCharacter = await this.storedCharacter.restore()
-    this.setCharacter(initialCharacter || '')
+    this.setCharacter(initialCharacter || "")
   }
 
   render() {

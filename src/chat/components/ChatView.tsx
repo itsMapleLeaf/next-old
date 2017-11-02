@@ -1,27 +1,27 @@
-import { action } from 'mobx'
-import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import styled from 'react-emotion'
-import MediaQuery from 'react-responsive'
-import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
-import { CharacterDetails } from 'src/character/components/CharacterDetails'
-import { CharacterMenu } from 'src/character/components/CharacterMenu'
-import { ChatNavigationStore } from 'src/chat/stores/ChatNavigationStore'
-import { ChatStore } from 'src/chat/stores/ChatStore'
-import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
-import { Drawer } from 'src/common/components/Drawer'
-import { FadeTransition } from 'src/common/components/FadeTransition'
-import { Overlay } from 'src/common/components/Overlay'
-import { CharacterBrowser } from './CharacterBrowser'
-import { ChatNavActions } from './ChatNavActions'
-import { ChatNavTabs } from './ChatNavTabs'
-import { ChatViewRoute } from './ChatViewRoute'
-import { StatusMenu } from './StatusMenu'
+import { action } from "mobx"
+import { inject, observer } from "mobx-react"
+import * as React from "react"
+import styled from "react-emotion"
+import MediaQuery from "react-responsive"
+import { ChannelBrowser } from "src/channel-browser/components/ChannelBrowser"
+import { CharacterDetails } from "src/character/components/CharacterDetails"
+import { CharacterMenu } from "src/character/components/CharacterMenu"
+import { ChatNavigationStore } from "src/chat/stores/ChatNavigationStore"
+import { ChatStore } from "src/chat/stores/ChatStore"
+import { ChatViewStore } from "src/chat/stores/ChatViewStore"
+import { Drawer } from "src/common/components/Drawer"
+import { FadeTransition } from "src/common/components/FadeTransition"
+import { Overlay } from "src/common/components/Overlay"
+import { CharacterBrowser } from "./CharacterBrowser"
+import { ChatNavActions } from "./ChatNavActions"
+import { ChatNavTabs } from "./ChatNavTabs"
+import { ChatViewRoute } from "./ChatViewRoute"
+import { StatusMenu } from "./StatusMenu"
 
-export const mediaQueryMobile = '(max-width: 750px)'
-export const mediaQueryDesktop = '(min-width: 750px)'
+export const mediaQueryMobile = "(max-width: 750px)"
+export const mediaQueryDesktop = "(min-width: 750px)"
 
-const ChannelBrowserWrapper = styled('div')`
+const ChannelBrowserWrapper = styled("div")`
   width: 400px;
   height: 600px;
 
@@ -35,7 +35,7 @@ type ChatProps = {
   chatNavigationStore?: ChatNavigationStore
 }
 
-@inject('chatStore', 'chatViewStore', 'chatNavigationStore')
+@inject("chatStore", "chatViewStore", "chatNavigationStore")
 @observer
 export class ChatView extends React.Component<ChatProps> {
   private viewStore = this.props.chatViewStore!
@@ -125,7 +125,7 @@ export class ChatView extends React.Component<ChatProps> {
 
   private renderNavContent() {
     return (
-      <nav className="bg-color-darken-3 flex-row full-height" style={{ width: '240px' }}>
+      <nav className="bg-color-darken-3 flex-row full-height" style={{ width: "240px" }}>
         <ChatNavActions />
 
         <div className="divider-h" />

@@ -1,18 +1,18 @@
-import { fromPairs } from 'lodash'
-import { action, computed, observable } from 'mobx'
-import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
-import { ChannelStore } from 'src/channel/stores/ChannelStore'
-import { CharacterStore } from 'src/character/stores/CharacterStore'
-import { ConsoleStore } from 'src/console/stores/ConsoleStore'
-import { Message } from 'src/message/models/Message'
-import { PrivateChatStore } from 'src/private-chat/stores/PrivateChatStore'
+import { fromPairs } from "lodash"
+import { action, computed, observable } from "mobx"
+import { ChannelBrowserStore } from "src/channel-browser/stores/ChannelBrowserStore"
+import { ChannelStore } from "src/channel/stores/ChannelStore"
+import { CharacterStore } from "src/character/stores/CharacterStore"
+import { ConsoleStore } from "src/console/stores/ConsoleStore"
+import { Message } from "src/message/models/Message"
+import { PrivateChatStore } from "src/private-chat/stores/PrivateChatStore"
 
 interface CommandHandler {
   handleSocketCommand(cmd: string, params: any): void
 }
 
 export class ChatStore {
-  @observable identity = ''
+  @observable identity = ""
   @observable friends = observable.map<true>()
   @observable admins = observable.map<true>()
   ignored = observable.map<true>()
@@ -47,7 +47,7 @@ export class ChatStore {
 
     this.identity = character
 
-    this.socket = new WebSocket('wss://chat.f-list.net:9799')
+    this.socket = new WebSocket("wss://chat.f-list.net:9799")
 
     const handleOpen = () => {
       const params = {
@@ -56,9 +56,9 @@ export class ChatStore {
         character,
         cname: APP_NAME,
         cversion: APP_VERSION,
-        method: 'ticket',
+        method: "ticket",
       }
-      this.sendSocketCommand('IDN', params)
+      this.sendSocketCommand("IDN", params)
     }
 
     const handleMessage = (msg: MessageEvent) => {
@@ -66,7 +66,7 @@ export class ChatStore {
       const cmd = data.slice(0, 3)
       const params = data.length > 3 ? JSON.parse(data.slice(4)) : {}
 
-      if (cmd === 'IDN') {
+      if (cmd === "IDN") {
         connectedCallback()
       }
 
@@ -80,10 +80,10 @@ export class ChatStore {
       closedCallback()
     }
 
-    this.socket.addEventListener('open', handleOpen)
-    this.socket.addEventListener('message', handleMessage)
-    this.socket.addEventListener('close', handleClose)
-    this.socket.addEventListener('error', handleClose)
+    this.socket.addEventListener("open", handleOpen)
+    this.socket.addEventListener("message", handleMessage)
+    this.socket.addEventListener("close", handleClose)
+    this.socket.addEventListener("error", handleClose)
   }
 
   @action
@@ -95,7 +95,7 @@ export class ChatStore {
   sendSocketCommand(cmd: string, params?: object) {
     if (this.socket) {
       if (params) {
-        this.socket.send(cmd + ' ' + JSON.stringify(params))
+        this.socket.send(cmd + " " + JSON.stringify(params))
       } else {
         this.socket.send(cmd)
       }
@@ -107,7 +107,7 @@ export class ChatStore {
     const handlers: { [command: string]: (this: ChatStore) => void } = {
       PIN() {
         // dispatch('sendSocketCommand', { cmd: 'PIN' })
-        this.sendSocketCommand('PIN')
+        this.sendSocketCommand("PIN")
       },
 
       IDN() {
@@ -130,12 +130,12 @@ export class ChatStore {
 
       IGN() {
         const { action } = params
-        if (action === 'init') {
+        if (action === "init") {
           const characters = params.characters as string[]
           this.ignored.merge(fromPairs(characters.map<[string, true]>(name => [name, true])))
-        } else if (action === 'add') {
+        } else if (action === "add") {
           this.ignored.set(params.character, true)
-        } else if (action === 'delete') {
+        } else if (action === "delete") {
           this.ignored.delete(params.character)
         }
       },
@@ -177,25 +177,25 @@ export class ChatStore {
   }
 
   fetchChannelList() {
-    this.sendSocketCommand('CHA')
-    this.sendSocketCommand('ORS')
+    this.sendSocketCommand("CHA")
+    this.sendSocketCommand("ORS")
   }
 
   joinChannel(id: string) {
-    this.sendSocketCommand('JCH', { channel: id })
+    this.sendSocketCommand("JCH", { channel: id })
   }
 
   leaveChannel(id: string) {
-    this.sendSocketCommand('LCH', { channel: id })
+    this.sendSocketCommand("LCH", { channel: id })
   }
 
   @action
   sendChannelMessage(id: string, message: string) {
-    this.sendSocketCommand('MSG', { channel: id, message })
+    this.sendSocketCommand("MSG", { channel: id, message })
 
     const channel = this.channels.getChannel(id)
     if (channel) {
-      channel.messages.push(new Message(this.identity, message, 'normal'))
+      channel.messages.push(new Message(this.identity, message, "normal"))
     }
   }
 
@@ -224,10 +224,10 @@ export class ChatStore {
 
   @action
   sendPrivateMessage(recipient: string, message: string) {
-    this.sendSocketCommand('PRI', { recipient, message })
+    this.sendSocketCommand("PRI", { recipient, message })
 
     const privateChat = this.privateChats.getPrivateChat(recipient)
-    privateChat.messages.push(new Message(this.identity, message, 'normal'))
+    privateChat.messages.push(new Message(this.identity, message, "normal"))
   }
 
   async savePrivateChats() {
@@ -240,15 +240,15 @@ export class ChatStore {
   }
 
   updateStatus(status: string, statusmsg: string) {
-    this.sendSocketCommand('STA', { status, statusmsg })
+    this.sendSocketCommand("STA", { status, statusmsg })
   }
 
   ignore(name: string) {
-    this.sendSocketCommand('IGN', { action: 'add', character: name })
+    this.sendSocketCommand("IGN", { action: "add", character: name })
   }
 
   unignore(name: string) {
-    this.sendSocketCommand('IGN', { action: 'delete', character: name })
+    this.sendSocketCommand("IGN", { action: "delete", character: name })
   }
 
   isIgnored(name: string) {

@@ -1,14 +1,14 @@
-import * as React from 'react'
-import styled from 'react-emotion'
+import * as React from "react"
+import styled from "react-emotion"
 
 type Props = {
   children?: React.ReactNode
   onShadeClicked?: () => void
   visible?: boolean
-  side: 'left' | 'right'
+  side: "left" | "right"
 }
 
-const Shade = styled('div')`
+const Shade = styled("div")`
   background-color: rgba(0, 0, 0, 0.5);
   transition: 0.3s;
 
@@ -39,7 +39,7 @@ const Shade = styled('div')`
   }
 `
 
-const Panel = styled('div')`
+const Panel = styled("div")`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -58,13 +58,13 @@ const Panel = styled('div')`
 export function Drawer(props: Props) {
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const el = event.target
-    if (el instanceof HTMLDivElement && el.classList.contains('overlay-shade')) {
+    if (el instanceof HTMLDivElement && el.classList.contains("overlay-shade")) {
       if (props.onShadeClicked) props.onShadeClicked()
     }
   }
 
-  const visibleClass = props.visible ? 'overlay-visible' : 'overlay-hidden'
-  const panelClass = 'overlay-panel overlay-panel-' + props.side
+  const visibleClass = props.visible ? "overlay-visible" : "overlay-hidden"
+  const panelClass = "overlay-panel overlay-panel-" + props.side
 
   return (
     <Shade className={`fullscreen overlay-shade ${visibleClass}`} onClick={handleClick}>

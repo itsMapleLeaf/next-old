@@ -1,9 +1,9 @@
-import { bind } from 'decko'
-import { action, observable } from 'mobx'
-import { observer } from 'mobx-react'
-import * as React from 'react'
-import { preventDefault } from 'src/common/util/react'
-import { StoredValue } from 'src/common/util/storage'
+import { bind } from "decko"
+import { action, observable } from "mobx"
+import { observer } from "mobx-react"
+import * as React from "react"
+import { preventDefault } from "src/common/util/react"
+import { StoredValue } from "src/common/util/storage"
 
 type LoginProps = {
   onSubmit: (username: string, password: string) => void
@@ -13,9 +13,9 @@ type LoginProps = {
 
 @observer
 export class Login extends React.Component<LoginProps> {
-  @observable username = ''
-  @observable password = ''
-  storedUsername = new StoredValue<string>('Login_username')
+  @observable username = ""
+  @observable password = ""
+  storedUsername = new StoredValue<string>("Login_username")
 
   @action
   setUsername(username: string) {
@@ -45,7 +45,7 @@ export class Login extends React.Component<LoginProps> {
 
   async componentDidMount() {
     const initialUsername = await this.storedUsername.restore()
-    this.setUsername(initialUsername || '')
+    this.setUsername(initialUsername || "")
   }
 
   render() {

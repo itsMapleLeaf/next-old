@@ -1,8 +1,8 @@
-import { createParser } from 'bbc.js'
-import * as path from 'path'
-import { parse as parseURL } from 'url'
+import { createParser } from "bbc.js"
+import * as path from "path"
+import { parse as parseURL } from "url"
 
-import { getAvatarURL, getExtendedIcon, getProfileURL } from 'src/api'
+import { getAvatarURL, getExtendedIcon, getProfileURL } from "src/api"
 
 const parser = createParser({
   b: { render: text => `<span class="bbc-bold">${text}</span>` },
@@ -59,10 +59,10 @@ function formatPrivateChannel(id: string, name: string) {
 }
 
 function formatLink(url: string, text: string) {
-  const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.gif']
+  const imageExtensions = [".png", ".jpg", ".jpeg", ".svg", ".gif"]
   const { pathname } = parseURL(url)
-  const ext = pathname ? path.extname(pathname) : ''
-  const icon = imageExtensions.includes(ext) ? 'image' : 'link-variant'
+  const ext = pathname ? path.extname(pathname) : ""
+  const icon = imageExtensions.includes(ext) ? "image" : "link-variant"
 
   return (
     `<a class='bbc-link' href='${url}' target='_blank'>` +

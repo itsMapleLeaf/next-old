@@ -1,5 +1,5 @@
-import { action, observable } from 'mobx'
-import { ConsoleMessage } from 'src/console/models/ConsoleMessage'
+import { action, observable } from "mobx"
+import { ConsoleMessage } from "src/console/models/ConsoleMessage"
 
 export class ConsoleStore {
   @observable messages = [] as ConsoleMessage[]

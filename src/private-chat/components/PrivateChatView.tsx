@@ -1,13 +1,13 @@
-import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import { getAvatarURL } from 'src/api'
-import { CharacterName } from 'src/character/components/CharacterName'
-import { ChatHeader } from 'src/chat/components/ChatHeader'
-import { ChatInput } from 'src/chat/components/ChatInput'
-import { AutoScroller } from 'src/common/components/AutoScroller'
-import { MessageComponent } from 'src/message/components/MessageComponent'
-import { PrivateChat } from 'src/private-chat/models/PrivateChat'
-import { Stores } from 'src/stores'
+import { inject, observer } from "mobx-react"
+import * as React from "react"
+import { getAvatarURL } from "src/api"
+import { CharacterName } from "src/character/components/CharacterName"
+import { ChatHeader } from "src/chat/components/ChatHeader"
+import { ChatInput } from "src/chat/components/ChatInput"
+import { AutoScroller } from "src/common/components/AutoScroller"
+import { MessageComponent } from "src/message/components/MessageComponent"
+import { PrivateChat } from "src/private-chat/models/PrivateChat"
+import { Stores } from "src/stores"
 
 type Props = {
   partner: string
@@ -48,7 +48,7 @@ class PrivateChatViewComponent extends React.Component<Props & InjectedProps> {
             <img
               className="block"
               src={getAvatarURL(this.props.partner)}
-              style={{ width: '24px', height: '24px' }}
+              style={{ width: "24px", height: "24px" }}
             />
           </div>
         </ChatHeader>

@@ -1,8 +1,8 @@
-import { action, observable } from 'mobx'
-import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import { preventDefault } from 'src/common/util/react'
-import { Stores } from 'src/stores'
+import { action, observable } from "mobx"
+import { inject, observer } from "mobx-react"
+import * as React from "react"
+import { preventDefault } from "src/common/util/react"
+import { Stores } from "src/stores"
 
 type InjectedProps = {
   initialStatus: string
@@ -26,8 +26,8 @@ function storesToProps(stores: Stores): InjectedProps {
 @inject(storesToProps)
 @observer
 class StatusMenuComponent extends React.Component<InjectedProps> {
-  @observable status = ''
-  @observable statusMessage = ''
+  @observable status = ""
+  @observable statusMessage = ""
 
   @action.bound
   updateStatus(event: React.ChangeEvent<HTMLSelectElement>) {

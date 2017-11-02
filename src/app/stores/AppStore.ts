@@ -1,7 +1,7 @@
-import { action, observable } from 'mobx'
-import { AuthStore } from 'src/auth/stores/AuthStore'
-import { OverlayState } from 'src/chat/models/OverlayState'
-import { StoredValue } from 'src/common/util/storage'
+import { action, observable } from "mobx"
+import { AuthStore } from "src/auth/stores/AuthStore"
+import { OverlayState } from "src/chat/models/OverlayState"
+import { StoredValue } from "src/common/util/storage"
 
 export enum AppState {
   setup,
@@ -15,7 +15,7 @@ export class AppStore {
   @observable state = AppState.setup
 
   appInfo = new OverlayState()
-  hasRun = new StoredValue<boolean>('AppStore_hasRun')
+  hasRun = new StoredValue<boolean>("AppStore_hasRun")
 
   constructor(private auth: AuthStore) {}
 

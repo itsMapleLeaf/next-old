@@ -1,26 +1,26 @@
-import { action, computed, observable } from 'mobx'
-import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import * as MediaQuery from 'react-responsive'
-import { Icon } from 'src/app/components/Icon'
-import { ChannelModeFilter } from 'src/channel/components/ChannelModeFilter'
-import { Channel, ChannelMode } from 'src/channel/models/Channel'
-import { ChatHeader } from 'src/chat/components/ChatHeader'
-import { ChatInput } from 'src/chat/components/ChatInput'
-import { OverlayState } from 'src/chat/models/OverlayState'
-import { parseBBC } from 'src/chat/util/bbc'
-import { AutoScroller } from 'src/common/components/AutoScroller'
-import { Drawer } from 'src/common/components/Drawer'
-import { preventDefault } from 'src/common/util/react'
-import { MessageComponent } from 'src/message/components/MessageComponent'
-import { Message } from 'src/message/models/Message'
-import { Stores } from 'src/stores'
-import { ChannelUsers } from './ChannelUsers'
+import { action, computed, observable } from "mobx"
+import { inject, observer } from "mobx-react"
+import * as React from "react"
+import * as MediaQuery from "react-responsive"
+import { Icon } from "src/app/components/Icon"
+import { ChannelModeFilter } from "src/channel/components/ChannelModeFilter"
+import { Channel, ChannelMode } from "src/channel/models/Channel"
+import { ChatHeader } from "src/chat/components/ChatHeader"
+import { ChatInput } from "src/chat/components/ChatInput"
+import { OverlayState } from "src/chat/models/OverlayState"
+import { parseBBC } from "src/chat/util/bbc"
+import { AutoScroller } from "src/common/components/AutoScroller"
+import { Drawer } from "src/common/components/Drawer"
+import { preventDefault } from "src/common/util/react"
+import { MessageComponent } from "src/message/components/MessageComponent"
+import { Message } from "src/message/models/Message"
+import { Stores } from "src/stores"
+import { ChannelUsers } from "./ChannelUsers"
 
-const mediaShowOnDesktop = '(min-width: 900px)'
-const mediaShowOnMobile = '(max-width: 900px)'
+const mediaShowOnDesktop = "(min-width: 900px)"
+const mediaShowOnMobile = "(max-width: 900px)"
 
-type Props = JSX.IntrinsicElements['div'] & {
+type Props = JSX.IntrinsicElements["div"] & {
   id: string
 }
 
@@ -42,7 +42,7 @@ function storesToProps(stores: Stores, props: Props): InjectedProps {
 @inject(storesToProps)
 @observer
 class ChannelViewComponent extends React.Component<Props & InjectedProps> {
-  @observable private displayedMode = 'both' as ChannelMode
+  @observable private displayedMode = "both" as ChannelMode
   private infoDrawer = new OverlayState()
 
   render() {
@@ -55,7 +55,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
         <div className="divider" />
 
         <MediaQuery query={mediaShowOnDesktop}>
-          <div className="bg-color-main scroll-v padding" style={{ height: '80px' }}>
+          <div className="bg-color-main scroll-v padding" style={{ height: "80px" }}>
             {this.renderDescription()}
           </div>
           <div className="divider" />
@@ -104,15 +104,15 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
   private get filteredMessages() {
     const { messages } = this.props.channel
 
-    if (this.props.channel.mode !== 'both') {
+    if (this.props.channel.mode !== "both") {
       return messages
     }
 
-    if (this.displayedMode === 'ads') {
-      return messages.filter(msg => msg.type === 'lfrp')
+    if (this.displayedMode === "ads") {
+      return messages.filter(msg => msg.type === "lfrp")
     }
-    if (this.displayedMode === 'chat') {
-      return messages.filter(msg => msg.type === 'normal')
+    if (this.displayedMode === "chat") {
+      return messages.filter(msg => msg.type === "normal")
     }
 
     return messages
@@ -138,10 +138,10 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
           <div className="flex-row flex-align-center">
             <h3 className="flex-grow">{channel.title}</h3>
             <div className="flex-row">
-              {channel.mode === 'both' && [
-                this.renderModeFilter('chat', 'Chat'),
-                this.renderModeFilter('ads', 'Ads'),
-                this.renderModeFilter('both', 'Both'),
+              {channel.mode === "both" && [
+                this.renderModeFilter("chat", "Chat"),
+                this.renderModeFilter("ads", "Ads"),
+                this.renderModeFilter("both", "Both"),
               ]}
             </div>
             <MediaQuery query={mediaShowOnMobile}>
@@ -164,7 +164,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
 
     return (
       <Drawer side="right" visible={this.infoDrawer.isOpen} onShadeClicked={this.infoDrawer.hide}>
-        <div className="scroll-v" style={{ width: '240px' }}>
+        <div className="scroll-v" style={{ width: "240px" }}>
           <h3 className="padding">Description</h3>
           <div
             className="bg-color-darken-1 padding preserve-ws"

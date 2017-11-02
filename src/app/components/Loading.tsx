@@ -1,9 +1,11 @@
-import { keyframes } from 'emotion'
-import * as React from 'react'
-import styled from 'react-emotion'
-import { Icon } from 'src/app/components/Icon'
+import { keyframes } from "emotion"
+import * as React from "react"
+import styled from "react-emotion"
+import { Icon } from "src/app/components/Icon"
 
-const Shade = styled.div`background: rgba(0, 0, 0, 0.5);`
+const Shade = styled.div`
+  background: rgba(0, 0, 0, 0.5);
+`
 
 const iconAnimation = keyframes`
   0% { transform: perspective(180px) rotateX(0) rotateY(0); }

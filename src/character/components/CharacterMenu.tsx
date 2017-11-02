@@ -1,12 +1,12 @@
-import { action } from 'mobx'
-import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import styled from 'react-emotion'
-import { getProfileURL } from 'src/api'
-import { Icon } from 'src/app/components/Icon'
-import { CharacterDetails } from 'src/character/components/CharacterDetails'
-import { ChatStore } from 'src/chat/stores/ChatStore'
+import { action } from "mobx"
+import { inject, observer } from "mobx-react"
+import * as React from "react"
+import * as ReactDOM from "react-dom"
+import styled from "react-emotion"
+import { getProfileURL } from "src/api"
+import { Icon } from "src/app/components/Icon"
+import { CharacterDetails } from "src/character/components/CharacterDetails"
+import { ChatStore } from "src/chat/stores/ChatStore"
 
 type CharacterMenuProps = {
   x: number
@@ -15,13 +15,13 @@ type CharacterMenuProps = {
   chatStore?: ChatStore
 }
 
-const MenuWrapper = styled('div')`
+const MenuWrapper = styled("div")`
   width: 200px;
   position: fixed;
   box-shadow: 0px 0px 8px black;
 `
 
-const MenuAction = styled('a')`
+const MenuAction = styled("a")`
   opacity: 0.5;
 
   &:hover {
@@ -29,7 +29,7 @@ const MenuAction = styled('a')`
   }
 `
 
-@inject('chatStore')
+@inject("chatStore")
 @observer
 export class CharacterMenu extends React.Component<CharacterMenuProps> {
   updatePosition() {
@@ -39,8 +39,8 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
     const right = x + rect.width
     const bottom = y + rect.height
 
-    el.style.left = x - Math.max(right - (window.innerWidth - 16), 0) + 'px'
-    el.style.top = y - Math.max(bottom - (window.innerHeight - 16), 0) + 'px'
+    el.style.left = x - Math.max(right - (window.innerWidth - 16), 0) + "px"
+    el.style.top = y - Math.max(bottom - (window.innerHeight - 16), 0) + "px"
   }
 
   componentDidMount() {
@@ -61,8 +61,8 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
     const chatStore = this.props.chatStore!
     const isIgnored = chatStore.ignored.has(character)
 
-    const icon = isIgnored ? 'remove-circle' : 'remove-circle-outline'
-    const text = isIgnored ? 'Unignore' : 'ignore'
+    const icon = isIgnored ? "remove-circle" : "remove-circle-outline"
+    const text = isIgnored ? "Unignore" : "ignore"
     const handleClick = isIgnored ? chatStore.unignore : chatStore.ignore
 
     return (
