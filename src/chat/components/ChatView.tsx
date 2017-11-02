@@ -2,7 +2,7 @@ import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'
-import * as MediaQuery from 'react-responsive'
+import MediaQuery from 'react-responsive'
 import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
 import { CharacterMenu } from 'src/character/components/CharacterMenu'
@@ -38,7 +38,7 @@ type ChatProps = {
 @inject('chatStore', 'chatViewStore', 'chatNavigationStore')
 @observer
 export class ChatView extends React.Component<ChatProps> {
-  viewStore = this.props.chatViewStore!
+  private viewStore = this.props.chatViewStore!
 
   render() {
     return (
