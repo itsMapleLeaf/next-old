@@ -1,7 +1,8 @@
-import * as forage from "localforage"
-import * as api from "src/api"
+import * as forage from 'localforage'
+import { observable } from 'mobx'
+import * as api from 'src/api'
 
-const storageKeyAuth = "AuthStore_auth"
+const storageKeyAuth = 'AuthStore_auth'
 
 type AuthData = {
   account: string
@@ -9,9 +10,9 @@ type AuthData = {
 }
 
 export class AuthStore {
-  account = ""
-  ticket = ""
-  characters = [] as string[]
+  @observable account = ''
+  @observable ticket = ''
+  @observable characters = [] as string[]
 
   async fetchTicket(account: string, password: string) {
     const ticket = await api.fetchTicket(account, password)
