@@ -99,6 +99,10 @@ export default (env = {} as ConfigEnvironment) => {
         APP_NAME: JSON.stringify(meta.name),
         APP_VERSION: JSON.stringify(meta.version),
       }),
+
+      new ForkTsCheckerWebpackPlugin({
+        tslint: true,
+      }),
     ],
     resolve: {
       extensions: [".js", ".json", ".ts", ".tsx"],
