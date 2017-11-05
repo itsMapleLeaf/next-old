@@ -1,7 +1,7 @@
 import { action, computed, observable } from "mobx"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
-import * as MediaQuery from "react-responsive"
+import MediaQuery from "react-responsive"
 import { Icon } from "src/app/components/Icon"
 import { ChannelModeFilter } from "src/channel/components/ChannelModeFilter"
 import { Channel, ChannelMode } from "src/channel/models/Channel"
