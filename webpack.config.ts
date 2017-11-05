@@ -9,6 +9,8 @@ const CleanPlugin = require('clean-webpack-plugin')
 const UglifyPlugin = require('uglifyjs-webpack-plugin')
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin')
 
+const meta = require('./package.json')
+
 const root = resolve(__dirname)
 const sourcePath = resolve(root, 'src')
 const outputPath = resolve(root, 'build')
@@ -18,21 +20,21 @@ type ConfigEnvironment = {
 }
 
 export default (env = {} as ConfigEnvironment) => {
-  const babelLoader = {
+  const babelLoader: webpack.Loader = {
     loader: 'babel-loader',
     options: {
       plugins: ['emotion', 'lodash'],
     },
   }
 
-  const tsLoader = {
+  const tsLoader: webpack.Loader = {
     loader: 'ts-loader',
     options: {
       compilerOptions: { module: 'esnext' },
     },
   }
 
-  const cssLoader = {
+  const cssLoader: webpack.Loader = {
     loader: 'css-loader',
     options: {
       minimize: env.production,
@@ -60,8 +62,6 @@ export default (env = {} as ConfigEnvironment) => {
       fallback: 'style-loader',
     }),
   }
-
-  const { name, version } = require('./package.json')
 
   const baseConfig: webpack.Configuration = {
     entry: {
@@ -92,8 +92,8 @@ export default (env = {} as ConfigEnvironment) => {
       }),
 
       new webpack.DefinePlugin({
-        APP_NAME: JSON.stringify(name),
-        APP_VERSION: JSON.stringify(version),
+        APP_NAME: JSON.stringify(meta.name),
+        APP_VERSION: JSON.stringify(meta.version),
       }),
     ],
     resolve: {
