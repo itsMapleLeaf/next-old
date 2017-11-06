@@ -20,6 +20,9 @@ export class Character {
 
   @computed
   get parsedStatusMessage() {
-    return { __html: parseBBC(this.statusMessage) }
+    if (this.hasStatusMessage) {
+      return { __html: parseBBC(this.statusMessage) }
+    }
+    return { __html: "" }
   }
 }
