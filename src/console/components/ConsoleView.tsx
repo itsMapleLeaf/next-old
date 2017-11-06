@@ -11,15 +11,10 @@ type InjectedProps = {
   onCommand: (text: CommandInfo) => void
 }
 
-function storesToProps(stores: Stores): InjectedProps {
+function storesToProps({ consoleStore }: Stores): InjectedProps {
   return {
-    messages: stores.consoleStore.messages,
-
-    onCommand(command) {
-      if (command.command === "clear") {
-        stores.consoleStore.clear()
-      }
-    },
+    messages: consoleStore.messages,
+    onCommand: consoleStore.handleChatCommand,
   }
 }
 

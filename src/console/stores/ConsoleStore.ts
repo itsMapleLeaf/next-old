@@ -1,4 +1,5 @@
 import { action, observable } from "mobx"
+import { CommandInfo } from "src/chat/util/chat-command"
 import { ConsoleMessage } from "src/console/models/ConsoleMessage"
 
 export class ConsoleStore {
@@ -12,5 +13,12 @@ export class ConsoleStore {
   @action
   clear() {
     this.messages.splice(0)
+  }
+
+  @action.bound
+  handleChatCommand({ command }: CommandInfo) {
+    if (command === "clear") {
+      this.clear()
+    }
   }
 }

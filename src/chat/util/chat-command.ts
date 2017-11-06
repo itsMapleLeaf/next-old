@@ -1,5 +1,3 @@
-const commandExp = /^\/([a-z]+)\s*(.*)/i
-
 /**
  * Represents information for a chat command entered by the user.
  *
@@ -21,6 +19,8 @@ export type CommandInfo = {
   params: string[]
   paramString: string
 }
+
+const commandExp = /^\/([a-z]+)\s*(.*)/i
 
 export function parseChatCommand(text: string): CommandInfo | void {
   const match = text.match(commandExp)
