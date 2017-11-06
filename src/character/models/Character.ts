@@ -1,4 +1,6 @@
 import { observable } from "mobx"
+import { computed } from "mobx/lib/api/computed"
+import { parseBBC } from "src/chat/util/bbc"
 
 export class Character {
   @observable gender = ""
@@ -9,5 +11,15 @@ export class Character {
     this.gender = gender
     this.status = status
     this.statusMessage = statusMessage
+  }
+
+  @computed
+  get hasStatusMessage() {
+    return this.statusMessage.trim() !== ""
+  }
+
+  @computed
+  get parsedStatusMessage() {
+    return { __html: parseBBC(this.statusMessage) }
   }
 }

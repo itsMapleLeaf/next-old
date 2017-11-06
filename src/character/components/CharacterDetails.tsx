@@ -4,6 +4,7 @@ import { inject, observer } from "mobx-react"
 import styled from "react-emotion"
 
 import { getAvatarURL, getProfileURL } from "src/api"
+import { Character } from "src/character/models/Character"
 import { parseBBC } from "src/chat/util/bbc"
 import { Stores } from "src/stores"
 
@@ -18,20 +19,19 @@ type Props = {
 }
 
 type InjectedProps = {
-  status: string
-  statusMessage: string
+  character: Character
 }
 
 function storesToProps(stores: Stores, props: Props): InjectedProps {
   const character = stores.characterStore.getCharacter(props.name)
   return {
-    status: character.status,
-    statusMessage: character.statusMessage,
+    character,
   }
 }
 
 function renderCharacterDetails(props: Props & InjectedProps) {
-  const { name, status, statusMessage } = props
+  const { name, character } = props
+  const { status, hasStatusMessage, parsedStatusMessage } = character
 
   return (
     <div className="padding">
@@ -49,8 +49,11 @@ function renderCharacterDetails(props: Props & InjectedProps) {
 
       <div className="bg-color-darken-1 padding text-italic text-small">
         <span className={`character-status-${status.toLowerCase()}`}>{status}</span>
-        {statusMessage.trim() !== "" && (
-          <span dangerouslySetInnerHTML={{ __html: " - " + parseBBC(statusMessage) }} />
+        {hasStatusMessage && (
+          <span>
+            {" - "}
+            <span dangerouslySetInnerHTML={parsedStatusMessage} />
+          </span>
         )}
       </div>
     </div>
