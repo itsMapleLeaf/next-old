@@ -1,7 +1,7 @@
 import "./index.scss"
 
 import { useStrict } from "mobx"
-import { Provider } from "mobx-react"
+import { Provider as StoreProvider } from "mobx-react"
 import DevTools from "mobx-react-devtools"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
@@ -15,9 +15,9 @@ const devmode = process.env.NODE_ENV !== "production"
 function Root() {
   return (
     <div>
-      <Provider {...stores}>
+      <StoreProvider {...stores}>
         <App />
-      </Provider>
+      </StoreProvider>
       {devmode && <DevTools position={{ right: 0, bottom: 0 }} />}
     </div>
   )
