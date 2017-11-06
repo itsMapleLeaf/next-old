@@ -24,16 +24,12 @@ type Props = JSX.IntrinsicElements["div"] & {
 
 type InjectedProps = {
   channel: Channel
-  onMessage: (message: string) => void
 }
 
 function storesToProps(stores: Stores, props: Props): InjectedProps {
-  const { channelStore, chatStore } = stores
+  const { channelStore } = stores
   return {
     channel: channelStore.getChannel(props.id),
-    onMessage(message) {
-      chatStore.sendChannelMessage(props.id, message)
-    },
   }
 }
 
@@ -69,7 +65,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
         <div className="divider" />
 
         <div className="bg-color-main flex-row">
-          <ChatInput className="flex-grow" onMessage={this.props.onMessage} />
+          <ChatInput />
         </div>
 
         <MediaQuery query={mediaShowOnMobile}>

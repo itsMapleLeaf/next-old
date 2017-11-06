@@ -1,15 +1,35 @@
 import { action, observable } from "mobx"
-import { observer } from "mobx-react"
+import { inject, observer } from "mobx-react"
 import * as React from "react"
 import { CommandInfo, parseChatCommand } from "src/chat/util/chat-command"
+import { Stores } from "src/stores"
 
-type ChatInputProps = JSX.IntrinsicElements["div"] & {
-  onMessage?: (message: string) => void
-  onCommand?: (command: CommandInfo) => void
+type InjectedProps = {
+  onMessage: (message: string) => void
+  onCommand: (command: CommandInfo) => void
 }
 
+function storesToProps(stores: Stores): InjectedProps {
+  const { chatStore, chatNavigationStore } = stores
+  return {
+    onMessage(message) {
+      const route = chatNavigationStore.currentRoute
+
+      if (route.type === "channel") {
+        chatStore.sendChannelMessage(route.id, message)
+      } else if (route.type === "private-chat") {
+        chatStore.sendPrivateMessage(route.partner, message)
+      }
+    },
+    onCommand(command) {
+      // TODO
+    },
+  }
+}
+
+@inject(storesToProps)
 @observer
-export class ChatInput extends React.Component<ChatInputProps> {
+class ChatInputComponent extends React.Component<InjectedProps> {
   @observable message = ""
 
   @action.bound
@@ -37,9 +57,9 @@ export class ChatInput extends React.Component<ChatInputProps> {
   }
 
   render() {
-    const { className, onMessage, onCommand, ...divProps } = this.props
+    const { onMessage, onCommand, ...divProps } = this.props
     return (
-      <div className={`flex-row padding ${className}`} {...divProps}>
+      <div className="flex-row padding" {...divProps}>
         <textarea
           className="flex-grow padding margin-right"
           placeholder="Say something..."
@@ -53,3 +73,5 @@ export class ChatInput extends React.Component<ChatInputProps> {
     )
   }
 }
+
+export const ChatInput: React.ComponentClass<{}> = ChatInputComponent

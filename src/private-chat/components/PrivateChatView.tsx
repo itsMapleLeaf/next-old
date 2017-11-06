@@ -15,17 +15,13 @@ type Props = {
 
 type InjectedProps = {
   privateChat: PrivateChat
-  onMessage: (message: string) => void
 }
 
 function storesToProps(stores: Stores, props: Props): InjectedProps {
-  const { privateChatStore, chatStore } = stores
+  const { privateChatStore } = stores
 
   return {
     privateChat: privateChatStore.getPrivateChat(props.partner),
-    onMessage(message) {
-      chatStore.sendPrivateMessage(props.partner, message)
-    },
   }
 }
 
@@ -62,7 +58,7 @@ class PrivateChatViewComponent extends React.Component<Props & InjectedProps> {
         <div className="divider-v" />
 
         <div className="bg-color-main">
-          <ChatInput onMessage={this.props.onMessage} />
+          <ChatInput />
         </div>
       </div>
     )

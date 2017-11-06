@@ -2,19 +2,16 @@ import { inject, observer } from "mobx-react"
 import * as React from "react"
 import { ChatHeader } from "src/chat/components/ChatHeader"
 import { ChatInput } from "src/chat/components/ChatInput"
-import { CommandInfo } from "src/chat/util/chat-command"
 import { ConsoleMessage } from "src/console/models/ConsoleMessage"
 import { Stores } from "src/stores"
 
 type InjectedProps = {
   messages: ConsoleMessage[]
-  onCommand: (text: CommandInfo) => void
 }
 
 function storesToProps({ consoleStore }: Stores): InjectedProps {
   return {
     messages: consoleStore.messages,
-    onCommand: consoleStore.handleChatCommand,
   }
 }
 
@@ -37,7 +34,7 @@ class ConsoleViewComponent extends React.Component<InjectedProps> {
         <div className="divider-v" />
 
         <div className="bg-color-main">
-          <ChatInput onCommand={this.props.onCommand} />
+          <ChatInput />
         </div>
       </main>
     )
@@ -48,7 +45,7 @@ class ConsoleViewComponent extends React.Component<InjectedProps> {
       <div className="float-right text-small text-italic faded">
         [{message.time.toLocaleTimeString()}]
       </div>
-      {message.text}
+      <span dangerouslySetInnerHTML={{ __html: message.text }} />
     </div>
   )
 }
