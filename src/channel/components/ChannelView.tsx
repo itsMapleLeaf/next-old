@@ -3,22 +3,20 @@ import { inject, observer } from "mobx-react"
 import * as React from "react"
 import MediaQuery from "react-responsive"
 import { Icon } from "src/app/components/Icon"
-import { ChannelModeFilter } from "src/channel/components/ChannelModeFilter"
 import { Channel, ChannelMode } from "src/channel/models/Channel"
-import { ChatHeader } from "src/chat/components/ChatHeader"
 import { ChatInput } from "src/chat/components/ChatInput"
 import { OverlayState } from "src/chat/models/OverlayState"
-import { parseBBC } from "src/chat/util/bbc"
 import { AutoScroller } from "src/common/components/AutoScroller"
-import { Drawer } from "src/common/components/Drawer"
 import { preventDefault } from "src/common/util/react"
 import { MessageComponent } from "src/message/components/MessageComponent"
 import { Message } from "src/message/models/Message"
 import { Stores } from "src/stores"
 import { ChannelUsers } from "./ChannelUsers"
+import { ChannelViewDrawer } from "./ChannelViewDrawer"
+import { ChannelViewHeader } from "./ChannelViewHeader"
 
-const mediaShowOnDesktop = "(min-width: 900px)"
-const mediaShowOnMobile = "(max-width: 900px)"
+export const mediaShowOnDesktop = "(min-width: 900px)"
+export const mediaShowOnMobile = "(max-width: 900px)"
 
 type Props = JSX.IntrinsicElements["div"] & {
   id: string
@@ -54,27 +52,16 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
 
         <div className="divider" />
 
-        <MediaQuery query={mediaShowOnDesktop}>
-          <div className="bg-color-main scroll-v padding" style={{ height: "80px" }}>
-            {this.renderDescription()}
-          </div>
-          <div className="divider" />
-        </MediaQuery>
+        {this.renderDescription()}
 
         <div className="flex-grow flex-row">
-          <AutoScroller>
-            <div className="bg-color-darken-1 flex-grow scroll-v">
-              {this.filteredMessages.slice(0, 300).map(this.renderMessage)}
-            </div>
-          </AutoScroller>
+          {this.renderMessageList()}
 
           <MediaQuery query={mediaShowOnDesktop}>
-            {/* the flex-row here is needed to make sure the encased divs stack horizontally */}
+            {/* the flex-row here is needed to make sure the encased divs flow horizontally */}
             <div className="flex-row">
               <div className="divider" />
-              <div className="bg-color-main scroll-v">
-                <ChannelUsers users={channel.users} ops={channel.ops} />
-              </div>
+              {this.renderUserList()}
             </div>
           </MediaQuery>
         </div>
@@ -85,98 +72,80 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
           <ChatInput className="flex-grow" onMessage={this.props.onMessage} />
         </div>
 
-        <MediaQuery query={mediaShowOnMobile}>{this.renderInfoDrawer()}</MediaQuery>
+        <MediaQuery query={mediaShowOnMobile}>
+          <ChannelViewDrawer channel={channel} infoDrawerOverlay={this.infoDrawer} />
+        </MediaQuery>
       </div>
     )
   }
 
-  @action
+  @action.bound
   private setDisplayedMode(mode: ChannelMode) {
     this.displayedMode = mode
-  }
-
-  @computed
-  private get parsedDescription() {
-    return { __html: parseBBC(this.props.channel.description) }
   }
 
   @computed
   private get filteredMessages() {
     const { messages } = this.props.channel
 
-    if (this.props.channel.mode !== "both") {
-      return messages
-    }
-
-    if (this.displayedMode === "ads") {
-      return messages.filter(msg => msg.type === "lfrp")
-    }
-    if (this.displayedMode === "chat") {
-      return messages.filter(msg => msg.type === "normal")
+    if (this.props.channel.mode === "both") {
+      if (this.displayedMode === "ads") {
+        return messages.filter(msg => msg.type === "lfrp")
+      }
+      if (this.displayedMode === "chat") {
+        return messages.filter(msg => msg.type === "normal")
+      }
     }
 
     return messages
   }
 
-  private renderModeFilter(mode: ChannelMode, text: string) {
+  private renderHeader() {
     return (
-      <ChannelModeFilter
-        key={mode}
-        onClick={preventDefault(() => this.setDisplayedMode(mode))}
-        text={text}
-        active={this.displayedMode === mode}
+      <ChannelViewHeader
+        channel={this.props.channel}
+        currentMode={this.displayedMode}
+        onModeSelect={this.setDisplayedMode}
+        drawerToggle={
+          <MediaQuery query={mediaShowOnMobile}>
+            <a href="#" onClick={preventDefault(this.infoDrawer.show)}>
+              <Icon name="more-vert" size={24} />
+            </a>
+          </MediaQuery>
+        }
       />
     )
   }
 
-  private renderHeader() {
-    const { channel } = this.props
-
+  private renderDescription() {
     return (
-      <div>
-        <ChatHeader>
-          <div className="flex-row flex-align-center">
-            <h3 className="flex-grow">{channel.title}</h3>
-            <div className="flex-row">
-              {channel.mode === "both" && [
-                this.renderModeFilter("chat", "Chat"),
-                this.renderModeFilter("ads", "Ads"),
-                this.renderModeFilter("both", "Both"),
-              ]}
-            </div>
-            <MediaQuery query={mediaShowOnMobile}>
-              <a href="#" onClick={preventDefault(this.infoDrawer.show)}>
-                <Icon name="more-vert" size={24} />
-              </a>
-            </MediaQuery>
-          </div>
-        </ChatHeader>
-      </div>
+      <MediaQuery query={mediaShowOnDesktop}>
+        <div
+          className="bg-color-main scroll-v padding"
+          style={{ height: "80px" }}
+          dangerouslySetInnerHTML={this.props.channel.parsedDescription}
+        />
+        <div className="divider" />
+      </MediaQuery>
     )
   }
 
-  private renderDescription() {
-    return <span className="preserve-ws" dangerouslySetInnerHTML={this.parsedDescription} />
+  private renderMessageList() {
+    return (
+      <AutoScroller>
+        <div className="bg-color-darken-1 flex-grow scroll-v">
+          {this.filteredMessages.slice(-300).map(this.renderMessage)}
+        </div>
+      </AutoScroller>
+    )
   }
 
-  private renderInfoDrawer() {
-    const { channel } = this.props
-
+  private renderUserList() {
+    const { users, ops } = this.props.channel
     return (
-      <Drawer side="right" visible={this.infoDrawer.isOpen} onShadeClicked={this.infoDrawer.hide}>
-        <div className="scroll-v" style={{ width: "240px" }}>
-          <h3 className="padding">Description</h3>
-          <div
-            className="bg-color-darken-1 padding preserve-ws"
-            dangerouslySetInnerHTML={this.parsedDescription}
-          />
-
-          <h3 className="padding">Users ({channel.getUserCount()})</h3>
-          <div className="bg-color-darken-1">
-            <ChannelUsers users={channel.getUsers()} ops={channel.ops} />
-          </div>
-        </div>
-      </Drawer>
+      <div className="bg-color-main scroll-v">
+        <ChannelUsers users={users} ops={ops} />
+      </div>
     )
   }
 

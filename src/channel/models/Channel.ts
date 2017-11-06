@@ -1,4 +1,5 @@
-import { action, observable } from "mobx"
+import { action, computed, observable } from "mobx"
+import { parseBBC } from "src/chat/util/bbc"
 import { Message } from "src/message/models/Message"
 
 export type ChannelMode = "chat" | "ads" | "both"
@@ -38,5 +39,10 @@ export class Channel {
 
   getUserCount(): number {
     return this.users.length
+  }
+
+  @computed
+  get parsedDescription() {
+    return { __html: parseBBC(this.description) }
   }
 }
