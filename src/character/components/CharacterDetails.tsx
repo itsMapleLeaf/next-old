@@ -48,12 +48,10 @@ function renderCharacterDetails(props: Props & InjectedProps) {
 
       <div className="bg-color-darken-1 padding text-italic text-small">
         <span className={`character-status-${status.toLowerCase()}`}>{status}</span>
-        {hasStatusMessage && (
-          <span>
-            {" - "}
-            <span dangerouslySetInnerHTML={parsedStatusMessage} />
-          </span>
-        )}
+        {hasStatusMessage && [
+          " - ",
+          <span key="status-message" dangerouslySetInnerHTML={parsedStatusMessage} />,
+        ]}
       </div>
     </div>
   )
