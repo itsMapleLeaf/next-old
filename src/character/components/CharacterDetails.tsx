@@ -5,7 +5,6 @@ import styled from "react-emotion"
 
 import { getAvatarURL, getProfileURL } from "src/api"
 import { Character } from "src/character/models/Character"
-import { parseBBC } from "src/chat/util/bbc"
 import { Stores } from "src/stores"
 
 const Avatar = styled("img")`
