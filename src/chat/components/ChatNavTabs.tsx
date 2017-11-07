@@ -37,7 +37,21 @@ function storesToProps(stores: Stores): InjectedProps {
 @inject(storesToProps)
 @observer
 class ChatNavTabsComponent extends React.Component<InjectedProps> {
-  renderChannelTabs() {
+  render() {
+    return (
+      <div>
+        {this.renderConsoleTab()}
+
+        <h3 className="padding faded">Channels</h3>
+        {this.renderChannelTabs()}
+
+        <h3 className="padding faded">Private Chats</h3>
+        {this.renderPrivateChatTabs()}
+      </div>
+    )
+  }
+
+  private renderChannelTabs() {
     const navigation = this.props.navigation
     const routes = navigation.channelRoutes
     const currentRoute = navigation.currentRoute
@@ -55,7 +69,7 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
     })
   }
 
-  renderPrivateChatTabs() {
+  private renderPrivateChatTabs() {
     const navigation = this.props.navigation
     const currentRoute = navigation.currentRoute
     const routes = navigation.privateChatRoutes
@@ -78,7 +92,7 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
     })
   }
 
-  renderConsoleTab() {
+  private renderConsoleTab() {
     const navigation = this.props.navigation
     const route = navigation.consoleRoute
     const currentRoute = navigation.currentRoute
@@ -88,20 +102,6 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
       <ChatTab active={currentRoute === route} onActivate={handleActivate}>
         <Icon name="code" className="margin-right" /> Console
       </ChatTab>
-    )
-  }
-
-  render() {
-    return (
-      <div>
-        {this.renderConsoleTab()}
-
-        <h3 className="padding faded">Channels</h3>
-        {this.renderChannelTabs()}
-
-        <h3 className="padding faded">Private Chats</h3>
-        {this.renderPrivateChatTabs()}
-      </div>
     )
   }
 }
