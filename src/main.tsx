@@ -8,8 +8,6 @@ import * as ReactDOM from "react-dom"
 import { App } from "./app/components/App"
 import { stores } from "./stores"
 
-useStrict(true)
-
 const devmode = process.env.NODE_ENV !== "production"
 
 function Root() {
@@ -27,13 +25,18 @@ function render() {
   ReactDOM.render(<Root />, document.getElementById("root"))
 }
 
-render()
-stores.appStore.init().catch(console.error)
+function main() {
+  useStrict(true)
+  render()
+  stores.appStore.init().catch(console.error)
 
-if (devmode) {
-  if (module.hot) {
-    module.hot.accept("./app/components/App", render)
+  if (devmode) {
+    if (module.hot) {
+      module.hot.accept("./app/components/App", render)
+    }
+
+    ;(window as any).stores = stores
   }
-
-  ;(window as any).stores = stores
 }
+
+main()
