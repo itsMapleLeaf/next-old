@@ -18,7 +18,6 @@ const ListItem = styled('div')`
   padding: 4px 8px;
 `
 
-// TODO: rename to ChannelUserList
 @inject('characterStore', 'chatStore')
 @observer
 export class ChannelUserList extends React.Component<Props> {
