@@ -1,24 +1,24 @@
-import { action, computed, observable } from "mobx"
-import { inject, observer } from "mobx-react"
-import * as React from "react"
-import MediaQuery from "react-responsive"
-import { Icon } from "src/app/components/Icon"
-import { Channel, ChannelMode } from "src/channel/models/Channel"
-import { ChatInput } from "src/chat/components/ChatInput"
-import { OverlayState } from "src/chat/models/OverlayState"
-import { AutoScroller } from "src/common/components/AutoScroller"
-import { preventDefault } from "src/common/util/react"
-import { MessageComponent } from "src/message/components/MessageComponent"
-import { Message } from "src/message/models/Message"
-import { Stores } from "src/stores"
-import { ChannelUsers } from "./ChannelUsers"
-import { ChannelViewDrawer } from "./ChannelViewDrawer"
-import { ChannelViewHeader } from "./ChannelViewHeader"
+import { action, computed, observable } from 'mobx'
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import MediaQuery from 'react-responsive'
+import { Icon } from 'src/app/components/Icon'
+import { Channel, ChannelMode } from 'src/channel/models/Channel'
+import { ChatInput } from 'src/chat/components/ChatInput'
+import { OverlayState } from 'src/chat/models/OverlayState'
+import { AutoScroller } from 'src/common/components/AutoScroller'
+import { preventDefault } from 'src/common/util/react'
+import { MessageComponent } from 'src/message/components/MessageComponent'
+import { Message } from 'src/message/models/Message'
+import { Stores } from 'src/stores'
+import { ChannelUserList } from './ChannelUserList'
+import { ChannelViewDrawer } from './ChannelViewDrawer'
+import { ChannelViewHeader } from './ChannelViewHeader'
 
-export const mediaShowOnDesktop = "(min-width: 900px)"
-export const mediaShowOnMobile = "(max-width: 900px)"
+export const mediaShowOnDesktop = '(min-width: 900px)'
+export const mediaShowOnMobile = '(max-width: 900px)'
 
-type Props = JSX.IntrinsicElements["div"] & {
+type Props = JSX.IntrinsicElements['div'] & {
   id: string
 }
 
@@ -36,7 +36,7 @@ function storesToProps(stores: Stores, props: Props): InjectedProps {
 @inject(storesToProps)
 @observer
 class ChannelViewComponent extends React.Component<Props & InjectedProps> {
-  @observable private displayedMode = "both" as ChannelMode
+  @observable private displayedMode = 'both' as ChannelMode
   private infoDrawer = new OverlayState()
 
   render() {
@@ -84,12 +84,12 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
   private get filteredMessages() {
     const { messages } = this.props.channel
 
-    if (this.props.channel.mode === "both") {
-      if (this.displayedMode === "ads") {
-        return messages.filter(msg => msg.type === "lfrp")
+    if (this.props.channel.mode === 'both') {
+      if (this.displayedMode === 'ads') {
+        return messages.filter(msg => msg.type === 'lfrp')
       }
-      if (this.displayedMode === "chat") {
-        return messages.filter(msg => msg.type === "normal")
+      if (this.displayedMode === 'chat') {
+        return messages.filter(msg => msg.type === 'normal')
       }
     }
 
@@ -118,7 +118,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
       <MediaQuery query={mediaShowOnDesktop}>
         <div
           className="bg-color-main scroll-v padding"
-          style={{ height: "80px" }}
+          style={{ height: '80px' }}
           dangerouslySetInnerHTML={this.props.channel.parsedDescription}
         />
         <div className="divider" />
@@ -140,7 +140,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
     const { users, ops } = this.props.channel
     return (
       <div className="bg-color-main scroll-v">
-        <ChannelUsers users={users} ops={ops} />
+        <ChannelUserList users={users} ops={ops} />
       </div>
     )
   }
