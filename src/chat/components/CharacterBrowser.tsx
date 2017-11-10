@@ -23,16 +23,17 @@ type InjectedProps = {
 function storesToProps(stores: Stores): InjectedProps {
   const allFriends = sortBy(stores.chatStore.friends.keys())
 
-  // TODO: make this DRYer(?)
-  const onlineFriends = allFriends.filter(name => {
-    const char = stores.characterStore.getCharacter(name)
-    return char.status !== 'offline'
-  })
+  let onlineFriends = [] as string[]
+  let offlineFriends = [] as string[]
 
-  const offlineFriends = allFriends.filter(name => {
+  for (const name of allFriends) {
     const char = stores.characterStore.getCharacter(name)
-    return char.status === 'offline'
-  })
+    if (char.status === 'offline') {
+      offlineFriends.push(name)
+    } else {
+      onlineFriends.push(name)
+    }
+  }
 
   const ignoredUsers = Array.from(stores.chatStore.ignored.keys())
 
