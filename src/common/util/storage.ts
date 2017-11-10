@@ -1,4 +1,4 @@
-import * as forage from "localforage"
+import * as forage from 'localforage'
 
 /**
  * A utility class for saving and restoring a single persistent value

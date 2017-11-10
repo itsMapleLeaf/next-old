@@ -1,14 +1,14 @@
-import { action, observable } from "mobx"
-import { StoredValue } from "src/common/util/storage"
-import { Message } from "src/message/models/Message"
-import { PrivateChat } from "src/private-chat/models/PrivateChat"
+import { action, observable } from 'mobx'
+import { StoredValue } from 'src/common/util/storage'
+import { Message } from 'src/message/models/Message'
+import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 
 type StoredPrivateChats = Dictionary<string[]>
 
 export class PrivateChatStore {
   private privateChats = observable.map<PrivateChat>()
   private openPrivateChats = observable.map<true>()
-  private storedPrivateChats = new StoredValue<StoredPrivateChats>("PrivateChatStore_privateChats")
+  private storedPrivateChats = new StoredValue<StoredPrivateChats>('PrivateChatStore_privateChats')
 
   @action
   getPrivateChat(partner: string) {
@@ -33,9 +33,9 @@ export class PrivateChatStore {
 
   @action
   handleSocketCommand(cmd: string, params: any) {
-    if (cmd === "PRI") {
+    if (cmd === 'PRI') {
       const privateChat = this.openPrivateChat(params.character)
-      privateChat.messages.push(new Message(params.character, params.message, "normal"))
+      privateChat.messages.push(new Message(params.character, params.message, 'normal'))
     }
   }
 

@@ -1,14 +1,14 @@
-import { inject, observer } from "mobx-react"
-import * as React from "react"
-import styled from "react-emotion"
-import { CharacterName } from "src/character/components/CharacterName"
-import { parseBBC } from "src/chat/util/bbc"
-import { Message, MessageType } from "src/message/models/Message"
-import { Stores } from "src/stores"
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import styled from 'react-emotion'
+import { CharacterName } from 'src/character/components/CharacterName'
+import { parseBBC } from 'src/chat/util/bbc'
+import { Message, MessageType } from 'src/message/models/Message'
+import { Stores } from 'src/stores'
 
 const actionExp = /^\s*\/me\s*/
 
-const Wrapper = styled("div")`
+const Wrapper = styled('div')`
   &:nth-child(2n) {
     background-color: rgba(0, 0, 0, 0.15);
   }
@@ -24,14 +24,14 @@ type InjectedProps = {
 
 function getHighlightClass(messageType: MessageType) {
   switch (messageType) {
-    case "normal":
-      return ""
-    case "lfrp":
-      return "highlight-green"
-    case "admin":
-      return "highlight-red"
-    case "system":
-      return ""
+    case 'normal':
+      return ''
+    case 'lfrp':
+      return 'highlight-green'
+    case 'admin':
+      return 'highlight-red'
+    case 'system':
+      return ''
   }
 }
 
@@ -41,10 +41,10 @@ function renderMessage(props: Props & InjectedProps) {
   }
 
   const { sender, text, type, date } = props.message
-  const isAction = text.trim().startsWith("/me")
-  const parsedText = parseBBC(text.replace(actionExp, ""))
+  const isAction = text.trim().startsWith('/me')
+  const parsedText = parseBBC(text.replace(actionExp, ''))
 
-  const actionClass = isAction ? "text-italic" : ""
+  const actionClass = isAction ? 'text-italic' : ''
   const highlightClass = getHighlightClass(type)
 
   return (

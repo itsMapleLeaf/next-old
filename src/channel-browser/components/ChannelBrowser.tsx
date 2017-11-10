@@ -1,15 +1,15 @@
-import { debounce, sortBy } from "lodash"
-import { action, computed, observable } from "mobx"
-import { inject, observer } from "mobx-react"
-import * as React from "react"
-import styled from "react-emotion"
+import { debounce, sortBy } from 'lodash'
+import { action, computed, observable } from 'mobx'
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import styled from 'react-emotion'
 
-import { Icon } from "src/app/components/Icon"
-import { ChannelBrowserStore } from "src/channel-browser/stores/ChannelBrowserStore"
-import { ChannelStore } from "src/channel/stores/ChannelStore"
-import { ChatStore } from "src/chat/stores/ChatStore"
-import { preventDefault } from "src/common/util/react"
-import { ChannelBrowserEntry } from "../models/ChannelBrowserEntry"
+import { Icon } from 'src/app/components/Icon'
+import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
+import { ChannelStore } from 'src/channel/stores/ChannelStore'
+import { ChatStore } from 'src/chat/stores/ChatStore'
+import { preventDefault } from 'src/common/util/react'
+import { ChannelBrowserEntry } from '../models/ChannelBrowserEntry'
 
 type ChannelBrowserProps = {
   chatStore?: ChatStore
@@ -18,18 +18,18 @@ type ChannelBrowserProps = {
   onDone?: () => void
 }
 
-const Tab = styled("a")`
+const Tab = styled('a')`
   > * {
     vertical-align: text-bottom;
   }
 `
 
-@inject("chatStore", "channelStore", "channelBrowserStore")
+@inject('chatStore', 'channelStore', 'channelBrowserStore')
 @observer
 export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
   store = this.props.channelBrowserStore!
-  @observable currentList = "publicChannels"
-  @observable searchText = ""
+  @observable currentList = 'publicChannels'
+  @observable searchText = ''
 
   setSearchTextDebounced = debounce(this.setSearchText, 500)
 
@@ -84,12 +84,12 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
     return (
       <div className="flex-column fill-area bg-color-darken-1">
         <div className="flex-row">
-          {this.renderTab("Public", "earth", "publicChannels")}
-          {this.renderTab("Private", "key", "privateChannels")}
+          {this.renderTab('Public', 'earth', 'publicChannels')}
+          {this.renderTab('Private', 'key', 'privateChannels')}
         </div>
         <div className="flex-grow scroll-v">
-          {this.renderChannels(this.publicChannels, "publicChannels")}
-          {this.renderChannels(this.privateChannels, "privateChannels")}
+          {this.renderChannels(this.publicChannels, 'publicChannels')}
+          {this.renderChannels(this.privateChannels, 'privateChannels')}
         </div>
         <div className="flex-row padding bg-color-main">
           <input
@@ -105,7 +105,7 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
   }
 
   renderTab(title: string, icon: string, list: string) {
-    const activeClass = this.currentList === list ? "bg-color-main" : "faded"
+    const activeClass = this.currentList === list ? 'bg-color-main' : 'faded'
     const handleClick = () => this.setCurrentList(list)
     const className = `flex-grow flex-row flex-align-center padding ${activeClass}`
 
@@ -118,14 +118,14 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
 
   renderChannels(channels: ChannelBrowserEntry[], list: string) {
     return (
-      <div style={{ display: this.currentList === list ? undefined : "none" }}>
+      <div style={{ display: this.currentList === list ? undefined : 'none' }}>
         {channels.map(this.renderChanelListEntry)}
       </div>
     )
   }
 
   renderChanelListEntry = (ch: ChannelBrowserEntry) => {
-    const activeClass = this.props.channelStore!.isJoined(ch.id) ? "bg-color-main" : "faded"
+    const activeClass = this.props.channelStore!.isJoined(ch.id) ? 'bg-color-main' : 'faded'
     const handleClick = () => this.toggleChannel(ch.id)
 
     return (

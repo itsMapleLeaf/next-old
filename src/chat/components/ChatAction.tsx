@@ -1,10 +1,10 @@
-import * as React from "react"
-import styled from "react-emotion"
+import * as React from 'react'
+import styled from 'react-emotion'
 
-import { Icon } from "src/app/components/Icon"
-import { preventDefault } from "src/common/util/react"
+import { Icon } from 'src/app/components/Icon'
+import { preventDefault } from 'src/common/util/react'
 
-const Wrapper = styled("a")`
+const Wrapper = styled('a')`
   opacity: 0.5;
 
   &:hover {

@@ -1,11 +1,11 @@
-import { inject, observer } from "mobx-react"
-import * as React from "react"
-import { Icon } from "src/app/components/Icon"
-import { ChannelTabContent } from "src/channel/components/ChannelTabContent"
-import { ChatTab } from "src/chat/components/ChatTab"
-import { ChatNavigationStore, Route } from "src/chat/stores/ChatNavigationStore"
-import { PrivateChatTabContent } from "src/private-chat/components/PrivateChatTabContent"
-import { Stores } from "src/stores"
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import { Icon } from 'src/app/components/Icon'
+import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
+import { ChatTab } from 'src/chat/components/ChatTab'
+import { ChatNavigationStore, Route } from 'src/chat/stores/ChatNavigationStore'
+import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
+import { Stores } from 'src/stores'
 
 type InjectedProps = {
   navigation: ChatNavigationStore

@@ -1,8 +1,8 @@
-import { action, observable } from "mobx"
-import { inject, observer } from "mobx-react"
-import * as React from "react"
-import { CommandInfo, parseChatCommand } from "src/chat/util/chat-command"
-import { Stores } from "src/stores"
+import { action, observable } from 'mobx'
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import { CommandInfo, parseChatCommand } from 'src/chat/util/chat-command'
+import { Stores } from 'src/stores'
 
 type InjectedProps = {
   onMessage: (message: string) => void
@@ -15,9 +15,9 @@ function storesToProps(stores: Stores): InjectedProps {
     onMessage(message) {
       const route = chatNavigationStore.currentRoute
 
-      if (route.type === "channel") {
+      if (route.type === 'channel') {
         chatStore.sendChannelMessage(route.id, message)
-      } else if (route.type === "private-chat") {
+      } else if (route.type === 'private-chat') {
         chatStore.sendPrivateMessage(route.partner, message)
       }
     },
@@ -30,7 +30,7 @@ function storesToProps(stores: Stores): InjectedProps {
 @inject(storesToProps)
 @observer
 class ChatInputComponent extends React.Component<InjectedProps> {
-  @observable message = ""
+  @observable message = ''
 
   @action.bound
   handleInput(event: React.UIEvent<HTMLTextAreaElement>) {
@@ -39,7 +39,7 @@ class ChatInputComponent extends React.Component<InjectedProps> {
 
   @action.bound
   handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
-    if (event.key === "Enter" && !event.ctrlKey && !event.shiftKey) {
+    if (event.key === 'Enter' && !event.ctrlKey && !event.shiftKey) {
       event.preventDefault()
 
       const message = this.message.trim()
@@ -52,7 +52,7 @@ class ChatInputComponent extends React.Component<InjectedProps> {
         }
       }
 
-      this.message = ""
+      this.message = ''
     }
   }
 
@@ -63,12 +63,12 @@ class ChatInputComponent extends React.Component<InjectedProps> {
         <textarea
           className="flex-grow padding margin-right"
           placeholder="Say something..."
-          style={{ resize: "none" }}
+          style={{ resize: 'none' }}
           value={this.message}
           onInput={this.handleInput}
           onKeyDown={this.handleKeyDown}
         />
-        <button style={{ width: "80px" }}>Send</button>
+        <button style={{ width: '80px' }}>Send</button>
       </div>
     )
   }

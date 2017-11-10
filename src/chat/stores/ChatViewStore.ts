@@ -1,5 +1,5 @@
-import { action, observable } from "mobx"
-import { OverlayState } from "src/chat/models/OverlayState"
+import { action, observable } from 'mobx'
+import { OverlayState } from 'src/chat/models/OverlayState'
 
 export class ChatViewStore {
   navDrawer = new OverlayState()
@@ -12,7 +12,7 @@ export class ChatViewStore {
     open: false,
     x: 0,
     y: 0,
-    character: "",
+    character: '',
   }
 
   @action

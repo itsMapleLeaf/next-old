@@ -1,7 +1,7 @@
-import { inject, observer } from "mobx-react"
-import * as React from "react"
-import { ChatAction } from "src/chat/components/ChatAction"
-import { Stores } from "src/stores"
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import { ChatAction } from 'src/chat/components/ChatAction'
+import { Stores } from 'src/stores'
 // import { ChatNavigatorTabs } from './ChatNavigatorTabs'
 
 type InjectedProps = {

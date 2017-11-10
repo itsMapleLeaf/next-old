@@ -1,9 +1,9 @@
-import { inject, observer } from "mobx-react"
-import * as React from "react"
-import { ChatHeader } from "src/chat/components/ChatHeader"
-import { ChatInput } from "src/chat/components/ChatInput"
-import { ConsoleMessage } from "src/console/models/ConsoleMessage"
-import { Stores } from "src/stores"
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import { ChatHeader } from 'src/chat/components/ChatHeader'
+import { ChatInput } from 'src/chat/components/ChatInput'
+import { ConsoleMessage } from 'src/console/models/ConsoleMessage'
+import { Stores } from 'src/stores'
 
 type InjectedProps = {
   messages: ConsoleMessage[]

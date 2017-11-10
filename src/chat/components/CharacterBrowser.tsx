@@ -1,12 +1,12 @@
-import { sortBy } from "lodash"
-import { inject, observer } from "mobx-react"
-import * as React from "react"
-import styled from "react-emotion"
-import { getAvatarURL } from "src/api"
-import { CharacterName } from "src/character/components/CharacterName"
-import { Stores } from "src/stores"
+import { sortBy } from 'lodash'
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
+import styled from 'react-emotion'
+import { getAvatarURL } from 'src/api'
+import { CharacterName } from 'src/character/components/CharacterName'
+import { Stores } from 'src/stores'
 
-const Wrapper = styled("div")`
+const Wrapper = styled('div')`
   width: 400px;
   height: 600px;
 
@@ -26,12 +26,12 @@ function storesToProps(stores: Stores): InjectedProps {
   // TODO: make this DRYer(?)
   const onlineFriends = allFriends.filter(name => {
     const char = stores.characterStore.getCharacter(name)
-    return char.status !== "offline"
+    return char.status !== 'offline'
   })
 
   const offlineFriends = allFriends.filter(name => {
     const char = stores.characterStore.getCharacter(name)
-    return char.status === "offline"
+    return char.status === 'offline'
   })
 
   const ignoredUsers = Array.from(stores.chatStore.ignored.keys())
@@ -70,7 +70,7 @@ class CharacterBrowserComponent extends React.Component<InjectedProps> {
       key={name}
       className="bg-color-darken-1 padding flex-row flex-align-center spaced-children-h"
     >
-      <img src={getAvatarURL(name)} style={{ width: "24px", height: "24px" }} />
+      <img src={getAvatarURL(name)} style={{ width: '24px', height: '24px' }} />
       <CharacterName name={name} />
     </div>
   )

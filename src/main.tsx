@@ -1,14 +1,14 @@
-import "./index.scss"
+import './index.scss'
 
-import { useStrict } from "mobx"
-import { Provider as StoreProvider } from "mobx-react"
-import DevTools from "mobx-react-devtools"
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import { App } from "./app/components/App"
-import { stores } from "./stores"
+import { useStrict } from 'mobx'
+import { Provider as StoreProvider } from 'mobx-react'
+import DevTools from 'mobx-react-devtools'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { App } from './app/components/App'
+import { stores } from './stores'
 
-const devmode = process.env.NODE_ENV !== "production"
+const devmode = process.env.NODE_ENV !== 'production'
 
 function Root() {
   return (
@@ -22,7 +22,7 @@ function Root() {
 }
 
 function render() {
-  ReactDOM.render(<Root />, document.getElementById("root"))
+  ReactDOM.render(<Root />, document.getElementById('root'))
 }
 
 function main() {
@@ -32,7 +32,7 @@ function main() {
 
   if (devmode) {
     if (module.hot) {
-      module.hot.accept("./app/components/App", render)
+      module.hot.accept('./app/components/App', render)
     }
 
     ;(window as any).stores = stores

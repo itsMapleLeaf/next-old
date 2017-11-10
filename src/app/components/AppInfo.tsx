@@ -1,8 +1,8 @@
-import { observer } from "mobx-react"
-import * as React from "react"
-import { OverlayState } from "src/chat/models/OverlayState"
-import { FadeTransition } from "src/common/components/FadeTransition"
-import { Overlay } from "src/common/components/Overlay"
+import { observer } from 'mobx-react'
+import * as React from 'react'
+import { OverlayState } from 'src/chat/models/OverlayState'
+import { FadeTransition } from 'src/common/components/FadeTransition'
+import { Overlay } from 'src/common/components/Overlay'
 
 function renderAppInfo(props: { overlay: OverlayState }) {
   return (
@@ -11,9 +11,9 @@ function renderAppInfo(props: { overlay: OverlayState }) {
         <div
           className="bg-color-main text-center padding scroll-v"
           style={{
-            width: "300px",
-            maxWidth: "calc(100vw - 40px)",
-            maxHeight: "calc(100vh - 40px)",
+            width: '300px',
+            maxWidth: 'calc(100vw - 40px)',
+            maxHeight: 'calc(100vh - 40px)',
           }}
         >
           <h2>

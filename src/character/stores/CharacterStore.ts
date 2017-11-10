@@ -1,5 +1,5 @@
-import { action, observable } from "mobx"
-import { Character } from "src/character/models/Character"
+import { action, observable } from 'mobx'
+import { Character } from 'src/character/models/Character'
 
 type CharacterBatch = [string, string, string, string][]
 
@@ -10,7 +10,7 @@ export class CharacterStore {
   getCharacter(name: string) {
     let char = this.characters.get(name)
     if (!char) {
-      char = new Character(name, "None", "offline")
+      char = new Character(name, 'None', 'offline')
       this.characters.set(name, char)
     }
     return char
@@ -37,22 +37,22 @@ export class CharacterStore {
 
   @action
   handleSocketCommand(cmd: string, params: any) {
-    if (cmd === "LIS") {
+    if (cmd === 'LIS') {
       this.handleCharacterBatch(params.characters)
     }
 
-    if (cmd === "NLN") {
+    if (cmd === 'NLN') {
       const char = this.getCharacter(params.identity)
       char.gender = params.gender
-      char.status = "online"
+      char.status = 'online'
     }
 
-    if (cmd === "FLN") {
+    if (cmd === 'FLN') {
       const char = this.getCharacter(params.character)
-      char.status = "offline"
+      char.status = 'offline'
     }
 
-    if (cmd === "STA") {
+    if (cmd === 'STA') {
       const char = this.getCharacter(params.character)
       char.status = params.status
       char.statusMessage = params.statusmsg

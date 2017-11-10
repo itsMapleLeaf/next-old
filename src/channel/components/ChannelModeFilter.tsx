@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from 'react'
 
-type Props = JSX.IntrinsicElements["a"] & {
+type Props = JSX.IntrinsicElements['a'] & {
   text: string
   active: boolean
 }
@@ -10,7 +10,7 @@ export function ChannelModeFilter(props: Props) {
   return (
     <a
       href="#"
-      className={`margin-left margin-right block ${props.active ? "" : "faded"}`}
+      className={`margin-left margin-right block ${props.active ? '' : 'faded'}`}
       {...anchorProps}
     >
       {props.text}

@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react'
 
 /**
  * A utility type for what can be returned from a render() function.

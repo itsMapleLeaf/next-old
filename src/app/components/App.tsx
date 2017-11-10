@@ -1,16 +1,16 @@
-import * as React from "react"
+import * as React from 'react'
 
-import { action, observable } from "mobx"
-import { inject, observer } from "mobx-react"
+import { action, observable } from 'mobx'
+import { inject, observer } from 'mobx-react'
 
-import { Loading } from "src/app/components/Loading"
-import { AppState, AppStore } from "src/app/stores/AppStore"
-import { AuthStore } from "src/auth/stores/AuthStore"
-import { ChatView } from "src/chat/components/ChatView"
-import { ChatStore } from "src/chat/stores/ChatStore"
-import { AppInfo } from "./AppInfo"
-import { CharacterSelect } from "./CharacterSelect"
-import { Login } from "./Login"
+import { Loading } from 'src/app/components/Loading'
+import { AppState, AppStore } from 'src/app/stores/AppStore'
+import { AuthStore } from 'src/auth/stores/AuthStore'
+import { ChatView } from 'src/chat/components/ChatView'
+import { ChatStore } from 'src/chat/stores/ChatStore'
+import { AppInfo } from './AppInfo'
+import { CharacterSelect } from './CharacterSelect'
+import { Login } from './Login'
 
 type AppProps = {
   appStore?: AppStore
@@ -18,19 +18,19 @@ type AppProps = {
   chatStore?: ChatStore
 }
 
-@inject("appStore", "authStore", "chatStore")
+@inject('appStore', 'authStore', 'chatStore')
 @observer
 export class App extends React.Component<AppProps> {
   appStore = this.props.appStore!
   authStore = this.props.authStore!
   chatStore = this.props.chatStore!
 
-  @observable loginStatus = ""
+  @observable loginStatus = ''
 
   @action.bound
   async handleLoginSubmit(username: string, password: string) {
     try {
-      this.loginStatus = "Logging in..."
+      this.loginStatus = 'Logging in...'
 
       await this.authStore.fetchTicket(username, password)
       await this.authStore.fetchCharacters()
@@ -38,7 +38,7 @@ export class App extends React.Component<AppProps> {
       this.authStore.saveAuthData().catch(console.error)
       this.appStore.setState(AppState.characterSelect)
 
-      this.loginStatus = ""
+      this.loginStatus = ''
     } catch (error) {
       this.loginStatus = error.message || error.toString()
     }

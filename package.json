@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --inline --hot --progress --open",
     "lint": "tslint -p .",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write \"./src/**/*.ts\" \"./src/**/*.tsx\""
+    "format": "prettier --write \"./src/**/*.ts\" \"./src/**/*.tsx\" \"./typings/**/*.d.ts\""
   },
   "dependencies": {
     "bbc.js": "^0.1.1",

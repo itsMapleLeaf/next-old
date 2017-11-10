@@ -1,5 +1,5 @@
-import * as React from "react"
-import styled from "react-emotion"
+import * as React from 'react'
+import styled from 'react-emotion'
 
 const Shade = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
@@ -17,7 +17,7 @@ type OverlayProps = {
 export function Overlay(props: OverlayProps) {
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const el = event.target
-    if (el instanceof HTMLDivElement && el.classList.contains("is-shade")) {
+    if (el instanceof HTMLDivElement && el.classList.contains('is-shade')) {
       if (props.onShadeClick) {
         props.onShadeClick()
       }

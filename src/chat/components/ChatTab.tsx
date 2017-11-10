@@ -1,8 +1,8 @@
-import * as React from "react"
-import styled from "react-emotion"
+import * as React from 'react'
+import styled from 'react-emotion'
 
-import { Icon } from "src/app/components/Icon"
-import { preventDefault } from "../../common/util/react"
+import { Icon } from 'src/app/components/Icon'
+import { preventDefault } from '../../common/util/react'
 
 export type ChatTabProps = {
   children?: React.ReactNode
@@ -11,7 +11,7 @@ export type ChatTabProps = {
   onClose?: () => void
 }
 
-const Wrapper = styled<ChatTabProps, "div">("div")`
+const Wrapper = styled<ChatTabProps, 'div'>('div')`
   &:hover {
     opacity: ${(props: ChatTabProps) => (props.active ? 1 : 0.75)};
   }
@@ -19,7 +19,7 @@ const Wrapper = styled<ChatTabProps, "div">("div")`
   opacity: ${(props: ChatTabProps) => (props.active ? 1 : 0.5)};
 `
 
-const CloseIcon = styled("a")`
+const CloseIcon = styled('a')`
   opacity: 0.3;
 
   &:hover {
@@ -28,7 +28,7 @@ const CloseIcon = styled("a")`
 `
 
 export function ChatTab(props: ChatTabProps) {
-  const activeClass = props.active ? "bg-color-main" : ""
+  const activeClass = props.active ? 'bg-color-main' : ''
   return (
     <Wrapper className={`${activeClass} flex-row flex-align-stretch`} active={props.active}>
       <a href="#" className="flex-grow padding" onClick={preventDefault(props.onActivate)}>

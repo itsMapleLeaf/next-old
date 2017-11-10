@@ -1,11 +1,11 @@
-import styled from "react-emotion"
+import styled from 'react-emotion'
 
 type Props = {
   visible: boolean
 }
 
-export const FadeTransition = styled<Props, "div">("div")`
+export const FadeTransition = styled<Props, 'div'>('div')`
   opacity: ${(props: Props) => (props.visible ? 1 : 0)};
-  visibility: ${(props: Props) => (props.visible ? "visible" : "hidden")};
+  visibility: ${(props: Props) => (props.visible ? 'visible' : 'hidden')};
   transition: 0.3s;
 `

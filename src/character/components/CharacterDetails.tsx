@@ -1,13 +1,13 @@
-import * as React from "react"
+import * as React from 'react'
 
-import { inject, observer } from "mobx-react"
-import styled from "react-emotion"
+import { inject, observer } from 'mobx-react'
+import styled from 'react-emotion'
 
-import { getAvatarURL, getProfileURL } from "src/api"
-import { Character } from "src/character/models/Character"
-import { Stores } from "src/stores"
+import { getAvatarURL, getProfileURL } from 'src/api'
+import { Character } from 'src/character/models/Character'
+import { Stores } from 'src/stores'
 
-const Avatar = styled("img")`
+const Avatar = styled('img')`
   width: 100px;
   height: 100px;
   display: block;
@@ -49,7 +49,7 @@ function renderCharacterDetails(props: Props & InjectedProps) {
       <div className="bg-color-darken-1 padding text-italic text-small">
         <span className={`character-status-${status.toLowerCase()}`}>{status}</span>
         {hasStatusMessage && [
-          " - ",
+          ' - ',
           <span key="status-message" dangerouslySetInnerHTML={parsedStatusMessage} />,
         ]}
       </div>

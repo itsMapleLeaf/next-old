@@ -1,12 +1,12 @@
-import { computed, observable } from "mobx"
-import { parseBBC } from "src/chat/util/bbc"
+import { computed, observable } from 'mobx'
+import { parseBBC } from 'src/chat/util/bbc'
 
 export class Character {
-  @observable gender = ""
-  @observable status = ""
-  @observable statusMessage = ""
+  @observable gender = ''
+  @observable status = ''
+  @observable statusMessage = ''
 
-  constructor(public name: string, gender: string, status: string, statusMessage = "") {
+  constructor(public name: string, gender: string, status: string, statusMessage = '') {
     this.gender = gender
     this.status = status
     this.statusMessage = statusMessage
@@ -14,7 +14,7 @@ export class Character {
 
   @computed
   get hasStatusMessage() {
-    return this.statusMessage.trim() !== ""
+    return this.statusMessage.trim() !== ''
   }
 
   @computed
@@ -22,6 +22,6 @@ export class Character {
     if (this.hasStatusMessage) {
       return { __html: parseBBC(this.statusMessage) }
     }
-    return { __html: "" }
+    return { __html: '' }
   }
 }

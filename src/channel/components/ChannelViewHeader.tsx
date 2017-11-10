@@ -1,8 +1,8 @@
-import * as React from "react"
-import { ChannelModeFilter } from "src/channel/components/ChannelModeFilter"
-import { Channel, ChannelMode } from "src/channel/models/Channel"
-import { ChatHeader } from "src/chat/components/ChatHeader"
-import { preventDefault } from "src/common/util/react"
+import * as React from 'react'
+import { ChannelModeFilter } from 'src/channel/components/ChannelModeFilter'
+import { Channel, ChannelMode } from 'src/channel/models/Channel'
+import { ChatHeader } from 'src/chat/components/ChatHeader'
+import { preventDefault } from 'src/common/util/react'
 
 type Props = {
   channel: Channel
@@ -28,10 +28,10 @@ export function ChannelViewHeader({ channel, drawerToggle, ...props }: Props) {
       <div className="flex-row flex-align-center">
         <h3 className="flex-grow">{channel.title}</h3>
         <div className="flex-row">
-          {channel.mode === "both" && [
-            renderModeFilter("chat", "Chat"),
-            renderModeFilter("ads", "Ads"),
-            renderModeFilter("both", "Both"),
+          {channel.mode === 'both' && [
+            renderModeFilter('chat', 'Chat'),
+            renderModeFilter('ads', 'Ads'),
+            renderModeFilter('both', 'Both'),
           ]}
         </div>
         {drawerToggle}
