@@ -2,7 +2,6 @@
   "defaultSeverity": "warning",
   "extends": ["tslint-react", "tslint-config-standard", "tslint-config-prettier"],
   "rules": {
-    "ordered-imports": true,
     "no-empty": false,
     "jsx-boolean-value": false
   }
