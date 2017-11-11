@@ -20,6 +20,50 @@
 - [ ] Show roll / bottle messages
 - [ ] Functional room links
 - [ ] Working commands
+  - [x] /me
+  - [ ] /preview
+  - [ ] /clear
+  - [ ] /clearall
+  - [ ] /help
+  - [ ] /logout
+  - [ ] /uptime
+  - [ ] /status
+  - [ ] /priv
+  - [ ] /ignore
+  - [ ] /unignore
+  - [ ] /ignorelist
+  - [ ] /join
+  - [ ] /leave
+  - [ ] /code
+  - [ ] /roll
+  - [ ] /bottle
+  - [ ] /makeroom
+  - [ ] /openroom
+  - [ ] /closeroom
+  - [ ] /setmode
+  - [ ] /op
+  - [ ] /deop
+  - [ ] /setowner
+  - [ ] /setdescription
+  - [ ] /getdescription
+  - [ ] /invite
+  - [ ] /warn
+  - [ ] /kick
+  - [ ] /ban
+  - [ ] /unban
+  - [ ] /banlist
+  - [ ] /oplist
+  - [ ] /timeout
+  - [ ] /gkick
+  - [ ] /gtimeout
+  - [ ] /gban
+  - [ ] /gunban
+  - [ ] /createchannel
+  - [ ] /killchannel
+  - [ ] /broadcast
+  - [ ] /gop
+  - [ ] /gdeop
+  - [ ] /reload
 - [x] Console screen
   - [x] Console tab
   - [x] Show welcome messages in console
