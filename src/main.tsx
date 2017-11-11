@@ -5,6 +5,7 @@ import { Provider as StoreProvider } from 'mobx-react'
 import DevTools from 'mobx-react-devtools'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+
 import { App } from './app/components/App'
 import { stores } from './stores'
 
@@ -32,7 +33,7 @@ function main() {
 
   if (devmode) {
     if (module.hot) {
-      module.hot.accept('./app/components/App', render)
+      module.hot.accept(render)
     }
 
     ;(window as any).stores = stores
