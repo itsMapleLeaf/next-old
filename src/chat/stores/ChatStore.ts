@@ -13,8 +13,8 @@ interface CommandHandler {
 
 export class ChatStore {
   @observable identity = ''
-  @observable friends = observable.map<true>()
-  @observable admins = observable.map<true>()
+  friends = observable.map<true>()
+  admins = observable.map<true>()
   ignored = observable.map<true>()
 
   private socket: WebSocket | void
