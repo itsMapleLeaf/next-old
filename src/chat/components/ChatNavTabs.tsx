@@ -1,6 +1,7 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
+import { leaveChannel } from 'src/channel/actions'
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { ChatTab } from 'src/chat/components/ChatTab'
 import { ChatNavigationStore, Route } from 'src/chat/stores/ChatNavigationStore'
@@ -25,7 +26,7 @@ function storesToProps(stores: Stores): InjectedProps {
     },
 
     onChannelClose(id) {
-      stores.chatStore.leaveChannel(id)
+      leaveChannel(id)
     },
 
     onPrivateChatClose(partner) {

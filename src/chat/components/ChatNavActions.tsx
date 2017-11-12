@@ -1,8 +1,9 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { fetchChannelList } from 'src/channel-browser/actions'
+import { disconnectFromServer } from 'src/chat/actions'
 import { ChatAction } from 'src/chat/components/ChatAction'
 import { Stores } from 'src/stores'
-// import { ChatNavigatorTabs } from './ChatNavigatorTabs'
 
 type InjectedProps = {
   onChannelBrowser: () => void
@@ -13,18 +14,18 @@ type InjectedProps = {
 }
 
 function storesToProps(stores: Stores): InjectedProps {
-  const { chatStore, chatViewStore, appStore } = stores
+  const { chatViewStore, appStore } = stores
   return {
     onStatusMenu: chatViewStore.statusMenu.show,
     onFriendBrowser: chatViewStore.friendBrowser.show,
 
     onChannelBrowser() {
       chatViewStore.channelBrowser.show()
-      chatStore.fetchChannelList()
+      fetchChannelList()
     },
 
     onExit() {
-      chatStore.disconnectFromServer()
+      disconnectFromServer()
     },
 
     onInfo() {

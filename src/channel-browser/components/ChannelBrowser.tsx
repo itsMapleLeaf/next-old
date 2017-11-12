@@ -3,16 +3,15 @@ import { action, computed, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'
-
 import { Icon } from 'src/app/components/Icon'
 import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
-import { ChatStore } from 'src/chat/stores/ChatStore'
 import { preventDefault } from 'src/common/util/react'
+
+import { joinChannel, leaveChannel } from '../../channel/actions'
 import { ChannelBrowserEntry } from '../models/ChannelBrowserEntry'
 
 type ChannelBrowserProps = {
-  chatStore?: ChatStore
   channelStore?: ChannelStore
   channelBrowserStore?: ChannelBrowserStore
   onDone?: () => void
@@ -24,7 +23,7 @@ const Tab = styled('a')`
   }
 `
 
-@inject('chatStore', 'channelStore', 'channelBrowserStore')
+@inject('channelStore', 'channelBrowserStore')
 @observer
 export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
   store = this.props.channelBrowserStore!
@@ -43,14 +42,12 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
     this.currentList = list
   }
 
-  @action
   toggleChannel(id: string) {
-    const chat = this.props.chatStore!
     const channels = this.props.channelStore!
     if (channels.isJoined(id)) {
-      chat.leaveChannel(id)
+      leaveChannel(id)
     } else {
-      chat.joinChannel(id)
+      joinChannel(id)
     }
   }
 

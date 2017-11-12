@@ -9,22 +9,16 @@ import { ChatViewStore } from './chat/stores/ChatViewStore'
 import { ConsoleStore } from './console/stores/ConsoleStore'
 import { PrivateChatStore } from './private-chat/stores/PrivateChatStore'
 
-const consoleStore = new ConsoleStore()
-const channelStore = new ChannelStore()
-const privateChatStore = new PrivateChatStore()
-const characterStore = new CharacterStore()
-const channelBrowserStore = new ChannelBrowserStore()
-const chatStore = new ChatStore(
-  channelStore,
-  privateChatStore,
-  characterStore,
-  channelBrowserStore,
-  consoleStore,
-)
-const chatViewStore = new ChatViewStore()
-const chatNavigationStore = new ChatNavigationStore(channelStore, privateChatStore)
-const authStore = new AuthStore()
-const appStore = new AppStore(authStore)
+export const consoleStore = new ConsoleStore()
+export const channelStore = new ChannelStore()
+export const privateChatStore = new PrivateChatStore()
+export const characterStore = new CharacterStore()
+export const channelBrowserStore = new ChannelBrowserStore()
+export const chatStore = new ChatStore(characterStore)
+export const chatViewStore = new ChatViewStore()
+export const chatNavigationStore = new ChatNavigationStore(channelStore, privateChatStore)
+export const authStore = new AuthStore()
+export const appStore = new AppStore()
 
 export const stores = {
   appStore,

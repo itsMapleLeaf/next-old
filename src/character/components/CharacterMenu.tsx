@@ -6,7 +6,9 @@ import styled from 'react-emotion'
 import { getProfileURL } from 'src/api'
 import { Icon } from 'src/app/components/Icon'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'
+import { ignore, unignore } from 'src/chat/actions'
 import { ChatStore } from 'src/chat/stores/ChatStore'
+import { openPrivateChat } from 'src/private-chat/actions'
 
 type CharacterMenuProps = {
   x: number
@@ -53,7 +55,7 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
 
   @action.bound
   handleMessageAction() {
-    this.props.chatStore!.openPrivateChat(this.props.character)
+    openPrivateChat(this.props.character)
   }
 
   renderIgnoreAction() {
@@ -63,10 +65,10 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
 
     const icon = isIgnored ? 'remove-circle' : 'remove-circle-outline'
     const text = isIgnored ? 'Unignore' : 'ignore'
-    const handleClick = isIgnored ? chatStore.unignore : chatStore.ignore
+    const handleClick = isIgnored ? unignore : ignore
 
     return (
-      <MenuAction className="padding" href="#" onClick={handleClick.bind(chatStore, character)}>
+      <MenuAction className="padding" href="#" onClick={handleClick.bind(null, character)}>
         <Icon name={icon} key="ignore-action" /> {text}
       </MenuAction>
     )
@@ -74,6 +76,7 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
 
   render() {
     const { character } = this.props
+    const profileURL = getProfileURL(character)
     return (
       <MenuWrapper className="bg-color-darken-1 flex-column">
         <div className="bg-color-main">
@@ -82,7 +85,7 @@ export class CharacterMenu extends React.Component<CharacterMenuProps> {
         <MenuAction className="padding" href="#" onClick={this.handleMessageAction}>
           <Icon name="message" /> Send Message
         </MenuAction>
-        <MenuAction className="padding" href={getProfileURL(character)} target="_blank">
+        <MenuAction className="padding" href={profileURL} target="_blank">
           <Icon name="link" /> Open Profile
         </MenuAction>
         {this.renderIgnoreAction()}

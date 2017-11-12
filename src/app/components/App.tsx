@@ -1,15 +1,17 @@
-import * as React from 'react'
-
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
-
-import { Loading } from 'src/app/components/Loading'
+import * as React from 'react'
 import { AppState, AppStore } from 'src/app/stores/AppStore'
 import { AuthStore } from 'src/auth/stores/AuthStore'
 import { ChatView } from 'src/chat/components/ChatView'
 import { ChatStore } from 'src/chat/stores/ChatStore'
+
+import { fetchCharacters, fetchTicket, saveAuthData } from '../../auth/actions'
+import { connectToServer } from '../../chat/actions/socketActions'
+import { init } from '../actions'
 import { AppInfo } from './AppInfo'
 import { CharacterSelect } from './CharacterSelect'
+import { Loading } from './Loading'
 import { Login } from './Login'
 
 type AppProps = {
@@ -32,10 +34,10 @@ export class App extends React.Component<AppProps> {
     try {
       this.loginStatus = 'Logging in...'
 
-      await this.authStore.fetchTicket(username, password)
-      await this.authStore.fetchCharacters()
+      await fetchTicket(username, password)
+      await fetchCharacters()
 
-      this.authStore.saveAuthData().catch(console.error)
+      saveAuthData().catch(console.error)
       this.appStore.setState(AppState.characterSelect)
 
       this.loginStatus = ''
@@ -50,13 +52,7 @@ export class App extends React.Component<AppProps> {
 
     this.appStore.setState(AppState.connecting)
 
-    this.chatStore.connectToServer(
-      account,
-      ticket,
-      character,
-      this.handleConnect,
-      this.handleDisconnect,
-    )
+    connectToServer(account, ticket, character, this.handleConnect, this.handleDisconnect)
   }
 
   @action.bound
@@ -66,7 +62,7 @@ export class App extends React.Component<AppProps> {
 
   @action.bound
   handleDisconnect() {
-    this.appStore.init().catch(console.error)
+    init().catch(console.error)
   }
 
   @action.bound

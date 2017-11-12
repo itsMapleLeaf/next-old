@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { updateStatus } from 'src/chat/actions'
 import { preventDefault } from 'src/common/util/react'
 import { Stores } from 'src/stores'
 
@@ -17,7 +18,7 @@ function storesToProps(stores: Stores): InjectedProps {
     initialStatus: char.status,
     initialStatusMessage: char.statusMessage,
     onSubmit(status: string, statusMessage: string) {
-      chatStore.updateStatus(status, statusMessage)
+      updateStatus(status, statusMessage)
       chatViewStore.statusMenu.hide()
     },
   }

@@ -6,6 +6,7 @@ import DevTools from 'mobx-react-devtools'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
+import { init } from './app/actions'
 import { App } from './app/components/App'
 import { stores } from './stores'
 
@@ -29,7 +30,7 @@ function render() {
 function main() {
   useStrict(true)
   render()
-  stores.appStore.init().catch(console.error)
+  init().catch(console.error)
 
   if (devmode) {
     if (module.hot) {

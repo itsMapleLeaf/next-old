@@ -1,7 +1,9 @@
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { sendChannelMessage } from 'src/channel/actions'
 import { CommandInfo, parseChatCommand } from 'src/chat/util/chat-command'
+import { sendPrivateMessage } from 'src/private-chat/actions'
 import { Stores } from 'src/stores'
 
 import { parseBBC } from '../util/bbc'
@@ -12,15 +14,15 @@ type InjectedProps = {
 }
 
 function storesToProps(stores: Stores): InjectedProps {
-  const { chatStore, chatNavigationStore, consoleStore } = stores
+  const { chatNavigationStore, consoleStore } = stores
   return {
     onMessage(message) {
       const route = chatNavigationStore.currentRoute
 
       if (route.type === 'channel') {
-        chatStore.sendChannelMessage(route.id, message)
+        sendChannelMessage(route.id, message)
       } else if (route.type === 'private-chat') {
-        chatStore.sendPrivateMessage(route.partner, message)
+        sendPrivateMessage(route.partner, message)
       }
     },
     onCommand(cmdinfo) {
