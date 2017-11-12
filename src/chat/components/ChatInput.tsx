@@ -4,13 +4,15 @@ import * as React from 'react'
 import { CommandInfo, parseChatCommand } from 'src/chat/util/chat-command'
 import { Stores } from 'src/stores'
 
+import { parseBBC } from '../util/bbc'
+
 type InjectedProps = {
   onMessage: (message: string) => void
   onCommand: (command: CommandInfo) => void
 }
 
 function storesToProps(stores: Stores): InjectedProps {
-  const { chatStore, chatNavigationStore } = stores
+  const { chatStore, chatNavigationStore, consoleStore } = stores
   return {
     onMessage(message) {
       const route = chatNavigationStore.currentRoute
@@ -21,8 +23,23 @@ function storesToProps(stores: Stores): InjectedProps {
         chatStore.sendPrivateMessage(route.partner, message)
       }
     },
-    onCommand(command) {
-      // TODO
+    onCommand(cmdinfo) {
+      const route = chatNavigationStore.currentRoute
+
+      switch (cmdinfo.command) {
+        case 'preview': {
+          if (route.type === 'console') {
+            consoleStore.addMessage(`Preview: ${parseBBC(cmdinfo.paramString)}`)
+          } else {
+            console.log('not implemented')
+          }
+          break
+        }
+        default: {
+          console.log('unknown command')
+          break
+        }
+      }
     },
   }
 }

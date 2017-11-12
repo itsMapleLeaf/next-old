@@ -27,6 +27,10 @@ export function parseChatCommand(text: string): CommandInfo | void {
   if (match) {
     const [, command, paramString] = match
     const params = paramString.trim().split(/\s+/g)
-    return { command, params, paramString }
+    return {
+      command: command.toLowerCase(),
+      params,
+      paramString,
+    }
   }
 }
