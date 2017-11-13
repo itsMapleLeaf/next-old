@@ -1,6 +1,5 @@
 import { action, observable } from 'mobx'
 import { StoredValue } from 'src/common/util/storage'
-import { ChatMessage } from 'src/chat/models/ChatMessage'
 import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 
 type StoredPrivateChats = Dictionary<string[]>

@@ -2,7 +2,6 @@ import { action, observable } from 'mobx'
 
 import { Channel } from 'src/channel/models/Channel'
 import { StoredValue } from 'src/common/util/storage'
-import { ChatMessage } from 'src/chat/models/ChatMessage'
 
 export type ChannelID = string
 
