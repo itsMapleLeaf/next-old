@@ -2,7 +2,7 @@ import { action, observable } from 'mobx'
 
 import { Channel } from 'src/channel/models/Channel'
 import { StoredValue } from 'src/common/util/storage'
-import { Message } from 'src/message/models/Message'
+import { ChatMessage } from 'src/chat/models/ChatMessage'
 
 export type ChannelID = string
 
@@ -72,12 +72,12 @@ export class ChannelStore {
 
     if (cmd === 'MSG') {
       const channel = this.getChannel(params.channel)
-      channel.messages.push(new Message(params.character, params.message, 'normal'))
+      channel.messages.push(new ChatMessage('normal', params.message, params.character))
     }
 
     if (cmd === 'LRP') {
       const channel = this.getChannel(params.channel)
-      channel.messages.push(new Message(params.character, params.message, 'lfrp'))
+      channel.messages.push(new ChatMessage('lfrp', params.message, params.character))
     }
   }
 

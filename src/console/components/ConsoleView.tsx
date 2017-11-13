@@ -1,12 +1,13 @@
+import { MessageComponent } from '../../chat/components/ChatMessageView'
+import { ChatMessage } from '../../chat/models/ChatMessage'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
-import { ConsoleMessage } from 'src/console/models/ConsoleMessage'
 import { Stores } from 'src/stores'
 
 type InjectedProps = {
-  messages: ConsoleMessage[]
+  messages: ChatMessage[]
 }
 
 function storesToProps({ consoleStore }: Stores): InjectedProps {
@@ -40,13 +41,8 @@ class ConsoleViewComponent extends React.Component<InjectedProps> {
     )
   }
 
-  private renderMessage = (message: ConsoleMessage, i: number) => (
-    <div className="padding" key={i}>
-      <div className="float-right text-small text-italic faded">
-        [{message.time.toLocaleTimeString()}]
-      </div>
-      <span dangerouslySetInnerHTML={{ __html: message.text }} />
-    </div>
+  private renderMessage = (message: ChatMessage, i: number) => (
+    <MessageComponent key={i} message={message} />
   )
 }
 

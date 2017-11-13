@@ -5,7 +5,7 @@ import { CharacterName } from 'src/character/components/CharacterName'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { AutoScroller } from 'src/common/components/AutoScroller'
-import { MessageComponent } from 'src/message/components/MessageComponent'
+import { MessageComponent } from 'src/chat/components/ChatMessageView'
 import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 import { Stores } from 'src/stores'
 

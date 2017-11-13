@@ -3,7 +3,7 @@ import * as React from 'react'
 import styled from 'react-emotion'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { parseBBC } from 'src/chat/util/bbc'
-import { Message, MessageType } from 'src/message/models/Message'
+import { ChatMessage, MessageType } from 'src/chat/models/ChatMessage'
 import { Stores } from 'src/stores'
 
 const actionExp = /^\s*\/me\s*/
@@ -15,7 +15,7 @@ const Wrapper = styled('div')`
 `
 
 type Props = {
-  message: Message
+  message: ChatMessage
 }
 
 type InjectedProps = {
@@ -53,9 +53,11 @@ function renderMessage(props: Props & InjectedProps) {
         <span className="margin-left text-small text-italic faded float-right">
           [{date.toLocaleTimeString()}]
         </span>
-        <span className="margin-right">
-          <CharacterName name={sender} />
-        </span>
+        {sender && (
+          <span className="margin-right">
+            <CharacterName name={sender} />
+          </span>
+        )}
         <span className={`preserve-ws`} dangerouslySetInnerHTML={{ __html: parsedText }} />
       </div>
     </Wrapper>
@@ -65,7 +67,7 @@ function renderMessage(props: Props & InjectedProps) {
 function storesToProps(stores: Stores, props: Props): InjectedProps {
   const { sender } = props.message
   return {
-    isSenderIgnored: stores.chatStore.isIgnored(sender),
+    isSenderIgnored: sender ? stores.chatStore.isIgnored(sender) : false,
   }
 }
 

@@ -1,5 +1,5 @@
 import { sendSocketCommand } from 'src/chat/actions/socketActions'
-import { Message } from 'src/message/models/Message'
+import { ChatMessage } from 'src/chat/models/ChatMessage'
 import { channelStore, chatStore } from 'src/stores'
 
 export function joinChannel(id: string) {
@@ -15,7 +15,7 @@ export function sendChannelMessage(id: string, message: string) {
 
   const channel = channelStore.getChannel(id)
   if (channel) {
-    channel.messages.push(new Message(chatStore.identity, message, 'normal'))
+    channel.messages.push(new ChatMessage('normal', message, chatStore.identity))
   }
 }
 

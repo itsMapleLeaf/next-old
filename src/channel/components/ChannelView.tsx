@@ -8,8 +8,8 @@ import { ChatInput } from 'src/chat/components/ChatInput'
 import { OverlayState } from 'src/chat/models/OverlayState'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { preventDefault } from 'src/common/util/react'
-import { MessageComponent } from 'src/message/components/MessageComponent'
-import { Message } from 'src/message/models/Message'
+import { MessageComponent } from 'src/chat/components/ChatMessageView'
+import { ChatMessage } from 'src/chat/models/ChatMessage'
 import { Stores } from 'src/stores'
 
 import { ChannelUserList } from './ChannelUserList'
@@ -147,7 +147,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
     )
   }
 
-  private renderMessage = (message: Message, i: number) => {
+  private renderMessage = (message: ChatMessage, i: number) => {
     return <MessageComponent key={i} message={message} />
   }
 }

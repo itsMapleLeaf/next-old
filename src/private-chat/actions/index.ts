@@ -1,5 +1,5 @@
 import { sendSocketCommand } from 'src/chat/actions/socketActions'
-import { Message } from 'src/message/models/Message'
+import { ChatMessage } from 'src/chat/models/ChatMessage'
 import { chatStore, privateChatStore } from 'src/stores'
 
 export function openPrivateChat(partner: string) {
@@ -16,7 +16,7 @@ export function sendPrivateMessage(recipient: string, message: string) {
   sendSocketCommand('PRI', { recipient, message })
 
   const privateChat = privateChatStore.getPrivateChat(recipient)
-  privateChat.messages.push(new Message(chatStore.identity, message, 'normal'))
+  privateChat.messages.push(new ChatMessage('normal', message, chatStore.identity))
 }
 
 export async function savePrivateChats() {

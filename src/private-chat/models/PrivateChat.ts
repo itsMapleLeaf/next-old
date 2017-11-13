@@ -1,8 +1,8 @@
 import { observable } from 'mobx'
-import { Message } from 'src/message/models/Message'
+import { ChatMessage } from 'src/chat/models/ChatMessage'
 
 export class PrivateChat {
-  @observable messages = [] as Message[]
+  @observable messages = [] as ChatMessage[]
 
   constructor(public partner: string) {}
 }

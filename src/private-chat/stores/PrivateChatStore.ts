@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx'
 import { StoredValue } from 'src/common/util/storage'
-import { Message } from 'src/message/models/Message'
+import { ChatMessage } from 'src/chat/models/ChatMessage'
 import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 
 type StoredPrivateChats = Dictionary<string[]>
@@ -35,7 +35,7 @@ export class PrivateChatStore {
   handleSocketCommand(cmd: string, params: any) {
     if (cmd === 'PRI') {
       const privateChat = this.openPrivateChat(params.character)
-      privateChat.messages.push(new Message(params.character, params.message, 'normal'))
+      privateChat.messages.push(new ChatMessage('normal', params.message, params.character))
     }
   }
 

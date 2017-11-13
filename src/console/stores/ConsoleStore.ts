@@ -1,14 +1,14 @@
 import { action, observable } from 'mobx'
 import { parseBBC } from 'src/chat/util/bbc'
 import { CommandInfo } from 'src/chat/util/chat-command'
-import { ConsoleMessage } from 'src/console/models/ConsoleMessage'
+import { ChatMessage } from 'src/chat/models/ChatMessage'
 
 export class ConsoleStore {
-  @observable messages = [] as ConsoleMessage[]
+  @observable messages = [] as ChatMessage[]
 
   @action
   addMessage(text: string) {
-    this.messages.push(new ConsoleMessage(text))
+    this.messages.push(new ChatMessage('system', text))
   }
 
   @action
