@@ -2,9 +2,15 @@ import { restoreJoinedChannels, saveJoinedChannels } from '../../channel/actions
 import { restorePrivateChats } from '../../private-chat/actions'
 import { channelBrowserStore, channelStore, characterStore, chatStore, consoleStore, privateChatStore } from '../../stores'
 
-interface CommandHandler {
+type CommandHandler = {
   handleSocketCommand(cmd: string, params: any): void
 }
+
+type CommandHandlerTable = {
+  [command: string]: CommandHandlerFunction | void
+}
+
+type CommandHandlerFunction = () => void
 
 const commandHandlers: CommandHandler[] = [
   channelStore,
@@ -83,7 +89,7 @@ export function sendSocketCommand(cmd: string, params?: object) {
 }
 
 export function handleSocketCommand(cmd: string, params: any) {
-  const handlers: { [command: string]: () => void } = {
+  const handlers: CommandHandlerTable = {
     PIN() {
       // dispatch('sendSocketCommand', { cmd: 'PIN' })
       sendSocketCommand('PIN')
@@ -125,14 +131,14 @@ export function handleSocketCommand(cmd: string, params: any) {
     },
 
     JCH() {
-      if (params.character.identity === this.identity) {
+      if (params.character.identity === chatStore.identity) {
         channelStore.addJoinedChannel(params.channel)
         saveJoinedChannels().catch(console.error)
       }
     },
 
     LCH() {
-      if (params.character === this.identity) {
+      if (params.character === chatStore.identity) {
         channelStore.removeJoinedChannel(params.channel)
         saveJoinedChannels().catch(console.error)
       }
@@ -149,8 +155,8 @@ export function handleSocketCommand(cmd: string, params: any) {
     },
   }
 
-  if (handlers[cmd]) {
-    handlers[cmd]()
-  }
+  const handler = handlers[cmd]
+  if (handler) handler()
+
   // console.log(cmd, params)
 }
