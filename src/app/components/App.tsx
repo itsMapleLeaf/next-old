@@ -1,77 +1,89 @@
+import { bind } from 'decko'
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { AppState, AppStore } from 'src/app/stores/AppStore'
-import { AuthStore } from 'src/auth/stores/AuthStore'
+import { AppState } from 'src/app/stores/AppStore'
 import { ChatView } from 'src/chat/components/ChatView'
-import { ChatStore } from 'src/chat/stores/ChatStore'
+import { OverlayState } from 'src/chat/models/OverlayState'
 
 import { fetchCharacters, fetchTicket, saveAuthData } from '../../auth/actions'
 import { connectToServer } from '../../chat/actions/socketActions'
+import { Stores } from '../../stores'
 import { init } from '../actions'
 import { AppInfo } from './AppInfo'
 import { CharacterSelect } from './CharacterSelect'
 import { Loading } from './Loading'
 import { Login } from './Login'
 
-type AppProps = {
-  appStore?: AppStore
-  authStore?: AuthStore
-  chatStore?: ChatStore
+type InjectedProps = {
+  appState: AppState
+  appInfoOverlay: OverlayState
+  userCharacters: string[]
+
+  onLoginSubmit: (username: string, password: string) => Promise<void>
+  onIdentitySubmit: (identity: string) => void
+  onReturnToLogin: () => void
 }
 
-@inject('appStore', 'authStore', 'chatStore')
-@observer
-export class App extends React.Component<AppProps> {
-  appStore = this.props.appStore!
-  authStore = this.props.authStore!
-  chatStore = this.props.chatStore!
+function storesToProps(stores: Stores): InjectedProps {
+  const { appStore, authStore } = stores
 
-  @observable loginStatus = ''
+  function handleConnect() {
+    appStore.setState(AppState.online)
+  }
 
-  @action.bound
-  async handleLoginSubmit(username: string, password: string) {
-    try {
-      this.loginStatus = 'Logging in...'
+  function handleDisconnect() {
+    init().catch(console.error)
+  }
 
+  return {
+    appState: appStore.state,
+    appInfoOverlay: appStore.appInfo,
+    userCharacters: authStore.characters,
+
+    async onLoginSubmit(username, password) {
       await fetchTicket(username, password)
       await fetchCharacters()
 
       saveAuthData().catch(console.error)
-      this.appStore.setState(AppState.characterSelect)
+      appStore.setState(AppState.characterSelect)
+    },
 
-      this.loginStatus = ''
-    } catch (error) {
-      this.loginStatus = error.message || error.toString()
+    onIdentitySubmit(identity) {
+      const { account, ticket } = authStore
+      connectToServer(account, ticket, identity, handleConnect, handleDisconnect)
+      appStore.setState(AppState.connecting)
+    },
+
+    onReturnToLogin() {
+      appStore.setState(AppState.login)
+    },
+  }
+}
+
+@inject(storesToProps)
+@observer
+class AppComponent extends React.Component<InjectedProps> {
+  @observable loginStatus = ''
+
+  @action
+  setLoginStatus(text: string) {
+    this.loginStatus = text
+  }
+
+  @bind
+  async handleLoginSubmit(username: string, password: string) {
+    try {
+      this.setLoginStatus('Logging in...')
+      await this.props.onLoginSubmit(username, password)
+      this.setLoginStatus('')
+    } catch (err) {
+      this.setLoginStatus(err.stack || String(err))
     }
   }
 
-  @action.bound
-  handleCharacterSubmit(character: string) {
-    const { account, ticket } = this.authStore
-
-    this.appStore.setState(AppState.connecting)
-
-    connectToServer(account, ticket, character, this.handleConnect, this.handleDisconnect)
-  }
-
-  @action.bound
-  handleConnect() {
-    this.appStore.setState(AppState.online)
-  }
-
-  @action.bound
-  handleDisconnect() {
-    init().catch(console.error)
-  }
-
-  @action.bound
-  backToLogin() {
-    this.appStore.setState(AppState.login)
-  }
-
   renderCurrentView() {
-    switch (this.appStore.state) {
+    switch (this.props.appState) {
       case AppState.setup:
         return <Loading text="Setting things up..." />
 
@@ -80,16 +92,16 @@ export class App extends React.Component<AppProps> {
           <Login
             statusText={this.loginStatus}
             onSubmit={this.handleLoginSubmit}
-            onAbout={this.appStore.appInfo.show}
+            onAbout={this.props.appInfoOverlay.show}
           />
         )
 
       case AppState.characterSelect:
         return (
           <CharacterSelect
-            characters={this.authStore.characters}
-            onSubmit={this.handleCharacterSubmit}
-            onBack={this.backToLogin}
+            characters={this.props.userCharacters}
+            onSubmit={this.props.onIdentitySubmit}
+            onBack={this.props.onReturnToLogin}
           />
         )
 
@@ -105,8 +117,10 @@ export class App extends React.Component<AppProps> {
     return (
       <main className="fullscreen flex-center bg-color-main text-color-main">
         {this.renderCurrentView()}
-        <AppInfo overlay={this.appStore.appInfo} />
+        <AppInfo overlay={this.props.appInfoOverlay} />
       </main>
     )
   }
 }
+
+export const App: React.ComponentClass<{}> = AppComponent
