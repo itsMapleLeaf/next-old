@@ -8,12 +8,6 @@ import * as stores from 'src/stores'
 import { handleCharacterSocketCommand } from 'src/character/actions'
 import { handleChannelBrowserSocketCommand } from 'src/channel-browser/actions'
 
-type CommandHandlerTable = {
-  [command: string]: CommandHandlerFunction | void
-}
-
-type CommandHandlerFunction = () => void
-
 let socket: WebSocket | void
 
 export function connectToServer(
@@ -90,74 +84,66 @@ export function sendSocketCommand(cmd: string, params?: object) {
 }
 
 export function handleChatSocketCommand(cmd: string, params: any) {
-  const handlers: CommandHandlerTable = {
-    PIN() {
-      // dispatch('sendSocketCommand', { cmd: 'PIN' })
-      sendSocketCommand('PIN')
-    },
-
-    IDN() {
-      restoreJoinedChannels().catch(console.error)
-      restorePrivateChats().catch(console.error)
-    },
-
-    HLO() {
-      stores.consoleStore.addMessage(params.message)
-    },
-
-    CON() {
-      stores.consoleStore.addMessage(`There are ${params.count} characters in chat.`)
-    },
-
-    FRL() {
-      const friends = params.characters as string[]
-      stores.chatStore.setFriends(friends)
-    },
-
-    IGN() {
-      const { action } = params
-      if (action === 'init') {
-        const characters = params.characters as string[]
-        stores.chatStore.setIgnored(characters)
-      } else if (action === 'add') {
-        stores.chatStore.addIgnoredUser(params.character)
-      } else if (action === 'delete') {
-        stores.chatStore.removeIgnoredUser(params.character)
-      }
-    },
-
-    ADL() {
-      const admins = params.ops as string[]
-      stores.chatStore.setAdmins(admins)
-    },
-
-    JCH() {
-      if (params.character.identity === stores.chatStore.identity) {
-        stores.channelStore.addJoinedChannel(params.channel)
-        saveJoinedChannels().catch(console.error)
-      }
-    },
-
-    LCH() {
-      if (params.character === stores.chatStore.identity) {
-        stores.channelStore.removeJoinedChannel(params.channel)
-        saveJoinedChannels().catch(console.error)
-      }
-    },
-
-    RTB() {
-      // TODO
-      // Friend Request: {type: 'friendadd', name: '...'}
-      // Friend Request accepted: {type: 'trackrem(?)', name: '...'}
-      // bookmark added
-      // if (params.type === 'trackadd') commit('ADD_FRIEND', params.name)
-      // bookmark removed
-      // if (params.type === 'trackrem') commit('REMOVE_FRIEND', params.name)
-    },
+  if (cmd === 'PIN') {
+    sendSocketCommand('PIN')
   }
 
-  const handler = handlers[cmd]
-  if (handler) handler()
+  if (cmd === 'IDN') {
+    restoreJoinedChannels().catch(console.error)
+    restorePrivateChats().catch(console.error)
+  }
 
-  // console.log(cmd, params)
+  if (cmd === 'HLO') {
+    stores.consoleStore.addMessage(params.message)
+  }
+
+  if (cmd === 'CON') {
+    stores.consoleStore.addMessage(`There are ${params.count} characters in chat.`)
+  }
+
+  if (cmd === 'FRL') {
+    const friends = params.characters as string[]
+    stores.chatStore.setFriends(friends)
+  }
+
+  if (cmd === 'IGN') {
+    const { action } = params
+    if (action === 'init') {
+      const characters = params.characters as string[]
+      stores.chatStore.setIgnored(characters)
+    } else if (action === 'add') {
+      stores.chatStore.addIgnoredUser(params.character)
+    } else if (action === 'delete') {
+      stores.chatStore.removeIgnoredUser(params.character)
+    }
+  }
+
+  if (cmd === 'ADL') {
+    const admins = params.ops as string[]
+    stores.chatStore.setAdmins(admins)
+  }
+
+  if (cmd === 'JCH') {
+    if (params.character.identity === stores.chatStore.identity) {
+      stores.channelStore.addJoinedChannel(params.channel)
+      saveJoinedChannels().catch(console.error)
+    }
+  }
+
+  if (cmd === 'LCH') {
+    if (params.character === stores.chatStore.identity) {
+      stores.channelStore.removeJoinedChannel(params.channel)
+      saveJoinedChannels().catch(console.error)
+    }
+  }
+
+  if (cmd === 'RTB') {
+    // TODO
+    // Friend Request: {type: 'friendadd', name: '...'}
+    // Friend Request accepted: {type: 'trackrem(?)', name: '...'}
+    // bookmark added
+    // if (params.type === 'trackadd') commit('ADD_FRIEND', params.name)
+    // bookmark removed
+    // if (params.type === 'trackrem') commit('REMOVE_FRIEND', params.name)
+  }
 }
