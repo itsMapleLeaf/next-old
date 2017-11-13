@@ -57,6 +57,6 @@ function renderCharacterDetails(props: Props & InjectedProps) {
   )
 }
 
-export const CharacterDetails: React.ComponentClass<Props> = inject(storesToProps)(
+export const CharacterDetails: React.StatelessComponent<Props> = inject(storesToProps)(
   observer(renderCharacterDetails),
 )

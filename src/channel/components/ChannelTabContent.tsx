@@ -27,6 +27,6 @@ function renderChannelTabContent(props: Props & InjectedProps) {
   )
 }
 
-export const ChannelTabContent: React.ComponentClass<Props> = inject(storesToProps)(
+export const ChannelTabContent: React.StatelessComponent<Props> = inject(storesToProps)(
   observer(renderChannelTabContent),
 )
