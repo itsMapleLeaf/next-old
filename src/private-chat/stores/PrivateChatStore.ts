@@ -31,14 +31,6 @@ export class PrivateChatStore {
     this.openPrivateChats.delete(partner)
   }
 
-  @action
-  handleSocketCommand(cmd: string, params: any) {
-    if (cmd === 'PRI') {
-      const privateChat = this.openPrivateChat(params.character)
-      privateChat.messages.push(new ChatMessage('normal', params.message, params.character))
-    }
-  }
-
   getOpenPrivateChats() {
     return Array.from(this.openPrivateChats.keys()).map(name => this.getPrivateChat(name))
   }

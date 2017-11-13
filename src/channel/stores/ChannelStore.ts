@@ -33,52 +33,8 @@ export class ChannelStore {
     this.joinedChannels.delete(id)
   }
 
-  @action
-  handleSocketCommand(cmd: string, params: any) {
-    if (cmd === 'FLN') {
-      this.channels.forEach(channel => {
-        channel.removeUser(params.character)
-      })
-    }
-
-    if (cmd === 'JCH') {
-      const channel = this.getChannel(params.channel)
-      const name = params.character.identity
-      channel.title = params.title
-      channel.addUser(name)
-    }
-
-    if (cmd === 'LCH') {
-      const channel = this.getChannel(params.channel)
-      channel.removeUser(params.character)
-    }
-
-    if (cmd === 'ICH') {
-      const channel = this.getChannel(params.channel)
-      const userData = params.users as Array<{ identity: string }>
-      channel.setUsers(userData.map(user => user.identity))
-      channel.mode = params.mode
-    }
-
-    if (cmd === 'CDS') {
-      const channel = this.getChannel(params.channel)
-      channel.description = params.description
-    }
-
-    if (cmd === 'COL') {
-      const channel = this.getChannel(params.channel)
-      channel.description = params.oplist
-    }
-
-    if (cmd === 'MSG') {
-      const channel = this.getChannel(params.channel)
-      channel.messages.push(new ChatMessage('normal', params.message, params.character))
-    }
-
-    if (cmd === 'LRP') {
-      const channel = this.getChannel(params.channel)
-      channel.messages.push(new ChatMessage('lfrp', params.message, params.character))
-    }
+  getChannels() {
+    return this.channels
   }
 
   getJoinedChannelIDs() {

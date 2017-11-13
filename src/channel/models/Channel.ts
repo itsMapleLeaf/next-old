@@ -16,6 +16,31 @@ export class Channel {
   constructor(public id: string) {}
 
   @action
+  setTitle(title: string) {
+    this.title = title
+  }
+
+  @action
+  setMode(mode: ChannelMode) {
+    this.mode = mode
+  }
+
+  @action
+  setDescription(description: string) {
+    this.description = description
+  }
+
+  @action
+  setOps(ops: string[]) {
+    this.ops = ops
+  }
+
+  @action
+  addMessage(message: ChatMessage) {
+    this.messages.push(message)
+  }
+
+  @action
   setUsers(users: string[]) {
     this.users = users
   }

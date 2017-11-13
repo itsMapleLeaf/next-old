@@ -1,23 +1,18 @@
-import { restoreJoinedChannels, saveJoinedChannels } from '../../channel/actions'
-import { restorePrivateChats } from '../../private-chat/actions'
-import { channelBrowserStore, channelStore, characterStore, chatStore, consoleStore, privateChatStore } from '../../stores'
-
-type CommandHandler = {
-  handleSocketCommand(cmd: string, params: any): void
-}
+import {
+  restoreJoinedChannels,
+  saveJoinedChannels,
+  handleChannelSocketCommand,
+} from 'src/channel/actions'
+import { restorePrivateChats, handlePrivateChatSocketCommand } from 'src/private-chat/actions'
+import * as stores from 'src/stores'
+import { handleCharacterSocketCommand } from 'src/character/actions'
+import { handleChannelBrowserSocketCommand } from 'src/channel-browser/actions'
 
 type CommandHandlerTable = {
   [command: string]: CommandHandlerFunction | void
 }
 
 type CommandHandlerFunction = () => void
-
-const commandHandlers: CommandHandler[] = [
-  channelStore,
-  privateChatStore,
-  characterStore,
-  channelBrowserStore,
-]
 
 let socket: WebSocket | void
 
@@ -30,7 +25,7 @@ export function connectToServer(
 ) {
   disconnectFromServer()
 
-  chatStore.setIdentity(character)
+  stores.chatStore.setIdentity(character)
 
   socket = new WebSocket('wss://chat.f-list.net:9799')
 
@@ -55,11 +50,17 @@ export function connectToServer(
       connectedCallback()
     }
 
-    commandHandlers.forEach(handler => {
-      handler.handleSocketCommand(cmd, params)
-    })
+    const handlers = [
+      handleChannelSocketCommand,
+      handleChatSocketCommand,
+      handlePrivateChatSocketCommand,
+      handleCharacterSocketCommand,
+      handleChannelBrowserSocketCommand,
+    ]
 
-    handleSocketCommand(cmd, params)
+    handlers.forEach(handleCommand => {
+      handleCommand(cmd, params)
+    })
   }
 
   const handleClose = () => {
@@ -88,7 +89,7 @@ export function sendSocketCommand(cmd: string, params?: object) {
   }
 }
 
-export function handleSocketCommand(cmd: string, params: any) {
+export function handleChatSocketCommand(cmd: string, params: any) {
   const handlers: CommandHandlerTable = {
     PIN() {
       // dispatch('sendSocketCommand', { cmd: 'PIN' })
@@ -101,45 +102,45 @@ export function handleSocketCommand(cmd: string, params: any) {
     },
 
     HLO() {
-      consoleStore.addMessage(params.message)
+      stores.consoleStore.addMessage(params.message)
     },
 
     CON() {
-      consoleStore.addMessage(`There are ${params.count} characters in chat.`)
+      stores.consoleStore.addMessage(`There are ${params.count} characters in chat.`)
     },
 
     FRL() {
       const friends = params.characters as string[]
-      chatStore.setFriends(friends)
+      stores.chatStore.setFriends(friends)
     },
 
     IGN() {
       const { action } = params
       if (action === 'init') {
         const characters = params.characters as string[]
-        chatStore.setIgnored(characters)
+        stores.chatStore.setIgnored(characters)
       } else if (action === 'add') {
-        chatStore.addIgnoredUser(params.character)
+        stores.chatStore.addIgnoredUser(params.character)
       } else if (action === 'delete') {
-        chatStore.removeIgnoredUser(params.character)
+        stores.chatStore.removeIgnoredUser(params.character)
       }
     },
 
     ADL() {
       const admins = params.ops as string[]
-      chatStore.setAdmins(admins)
+      stores.chatStore.setAdmins(admins)
     },
 
     JCH() {
-      if (params.character.identity === chatStore.identity) {
-        channelStore.addJoinedChannel(params.channel)
+      if (params.character.identity === stores.chatStore.identity) {
+        stores.channelStore.addJoinedChannel(params.channel)
         saveJoinedChannels().catch(console.error)
       }
     },
 
     LCH() {
-      if (params.character === chatStore.identity) {
-        channelStore.removeJoinedChannel(params.channel)
+      if (params.character === stores.chatStore.identity) {
+        stores.channelStore.removeJoinedChannel(params.channel)
         saveJoinedChannels().catch(console.error)
       }
     },

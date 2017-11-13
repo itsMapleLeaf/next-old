@@ -34,28 +34,4 @@ export class CharacterStore {
 
     this.characters.merge(newCharacters)
   }
-
-  @action
-  handleSocketCommand(cmd: string, params: any) {
-    if (cmd === 'LIS') {
-      this.handleCharacterBatch(params.characters)
-    }
-
-    if (cmd === 'NLN') {
-      const char = this.getCharacter(params.identity)
-      char.gender = params.gender
-      char.status = 'online'
-    }
-
-    if (cmd === 'FLN') {
-      const char = this.getCharacter(params.character)
-      char.status = 'offline'
-    }
-
-    if (cmd === 'STA') {
-      const char = this.getCharacter(params.character)
-      char.status = params.status
-      char.statusMessage = params.statusmsg
-    }
-  }
 }

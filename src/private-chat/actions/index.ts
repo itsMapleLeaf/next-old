@@ -27,3 +27,10 @@ export async function restorePrivateChats() {
   const partners = await privateChatStore.restorePrivateChats(chatStore.identity)
   partners.forEach(openPrivateChat)
 }
+
+export function handlePrivateChatSocketCommand(cmd: string, params: any) {
+  if (cmd === 'PRI') {
+    const privateChat = privateChatStore.openPrivateChat(params.character)
+    privateChat.messages.push(new ChatMessage('normal', params.message, params.character))
+  }
+}

@@ -27,3 +27,50 @@ export async function restoreJoinedChannels() {
   const channels = await channelStore.restoreJoinedChannels(chatStore.identity)
   channels.forEach(joinChannel)
 }
+
+export function handleChannelSocketCommand(cmd: string, params: any) {
+  if (cmd === 'FLN') {
+    channelStore.getChannels().forEach(channel => {
+      channel.removeUser(params.character)
+    })
+  }
+
+  if (cmd === 'JCH') {
+    const channel = channelStore.getChannel(params.channel)
+    const name = params.character.identity
+    channel.setTitle(params.title)
+    channel.addUser(name)
+  }
+
+  if (cmd === 'LCH') {
+    const channel = channelStore.getChannel(params.channel)
+    channel.removeUser(params.character)
+  }
+
+  if (cmd === 'ICH') {
+    const channel = channelStore.getChannel(params.channel)
+    const userData = params.users as Array<{ identity: string }>
+    channel.setUsers(userData.map(user => user.identity))
+    channel.setMode(params.mode)
+  }
+
+  if (cmd === 'CDS') {
+    const channel = channelStore.getChannel(params.channel)
+    channel.setDescription(params.description)
+  }
+
+  if (cmd === 'COL') {
+    const channel = channelStore.getChannel(params.channel)
+    channel.setOps(params.oplist)
+  }
+
+  if (cmd === 'MSG') {
+    const channel = channelStore.getChannel(params.channel)
+    channel.addMessage(new ChatMessage('normal', params.message, params.character))
+  }
+
+  if (cmd === 'LRP') {
+    const channel = channelStore.getChannel(params.channel)
+    channel.addMessage(new ChatMessage('lfrp', params.message, params.character))
+  }
+}
