@@ -78,7 +78,7 @@ class ChatInputComponent extends React.Component<InjectedProps> {
   render() {
     const { onMessage, onCommand, ...divProps } = this.props
     return (
-      <div className="flex-row padding" {...divProps}>
+      <div className="flex-row padding full-width" {...divProps}>
         <textarea
           className="flex-grow padding margin-right"
           placeholder="Say something..."

@@ -11,6 +11,7 @@ import { preventDefault } from 'src/common/util/react'
 import { MessageComponent } from 'src/message/components/MessageComponent'
 import { Message } from 'src/message/models/Message'
 import { Stores } from 'src/stores'
+
 import { ChannelUserList } from './ChannelUserList'
 import { ChannelViewDrawer } from './ChannelViewDrawer'
 import { ChannelViewHeader } from './ChannelViewHeader'
@@ -64,7 +65,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
 
         <div className="divider" />
 
-        <div className="bg-color-main flex-row">
+        <div className="bg-color-main flex-row flex-justify-stretch">
           <ChatInput />
         </div>
 
@@ -97,6 +98,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
   }
 
   private renderHeader() {
+    const handleMoreClick = preventDefault(this.infoDrawer.show)
     return (
       <ChannelViewHeader
         channel={this.props.channel}
@@ -104,7 +106,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
         onModeSelect={this.setDisplayedMode}
         drawerToggle={
           <MediaQuery query={mediaShowOnMobile}>
-            <a href="#" onClick={preventDefault(this.infoDrawer.show)}>
+            <a href="#" onClick={handleMoreClick}>
               <Icon name="more-vert" size={24} />
             </a>
           </MediaQuery>
