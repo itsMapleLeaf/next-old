@@ -23,6 +23,7 @@
     "react-dom": "^16.1.1",
     "react-emotion": "^8.0.10",
     "react-responsive": "3.0.0",
+    "styled-components": "^2.2.3",
     "tslib": "^1.8.0"
   },
   "devDependencies": {
