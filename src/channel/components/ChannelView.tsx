@@ -119,7 +119,7 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
     return (
       <MediaQuery query={mediaShowOnDesktop}>
         <div
-          className="bg-color-main scroll-v padding"
+          className="bg-color-main scroll-v padding preserve-ws"
           style={{ height: '80px' }}
           dangerouslySetInnerHTML={this.props.channel.parsedDescription}
         />
@@ -138,6 +138,10 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
     )
   }
 
+  private renderMessage = (message: ChatMessage, i: number) => {
+    return <MessageComponent key={i} message={message} />
+  }
+
   private renderUserList() {
     const { users, ops } = this.props.channel
     return (
@@ -145,10 +149,6 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
         <ChannelUserList users={users} ops={ops} />
       </div>
     )
-  }
-
-  private renderMessage = (message: ChatMessage, i: number) => {
-    return <MessageComponent key={i} message={message} />
   }
 }
 
