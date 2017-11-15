@@ -1,6 +1,5 @@
 import { bind } from 'decko'
 import { Field, Form, Formik, FormikProps } from 'formik'
-import { observer } from 'mobx-react'
 import * as React from 'react'
 
 import { preventDefault } from '../../common/util/react'
@@ -19,7 +18,6 @@ type FormValues = {
 
 const storedUsername = new StoredValue<string>('Login_username')
 
-@observer
 export class Login extends React.Component<LoginProps> {
   form: Formik | null
 
