@@ -78,7 +78,8 @@ class AppComponent extends React.Component<InjectedProps> {
       await this.props.onLoginSubmit(username, password)
       this.setLoginStatus('')
     } catch (err) {
-      this.setLoginStatus(err.stack || String(err))
+      this.setLoginStatus(err.message || String(err))
+      console.error(err.stack || String(err))
     }
   }
 
