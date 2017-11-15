@@ -17,11 +17,11 @@ import * as forage from 'localforage'
 export class StoredValue<T> {
   constructor(private storageKey: string) {}
 
-  async save(value: T): Promise<T> {
-    return forage.setItem(this.storageKey, value)
+  save(value: T): Promise<T> {
+    return forage.setItem<T>(this.storageKey, value)
   }
 
-  async restore(): Promise<T | null> {
+  restore(): Promise<T | null> {
     return forage.getItem<T | null>(this.storageKey)
   }
 }
