@@ -3,6 +3,7 @@
   "extends": ["tslint-react", "tslint-config-standard", "tslint-config-prettier"],
   "rules": {
     "no-empty": false,
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "jsx-key": false
   }
 }
