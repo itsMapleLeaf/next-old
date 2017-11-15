@@ -111,6 +111,9 @@ export default (env = {} as ConfigEnvironment) => {
         tslib: 'tslib/tslib.es6.js',
       },
     },
+    devServer: {
+      historyApiFallback: true,
+    },
   }
 
   const devConfig: webpack.Configuration = {
