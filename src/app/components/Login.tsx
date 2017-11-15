@@ -1,9 +1,10 @@
 import { bind } from 'decko'
-import { action, observable } from 'mobx'
+import { Field, Form, Formik, FormikProps } from 'formik'
 import { observer } from 'mobx-react'
 import * as React from 'react'
-import { preventDefault } from 'src/common/util/react'
-import { StoredValue } from 'src/common/util/storage'
+
+import { preventDefault } from '../../common/util/react'
+import { StoredValue } from '../../common/util/storage'
 
 type LoginProps = {
   onSubmit: (username: string, password: string) => void
@@ -11,75 +12,66 @@ type LoginProps = {
   statusText: string
 }
 
+type FormValues = {
+  username: string
+  password: string
+}
+
+const storedUsername = new StoredValue<string>('Login_username')
+
 @observer
 export class Login extends React.Component<LoginProps> {
-  @observable username = ''
-  @observable password = ''
-  storedUsername = new StoredValue<string>('Login_username')
-
-  @action
-  setUsername(username: string) {
-    this.username = username
-  }
-
-  @action
-  setPassword(password: string) {
-    this.password = password
-  }
-
-  @bind
-  handleSubmit() {
-    this.props.onSubmit(this.username, this.password)
-  }
-
-  @bind
-  handleUsernameInput(event: React.UIEvent<HTMLInputElement>) {
-    this.setUsername(event.currentTarget.value)
-    this.storedUsername.save(this.username).catch(console.error)
-  }
-
-  @bind
-  handlePasswordInput(event: React.UIEvent<HTMLInputElement>) {
-    this.setPassword(event.currentTarget.value)
-  }
+  form: Formik | null
 
   async componentDidMount() {
-    const initialUsername = await this.storedUsername.restore()
-    this.setUsername(initialUsername || '')
+    if (this.form) {
+      const username = await storedUsername.restore()
+      this.form.setFieldValue('username', username || '')
+    }
   }
 
   render() {
+    const handleAbout = preventDefault(this.props.onAbout)
+
     return (
-      <section className="text-center">
+      <div className="text-center">
         <h1 className="margin">Hello, beautiful.</h1>
-        <form onSubmit={preventDefault(this.handleSubmit)}>
-          <fieldset>
-            <input
-              type="text"
-              placeholder="Username"
-              value={this.username}
-              onInput={this.handleUsernameInput}
-            />
-          </fieldset>
-          <fieldset>
-            <input
-              type="password"
-              placeholder="Password"
-              value={this.password}
-              onInput={this.handlePasswordInput}
-            />
-          </fieldset>
-          <fieldset>
-            <button type="submit">Submit</button>
-          </fieldset>
-        </form>
+        <Formik
+          initialValues={{ username: '', password: '' }}
+          render={this.renderForm}
+          onSubmit={this.handleSubmit}
+          ref={form => (this.form = form)}
+        />
         <p>{this.props.statusText}</p>
         <p>
-          <a className="bbc-link" href="#" onClick={this.props.onAbout}>
+          <a href="#" className="bbc-link" onClick={handleAbout}>
             About
           </a>
         </p>
-      </section>
+      </div>
     )
+  }
+
+  @bind
+  private renderForm(props: FormikProps<FormValues>) {
+    return (
+      <Form>
+        <fieldset>
+          <Field name="username" type="text" placeholder="Username" />
+        </fieldset>
+        <fieldset>
+          <Field name="password" type="password" placeholder="Password" />
+        </fieldset>
+        <fieldset>
+          <button type="submit">Submit</button>
+        </fieldset>
+      </Form>
+    )
+  }
+
+  @bind
+  private handleSubmit(values: FormValues) {
+    this.props.onSubmit(values.username, values.password)
+    storedUsername.save(values.username).catch(console.warn)
   }
 }
