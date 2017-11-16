@@ -17,10 +17,12 @@ const sourcePath = resolve(root, 'src')
 const outputPath = resolve(root, 'build')
 
 export default (env: { production?: boolean } = {}) => {
+  const babelPlugins = env.production ? ['emotion', 'lodash'] : []
+
   const babelLoader: webpack.Loader = {
     loader: 'babel-loader',
     options: {
-      plugins: ['lodash', 'emotion'],
+      plugins: babelPlugins,
     },
   }
 
@@ -78,6 +80,7 @@ export default (env: { production?: boolean } = {}) => {
       new HTMLPlugin({
         template: './index.html',
         chunksSortMode: 'dependency',
+        inject: 'head',
       }),
 
       new ScriptExtHtmlPlugin({
