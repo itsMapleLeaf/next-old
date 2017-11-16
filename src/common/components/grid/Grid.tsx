@@ -18,7 +18,7 @@ const alignContent = ({ alignContent }: GridProps) =>
 
 const autoRows = ({ minRowHeight = '20px' }) => `minmax(${minRowHeight}, auto)`
 
-const columns = ({ columns = 12 }) =>
+const columns = ({ columns = 12 }: GridProps) =>
   typeof columns === 'number' ? `repeat(${columns}, 1fr)` : columns
 
 const flow = ({ flow = 'row' }) => flow
