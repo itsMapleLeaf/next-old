@@ -55,11 +55,8 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
           {this.renderMessageList()}
 
           <MediaQuery query={mediaShowOnDesktop}>
-            {/* the flex-row here is needed to make sure the encased divs flow horizontally */}
-            <div className="flex-row">
-              <div className="divider" />
-              {this.renderUserList()}
-            </div>
+            <div className="divider" />
+            {this.renderUserList()}
           </MediaQuery>
         </div>
 

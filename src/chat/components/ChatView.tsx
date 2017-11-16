@@ -148,10 +148,8 @@ export class ChatView extends React.Component<ChatProps> {
   private renderNavSidebar() {
     return (
       <MediaQuery query={mediaQueryDesktop}>
-        <div className="flex-row">
-          {this.renderNavContent()}
-          <div className="divider-h" />
-        </div>
+        {this.renderNavContent()}
+        <div className="divider-h" />
       </MediaQuery>
     )
   }
