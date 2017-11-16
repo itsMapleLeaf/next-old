@@ -10,6 +10,7 @@ import { ThemeProvider } from 'emotion-theming'
 
 import { init } from './app/actions'
 import { App } from './app/components/App'
+import { Fragment } from './common/components/Fragment'
 import { stores } from './stores'
 import { theme } from './ui/theme'
 
@@ -17,14 +18,14 @@ const devmode = process.env.NODE_ENV !== 'production'
 
 function Root() {
   return (
-    <div>
+    <Fragment>
       <StoreProvider {...stores}>
         <ThemeProvider theme={theme}>
           <App />
         </ThemeProvider>
       </StoreProvider>
       {devmode && <DevTools position={{ right: 0, bottom: 0 }} />}
-    </div>
+    </Fragment>
   )
 }
 
