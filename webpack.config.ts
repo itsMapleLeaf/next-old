@@ -17,7 +17,7 @@ const sourcePath = resolve(root, 'src')
 const outputPath = resolve(root, 'build')
 
 export default (env: { production?: boolean } = {}) => {
-  const babelPlugins = env.production ? ['emotion', 'lodash'] : []
+  const babelPlugins = env.production ? ['emotion', 'lodash'] : ['emotion']
 
   const babelLoader: webpack.Loader = {
     loader: 'babel-loader',
