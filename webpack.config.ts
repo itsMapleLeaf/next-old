@@ -16,11 +16,7 @@ const root = resolve(__dirname)
 const sourcePath = resolve(root, 'src')
 const outputPath = resolve(root, 'build')
 
-type ConfigEnvironment = {
-  production?: boolean
-}
-
-export default (env = {} as ConfigEnvironment) => {
+export default (env: { production?: boolean } = {}) => {
   const babelLoader: webpack.Loader = {
     loader: 'babel-loader',
     options: {
