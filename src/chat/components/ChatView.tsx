@@ -1,7 +1,7 @@
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import MediaQuery from 'react-responsive'
 import { ChannelBrowser } from 'src/channel-browser/components/ChannelBrowser'
 import { CharacterDetails } from 'src/character/components/CharacterDetails'

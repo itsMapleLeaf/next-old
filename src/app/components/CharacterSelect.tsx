@@ -1,9 +1,10 @@
 import { bind } from 'decko'
+import { Formik, FormikProps } from 'formik'
 import * as React from 'react'
 import { getAvatarURL } from 'src/api'
 import { preventDefault } from 'src/common/util/react'
 import { StoredValue } from 'src/common/util/storage'
-import { Formik, FormikProps } from 'formik'
+import { Button, Link, Select } from 'src/ui/components'
 
 const avatarStyle = {
   width: '100px',
@@ -45,9 +46,7 @@ export class CharacterSelect extends React.Component<CharacterSelectProps> {
           ref={form => (this.form = form)}
         />
         <p>
-          <a href="#" className="bbc-link" onClick={handleBack}>
-            Back
-          </a>
+          <Link onClick={handleBack}>Back</Link>
         </p>
       </section>
     )
@@ -63,12 +62,12 @@ export class CharacterSelect extends React.Component<CharacterSelectProps> {
       </p>,
       <form key="form" onSubmit={props.handleSubmit}>
         <fieldset>
-          <select name="character" value={character} onChange={props.handleChange}>
+          <Select name="character" value={character} onChange={props.handleChange}>
             {this.props.characters.map(name => <option key={name}>{name}</option>)}
-          </select>
+          </Select>
         </fieldset>
         <fieldset>
-          <button type="submit">Submit</button>
+          <Button type="submit">Submit</Button>
         </fieldset>
       </form>,
     ]

@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { inject, observer } from 'mobx-react'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 
 import { getAvatarURL, getProfileURL } from 'src/api'
 import { Character } from 'src/character/models/Character'

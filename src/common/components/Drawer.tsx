@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 
 type Props = {
   children?: React.ReactNode
@@ -8,7 +8,7 @@ type Props = {
   side: 'left' | 'right'
 }
 
-const Shade = styled('div')`
+const Shade = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   transition: 0.3s;
 
@@ -39,7 +39,7 @@ const Shade = styled('div')`
   }
 `
 
-const Panel = styled('div')`
+const Panel = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;

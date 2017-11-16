@@ -2,13 +2,14 @@ import { debounce, sortBy } from 'lodash'
 import { action, computed, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import styled from 'react-emotion'
 import { Icon } from 'src/app/components/Icon'
 import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
+import { joinChannel, leaveChannel } from 'src/channel/actions'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { preventDefault } from 'src/common/util/react'
+import { Button, Input } from 'src/ui/components'
+import styled from 'styled-components'
 
-import { joinChannel, leaveChannel } from '../../channel/actions'
 import { ChannelBrowserEntry } from '../models/ChannelBrowserEntry'
 
 type ChannelBrowserProps = {
@@ -89,13 +90,13 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
           {this.renderChannels(this.privateChannels, 'privateChannels')}
         </div>
         <div className="flex-row padding bg-color-main">
-          <input
+          <Input
             className="flex-grow margin-right"
             type="text"
             placeholder="Search..."
             onInput={this.handleSearchInput}
           />
-          <button onClick={preventDefault(this.props.onDone)}>Done</button>
+          <Button onClick={preventDefault(this.props.onDone)}>Done</Button>
         </div>
       </div>
     )

@@ -3,6 +3,7 @@ import * as React from 'react'
 import { OverlayState } from 'src/chat/models/OverlayState'
 import { FadeTransition } from 'src/common/components/FadeTransition'
 import { Overlay } from 'src/common/components/Overlay'
+import { Link, Button } from 'src/ui/components'
 
 function renderAppInfo(props: { overlay: OverlayState }) {
   return (
@@ -28,19 +29,15 @@ function renderAppInfo(props: { overlay: OverlayState }) {
             use at your own risk!
           </p>
           <p>
-            <a className="bbc-link" href="https://github.com/kingdaro/next" target="_blank">
-              Project page on GitHub
-            </a>
+            <Link href="https://github.com/kingdaro/next">Project page on GitHub</Link>
           </p>
           <p>
             If you find a bug or have a suggestion not listed on the project page, make an issue for
             it on GitHub, or
-            <a className="bbc-link" href="https://www.f-list.net/c/next-dev/" target="_blank">
-              send me a note here.
-            </a>
+            <Link href="https://www.f-list.net/c/next-dev/">send me a note here.</Link>
           </p>
           <p>
-            <button onClick={props.overlay.hide}>I understand. Show me the thing.</button>
+            <Button onClick={props.overlay.hide}>I understand. Show me the thing.</Button>
           </p>
         </div>
       </Overlay>

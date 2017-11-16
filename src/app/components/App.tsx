@@ -116,7 +116,7 @@ class AppComponent extends React.Component<InjectedProps> {
 
   render() {
     return (
-      <main className="fullscreen flex-center bg-color-main text-color-main">
+      <main className="fullscreen flex-center">
         {this.renderCurrentView()}
         <AppInfo overlay={this.props.appInfoOverlay} />
       </main>

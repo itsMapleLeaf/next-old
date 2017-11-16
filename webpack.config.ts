@@ -24,7 +24,7 @@ export default (env = {} as ConfigEnvironment) => {
   const babelLoader: webpack.Loader = {
     loader: 'babel-loader',
     options: {
-      plugins: ['emotion', 'lodash'],
+      plugins: ['lodash'],
     },
   }
 

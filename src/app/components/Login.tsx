@@ -1,9 +1,11 @@
 import { bind } from 'decko'
-import { Field, Form, Formik, FormikProps } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import * as React from 'react'
-
-import { preventDefault } from '../../common/util/react'
-import { StoredValue } from '../../common/util/storage'
+import { preventDefault } from 'src/common/util/react'
+import { StoredValue } from 'src/common/util/storage'
+import { Link } from 'src/ui/components'
+import { Button } from 'src/ui/components/Button'
+import { Input } from 'src/ui/components/Input'
 
 type LoginProps = {
   onSubmit: (username: string, password: string) => void
@@ -42,9 +44,7 @@ export class Login extends React.Component<LoginProps> {
         />
         <p>{this.props.statusText}</p>
         <p>
-          <a href="#" className="bbc-link" onClick={handleAbout}>
-            About
-          </a>
+          <Link onClick={handleAbout}>About</Link>
         </p>
       </div>
     )
@@ -55,13 +55,25 @@ export class Login extends React.Component<LoginProps> {
     return (
       <Form>
         <fieldset>
-          <Field name="username" type="text" placeholder="Username" />
+          <Input
+            name="username"
+            type="text"
+            placeholder="Username"
+            value={props.values.username}
+            onChange={props.handleChange}
+          />
         </fieldset>
         <fieldset>
-          <Field name="password" type="password" placeholder="Password" />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={props.values.password}
+            onChange={props.handleChange}
+          />
         </fieldset>
         <fieldset>
-          <button type="submit">Submit</button>
+          <Button type="submit">Submit</Button>
         </fieldset>
       </Form>
     )

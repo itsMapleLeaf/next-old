@@ -5,6 +5,7 @@ import { sendChannelMessage } from 'src/channel/actions'
 import { CommandInfo, parseChatCommand } from 'src/chat/util/chat-command'
 import { sendPrivateMessage } from 'src/private-chat/actions'
 import { Stores } from 'src/stores'
+import { Button, TextArea } from 'src/ui/components'
 
 import { parseBBC } from '../util/bbc'
 
@@ -79,7 +80,7 @@ class ChatInputComponent extends React.Component<InjectedProps> {
     const { onMessage, onCommand, ...divProps } = this.props
     return (
       <div className="flex-row padding full-width" {...divProps}>
-        <textarea
+        <TextArea
           className="flex-grow padding margin-right"
           placeholder="Say something..."
           style={{ resize: 'none' }}
@@ -87,7 +88,7 @@ class ChatInputComponent extends React.Component<InjectedProps> {
           onInput={this.handleInput}
           onKeyDown={this.handleKeyDown}
         />
-        <button style={{ width: '80px' }}>Send</button>
+        <Button style={{ width: '80px' }}>Send</Button>
       </div>
     )
   }

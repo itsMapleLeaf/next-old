@@ -1,6 +1,5 @@
-import { keyframes } from 'emotion'
 import * as React from 'react'
-import styled from 'react-emotion'
+import styled, { keyframes } from 'styled-components'
 import { Icon } from 'src/app/components/Icon'
 
 const Shade = styled.div`

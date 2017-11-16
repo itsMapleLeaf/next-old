@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 
 import { Icon } from 'src/app/components/Icon'
 import { preventDefault } from '../../common/util/react'

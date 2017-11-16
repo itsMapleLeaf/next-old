@@ -4,6 +4,7 @@ import * as React from 'react'
 import { updateStatus } from 'src/chat/actions'
 import { preventDefault } from 'src/common/util/react'
 import { Stores } from 'src/stores'
+import { Select, Button, TextArea } from 'src/ui/components'
 
 type InjectedProps = {
   initialStatus: string
@@ -24,6 +25,7 @@ function storesToProps(stores: Stores): InjectedProps {
   }
 }
 
+// TODO: rewrite with formik
 @inject(storesToProps)
 @observer
 class StatusMenuComponent extends React.Component<InjectedProps> {
@@ -63,23 +65,23 @@ class StatusMenuComponent extends React.Component<InjectedProps> {
             <h2 style={{ margin: 0 }}>Status Update</h2>
           </fieldset>
           <fieldset>
-            <select value={this.status} onChange={this.updateStatus}>
+            <Select value={this.status} onChange={this.updateStatus}>
               <option value="online">Online</option>
               <option value="looking">Looking</option>
               <option value="away">Away</option>
               <option value="busy">Busy</option>
               <option value="dnd">DND</option>
-            </select>
+            </Select>
           </fieldset>
           <fieldset>
-            <textarea
+            <TextArea
               placeholder="Status message..."
               value={this.statusMessage}
               onInput={this.updateStatusMessage}
             />
           </fieldset>
           <fieldset>
-            <button type="submit">Update</button>
+            <Button type="submit">Update</Button>
           </fieldset>
         </form>
       </div>

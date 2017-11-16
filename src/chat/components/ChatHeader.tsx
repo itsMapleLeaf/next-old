@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import MediaQuery from 'react-responsive'
 import { Icon } from 'src/app/components/Icon'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
