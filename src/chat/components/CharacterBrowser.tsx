@@ -1,7 +1,7 @@
 import { sortBy } from 'lodash'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import { getAvatarURL } from 'src/api'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { Stores } from 'src/stores'

@@ -6,7 +6,7 @@ import { Provider as StoreProvider } from 'mobx-react'
 import DevTools from 'mobx-react-devtools'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'emotion-theming'
 
 import { init } from './app/actions'
 import { App } from './app/components/App'

@@ -1,12 +1,8 @@
-import { Theme } from 'src/ui/theme'
-import { css } from 'styled-components'
+import { theme } from '../theme'
+import { css } from 'react-emotion'
 
-type Props = {
-  theme?: Theme
-}
-
-const backgroundColor = (props: Props) => props.theme!.mainColor.darken(0.2).toString()
-const backgroundColorActive = (props: Props) => props.theme!.mainColor.darken(0.4).toString()
+const backgroundColor = theme.mainColor.darken(0.2).toString()
+const backgroundColorActive = theme.mainColor.darken(0.4).toString()
 
 export const baseInputStyles = css`
   color: inherit;

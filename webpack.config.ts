@@ -20,7 +20,7 @@ export default (env: { production?: boolean } = {}) => {
   const babelLoader: webpack.Loader = {
     loader: 'babel-loader',
     options: {
-      plugins: ['lodash'],
+      plugins: ['lodash', 'emotion'],
     },
   }
 
@@ -43,8 +43,8 @@ export default (env: { production?: boolean } = {}) => {
 
   const sourceRule: webpack.Rule = {
     test: /\.tsx?$/,
-    include: [sourcePath],
     use: [babelLoader, tsLoader],
+    include: [sourcePath],
   }
 
   const cssLoaderRule: webpack.Rule = {

@@ -1,4 +1,4 @@
-import { injectGlobal } from 'styled-components'
+import { injectGlobal } from 'react-emotion'
 
 import { theme } from '../theme'
 

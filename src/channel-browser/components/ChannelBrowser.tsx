@@ -8,7 +8,7 @@ import { joinChannel, leaveChannel } from 'src/channel/actions'
 import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { preventDefault } from 'src/common/util/react'
 import { Button, Input } from 'src/ui/components'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 
 import { ChannelBrowserEntry } from '../models/ChannelBrowserEntry'
 
