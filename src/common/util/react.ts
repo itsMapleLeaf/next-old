@@ -28,10 +28,10 @@ export function stopPropagation<E extends React.SyntheticEvent<any>>(next?: (eve
   }
 }
 
-export function onlyOnSelf<E extends React.SyntheticEvent<any>>(next: (event: E) => void) {
+export function onlyOnSelf<E extends React.SyntheticEvent<any>>(next?: (event: E) => void) {
   return (event: E) => {
     if (event.target === event.currentTarget) {
-      next(event)
+      if (next) next(event)
     }
   }
 }
