@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { Formik, FormikProps } from 'formik'
+import { Formik, FormikProps, FormikConfig } from 'formik'
 import * as React from 'react'
 import { getAvatarURL } from 'src/api'
 import { preventDefault } from 'src/common/util/react'
@@ -23,33 +23,33 @@ type FormValues = {
 
 const storedCharacter = new StoredValue<string>('CharacterSelect_character')
 
+class CharacterSelectForm extends Formik<FormikConfig<FormValues>> {}
+
 export class CharacterSelect extends React.Component<CharacterSelectProps> {
-  form: Formik | null
-
-  async componentDidMount() {
-    if (this.form) {
-      const character = await storedCharacter.restore()
-      this.form.setFieldValue('character', character || '')
-    }
-  }
-
   render() {
     const handleBack = preventDefault(this.props.onBack)
 
     return (
       <section className="text-center">
         <h1>Choose your identity.</h1>
-        <Formik
+        <CharacterSelectForm
           initialValues={{ character: this.props.characters[0] }}
           render={this.renderForm}
           onSubmit={this.handleSubmit}
-          ref={form => (this.form = form)}
+          ref={this.initializeValues}
         />
         <p>
           <Link onClick={handleBack}>Back</Link>
         </p>
       </section>
     )
+  }
+
+  @bind
+  private async initializeValues(form: CharacterSelectForm | null) {
+    if (!form) return
+    const character = await storedCharacter.restore()
+    form.setFieldValue('character', character || '')
   }
 
   @bind

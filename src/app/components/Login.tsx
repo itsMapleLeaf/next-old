@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { Form, Formik, FormikProps } from 'formik'
+import { Form, Formik, FormikConfig, FormikProps } from 'formik'
 import * as React from 'react'
 import { preventDefault } from 'src/common/util/react'
 import { StoredValue } from 'src/common/util/storage'
@@ -20,27 +20,20 @@ type FormValues = {
 
 const storedUsername = new StoredValue<string>('Login_username')
 
+class LoginForm extends Formik<FormikConfig<FormValues>> {}
+
 export class Login extends React.Component<LoginProps> {
-  form: Formik | null
-
-  async componentDidMount() {
-    if (this.form) {
-      const username = await storedUsername.restore()
-      this.form.setFieldValue('username', username || '')
-    }
-  }
-
   render() {
     const handleAbout = preventDefault(this.props.onAbout)
 
     return (
       <div className="text-center">
         <h1 className="margin">Hello, beautiful.</h1>
-        <Formik
+        <LoginForm
           initialValues={{ username: '', password: '' }}
           render={this.renderForm}
           onSubmit={this.handleSubmit}
-          ref={form => (this.form = form)}
+          ref={this.initializeValues}
         />
         <p>{this.props.statusText}</p>
         <p>
@@ -48,6 +41,13 @@ export class Login extends React.Component<LoginProps> {
         </p>
       </div>
     )
+  }
+
+  @bind
+  private async initializeValues(form: LoginForm | null) {
+    if (!form) return
+    const username = await storedUsername.restore()
+    form.setFieldValue('username', username || '')
   }
 
   @bind
