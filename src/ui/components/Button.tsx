@@ -1,7 +1,7 @@
-import { baseInputStyles } from '../styles/inputStyles'
 import styled from 'react-emotion'
+import { baseInputStyles } from '../styles/inputStyles'
 
 export const Button = styled.button`
-  ${baseInputStyles};
   cursor: pointer;
+  ${baseInputStyles};
 `
