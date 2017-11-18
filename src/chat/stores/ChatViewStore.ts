@@ -1,11 +1,11 @@
 import { action, observable } from 'mobx'
-import { OverlayState } from 'src/chat/models/OverlayState'
+import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 
 export class ChatViewStore {
-  navDrawer = new OverlayState()
-  channelBrowser = new OverlayState()
-  statusMenu = new OverlayState()
-  friendBrowser = new OverlayState()
+  navDrawer = new OverlayViewModel()
+  channelBrowser = new OverlayViewModel()
+  statusMenu = new OverlayViewModel()
+  friendBrowser = new OverlayViewModel()
 
   @observable
   characterMenu = {

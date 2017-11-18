@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx'
-import { OverlayState } from 'src/chat/models/OverlayState'
+import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 
 export enum AppState {
   setup,
@@ -11,7 +11,7 @@ export enum AppState {
 
 export class AppStore {
   @observable state = AppState.setup
-  appInfo = new OverlayState()
+  appInfo = new OverlayViewModel()
 
   @action
   setState(state: AppState) {

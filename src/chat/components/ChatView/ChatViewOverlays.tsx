@@ -1,17 +1,17 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelBrowserContent } from 'src/channel-browser/components/ChannelBrowserContent'
-import { OverlayState } from 'src/chat/models/OverlayState'
 import { Fragment } from 'src/common/components/Fragment'
 import { Stores } from 'src/stores'
 import { Overlay } from 'src/ui/components'
+import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 import { CharacterBrowser } from './CharacterBrowser'
 import { StatusMenuContent } from './StatusMenuContent'
 
 type InjectedProps = {
-  statusMenu: OverlayState
-  channelBrowser: OverlayState
-  characterBrowser: OverlayState
+  statusMenu: OverlayViewModel
+  channelBrowser: OverlayViewModel
+  characterBrowser: OverlayViewModel
 }
 
 function ChatViewOverlaysComponent(props: InjectedProps) {

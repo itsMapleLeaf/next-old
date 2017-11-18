@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react'
 import * as React from 'react'
-import { OverlayState } from 'src/chat/models/OverlayState'
 import { Button, Link, Overlay } from 'src/ui/components'
+import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 
-function renderAppInfo(props: { overlay: OverlayState }) {
+function renderAppInfo(props: { overlay: OverlayViewModel }) {
   if (props.overlay.isOpen) {
     return (
       <Overlay>

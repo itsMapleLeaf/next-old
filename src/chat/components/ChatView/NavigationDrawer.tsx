@@ -1,12 +1,12 @@
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { OverlayState } from 'src/chat/models/OverlayState'
 import { Drawer } from 'src/common/components/Drawer'
 import { Stores } from 'src/stores'
+import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 import { NavigationContent } from './NavigationContent'
 
 type InjectedProps = {
-  navDrawer: OverlayState
+  navDrawer: OverlayViewModel
 }
 
 const NavigationDrawerComponent = (props: InjectedProps) => (

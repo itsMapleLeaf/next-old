@@ -2,10 +2,10 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 import { ChannelUserList } from 'src/channel/components/ChannelUserList'
 import { Channel } from 'src/channel/models/Channel'
-import { OverlayState } from 'src/chat/models/OverlayState'
 import { Drawer } from 'src/common/components/Drawer'
+import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 
-type Props = { channel: Channel; infoDrawerOverlay: OverlayState }
+type Props = { channel: Channel; infoDrawerOverlay: OverlayViewModel }
 
 @observer
 export class ChannelViewDrawer extends React.Component<Props> {

@@ -6,8 +6,8 @@ import { AppState } from 'src/app/stores/AppStore'
 import { fetchCharacters, fetchTicket, saveAuthData } from 'src/auth/actions'
 import { connectToServer } from 'src/chat/actions/socketActions'
 import { ChatView } from 'src/chat/components/ChatView'
-import { OverlayState } from 'src/chat/models/OverlayState'
 import { Stores } from 'src/stores'
+import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 import { init } from '../actions'
 import { AppInfo } from './AppInfo'
 import { CharacterSelect } from './CharacterSelect'
@@ -16,7 +16,7 @@ import { Login } from './Login'
 
 type InjectedProps = {
   appState: AppState
-  appInfoOverlay: OverlayState
+  appInfoOverlay: OverlayViewModel
   userCharacters: string[]
 
   onLoginSubmit: (username: string, password: string) => Promise<void>

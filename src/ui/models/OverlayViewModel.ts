@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx'
 
-export class OverlayState {
+export class OverlayViewModel {
   @observable private visible: boolean
 
   constructor(visible = false) {

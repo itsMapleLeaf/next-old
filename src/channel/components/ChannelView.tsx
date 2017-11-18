@@ -5,13 +5,12 @@ import MediaQuery from 'react-responsive'
 import { Icon } from 'src/app/components/Icon'
 import { Channel, ChannelMode } from 'src/channel/models/Channel'
 import { ChatInput } from 'src/chat/components/ChatInput'
-import { OverlayState } from 'src/chat/models/OverlayState'
-import { AutoScroller } from 'src/common/components/AutoScroller'
-import { preventDefault } from 'src/common/util/react'
 import { MessageComponent } from 'src/chat/components/ChatMessageView'
 import { ChatMessage } from 'src/chat/models/ChatMessage'
+import { AutoScroller } from 'src/common/components/AutoScroller'
+import { preventDefault } from 'src/common/util/react'
 import { Stores } from 'src/stores'
-
+import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 import { ChannelUserList } from './ChannelUserList'
 import { ChannelViewDrawer } from './ChannelViewDrawer'
 import { ChannelViewHeader } from './ChannelViewHeader'
@@ -38,7 +37,7 @@ function storesToProps(stores: Stores, props: Props): InjectedProps {
 @observer
 class ChannelViewComponent extends React.Component<Props & InjectedProps> {
   @observable private displayedMode = 'both' as ChannelMode
-  private infoDrawer = new OverlayState()
+  private infoDrawer = new OverlayViewModel()
 
   render() {
     const { channel } = this.props
