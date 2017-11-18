@@ -1,6 +1,6 @@
-import { channelBrowserStore } from 'src/stores'
-import { sendSocketCommand } from 'src/chat/actions/socketActions'
 import { ChannelBrowserEntry } from 'src/channel-browser/models/ChannelBrowserEntry'
+import { sendSocketCommand } from 'src/chat/actions/socketActions'
+import { channelBrowserStore } from 'src/stores'
 
 type ChannelBrowserEntryData = {
   name: string

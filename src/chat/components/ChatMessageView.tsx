@@ -2,8 +2,8 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import styled from 'react-emotion'
 import { CharacterName } from 'src/character/components/CharacterName'
-import { parseBBC } from 'src/chat/util/bbc'
 import { ChatMessage, MessageType } from 'src/chat/models/ChatMessage'
+import { parseBBC } from 'src/chat/util/bbc'
 import { Stores } from 'src/stores'
 
 const actionExp = /^\s*\/me\s*/

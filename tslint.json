@@ -4,6 +4,7 @@
   "rules": {
     "no-empty": false,
     "jsx-boolean-value": false,
-    "jsx-key": false
+    "jsx-key": false,
+    "ordered-imports": true
   }
 }

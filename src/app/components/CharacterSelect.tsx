@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { Formik, FormikProps, FormikConfig } from 'formik'
+import { Formik, FormikConfig, FormikProps } from 'formik'
 import * as React from 'react'
 import { getAvatarURL } from 'src/api'
 import { preventDefault } from 'src/common/util/react'

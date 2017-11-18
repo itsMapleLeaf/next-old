@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { Formik, FormikProps, FormikConfig } from 'formik'
+import { Formik, FormikConfig, FormikProps } from 'formik'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { updateStatus } from 'src/chat/actions'

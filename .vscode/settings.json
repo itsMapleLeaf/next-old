@@ -9,6 +9,5 @@
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.rulers": [100],
-  "editor.formatOnSave": true,
-  "typescript.extension.sortImports.sortOnSave": true
+  "editor.formatOnSave": true
 }

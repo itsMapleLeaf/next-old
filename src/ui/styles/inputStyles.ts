@@ -1,5 +1,5 @@
-import { theme } from '../theme'
 import { css } from 'react-emotion'
+import { theme } from '../theme'
 
 const backgroundColor = theme.mainColor.darken(0.2).toString()
 const backgroundColorActive = theme.mainColor.darken(0.4).toString()

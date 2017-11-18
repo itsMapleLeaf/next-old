@@ -1,12 +1,12 @@
+import { handleChannelBrowserSocketCommand } from 'src/channel-browser/actions'
 import {
+  handleChannelSocketCommand,
   restoreJoinedChannels,
   saveJoinedChannels,
-  handleChannelSocketCommand,
 } from 'src/channel/actions'
-import { restorePrivateChats, handlePrivateChatSocketCommand } from 'src/private-chat/actions'
-import * as stores from 'src/stores'
 import { handleCharacterSocketCommand } from 'src/character/actions'
-import { handleChannelBrowserSocketCommand } from 'src/channel-browser/actions'
+import { handlePrivateChatSocketCommand, restorePrivateChats } from 'src/private-chat/actions'
+import * as stores from 'src/stores'
 
 let socket: WebSocket | void
 

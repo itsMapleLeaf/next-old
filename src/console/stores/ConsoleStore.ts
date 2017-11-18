@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx'
+import { ChatMessage } from 'src/chat/models/ChatMessage'
 import { parseBBC } from 'src/chat/util/bbc'
 import { CommandInfo } from 'src/chat/util/chat-command'
-import { ChatMessage } from 'src/chat/models/ChatMessage'
 
 export class ConsoleStore {
   @observable messages = [] as ChatMessage[]

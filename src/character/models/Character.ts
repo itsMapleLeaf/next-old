@@ -1,4 +1,4 @@
-import { computed, observable, action } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import { parseBBC } from 'src/chat/util/bbc'
 
 export class Character {

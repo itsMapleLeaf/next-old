@@ -1,12 +1,12 @@
 import './index.scss'
 import './ui/styles/globalStyles'
 
+import { ThemeProvider } from 'emotion-theming'
 import { useStrict } from 'mobx'
 import { Provider as StoreProvider } from 'mobx-react'
 import DevTools from 'mobx-react-devtools'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { ThemeProvider } from 'emotion-theming'
 
 import { init } from './app/actions'
 import { App } from './app/components/App'

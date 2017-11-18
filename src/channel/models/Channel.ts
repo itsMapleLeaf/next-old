@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx'
-import { parseBBC } from 'src/chat/util/bbc'
 import { ChatMessage } from 'src/chat/models/ChatMessage'
+import { parseBBC } from 'src/chat/util/bbc'
 
 export type ChannelMode = 'chat' | 'ads' | 'both'
 
