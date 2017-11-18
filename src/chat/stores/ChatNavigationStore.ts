@@ -12,6 +12,7 @@ type EmptyRoute = { type: 'none' }
 
 export type Route = ConsoleRoute | ChannelRoute | PrivateChatRoute | EmptyRoute
 
+// IDEA: Turn this into a model and put it in ChatViewStore instead?
 export class ChatNavigationStore {
   consoleRoute = { type: 'console' } as ConsoleRoute
 

@@ -1,8 +1,7 @@
 import * as React from 'react'
 import styled from 'react-emotion'
-
 import { Icon } from 'src/app/components/Icon'
-import { preventDefault } from '../../common/util/react'
+import { preventDefault } from 'src/common/util/react'
 
 export type ChatTabProps = {
   children?: React.ReactNode
@@ -27,7 +26,7 @@ const CloseIcon = styled('a')`
   }
 `
 
-export function ChatTab(props: ChatTabProps) {
+export function NavigationTab(props: ChatTabProps) {
   const activeClass = props.active ? 'bg-color-main' : ''
   return (
     <Wrapper className={`${activeClass} flex-row flex-align-stretch`} active={props.active}>

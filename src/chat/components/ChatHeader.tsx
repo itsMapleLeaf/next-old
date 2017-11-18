@@ -4,7 +4,7 @@ import styled from 'react-emotion'
 import MediaQuery from 'react-responsive'
 import { Icon } from 'src/app/components/Icon'
 import { ChatViewStore } from 'src/chat/stores/ChatViewStore'
-import { mediaQueryMobile } from './ChatView'
+import { chatViewLayoutSmall } from '../styles/breakpoints'
 
 type ChatHeaderProps = {
   chatViewStore?: ChatViewStore
@@ -22,7 +22,7 @@ export class ChatHeader extends React.Component<ChatHeaderProps> {
   render() {
     return (
       <Container className="bg-color-darken-2 flex-row flex-align-center padding">
-        <MediaQuery query={mediaQueryMobile}>
+        <MediaQuery query={chatViewLayoutSmall}>
           <a href="#" onClick={this.props.chatViewStore!.navDrawer.toggle}>
             <Icon name="menu" size={24} />
           </a>

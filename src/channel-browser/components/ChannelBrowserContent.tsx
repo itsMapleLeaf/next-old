@@ -1,33 +1,49 @@
+import { bind } from 'decko'
 import { debounce, sortBy } from 'lodash'
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
-import { ChannelBrowserStore } from 'src/channel-browser/stores/ChannelBrowserStore'
+import { ChannelBrowserEntry } from 'src/channel-browser/models/ChannelBrowserEntry'
 import { joinChannel, leaveChannel } from 'src/channel/actions'
-import { ChannelStore } from 'src/channel/stores/ChannelStore'
 import { preventDefault } from 'src/common/util/react'
+import { Stores } from 'src/stores'
 import { Button, Input } from 'src/ui/components'
-import styled from 'react-emotion'
 
-import { ChannelBrowserEntry } from '../models/ChannelBrowserEntry'
-
-type ChannelBrowserProps = {
-  channelStore?: ChannelStore
-  channelBrowserStore?: ChannelBrowserStore
-  onDone?: () => void
+type Props = {
+  onDone: () => void
 }
 
-const Tab = styled('a')`
-  > * {
-    vertical-align: text-bottom;
-  }
-`
+type InjectedProps = {
+  publicChannels: ChannelBrowserEntry[]
+  privateChannels: ChannelBrowserEntry[]
+  isJoined: (channelID: string) => boolean
+  onChannelToggle: (channelID: string) => void
+}
 
-@inject('channelStore', 'channelBrowserStore')
+function sortEntries(entries: ChannelBrowserEntry[]) {
+  return sortBy(entries, e => e.title)
+}
+
+function storesToProps(stores: Stores): InjectedProps {
+  const { channelStore, channelBrowserStore } = stores
+  return {
+    publicChannels: sortEntries(channelBrowserStore.publicChannels),
+    privateChannels: sortEntries(channelBrowserStore.privateChannels),
+    isJoined: channelStore.isJoined.bind(channelStore),
+    onChannelToggle(id) {
+      if (channelStore.isJoined(id)) {
+        leaveChannel(id)
+      } else {
+        joinChannel(id)
+      }
+    },
+  }
+}
+
+@inject(storesToProps)
 @observer
-export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
-  store = this.props.channelBrowserStore!
+class ChannelBrowserContentComponent extends React.Component<Props & InjectedProps> {
   @observable currentList = 'publicChannels'
   @observable searchText = ''
 
@@ -43,39 +59,17 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
     this.currentList = list
   }
 
-  toggleChannel(id: string) {
-    const channels = this.props.channelStore!
-    if (channels.isJoined(id)) {
-      leaveChannel(id)
-    } else {
-      joinChannel(id)
-    }
-  }
-
-  @computed
-  get publicChannels() {
-    return this.sortChannels(this.filterChannels(this.store.publicChannels))
-  }
-
-  @computed
-  get privateChannels() {
-    return this.sortChannels(this.filterChannels(this.store.privateChannels))
-  }
-
-  sortChannels(channels: ChannelBrowserEntry[]) {
-    return sortBy(channels, ch => ch.title.toLowerCase())
+  @bind
+  handleSearchInput(event: React.UIEvent<HTMLInputElement>) {
+    this.setSearchTextDebounced(event.currentTarget.value)
   }
 
   filterChannels(channels: ChannelBrowserEntry[]) {
     const searchText = this.searchText.trim().toLowerCase()
-    if (searchText.length > 0) {
+    if (searchText !== '') {
       return channels.filter(ch => ch.title.toLowerCase().includes(searchText))
     }
     return channels
-  }
-
-  handleSearchInput = (event: React.UIEvent<HTMLInputElement>) => {
-    this.setSearchTextDebounced(event.currentTarget.value)
   }
 
   render() {
@@ -86,8 +80,8 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
           {this.renderTab('Private', 'key', 'privateChannels')}
         </div>
         <div className="flex-grow scroll-v">
-          {this.renderChannels(this.publicChannels, 'publicChannels')}
-          {this.renderChannels(this.privateChannels, 'privateChannels')}
+          {this.renderChannels(this.filterChannels(this.props.publicChannels), 'publicChannels')}
+          {this.renderChannels(this.filterChannels(this.props.privateChannels), 'privateChannels')}
         </div>
         <div className="flex-row padding bg-color-main">
           <Input
@@ -102,19 +96,19 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
     )
   }
 
-  renderTab(title: string, icon: string, list: string) {
+  private renderTab = (title: string, icon: string, list: string) => {
     const activeClass = this.currentList === list ? 'bg-color-main' : 'faded'
     const handleClick = () => this.setCurrentList(list)
     const className = `flex-grow flex-row flex-align-center padding ${activeClass}`
 
     return (
-      <Tab href="#" className={className} onClick={handleClick}>
+      <a href="#" className={className} onClick={handleClick}>
         <Icon name={icon} size={24} className="margin-right" /> {title}
-      </Tab>
+      </a>
     )
   }
 
-  renderChannels(channels: ChannelBrowserEntry[], list: string) {
+  private renderChannels = (channels: ChannelBrowserEntry[], list: string) => {
     return (
       <div style={{ display: this.currentList === list ? undefined : 'none' }}>
         {channels.map(this.renderChanelListEntry)}
@@ -122,9 +116,9 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
     )
   }
 
-  renderChanelListEntry = (ch: ChannelBrowserEntry) => {
-    const activeClass = this.props.channelStore!.isJoined(ch.id) ? 'bg-color-main' : 'faded'
-    const handleClick = () => this.toggleChannel(ch.id)
+  private renderChanelListEntry = (ch: ChannelBrowserEntry) => {
+    const activeClass = this.props.isJoined(ch.id) ? 'bg-color-main' : 'faded'
+    const handleClick = () => this.props.onChannelToggle(ch.id)
 
     return (
       <a key={ch.id} href="#" className={`flex-row ${activeClass}`} onClick={handleClick}>
@@ -134,3 +128,5 @@ export class ChannelBrowser extends React.Component<ChannelBrowserProps> {
     )
   }
 }
+
+export const ChannelBrowserContent = ChannelBrowserContentComponent as React.ComponentClass<Props>

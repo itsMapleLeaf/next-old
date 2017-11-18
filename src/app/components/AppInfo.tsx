@@ -1,13 +1,11 @@
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { OverlayState } from 'src/chat/models/OverlayState'
-import { FadeTransition } from 'src/common/components/FadeTransition'
-import { Overlay } from 'src/common/components/Overlay'
-import { Link, Button } from 'src/ui/components'
+import { Button, Link, Overlay } from 'src/ui/components'
 
 function renderAppInfo(props: { overlay: OverlayState }) {
-  return (
-    <FadeTransition visible={props.overlay.isOpen}>
+  if (props.overlay.isOpen) {
+    return (
       <Overlay>
         <div
           className="bg-color-main text-center padding scroll-v"
@@ -41,8 +39,10 @@ function renderAppInfo(props: { overlay: OverlayState }) {
           </p>
         </div>
       </Overlay>
-    </FadeTransition>
-  )
+    )
+  }
+
+  return null
 }
 
 export const AppInfo = observer(renderAppInfo)

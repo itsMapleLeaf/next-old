@@ -3,10 +3,10 @@ import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
 import { leaveChannel } from 'src/channel/actions'
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
-import { ChatTab } from 'src/chat/components/ChatTab'
 import { ChatNavigationStore, Route } from 'src/chat/stores/ChatNavigationStore'
 import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
 import { Stores } from 'src/stores'
+import { NavigationTab } from './NavigationTab'
 
 type InjectedProps = {
   navigation: ChatNavigationStore
@@ -37,7 +37,7 @@ function storesToProps(stores: Stores): InjectedProps {
 
 @inject(storesToProps)
 @observer
-class ChatNavTabsComponent extends React.Component<InjectedProps> {
+class NavigationTabsComponent extends React.Component<InjectedProps> {
   render() {
     return (
       <div>
@@ -63,9 +63,14 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
       const handleActivate = () => this.props.onTabActivate(route)
 
       return (
-        <ChatTab key={route.id} active={isActive} onActivate={handleActivate} onClose={handleClose}>
+        <NavigationTab
+          key={route.id}
+          active={isActive}
+          onActivate={handleActivate}
+          onClose={handleClose}
+        >
           <ChannelTabContent id={route.id} />
-        </ChatTab>
+        </NavigationTab>
       )
     })
   }
@@ -81,14 +86,14 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
       const handleClose = () => this.props.onPrivateChatClose(route.partner)
 
       return (
-        <ChatTab
+        <NavigationTab
           key={route.partner}
           active={isActive}
           onActivate={handleActivate}
           onClose={handleClose}
         >
           <PrivateChatTabContent partner={route.partner} />
-        </ChatTab>
+        </NavigationTab>
       )
     })
   }
@@ -100,11 +105,11 @@ class ChatNavTabsComponent extends React.Component<InjectedProps> {
     const handleActivate = () => this.props.onTabActivate(route)
 
     return (
-      <ChatTab active={currentRoute === route} onActivate={handleActivate}>
+      <NavigationTab active={currentRoute === route} onActivate={handleActivate}>
         <Icon name="code" className="margin-right" /> Console
-      </ChatTab>
+      </NavigationTab>
     )
   }
 }
 
-export const ChatNavTabs: React.ComponentClass<{}> = ChatNavTabsComponent
+export const NavigationTabList: React.ComponentClass<{}> = NavigationTabsComponent

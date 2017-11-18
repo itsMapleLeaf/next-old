@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from 'react-emotion'
-
 import { Icon } from 'src/app/components/Icon'
 import { preventDefault } from 'src/common/util/react'
+
 
 const Wrapper = styled('a')`
   opacity: 0.5;
@@ -12,7 +12,7 @@ const Wrapper = styled('a')`
   }
 `
 
-export function ChatAction(props: { icon: string; onClick?: () => void }) {
+export function NavigationAction(props: { icon: string; onClick?: () => void }) {
   return (
     <Wrapper
       href="#"

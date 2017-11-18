@@ -2,8 +2,8 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { fetchChannelList } from 'src/channel-browser/actions'
 import { disconnectFromServer } from 'src/chat/actions'
-import { ChatAction } from 'src/chat/components/ChatAction'
 import { Stores } from 'src/stores'
+import { NavigationAction } from './NavigationAction'
 
 type InjectedProps = {
   onChannelBrowser: () => void
@@ -36,24 +36,24 @@ function storesToProps(stores: Stores): InjectedProps {
 
 @inject(storesToProps)
 @observer
-class ChatNavActionsComponent extends React.Component<InjectedProps> {
+class NavigationActionListComponent extends React.Component<InjectedProps> {
   render() {
     return (
-      <div className="bg-color-darken-2 flex-column">
+      <div className="bg-color-darken-2 flex-column fill-area">
         <section className="flex-grow flex-column">
-          <ChatAction icon="forum" onClick={this.props.onChannelBrowser} />
-          <ChatAction icon="account-circle" onClick={this.props.onStatusMenu} />
-          <ChatAction icon="account-multiple" onClick={this.props.onFriendBrowser} />
-          <ChatAction icon="info" onClick={this.props.onInfo} />
+          <NavigationAction icon="forum" onClick={this.props.onChannelBrowser} />
+          <NavigationAction icon="account-circle" onClick={this.props.onStatusMenu} />
+          <NavigationAction icon="account-multiple" onClick={this.props.onFriendBrowser} />
+          <NavigationAction icon="info" onClick={this.props.onInfo} />
           {/* <ChatAction icon="settings" /> */}
         </section>
 
         <section className="flex-column">
-          <ChatAction icon="exit" onClick={this.props.onExit} />
+          <NavigationAction icon="exit" onClick={this.props.onExit} />
         </section>
       </div>
     )
   }
 }
 
-export const ChatNavActions: React.ComponentClass = ChatNavActionsComponent
+export const NavigationActionList: React.ComponentClass = NavigationActionListComponent

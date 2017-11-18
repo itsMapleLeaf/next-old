@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { Formik, FormikProps } from 'formik'
+import { Formik, FormikProps, FormikConfig } from 'formik'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { updateStatus } from 'src/chat/actions'
@@ -28,13 +28,15 @@ type FormValues = {
   statusMessage: string
 }
 
+class StatusForm extends Formik<FormikConfig<FormValues>> {}
+
 @inject(storesToProps)
 @observer
-class StatusMenuComponent extends React.Component<InjectedProps> {
+class StatusMenuContentComponent extends React.Component<InjectedProps> {
   render() {
     return (
       <div className="bg-color-main">
-        <Formik
+        <StatusForm
           initialValues={this.props.initialValues}
           render={this.renderForm}
           onSubmit={this.handleSubmit}
@@ -80,4 +82,4 @@ class StatusMenuComponent extends React.Component<InjectedProps> {
   }
 }
 
-export const StatusMenu: React.ComponentClass<{}> = StatusMenuComponent
+export const StatusMenuContent: React.ComponentClass<{}> = StatusMenuContentComponent

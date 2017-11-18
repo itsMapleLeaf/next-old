@@ -6,14 +6,6 @@ import { getAvatarURL } from 'src/api'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { Stores } from 'src/stores'
 
-const Wrapper = styled('div')`
-  width: 400px;
-  height: 600px;
-
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 40px);
-`
-
 type InjectedProps = {
   onlineFriends: string[]
   offlineFriends: string[]
@@ -46,7 +38,7 @@ class CharacterBrowserComponent extends React.Component<InjectedProps> {
   render() {
     const { onlineFriends, offlineFriends, ignoredUsers } = this.props
     return (
-      <Wrapper className="bg-color-main padding spaced-children-v scroll-v">
+      <div className="bg-color-main padding spaced-children-v scroll-v">
         <h2>Friends / Bookmarks</h2>
         {this.renderUserList(onlineFriends)}
 
@@ -55,7 +47,7 @@ class CharacterBrowserComponent extends React.Component<InjectedProps> {
 
         <h2>Ignored</h2>
         {this.renderUserList(ignoredUsers)}
-      </Wrapper>
+      </div>
     )
   }
 
