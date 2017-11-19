@@ -4,7 +4,7 @@ import { getAvatarURL } from 'src/api'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
-import { MessageComponent } from 'src/chat/components/ChatMessageView'
+import { ChatMessageView } from 'src/chat/components/ChatMessageView'
 import { AutoScroller } from 'src/common/components/AutoScroller'
 import { PrivateChat } from 'src/private-chat/models/PrivateChat'
 import { Stores } from 'src/stores'
@@ -30,7 +30,7 @@ function storesToProps(stores: Stores, props: Props): InjectedProps {
 class PrivateChatViewComponent extends React.Component<Props & InjectedProps> {
   renderMessages() {
     const { messages } = this.props.privateChat
-    return messages.map((message, i) => <MessageComponent key={i} message={message} />)
+    return messages.map((message, i) => <ChatMessageView key={i} message={message} />)
   }
 
   render() {

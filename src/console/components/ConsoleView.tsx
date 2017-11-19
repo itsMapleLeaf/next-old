@@ -2,7 +2,7 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { ChatInput } from 'src/chat/components/ChatInput'
-import { MessageComponent } from 'src/chat/components/ChatMessageView'
+import { ChatMessageView } from 'src/chat/components/ChatMessageView'
 import { ChatMessage } from 'src/chat/models/ChatMessage'
 import { Stores } from 'src/stores'
 
@@ -42,7 +42,7 @@ class ConsoleViewComponent extends React.Component<InjectedProps> {
   }
 
   private renderMessage = (message: ChatMessage, i: number) => (
-    <MessageComponent key={i} message={message} />
+    <ChatMessageView key={i} message={message} />
   )
 }
 
