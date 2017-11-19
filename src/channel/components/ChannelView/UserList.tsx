@@ -2,10 +2,11 @@ import { sortBy } from 'lodash'
 import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import styled from 'react-emotion'
+import styled, { cx } from 'react-emotion'
 import { CharacterName } from 'src/character/components/CharacterName'
 import { CharacterStore } from 'src/character/stores/CharacterStore'
 import { ChatStore } from 'src/chat/stores/ChatStore'
+import { scrollVertical } from 'src/common/styles/helpers'
 
 type Props = {
   characterStore?: CharacterStore
@@ -20,7 +21,7 @@ const ListItem = styled('div')`
 
 @inject('characterStore', 'chatStore')
 @observer
-export class ChannelUserList extends React.Component<Props> {
+export class UserList extends React.Component<Props> {
   compareCharacters = (name: string) => {
     const { characterStore, chatStore } = this.props
     const char = characterStore!.getCharacter(name)
@@ -55,12 +56,23 @@ export class ChannelUserList extends React.Component<Props> {
   }
 
   render() {
-    return <div>{this.sortedUsers.map(this.renderUser)}</div>
+    return (
+      // NOTE: using scrollVertical here is required for correct height calculations in regards to
+      // the user list element... for some reason
+      <div className={cx('flex-column', scrollVertical)}>
+        <div className={cx('bg-color-darken-2 padding')}>
+          Characters ({this.props.users.length})
+        </div>
+        <div className={cx('bg-color-darken-1 flex-grow', scrollVertical)}>
+          {this.sortedUsers.map(this.renderUser)}
+        </div>
+      </div>
+    )
   }
 
   renderUser = (name: string) => {
     return (
-      <ListItem className={`${this.getHighlightClass(name)}`} key={name}>
+      <ListItem className={this.getHighlightClass(name)} key={name}>
         <CharacterName name={name} />
       </ListItem>
     )
