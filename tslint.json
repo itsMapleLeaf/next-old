@@ -5,6 +5,7 @@
     "no-empty": false,
     "jsx-boolean-value": false,
     "jsx-key": false,
+    "jsx-self-close": false,
     "ordered-imports": true
   }
 }
