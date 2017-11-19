@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'react-emotion'
-import { fullscreenStyle, scrollVertical } from 'src/common/styles/helpers'
+import { fullscreen, scrollVertical } from 'src/common/styles/helpers'
 import { onlyOnSelf } from 'src/common/util/react'
 
 export const OverlayShade = styled.div`
@@ -9,7 +9,7 @@ export const OverlayShade = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  ${fullscreenStyle};
+  ${fullscreen};
 `
 
 type OverlayPanelProps = React.HTMLAttributes<HTMLDivElement> & {

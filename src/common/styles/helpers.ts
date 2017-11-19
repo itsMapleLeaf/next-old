@@ -1,6 +1,6 @@
 import { css } from 'react-emotion'
 
-export const fullscreenStyle = css`
+export const fullscreen = css`
   position: fixed;
   left: 0;
   right: 0;
