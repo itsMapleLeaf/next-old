@@ -8,8 +8,8 @@ import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 import { LargeLayout } from './LargeLayout'
 import { SmallLayout } from './SmallLayout'
 
-const layoutSmall = '(max-width: 900px)'
-const layoutLarge = '(min-width: 900px)'
+const smallLayoutQuery = '(max-width: 900px)'
+const largeLayoutQuery = '(min-width: 900px)'
 
 type Props = {
   id: string
@@ -33,10 +33,10 @@ class ChannelViewComponent extends React.Component<Props & InjectedProps> {
   render() {
     return (
       <Fragment>
-        <MediaQuery query={layoutLarge}>
+        <MediaQuery query={largeLayoutQuery}>
           <LargeLayout channel={this.props.channel} />
         </MediaQuery>
-        <MediaQuery query={layoutSmall}>
+        <MediaQuery query={smallLayoutQuery}>
           <SmallLayout channel={this.props.channel} infoDrawer={this.infoDrawer} />
         </MediaQuery>
       </Fragment>
