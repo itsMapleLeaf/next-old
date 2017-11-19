@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { Icon } from 'src/app/components/Icon'
-import { Filters } from 'src/channel/components/ChannelView/Filters'
 import { Channel } from 'src/channel/models/Channel'
 import { ChatHeader } from 'src/chat/components/ChatHeader'
 import { HTML } from 'src/common/components/HTML'
 import { preventDefault } from 'src/common/util/react'
+import { Filters } from './Filters'
 
 type Props = {
   channel: Channel

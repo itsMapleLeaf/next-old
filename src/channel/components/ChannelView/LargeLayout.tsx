@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react'
 import * as React from 'react'
 import { cx } from 'react-emotion'
-import { Description } from 'src/channel/components/ChannelView/Description'
-import { Header } from 'src/channel/components/ChannelView/Header'
-import { MessageList } from 'src/channel/components/ChannelView/MessageList'
-import { UserList } from 'src/channel/components/ChannelView/UserList'
 import { Channel } from 'src/channel/models/Channel'
 import { ChatInput } from 'src/chat/components/ChatInput'
 import { scrollVertical } from 'src/common/styles/helpers'
 import { Grid, GridCell } from 'src/ui/components'
+import { Description } from './Description'
+import { Header } from './Header'
+import { MessageList } from './MessageList'
+import { UserList } from './UserList'
 
 export const LargeLayout = observer(function LargeLayout(props: { channel: Channel }) {
   return (
