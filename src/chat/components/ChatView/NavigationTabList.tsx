@@ -4,6 +4,7 @@ import { Icon } from 'src/app/components/Icon'
 import { leaveChannel } from 'src/channel/actions'
 import { ChannelTabContent } from 'src/channel/components/ChannelTabContent'
 import { ChatNavigationStore, Route } from 'src/chat/stores/ChatNavigationStore'
+import { Fragment } from 'src/common/components/Fragment'
 import { PrivateChatTabContent } from 'src/private-chat/components/PrivateChatTabContent'
 import { Stores } from 'src/stores'
 import { NavigationTab } from './NavigationTab'
@@ -40,7 +41,7 @@ function storesToProps(stores: Stores): InjectedProps {
 class NavigationTabsComponent extends React.Component<InjectedProps> {
   render() {
     return (
-      <div>
+      <Fragment>
         {this.renderConsoleTab()}
 
         <h3 className="padding faded">Channels</h3>
@@ -48,7 +49,7 @@ class NavigationTabsComponent extends React.Component<InjectedProps> {
 
         <h3 className="padding faded">Private Chats</h3>
         {this.renderPrivateChatTabs()}
-      </div>
+      </Fragment>
     )
   }
 
