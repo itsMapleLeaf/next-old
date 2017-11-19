@@ -11,7 +11,7 @@ export class Channel {
   @observable messages = [] as ChatMessage[]
   @observable ops = [] as string[]
   @observable mode = 'both' as ChannelMode
-  @observable selectedMode = 'both' as ChannelMode
+  @observable selectedMode = 'chat' as ChannelMode
 
   constructor(public id: string) {}
 
@@ -23,6 +23,11 @@ export class Channel {
   @action
   setMode(mode: ChannelMode) {
     this.mode = mode
+  }
+
+  @action
+  setSelectedMode(mode: ChannelMode) {
+    this.selectedMode = mode
   }
 
   @action
@@ -68,6 +73,24 @@ export class Channel {
 
   @computed
   get parsedDescription() {
-    return { __html: parseBBC(this.description) }
+    const text = this.description.trim()
+    if (text !== '') {
+      return parseBBC(this.description)
+    }
+    return 'No description found.'
+  }
+
+  @computed
+  get filteredMessages() {
+    if (this.mode !== 'both') {
+      return this.messages
+    }
+    if (this.selectedMode === 'chat') {
+      return this.messages.filter(msg => msg.type === 'normal')
+    }
+    if (this.selectedMode === 'ads') {
+      return this.messages.filter(msg => msg.type === 'lfrp')
+    }
+    return this.messages
   }
 }
