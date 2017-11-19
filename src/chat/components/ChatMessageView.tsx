@@ -71,6 +71,6 @@ function storesToProps(stores: Stores, props: Props): InjectedProps {
   }
 }
 
-export const MessageComponent: React.StatelessComponent<Props> = inject(storesToProps)(
+export const ChatMessageView: React.StatelessComponent<Props> = inject(storesToProps)(
   observer(renderMessage),
 )
