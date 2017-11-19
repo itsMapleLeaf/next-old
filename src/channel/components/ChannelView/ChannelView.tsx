@@ -8,8 +8,8 @@ import { OverlayViewModel } from 'src/ui/models/OverlayViewModel'
 import { LargeLayout } from './LargeLayout'
 import { SmallLayout } from './SmallLayout'
 
-export const layoutSmall = '(max-width: 900px)'
-export const layoutLarge = '(min-width: 900px)'
+const layoutSmall = '(max-width: 900px)'
+const layoutLarge = '(min-width: 900px)'
 
 type Props = {
   id: string
