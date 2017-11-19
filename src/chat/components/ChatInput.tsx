@@ -9,6 +9,8 @@ import { Button, TextArea } from 'src/ui/components'
 
 import { parseBBC } from '../util/bbc'
 
+type Props = JSX.IntrinsicElements['div']
+
 type InjectedProps = {
   onMessage: (message: string) => void
   onCommand: (command: CommandInfo) => void
@@ -49,7 +51,7 @@ function storesToProps(stores: Stores): InjectedProps {
 
 @inject(storesToProps)
 @observer
-class ChatInputComponent extends React.Component<InjectedProps> {
+class ChatInputComponent extends React.Component<InjectedProps & Props> {
   @observable message = ''
 
   @action.bound
@@ -79,7 +81,7 @@ class ChatInputComponent extends React.Component<InjectedProps> {
   render() {
     const { onMessage, onCommand, ...divProps } = this.props
     return (
-      <div className="flex-row padding full-width" {...divProps}>
+      <div className="flex-row padding bg-color-main" {...divProps}>
         <TextArea
           className="flex-grow padding margin-right"
           placeholder="Say something..."
@@ -94,4 +96,4 @@ class ChatInputComponent extends React.Component<InjectedProps> {
   }
 }
 
-export const ChatInput: React.ComponentClass<{}> = ChatInputComponent
+export const ChatInput: React.ComponentClass<Props> = ChatInputComponent
