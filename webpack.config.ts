@@ -79,8 +79,6 @@ export default (env: { production?: boolean } = {}) => {
         defaultAttribute: 'defer',
       }),
 
-      new CleanPlugin(['build'], { verbose: false }),
-
       new ExtractTextPlugin({
         filename: 'css/[name].css',
         disable: !env.production,
@@ -114,6 +112,8 @@ export default (env: { production?: boolean } = {}) => {
 
   const prodConfig: webpack.Configuration = {
     plugins: [
+      new CleanPlugin(['build'], { verbose: false }),
+
       new CopyPlugin([
         {
           from: 'public',
