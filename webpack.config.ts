@@ -147,8 +147,11 @@ export default (env: { production?: boolean } = {}) => {
         },
       }),
 
-      new UglifyPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
+
+      new UglifyPlugin({
+        sourceMap: true,
+      }),
     ],
     devtool: 'source-map',
   }
