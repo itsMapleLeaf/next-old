@@ -57,14 +57,6 @@ export default (env: { production?: boolean } = {}) => {
     }),
   }
 
-  const sassLoaderRule: webpack.Rule = {
-    test: /\.s(c|a)ss$/,
-    use: ExtractTextPlugin.extract({
-      use: [cssLoader, 'sass-loader'],
-      fallback: 'style-loader',
-    }),
-  }
-
   const baseConfig: webpack.Configuration = {
     entry: {
       app: resolve(sourcePath, 'main'),
@@ -74,7 +66,7 @@ export default (env: { production?: boolean } = {}) => {
       path: outputPath,
     },
     module: {
-      rules: [sourceRule, cssLoaderRule, sassLoaderRule],
+      rules: [sourceRule, cssLoaderRule],
     },
     plugins: [
       new HTMLPlugin({
