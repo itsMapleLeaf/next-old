@@ -3,16 +3,26 @@
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "strict": true,
     "strictFunctionTypes": false,
     "jsx": "react",
-    "baseUrl": ".",
     "experimentalDecorators": true,
     "importHelpers": true,
     "noUnusedLocals": true,
     "sourceMap": true,
-    "plugins": [{ "name": "typescript-styled-plugin" }]
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ]
   },
-  "include": ["src/**/*", "typings/**/*", "webpack.config.ts"]
+  "include": [
+    "src/**/*",
+    "typings/**/*",
+    "webpack.config.ts"
+  ]
 }

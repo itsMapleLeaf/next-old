@@ -6,6 +6,7 @@
     "jsx-boolean-value": false,
     "jsx-key": false,
     "jsx-self-close": false,
+    "jsx-no-lambda": false,
     "ordered-imports": true
   }
 }
