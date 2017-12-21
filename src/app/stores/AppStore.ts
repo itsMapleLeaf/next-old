@@ -41,6 +41,8 @@ export class AppStore {
   }
 
   async init() {
+    this.showLoading('Setting things up...')
+
     try {
       const auth = await storage.getAuthData()
       if (!auth) throw new Error('Auth data not found')
