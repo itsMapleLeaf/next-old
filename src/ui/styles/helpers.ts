@@ -14,3 +14,7 @@ export const flexCenter = css`
   align-items: center;
   justify-content: center;
 `
+
+export const faded = css`
+  opacity: 0.5;
+`
