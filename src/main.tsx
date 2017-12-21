@@ -1,18 +1,18 @@
 import 'sanitize.css'
 
 import { useStrict } from 'mobx'
-import { Provider as StoreProvider } from 'mobx-react'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { App } from './app/components/App'
+import { StoreBroadcast } from './storeBroadcast'
 import { stores } from './stores'
 import { applyGlobalStyles } from './ui/styles/global'
 
 function render() {
   const root = (
-    <StoreProvider {...stores}>
+    <StoreBroadcast value={stores}>
       <App />
-    </StoreProvider>
+    </StoreBroadcast>
   )
 
   ReactDOM.render(root, document.getElementById('root'))
