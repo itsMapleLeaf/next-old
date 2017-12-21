@@ -49,13 +49,13 @@ const AppComponent = (props: Props) => {
 const storesToProps: Injector<Props> = stores => ({
   view: stores.appStore.view,
   onLoginSubmit: values => {
-    stores.appStore.handleLogin(values.username, values.password)
+    stores.appStore.handleLogin(values.username, values.password).catch(console.error)
   },
   onCharacterSubmit: values => {
     stores.appStore.handleCharacterSubmit(values.character)
   },
   onCharacterChange: character => {
-    stores.appStore.handleCharacterChange(character)
+    stores.appStore.handleCharacterChange(character).catch(console.error)
   },
 })
 
