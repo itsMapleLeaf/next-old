@@ -41,7 +41,17 @@ export class AppStore {
   }
 
   async init() {
-    this.showLogin()
+    try {
+      const auth = await storage.getAuthData()
+      if (!auth) throw new Error('Auth data not found')
+
+      const characters = await api.fetchCharacterList(auth.account, auth.ticket)
+      const lastCharacter = await storage.getLastCharacter(auth.account)
+
+      this.showCharacterSelect(characters, lastCharacter || characters[0])
+    } catch {
+      this.showLogin()
+    }
   }
 
   async handleLogin(account: string, password: string) {
@@ -54,6 +64,8 @@ export class AppStore {
 
       this.setAuthData(account, ticket)
       this.showCharacterSelect(characters, lastCharacter || characters[0])
+
+      await storage.setAuthData(account, ticket)
     } catch (error) {
       this.showLogin(error.message || String(error))
       console.error('Login error', error.stack || String(error))
