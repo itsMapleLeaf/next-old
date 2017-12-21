@@ -13,10 +13,6 @@ type Props = {
 }
 
 const AppComponent = ({ view, ...props }: Props) => {
-  if (!view) {
-    return <div>no view found</div>
-  }
-
   switch (view.name) {
     case 'login':
       return <Login onSubmit={props.onLoginSubmit} statusMessage={view.statusMessage} />
