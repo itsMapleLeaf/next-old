@@ -3,7 +3,7 @@ import { Formik, FormikProps } from 'formik'
 import * as React from 'react'
 import styled from 'react-emotion'
 import { getAvatarURL } from '../../api'
-import { Button, Select } from '../../ui/components'
+import { Button, Link, Select } from '../../ui/components'
 import { helpers, theme } from '../../ui/styles'
 
 const PageContainer = styled.main`
@@ -28,6 +28,12 @@ const AvatarImage = styled.img`
   height: 100px;
 `
 
+const BackButton = styled(Link)`
+  display: inline-block;
+  margin: 0.5rem 0 0.8rem;
+  ${helpers.faded};
+`
+
 type FormValues = {
   character: string
 }
@@ -37,6 +43,7 @@ type Props = {
   initialCharacter: string
   onCharacterChange: (character: string) => void
   onSubmit: (values: FormValues) => void
+  onBack: () => void
 }
 
 export class CharacterSelect extends React.Component<Props> {
@@ -47,11 +54,14 @@ export class CharacterSelect extends React.Component<Props> {
           <Header>
             <h1>Choose your identity.</h1>
           </Header>
+
           <Formik
             initialValues={{ character: this.props.initialCharacter }}
             render={this.renderForm}
             onSubmit={this.handleSubmit}
           />
+
+          <BackButton onClick={this.props.onBack}>Back to Login</BackButton>
         </Panel>
       </PageContainer>
     )
@@ -67,6 +77,7 @@ export class CharacterSelect extends React.Component<Props> {
             alt={`Avatar for ${props.values.character}`}
           />
         </fieldset>
+
         <fieldset>
           <Select
             name="character"
@@ -76,6 +87,7 @@ export class CharacterSelect extends React.Component<Props> {
             {this.props.characters.map(name => <option key={name}>{name}</option>)}
           </Select>
         </fieldset>
+
         <fieldset>
           <Button type="submit">Enter chat</Button>
         </fieldset>

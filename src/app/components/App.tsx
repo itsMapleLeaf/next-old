@@ -10,6 +10,7 @@ type Props = {
   onLoginSubmit: (values: LoginValues) => void
   onCharacterSubmit: (values: CharacterSelectValues) => void
   onCharacterChange: (character: string) => void
+  onReturnToLogin: () => void
 }
 
 const AppComponent = ({ view, ...props }: Props) => {
@@ -24,6 +25,7 @@ const AppComponent = ({ view, ...props }: Props) => {
           initialCharacter={view.lastCharacter}
           onSubmit={props.onCharacterSubmit}
           onCharacterChange={props.onCharacterChange}
+          onBack={props.onReturnToLogin}
         />
       )
 
@@ -50,6 +52,9 @@ export const App = () => (
         }}
         onCharacterChange={character => {
           stores.appStore.handleCharacterChange(character).catch(console.error)
+        }}
+        onReturnToLogin={() => {
+          stores.appStore.showLogin()
         }}
       />
     )}
