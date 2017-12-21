@@ -15,9 +15,7 @@ type Props = {
   onCharacterChange?: (character: string) => void
 }
 
-const AppComponent = (props: Props) => {
-  const { view } = props
-
+const AppComponent = ({ view, ...props }: Props) => {
   if (!view) {
     return <div>no view found</div>
   }
