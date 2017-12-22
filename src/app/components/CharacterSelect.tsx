@@ -5,6 +5,7 @@ import styled from 'react-emotion'
 import { getAvatarURL } from '../../api'
 import { Button, Link, Select } from '../../ui/components'
 import { helpers, theme } from '../../ui/styles'
+import { StoreSubscriber } from '../../storeBroadcast'
 
 const PageContainer = styled.main`
   ${helpers.flexCenter};
@@ -48,7 +49,7 @@ type Props = {
   onBack: () => void
 }
 
-export class CharacterSelect extends React.Component<Props> {
+class CharacterSelectComponent extends React.Component<Props> {
   form: Formik | null
 
   componentWillReceiveProps(next: Props) {
@@ -120,4 +121,16 @@ export class CharacterSelect extends React.Component<Props> {
   }
 }
 
-export { FormValues as CharacterSelectValues }
+export const CharacterSelect = () => (
+  <StoreSubscriber>
+    {({ appStore }) => (
+      <CharacterSelectComponent
+        characters={appStore.characters}
+        initialCharacter={appStore.lastCharacter}
+        onSubmit={appStore.handleCharacterSubmit}
+        onCharacterChange={appStore.handleCharacterChange}
+        onBack={appStore.showLogin}
+      />
+    )}
+  </StoreSubscriber>
+)

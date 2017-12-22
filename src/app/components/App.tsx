@@ -10,17 +10,11 @@ export const App = () => (
     {({ appStore }) => (
       <>
         <FadeTransition active={appStore.view === 'login'}>
-          <Login onSubmit={appStore.handleLoginSubmit} statusMessage={appStore.loginStatus} />
+          <Login />
         </FadeTransition>
 
         <FadeTransition active={appStore.view === 'characterSelect'}>
-          <CharacterSelect
-            characters={appStore.characters}
-            initialCharacter={appStore.lastCharacter}
-            onSubmit={appStore.handleCharacterSubmit}
-            onCharacterChange={appStore.handleCharacterChange}
-            onBack={appStore.showLogin}
-          />
+          <CharacterSelect />
         </FadeTransition>
 
         <FadeTransition active={appStore.view === 'chat'}>
