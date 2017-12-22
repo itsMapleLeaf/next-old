@@ -1,43 +1,49 @@
+import { bind } from 'decko'
 import { action, observable } from 'mobx'
 import * as api from '../../api'
 import * as storage from '../helpers/storage'
 
-export type AppStoreView =
-  | { name: 'none' }
-  | { name: 'loading'; message: string }
-  | { name: 'login'; statusMessage: string }
-  | { name: 'characterSelect'; characters: string[]; lastCharacter: string }
-  | { name: 'chat'; identity: string }
+export type AppStoreView = 'none' | 'loading' | 'login' | 'characterSelect' | 'chat'
 
 export class AppStore {
   @observable account = ''
   @observable ticket = ''
-  @observable view: AppStoreView = { name: 'none' }
+  @observable characters = [] as string[]
+  @observable lastCharacter = ''
+  @observable loginStatus = ''
+  @observable loadingMessage = ''
+  @observable identity = ''
+  @observable view: AppStoreView = 'none'
 
-  @action
+  @action.bound
   setAuthData(account: string, ticket: string) {
     this.account = account
     this.ticket = ticket
   }
 
-  @action
+  @action.bound
   showLoading(message: string) {
-    this.view = { name: 'loading', message }
+    this.loadingMessage = message
+    this.view = 'loading'
   }
 
-  @action
+  @action.bound
   showLogin(statusMessage = '') {
-    this.view = { name: 'login', statusMessage }
+    this.loginStatus = statusMessage
+    this.view = 'login'
   }
 
-  @action
+  @action.bound
   showCharacterSelect(characters: string[], lastCharacter: string) {
-    this.view = { name: 'characterSelect', characters, lastCharacter }
+    this.characters = characters
+    this.lastCharacter = lastCharacter
+    this.view = 'characterSelect'
   }
 
-  @action
+  @action.bound
   showChat(identity: string) {
-    this.view = { name: 'chat', identity }
+    this.identity = identity
+    this.view = 'chat'
   }
 
   async init() {
@@ -56,7 +62,8 @@ export class AppStore {
     }
   }
 
-  async handleLogin(account: string, password: string) {
+  @bind
+  async handleLoginSubmit(account: string, password: string) {
     this.showLoading('Logging in...')
 
     try {
@@ -74,10 +81,12 @@ export class AppStore {
     }
   }
 
+  @bind
   async handleCharacterChange(character: string) {
     await storage.setLastCharacter(this.account, character)
   }
 
+  @bind
   handleCharacterSubmit(character: string) {
     this.showLoading('Connecting to chat...')
     //

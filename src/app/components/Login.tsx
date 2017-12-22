@@ -23,7 +23,7 @@ const Panel = styled.section`
 `
 
 type Props = {
-  onSubmit: (values: LoginValues) => void
+  onSubmit: (username: string, password: string) => void
   statusMessage: string
 }
 
@@ -84,6 +84,6 @@ export class Login extends React.Component<Props> {
 
   @bind
   private handleSubmit(values: LoginValues) {
-    this.props.onSubmit(values)
+    this.props.onSubmit(values.username, values.password)
   }
 }

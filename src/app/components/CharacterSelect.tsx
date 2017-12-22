@@ -42,11 +42,21 @@ type Props = {
   characters: string[]
   initialCharacter: string
   onCharacterChange: (character: string) => void
-  onSubmit: (values: FormValues) => void
+  onSubmit: (character: string) => void
   onBack: () => void
 }
 
 export class CharacterSelect extends React.Component<Props> {
+  form: Formik | null
+
+  componentWillReceiveProps(next: Props) {
+    if (this.props.initialCharacter !== next.initialCharacter) {
+      if (this.form) {
+        this.form.setFieldValue('character', next.initialCharacter)
+      }
+    }
+  }
+
   render() {
     return (
       <PageContainer>
@@ -56,12 +66,13 @@ export class CharacterSelect extends React.Component<Props> {
           </Header>
 
           <Formik
-            initialValues={{ character: this.props.initialCharacter }}
+            initialValues={{ character: '' }}
             render={this.renderForm}
             onSubmit={this.handleSubmit}
+            ref={form => (this.form = form)}
           />
 
-          <BackButton onClick={this.props.onBack}>Back to Login</BackButton>
+          <BackButton onClick={() => this.props.onBack()}>Back to Login</BackButton>
         </Panel>
       </PageContainer>
     )
@@ -106,7 +117,7 @@ export class CharacterSelect extends React.Component<Props> {
 
   @bind
   private handleSubmit(values: FormValues) {
-    this.props.onSubmit(values)
+    this.props.onSubmit(values.character)
   }
 }
 

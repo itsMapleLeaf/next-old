@@ -1,62 +1,36 @@
 import * as React from 'react'
 import { StoreSubscriber } from '../../storeBroadcast'
-import { AppStoreView } from '../stores/AppStore'
-import { CharacterSelect, CharacterSelectValues } from './CharacterSelect'
+import { FadeTransition } from '../../ui/components/FadeTransition'
+import { CharacterSelect } from './CharacterSelect'
 import { Loading } from './Loading'
-import { Login, LoginValues } from './Login'
-
-type Props = {
-  view: AppStoreView
-  onLoginSubmit: (values: LoginValues) => void
-  onCharacterSubmit: (values: CharacterSelectValues) => void
-  onCharacterChange: (character: string) => void
-  onReturnToLogin: () => void
-}
-
-const AppComponent = ({ view, ...props }: Props) => {
-  switch (view.name) {
-    case 'login':
-      return <Login onSubmit={props.onLoginSubmit} statusMessage={view.statusMessage} />
-
-    case 'characterSelect':
-      return (
-        <CharacterSelect
-          characters={view.characters}
-          initialCharacter={view.lastCharacter}
-          onSubmit={props.onCharacterSubmit}
-          onCharacterChange={props.onCharacterChange}
-          onBack={props.onReturnToLogin}
-        />
-      )
-
-    case 'chat':
-      return <div>chat here</div>
-
-    case 'loading':
-      return <Loading message={view.message} />
-  }
-
-  return <div>no view found</div>
-}
+import { Login } from './Login'
 
 export const App = () => (
   <StoreSubscriber>
-    {stores => (
-      <AppComponent
-        view={stores.appStore.view}
-        onLoginSubmit={values => {
-          stores.appStore.handleLogin(values.username, values.password).catch(console.error)
-        }}
-        onCharacterSubmit={values => {
-          stores.appStore.handleCharacterSubmit(values.character)
-        }}
-        onCharacterChange={character => {
-          stores.appStore.handleCharacterChange(character).catch(console.error)
-        }}
-        onReturnToLogin={() => {
-          stores.appStore.showLogin()
-        }}
-      />
+    {({ appStore }) => (
+      <>
+        <FadeTransition active={appStore.view === 'login'}>
+          <Login onSubmit={appStore.handleLoginSubmit} statusMessage={appStore.loginStatus} />
+        </FadeTransition>
+
+        <FadeTransition active={appStore.view === 'characterSelect'}>
+          <CharacterSelect
+            characters={appStore.characters}
+            initialCharacter={appStore.lastCharacter}
+            onSubmit={appStore.handleCharacterSubmit}
+            onCharacterChange={appStore.handleCharacterChange}
+            onBack={appStore.showLogin}
+          />
+        </FadeTransition>
+
+        <FadeTransition active={appStore.view === 'chat'}>
+          <div>chat here</div>
+        </FadeTransition>
+
+        <FadeTransition active={appStore.view === 'loading'}>
+          <Loading message={appStore.loadingMessage} />
+        </FadeTransition>
+      </>
     )}
   </StoreSubscriber>
 )
