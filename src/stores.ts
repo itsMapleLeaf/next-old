@@ -5,5 +5,3 @@ export const stores = {
 }
 
 export type Stores = typeof stores
-
-export type Injector<Props> = (stores: Stores, props: Props) => Partial<Props>
