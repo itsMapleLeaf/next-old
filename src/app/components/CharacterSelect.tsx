@@ -38,6 +38,8 @@ type FormValues = {
   character: string
 }
 
+type FormProps = FormikProps<FormValues>
+
 type Props = {
   characters: string[]
   initialCharacter: string
@@ -79,7 +81,7 @@ export class CharacterSelect extends React.Component<Props> {
   }
 
   @bind
-  private renderForm(props: FormikProps<FormValues>) {
+  private renderForm(props: FormProps) {
     return (
       <form onSubmit={props.handleSubmit}>
         <fieldset>
@@ -107,10 +109,7 @@ export class CharacterSelect extends React.Component<Props> {
   }
 
   @bind
-  private handleChange(
-    event: React.ChangeEvent<HTMLSelectElement>,
-    props: FormikProps<FormValues>,
-  ) {
+  private handleChange(event: React.ChangeEvent<HTMLSelectElement>, props: FormProps) {
     props.handleChange(event)
     this.props.onCharacterChange(event.currentTarget.value)
   }
