@@ -3,9 +3,9 @@ import { Formik, FormikProps } from 'formik'
 import * as React from 'react'
 import styled from 'react-emotion'
 import { getAvatarURL } from '../../api'
+import { StoreSubscriber } from '../../storeBroadcast'
 import { Button, Link, Select } from '../../ui/components'
 import { helpers, theme } from '../../ui/styles'
-import { StoreSubscriber } from '../../storeBroadcast'
 
 const PageContainer = styled.main`
   ${helpers.flexCenter};
