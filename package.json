@@ -9,8 +9,7 @@
     "start": "webpack-dev-server --inline --hot --open",
     "lint": "tslint -p .",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write \"./src/**/*.ts\" \"./src/**/*.tsx\" \"./typings/**/*.d.ts\"",
-    "precommit": "npm run format && npm run lint -- --fix"
+    "format": "prettier --write \"./src/**/*.ts\" \"./src/**/*.tsx\" \"./typings/**/*.d.ts\""
   },
   "dependencies": {
     "bbc.js": "https://github.com/kingdaro/bbc.js.git#v1.0.4",
