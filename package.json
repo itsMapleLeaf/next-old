@@ -13,7 +13,7 @@
     "precommit": "npm run format && npm run lint -- --fix"
   },
   "dependencies": {
-    "bbc.js": "^0.1.1",
+    "bbc.js": "https://github.com/kingdaro/bbc.js.git#v1.0.4",
     "color": "^2.0.1",
     "decko": "^1.2.0",
     "emotion": "^8.0.12",
