@@ -1,6 +1,7 @@
 import { bind } from 'decko'
 import { action, observable } from 'mobx'
 import * as api from '../../api'
+import { SocketCommand, SocketHandler } from '../helpers/SocketHandler'
 import * as storage from '../helpers/storage'
 
 export type AppStoreView = 'none' | 'loading' | 'login' | 'characterSelect' | 'chat'
@@ -12,8 +13,13 @@ export class AppStore {
   @observable lastCharacter = ''
   @observable loginStatus = ''
   @observable loadingMessage = ''
-  @observable identity = ''
   @observable view: AppStoreView = 'none'
+
+  private socket = new SocketHandler({
+    onCommand: this.handleSocketCommand,
+    onConnect: this.handleSocketConnect,
+    onDisconnect: this.handleSocketDisconnect,
+  })
 
   @action.bound
   setAuthData(account: string, ticket: string) {
@@ -41,8 +47,7 @@ export class AppStore {
   }
 
   @action.bound
-  showChat(identity: string) {
-    this.identity = identity
+  showChat() {
     this.view = 'chat'
   }
 
@@ -56,6 +61,7 @@ export class AppStore {
       const characters = await api.fetchCharacterList(auth.account, auth.ticket)
       const lastCharacter = await storage.getLastCharacter(auth.account)
 
+      this.setAuthData(auth.account, auth.ticket)
       this.showCharacterSelect(characters, lastCharacter || characters[0])
     } catch {
       this.showLogin()
@@ -89,7 +95,25 @@ export class AppStore {
   @bind
   handleCharacterSubmit(character: string) {
     this.showLoading('Connecting to chat...')
-    //
-    this.showChat(character)
+    this.connectToServer(character)
+  }
+
+  connectToServer(character: string) {
+    this.socket.connect(this.account, this.ticket, character)
+  }
+
+  @bind
+  handleSocketConnect() {
+    this.showChat()
+  }
+
+  @bind
+  handleSocketDisconnect(reason: string) {
+    this.showLogin(reason)
+  }
+
+  @bind
+  handleSocketCommand({ type, params }: SocketCommand) {
+    console.log(type, params)
   }
 }
