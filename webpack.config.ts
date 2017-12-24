@@ -123,7 +123,7 @@ export default (env: { production?: boolean } = {}) => {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'react',
         minChunks: ({ resource }) => {
-          return resource && resource.includes('react')
+          return resource && resource.includes('node_modules') && resource.includes('react')
         },
       }),
 
