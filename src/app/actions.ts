@@ -52,9 +52,10 @@ export function handleCharacterSubmit(character: string) {
 }
 
 function connectToServer(character: string) {
+  const { account, ticket } = stores.appStore
   stores.socketStore.connect({
-    account: stores.appStore.account,
-    ticket: stores.appStore.ticket,
+    account,
+    ticket,
     character,
     onConnect,
     onDisconnect,
