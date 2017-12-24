@@ -3,6 +3,7 @@ import 'sanitize.css'
 import { useStrict } from 'mobx'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { init } from './app/actions'
 import { App } from './app/components/App'
 import { StoreBroadcast } from './storeBroadcast'
 import { stores } from './stores'
@@ -21,7 +22,7 @@ function render() {
 
 function main() {
   useStrict(true)
-  stores.appStore.init().catch(err => console.error('Store init error:', err))
+  init().catch(err => console.error('Store init error:', err))
   render()
 
   if (process.env.NODE_ENV !== 'production') {

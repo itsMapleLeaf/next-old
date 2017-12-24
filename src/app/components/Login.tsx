@@ -5,6 +5,7 @@ import styled from 'react-emotion'
 import { StoreSubscriber } from '../../storeBroadcast'
 import { Button, Input } from '../../ui/components'
 import { helpers, theme } from '../../ui/styles'
+import * as appActions from '../actions'
 
 const PageContainer = styled.main`
   ${helpers.flexCenter};
@@ -91,8 +92,11 @@ class LoginComponent extends React.Component<Props> {
 
 export const Login = () => (
   <StoreSubscriber>
-    {({ appStore }) => (
-      <LoginComponent onSubmit={appStore.handleLoginSubmit} statusMessage={appStore.loginStatus} />
+    {({ appViewStore }) => (
+      <LoginComponent
+        onSubmit={appActions.handleLoginSubmit}
+        statusMessage={appViewStore.loginStatus}
+      />
     )}
   </StoreSubscriber>
 )

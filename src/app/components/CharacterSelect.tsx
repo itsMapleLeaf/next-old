@@ -6,6 +6,7 @@ import { getAvatarURL } from '../../api'
 import { StoreSubscriber } from '../../storeBroadcast'
 import { Button, Link, Select } from '../../ui/components'
 import { helpers, theme } from '../../ui/styles'
+import * as appActions from '../actions'
 
 const PageContainer = styled.main`
   ${helpers.flexCenter};
@@ -123,13 +124,13 @@ class CharacterSelectComponent extends React.Component<Props> {
 
 export const CharacterSelect = () => (
   <StoreSubscriber>
-    {({ appStore }) => (
+    {({ appStore, appViewStore }) => (
       <CharacterSelectComponent
         characters={appStore.characters}
         initialCharacter={appStore.lastCharacter}
-        onSubmit={appStore.handleCharacterSubmit}
-        onCharacterChange={appStore.handleCharacterChange}
-        onBack={appStore.showLogin}
+        onSubmit={appActions.handleCharacterSubmit}
+        onCharacterChange={appActions.handleCharacterChange}
+        onBack={appViewStore.showLogin}
       />
     )}
   </StoreSubscriber>

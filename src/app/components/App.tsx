@@ -7,22 +7,22 @@ import { Login } from './Login'
 
 export const App = () => (
   <StoreSubscriber>
-    {({ appStore }) => (
+    {({ appViewStore }) => (
       <>
-        <FadeTransition active={appStore.view === 'login'}>
+        <FadeTransition active={appViewStore.view === 'login'}>
           <Login />
         </FadeTransition>
 
-        <FadeTransition active={appStore.view === 'characterSelect'}>
+        <FadeTransition active={appViewStore.view === 'characterSelect'}>
           <CharacterSelect />
         </FadeTransition>
 
-        <FadeTransition active={appStore.view === 'chat'}>
+        <FadeTransition active={appViewStore.view === 'chat'}>
           <div>chat here</div>
         </FadeTransition>
 
-        <FadeTransition active={appStore.view === 'loading'}>
-          <Loading message={appStore.loadingMessage} />
+        <FadeTransition active={appViewStore.view === 'loading'}>
+          <Loading message={appViewStore.loadingMessage} />
         </FadeTransition>
       </>
     )}
