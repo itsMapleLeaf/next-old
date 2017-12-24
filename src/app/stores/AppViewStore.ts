@@ -7,24 +7,24 @@ export class AppViewStore {
   @observable loadingMessage = ''
   @observable view: View = 'none'
 
-  @action
+  @action.bound
   showLoading(message: string) {
     this.loadingMessage = message
     this.view = 'loading'
   }
 
-  @action
+  @action.bound
   showLogin(statusMessage = '') {
     this.loginStatus = statusMessage
     this.view = 'login'
   }
 
-  @action
+  @action.bound
   showCharacterSelect() {
     this.view = 'characterSelect'
   }
 
-  @action
+  @action.bound
   showChat() {
     this.view = 'chat'
   }
