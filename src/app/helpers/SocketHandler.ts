@@ -55,8 +55,16 @@ export class SocketHandler {
     this.socket = new WebSocket('wss://chat.f-list.net:9799')
     this.socket.addEventListener('open', handleOpen)
     this.socket.addEventListener('message', handleMessage)
-    this.socket.addEventListener('close', () => handleDisconnect('Socket closed.'))
+    this.socket.addEventListener('close', event =>
+      handleDisconnect('Socket closed. ' + event.reason),
+    )
     this.socket.addEventListener('error', error => handleDisconnect('Socket error: ' + error))
+  }
+
+  disconnect() {
+    if (this.socket) {
+      this.socket.close(0, 'Disconnected by user.')
+    }
   }
 
   sendCommand(cmd: string, params?: object) {
