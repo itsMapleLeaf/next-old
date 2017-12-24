@@ -27,7 +27,7 @@ function main() {
 
   if (process.env.NODE_ENV !== 'production') {
     if (module.hot) {
-      module.hot.accept(render)
+      module.hot.accept('./app/components/App', render)
     }
 
     ;(window as any).stores = stores
