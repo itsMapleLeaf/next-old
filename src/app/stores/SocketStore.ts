@@ -63,7 +63,7 @@ export class SocketStore {
 
   disconnect() {
     if (this.socket) {
-      this.socket.close(0, 'Disconnected by user.')
+      this.socket.close(undefined, 'Disconnected by user.')
     }
   }
 
