@@ -38,7 +38,7 @@ export class SocketStore {
 
       if (type === 'ERR') {
         if (params.number === 4) {
-          handleDisconnect(params.message)
+          handleDisconnect(params.message) // tslint:disable-line
         }
       }
 
