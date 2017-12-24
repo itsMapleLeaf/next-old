@@ -1,7 +1,7 @@
 import * as api from '../api'
+import { connectToServer } from '../socket/actions'
 import { stores } from '../stores'
 import * as storage from './helpers/storage'
-import { SocketCommand } from './stores/SocketStore'
 
 export async function init() {
   stores.appViewStore.showLoading('Setting things up...')
@@ -49,28 +49,4 @@ export async function handleCharacterChange(character: string) {
 export function handleCharacterSubmit(character: string) {
   stores.appViewStore.showLoading('Connecting to chat...')
   connectToServer(character)
-}
-
-function connectToServer(character: string) {
-  const { account, ticket } = stores.appStore
-  stores.socketStore.connect({
-    account,
-    ticket,
-    character,
-    onConnect,
-    onDisconnect,
-    onCommand,
-  })
-}
-
-function onConnect() {
-  stores.appViewStore.showChat()
-}
-
-function onDisconnect(reason: string) {
-  stores.appViewStore.showLogin(reason)
-}
-
-function onCommand({ type, params }: SocketCommand) {
-  console.log(type, params)
 }

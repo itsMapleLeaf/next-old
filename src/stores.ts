@@ -1,6 +1,6 @@
 import { AppStore } from './app/stores/AppStore'
 import { AppViewStore } from './app/stores/AppViewStore'
-import { SocketStore } from './app/stores/SocketStore'
+import { SocketStore } from './socket/SocketStore'
 
 export const stores = {
   appStore: new AppStore(),
