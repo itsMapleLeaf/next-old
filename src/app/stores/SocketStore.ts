@@ -12,7 +12,7 @@ export interface ConnectOptions {
   onCommand(command: SocketCommand): void
 }
 
-export class SocketHandler {
+export class SocketStore {
   private socket: WebSocket | undefined = undefined
 
   connect(options: ConnectOptions) {

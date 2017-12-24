@@ -1,7 +1,7 @@
 import * as api from '../api'
 import { stores } from '../stores'
-import { SocketCommand } from './helpers/SocketHandler'
 import * as storage from './helpers/storage'
+import { SocketCommand } from './stores/SocketStore'
 
 export async function init() {
   stores.appViewStore.showLoading('Setting things up...')
@@ -52,7 +52,7 @@ export function handleCharacterSubmit(character: string) {
 }
 
 function connectToServer(character: string) {
-  stores.appStore.socket.connect({
+  stores.socketStore.connect({
     account: stores.appStore.account,
     ticket: stores.appStore.ticket,
     character,
