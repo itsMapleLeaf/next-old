@@ -1,4 +1,3 @@
-import * as CopyPlugin from 'copy-webpack-plugin'
 import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
 import * as HTMLPlugin from 'html-webpack-plugin'
 import { resolve } from 'path'
@@ -109,13 +108,6 @@ export default (env: { production?: boolean } = {}) => {
   const prodConfig: webpack.Configuration = {
     plugins: [
       new CleanPlugin(['build'], { verbose: false }),
-
-      new CopyPlugin([
-        {
-          from: 'public',
-          to: 'public',
-        },
-      ]),
 
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"',
