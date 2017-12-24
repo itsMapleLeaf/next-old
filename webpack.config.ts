@@ -95,10 +95,6 @@ export default (env: { production?: boolean } = {}) => {
     ],
     resolve: {
       extensions: ['.js', '.json', '.ts', '.tsx'],
-      alias: {
-        src: sourcePath,
-        tslib: 'tslib/tslib.es6.js',
-      },
     },
     devServer: {
       historyApiFallback: true,
