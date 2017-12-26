@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { StoreSubscriber } from '../../storeBroadcast'
+
+import { StoreConsumer } from '../../storeContext'
 import { FadeTransition } from '../../ui/components/FadeTransition'
 import { CharacterSelect } from './CharacterSelect'
 import { Loading } from './Loading'
 import { Login } from './Login'
 
 export const App = () => (
-  <StoreSubscriber>
+  <StoreConsumer>
     {({ appViewStore }) => (
       <>
         <FadeTransition active={appViewStore.view === 'login'}>
@@ -26,5 +27,5 @@ export const App = () => (
         </FadeTransition>
       </>
     )}
-  </StoreSubscriber>
+  </StoreConsumer>
 )

@@ -2,8 +2,9 @@ import { bind } from 'decko'
 import { Formik, FormikProps } from 'formik'
 import * as React from 'react'
 import styled from 'react-emotion'
+
 import { getAvatarURL } from '../../api'
-import { StoreSubscriber } from '../../storeBroadcast'
+import { StoreConsumer } from '../../storeContext'
 import { Button, Link, Select } from '../../ui/components'
 import { helpers, theme } from '../../ui/styles'
 import * as appActions from '../actions'
@@ -123,7 +124,7 @@ class CharacterSelectComponent extends React.Component<Props> {
 }
 
 export const CharacterSelect = () => (
-  <StoreSubscriber>
+  <StoreConsumer>
     {({ appStore, appViewStore }) => (
       <CharacterSelectComponent
         characters={appStore.characters}
@@ -133,5 +134,5 @@ export const CharacterSelect = () => (
         onBack={appViewStore.showLogin}
       />
     )}
-  </StoreSubscriber>
+  </StoreConsumer>
 )

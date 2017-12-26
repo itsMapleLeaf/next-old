@@ -2,7 +2,8 @@ import { bind } from 'decko'
 import { Formik, FormikProps } from 'formik'
 import * as React from 'react'
 import styled from 'react-emotion'
-import { StoreSubscriber } from '../../storeBroadcast'
+
+import { StoreConsumer } from '../../storeContext'
 import { Button, Input } from '../../ui/components'
 import { helpers, theme } from '../../ui/styles'
 import * as appActions from '../actions'
@@ -91,12 +92,12 @@ class LoginComponent extends React.Component<Props> {
 }
 
 export const Login = () => (
-  <StoreSubscriber>
+  <StoreConsumer>
     {({ appViewStore }) => (
       <LoginComponent
         onSubmit={appActions.handleLoginSubmit}
         statusMessage={appViewStore.loginStatus}
       />
     )}
-  </StoreSubscriber>
+  </StoreConsumer>
 )
