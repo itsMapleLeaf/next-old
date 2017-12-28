@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { Chat } from '../../chat/components/Chat'
 import { StoreConsumer } from '../../storeContext'
 import { FadeTransition } from '../../ui/components/FadeTransition'
 import { CharacterSelect } from './CharacterSelect'
@@ -19,7 +20,7 @@ export const App = () => (
         </FadeTransition>
 
         <FadeTransition active={appViewStore.view === 'chat'}>
-          <div>chat here</div>
+          <Chat />
         </FadeTransition>
 
         <FadeTransition active={appViewStore.view === 'loading'}>

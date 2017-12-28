@@ -1,13 +1,9 @@
 import { css } from 'emotion'
+
 import * as colors from './colors'
 
 export const primary = css`
-  background-color: ${colors.flistBlue};
-  color: ${colors.clouds};
-`
-
-export const secondary = css`
-  background-color: ${colors.flistBlueDark};
+  background-color: ${colors.flist0};
   color: ${colors.clouds};
 `
 

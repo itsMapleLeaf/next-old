@@ -1,8 +1,9 @@
 import * as React from 'react'
 import styled from 'react-emotion'
+
 import * as icons from './icons'
 
-type IconName = keyof typeof icons
+export type IconName = keyof typeof icons
 
 const sizes = {
   small: '24px',
@@ -25,6 +26,8 @@ const resolveSize = (props: Props) => {
 }
 
 const Wrapper = styled.span`
+  line-height: 0;
+  &,
   svg {
     width: ${resolveSize};
     height: ${resolveSize};

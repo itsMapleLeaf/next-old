@@ -4,7 +4,7 @@ import { useStrict } from 'mobx'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import { init } from './app/actions'
+import { testInit } from './app/actions'
 import { App } from './app/components/App'
 import { StoreProvider } from './storeContext'
 import { stores } from './stores'
@@ -23,7 +23,8 @@ function render() {
 
 function main() {
   useStrict(true)
-  init().catch(err => console.error('Store init error:', err))
+  // init().catch(err => console.error('Store init error:', err))
+  testInit()
   render()
 
   if (process.env.NODE_ENV !== 'production') {

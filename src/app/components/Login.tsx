@@ -5,7 +5,7 @@ import styled from 'react-emotion'
 
 import { StoreConsumer } from '../../storeContext'
 import { Button, Input } from '../../ui/components'
-import { helpers, theme } from '../../ui/styles'
+import { helpers, theme, colors } from '../../ui/styles'
 import * as appActions from '../actions'
 
 const PageContainer = styled.main`
@@ -18,8 +18,8 @@ const Header = styled.header`
 `
 
 const Panel = styled.section`
-  ${theme.primary};
-  ${theme.shadow};
+  ${colors.flist0};
+  background: ${theme.shadow};
   padding: 0.5rem;
   text-align: center;
   max-width: calc(100vw - 2em);

@@ -3,10 +3,10 @@ import { Formik, FormikProps } from 'formik'
 import * as React from 'react'
 import styled from 'react-emotion'
 
-import { getAvatarURL } from '../../api'
+import { Avatar } from '../../character/components/Avatar'
 import { StoreConsumer } from '../../storeContext'
 import { Button, Link, Select } from '../../ui/components'
-import { helpers, theme } from '../../ui/styles'
+import { colors, helpers, theme } from '../../ui/styles'
 import * as appActions from '../actions'
 
 const PageContainer = styled.main`
@@ -19,16 +19,11 @@ const Header = styled.header`
 `
 
 const Panel = styled.section`
-  ${theme.primary};
   ${theme.shadow};
+  background: ${colors.flist0};
   padding: 0.5rem;
   text-align: center;
   max-width: calc(100vw - 2em);
-`
-
-const AvatarImage = styled.img`
-  width: 100px;
-  height: 100px;
 `
 
 const BackButton = styled(Link)`
@@ -88,10 +83,7 @@ class CharacterSelectComponent extends React.Component<Props> {
     return (
       <form onSubmit={props.handleSubmit}>
         <fieldset>
-          <AvatarImage
-            src={getAvatarURL(props.values.character)}
-            alt={`Avatar for ${props.values.character}`}
-          />
+          <Avatar name={props.values.character} />
         </fieldset>
 
         <fieldset>

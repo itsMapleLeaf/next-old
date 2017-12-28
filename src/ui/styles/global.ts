@@ -1,12 +1,15 @@
 import { injectGlobal } from 'emotion'
-import * as theme from './theme'
+
+import * as colors from './colors'
 
 export function applyGlobalStyles() {
   injectGlobal`
+
     :root {
       font-size: 16px;
       font-family: Roboto, sans-serif;
-      ${theme.secondary};
+      color: ${colors.clouds};
+      background-color: ${colors.flist5};
     }
 
     h1, h2, h3, h4, h5, h6 {

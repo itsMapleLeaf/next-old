@@ -3,6 +3,10 @@ import { connectToServer } from '../socket/actions'
 import { stores } from '../stores'
 import * as storage from './helpers/storage'
 
+export function testInit() {
+  stores.appViewStore.showChat()
+}
+
 export async function init() {
   stores.appViewStore.showLoading('Setting things up...')
 
